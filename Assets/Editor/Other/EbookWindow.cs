@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Utils
 {
-    public class Ebook : EditorWindow
+    public class EbookWindow : EditorWindow
     {
         enum CodeType
         {
@@ -82,7 +82,7 @@ namespace Utils
         [MenuItem("Other/Ebook/Open")]
         private static void Open()
         {
-            EditorWindow window = EditorWindow.GetWindow<Ebook>();
+            EditorWindow window = EditorWindow.GetWindow<EbookWindow>();
             window.minSize = Vector2.one * 300;
             window.maxSize = Vector2.one * 1000;
             window.titleContent = new GUIContent("Ebook");

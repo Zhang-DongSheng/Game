@@ -10,7 +10,7 @@ namespace Data
     public class DataBuilder : MonoBehaviour
     {
         #region Create
-        [MenuItem("数据/创建/Language")]
+        [MenuItem("Data/Create/Language")]
         private static void Create_Data_Language()
         {
             Create_Data<Data_Language>("Language");
@@ -18,7 +18,7 @@ namespace Data
         #endregion
 
         #region Load
-        [MenuItem("数据/加载/Language")]
+        [MenuItem("Data/Load/Language")]
         private static void Load_Data_Language()
         {
             Data_Language data = Resources.Load<Data_Language>("Data/Language");

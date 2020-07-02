@@ -2,7 +2,7 @@
 
 namespace Game
 {
-    public class GameLogic : Singleton<GameLogic>
+    public class GameLogic : MonoSingleton<GameLogic>
     {
 
     }
