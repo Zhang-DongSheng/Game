@@ -1,0 +1,6 @@
+10001 Hello
+10002 Welcome
+10003 Enter
+10004 Game
+10005 ha
+10006 Morning
