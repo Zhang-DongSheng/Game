@@ -79,7 +79,7 @@ namespace Utils
         private readonly List<Book> list = new List<Book>();
         #endregion
 
-        [MenuItem("Other/Ebook/Open")]
+        [MenuItem("Other/Ebook")]
         private static void Open()
         {
             EditorWindow window = EditorWindow.GetWindow<EbookWindow>();

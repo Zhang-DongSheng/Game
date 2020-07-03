@@ -16,7 +16,7 @@ public class PlayerPrefsWindow : EditorWindow
 
 	private Vector2 scroll;
 
-	[MenuItem("Other/PlayerPrefs/Open")]
+	[MenuItem("Tools/PlayerPrefs")]
 	private static void Open()
 	{
 		EditorWindow window = EditorWindow.GetWindow<PlayerPrefsWindow>();
