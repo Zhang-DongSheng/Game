@@ -165,18 +165,28 @@ namespace UnityEditor
 
 			if (source.Count > 0)
 			{
-				GUILayout.Space(20);
-
 				GUILayout.BeginHorizontal();
 				{
 					GUILayout.BeginVertical();
 					{
+						GUILayout.BeginHorizontal();
+						{
+							GUILayout.Label("S", GUILayout.Width(20));
+							GUILayout.Label("Name", GUILayout.Width(120));
+							GUILayout.Label("Path");
+						}
+						GUILayout.EndHorizontal();
+
 						scroll = GUILayout.BeginScrollView(scroll);
 						{
 							for (int i = 0; i < source.Count; i++)
 							{
 								GUILayout.BeginHorizontal();
-								source[i].output = GUILayout.Toggle(source[i].output, source[i].name);
+								{
+									source[i].output = GUILayout.Toggle(source[i].output, string.Empty, GUILayout.Width(20));
+									GUILayout.Label(source[i].name, GUILayout.Width(120));
+									GUILayout.Label(source[i].path);
+								}
 								GUILayout.EndHorizontal();
 							}
 						}
@@ -188,9 +198,21 @@ namespace UnityEditor
 
 					GUILayout.BeginVertical(GUILayout.Width(100));
 					{
+						GUILayout.Space(20);
+
 						if (GUILayout.Button(label_convert))
 						{
 							Convert();
+						}
+
+						if (GUILayout.Button(label_inputFolder))
+						{
+							OpenFolder(inputFolder);
+						}
+
+						if (GUILayout.Button(label_outputFolder))
+						{
+							OpenFolder(outputFolder);
 						}
 					}
 					GUILayout.EndVertical();
@@ -201,6 +223,8 @@ namespace UnityEditor
 			{
 				EditorGUILayout.LabelField("Source is Empty!");
 			}
+
+			GUILayout.Space(10);
 		}
 
 		private void RefreshUISetting()
@@ -332,21 +356,18 @@ namespace UnityEditor
 					}
 					break;
 				default:
-					string[] assets = AssetDatabase.FindAssets(ExcelSuffix);
+					List<string> searchResult = Find(Application.dataPath, ExcelSuffix);
 
-					if (assets != null && assets.Length > 0)
+					if (searchResult.Count > 0)
 					{
-						foreach (string asset in assets)
+						foreach (string file in searchResult)
 						{
-							if (asset.EndsWith(ExcelSuffix))
+							source.Add(new ExcelItem()
 							{
-								source.Add(new ExcelItem()
-								{
-									name = FileName(asset),
-									path = Application.dataPath + asset.Remove(0, 6),
-									output = true,
-								});
-							} 
+								name = FileName(file),
+								path = file,
+								output = true,
+							});
 						}
 					}
 					break;
@@ -378,7 +399,7 @@ namespace UnityEditor
 								excel.ConvertToXml(string.Format("{0}/{1}.xml", outputFolder, source[i].name));
 								break;
 							case 3:
-								excel.ConvertToXml(string.Format("{0}/{1}.txt", outputFolder, source[i].name));
+								excel.ConvertToJson(string.Format("{0}/{1}.txt", outputFolder, source[i].name), encoding);
 								break;
 							default:
 
@@ -398,6 +419,41 @@ namespace UnityEditor
 			}
 		}
 
+		private List<string> Find(string path, string suffix)
+		{
+			List<string> result = new List<string>();
+
+			Find(path, suffix, ref result);
+
+			return result;
+		}
+
+		private void Find(string path, string suffix, ref List<string> result)
+		{
+			if (Directory.Exists(path))
+			{
+				DirectoryInfo root = new DirectoryInfo(path);
+
+				foreach (FileInfo file in root.GetFiles())
+				{
+					if (file.Extension.Equals(suffix))
+					{
+						result.Add(file.FullName);
+					}
+				}
+
+				string[] dirs = Directory.GetDirectories(path);
+
+				if (dirs.Length > 0)
+				{
+					foreach (string dir in dirs)
+					{
+						Find(dir, suffix, ref result);
+					}
+				}
+			}
+		}
+
 		private string FileName(string path)
 		{
 			string[] param = path.Split('/', '\\');
@@ -413,6 +469,22 @@ namespace UnityEditor
 			}
 
 			return path;
+		}
+
+		private void OpenFolder(string path)
+		{
+			if (string.IsNullOrEmpty(path)) return;
+
+			if (Directory.Exists(path))
+			{
+				path = path.Replace("/", "\\");
+
+				System.Diagnostics.Process.Start("explorer.exe", path);
+			}
+			else
+			{
+				Debug.LogError("No Directory: " + path);
+			}
 		}
 	}
 

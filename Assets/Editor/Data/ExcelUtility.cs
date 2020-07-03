@@ -9,11 +9,11 @@ using System.Text;
 
 public class ExcelUtility
 {
-	private DataSet m_dataSet;
+	private readonly DataSet m_dataSet;
 
 	private DataTable m_dataTable;
 
-	private int m_tableCount;
+	private readonly int m_tableCount;
 
 	private int m_rowCount;
 
@@ -40,12 +40,13 @@ public class ExcelUtility
 		}
 	}
 
-	/// <summary>
-	/// 转换为Json
-	/// </summary>
-	/// <param name="path">Json文件路径</param>
-	/// <param name="Header">表头行数</param>
-	public void ConvertToJson(string path, Encoding encoding)
+    #region Convert
+    /// <summary>
+    /// 转换为Json
+    /// </summary>
+    /// <param name="path">Json文件路径</param>
+    /// <param name="Header">表头行数</param>
+    public void ConvertToJson(string path, Encoding encoding)
 	{
 		//判断Excel文件中是否存在数据表
 		if (m_tableCount < 1)
@@ -124,7 +125,7 @@ public class ExcelUtility
 	}
 
 	/// <summary>
-	/// 导出为Xml
+	/// 转换为Xml
 	/// </summary>
 	public void ConvertToXml(string path)
 	{
@@ -163,11 +164,12 @@ public class ExcelUtility
 
 		Write(path, builder.ToString(), Encoding.UTF8);
 	}
+    #endregion
 
-	/// <summary>
-	/// 转换为实体类列表
-	/// </summary>
-	public List<T> ConvertToList<T>()
+    /// <summary>
+    /// 转换为实体类列表
+    /// </summary>
+    public List<T> ConvertToList<T>()
 	{
 		//判断Excel文件中是否存在数据表
 		if (m_dataSet.Tables.Count < 1)
