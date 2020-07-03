@@ -252,11 +252,10 @@ namespace Utils
 
                 value_input = EditorGUI.TextField(rect_input, value_input);
 
-                if ((Event.current.type == EventType.DragUpdated ||
-                    Event.current.type == EventType.DragExited) &&
-                rect_input.Contains(Event.current.mousePosition))
+                if ((Event.current.type == EventType.DragUpdated || Event.current.type == EventType.DragExited) && rect_input.Contains(Event.current.mousePosition))
                 {
                     DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
+
                     if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0)
                     {
                         value_input = DragAndDrop.paths[0].Remove(0, 7);
