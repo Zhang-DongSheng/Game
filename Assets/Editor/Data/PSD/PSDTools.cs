@@ -2,423 +2,424 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using UnityEditor;
 using UnityEngine;
 
-public class PSDTools : EditorWindow
+namespace UnityEditor
 {
-	private const string Extension = ".psd";
-
-	private const string InputPath = "Source/PSD/Input";
-
-	private const string OutputPath = "Source/PSD/Output";
-
-	private readonly string[] text_view = new string[] { "PSD", "Setting", "Other" };
-
-	private readonly string[] text_seacrch = new string[] { "Select", "Specify", "Auto" };
-
-	private readonly string label_format = "Format";
-
-	private readonly string label_inputFolder = "Input Folder";
-
-	private readonly string label_outputFolder = "Output Folder";
-
-	private readonly string label_search = "Search";
-
-	private readonly string label_create = "Create C#";
-
-	private readonly string label_convert = "Convert";
-
-	private readonly string label_revise = "Revise";
-
-	private readonly string label_save = "Save";
-
-	private int index_view;
-
-	private int index_encoding;
-
-	private int index_format;
-
-	private int index_search;
-
-	private Rect rect_inputFolder;
-
-	private Rect rect_outputFolder;
-
-	private string input_inputFolder;
-
-	private string input_outputFolder;
-
-	private Vector2 scroll;
-
-	private int search;
-
-	private string inputFolder;
-
-	private string outputFolder;
-
-	private readonly List<FileItem> source = new List<FileItem>();
-
-	[MenuItem("Data/PSD")]
-	private static void Open()
+    public class PSDTools : EditorWindow
 	{
-		PSDTools window = EditorWindow.GetWindow<PSDTools>();
-		window.titleContent = new GUIContent("PSD Tools");
-		window.minSize = new Vector2(500, 200);
-		window.Init();
-		window.Show();
-	}
+		private const string Extension = ".psd";
 
-	public void Init()
-	{
-		input_inputFolder = Path.Combine(Application.dataPath, InputPath);
+		private const string InputPath = "Source/PSD/Input";
 
-		inputFolder = input_inputFolder;
+		private const string OutputPath = "Source/PSD/Output";
 
-		input_outputFolder = Path.Combine(Application.dataPath, OutputPath);
+		private readonly string[] text_view = new string[] { "PSD", "Setting", "Other" };
 
-		outputFolder = input_outputFolder;
+		private readonly string[] text_seacrch = new string[] { "Select", "Specify", "Auto" };
 
-		LoadSource();
-	}
+		private readonly string label_format = "Format";
 
-	private void OnSelectionChange()
-	{
-		Show(); LoadSource(); Repaint();
-	}
+		private readonly string label_inputFolder = "Input Folder";
 
-	private void OnGUI()
-	{
-		index_view = GUILayout.Toolbar(index_view, text_view);
+		private readonly string label_outputFolder = "Output Folder";
 
-		GUILayout.BeginArea(new Rect(20, 30, Screen.width - 40, Screen.height - 50));
+		private readonly string label_search = "Search";
+
+		private readonly string label_create = "Create C#";
+
+		private readonly string label_convert = "Convert";
+
+		private readonly string label_revise = "Revise";
+
+		private readonly string label_save = "Save";
+
+		private int index_view;
+
+		private int index_encoding;
+
+		private int index_format;
+
+		private int index_search;
+
+		private Rect rect_inputFolder;
+
+		private Rect rect_outputFolder;
+
+		private string input_inputFolder;
+
+		private string input_outputFolder;
+
+		private Vector2 scroll;
+
+		private int search;
+
+		private string inputFolder;
+
+		private string outputFolder;
+
+		private readonly List<FileItem> source = new List<FileItem>();
+
+		[MenuItem("Data/PSD")]
+		private static void Open()
 		{
-			switch (index_view)
-			{
-				case 0:
-					RefreshUIPSD();
-					break;
-				case 1:
-					RefreshUISetting();
-					break;
-				default:
-					RefreshUIOther();
-					break;
-			}
+			PSDTools window = EditorWindow.GetWindow<PSDTools>();
+			window.titleContent = new GUIContent("PSD Tools");
+			window.minSize = new Vector2(500, 200);
+			window.Init();
+			window.Show();
 		}
-		GUILayout.EndArea();
-	}
 
-	private void RefreshUIPSD()
-	{
-		GUILayout.BeginHorizontal();
+		public void Init()
 		{
-			GUILayout.Label(label_search, GUILayout.Width(100));
+			input_inputFolder = Path.Combine(Application.dataPath, InputPath);
 
-			index_search = EditorGUILayout.Popup(index_search, text_seacrch);
+			inputFolder = input_inputFolder;
 
-			if (index_search != search)
-			{
-				search = index_search;
+			input_outputFolder = Path.Combine(Application.dataPath, OutputPath);
 
-				LoadSource();
-			}
+			outputFolder = input_outputFolder;
+
+			LoadSource();
 		}
-		GUILayout.EndHorizontal();
 
-		GUILayout.BeginHorizontal();
+		private void OnSelectionChange()
 		{
-			if (search == 1)
+			Show(); LoadSource(); Repaint();
+		}
+
+		private void OnGUI()
+		{
+			index_view = GUILayout.Toolbar(index_view, text_view);
+
+			GUILayout.BeginArea(new Rect(20, 30, Screen.width - 40, Screen.height - 50));
 			{
-				GUILayout.Label(label_inputFolder, GUILayout.Width(100));
+				switch (index_view)
+				{
+					case 0:
+						RefreshUIPSD();
+						break;
+					case 1:
+						RefreshUISetting();
+						break;
+					default:
+						RefreshUIOther();
+						break;
+				}
+			}
+			GUILayout.EndArea();
+		}
 
-				rect_inputFolder = EditorGUILayout.GetControlRect(GUILayout.Width(Screen.width - 250));
+		private void RefreshUIPSD()
+		{
+			GUILayout.BeginHorizontal();
+			{
+				GUILayout.Label(label_search, GUILayout.Width(100));
 
-				input_inputFolder = EditorGUI.TextField(rect_inputFolder, input_inputFolder);
+				index_search = EditorGUILayout.Popup(index_search, text_seacrch);
 
-				if ((Event.current.type == EventType.DragUpdated || Event.current.type == EventType.DragExited) && rect_inputFolder.Contains(Event.current.mousePosition))
+				if (index_search != search)
+				{
+					search = index_search;
+
+					LoadSource();
+				}
+			}
+			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
+			{
+				if (search == 1)
+				{
+					GUILayout.Label(label_inputFolder, GUILayout.Width(100));
+
+					rect_inputFolder = EditorGUILayout.GetControlRect(GUILayout.Width(Screen.width - 250));
+
+					input_inputFolder = EditorGUI.TextField(rect_inputFolder, input_inputFolder);
+
+					if ((Event.current.type == EventType.DragUpdated || Event.current.type == EventType.DragExited) && rect_inputFolder.Contains(Event.current.mousePosition))
+					{
+						DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
+
+						if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0)
+						{
+							input_inputFolder = Application.dataPath + DragAndDrop.paths[0].Remove(0, 6);
+						}
+					}
+
+					if (GUILayout.Button(label_revise, GUILayout.Width(100)))
+					{
+						inputFolder = input_inputFolder; LoadSource();
+					}
+				}
+			}
+			GUILayout.EndHorizontal();
+
+			if (source.Count > 0)
+			{
+				GUILayout.BeginHorizontal();
+				{
+					GUILayout.BeginVertical();
+					{
+						GUILayout.BeginHorizontal();
+						{
+							GUILayout.Label("S", GUILayout.Width(20));
+							GUILayout.Label("Name", GUILayout.Width(120));
+							GUILayout.Label("Path");
+						}
+						GUILayout.EndHorizontal();
+
+						scroll = GUILayout.BeginScrollView(scroll);
+						{
+							for (int i = 0; i < source.Count; i++)
+							{
+								GUILayout.BeginHorizontal();
+								{
+									source[i].output = GUILayout.Toggle(source[i].output, string.Empty, GUILayout.Width(20));
+									GUILayout.Label(source[i].name, GUILayout.Width(120));
+									GUILayout.Label(source[i].path);
+								}
+								GUILayout.EndHorizontal();
+							}
+						}
+						GUILayout.EndScrollView();
+					}
+					GUILayout.EndVertical();
+
+					GUILayout.Space(15);
+
+					GUILayout.BeginVertical(GUILayout.Width(100));
+					{
+						GUILayout.Space(20);
+
+						if (GUILayout.Button(label_convert))
+						{
+							Convert();
+						}
+
+						if (GUILayout.Button(label_inputFolder))
+						{
+							OpenFolder(inputFolder);
+						}
+
+						if (GUILayout.Button(label_outputFolder))
+						{
+							OpenFolder(outputFolder);
+						}
+					}
+					GUILayout.EndVertical();
+				}
+				GUILayout.EndHorizontal();
+			}
+			else
+			{
+				EditorGUILayout.LabelField("Source is Empty!");
+			}
+
+			GUILayout.Space(10);
+		}
+
+		private void RefreshUISetting()
+		{
+			GUILayout.BeginHorizontal();
+			{
+
+			}
+			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
+			{
+				GUILayout.Label(label_outputFolder, GUILayout.Width(100));
+
+				rect_outputFolder = EditorGUILayout.GetControlRect(GUILayout.Width(Screen.width - 247));
+
+				input_outputFolder = EditorGUI.TextField(rect_outputFolder, input_outputFolder);
+
+				if ((Event.current.type == EventType.DragUpdated || Event.current.type == EventType.DragExited) && rect_outputFolder.Contains(Event.current.mousePosition))
 				{
 					DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
 
 					if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0)
 					{
-						input_inputFolder = Application.dataPath + DragAndDrop.paths[0].Remove(0, 6);
+						input_outputFolder = Application.dataPath + DragAndDrop.paths[0].Remove(0, 6);
 					}
 				}
 
-				if (GUILayout.Button(label_revise, GUILayout.Width(100)))
+				if (GUILayout.Button(label_save, GUILayout.Width(100)))
 				{
-					inputFolder = input_inputFolder; LoadSource();
+					outputFolder = input_outputFolder;
 				}
-			}
-		}
-		GUILayout.EndHorizontal();
-
-		if (source.Count > 0)
-		{
-			GUILayout.BeginHorizontal();
-			{
-				GUILayout.BeginVertical();
-				{
-					GUILayout.BeginHorizontal();
-					{
-						GUILayout.Label("S", GUILayout.Width(20));
-						GUILayout.Label("Name", GUILayout.Width(120));
-						GUILayout.Label("Path");
-					}
-					GUILayout.EndHorizontal();
-
-					scroll = GUILayout.BeginScrollView(scroll);
-					{
-						for (int i = 0; i < source.Count; i++)
-						{
-							GUILayout.BeginHorizontal();
-							{
-								source[i].output = GUILayout.Toggle(source[i].output, string.Empty, GUILayout.Width(20));
-								GUILayout.Label(source[i].name, GUILayout.Width(120));
-								GUILayout.Label(source[i].path);
-							}
-							GUILayout.EndHorizontal();
-						}
-					}
-					GUILayout.EndScrollView();
-				}
-				GUILayout.EndVertical();
-
-				GUILayout.Space(15);
-
-				GUILayout.BeginVertical(GUILayout.Width(100));
-				{
-					GUILayout.Space(20);
-
-					if (GUILayout.Button(label_convert))
-					{
-						Convert();
-					}
-
-					if (GUILayout.Button(label_inputFolder))
-					{
-						OpenFolder(inputFolder);
-					}
-
-					if (GUILayout.Button(label_outputFolder))
-					{
-						OpenFolder(outputFolder);
-					}
-				}
-				GUILayout.EndVertical();
 			}
 			GUILayout.EndHorizontal();
 		}
-		else
+
+		private void RefreshUIOther()
 		{
-			EditorGUILayout.LabelField("Source is Empty!");
-		}
-
-		GUILayout.Space(10);
-	}
-
-	private void RefreshUISetting()
-	{
-		GUILayout.BeginHorizontal();
-		{
-			
-		}
-		GUILayout.EndHorizontal();
-
-		GUILayout.BeginHorizontal();
-		{
-			GUILayout.Label(label_outputFolder, GUILayout.Width(100));
-
-			rect_outputFolder = EditorGUILayout.GetControlRect(GUILayout.Width(Screen.width - 247));
-
-			input_outputFolder = EditorGUI.TextField(rect_outputFolder, input_outputFolder);
-
-			if ((Event.current.type == EventType.DragUpdated || Event.current.type == EventType.DragExited) && rect_outputFolder.Contains(Event.current.mousePosition))
+			if (GUILayout.Button("联系我们"))
 			{
-				DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
-
-				if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0)
-				{
-					input_outputFolder = Application.dataPath + DragAndDrop.paths[0].Remove(0, 6);
-				}
-			}
-
-			if (GUILayout.Button(label_save, GUILayout.Width(100)))
-			{
-				outputFolder = input_outputFolder;
+				Application.OpenURL("https://www.baidu.com");
 			}
 		}
-		GUILayout.EndHorizontal();
-	}
 
-	private void RefreshUIOther()
-	{
-		if (GUILayout.Button("联系我们"))
+		private void LoadSource()
 		{
-			Application.OpenURL("https://www.baidu.com");
-		}
-	}
+			source.Clear();
 
-	private void LoadSource()
-	{
-		source.Clear();
+			switch (search)
+			{
+				case 0:
+					object[] selection = (object[])Selection.objects;
 
-		switch (search)
-		{
-			case 0:
-				object[] selection = (object[])Selection.objects;
+					string path;
 
-				string path;
-
-				if (selection != null && selection.Length > 0)
-				{
-					foreach (UnityEngine.Object asset in selection)
+					if (selection != null && selection.Length > 0)
 					{
-						path = AssetDatabase.GetAssetPath(asset);
+						foreach (UnityEngine.Object asset in selection)
+						{
+							path = AssetDatabase.GetAssetPath(asset);
 
-						if (path.EndsWith(Extension))
+							if (path.EndsWith(Extension))
+							{
+								source.Add(new FileItem()
+								{
+									name = FileName(path, Extension),
+									path = Application.dataPath + path.Remove(0, 6),
+									output = true,
+								});
+							}
+						}
+					}
+					break;
+				case 1:
+					if (!string.IsNullOrEmpty(inputFolder) && Directory.Exists(inputFolder))
+					{
+						DirectoryInfo root = new DirectoryInfo(inputFolder);
+
+						foreach (FileInfo file in root.GetFiles())
+						{
+							if (file.Extension.Equals(Extension))
+							{
+								source.Add(new FileItem()
+								{
+									name = FileName(file.Name, Extension),
+									path = file.FullName,
+									output = true,
+								});
+							}
+						}
+					}
+					break;
+				default:
+					List<string> searchResult = Find(Application.dataPath, Extension);
+
+					if (searchResult.Count > 0)
+					{
+						foreach (string file in searchResult)
 						{
 							source.Add(new FileItem()
 							{
-								name = FileName(path, Extension),
-								path = Application.dataPath + path.Remove(0, 6),
+								name = FileName(file, Extension),
+								path = file,
 								output = true,
 							});
 						}
 					}
-				}
-				break;
-			case 1:
-				if (!string.IsNullOrEmpty(inputFolder) && Directory.Exists(inputFolder))
-				{
-					DirectoryInfo root = new DirectoryInfo(inputFolder);
+					break;
+			}
+		}
 
-					foreach (FileInfo file in root.GetFiles())
+		private void Convert()
+		{
+			if (!Directory.Exists(outputFolder))
+				Directory.CreateDirectory(outputFolder);
+
+			for (int i = 0; i < source.Count; i++)
+			{
+				if (source[i].output)
+				{
+					try
 					{
-						if (file.Extension.Equals(Extension))
-						{
-							source.Add(new FileItem()
-							{
-								name = FileName(file.Name, Extension),
-								path = file.FullName,
-								output = true,
-							});
-						}
+						PfiImporter.AutoImport(source[i].path, outputFolder);
+					}
+					catch (Exception e)
+					{
+						Debug.LogError(e.Message);
+					}
+					finally
+					{
+
 					}
 				}
-				break;
-			default:
-				List<string> searchResult = Find(Application.dataPath, Extension);
+				AssetDatabase.Refresh();
+			}
+		}
 
-				if (searchResult.Count > 0)
+		private List<string> Find(string path, string suffix)
+		{
+			List<string> result = new List<string>();
+
+			Find(path, suffix, ref result);
+
+			return result;
+		}
+
+		private void Find(string path, string suffix, ref List<string> result)
+		{
+			if (Directory.Exists(path))
+			{
+				DirectoryInfo root = new DirectoryInfo(path);
+
+				foreach (FileInfo file in root.GetFiles())
 				{
-					foreach (string file in searchResult)
+					if (file.Extension.Equals(suffix))
 					{
-						source.Add(new FileItem()
-						{
-							name = FileName(file, Extension),
-							path = file,
-							output = true,
-						});
+						result.Add(file.FullName);
 					}
 				}
-				break;
-		}
-	}
 
-	private void Convert()
-	{
-		if (!Directory.Exists(outputFolder))
-			Directory.CreateDirectory(outputFolder);
+				string[] dirs = Directory.GetDirectories(path);
 
-		for (int i = 0; i < source.Count; i++)
-		{
-			if (source[i].output)
-			{
-				try
+				if (dirs.Length > 0)
 				{
-					PfiImporter.AutoImport(source[i].path, outputFolder);
-				}
-				catch (Exception e)
-				{
-					Debug.LogError(e.Message);
-				}
-				finally
-				{
-
-				}
-			}
-			AssetDatabase.Refresh();
-		}
-	}
-
-	private List<string> Find(string path, string suffix)
-	{
-		List<string> result = new List<string>();
-
-		Find(path, suffix, ref result);
-
-		return result;
-	}
-
-	private void Find(string path, string suffix, ref List<string> result)
-	{
-		if (Directory.Exists(path))
-		{
-			DirectoryInfo root = new DirectoryInfo(path);
-
-			foreach (FileInfo file in root.GetFiles())
-			{
-				if (file.Extension.Equals(suffix))
-				{
-					result.Add(file.FullName);
-				}
-			}
-
-			string[] dirs = Directory.GetDirectories(path);
-
-			if (dirs.Length > 0)
-			{
-				foreach (string dir in dirs)
-				{
-					Find(dir, suffix, ref result);
+					foreach (string dir in dirs)
+					{
+						Find(dir, suffix, ref result);
+					}
 				}
 			}
 		}
-	}
 
-	private string FileName(string path, string extension)
-	{
-		string[] param = path.Split('/', '\\');
-
-		if (param != null && param.Length > 0)
+		private string FileName(string path, string extension)
 		{
-			path = param[param.Length - 1];
+			string[] param = path.Split('/', '\\');
+
+			if (param != null && param.Length > 0)
+			{
+				path = param[param.Length - 1];
+			}
+
+			if (path.EndsWith(extension))
+			{
+				path = path.Remove(path.Length - extension.Length, extension.Length);
+			}
+
+			return path;
 		}
 
-		if (path.EndsWith(extension))
+		private void OpenFolder(string path)
 		{
-			path = path.Remove(path.Length - extension.Length, extension.Length);
-		}
+			if (string.IsNullOrEmpty(path)) return;
 
-		return path;
-	}
+			if (Directory.Exists(path))
+			{
+				path = path.Replace("/", "\\");
 
-	private void OpenFolder(string path)
-	{
-		if (string.IsNullOrEmpty(path)) return;
-
-		if (Directory.Exists(path))
-		{
-			path = path.Replace("/", "\\");
-
-			System.Diagnostics.Process.Start("explorer.exe", path);
-		}
-		else
-		{
-			Debug.LogError("No Directory: " + path);
+				System.Diagnostics.Process.Start("explorer.exe", path);
+			}
+			else
+			{
+				Debug.LogError("No Directory: " + path);
+			}
 		}
 	}
 }
