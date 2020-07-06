@@ -32,6 +32,8 @@ namespace UnityEditor
 
 		private readonly string label_search = "Search";
 
+		private readonly string label_create = "Create C#";
+
 		private readonly string label_convert = "Convert";
 
 		private readonly string label_revise = "Revise";
@@ -199,6 +201,11 @@ namespace UnityEditor
 					GUILayout.BeginVertical(GUILayout.Width(100));
 					{
 						GUILayout.Space(20);
+
+						if (GUILayout.Button(label_create))
+						{
+							Create();
+						}
 
 						if (GUILayout.Button(label_convert))
 						{
@@ -371,6 +378,28 @@ namespace UnityEditor
 						}
 					}
 					break;
+			}
+		}
+
+		private void Create()
+		{
+			try
+			{
+				for (int i = 0; i < source.Count; i++)
+				{
+					if (source[i].output)
+					{
+						new ExcelUtility(source[i].path).CreateScript();
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				Debug.LogError(e.Message);
+			}
+			finally
+			{
+
 			}
 		}
 

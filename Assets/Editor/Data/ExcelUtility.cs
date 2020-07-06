@@ -6,6 +6,7 @@ using System.Data;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using UnityEditor.Script;
 
 public class ExcelUtility
 {
@@ -164,7 +165,26 @@ public class ExcelUtility
 
 		Write(path, builder.ToString(), Encoding.UTF8);
 	}
-    #endregion
+	#endregion
+
+	/// <summary>
+	/// 创建实体类
+	/// </summary>
+	public void CreateScript()
+	{
+		if (m_tableCount < 1)
+			return;
+
+		m_dataTable = m_dataSet.Tables[0];
+
+		m_rowCount = m_dataTable.Rows.Count;
+		m_columnCount = m_dataTable.Columns.Count;
+
+		if (m_rowCount < 1 || m_columnCount < 1)
+			return;
+
+		CodeAutomation.CreateDataScript(m_dataTable.TableName, m_dataTable);
+	}
 
     /// <summary>
     /// 转换为实体类列表
