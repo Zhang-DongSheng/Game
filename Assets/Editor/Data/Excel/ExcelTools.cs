@@ -8,11 +8,11 @@ namespace UnityEditor
 {
     public class ExcelTools : EditorWindow
 	{
-		private const string ExcelSuffix = ".xlsx";
+		private const string Extension = ".xlsx";
 
-		private const string InputPath = "Excel/Source";
+		private const string InputPath = "Source/Excel/Input";
 
-		private const string OutputPath = "Excel/Output";
+		private const string OutputPath = "Source/Excel/Output";
 
 		private readonly string[] text_view = new string[] { "Excel", "Setting", "Other" };
 
@@ -66,7 +66,7 @@ namespace UnityEditor
 
 		private string outputFolder;
 
-		private readonly List<ExcelItem> source = new List<ExcelItem>();
+		private readonly List<FileItem> source = new List<FileItem>();
 
 		[MenuItem("Data/Excel")]
 		private static void Open()
@@ -331,11 +331,11 @@ namespace UnityEditor
 						{
 							path = AssetDatabase.GetAssetPath(asset);
 
-							if (path.EndsWith(ExcelSuffix))
+							if (path.EndsWith(Extension))
 							{
-								source.Add(new ExcelItem()
+								source.Add(new FileItem()
 								{
-									name = FileName(path),
+									name = FileName(path, Extension),
 									path = Application.dataPath + path.Remove(0, 6),
 									output = true,
 								});
@@ -350,11 +350,11 @@ namespace UnityEditor
 
 						foreach (FileInfo file in root.GetFiles())
 						{
-							if (file.Extension.Equals(ExcelSuffix))
+							if (file.Extension.Equals(Extension))
 							{
-								source.Add(new ExcelItem()
+								source.Add(new FileItem()
 								{
-									name = FileName(file.Name),
+									name = FileName(file.Name, Extension),
 									path = file.FullName,
 									output = true,
 								});
@@ -363,15 +363,15 @@ namespace UnityEditor
 					}
 					break;
 				default:
-					List<string> searchResult = Find(Application.dataPath, ExcelSuffix);
+					List<string> searchResult = Find(Application.dataPath, Extension);
 
 					if (searchResult.Count > 0)
 					{
 						foreach (string file in searchResult)
 						{
-							source.Add(new ExcelItem()
+							source.Add(new FileItem()
 							{
-								name = FileName(file),
+								name = FileName(file, Extension),
 								path = file,
 								output = true,
 							});
@@ -483,7 +483,7 @@ namespace UnityEditor
 			}
 		}
 
-		private string FileName(string path)
+		private string FileName(string path, string extension)
 		{
 			string[] param = path.Split('/', '\\');
 
@@ -492,9 +492,9 @@ namespace UnityEditor
 				path = param[param.Length - 1];
 			}
 
-			if (path.EndsWith(ExcelSuffix))
+			if (path.EndsWith(extension))
 			{
-				path = path.Remove(path.Length - ExcelSuffix.Length, ExcelSuffix.Length);
+				path = path.Remove(path.Length - extension.Length, extension.Length);
 			}
 
 			return path;
@@ -517,7 +517,7 @@ namespace UnityEditor
 		}
 	}
 
-	public class ExcelItem
+	public class FileItem
 	{
 		public string name;
 

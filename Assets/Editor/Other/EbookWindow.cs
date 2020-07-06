@@ -19,6 +19,8 @@ namespace Utils
             Chinese,
         }
 
+        private const string Extension = ".txt";
+
         private readonly string[] text_title = new string[] { "主页", "设置", "其他" };
 
         private readonly string[] lineParam_start = new string[] { "(", "[", "{", "<", "（", "【", "《", "‘", "“", "\'", "\"", "「", "第" };
@@ -47,8 +49,6 @@ namespace Utils
 
         private readonly string label_refreshAsset = "刷新本地资源";
 
-        private readonly string suffix = ".txt";
-
         #region Temporary Variable
         private int index_view;
 
@@ -70,9 +70,9 @@ namespace Utils
         #region Param
         private Encoding encoding = Encoding.Default;
 
-        private string inputPath = "Ebook/Input";
+        private string inputPath = "Source/Ebook/Input";
 
-        private string outputPath = "Ebook/Output";
+        private string outputPath = "Source/Ebook/Output";
 
         private int lineCount = 1000;
 
@@ -330,7 +330,7 @@ namespace Utils
 
                 foreach (FileInfo file in root.GetFiles())
                 {
-                    if (file.Extension.Equals(suffix))
+                    if (file.Extension.Equals(Extension))
                     {
                         if (Filter(index++, file.Name))
                         {
@@ -435,7 +435,7 @@ namespace Utils
 
                 foreach (FileInfo file in root.GetFiles())
                 {
-                    if (file.Extension.Equals(suffix))
+                    if (file.Extension.Equals(Extension))
                     {
                         Book book = new Book()
                         {

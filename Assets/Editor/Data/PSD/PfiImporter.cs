@@ -11,83 +11,82 @@ namespace Pfi
 {
 	public static class PfiImporter
 	{
-		[MenuItem( "Assets/PIP Import PSD" )]
 		public static void Menu_ImportPsd()
 		{
 			var file = Selection.activeObject;
-			var filePath = AssetDatabase.GetAssetPath( file );
-			using( var psd = PsdDocument.Create( filePath ) )
+			var filePath = AssetDatabase.GetAssetPath(file);
+			using (var psd = PsdDocument.Create(filePath))
 			{
-				Import( filePath );
+				Import(filePath);
 			}
 		}
 
-		public static PfiDocument Import( string psdPath )
+		public static PfiDocument Import(string psdPath)
 		{
-			using( var psd = PsdDocument.Create( psdPath ) )
+			using (var psd = PsdDocument.Create(psdPath))
 			{
-				var doc = ProcessDocument( psd );
-				doc.name = Path.GetFileNameWithoutExtension( psdPath );
+				var doc = ProcessDocument(psd);
+				doc.name = Path.GetFileNameWithoutExtension(psdPath);
 				return doc;
 			}
 		}
 
-		private static PfiDocument ProcessDocument( PsdDocument psd )
+		private static PfiDocument ProcessDocument(PsdDocument psd)
 		{
 			var doc = new PfiDocument();
-			doc.size = new Vector2( psd.Width, psd.Height );
-			doc.root = new PfiFolder( "" );
-			ProcessChildren( psd, doc.root, psd );
+			doc.size = new Vector2(psd.Width, psd.Height);
+			doc.root = new PfiFolder("");
+			ProcessChildren(psd, doc.root, psd);
 			return doc;
 		}
 
-		private static void ProcessChildren( PsdDocument psd, PfiFolder folder, IPsdLayer psdLayer )
+		private static void ProcessChildren(PsdDocument psd, PfiFolder folder, IPsdLayer psdLayer)
 		{
-			for( int i = 0; i < psdLayer.Childs.Length; i++ )
+			for (int i = 0; i < psdLayer.Childs.Length; i++)
 			{
 				var child = psdLayer.Childs[i] as PsdLayer;
-				if( child.HasImage )
+				if (child.HasImage)
 				{
-					var layer = ProcessImageLayer( psd, child );
+					var layer = ProcessImageLayer(psd, child);
 					layer.parent = folder;
-					folder.layers.Add( layer );
+					folder.layers.Add(layer);
 				}
 				else
 				{
-					var childFolder = new PfiFolder( child.Name );
+					var childFolder = new PfiFolder(child.Name);
 					childFolder.parent = folder;
-					ProcessChildren( psd, childFolder, child );
-					folder.subFolders.Add( childFolder );
+					ProcessChildren(psd, childFolder, child);
+					folder.subFolders.Add(childFolder);
 				}
 			}
 		}
 
-		private static PfiLayer ProcessImageLayer( PsdDocument psd, PsdLayer psdLayer )
+		private static PfiLayer ProcessImageLayer(PsdDocument psd, PsdLayer psdLayer)
 		{
-			var layer = new PfiLayer( psdLayer.Name );
-			layer.texture = GetLayerTexture( psdLayer );
+			var layer = new PfiLayer(psdLayer.Name);
+			layer.texture = GetLayerTexture(psdLayer);
 
 			var x = psdLayer.Left + psdLayer.Width / 2;
-			var y = psd.Height - ( psdLayer.Top + psdLayer.Height / 2 );
+			var y = psd.Height - (psdLayer.Top + psdLayer.Height / 2);
 			x -= psd.Width / 2;
 			y -= psd.Height / 2;
-			layer.position = new Vector2( x, y );
+			layer.position = new Vector2(x, y);
 
 			return layer;
 		}
 
-		private static void SaveTexture( Texture2D texture, string path )
+		private static void SaveTexture(Texture2D texture, string path)
 		{
 			var data = texture.EncodeToPNG();
-			File.WriteAllBytes( path, data );
-			AssetDatabase.ImportAsset( path, ImportAssetOptions.ForceUpdate );
+			File.WriteAllBytes(path, data);
+			AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
 		}
 
-		private static object GetLayerFullName( PsdLayer layer )
+		private static object GetLayerFullName(PsdLayer layer)
 		{
 			var name = layer.Name;
 			var current = layer.Parent;
-			while( current != null )
+			while (current != null)
 			{
 				name = current.Name + "_" + name;
 				current = current.Parent;
@@ -95,37 +94,61 @@ namespace Pfi
 			return name;
 		}
 
-		private static Texture2D GetLayerTexture( PsdLayer layer )
+		private static Texture2D GetLayerTexture(PsdLayer layer)
 		{
-			Texture2D texture = new Texture2D( layer.Width, layer.Height );
+			Texture2D texture = new Texture2D(layer.Width, layer.Height);
 			Color32[] pixels = new Color32[layer.Width * layer.Height];
 
-			Channel red = ( from l in layer.Channels where l.Type == ChannelType.Red select l ).First();
-			Channel green = ( from l in layer.Channels where l.Type == ChannelType.Green select l ).First();
-			Channel blue = ( from l in layer.Channels where l.Type == ChannelType.Blue select l ).First();
-			Channel alpha = ( from l in layer.Channels where l.Type == ChannelType.Alpha select l ).FirstOrDefault();
-			Channel mask = ( from l in layer.Channels where l.Type == ChannelType.Mask select l ).FirstOrDefault();
+			Channel red = (from l in layer.Channels where l.Type == ChannelType.Red select l).First();
+			Channel green = (from l in layer.Channels where l.Type == ChannelType.Green select l).First();
+			Channel blue = (from l in layer.Channels where l.Type == ChannelType.Blue select l).First();
+			Channel alpha = (from l in layer.Channels where l.Type == ChannelType.Alpha select l).FirstOrDefault();
+			Channel mask = (from l in layer.Channels where l.Type == ChannelType.Mask select l).FirstOrDefault();
 
-			for( int i = 0; i < pixels.Length; i++ )
+			for (int i = 0; i < pixels.Length; i++)
 			{
 				byte r = red.Data[i];
 				byte g = green.Data[i];
 				byte b = blue.Data[i];
 				byte a = 255;
 
-				if( alpha != null )
+				if (alpha != null)
 					a = alpha.Data[i];
-				if( mask != null )
+				if (mask != null)
 					a *= mask.Data[i];
 
 				int mod = i % texture.width;
-				int n = ( ( texture.width - mod - 1 ) + i ) - mod;
-				pixels[pixels.Length - n - 1] = new Color32( r, g, b, a );
+				int n = ((texture.width - mod - 1) + i) - mod;
+				pixels[pixels.Length - n - 1] = new Color32(r, g, b, a);
 			}
 
-			texture.SetPixels32( pixels );
+			texture.SetPixels32(pixels);
 			texture.Apply();
 			return texture;
+		}
+
+		public static void AutoImport(string input, string output)
+		{
+			PfiDocument doc = Import(input);
+
+			if (doc != null && doc.root.layers.Count > 0)
+			{
+				PfiLayer layer;
+
+				for (int i = 0; i < doc.root.layers.Count; i++)
+				{
+					layer = doc.root.layers[i];
+
+					if (layer != null)
+					{
+						string path = string.Format("{0}/{1}.png", output, layer.name);
+						byte[] buffer = layer.texture.EncodeToPNG();
+						if (File.Exists(path))
+							File.Delete(path);
+						File.WriteAllBytes(path, buffer);
+					}
+				}
+			}
 		}
 	}
 }
