@@ -8,7 +8,7 @@
 
         protected abstract DownloadFileType fileType { get; }
 
-        protected void Get(string key, string url, string extra, string md5, System.Action callBack = null)
+        protected void Get(string key, string url, string extra, System.Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -18,7 +18,7 @@
             }
             else
             {
-                RenewableResource.Instance.Get(key, url, extra, md5, store, fileType, (buffer, content) =>
+                RenewableResource.Instance.Get(key, url, extra, store, fileType, (buffer, content) =>
                 {
                     this.key = key; Create(buffer, content); callBack?.Invoke();
                 });

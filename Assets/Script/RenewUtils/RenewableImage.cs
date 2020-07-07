@@ -24,12 +24,6 @@ namespace UnityEngine.UI
         {
             if (string.IsNullOrEmpty(key)) return;
 
-            string[] param = key.Split('|');
-
-            key = param.Length > 0 ? param[0] : string.Empty;
-
-            string md5 = param.Length > 1 ? param[1] : string.Empty;
-
             switch (imageType)
             {
                 case RenewableImageType.RawImage:
@@ -40,7 +34,7 @@ namespace UnityEngine.UI
                     }
                     else
                     {
-                        Get(key, url, extra, md5, callBack);
+                        Get(key, url, extra, callBack);
                     }
                     break;
                 default:
@@ -51,7 +45,7 @@ namespace UnityEngine.UI
                     }
                     else
                     {
-                        Get(key, url, extra, md5, callBack);
+                        Get(key, url, extra, callBack);
                     }
                     break;
             }

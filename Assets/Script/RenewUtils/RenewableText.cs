@@ -11,9 +11,9 @@ namespace UnityEngine.UI
 
         protected override DownloadFileType fileType { get { return DownloadFileType.None; } }
 
-        public void SetText(string key, string url = "", string extra = "", string md5 = "", Action callBack = null)
+        public void SetText(string key, string url = "", string extra = "", Action callBack = null)
         {
-            Get(key, url, extra, md5, callBack);
+            Get(key, url, extra, callBack);
         }
 
         protected override void Create(byte[] buffer, Object content)

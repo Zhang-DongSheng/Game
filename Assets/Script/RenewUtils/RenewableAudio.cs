@@ -11,13 +11,13 @@ namespace UI
 
         protected override DownloadFileType fileType { get { return DownloadFileType.Audio; } }
 
-        public void PlayMusic(string key, string url = "", string extra = "", string md5 = "", Action callBack = null)
+        public void PlayMusic(string key, string url = "", string extra = "", Action callBack = null)
         {
             if (this.key == key)
             {
                 Play(clip);
             }
-            Get(key, url, extra, md5, callBack);
+            Get(key, url, extra, callBack);
         }
 
         protected override void Create(byte[] buffer, UnityEngine.Object content)
@@ -30,7 +30,7 @@ namespace UI
             }
             else
             {
-                //clip = byte[] to AudioClip
+                //byte[] to AudioClip
 
                 Play(clip);
             }
@@ -40,7 +40,7 @@ namespace UI
         {
             if (clip == null) return;
 
-            //play AudioClip
+            //play music
         }
     }
 }

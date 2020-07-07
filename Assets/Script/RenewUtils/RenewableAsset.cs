@@ -14,10 +14,10 @@ namespace UnityEngine.UI
 
         public void Create(string key, string param, string url = "", string extra = "", Action callBack = null)
         {
-            Get(key, param, url, extra, "", callBack);
+            GetAsset(key, param, url, extra, callBack);
         }
 
-        private void Get(string key, string param, string url, string extra, string md5, Action callBack = null)
+        private void GetAsset(string key, string param, string url, string extra, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(param)) return;
 
@@ -29,7 +29,7 @@ namespace UnityEngine.UI
             {
                 if (target != null) Destroy(target);
 
-                RenewableResource.Instance.Get(key, url, extra, md5, store, fileType, (buffer, content) =>
+                RenewableResource.Instance.Get(key, url, extra, store, fileType, (buffer, content) =>
                 {
                     this.key = key; this.param = param;
                     Create(buffer, content); callBack?.Invoke();

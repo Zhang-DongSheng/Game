@@ -2,23 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using UnityEditor;
 using UnityEngine;
 
 namespace UnityEditor
 {
-    public class PSDTools : EditorWindow
+	public class PSDTools : EditorWindow
 	{
 		private const string Extension = ".psd";
 
-		private const string InputPath = "Source/PSD/Input";
+		private const string InputPath = "Source/Arts";
 
-		private const string OutputPath = "Source/PSD/Output";
+		private const string OutputPath = "AssetRes/bookdata";
 
 		private readonly string[] text_view = new string[] { "PSD", "Setting", "Other" };
 
 		private readonly string[] text_seacrch = new string[] { "Select", "Specify", "Auto" };
-
-		private readonly string label_format = "Format";
 
 		private readonly string label_inputFolder = "Input Folder";
 
@@ -26,9 +26,9 @@ namespace UnityEditor
 
 		private readonly string label_search = "Search";
 
-		private readonly string label_create = "Create C#";
-
 		private readonly string label_convert = "Convert";
+
+		private readonly string label_select = "Select ";
 
 		private readonly string label_revise = "Revise";
 
@@ -36,11 +36,9 @@ namespace UnityEditor
 
 		private int index_view;
 
-		private int index_encoding;
-
-		private int index_format;
-
 		private int index_search;
+
+		private int index_searchNode;
 
 		private Rect rect_inputFolder;
 
@@ -54,9 +52,13 @@ namespace UnityEditor
 
 		private int search;
 
+		private int searchNode;
+
 		private string inputFolder;
 
 		private string outputFolder;
+
+		private readonly List<string> node = new List<string>();
 
 		private readonly List<FileItem> source = new List<FileItem>();
 
@@ -72,11 +74,13 @@ namespace UnityEditor
 
 		public void Init()
 		{
-			input_inputFolder = Path.Combine(Application.dataPath, InputPath);
+			string source = Application.dataPath.Remove(Application.dataPath.Length - 6, 6);
+
+			input_inputFolder = Path.Combine(source, InputPath);
 
 			inputFolder = input_inputFolder;
 
-			input_outputFolder = Path.Combine(Application.dataPath, OutputPath);
+			input_outputFolder = OutputPath;
 
 			outputFolder = input_outputFolder;
 
@@ -133,7 +137,7 @@ namespace UnityEditor
 				{
 					GUILayout.Label(label_inputFolder, GUILayout.Width(100));
 
-					rect_inputFolder = EditorGUILayout.GetControlRect(GUILayout.Width(Screen.width - 250));
+					rect_inputFolder = EditorGUILayout.GetControlRect(GUILayout.Width(Screen.width - 247));
 
 					input_inputFolder = EditorGUI.TextField(rect_inputFolder, input_inputFolder);
 
@@ -149,7 +153,27 @@ namespace UnityEditor
 
 					if (GUILayout.Button(label_revise, GUILayout.Width(100)))
 					{
-						inputFolder = input_inputFolder; LoadSource();
+						inputFolder = input_inputFolder;
+
+						LoadSource();
+					}
+				}
+			}
+			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
+			{
+				if (search == 1 && node != null && node.Count > 0)
+				{
+					GUILayout.Label(label_inputFolder, GUILayout.Width(100));
+
+					index_searchNode = EditorGUILayout.Popup(index_searchNode, node.ToArray());
+
+					if (index_searchNode != searchNode)
+					{
+						searchNode = index_searchNode;
+
+						LoadSource();
 					}
 				}
 			}
@@ -192,9 +216,19 @@ namespace UnityEditor
 					{
 						GUILayout.Space(20);
 
-						if (GUILayout.Button(label_convert))
+						if (GUILayout.Button(label_convert, GUILayout.Height(40)))
 						{
 							Convert();
+						}
+
+						if (GUILayout.Button(label_select + "All"))
+						{
+							Select(true);
+						}
+
+						if (GUILayout.Button(label_select + "None"))
+						{
+							Select(false);
 						}
 
 						if (GUILayout.Button(label_inputFolder))
@@ -204,7 +238,7 @@ namespace UnityEditor
 
 						if (GUILayout.Button(label_outputFolder))
 						{
-							OpenFolder(outputFolder);
+							OpenFolder(Path.Combine(Application.dataPath, outputFolder));
 						}
 					}
 					GUILayout.EndVertical();
@@ -265,12 +299,12 @@ namespace UnityEditor
 		{
 			source.Clear();
 
+			string path;
+
 			switch (search)
 			{
 				case 0:
 					object[] selection = (object[])Selection.objects;
-
-					string path;
 
 					if (selection != null && selection.Length > 0)
 					{
@@ -291,9 +325,31 @@ namespace UnityEditor
 					}
 					break;
 				case 1:
+					node.Clear();
+
 					if (!string.IsNullOrEmpty(inputFolder) && Directory.Exists(inputFolder))
 					{
 						DirectoryInfo root = new DirectoryInfo(inputFolder);
+
+						foreach (DirectoryInfo dir in root.GetDirectories())
+						{
+							node.Add(dir.Name);
+						}
+
+						if (node.Count > searchNode) { }
+						else
+						{
+							index_searchNode = searchNode = 0;
+						}
+					}
+
+					string folderName = node.Count > searchNode ? node[searchNode] : string.Empty;
+
+					path = string.Format("{0}/{1}", inputFolder, folderName);
+
+					if (!string.IsNullOrEmpty(path) && Directory.Exists(path))
+					{
+						DirectoryInfo root = new DirectoryInfo(path);
 
 						foreach (FileInfo file in root.GetFiles())
 						{
@@ -328,28 +384,37 @@ namespace UnityEditor
 			}
 		}
 
+		private void Select(bool select)
+		{
+			for (int i = 0; i < source.Count; i++)
+			{
+				source[i].output = select;
+			}
+		}
+
 		private void Convert()
 		{
-			if (!Directory.Exists(outputFolder))
-				Directory.CreateDirectory(outputFolder);
+			string folderName = node.Count > index_searchNode ? node[index_searchNode] : string.Empty;
+
+			string path = string.Format("{0}/{1}", outputFolder, folderName);
 
 			for (int i = 0; i < source.Count; i++)
 			{
 				if (source[i].output)
 				{
-					try
-					{
-						PfiImporter.AutoImport(source[i].path, outputFolder);
-					}
-					catch (Exception e)
-					{
-						Debug.LogError(e.Message);
-					}
-					finally
-					{
+                    try
+                    {
+                        
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError(e.Message);
+                    }
+                    finally
+                    {
 
-					}
-				}
+                    }
+                }
 				AssetDatabase.Refresh();
 			}
 		}

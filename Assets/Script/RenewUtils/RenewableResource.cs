@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using UnityEngine.Networking;
 
 namespace UnityEngine
@@ -40,10 +42,12 @@ namespace UnityEngine
 
         private void Start()
         {
+            RenewableResourceUpdate.Instance.Load("");
+
             DontDestroyOnLoad(this.gameObject);
         }
 
-        public void Get(string key, string url = "", string extra = "", string md5 = "", StorageClass store = StorageClass.None, DownloadFileType fileType = DownloadFileType.None, Action<byte[], Object> callBack = null)
+        public void Get(string key, string url = "", string extra = "", StorageClass store = StorageClass.None, DownloadFileType fileType = DownloadFileType.None, Action<byte[], Object> callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -59,7 +63,7 @@ namespace UnityEngine
             {
                 callBack?.Invoke(null, m_cache[this.key]);
             }
-            else if (File.Exists(this.path) && FileUtils.MD5Validation(this.path, md5))
+            else if (File.Exists(this.path))
             {
                 if (m_task.ContainsKey(this.key))
                 {
@@ -146,7 +150,7 @@ namespace UnityEngine
 
         private IEnumerator Dowmload(string key, string url)
         {
-            if(m_task.ContainsKey(key))
+            if (m_task.ContainsKey(key))
             {
                 UnityWebRequest request = Request(m_task[key].type, url);
 
@@ -281,7 +285,7 @@ namespace UnityEngine
             {
                 case "mp3":
 #if UNITY_ANDROID
-                    audioType =  AudioType.MPEG;
+                    audioType = AudioType.MPEG;
 #elif UNITY_IOS
                     audioType =  AudioType.AUDIOQUEUE;
 #else
@@ -309,7 +313,7 @@ namespace UnityEngine
         {
             get
             {
-                return GameConfig.ResourceServerURL;
+                return @"https://www.baidu.com/";
             }
         }
 
@@ -381,5 +385,90 @@ namespace UnityEngine
         }
 
         public bool Exist(string key) { return asset.ContainsKey(key); }
+    }
+
+    public class RenewableResourceUpdate : Singleton<RenewableResourceUpdate>
+    {
+        private string path = "information/md5file.txt";
+
+        private readonly Dictionary<string, string> m_secret = new Dictionary<string, string>();
+
+        public void Load(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                path = this.path;
+            }
+            RenewableResource.Instance.Get(path, "", "", StorageClass.None, DownloadFileType.None, Load);
+        }
+
+        private void Load(byte[] buffer, Object result)
+        {
+            string content = Encoding.Default.GetString(buffer);
+
+            content = content.Replace("\r\n", "^");
+
+            string[] rows = content.Split('^');
+
+            for (int i = 0; i < rows.Length; i++)
+            {
+                string[] value = rows[i].Split('|');
+
+                if (value.Length == 2)
+                {
+                    m_secret.Add(value[0], value[1]);
+                }
+            }
+
+            Validation();
+        }
+
+        private void Validation()
+        {
+            foreach (var file in m_secret)
+            {
+                if (file.Value != FileMD5(file.Key))
+                {
+                    Delete(file.Key);
+                }
+            }
+        }
+
+        private string FileMD5(string path)
+        {
+            string result = string.Empty;
+
+            try
+            {
+                path = Path.Combine(Application.persistentDataPath, path);
+
+                if (File.Exists(path))
+                {
+                    byte[] buffer = File.ReadAllBytes(path);
+
+                    MD5 md5 = new MD5CryptoServiceProvider();
+
+                    byte[] hash = md5.ComputeHash(buffer);
+
+                    foreach (byte v in hash)
+                    {
+                        result += Convert.ToString(v, 16);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+
+            return result;
+        }
+
+        private void Delete(string path)
+        {
+            path = Path.Combine(Application.persistentDataPath, path);
+
+            if (File.Exists(path)) File.Delete(path);
+        }
     }
 }
