@@ -4,17 +4,17 @@ using UnityEngine.EventSystems;
 namespace UnityEngine.UI
 {
     [RequireComponent(typeof(Graphic))]
-    public class DragButton : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class GraphicDragEvent : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        public Axis axis;
+        public Action callBack;
 
-        public bool reverse;
+        [SerializeField] private Axis axis;
 
-        public float spring;
+        [SerializeField] private bool reverse;
+
+        [SerializeField] private float spring;
 
         private Vector2 vector;
-
-        public Action onClick;
 
         public void OnBeginDrag(PointerEventData eventData)
         {
@@ -42,7 +42,7 @@ namespace UnityEngine.UI
 
             if (more)
             {
-                onClick?.Invoke();
+                callBack?.Invoke();
             }
         }
 

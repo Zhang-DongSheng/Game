@@ -4,11 +4,8 @@ using UnityEngine.EventSystems;
 namespace UnityEngine.UI
 {
     [RequireComponent(typeof(MaskableGraphic))]
-    public class ButtonHelper : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerClickHandler
+    public class ButtonPro : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerClickHandler
     {
-        public float interval_press;
-        public float interval_double;
-
         public Action onEnter;
         public Action onDown;
         public Action onUp;
@@ -16,6 +13,9 @@ namespace UnityEngine.UI
         public Action onClick;
         public Action onDoubleClick;
         public Action<int> onPress;
+
+        [SerializeField, Range(0, 1)] private float interval_press;
+        [SerializeField, Range(0, 1)] private float interval_double;
 
         //Long Press
         private float press_timer;

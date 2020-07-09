@@ -51,12 +51,12 @@ namespace Data
 
             if (Application.isPlaying)
             {
-                Text_Helper[] helper = FindObjectsOfType<Text_Helper>();
+                //Text_Helper[] helper = FindObjectsOfType<Text_Helper>();
 
-                for (int i = 0; i < helper.Length; i++)
-                {
-                    helper[i].SendMessage("Refresh");
-                }
+                //for (int i = 0; i < helper.Length; i++)
+                //{
+                //    helper[i].SendMessage("Refresh");
+                //}
             }
         }
 
