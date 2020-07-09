@@ -52,7 +52,7 @@ namespace UnityEngine.UI
 
         private void Start()
         {
-            ctrlActive = !ignore;
+            ctrlActive = ignore || PlayerPrefs.GetInt(PlayerPrefsConfig.EffectStatus).Equals(0);
 
             SetOrder();
 
@@ -65,13 +65,6 @@ namespace UnityEngine.UI
         {
             SetOrder();
             SetLighteness(lighteness);
-        }
-
-        public void ShowOrHide(bool active)
-        {
-            this.active = active;
-
-            SetActive(this.active && ctrlActive);
         }
 
         private void Notice(EventMessageArgs args)
