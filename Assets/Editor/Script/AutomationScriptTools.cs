@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityEditor.Script
 {
-    public class CodeAutomation
+    public class AutomationScriptTools
     {
         private const string SCRIPTPATH = "Script/";
 

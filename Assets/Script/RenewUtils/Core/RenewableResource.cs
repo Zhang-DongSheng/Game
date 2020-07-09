@@ -448,7 +448,10 @@ namespace UnityEngine
 
                 if (value.Length == 2)
                 {
-                    m_secret.Add(value[0], value[1]);
+                    if (!string.IsNullOrEmpty(value[0]) && !m_secret.ContainsKey(value[0]))
+                    {
+                        m_secret.Add(value[0], value[1]);
+                    }
                 }
             }
 

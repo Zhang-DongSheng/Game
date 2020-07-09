@@ -1,14 +1,11 @@
-﻿using Pfi;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using UnityEditor;
 using UnityEngine;
 
 namespace UnityEditor
 {
-	public class PSDTools : EditorWindow
+    public class PsdTools : EditorWindow
 	{
 		private const string Extension = ".psd";
 
@@ -65,7 +62,7 @@ namespace UnityEditor
 		[MenuItem("Data/PSD")]
 		private static void Open()
 		{
-			PSDTools window = EditorWindow.GetWindow<PSDTools>();
+			PsdTools window = EditorWindow.GetWindow<PsdTools>();
 			window.titleContent = new GUIContent("PSD Tools");
 			window.minSize = new Vector2(500, 200);
 			window.Init();

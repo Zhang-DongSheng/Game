@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace UnityEditor
 {
-    public class MD5Builder : EditorWindow
+    public class Md5Tools : EditorWindow
     {
         private readonly List<string> extension = new List<string>()
         {
@@ -31,7 +31,7 @@ namespace UnityEditor
         [MenuItem("Tools/File/Md5")]
         private static void Open()
         {
-            MD5Builder window = EditorWindow.GetWindow<MD5Builder>();
+            Md5Tools window = EditorWindow.GetWindow<Md5Tools>();
             window.titleContent = new GUIContent("Md5 Builder");
             window.minSize = new Vector2(500, 100);
             window.Show();

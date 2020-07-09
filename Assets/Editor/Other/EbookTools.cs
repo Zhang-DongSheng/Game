@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using UnityEditor;
 using UnityEngine;
 
-namespace Utils
+namespace UnityEditor
 {
-    public class EbookWindow : EditorWindow
+    public class EbookTools : EditorWindow
     {
         enum CodeType
         {
@@ -82,7 +81,7 @@ namespace Utils
         [MenuItem("Other/Ebook")]
         private static void Open()
         {
-            EditorWindow window = EditorWindow.GetWindow<EbookWindow>();
+            EditorWindow window = EditorWindow.GetWindow<EbookTools>();
             window.minSize = Vector2.one * 300;
             window.maxSize = Vector2.one * 1000;
             window.titleContent = new GUIContent("Ebook");

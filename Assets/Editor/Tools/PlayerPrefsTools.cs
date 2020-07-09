@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-public class PlayerPrefsWindow : EditorWindow
+public class PlayerPrefsTools : EditorWindow
 {
 	private readonly string label_key = "键：";
 
@@ -19,7 +19,7 @@ public class PlayerPrefsWindow : EditorWindow
 	[MenuItem("Tools/PlayerPrefs")]
 	private static void Open()
 	{
-		EditorWindow window = EditorWindow.GetWindow<PlayerPrefsWindow>();
+		EditorWindow window = EditorWindow.GetWindow<PlayerPrefsTools>();
 		window.minSize = Vector2.one * 300;
 		window.titleContent = new GUIContent("PlayerPrefs");
 	}
