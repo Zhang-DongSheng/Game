@@ -4,7 +4,9 @@ using UnityEngine;
 namespace UI
 {
     /// <summary>
-    /// UI特效显示区域，与UIEffect.shader配合使用
+    /// 【UI粒子特效显示区域】
+    /// 常用在Scroll Rect下，拖动到指定区域才显示
+    /// 需要在Shader中指定显示区域，例如：UIEffect.shader
     /// </summary>
     public class UIEffectClip : MonoBehaviour
     {

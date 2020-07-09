@@ -1,138 +1,197 @@
-﻿using UnityEngine;
+﻿using Boo.Lang;
 using UnityEngine.Rendering;
 
-#if UNITY_EDITOR
-[ExecuteInEditMode]
-#endif
-[RequireComponent(typeof(RectTransform))]
-public class UIEffectHelper : MonoBehaviour
+namespace UnityEngine.UI
 {
-    [Tooltip("自动定位图层")]
-    public bool auto = true;
-    [Tooltip("忽略特效控制")]
-    public bool ignore = false;
-
-    private GameObject target;
-
-    private Canvas canvas;
-
-    private SortingGroup[] groups;
-
-    private Renderer[] renderers;
-
-    private ParticleSystem[] particles;
-
-    private Renderer m_renderer;
-
-    private bool active = true, ctrlActive = true;
-
-    private void Awake()
+    [RequireComponent(typeof(Transform))]
+    public class UIEffectHelper : MonoBehaviour
     {
-        target = gameObject;
+        [SerializeField] private bool auto = true;
 
-        groups = target.GetComponentsInChildren<SortingGroup>();
+        [SerializeField] private bool ignore = false;
 
-        renderers = target.GetComponentsInChildren<Renderer>();
+        [SerializeField] private Color color = Color.white;
 
-        particles = target.GetComponentsInChildren<ParticleSystem>();
+        [SerializeField, Range(0, 255)] private int lighteness = 0;
 
-        EventManager.RegisterEvent(EventKey.EffectStatus, Notice);
-    }
+        private GameObject target;
 
-    private void Start()
-    {
-        ctrlActive = ignore ? true : PlayerPrefs.GetInt(PlayerPrefsConfig.EffectStatus).Equals(0);
+        private Canvas canvas;
 
-        SetOrder();
+        private SortingGroup[] groups;
 
-        SetActive(active && ctrlActive);
-    }
+        private Renderer[] renderers;
 
-    public void Refresh()
-    {
-        SetOrder();
-    }
+        private ParticleSystem[] particles;
 
-    public void ShowOrHide(bool active)
-    {
-        this.active = active;
+        private Renderer m_renderer;
 
-        SetActive(this.active && ctrlActive);
-    }
+        private readonly List<Material> m_materials = new List<Material>();
 
-    private void Notice(EventMessageArgs args)
-    {
-        if (ignore) return;
+        private bool active = true, ctrlActive = true;
 
-        ctrlActive = args.GetMessage<bool>("active");
-
-        SetActive(active && ctrlActive);
-    }
-
-    private void SetOrder()
-    {
-        if (!auto) return;
-
-        int order = 1;
-
-        GetCanvas(target.transform);
-
-        if (canvas != null)
+        private void Awake()
         {
-            order = canvas.sortingOrder + 1;
+            target = gameObject;
+
+            groups = target.GetComponentsInChildren<SortingGroup>();
+
+            renderers = target.GetComponentsInChildren<Renderer>();
+
+            particles = target.GetComponentsInChildren<ParticleSystem>();
+
+            EventManager.RegisterEvent(EventKey.EffectStatus, Notice);
         }
-        //Set SortingGroup Order
-        for (int i = 0; i < groups.Length; i++)
+
+        private void OnEnable()
         {
-            if (groups[i] != null)
+#if UNITY_EDITOR
+            SetLighteness(lighteness);
+#endif
+        }
+
+        private void Start()
+        {
+            ctrlActive = !ignore;
+
+            SetOrder();
+
+            SetLighteness(lighteness);
+
+            SetActive(active && ctrlActive);
+        }
+
+        public void Refresh()
+        {
+            SetOrder();
+            SetLighteness(lighteness);
+        }
+
+        public void ShowOrHide(bool active)
+        {
+            this.active = active;
+
+            SetActive(this.active && ctrlActive);
+        }
+
+        private void Notice(EventMessageArgs args)
+        {
+            if (ignore) return;
+
+            ctrlActive = args.GetMessage<bool>("active");
+
+            SetActive(this.active && ctrlActive);
+        }
+
+        private void GetCanvas(Transform target)
+        {
+            canvas = null; Transform root = target;
+
+            while (root != null)
             {
-                groups[i].sortingOrder = order;
+                canvas = root.GetComponent<Canvas>();
+                if (canvas != null) break;
+                root = root.parent;
             }
         }
-        //Set Renderer Order
-        for (int i = 0; i < renderers.Length; i++)
-        {
-            m_renderer = renderers[i];
 
-            if (m_renderer != null)
+        private void SetOrder()
+        {
+            if (!auto) return;
+
+            int order = 1;
+
+            GetCanvas(target.transform);
+
+            if (canvas != null)
             {
-                m_renderer.sortingOrder = order;
+                order = canvas.sortingOrder + 1;
+            }
+            //Set SortingGroup Order
+            for (int i = 0; i < groups.Length; i++)
+            {
+                if (groups[i] != null)
+                {
+                    groups[i].sortingOrder = order;
+                }
+            }
+            //Set Renderer Order
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                m_renderer = renderers[i];
+
+                if (m_renderer != null)
+                {
+                    m_renderer.sortingOrder = order;
+                }
+            }
+            //Set ParticleSystem Order
+            for (int i = 0; i < particles.Length; i++)
+            {
+                m_renderer = particles[i].GetComponent<Renderer>();
+
+                if (m_renderer != null)
+                {
+                    m_renderer.sortingOrder = order;
+                }
             }
         }
-        //Set ParticleSystem Order
-        for (int i = 0; i < particles.Length; i++)
-        {
-            m_renderer = particles[i].GetComponent<Renderer>();
 
-            if (m_renderer != null)
+        private void SetLighteness(int lighteness)
+        {
+            this.lighteness = lighteness;
+
+            if (this.lighteness < 1) return;
+
+            if (m_materials.Count == 0)
             {
-                m_renderer.sortingOrder = order;
+                if (particles != null && particles.Length > 0)
+                {
+                    for (int i = 0, j = particles.Length; i < j; i++)
+                    {
+                        if (particles[i].GetComponent<Renderer>().material != null)
+                        {
+                            m_materials.Add(particles[i].GetComponent<Renderer>().material);
+                        }
+                    }
+                }
+
+                if (renderers != null && renderers.Length > 0)
+                {
+                    for (int i = 0, j = renderers.Length; i < j; i++)
+                    {
+                        if (renderers[i].material != null)
+                        {
+                            m_materials.Add(renderers[i].material);
+                        }
+                    }
+                }
+            }
+
+            float value = (float)lighteness / 255f;
+
+            color = new Color(value, value, value, value);
+
+            for (int i = 0, len = m_materials.Count; i < len; i++)
+            {
+                if (m_materials[i].HasProperty("_TintColor"))
+                {
+                    m_materials[i].SetColor("_TintColor", color);
+                }
             }
         }
-    }
 
-    private void GetCanvas(Transform target)
-    {
-        Transform root = target; canvas = null;
-
-        while (root != null)
+        private void SetActive(bool active)
         {
-            canvas = root.GetComponent<Canvas>();
-            if (canvas != null) break;
-            root = root.parent;
+            if (target != null && target.activeSelf != active)
+            {
+                target.SetActive(active);
+            }
         }
-    }
 
-    private void SetActive(bool active)
-    {
-        if (target != null && target.activeSelf != active)
+        private void OnDestroy()
         {
-            target.SetActive(active);
+            EventManager.UnregisterEvent(EventKey.EffectStatus, Notice);
         }
-    }
-
-    private void OnDestroy()
-    {
-        EventManager.UnregisterEvent(EventKey.EffectStatus, Notice);
     }
 }

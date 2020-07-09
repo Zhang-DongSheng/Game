@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace UnityEngine.UI
+﻿namespace UnityEngine.UI
 {
     public class UIUtils
     {
@@ -54,6 +50,27 @@ namespace UnityEngine.UI
             position -= offset;
 
             return position;
+        }
+
+        public static Canvas GetCanvas(Transform target)
+        {
+            Canvas canvas = null;
+
+            Transform node = target;
+
+            while (node != null)
+            {
+                canvas = node.GetComponent<Canvas>();
+
+                if (canvas != null)
+                {
+                    break;
+                }
+
+                node = node.parent;
+            }
+
+            return canvas;
         }
     }
 }
