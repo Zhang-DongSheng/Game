@@ -13,24 +13,40 @@ namespace UI
 
         public void PlayMusic(string key, string url = "", string extra = "", Action callBack = null)
         {
-            if (this.key == key)
+            if (string.IsNullOrEmpty(key)) return;
+
+            if (key != this.key)
+            {
+                if (RenewablePool.Instance.Exist(cache, key))
+                {
+                    clip = RenewablePool.Instance.Pop<AudioClip>(cache, key);
+
+                    Play(clip);
+                }
+                else
+                {
+                    Get(key, url, extra, callBack);
+                }
+            }
+            else
             {
                 Play(clip);
             }
-            Get(key, url, extra, callBack);
         }
 
         protected override void Create(byte[] buffer, UnityEngine.Object content)
         {
             if (content != null)
             {
+                RenewablePool.Instance.Push(cache, key, content);
+
                 clip = content as AudioClip;
 
                 Play(clip);
             }
             else
             {
-                //byte[] to AudioClip
+                //encoding audio clip ...
 
                 Play(clip);
             }
@@ -40,7 +56,7 @@ namespace UI
         {
             if (clip == null) return;
 
-            //play music
+            //play ...
         }
     }
 }

@@ -390,33 +390,131 @@ namespace UnityEngine
 
     public class RenewablePool : Singleton<RenewablePool>
     {
-        public readonly Dictionary<string, Object> asset = new Dictionary<string, Object>();
+        private readonly Dictionary<CacheType, Cache> m_cache = new Dictionary<CacheType, Cache>();
 
-        public void Push(string key, Object value)
+        public void Push(CacheType cache, string key, Object value)
         {
-            if (asset.ContainsKey(key))
+            if (string.IsNullOrEmpty(key)) return;
+
+            if (m_cache.ContainsKey(cache))
             {
-                asset[key] = value;
+                m_cache[cache].Push(key, value);
             }
             else
             {
-                asset.Add(key, value);
+                m_cache.Add(cache, new Cache()
+                {
+                    capacity = Capacity(cache),
+                });
+                m_cache[cache].Push(key, value);
             }
         }
 
-        public T Pop<T>(string key) where T : Object
+        public T Pop<T>(CacheType cache, string key) where T : Object
         {
+            if (string.IsNullOrEmpty(key)) return null;
+
             T result = null;
 
-            if (asset.ContainsKey(key))
+            if (m_cache.ContainsKey(cache))
             {
-                result = asset[key] as T;
+                result = m_cache[cache].Pop<T>(key);
             }
 
             return result;
         }
 
-        public bool Exist(string key) { return asset.ContainsKey(key); }
+        public bool Exist(CacheType cache, string key)
+        {
+            if (string.IsNullOrEmpty(key)) return false;
+
+            return m_cache.ContainsKey(cache) && m_cache[cache].Exist(key);
+        }
+
+        private int Capacity(CacheType cache)
+        {
+            switch (cache)
+            {
+                case CacheType.None:
+                    return -1;
+                case CacheType.Image_Cover:
+                    return 3;
+                case CacheType.Audio_Cover:
+                    return 3;
+                default:
+                    return -1;
+            }
+        }
+
+        class Cache
+        {
+            private readonly Dictionary<string, Object> m_cache = new Dictionary<string, Object>();
+
+            public int capacity;
+
+            public void Push(string key, Object value)
+            {
+                if (m_cache.ContainsKey(key))
+                {
+                    m_cache[key] = value;
+                }
+                else
+                {
+                    if (capacity > 0 && m_cache.Count > capacity)
+                    {
+                        string abandon = AbandonKey;
+
+                        if (!string.IsNullOrEmpty(abandon))
+                        {
+                            if (m_cache[abandon] != null)
+                            {
+                                Object.Destroy(m_cache[abandon]);
+                            }
+                            m_cache.Remove(abandon);
+                        }
+                    }
+                    m_cache.Add(key, value);
+                }
+            }
+
+            public T Pop<T>(string key) where T : Object
+            {
+                T result = null;
+
+                if (m_cache.ContainsKey(key))
+                {
+                    result = m_cache[key] as T;
+                }
+
+                return result;
+            }
+
+            public bool Exist(string key)
+            {
+                return m_cache.ContainsKey(key);
+            }
+
+            private string AbandonKey
+            {
+                get
+                {
+                    string key = null;
+
+                    int index = 0;
+
+                    foreach (var cache in m_cache)
+                    {
+                        if (index == 0)
+                        {
+                            key = cache.Key;
+                            break;
+                        }
+                    }
+
+                    return key;
+                }
+            }
+        }
     }
 
     public class RenewableResourceUpdate : Singleton<RenewableResourceUpdate>

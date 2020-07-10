@@ -24,38 +24,25 @@ namespace UnityEngine.UI
         {
             if (string.IsNullOrEmpty(key)) return;
 
-            switch (imageType)
+            if (RenewablePool.Instance.Exist(cache, key))
             {
-                case RenewableImageType.RawImage:
-                    if (RenewablePool.Instance.Exist("Texture:" + key))
-                    {
-                        m_texture = RenewablePool.Instance.Pop<Texture2D>("Texture:" + key);
-                        this.key = key; SetRawImage(m_texture); callBack?.Invoke();
-                    }
-                    else
-                    {
-                        Get(key, url, extra, callBack);
-                    }
-                    break;
-                default:
-                    if (RenewablePool.Instance.Exist("Sprite:" + key))
-                    {
-                        m_sprite = RenewablePool.Instance.Pop<Sprite>("Sprite:" + key);
-                        this.key = key; SetImage(m_sprite); callBack?.Invoke();
-                    }
-                    else
-                    {
-                        Get(key, url, extra, callBack);
-                    }
-                    break;
+                m_texture = RenewablePool.Instance.Pop<Texture2D>(cache, key);
+
+                this.key = key; callBack?.Invoke();
+
+                SetImage(m_texture);
+            }
+            else
+            {
+                Get(key, url, extra, callBack);
             }
         }
 
         protected override void Create(byte[] buffer, Object content)
         {
-            if (RenewablePool.Instance.Exist("Texture:" + this.key))
+            if (RenewablePool.Instance.Exist(cache, this.key))
             {
-                m_texture = RenewablePool.Instance.Pop<Texture2D>("Texture:" + this.key);
+                m_texture = RenewablePool.Instance.Pop<Texture2D>(cache, this.key);
             }
             else
             {
@@ -84,7 +71,7 @@ namespace UnityEngine.UI
                     }
                     m_texture.LoadImage(buffer);
                 }
-                RenewablePool.Instance.Push("Texture:" + this.key, m_texture);
+                RenewablePool.Instance.Push(cache, this.key, m_texture);
             }
             SetImage(m_texture);
         }
@@ -94,11 +81,15 @@ namespace UnityEngine.UI
             switch (imageType)
             {
                 case RenewableImageType.RawImage:
-                    SetRawImage(texture);
+                    if (rawImage != null)
+                        rawImage.texture = texture;
                     break;
                 default:
+                    if (m_sprite != null)
+                    {
+                        Destroy(m_sprite);
+                    }
                     m_sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
-                    RenewablePool.Instance.Push("Sprite:" + this.key, m_sprite);
                     SetImage(m_sprite);
                     break;
             }
@@ -118,14 +109,6 @@ namespace UnityEngine.UI
 
             if (image == null && nativeSize)
                 image.SetNativeSize();
-        }
-
-        private void SetRawImage(Texture2D texture)
-        {
-            if (rawImage != null)
-            {
-                rawImage.texture = texture;
-            }
         }
 
         public void SetColor(Color color)

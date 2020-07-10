@@ -1,8 +1,11 @@
 ﻿namespace UnityEngine
 {
+    [DisallowMultipleComponent]
     public abstract class RenewableBase : MonoBehaviour
     {
         [SerializeField] protected StorageClass store;
+
+        [SerializeField] protected CacheType cache;
 
         protected string key = string.Empty;
 
@@ -49,5 +52,12 @@
         Image,
         Audio,
         Bundle,
+    }
+
+    public enum CacheType
+    {
+        None,
+        Image_Cover,
+        Audio_Cover,
     }
 }
