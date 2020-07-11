@@ -48,7 +48,7 @@ namespace UI
             {
                 //encoding audio clip ...
 
-                Play(clip);
+                //play ...
             }
         }
 

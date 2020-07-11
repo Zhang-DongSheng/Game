@@ -446,6 +446,35 @@ namespace UnityEngine
             }
         }
 
+        public void Release()
+        {
+            foreach (var cache in m_cache)
+            {
+                if (cache.Key != CacheType.None)
+                {
+                    m_cache[cache.Key].Release();
+                }
+            }
+        }
+
+        public void Release(CacheType cache, string ignore)
+        {
+            foreach (var key in m_cache.Keys)
+            {
+                if (key != CacheType.None)
+                {
+                    if (key != cache)
+                    {
+                        m_cache[key].Release();
+                    }
+                    else 
+                    {
+                        m_cache[key].Release(ignore);
+                    }
+                }
+            }
+        }
+
         class Cache
         {
             private readonly Dictionary<string, Object> m_cache = new Dictionary<string, Object>();
@@ -492,6 +521,31 @@ namespace UnityEngine
             public bool Exist(string key)
             {
                 return m_cache.ContainsKey(key);
+            }
+
+            public void Release(string ignore = null)
+            {
+                if (string.IsNullOrEmpty(ignore))
+                {
+                    foreach (var key in m_cache.Keys)
+                    {
+                        if (m_cache[key] != null)
+                        {
+                            Object.Destroy(m_cache[key]);
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var key in m_cache.Keys)
+                    {
+                        if (key != ignore && m_cache[key] != null)
+                        {
+                            Object.Destroy(m_cache[key]);
+                        }
+                    }
+                }
+                m_cache.Clear();
             }
 
             private string AbandonKey

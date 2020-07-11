@@ -12,6 +12,8 @@ namespace UnityEngine.UI
 
         [SerializeField] private SpriteRenderer render;
 
+        [SerializeField] private bool highQuality = false;
+
         [SerializeField] private bool nativeSize = false;
 
         private Texture2D m_texture;
@@ -49,6 +51,7 @@ namespace UnityEngine.UI
                 if (content != null)
                 {
                     m_texture = content as Texture2D;
+                    m_texture.Compress(highQuality);
                 }
                 else
                 {
@@ -70,6 +73,7 @@ namespace UnityEngine.UI
                             break;
                     }
                     m_texture.LoadImage(buffer);
+                    m_texture.Compress(highQuality);
                 }
                 RenewablePool.Instance.Push(cache, this.key, m_texture);
             }

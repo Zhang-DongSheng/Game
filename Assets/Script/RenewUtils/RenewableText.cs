@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using TMPro;
 
 namespace UnityEngine.UI
 {
@@ -7,7 +8,7 @@ namespace UnityEngine.UI
     {
         [SerializeField] private Text text;
 
-        [SerializeField] private TMPro.TextMeshProUGUI textmesh;
+        [SerializeField] private TextMeshProUGUI textMesh;
 
         protected override DownloadFileType fileType { get { return DownloadFileType.None; } }
 
@@ -28,10 +29,10 @@ namespace UnityEngine.UI
             if (text != null)
                 text.text = value;
 
-            if (textmesh == null)
-                textmesh = GetComponentInChildren<TMPro.TextMeshProUGUI>();
-            if (textmesh != null)
-                textmesh.text = value;
+            if (textMesh == null)
+                textMesh = GetComponentInChildren<TextMeshProUGUI>();
+            if (textMesh != null)
+                textMesh.text = value;
         }
     }
 }

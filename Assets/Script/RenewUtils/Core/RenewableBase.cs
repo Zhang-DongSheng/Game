@@ -30,6 +30,11 @@
 
         protected abstract void Create(byte[] buffer, Object content);
 
+        public virtual void ResetRenewable()
+        {
+            this.key = string.Empty;
+        }
+
         public void SetActive(bool active)
         {
             if (gameObject != null && gameObject.activeSelf != active)
@@ -41,23 +46,23 @@
 
     public enum StorageClass
     {
-        None,
-        Write,
-        Cache,
+        None,               //不保存
+        Write,              //写入本地
+        Cache,              //临时缓存
     }
 
     public enum DownloadFileType
     {
-        None,
-        Image,
-        Audio,
-        Bundle,
+        None,               //默认
+        Image,              //图片
+        Audio,              //音频
+        Bundle,             //资源
     }
 
     public enum CacheType
     {
-        None,
-        Image_Cover,
-        Audio_Cover,
+        None,               //常驻资源
+        Image_Cover,        //封面
+        Audio_Cover,        //封面
     }
 }
