@@ -12,8 +12,6 @@ namespace UnityEngine.UI
 
         [SerializeField] private SpriteRenderer render;
 
-        [SerializeField] private bool highQuality = false;
-
         [SerializeField] private bool nativeSize = false;
 
         private Texture2D m_texture;
@@ -22,9 +20,11 @@ namespace UnityEngine.UI
 
         protected override DownloadFileType fileType { get { return DownloadFileType.Image; } }
 
-        public void SetImage(string key, string url = "", string extra = "", Action callBack = null)
+        public void SetImage(string key, string url = "", Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
+
+            this.current = key;
 
             if (RenewablePool.Instance.Exist(cache, key))
             {
@@ -36,51 +36,129 @@ namespace UnityEngine.UI
             }
             else
             {
-                Get(key, url, extra, callBack);
+                Get(key, url, callBack);
             }
         }
 
-        protected override void Create(byte[] buffer, Object content)
+        public void SetImageSpecial(string key, string url = "", Action callBack = null)
         {
-            if (RenewablePool.Instance.Exist(cache, this.key))
+            if (string.IsNullOrEmpty(key)) return;
+
+            this.current = key;
+
+            if (RenewablePool.Instance.Exist(cache, key))
             {
-                m_texture = RenewablePool.Instance.Pop<Texture2D>(cache, this.key);
+                m_texture = RenewablePool.Instance.Pop<Texture2D>(cache, key);
+
+                this.key = key; callBack?.Invoke();
+
+                SetImage(m_texture);
             }
             else
             {
-                if (content != null)
+                string path = string.Format("{0}/{1}", Application.persistentDataPath, key);
+
+                if (RenewableFile.Exists(path))
                 {
-                    m_texture = content as Texture2D;
-                    m_texture.Compress(highQuality);
+                    byte[] buffer = RenewableFile.Read(path);
+
+                    if (RenewableResourceUpdate.Instance.Validation(key, buffer))
+                    {
+                        this.key = key; callBack?.Invoke();
+
+                        Create(key, buffer, null);
+                    }
+                    else
+                    {
+                        callBack?.Invoke();
+
+                        Create(key, buffer, null);
+
+                        Get(key, url, callBack);
+                    }
                 }
                 else
                 {
-                    string[] param = this.key.Split('.');
+                    //path = key.Replace(BookConfig.ImagePath_Cover, BookConfig.ImageResource_Cover).Split('.')[0];
 
-                    string suffix = param.Length > 1 ? param[param.Length - 1] : string.Empty;
+                    Texture2D source = Resources.Load<Texture2D>(path);
 
-                    switch (suffix.ToLower())
+                    if (source != null)
                     {
-                        case "jpg":
-                        case "jpeg":
-                            m_texture = new Texture2D(10, 10, TextureFormat.PVRTC_RGB4, true);
-                            break;
-                        case "png":
-                            m_texture = new Texture2D(10, 10, TextureFormat.PVRTC_RGBA4, true);
-                            break;
-                        default:
-                            m_texture = new Texture2D(10, 10, TextureFormat.PVRTC_RGBA4, true);
-                            break;
+                        if (RenewableResourceUpdate.Instance.Validation(key, null))
+                        {
+                            this.key = key;
+                        }
+                        else
+                        {
+                            Get(key, url, callBack);
+                        }
+
+                        callBack?.Invoke();
+
+                        Create(key, null, Instantiate(source));
+
+                        Resources.UnloadAsset(source);
                     }
-                    m_texture.LoadImage(buffer);
-                    m_texture.Compress(highQuality);
+                    else
+                    {
+                        Get(key, url, callBack);
+                    }
                 }
-                RenewablePool.Instance.Push(cache, this.key, m_texture);
             }
-            SetImage(m_texture);
         }
 
-        private void SetImage(Texture2D texture)
+        public bool Exist(string key)
+        {
+            bool mask = true;
+
+            if (RenewablePool.Instance.Exist(cache, key))
+            {
+                mask = false;
+            }
+            else
+            {
+                string path = string.Format("{0}/{1}", Application.persistentDataPath, key);
+
+                if (RenewableFile.Exists(path))
+                {
+                    mask = false;
+                }
+                else
+                {
+                    //path = key.Replace(BookConfig.ImagePath_Cover, BookConfig.ImageResource_Cover).Split('.')[0];
+
+                    mask = Resources.Load<Texture2D>(path) == null;
+                }
+            }
+
+            return mask;
+        }
+
+        protected override void Create(string key, byte[] buffer, Object content)
+        {
+            Texture2D _texture;
+
+            if (content != null)
+            {
+                _texture = content as Texture2D;
+            }
+            else
+            {
+                _texture = new Texture2D(10, 10, TextureFormat.RGBA32, false);
+
+                _texture.LoadImage(buffer);
+            }
+            RenewablePool.Instance.Push(cache, key, _texture);
+
+            //Debug.LogErrorFormat("<color=green>[{0}]</color> ## <color=blue>[{1}]</color>", current, key);
+
+            if (current != key) return;
+
+            SetImage(_texture);
+        }
+
+        public void SetImage(Texture2D texture)
         {
             switch (imageType)
             {
@@ -89,10 +167,7 @@ namespace UnityEngine.UI
                         rawImage.texture = texture;
                     break;
                 default:
-                    if (m_sprite != null)
-                    {
-                        Destroy(m_sprite);
-                    }
+                    if (m_sprite != null) { Destroy(m_sprite); }
                     m_sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
                     SetImage(m_sprite);
                     break;

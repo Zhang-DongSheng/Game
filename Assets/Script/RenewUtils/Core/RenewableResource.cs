@@ -10,6 +10,8 @@ namespace UnityEngine
 {
     public class RenewableResource : MonoSingleton<RenewableResource>
     {
+        public const string Path_Android = "file://";
+
         public int DownloadLimit = 3;
 
         private string key;
@@ -17,6 +19,8 @@ namespace UnityEngine
         private string url;
 
         private string path;
+
+        private float timer;
 
         private readonly Dictionary<string, Task> m_task = new Dictionary<string, Task>();
 
@@ -29,16 +33,30 @@ namespace UnityEngine
             DontDestroyOnLoad(this.gameObject);
         }
 
+        private void Update()
+        {
+            timer += Time.deltaTime;
+
+            if (timer > 10)
+            {
+                if (m_task.Count > 0)
+                {
+                    TryAgainDownload();
+                }
+                timer = 0;
+            }
+        }
+
         public void Init()
         {
             //Get the latest resources list ...
             if (true)
             {
-                DownloadLimit = 1; RenewableResourceUpdate.Instance.Load("");
+                DownloadLimit = 1; RenewableResourceUpdate.Instance.Load();
             }
         }
 
-        public void Get(string key, string url = "", string extra = "", StorageClass store = StorageClass.None, DownloadFileType fileType = DownloadFileType.None, Action<byte[], Object> callBack = null)
+        public void Get(string key, string url = "", StorageClass store = StorageClass.None, DownloadFileType fileType = DownloadFileType.None, Action<byte[], Object> callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -48,7 +66,7 @@ namespace UnityEngine
 
             this.url += this.key;
 
-            this.path = Path + extra + this.key;
+            this.path = Path + this.key;
 
             if (m_cache.ContainsKey(this.key))
             {
@@ -62,13 +80,6 @@ namespace UnityEngine
                 }
                 else
                 {
-#if UNITY_EDITOR
-
-#elif UNITY_ANDROID
-                    path = "file://" + path;
-#else
-                    path = "file://" + path;
-#endif
                     m_task.Add(this.key, new Task(this.key, this.url, path, fileType, store)
                     {
                         callBack = callBack,
@@ -97,46 +108,60 @@ namespace UnityEngine
             }
         }
 
+        public void TryAgainDownload()
+        {
+            if (m_task.Count > 0)
+            {
+                foreach (var task in m_task)
+                {
+                    if (task.Value.status == TaskStatus.Fail)
+                    {
+                        m_task[task.Key].status = TaskStatus.Ready;
+                    }
+                }
+                Next();
+            }
+        }
+
         private void Next()
         {
             if (m_task.Count > 0)
             {
-                int index, count = 0;
+                int loading, count = 0;
 
                 foreach (var task in m_task.Values)
                 {
-                    if (task.status == TaskStatus.Loading)
+                    if (task.status == TaskStatus.Downloading)
                     {
                         count++;
                     }
                 }
 
-                index = count;
+                loading = count;
 
                 foreach (var task in m_task.Values)
                 {
-                    if (index++ < Count)
+                    switch (task.status)
                     {
-                        if (task.status == TaskStatus.Ready)
-                        {
-                            m_task[task.Key].status = TaskStatus.Loading;
-
-                            //Debug.LogFormat("<color=red>Downloading ... </color><color=green>[{0}]</color>:<color=blue>[{1}]</color>", task.Key, task.Path);
-
-                            if (task.local)
+                        case TaskStatus.Ready:
+                            if (loading++ < Count)
                             {
-                                StartCoroutine(Load(task.Key, task.Path));
+                                m_task[task.Key].status = TaskStatus.Downloading;
+
+                                //Debug.LogFormat("<color=red>Downloading ... </color><color=green>[{0}]</color>:<color=blue>[{1}]</color>", task.Key, task.Path);
+
+                                if (task.local)
+                                {
+                                    StartCoroutine(Load(task.Key, task.Path));
+                                }
+                                else
+                                {
+                                    StartCoroutine(Dowmload(task.Key, task.Url));
+                                }
                             }
-                            else
-                            {
-                                StartCoroutine(Dowmload(task.Key, task.Url));
-                            }
-                        }
+                            break;
                     }
-                    else
-                    {
-                        break;
-                    }
+                    if (loading >= Count) break;
                 }
             }
         }
@@ -154,8 +179,17 @@ namespace UnityEngine
                     if (request.isHttpError || request.isNetworkError)
                     {
                         if (m_task.ContainsKey(key))
-                            m_task[key].status = TaskStatus.Fail;
-                        Debug.LogWarningFormat("{0}, url:{1}", request.error, url);
+                        {
+                            if (NetworkConnection)
+                            {
+                                m_task.Remove(key);
+                            }
+                            else
+                            {
+                                m_task[key].status = TaskStatus.Fail;
+                            }
+                        }
+                        Debug.LogWarningFormat("<color=red>{0}</color>, Url:<color=blue>{1}</color>", request.error, url);
                     }
                     else
                     {
@@ -164,10 +198,10 @@ namespace UnityEngine
                             switch (m_task[key].Store)
                             {
                                 case StorageClass.Write:
-                                    Write(m_task[key].Path, request.downloadHandler.data);
+                                    RenewableFile.Write(m_task[key].Path, request.downloadHandler.data);
                                     break;
                                 case StorageClass.Cache:
-                                    if (m_cache.ContainsKey(key) == false)
+                                    if (!m_cache.ContainsKey(key))
                                         m_cache.Add(key, m_task[key].content);
                                     break;
                             }
@@ -184,6 +218,9 @@ namespace UnityEngine
 
         private IEnumerator Load(string key, string path)
         {
+#if UNITY_ANDROID
+            if (!path.StartsWith(Path_Android)) path = Path_Android + path;
+#endif
             UnityWebRequest request = Request(m_task[key].Type, path);
 
             yield return request.SendWebRequest();
@@ -193,7 +230,7 @@ namespace UnityEngine
                 if (request.isHttpError || request.isNetworkError)
                 {
                     if (m_task.ContainsKey(key))
-                        m_task[key].status = TaskStatus.Fail;
+                        m_task.Remove(key);
                     Debug.LogWarningFormat("{0}, url:{1}", request.error, path);
                 }
                 else
@@ -210,7 +247,7 @@ namespace UnityEngine
                         }
                         else
                         {
-                            Delete(m_task[key].Path);
+                            m_task[key].callBack?.Invoke(request.downloadHandler.data, m_task[key].content);
                             m_task[key].local = false;
                             m_task[key].status = TaskStatus.Ready;
                         }
@@ -220,30 +257,6 @@ namespace UnityEngine
             }
         }
 
-        private byte[] Read(string path)
-        {
-            if (File.Exists(path))
-                return File.ReadAllBytes(path);
-            else
-                return null;
-        }
-
-        private void Write(string path, byte[] buffer)
-        {
-            string folder = System.IO.Path.GetDirectoryName(path);
-            if (Directory.Exists(folder) == false)
-                Directory.CreateDirectory(folder);
-            if (File.Exists(path))
-                File.Delete(path);
-            File.WriteAllBytes(path, buffer);
-        }
-
-        private void Delete(string path)
-        {
-            if (File.Exists(path))
-                File.Delete(path);
-        }
-
         private UnityWebRequest Request(DownloadFileType fileType, string url)
         {
             switch (fileType)
@@ -251,10 +264,10 @@ namespace UnityEngine
                 case DownloadFileType.Image:
                     return UnityWebRequestTexture.GetTexture(url);
                 case DownloadFileType.Audio:
-#if UNITY_EDITOR && !UNITY_ANDROID
+#if UNITY_EDITOR && UNITY_STANDALONE
                     return UnityWebRequest.Get(url);
 #else
-                    return UnityWebRequestMultimedia.GetAudioClip(url, GetAudioType(url));
+                    return UnityWebRequestMultimedia.GetAudioClip(url, DetectAudioType(url));
 #endif
                 case DownloadFileType.Bundle:
                     return UnityWebRequestAssetBundle.GetAssetBundle(url);
@@ -270,7 +283,7 @@ namespace UnityEngine
                 case DownloadFileType.Image:
                     return DownloadHandlerTexture.GetContent(request);
                 case DownloadFileType.Audio:
-#if UNITY_EDITOR && !UNITY_ANDROID
+#if UNITY_EDITOR && UNITY_STANDALONE
                     return null;
 #else
                     return DownloadHandlerAudioClip.GetContent(request);
@@ -282,7 +295,7 @@ namespace UnityEngine
             }
         }
 
-        private AudioType GetAudioType(string url)
+        private AudioType DetectAudioType(string url)
         {
             AudioType audioType;
 
@@ -322,7 +335,7 @@ namespace UnityEngine
         {
             get
             {
-                return "https://www.baidu.com/";
+                return "https://www.baidu.com";
             }
         }
 
@@ -330,12 +343,20 @@ namespace UnityEngine
 
         private int Count { get { return DownloadLimit; } }
 
+        private bool NetworkConnection
+        {
+            get
+            {
+                return Application.internetReachability != NetworkReachability.NotReachable;
+            }
+        }
+
         private void OnDestroy()
         {
             StopAllCoroutines();
         }
 
-        class Task
+        class Task : IDisposable
         {
             private readonly string _key;
 
@@ -350,6 +371,8 @@ namespace UnityEngine
             public TaskStatus status;
 
             public bool local;
+
+            public int order;
 
             public Object content;
 
@@ -377,13 +400,19 @@ namespace UnityEngine
 
                 this._store = store;
             }
+
+            public void Dispose()
+            {
+                content = null; callBack = null;
+            }
         }
 
         enum TaskStatus
         {
             Ready,
-            Loading,
+            Downloading,
             Complete,
+            Error,
             Fail,
         }
     }
@@ -396,7 +425,7 @@ namespace UnityEngine
         {
             if (string.IsNullOrEmpty(key)) return;
 
-            if (m_cache.ContainsKey(cache))
+            if( m_cache.ContainsKey(cache) )
             {
                 m_cache[cache].Push(key, value);
             }
@@ -439,6 +468,8 @@ namespace UnityEngine
                     return -1;
                 case CacheType.Image_Cover:
                     return 3;
+                case CacheType.Image_Comment:
+                    return 3;
                 case CacheType.Audio_Cover:
                     return 3;
                 default:
@@ -475,6 +506,15 @@ namespace UnityEngine
             }
         }
 
+        public void ReleaseAll()
+        {
+            foreach (var cache in m_cache)
+            {
+                m_cache[cache.Key].Release();
+            }
+            m_cache.Clear();
+        }
+
         class Cache
         {
             private readonly Dictionary<string, Object> m_cache = new Dictionary<string, Object>();
@@ -495,10 +535,7 @@ namespace UnityEngine
 
                         if (!string.IsNullOrEmpty(abandon))
                         {
-                            if (m_cache[abandon] != null)
-                            {
-                                Object.Destroy(m_cache[abandon]);
-                            }
+                            Release(m_cache[abandon]);
                             m_cache.Remove(abandon);
                         }
                     }
@@ -529,23 +566,47 @@ namespace UnityEngine
                 {
                     foreach (var key in m_cache.Keys)
                     {
-                        if (m_cache[key] != null)
-                        {
-                            Object.Destroy(m_cache[key]);
-                        }
+                        Release(m_cache[key]);
                     }
+                    m_cache.Clear();
                 }
                 else
                 {
+                    Object value = null;
+
                     foreach (var key in m_cache.Keys)
                     {
-                        if (key != ignore && m_cache[key] != null)
+                        if (key != ignore)
                         {
-                            Object.Destroy(m_cache[key]);
+                            Release(m_cache[key]);
+                        }
+                        else
+                        {
+                            value = m_cache[key];
                         }
                     }
+                    m_cache.Clear();
+
+                    if (value != null)
+                    {
+                        m_cache.Add(ignore, value);
+                    }
                 }
-                m_cache.Clear();
+            }
+
+            private void Release(Object asset)
+            {
+                if (asset != null)
+                {
+                    try
+                    {
+                        Object.Destroy(asset);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError("Release Asset Fail : " + e.Message);
+                    }
+                }
             }
 
             private string AbandonKey
@@ -573,17 +634,19 @@ namespace UnityEngine
 
     public class RenewableResourceUpdate : Singleton<RenewableResourceUpdate>
     {
-        private const string Path = "information/md5file.txt";
+        private const string Path = "information/md5file";
+
+        private const string Extension = ".txt";
 
         private readonly Dictionary<string, string> m_secret = new Dictionary<string, string>();
 
-        public void Load(string path)
+        public void Load(string path = "")
         {
             if (string.IsNullOrEmpty(path))
             {
-                path = Path;
+                path = Path + Extension;
             }
-            RenewableResource.Instance.Get(path, "", "", StorageClass.None, DownloadFileType.None, Load);
+            RenewableResource.Instance.Get(path, callBack: Load);
         }
 
         private void Load(byte[] buffer, Object result)
@@ -598,9 +661,13 @@ namespace UnityEngine
             {
                 string[] value = rows[i].Split('|');
 
-                if (value.Length == 2)
+                if (value.Length == 2 && !string.IsNullOrEmpty(value[0]))
                 {
-                    if (!string.IsNullOrEmpty(value[0]) && !m_secret.ContainsKey(value[0]))
+                    if (m_secret.ContainsKey(value[0]))
+                    {
+                        m_secret[value[0]] = value[1];
+                    }
+                    else
                     {
                         m_secret.Add(value[0], value[1]);
                     }
@@ -614,7 +681,7 @@ namespace UnityEngine
         {
             if (string.IsNullOrEmpty(key) || !m_secret.ContainsKey(key)) return true;
 
-            string md5 = ComputeMD5(buffer);
+            string md5 = buffer != null ? ComputeMD5(buffer) : string.Empty;
 
             bool equal = md5 == m_secret[key];
 
@@ -647,6 +714,57 @@ namespace UnityEngine
             }
 
             return result;
+        }
+    }
+
+    public class RenewableFile
+    {
+        public static bool Exists(string path)
+        {
+            return File.Exists(path);
+        }
+
+        public static byte[] Read(string path)
+        {
+            if (File.Exists(path))
+                return File.ReadAllBytes(path);
+            else
+                return null;
+        }
+
+        public static async void ReadAysnc(string path, Action<byte[]> callBack)
+        {
+            byte[] buffer;
+
+            using (FileStream stream = new FileStream(path, FileMode.Open))
+            {
+                buffer = new byte[stream.Length];
+                await stream.ReadAsync(buffer, 0, (int)stream.Length);
+            }
+            callBack?.Invoke(buffer);
+        }
+
+        public static void Write(string path, byte[] buffer)
+        {
+            string folder = System.IO.Path.GetDirectoryName(path);
+
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+            try
+            {
+                if (File.Exists(path))
+                    File.Delete(path);
+                File.WriteAllBytes(path, buffer);
+            }
+            catch (Exception e) { Debug.LogError("RenewableResource Write Error: " + e.Message); }
+        }
+
+        public static void Delete(string path)
+        {
+            if (File.Exists(path))
+                File.Delete(path);
         }
     }
 }

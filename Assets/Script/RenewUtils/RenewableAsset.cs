@@ -12,12 +12,12 @@ namespace UnityEngine.UI
 
         protected override DownloadFileType fileType { get { return DownloadFileType.Bundle; } }
 
-        public void Create(string key, string param, string url = "", string extra = "", Action callBack = null)
+        public void Create(string key, string param, string url = "", Action callBack = null)
         {
-            GetAsset(key, param, url, extra, callBack);
+            GetAsset(key, param, url, callBack);
         }
 
-        private void GetAsset(string key, string param, string url, string extra, Action callBack = null)
+        private void GetAsset(string key, string param, string url, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(param)) return;
 
@@ -29,15 +29,15 @@ namespace UnityEngine.UI
             {
                 if (target != null) Destroy(target);
 
-                RenewableResource.Instance.Get(key, url, extra, store, fileType, (buffer, content) =>
+                RenewableResource.Instance.Get(key, url, store, fileType, (buffer, content) =>
                 {
                     this.key = key; this.param = param;
-                    Create(buffer, content); callBack?.Invoke();
+                    Create(key, buffer, content); callBack?.Invoke();
                 });
             }
         }
 
-        protected override void Create(byte[] buffer, Object content)
+        protected override void Create(string key, byte[] buffer, Object content)
         {
             Instantiate(Prefab(buffer, param));
         }

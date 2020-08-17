@@ -9,9 +9,11 @@
 
         protected string key = string.Empty;
 
+        protected string current;
+
         protected abstract DownloadFileType fileType { get; }
 
-        protected void Get(string key, string url, string extra, System.Action callBack = null)
+        protected void Get(string key, string url, System.Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -21,14 +23,19 @@
             }
             else
             {
-                RenewableResource.Instance.Get(key, url, extra, store, fileType, (buffer, content) =>
+                RenewableResource.Instance.Get(key, url, store, fileType, (buffer, content) =>
                 {
-                    this.key = key; Create(buffer, content); callBack?.Invoke();
+                    this.key = key; Create(key, buffer, content); if (string.IsNullOrEmpty(current) || current == key)
+                    {
+                        callBack?.Invoke();
+                    }
                 });
             }
         }
 
-        protected abstract void Create(byte[] buffer, Object content);
+        protected abstract void Create(string key, byte[] buffer, Object content);
+
+        protected bool Active { get { return gameObject.activeSelf; } }
 
         public virtual void ResetRenewable()
         {
@@ -63,6 +70,7 @@
     {
         None,               //常驻资源
         Image_Cover,        //封面
+        Image_Comment,      //评论
         Audio_Cover,        //封面
     }
 }

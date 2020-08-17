@@ -11,30 +11,32 @@ namespace UI
 
         protected override DownloadFileType fileType { get { return DownloadFileType.Audio; } }
 
-        public void PlayMusic(string key, string url = "", string extra = "", Action callBack = null)
+        public void PlayMusic(string key, string url = "", Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
-            if (key != this.key)
-            {
-                if (RenewablePool.Instance.Exist(cache, key))
-                {
-                    clip = RenewablePool.Instance.Pop<AudioClip>(cache, key);
+            this.current = key;
 
-                    Play(clip);
-                }
-                else
-                {
-                    Get(key, url, extra, callBack);
-                }
+            if (this.key == key && clip != null)
+            {
+                callBack?.Invoke(); Play(clip);
+                return;
+            }
+            this.key = string.Empty;
+
+            if (RenewablePool.Instance.Exist(cache, key))
+            {
+                clip = RenewablePool.Instance.Pop<AudioClip>(cache, key);
+
+                this.key = key; callBack?.Invoke(); Play(clip);
             }
             else
             {
-                Play(clip);
+                Get(key, url, callBack);
             }
         }
 
-        protected override void Create(byte[] buffer, UnityEngine.Object content)
+        protected override void Create(string key, byte[] buffer, UnityEngine.Object content)
         {
             if (content != null)
             {
@@ -42,13 +44,13 @@ namespace UI
 
                 clip = content as AudioClip;
 
+                if (current != key) return;
+
                 Play(clip);
             }
             else
             {
-                //encoding audio clip ...
-
-                //play ...
+                Debug.LogWarningFormat("{0} 无法解析！", key);
             }
         }
 
@@ -56,7 +58,9 @@ namespace UI
         {
             if (clip == null) return;
 
-            //play ...
+            if (!Active) return;
+
+            //Play Audio clip!
         }
     }
 }
