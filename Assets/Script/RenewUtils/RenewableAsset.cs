@@ -4,72 +4,61 @@ namespace UnityEngine.UI
 {
     public class RenewableAsset : RenewableBase
     {
+        public Action<AssetBundle> callBack;
+
         [SerializeField] private Transform parent;
 
-        private GameObject target;
+        private AssetBundle bundle;
 
-        private string param = string.Empty;
+        protected override DownloadFileType fileType { get { return DownloadFileType.None; } }
 
-        protected override DownloadFileType fileType { get { return DownloadFileType.Bundle; } }
-
-        public void Create(string key, string param, string url = "", Action callBack = null)
+        public void CreateAsset(string key, string url = "", Action<AssetBundle> callBack = null)
         {
-            GetAsset(key, param, url, callBack);
-        }
+            this.current = key;
 
-        private void GetAsset(string key, string param, string url, Action callBack = null)
-        {
-            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(param)) return;
+            this.callBack = callBack;
 
-            if (this.key.Equals(key) && this.param.Equals(param))
+            if (this.key == key && bundle != null)
             {
-                callBack?.Invoke();
+                this.callBack?.Invoke(bundle); return;
             }
-            else
-            {
-                if (target != null) Destroy(target);
+            this.key = string.Empty;
 
-                RenewableResource.Instance.Get(key, url, store, fileType, (buffer, content) =>
-                {
-                    this.key = key; this.param = param;
-                    Create(key, buffer, content); callBack?.Invoke();
-                });
-            }
+            //Release AssetBundle ..
+            //if (this.bundle != null)
+            //{
+            //    this.bundle.Unload(true);
+            //    this.bundle = null;
+            //}
+
+            Get(key, url);
         }
 
         protected override void Create(string key, byte[] buffer, Object content)
         {
-            Instantiate(Prefab(buffer, param));
-        }
+            AssetBundle bundle = null;
 
-        private GameObject Prefab(byte[] buffer, string name)
-        {
-            GameObject result = null;
-
-            try
+            if (content != null)
             {
-                AssetBundle asset = AssetBundle.LoadFromMemory(buffer);
-                result = asset.LoadAsset<GameObject>(name);
-                asset.Unload(false);
+                bundle = content as AssetBundle;
             }
-            catch(Exception e)
+            else
             {
-                Debug.LogError(e.Message);
+                try
+                {
+                    bundle = AssetBundle.LoadFromMemory(buffer);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e.Message);
+                }
             }
 
-            return result;
-        }
+            if (current != key) return;
 
-        private void Instantiate(GameObject prefab)
-        {
-            if (prefab == null) return;
+            this.bundle = bundle;
 
-            target = Instantiate(prefab, parent);
-
-            target.transform.localRotation = Quaternion.identity;
-            target.transform.localPosition = Vector3.zero;
-
-            target.SetActive(true);
+            this.callBack?.Invoke(this.bundle);
         }
     }
 }

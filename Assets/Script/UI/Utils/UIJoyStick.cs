@@ -136,7 +136,7 @@ public class UIJoyStick : MonoBehaviour
                     case TouchPhase.Began:
                         if (!EventSystem.current.IsPointerOverGameObject(m_touch.fingerId))
                         {
-                            if (m_touch.position.x <= UIConfig.Screen_Width_Half)
+                            if (m_touch.position.x <= UIConfig.ScreenHalfWidth)
                             {
                                 m_touch_ID = m_touch.fingerId;
                                 if (onEnter != null)

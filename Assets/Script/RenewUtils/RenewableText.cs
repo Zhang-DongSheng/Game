@@ -14,11 +14,15 @@ namespace UnityEngine.UI
 
         public void SetText(string key, string url = "", Action callBack = null)
         {
+            current = key;
+
             Get(key, url, callBack);
         }
 
         protected override void Create(string key, byte[] buffer, Object content)
         {
+            if (current != key) return;
+
             SetText(Encoding.Default.GetString(buffer));
         }
 

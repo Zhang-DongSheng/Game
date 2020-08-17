@@ -1,4 +1,4 @@
-﻿using Boo.Lang;
+﻿using System.Collections.Generic;
 using UnityEngine.Rendering;
 
 namespace UnityEngine.UI

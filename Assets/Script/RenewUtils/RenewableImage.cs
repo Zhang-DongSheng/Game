@@ -79,7 +79,7 @@ namespace UnityEngine.UI
                 }
                 else
                 {
-                    //path = key.Replace(BookConfig.ImagePath_Cover, BookConfig.ImageResource_Cover).Split('.')[0];
+                    path = key;
 
                     Texture2D source = Resources.Load<Texture2D>(path);
 
@@ -126,7 +126,7 @@ namespace UnityEngine.UI
                 }
                 else
                 {
-                    //path = key.Replace(BookConfig.ImagePath_Cover, BookConfig.ImageResource_Cover).Split('.')[0];
+                    path = key;
 
                     mask = Resources.Load<Texture2D>(path) == null;
                 }
@@ -158,7 +158,7 @@ namespace UnityEngine.UI
             SetImage(_texture);
         }
 
-        public void SetImage(Texture2D texture)
+        private void SetImage(Texture2D texture)
         {
             switch (imageType)
             {

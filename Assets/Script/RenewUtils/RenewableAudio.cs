@@ -7,7 +7,7 @@ namespace UI
     {
         [SerializeField] private bool loop;
 
-        private AudioClip clip;
+        private AudioClip m_clip;
 
         protected override DownloadFileType fileType { get { return DownloadFileType.Audio; } }
 
@@ -17,18 +17,18 @@ namespace UI
 
             this.current = key;
 
-            if (this.key == key && clip != null)
+            if (this.key == key && m_clip != null)
             {
-                callBack?.Invoke(); Play(clip);
+                callBack?.Invoke(); Play(m_clip);
                 return;
             }
             this.key = string.Empty;
 
             if (RenewablePool.Instance.Exist(cache, key))
             {
-                clip = RenewablePool.Instance.Pop<AudioClip>(cache, key);
+                m_clip = RenewablePool.Instance.Pop<AudioClip>(cache, key);
 
-                this.key = key; callBack?.Invoke(); Play(clip);
+                this.key = key; callBack?.Invoke(); Play(m_clip);
             }
             else
             {
@@ -40,9 +40,9 @@ namespace UI
         {
             if (content != null)
             {
-                RenewablePool.Instance.Push(cache, key, content);
+                AudioClip clip = content as AudioClip;
 
-                clip = content as AudioClip;
+                RenewablePool.Instance.Push(cache, key, content);
 
                 if (current != key) return;
 
@@ -56,9 +56,9 @@ namespace UI
 
         private void Play(AudioClip clip)
         {
-            if (clip == null) return;
+            if (!Active || clip == null) return;
 
-            if (!Active) return;
+            m_clip = clip;
 
             //Play Audio clip!
         }

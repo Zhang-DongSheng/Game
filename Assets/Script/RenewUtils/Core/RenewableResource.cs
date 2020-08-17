@@ -56,7 +56,7 @@ namespace UnityEngine
             }
         }
 
-        public void Get(string key, string url = "", StorageClass store = StorageClass.None, DownloadFileType fileType = DownloadFileType.None, Action<byte[], Object> callBack = null)
+        public void Get(string key, string url = "", StorageClass store = StorageClass.None, DownloadFileType fileType = DownloadFileType.None, Action<byte[], Object> success = null, Action fail = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -70,39 +70,22 @@ namespace UnityEngine
 
             if (m_cache.ContainsKey(this.key))
             {
-                callBack?.Invoke(null, m_cache[this.key]);
-            }
-            else if (File.Exists(this.path))
-            {
-                if (m_task.ContainsKey(this.key))
-                {
-                    m_task[this.key].callBack += callBack;
-                }
-                else
-                {
-                    m_task.Add(this.key, new Task(this.key, this.url, path, fileType, store)
-                    {
-                        callBack = callBack,
-                        local = true,
-                        status = TaskStatus.Ready,
-                    });
-                    Next();
-                }
+                success?.Invoke(null, m_cache[this.key]);
             }
             else
             {
                 if (m_task.ContainsKey(this.key))
                 {
-                    m_task[this.key].callBack += callBack;
+                    m_task[this.key].AddListener(success, fail);
                 }
                 else
                 {
                     m_task.Add(this.key, new Task(this.key, this.url, path, fileType, store)
                     {
-                        callBack = callBack,
-                        local = false,
+                        local = File.Exists(this.path),
                         status = TaskStatus.Ready,
                     });
+                    m_task[this.key].AddListener(success, fail);
                     Next();
                 }
             }
@@ -182,10 +165,11 @@ namespace UnityEngine
                         {
                             if (NetworkConnection)
                             {
-                                m_task.Remove(key);
+                                m_task[key].fail?.Invoke(); m_task.Remove(key);
                             }
                             else
                             {
+                                m_task[key].fail?.Invoke();
                                 m_task[key].status = TaskStatus.Fail;
                             }
                         }
@@ -195,19 +179,20 @@ namespace UnityEngine
                     {
                         if (m_task.ContainsKey(key))
                         {
+                            m_task[key].content = DownloadHandler(m_task[key].Type, request);
+                            m_task[key].success?.Invoke(m_task[key].Type != DownloadFileType.Bundle ? request.downloadHandler.data : null, m_task[key].content);
+                            m_task[key].status = TaskStatus.Complete;
                             switch (m_task[key].Store)
                             {
                                 case StorageClass.Write:
-                                    RenewableFile.Write(m_task[key].Path, request.downloadHandler.data);
+                                    if (m_task[key].Type != DownloadFileType.Bundle)
+                                        RenewableFile.Write(m_task[key].Path, request.downloadHandler.data);
                                     break;
                                 case StorageClass.Cache:
                                     if (!m_cache.ContainsKey(key))
                                         m_cache.Add(key, m_task[key].content);
                                     break;
                             }
-                            m_task[key].content = DownloadHandler(m_task[key].Type, request);
-                            m_task[key].callBack?.Invoke(request.downloadHandler.data, m_task[key].content);
-                            m_task[key].status = TaskStatus.Complete;
                             m_task.Remove(key);
                         }
                     }
@@ -230,7 +215,9 @@ namespace UnityEngine
                 if (request.isHttpError || request.isNetworkError)
                 {
                     if (m_task.ContainsKey(key))
-                        m_task.Remove(key);
+                    {
+                        m_task[key].fail?.Invoke(); m_task.Remove(key);
+                    }
                     Debug.LogWarningFormat("{0}, url:{1}", request.error, path);
                 }
                 else
@@ -239,15 +226,15 @@ namespace UnityEngine
                     {
                         m_task[key].content = DownloadHandler(m_task[key].Type, request);
 
+                        m_task[key].success?.Invoke(m_task[key].Type != DownloadFileType.Bundle ? request.downloadHandler.data : null, m_task[key].content);
+
                         if (RenewableResourceUpdate.Instance.Validation(m_task[key].Key, request.downloadHandler.data))
                         {
-                            m_task[key].callBack?.Invoke(request.downloadHandler.data, m_task[key].content);
                             m_task[key].status = TaskStatus.Complete;
                             m_task.Remove(key);
                         }
                         else
                         {
-                            m_task[key].callBack?.Invoke(request.downloadHandler.data, m_task[key].content);
                             m_task[key].local = false;
                             m_task[key].status = TaskStatus.Ready;
                         }
@@ -335,7 +322,7 @@ namespace UnityEngine
         {
             get
             {
-                return "https://www.baidu.com";
+                return "https://branchapptest-1302051570.cos.ap-beijing.myqcloud.com/";
             }
         }
 
@@ -376,7 +363,9 @@ namespace UnityEngine
 
             public Object content;
 
-            public Action<byte[], Object> callBack;
+            public Action<byte[], Object> success;
+
+            public Action fail;
 
             public string Key { get { return _key; } }
 
@@ -401,9 +390,27 @@ namespace UnityEngine
                 this._store = store;
             }
 
+            public void AddListener(Action<byte[], Object> success, Action fail)
+            {
+                if (success != null)
+                {
+                    if (this.success != null)
+                        this.success += success;
+                    else
+                        this.success = success;
+                }
+                if (fail != null)
+                {
+                    if (this.fail != null)
+                        this.fail += fail;
+                    else
+                        this.fail = fail;
+                }
+            }
+
             public void Dispose()
             {
-                content = null; callBack = null;
+                content = null; success = null;
             }
         }
 
@@ -646,7 +653,7 @@ namespace UnityEngine
             {
                 path = Path + Extension;
             }
-            RenewableResource.Instance.Get(path, callBack: Load);
+            RenewableResource.Instance.Get(path, success: Load);
         }
 
         private void Load(byte[] buffer, Object result)
@@ -757,6 +764,24 @@ namespace UnityEngine
                 if (File.Exists(path))
                     File.Delete(path);
                 File.WriteAllBytes(path, buffer);
+            }
+            catch (Exception e) { Debug.LogError("RenewableResource Write Error: " + e.Message); }
+        }
+
+        public static void WriteAysnc(string path, byte[] buffer)
+        {
+            string folder = System.IO.Path.GetDirectoryName(path);
+
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+            try
+            {
+                using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
+                {
+                    stream.WriteAsync(buffer, 0, buffer.Length);
+                }
             }
             catch (Exception e) { Debug.LogError("RenewableResource Write Error: " + e.Message); }
         }
