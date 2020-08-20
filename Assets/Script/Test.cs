@@ -43,7 +43,10 @@ public class Test : MonoBehaviour
 
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            RenewablePool.Instance.Release();
+        }
     }
 
     private void OnClickTest()
@@ -76,22 +79,27 @@ public class Test : MonoBehaviour
 #else
         url = "android/dongsheng/texture/" + key;
 #endif
-
+ 
         Debug.LogFormat("Bundle : <color=blue>{0}</color> Key : <color=green>{1}</color>", url, key);
 
-        asset_test.CreateAsset(url, callBack: (bundle) =>
+        asset_test.CreateAsset(url,key, callBack: (bundle) =>
         {
-            Texture2D texture = bundle.LoadAsset<Texture2D>(key);
+            Texture2D texture = bundle as Texture2D;
 
-            bundle.Unload(false);
+            if (sprite != null)
+            {
+                Destroy(sprite);
+            }
 
-            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+            sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
 
             asset_test.GetComponent<Image>().sprite = sprite;
 
             Debug.Log("success");
         });
     }
+
+    Sprite sprite;
 
     private void OnSubmit(string value)
     {

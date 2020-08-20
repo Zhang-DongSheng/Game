@@ -217,15 +217,6 @@ namespace UnityEngine
                     m_sprites[i].color = null;
                 }
 
-                #region UNITY_EDITOR
-                if (false)
-                {
-                    File.WriteAllBytes(Application.dataPath + string.Format("/{0}.png", atlas), m_texture.EncodeToPNG());
-
-                    AssetDatabase.Refresh();
-                }
-                #endregion
-
                 if (compress)
                 {
                     m_texture.Compress(true);

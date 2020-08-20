@@ -19,7 +19,7 @@ namespace UnityEngine.UI
             Get(key, url, callBack);
         }
 
-        protected override void Create(string key, byte[] buffer, Object content)
+        protected override void Create(string key, byte[] buffer, Object content, string secret)
         {
             if (current != key) return;
 

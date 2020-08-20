@@ -1,0 +1,111 @@
+﻿namespace UnityEngine.UI
+{
+    public class RenewableImageCompontent : MonoBehaviour
+    {
+        [SerializeField] private RenewableImageType type;
+
+        [SerializeField] private Image image;
+
+        [SerializeField] private RawImage rawImage;
+
+        [SerializeField] private SpriteRenderer render;
+
+        [SerializeField] private bool nativeSize = false;
+
+        private Sprite m_sprite;
+
+        public void SetTexture(Object source)
+        {
+            if (source != null && source is Texture2D)
+            {
+                SetTexture(source as Texture2D);
+            }
+            else
+            {
+                Debug.LogError("????");
+            }
+        }
+
+        public void SetTexture(Texture2D texture)
+        {
+            if (texture == null) return;
+
+            switch (type)
+            {
+                case RenewableImageType.Image:
+                    if (m_sprite != null) { Destroy(m_sprite); }
+                    m_sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+                    SetImage(m_sprite);
+                    break;
+                case RenewableImageType.RawImage:
+                    SetRawImage(texture);
+                    break;
+                case RenewableImageType.SpriteRenderer:
+                    if (m_sprite != null) { Destroy(m_sprite); }
+                    m_sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+                    SetSpriteRenderer(m_sprite);
+                    break;
+            }
+        }
+
+        public void SetImage(Sprite sprite)
+        {
+            if (image == null)
+                image = GetComponentInChildren<Image>();
+            if (image != null)
+                image.sprite = sprite;
+
+            if (image != null && nativeSize)
+                image.SetNativeSize();
+        }
+
+        public void SetRawImage(Texture2D texture)
+        {
+            if (rawImage == null)
+                rawImage = GetComponent<RawImage>();
+            if (rawImage != null)
+                rawImage.texture = texture;
+        }
+
+        public void SetSpriteRenderer(Sprite sprite)
+        {
+            if (render == null)
+                render = GetComponentInChildren<SpriteRenderer>();
+            if (render != null)
+                render.sprite = sprite;
+        }
+
+        public void SetColor(Color color)
+        {
+            if (image == null)
+                image = GetComponent<Image>();
+            if (image != null)
+                image.color = color;
+
+            if (rawImage == null)
+                rawImage = GetComponent<RawImage>();
+            if (rawImage != null)
+                rawImage.color = color;
+
+            if (render == null)
+                render = GetComponent<SpriteRenderer>();
+            if (render != null)
+                render.color = color;
+        }
+
+        private void OnDestroy()
+        {
+            if (m_sprite != null)
+            {
+                Destroy(m_sprite);
+            }
+        }
+
+        private enum RenewableImageType
+        {
+            Image,
+            RawImage,
+            SpriteRenderer,
+        }
+    }
+}

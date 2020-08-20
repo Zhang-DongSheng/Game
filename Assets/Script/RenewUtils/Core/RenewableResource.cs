@@ -10,7 +10,9 @@ namespace UnityEngine
 {
     public class RenewableResource : MonoSingleton<RenewableResource>
     {
-        public const string Path_Android = "file://";
+        private const string Path_Android = "file://";
+
+        private const int PollingTime = 10;
 
         public int DownloadLimit = 3;
 
@@ -24,8 +26,6 @@ namespace UnityEngine
 
         private readonly Dictionary<string, Task> m_task = new Dictionary<string, Task>();
 
-        private readonly Dictionary<string, Object> m_cache = new Dictionary<string, Object>();
-
         private RenewableResource() { }
 
         private void Start()
@@ -37,7 +37,7 @@ namespace UnityEngine
         {
             timer += Time.deltaTime;
 
-            if (timer > 10)
+            if (timer > PollingTime)
             {
                 if (m_task.Count > 0)
                 {
@@ -56,7 +56,7 @@ namespace UnityEngine
             }
         }
 
-        public void Get(string key, string url = "", StorageClass store = StorageClass.None, DownloadFileType fileType = DownloadFileType.None, Action<byte[], Object> success = null, Action fail = null)
+        public void Get(string key, string url = "", StorageClass store = StorageClass.None, DownloadFileType fileType = DownloadFileType.None, Action<byte[], Object, string> success = null, Action fail = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -68,26 +68,19 @@ namespace UnityEngine
 
             this.path = Path + this.key;
 
-            if (m_cache.ContainsKey(this.key))
+            if (m_task.ContainsKey(this.key))
             {
-                success?.Invoke(null, m_cache[this.key]);
+                m_task[this.key].AddListener(success, fail);
             }
             else
             {
-                if (m_task.ContainsKey(this.key))
+                m_task.Add(this.key, new Task(this.key, this.url, path, fileType, store)
                 {
-                    m_task[this.key].AddListener(success, fail);
-                }
-                else
-                {
-                    m_task.Add(this.key, new Task(this.key, this.url, path, fileType, store)
-                    {
-                        local = File.Exists(this.path),
-                        status = TaskStatus.Ready,
-                    });
-                    m_task[this.key].AddListener(success, fail);
-                    Next();
-                }
+                    local = File.Exists(this.path),
+                    status = TaskStatus.Ready,
+                });
+                m_task[this.key].AddListener(success, fail);
+                Next();
             }
         }
 
@@ -180,17 +173,13 @@ namespace UnityEngine
                         if (m_task.ContainsKey(key))
                         {
                             m_task[key].content = DownloadHandler(m_task[key].Type, request);
-                            m_task[key].success?.Invoke(m_task[key].Type != DownloadFileType.Bundle ? request.downloadHandler.data : null, m_task[key].content);
+                            m_task[key].success?.Invoke(m_task[key].Type != DownloadFileType.Bundle ? request.downloadHandler.data : null, m_task[key].content, m_task[key].Secret);
                             m_task[key].status = TaskStatus.Complete;
                             switch (m_task[key].Store)
                             {
                                 case StorageClass.Write:
                                     if (m_task[key].Type != DownloadFileType.Bundle)
                                         RenewableFile.Write(m_task[key].Path, request.downloadHandler.data);
-                                    break;
-                                case StorageClass.Cache:
-                                    if (!m_cache.ContainsKey(key))
-                                        m_cache.Add(key, m_task[key].content);
                                     break;
                             }
                             m_task.Remove(key);
@@ -226,7 +215,7 @@ namespace UnityEngine
                     {
                         m_task[key].content = DownloadHandler(m_task[key].Type, request);
 
-                        m_task[key].success?.Invoke(m_task[key].Type != DownloadFileType.Bundle ? request.downloadHandler.data : null, m_task[key].content);
+                        m_task[key].success?.Invoke(m_task[key].Type != DownloadFileType.Bundle ? request.downloadHandler.data : null, m_task[key].content, m_task[key].Secret);
 
                         if (RenewableResourceUpdate.Instance.Validation(m_task[key].Key, request.downloadHandler.data))
                         {
@@ -363,7 +352,7 @@ namespace UnityEngine
 
             public Object content;
 
-            public Action<byte[], Object> success;
+            public Action<byte[], Object, string> success;
 
             public Action fail;
 
@@ -372,6 +361,8 @@ namespace UnityEngine
             public string Url { get { return _url; } }
 
             public string Path { get { return _path; } }
+
+            public string Secret { get { return string.Format("{0}+{1}+{2}", Key, DateTime.UtcNow.Ticks, Random.Range(0, 100)); } }
 
             public DownloadFileType Type { get { return _type; } }
 
@@ -390,7 +381,7 @@ namespace UnityEngine
                 this._store = store;
             }
 
-            public void AddListener(Action<byte[], Object> success, Action fail)
+            public void AddListener(Action<byte[], Object, string> success, Action fail)
             {
                 if (success != null)
                 {
@@ -424,221 +415,6 @@ namespace UnityEngine
         }
     }
 
-    public class RenewablePool : Singleton<RenewablePool>
-    {
-        private readonly Dictionary<CacheType, Cache> m_cache = new Dictionary<CacheType, Cache>();
-
-        public void Push(CacheType cache, string key, Object value)
-        {
-            if (string.IsNullOrEmpty(key)) return;
-
-            if( m_cache.ContainsKey(cache) )
-            {
-                m_cache[cache].Push(key, value);
-            }
-            else
-            {
-                m_cache.Add(cache, new Cache()
-                {
-                    capacity = Capacity(cache),
-                });
-                m_cache[cache].Push(key, value);
-            }
-        }
-
-        public T Pop<T>(CacheType cache, string key) where T : Object
-        {
-            if (string.IsNullOrEmpty(key)) return null;
-
-            T result = null;
-
-            if (m_cache.ContainsKey(cache))
-            {
-                result = m_cache[cache].Pop<T>(key);
-            }
-
-            return result;
-        }
-
-        public bool Exist(CacheType cache, string key)
-        {
-            if (string.IsNullOrEmpty(key)) return false;
-
-            return m_cache.ContainsKey(cache) && m_cache[cache].Exist(key);
-        }
-
-        private int Capacity(CacheType cache)
-        {
-            switch (cache)
-            {
-                case CacheType.None:
-                    return -1;
-                case CacheType.Image_Cover:
-                    return 3;
-                case CacheType.Image_Comment:
-                    return 3;
-                case CacheType.Audio_Cover:
-                    return 3;
-                default:
-                    return -1;
-            }
-        }
-
-        public void Release()
-        {
-            foreach (var cache in m_cache)
-            {
-                if (cache.Key != CacheType.None)
-                {
-                    m_cache[cache.Key].Release();
-                }
-            }
-        }
-
-        public void Release(CacheType cache, string ignore)
-        {
-            foreach (var key in m_cache.Keys)
-            {
-                if (key != CacheType.None)
-                {
-                    if (key != cache)
-                    {
-                        m_cache[key].Release();
-                    }
-                    else 
-                    {
-                        m_cache[key].Release(ignore);
-                    }
-                }
-            }
-        }
-
-        public void ReleaseAll()
-        {
-            foreach (var cache in m_cache)
-            {
-                m_cache[cache.Key].Release();
-            }
-            m_cache.Clear();
-        }
-
-        class Cache
-        {
-            private readonly Dictionary<string, Object> m_cache = new Dictionary<string, Object>();
-
-            public int capacity;
-
-            public void Push(string key, Object value)
-            {
-                if (m_cache.ContainsKey(key))
-                {
-                    m_cache[key] = value;
-                }
-                else
-                {
-                    if (capacity > 0 && m_cache.Count > capacity)
-                    {
-                        string abandon = AbandonKey;
-
-                        if (!string.IsNullOrEmpty(abandon))
-                        {
-                            Release(m_cache[abandon]);
-                            m_cache.Remove(abandon);
-                        }
-                    }
-                    m_cache.Add(key, value);
-                }
-            }
-
-            public T Pop<T>(string key) where T : Object
-            {
-                T result = null;
-
-                if (m_cache.ContainsKey(key))
-                {
-                    result = m_cache[key] as T;
-                }
-
-                return result;
-            }
-
-            public bool Exist(string key)
-            {
-                return m_cache.ContainsKey(key);
-            }
-
-            public void Release(string ignore = null)
-            {
-                if (string.IsNullOrEmpty(ignore))
-                {
-                    foreach (var key in m_cache.Keys)
-                    {
-                        Release(m_cache[key]);
-                    }
-                    m_cache.Clear();
-                }
-                else
-                {
-                    Object value = null;
-
-                    foreach (var key in m_cache.Keys)
-                    {
-                        if (key != ignore)
-                        {
-                            Release(m_cache[key]);
-                        }
-                        else
-                        {
-                            value = m_cache[key];
-                        }
-                    }
-                    m_cache.Clear();
-
-                    if (value != null)
-                    {
-                        m_cache.Add(ignore, value);
-                    }
-                }
-            }
-
-            private void Release(Object asset)
-            {
-                if (asset != null)
-                {
-                    try
-                    {
-                        Object.Destroy(asset);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.LogError("Release Asset Fail : " + e.Message);
-                    }
-                }
-            }
-
-            private string AbandonKey
-            {
-                get
-                {
-                    string key = null;
-
-                    int index = 0;
-
-                    foreach (var cache in m_cache)
-                    {
-                        if (index == 0)
-                        {
-                            key = cache.Key;
-                            break;
-                        }
-                    }
-
-                    return key;
-                }
-            }
-        }
-    }
-
     public class RenewableResourceUpdate : Singleton<RenewableResourceUpdate>
     {
         private const string Path = "information/md5file";
@@ -656,7 +432,7 @@ namespace UnityEngine
             RenewableResource.Instance.Get(path, success: Load);
         }
 
-        private void Load(byte[] buffer, Object result)
+        private void Load(byte[] buffer, Object result, string secret)
         {
             string content = Encoding.Default.GetString(buffer);
 
@@ -764,24 +540,6 @@ namespace UnityEngine
                 if (File.Exists(path))
                     File.Delete(path);
                 File.WriteAllBytes(path, buffer);
-            }
-            catch (Exception e) { Debug.LogError("RenewableResource Write Error: " + e.Message); }
-        }
-
-        public static void WriteAysnc(string path, byte[] buffer)
-        {
-            string folder = System.IO.Path.GetDirectoryName(path);
-
-            if (!Directory.Exists(folder))
-            {
-                Directory.CreateDirectory(folder);
-            }
-            try
-            {
-                using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
-                {
-                    stream.WriteAsync(buffer, 0, buffer.Length);
-                }
             }
             catch (Exception e) { Debug.LogError("RenewableResource Write Error: " + e.Message); }
         }

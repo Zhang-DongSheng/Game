@@ -5,6 +5,8 @@ namespace UI
 {
     public class RenewableAudio : RenewableBase
     {
+        [HideInInspector] public bool enable;
+
         [SerializeField] private bool loop;
 
         private AudioClip m_clip;
@@ -24,7 +26,7 @@ namespace UI
             }
             this.key = string.Empty;
 
-            if (RenewablePool.Instance.Exist(cache, key))
+            if (RenewablePool.Instance.Exist(cache, key, string.Empty))
             {
                 m_clip = RenewablePool.Instance.Pop<AudioClip>(cache, key);
 
@@ -36,27 +38,36 @@ namespace UI
             }
         }
 
-        protected override void Create(string key, byte[] buffer, UnityEngine.Object content)
+        protected override void Create(string key, byte[] buffer, UnityEngine.Object content, string secret)
         {
-            if (content != null)
+            AudioClip clip = null;
+
+            if (RenewablePool.Instance.Exist(cache, key, secret))
             {
-                AudioClip clip = content as AudioClip;
-
-                RenewablePool.Instance.Push(cache, key, content);
-
-                if (current != key) return;
-
-                Play(clip);
+                clip = RenewablePool.Instance.Pop<AudioClip>(cache, key);
             }
             else
             {
-                Debug.LogWarningFormat("{0} 无法解析！", key);
+                if (content != null)
+                {
+                    clip = content as AudioClip;
+
+                    RenewablePool.Instance.Push(cache, key, secret, clip);
+                }
+                else
+                {
+                    Debug.LogWarningFormat("{0} 无法解析！", key);
+                }
             }
+
+            if (current != key) return;
+
+            Play(clip);
         }
 
         private void Play(AudioClip clip)
         {
-            if (!Active || clip == null) return;
+            if (!enable || clip == null) return;
 
             m_clip = clip;
 

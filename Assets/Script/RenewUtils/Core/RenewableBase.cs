@@ -5,7 +5,7 @@
     {
         [SerializeField] protected StorageClass store;
 
-        [SerializeField] protected CacheType cache;
+        [SerializeField] protected RPKey cache;
 
         protected string key = string.Empty;
 
@@ -23,19 +23,24 @@
             }
             else
             {
-                RenewableResource.Instance.Get(key, url, store, fileType, (buffer, content) =>
+                RenewableResource.Instance.Get(key, url, store, fileType, (buffer, content, secret) =>
                 {
-                    this.key = key; Create(key, buffer, content); if (string.IsNullOrEmpty(current) || current == key)
+                    Create(key, buffer, content, secret);
+
+                    if (this != null)
                     {
-                        callBack?.Invoke();
+                        if (string.IsNullOrEmpty(current) || current == key)
+                        {
+                            this.key = key; callBack?.Invoke();
+                        }
                     }
                 });
             }
         }
 
-        protected abstract void Create(string key, byte[] buffer, Object content);
+        protected abstract void Create(string key, byte[] buffer, Object content, string secret);
 
-        protected bool Active { get { return gameObject.activeSelf; } }
+        protected bool Active { get { return this != null && this.gameObject.activeSelf; } }
 
         public virtual void ResetRenewable()
         {
@@ -55,7 +60,6 @@
     {
         None,               //不保存
         Write,              //写入本地
-        Cache,              //临时缓存
     }
 
     public enum DownloadFileType
@@ -64,13 +68,5 @@
         Image,              //图片
         Audio,              //音频
         Bundle,             //资源
-    }
-
-    public enum CacheType
-    {
-        None,               //常驻资源
-        Image_Cover,        //封面
-        Image_Comment,      //评论
-        Audio_Cover,        //封面
     }
 }
