@@ -11,14 +11,11 @@ namespace UnityEngine.UI
 
         protected override DownloadFileType fileType { get { return DownloadFileType.Image; } }
 
-        public void SetImage(string key, string url = "", Action callBack = null)
+        public void SetImage(string key, string url = null, string parameter = null, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
             this.current = key;
-
-            if (compontent == null)
-                compontent = GetComponent<RenewableImageCompontent>();
 
             if (RenewablePool.Instance.Exist(cache, key, string.Empty))
             {
@@ -26,15 +23,20 @@ namespace UnityEngine.UI
 
                 this.key = key; callBack?.Invoke();
 
-                compontent.SetTexture(m_texture);
+                SetTexture(m_texture);
+
+                if (!RenewablePool.Instance.Recent(cache, key))
+                {
+                    this.key = string.Empty; Get(key, url, parameter, callBack);
+                }
             }
             else
             {
-                Get(key, url, callBack);
+                Get(key, url, parameter, callBack);
             }
         }
 
-        public void SetImageSpecial(string key, string url = "", Action callBack = null)
+        public void SetImageSpecial(string key, string url = null, string parameter = null, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -46,7 +48,12 @@ namespace UnityEngine.UI
 
                 this.key = key; callBack?.Invoke();
 
-                compontent.SetTexture(m_texture);
+                SetTexture(m_texture);
+
+                if (!RenewablePool.Instance.Recent(cache, key))
+                {
+                    this.key = string.Empty; Get(key, url, parameter, callBack);
+                }
             }
             else
             {
@@ -56,19 +63,19 @@ namespace UnityEngine.UI
                 {
                     byte[] buffer = RenewableFile.Read(path);
 
-                    if (RenewableResourceUpdate.Instance.Validation(key, buffer))
-                    {
-                        this.key = key; callBack?.Invoke();
+                    bool recent = RenewableResourceUpdate.Instance.Validation(key, buffer);
 
-                        Create(key, buffer, null, string.Empty);
+                    this.key = recent ? key : string.Empty; callBack?.Invoke();
+
+                    Create(new RenewableDownloadHandler(key, string.Empty, string.Empty, recent, buffer, null));
+
+                    if (recent)
+                    {
+                        RenewableResourceUpdate.Instance.Remove(key);
                     }
                     else
                     {
-                        callBack?.Invoke();
-
-                        Create(key, buffer, null, string.Empty);
-
-                        Get(key, url, callBack);
+                        Get(key, url, parameter, callBack);
                     }
                 }
                 else
@@ -79,24 +86,26 @@ namespace UnityEngine.UI
 
                     if (source != null)
                     {
-                        if (RenewableResourceUpdate.Instance.Validation(key, null))
+                        bool recent = RenewableResourceUpdate.Instance.Validation(key, null);
+
+                        this.key = recent ? key : string.Empty; callBack?.Invoke();
+
+                        Create(new RenewableDownloadHandler(key, string.Empty, string.Empty, recent, null, Instantiate(source)));
+
+                        Resources.UnloadAsset(source);
+
+                        if (recent)
                         {
-                            this.key = key;
+                            RenewableResourceUpdate.Instance.Remove(key);
                         }
                         else
                         {
-                            Get(key, url, callBack);
+                            Get(key, url, parameter, callBack);
                         }
-
-                        callBack?.Invoke();
-
-                        Create(key, null, Instantiate(source), string.Empty);
-
-                        Resources.UnloadAsset(source);
                     }
                     else
                     {
-                        Get(key, url, callBack);
+                        Get(key, url, parameter, callBack);
                     }
                 }
             }
@@ -104,11 +113,11 @@ namespace UnityEngine.UI
 
         public bool Exist(string key)
         {
-            bool mask = true;
+            bool exist;
 
             if (RenewablePool.Instance.Exist(cache, key, string.Empty))
             {
-                mask = false;
+                exist = false;
             }
             else
             {
@@ -116,47 +125,60 @@ namespace UnityEngine.UI
 
                 if (RenewableFile.Exists(path))
                 {
-                    mask = false;
+                    exist = false;
                 }
                 else
                 {
                     path = key;
 
-                    mask = Resources.Load<Texture2D>(path) == null;
+                    Object asset = Resources.Load<Object>(path);
+
+                    exist = asset != null;
+
+                    if (exist)
+                    {
+                        Resources.UnloadAsset(asset);
+                    }
                 }
             }
 
-            return mask;
+            return exist;
         }
 
-        protected override void Create(string key, byte[] buffer, Object content, string secret)
+        protected override void Create(RenewableDownloadHandler handle)
         {
             Texture2D _texture;
 
-            if (RenewablePool.Instance.Exist(cache, key, secret))
+            if (RenewablePool.Instance.Exist(cache, handle.key, handle.secret))
             {
-                _texture = RenewablePool.Instance.Pop<Texture2D>(cache, key);
+                _texture = RenewablePool.Instance.Pop<Texture2D>(cache, handle.key);
             }
             else
             {
-                if (content != null)
+                if (handle.source != null)
                 {
-                    _texture = content as Texture2D;
+                    _texture = handle.Get<Texture2D>();
                 }
                 else
                 {
                     _texture = new Texture2D(10, 10, TextureFormat.RGBA32, false);
 
-                    _texture.LoadImage(buffer);
+                    _texture.LoadImage(handle.buffer);
                 }
-                RenewablePool.Instance.Push(cache, key, secret, _texture);
+                RenewablePool.Instance.Push(cache, handle.key, handle.secret, handle.recent, _texture);
             }
+            //Debug.LogErrorFormat("<color=green>[{0}]</color> ## <color=blue>[{1}]</color>", current, handle.key);
 
-            //Debug.LogErrorFormat("<color=green>[{0}]</color> ## <color=blue>[{1}]</color>", current, key);
+            if (current != handle.key) return;
 
-            if (current != key) return;
+            SetTexture(_texture);
+        }
 
-            compontent.SetTexture(_texture);
+        private void SetTexture(Texture2D texture)
+        {
+            if (compontent == null)
+                compontent = GetComponent<RenewableImageCompontent>();
+            compontent.SetTexture(texture);
         }
     }
 }

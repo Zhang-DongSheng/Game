@@ -1,4 +1,6 @@
-﻿namespace UnityEngine
+﻿using System;
+
+namespace UnityEngine
 {
     [DisallowMultipleComponent]
     public abstract class RenewableBase : MonoBehaviour
@@ -13,7 +15,7 @@
 
         protected abstract DownloadFileType fileType { get; }
 
-        protected void Get(string key, string url, System.Action callBack = null)
+        protected void Get(string key, string url, string parameter, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -23,22 +25,22 @@
             }
             else
             {
-                RenewableResource.Instance.Get(key, url, store, fileType, (buffer, content, secret) =>
+                RenewableResource.Instance.Get(key, url, parameter, store, fileType, (handle) =>
                 {
-                    Create(key, buffer, content, secret);
+                    Create(handle);
 
                     if (this != null)
                     {
-                        if (string.IsNullOrEmpty(current) || current == key)
+                        if (string.IsNullOrEmpty(current) || current == handle.key)
                         {
-                            this.key = key; callBack?.Invoke();
+                            this.key = handle.key; callBack?.Invoke();
                         }
                     }
                 });
             }
         }
 
-        protected abstract void Create(string key, byte[] buffer, Object content, string secret);
+        protected abstract void Create(RenewableDownloadHandler handle);
 
         protected bool Active { get { return this != null && this.gameObject.activeSelf; } }
 

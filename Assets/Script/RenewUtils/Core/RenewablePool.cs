@@ -7,13 +7,13 @@ namespace UnityEngine
     {
         private readonly Dictionary<RPKey, RPCache> m_cache = new Dictionary<RPKey, RPCache>();
 
-        public void Push(RPKey cache, string key, string secret, Object value)
+        public void Push(RPKey cache, string key, string secret, bool recent, Object value)
         {
             if (string.IsNullOrEmpty(key)) return;
 
             if (m_cache.ContainsKey(cache))
             {
-                m_cache[cache].Push(key, secret, value);
+                m_cache[cache].Push(key, secret, recent, value);
             }
             else
             {
@@ -21,7 +21,7 @@ namespace UnityEngine
                 {
                     capacity = Capacity(cache),
                 });
-                m_cache[cache].Push(key, secret, value);
+                m_cache[cache].Push(key, secret, recent, value);
             }
         }
 
@@ -44,6 +44,13 @@ namespace UnityEngine
             if (string.IsNullOrEmpty(key)) return false;
 
             return m_cache.ContainsKey(cache) && m_cache[cache].Exist(key, secret);
+        }
+
+        public bool Recent(RPKey cache, string key)
+        {
+            if (string.IsNullOrEmpty(key)) return false;
+
+            return m_cache.ContainsKey(cache) && m_cache[cache].Recent(key);
         }
 
         public void Release()
@@ -98,11 +105,11 @@ namespace UnityEngine
 
         public int capacity;
 
-        public void Push(string key, string secret, Object value)
+        public void Push(string key, string secret, bool recnet, Object value)
         {
             if (m_cache.ContainsKey(key))
             {
-                m_cache[key].Replace(secret, value);
+                m_cache[key].Replace(secret, recnet, value);
             }
             else
             {
@@ -116,7 +123,7 @@ namespace UnityEngine
                         m_cache.Remove(abandon);
                     }
                 }
-                m_cache.Add(key, new RPValue(key, secret, value));
+                m_cache.Add(key, new RPValue(key, secret, recnet, value));
             }
         }
 
@@ -137,6 +144,15 @@ namespace UnityEngine
             if (m_cache.ContainsKey(key))
             {
                 return string.IsNullOrEmpty(secret) || m_cache[key].secret == secret;
+            }
+            return false;
+        }
+
+        public bool Recent(string key)
+        {
+            if (m_cache.ContainsKey(key))
+            {
+                return m_cache[key].recent;
             }
             return false;
         }
@@ -209,9 +225,11 @@ namespace UnityEngine
 
         public int reference;
 
+        public bool recent;
+
         public Object source;
 
-        public RPValue(string name, string secret, Object source)
+        public RPValue(string name, string secret, bool recent, Object source)
         {
             this.name = name;
 
@@ -219,16 +237,20 @@ namespace UnityEngine
 
             this.reference = 0;
 
+            this.recent = recent;
+
             this.source = source;
         }
 
-        public void Replace(string secret, Object source)
+        public void Replace(string secret, bool recent, Object source)
         {
             Release();
 
-            Debug.LogError("替换成功");
+            Debug.LogError("替换成功:" + name);
 
             this.secret = secret;
+
+            this.recent = recent;
 
             this.source = source;
         }

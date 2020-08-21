@@ -12,18 +12,18 @@ namespace UnityEngine.UI
 
         protected override DownloadFileType fileType { get { return DownloadFileType.None; } }
 
-        public void SetText(string key, string url = "", Action callBack = null)
+        public void SetText(string key, string url = null, string parameter = null, Action callBack = null)
         {
             current = key;
 
-            Get(key, url, callBack);
+            Get(key, url, parameter, callBack);
         }
 
-        protected override void Create(string key, byte[] buffer, Object content, string secret)
+        protected override void Create(RenewableDownloadHandler handle)
         {
             if (current != key) return;
 
-            SetText(Encoding.Default.GetString(buffer));
+            SetText(Encoding.Default.GetString(handle.buffer));
         }
 
         private void SetText(string value)

@@ -30,6 +30,8 @@ public class UIRenewableTest : UIBase
 
     private void Awake()
     {
+        RenewableResource.Instance.Init();
+
         btn_image.onClick.AddListener(OnClickImage);
         btn_asset.onClick.AddListener(OnClickAsset);
 
@@ -91,15 +93,13 @@ public class UIRenewableTest : UIBase
                 break;
         }
 
-#if UNITY_EDITOR
-        url = "win32/dongshengtest/texture/" + key;
-#else
-        url = "android/dongsheng/texture/" + key;
-#endif
+url = "android/dongsheng/texture/" + key;
+
+        //Debug.LogError("Current:" + url);
 
         for (int i = 0; i < ren_asset.Count; i++)
         {
-            ren_asset[i].CreateAsset(url, key);
+            ren_asset[i].CreateAsset(url, "", key);
         }
     }
 

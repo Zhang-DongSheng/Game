@@ -56,7 +56,7 @@ namespace UnityEngine
             }
         }
 
-        public void Get(string key, string url = "", StorageClass store = StorageClass.None, DownloadFileType fileType = DownloadFileType.None, Action<byte[], Object, string> success = null, Action fail = null)
+        public void Get(string key, string url = "", string parameter = "", StorageClass store = StorageClass.None, DownloadFileType fileType = DownloadFileType.None, Action<RenewableDownloadHandler> success = null, Action fail = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -76,6 +76,7 @@ namespace UnityEngine
             {
                 m_task.Add(this.key, new Task(this.key, this.url, path, fileType, store)
                 {
+                    parameter = parameter,
                     local = File.Exists(this.path),
                     status = TaskStatus.Ready,
                 });
@@ -172,8 +173,9 @@ namespace UnityEngine
                     {
                         if (m_task.ContainsKey(key))
                         {
+                            RenewableResourceUpdate.Instance.Remove(m_task[key].Key);
                             m_task[key].content = DownloadHandler(m_task[key].Type, request);
-                            m_task[key].success?.Invoke(m_task[key].Type != DownloadFileType.Bundle ? request.downloadHandler.data : null, m_task[key].content, m_task[key].Secret);
+                            m_task[key].success?.Invoke(Handler(m_task[key], request, true));
                             m_task[key].status = TaskStatus.Complete;
                             switch (m_task[key].Store)
                             {
@@ -215,15 +217,16 @@ namespace UnityEngine
                     {
                         m_task[key].content = DownloadHandler(m_task[key].Type, request);
 
-                        m_task[key].success?.Invoke(m_task[key].Type != DownloadFileType.Bundle ? request.downloadHandler.data : null, m_task[key].content, m_task[key].Secret);
-
                         if (RenewableResourceUpdate.Instance.Validation(m_task[key].Key, request.downloadHandler.data))
                         {
+                            RenewableResourceUpdate.Instance.Remove(m_task[key].Key);
+                            m_task[key].success?.Invoke(Handler(m_task[key], request, true));
                             m_task[key].status = TaskStatus.Complete;
                             m_task.Remove(key);
                         }
                         else
                         {
+                            m_task[key].success?.Invoke(Handler(m_task[key], request, false));
                             m_task[key].local = false;
                             m_task[key].status = TaskStatus.Ready;
                         }
@@ -269,6 +272,16 @@ namespace UnityEngine
                 default:
                     return null;
             }
+        }
+
+        private RenewableDownloadHandler Handler(Task task, UnityWebRequest request, bool recent)
+        {
+            return new RenewableDownloadHandler(
+                task.Key,
+                task.parameter,
+                task.Secret, recent,
+                task.Type != DownloadFileType.Bundle ? request.downloadHandler.data : null,
+                task.content);
         }
 
         private AudioType DetectAudioType(string url)
@@ -350,9 +363,11 @@ namespace UnityEngine
 
             public int order;
 
+            public string parameter;
+
             public Object content;
 
-            public Action<byte[], Object, string> success;
+            public Action<RenewableDownloadHandler> success;
 
             public Action fail;
 
@@ -381,7 +396,7 @@ namespace UnityEngine
                 this._store = store;
             }
 
-            public void AddListener(Action<byte[], Object, string> success, Action fail)
+            public void AddListener(Action<RenewableDownloadHandler> success, Action fail)
             {
                 if (success != null)
                 {
@@ -397,6 +412,11 @@ namespace UnityEngine
                     else
                         this.fail = fail;
                 }
+            }
+
+            public void SetOrder(int order)
+            {
+                this.order = order;
             }
 
             public void Dispose()
@@ -415,9 +435,49 @@ namespace UnityEngine
         }
     }
 
+    public class RenewableDownloadHandler : IDisposable
+    {
+        public string key;
+
+        public string parameter;
+
+        public string secret;
+
+        public bool recent;
+
+        public byte[] buffer;
+
+        public Object source;
+
+        public RenewableDownloadHandler(string key, string parameter, string secret, bool recent, byte[] buffer, Object source)
+        {
+            this.key = key;
+
+            this.parameter = parameter;
+
+            this.secret = secret;
+
+            this.recent = recent;
+
+            this.buffer = buffer;
+
+            this.source = source;
+        }
+
+        public T Get<T>() where T : Object
+        {
+            return source as T;
+        }
+
+        public void Dispose()
+        {
+            Debug.LogError("????????????");
+        }
+    }
+
     public class RenewableResourceUpdate : Singleton<RenewableResourceUpdate>
     {
-        private const string Path = "information/md5file";
+        private const string Path = "information/md5fileAAA";
 
         private const string Extension = ".txt";
 
@@ -432,9 +492,9 @@ namespace UnityEngine
             RenewableResource.Instance.Get(path, success: Load);
         }
 
-        private void Load(byte[] buffer, Object result, string secret)
+        private void Load(RenewableDownloadHandler handler)
         {
-            string content = Encoding.Default.GetString(buffer);
+            string content = Encoding.Default.GetString(handler.buffer);
 
             content = content.Replace("\r\n", "^");
 
@@ -474,6 +534,16 @@ namespace UnityEngine
             }
 
             return equal;
+        }
+
+        public void Remove(string key)
+        {
+            if (string.IsNullOrEmpty(key)) return;
+
+            if (m_secret.ContainsKey(key))
+            {
+                m_secret.Remove(key);
+            }
         }
 
         private string ComputeMD5(byte[] buffer)

@@ -13,7 +13,7 @@ namespace UI
 
         protected override DownloadFileType fileType { get { return DownloadFileType.Audio; } }
 
-        public void PlayMusic(string key, string url = "", Action callBack = null)
+        public void PlayMusic(string key, string url = null, string parameter = null, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -34,25 +34,25 @@ namespace UI
             }
             else
             {
-                Get(key, url, callBack);
+                Get(key, url, parameter, callBack);
             }
         }
 
-        protected override void Create(string key, byte[] buffer, UnityEngine.Object content, string secret)
+        protected override void Create(RenewableDownloadHandler handle)
         {
             AudioClip clip = null;
 
-            if (RenewablePool.Instance.Exist(cache, key, secret))
+            if (RenewablePool.Instance.Exist(cache, key, handle.secret))
             {
                 clip = RenewablePool.Instance.Pop<AudioClip>(cache, key);
             }
             else
             {
-                if (content != null)
+                if (handle.source != null)
                 {
-                    clip = content as AudioClip;
+                    clip = handle.Get<AudioClip>();
 
-                    RenewablePool.Instance.Push(cache, key, secret, clip);
+                    RenewablePool.Instance.Push(cache, key, handle.secret, handle.recent, clip);
                 }
                 else
                 {

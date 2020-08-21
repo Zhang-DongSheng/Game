@@ -4,111 +4,115 @@ namespace UnityEngine.UI
 {
     public class RenewableAsset : RenewableBase
     {
+        enum RenewableCompontentType
+        {
+            None,
+            Image,
+        }
+
         public Action<Object> callBack;
 
-        [SerializeField] private RenewableAssetType type;
+        [SerializeField] private RenewableCompontentType type;
 
         [SerializeField] private Transform parent;
 
-        private string index;
+        private string parameter;
 
         private Object asset;
 
         protected override DownloadFileType fileType { get { return DownloadFileType.None; } }
 
-        public void CreateAsset(string key, string index, string url = "", Action<Object> callBack = null)
+        public void CreateAsset(string key, string url = "", string parameter = "", Action<Object> callBack = null)
         {
             this.current = key;
 
-            this.index = index;
+            this.parameter = parameter;
 
             this.callBack = callBack;
 
-            if (this.key == key && asset != null)
+            if (this.key == key && this.asset != null)
             {
-                this.callBack?.Invoke(asset); return;
+                Refresh(this.asset); this.callBack?.Invoke(this.asset); return;
             }
             this.key = string.Empty;
 
-            if (RenewablePool.Instance.Exist(cache, key + index, string.Empty))
+            if (RenewablePool.Instance.Exist(cache, key + parameter, string.Empty))
             {
-                this.key = key;
+                this.asset = RenewablePool.Instance.Pop<Object>(cache, key + parameter);
 
-                this.asset = RenewablePool.Instance.Pop<Object>(cache, key + index);
+                this.key = key; Refresh(this.asset); this.callBack?.Invoke(this.asset);
 
-                this.callBack?.Invoke(this.asset);
+                if (!RenewablePool.Instance.Recent(cache, key + parameter))
+                {
+                    this.key = string.Empty; Get(key, url, parameter);
+                }
             }
             else
             {
-                Get(key, url);
+                Get(key, url, parameter);
             }
         }
 
-        protected override void Create(string key, byte[] buffer, Object content, string secret)
+        protected override void Create(RenewableDownloadHandler handle)
         {
             AssetBundle bundle = null;
 
-            if (content != null)
+            if (handle.source != null)
             {
-                bundle = content as AssetBundle;
+                bundle = handle.source as AssetBundle;
             }
             else
             {
                 try
                 {
-                    bundle = AssetBundle.LoadFromMemory(buffer);
+                    bundle = AssetBundle.LoadFromMemory(handle.buffer);
                 }
                 catch (Exception e)
                 {
                     Debug.LogError(e.Message);
                 }
             }
-            buffer = null;
 
-            Object _temp;
+            Object _temp = null;
 
-            if (RenewablePool.Instance.Exist(cache, key + index, secret))
+            if (RenewablePool.Instance.Exist(cache, handle.key + handle.parameter, handle.secret))
             {
-                _temp = RenewablePool.Instance.Pop<Object>(cache, key + index);
+                _temp = RenewablePool.Instance.Pop<Object>(cache, handle.key + handle.parameter);
 
                 bundle.Unload(true);
             }
             else
             {
-                _temp = bundle.LoadAsset<Object>(index);
+                if (bundle.Contains(handle.parameter))
+                {
+                    _temp = bundle.LoadAsset<Object>(handle.parameter);
 
+                    RenewablePool.Instance.Push(cache, handle.key + handle.parameter, handle.secret, handle.recent, _temp);
+                }
                 bundle.Unload(false);
-
-                RenewablePool.Instance.Push(cache, key + index, secret, _temp);
             }
 
-            if (current == key)
+            if (current == handle.key && parameter == handle.parameter && _temp != null)
             {
                 this.asset = _temp;
 
-                switch (type)
-                {
-                    case RenewableAssetType.Image:
-                        RenewableImageCompontent compontent = GetComponent<RenewableImageCompontent>();
-                        if (compontent == null)
-                            compontent = gameObject.AddComponent<RenewableImageCompontent>();
-                        compontent.SetTexture(this.asset);
-                        break;
-                }
+                Refresh(this.asset);
+
                 this.callBack?.Invoke(this.asset);
-            }
-            else
-            {
-                bundle.Unload(true);
             }
         }
 
-        enum RenewableAssetType
+        private void Refresh(Object asset)
         {
-            None,
-            Image,
-            Text,
-            Prefab,
+            switch (type)
+            {
+                case RenewableCompontentType.Image:
+                    RenewableImageCompontent compontent = GetComponent<RenewableImageCompontent>();
+                    if (compontent == null)
+                        compontent = gameObject.AddComponent<RenewableImageCompontent>();
+                    compontent.SetTexture(asset);
+                    break;
+            }
         }
     }
 }
