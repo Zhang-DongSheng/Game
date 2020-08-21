@@ -17,6 +17,8 @@ namespace UnityEngine.UI
 
             this.current = key;
 
+            this.key = string.Empty;
+
             if (RenewablePool.Instance.Exist(cache, key, string.Empty))
             {
                 m_texture = RenewablePool.Instance.Pop<Texture2D>(cache, key);
@@ -36,11 +38,13 @@ namespace UnityEngine.UI
             }
         }
 
-        public void SetImageSpecial(string key, string url = null, string parameter = null, Action callBack = null)
+        public void SetImageImmediate(string key, string url = null, string parameter = null, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
             this.current = key;
+
+            this.key = string.Empty;
 
             if (RenewablePool.Instance.Exist(cache, key, string.Empty))
             {
@@ -65,12 +69,12 @@ namespace UnityEngine.UI
 
                     bool recent = RenewableResourceUpdate.Instance.Validation(key, buffer);
 
-                    this.key = recent ? key : string.Empty; callBack?.Invoke();
-
                     Create(new RenewableDownloadHandler(key, string.Empty, string.Empty, recent, buffer, null));
 
                     if (recent)
                     {
+                        this.key = key;
+
                         RenewableResourceUpdate.Instance.Remove(key);
                     }
                     else
@@ -88,14 +92,14 @@ namespace UnityEngine.UI
                     {
                         bool recent = RenewableResourceUpdate.Instance.Validation(key, null);
 
-                        this.key = recent ? key : string.Empty; callBack?.Invoke();
-
                         Create(new RenewableDownloadHandler(key, string.Empty, string.Empty, recent, null, Instantiate(source)));
 
                         Resources.UnloadAsset(source);
 
                         if (recent)
                         {
+                            this.key = key;
+
                             RenewableResourceUpdate.Instance.Remove(key);
                         }
                         else

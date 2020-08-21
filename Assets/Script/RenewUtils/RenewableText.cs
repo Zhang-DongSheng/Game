@@ -21,7 +21,7 @@ namespace UnityEngine.UI
 
         protected override void Create(RenewableDownloadHandler handle)
         {
-            if (current != key) return;
+            if (current != handle.key) return;
 
             SetText(Encoding.Default.GetString(handle.buffer));
         }

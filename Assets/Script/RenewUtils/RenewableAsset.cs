@@ -24,17 +24,15 @@ namespace UnityEngine.UI
 
         public void CreateAsset(string key, string url = "", string parameter = "", Action<Object> callBack = null)
         {
+            if (string.IsNullOrEmpty(key)) return;
+
             this.current = key;
+
+            this.key = string.Empty;
 
             this.parameter = parameter;
 
             this.callBack = callBack;
-
-            if (this.key == key && this.asset != null)
-            {
-                Refresh(this.asset); this.callBack?.Invoke(this.asset); return;
-            }
-            this.key = string.Empty;
 
             if (RenewablePool.Instance.Exist(cache, key + parameter, string.Empty))
             {
@@ -50,6 +48,57 @@ namespace UnityEngine.UI
             else
             {
                 Get(key, url, parameter);
+            }
+        }
+
+        public void CreateAssetImmediate(string key, string url = "", string parameter = "", Action<Object> callBack = null)
+        {
+            if (string.IsNullOrEmpty(key)) return;
+
+            this.current = key;
+
+            this.key = string.Empty;
+
+            this.parameter = parameter;
+
+            this.callBack = callBack;
+
+            if (RenewablePool.Instance.Exist(cache, key + parameter, string.Empty))
+            {
+                this.asset = RenewablePool.Instance.Pop<Object>(cache, key + parameter);
+
+                this.key = key; Refresh(this.asset); this.callBack?.Invoke(this.asset);
+
+                if (!RenewablePool.Instance.Recent(cache, key + parameter))
+                {
+                    this.key = string.Empty; Get(key, url, parameter);
+                }
+            }
+            else
+            {
+                string path = Application.persistentDataPath + "/" + key;
+
+                if (RenewableFile.Exists(path))
+                {
+                    byte[] buffer = RenewableFile.Read(path);
+
+                    bool recent = RenewableResourceUpdate.Instance.Validation(key, buffer);
+
+                    Create(new RenewableDownloadHandler(key, parameter, string.Empty, recent, buffer, null));
+
+                    if (recent)
+                    {
+                        this.key = key; RenewableResourceUpdate.Instance.Remove(key);
+                    }
+                    else
+                    {
+                        Get(key, url, parameter);
+                    }
+                }
+                else
+                {
+                    Get(key, url, parameter);
+                }
             }
         }
 

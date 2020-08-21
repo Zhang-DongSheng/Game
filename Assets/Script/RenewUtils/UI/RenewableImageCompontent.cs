@@ -22,7 +22,7 @@
             }
             else
             {
-                Debug.LogError("????");
+                Debug.LogWarningFormat("The Object is unknow Type!");
             }
         }
 

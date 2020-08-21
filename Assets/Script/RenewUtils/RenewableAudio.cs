@@ -19,11 +19,6 @@ namespace UI
 
             this.current = key;
 
-            if (this.key == key && m_clip != null)
-            {
-                callBack?.Invoke(); Play(m_clip);
-                return;
-            }
             this.key = string.Empty;
 
             if (RenewablePool.Instance.Exist(cache, key, string.Empty))

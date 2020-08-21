@@ -187,7 +187,7 @@ namespace UnityEngine
                             m_task.Remove(key);
                         }
                     }
-                    Next();
+                    request.Dispose(); Next();
                 }
             }
         }
@@ -232,7 +232,7 @@ namespace UnityEngine
                         }
                     }
                 }
-                Next();
+                request.Dispose(); Next();
             }
         }
 
@@ -471,7 +471,7 @@ namespace UnityEngine
 
         public void Dispose()
         {
-            Debug.LogError("????????????");
+            
         }
     }
 
