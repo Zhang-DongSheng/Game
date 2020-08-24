@@ -86,9 +86,7 @@ namespace UnityEngine.UI
                 {
                     path = key;
 
-                    Texture2D source = Resources.Load<Texture2D>(path);
-
-                    if (source != null)
+                    if (TryLoad<Texture2D>(path, out Texture2D source))
                     {
                         bool recent = RenewableResourceUpdate.Instance.Validation(key, null);
 

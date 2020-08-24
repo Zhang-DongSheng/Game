@@ -56,6 +56,17 @@ namespace UnityEngine
                 gameObject.SetActive(active);
             }
         }
+
+        protected bool TryLoad<T>(string path, out T source) where T : Object
+        {
+            source = Resources.Load<Object>(path) as T;
+
+            if (source != null)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 
     public enum StorageClass

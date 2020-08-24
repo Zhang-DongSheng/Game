@@ -1253,6 +1253,36 @@ PrefabInstance:
       propertyPath: cache
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1461122100043301069, guid: 6315fb1f7e859d54c838c819bdd8989b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461122100048729543, guid: 6315fb1f7e859d54c838c819bdd8989b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461122100094374183, guid: 6315fb1f7e859d54c838c819bdd8989b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461122101084342873, guid: 6315fb1f7e859d54c838c819bdd8989b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461122101500945890, guid: 6315fb1f7e859d54c838c819bdd8989b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1461122101745859013, guid: 6315fb1f7e859d54c838c819bdd8989b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6315fb1f7e859d54c838c819bdd8989b, type: 3}
 --- !u!224 &1461122101588681945 stripped
