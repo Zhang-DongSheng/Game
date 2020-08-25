@@ -57,7 +57,7 @@ namespace UnityEditor
 
 		private readonly List<string> node = new List<string>();
 
-		private readonly List<FileItem> source = new List<FileItem>();
+		private readonly List<ItemFile> source = new List<ItemFile>();
 
 		[MenuItem("Data/PSD")]
 		private static void Open()
@@ -196,7 +196,7 @@ namespace UnityEditor
 							{
 								GUILayout.BeginHorizontal();
 								{
-									source[i].output = GUILayout.Toggle(source[i].output, string.Empty, GUILayout.Width(20));
+									source[i].select = GUILayout.Toggle(source[i].select, string.Empty, GUILayout.Width(20));
 									GUILayout.Label(source[i].name, GUILayout.Width(120));
 									GUILayout.Label(source[i].path);
 								}
@@ -311,11 +311,11 @@ namespace UnityEditor
 
 							if (path.EndsWith(Extension))
 							{
-								source.Add(new FileItem()
+								source.Add(new ItemFile()
 								{
 									name = FileName(path, Extension),
 									path = Application.dataPath + path.Remove(0, 6),
-									output = true,
+									select = true,
 								});
 							}
 						}
@@ -352,11 +352,11 @@ namespace UnityEditor
 						{
 							if (file.Extension.Equals(Extension))
 							{
-								source.Add(new FileItem()
+								source.Add(new ItemFile()
 								{
 									name = FileName(file.Name, Extension),
 									path = file.FullName,
-									output = true,
+									select = true,
 								});
 							}
 						}
@@ -369,11 +369,11 @@ namespace UnityEditor
 					{
 						foreach (string file in searchResult)
 						{
-							source.Add(new FileItem()
+							source.Add(new ItemFile()
 							{
 								name = FileName(file, Extension),
 								path = file,
-								output = true,
+								select = true,
 							});
 						}
 					}
@@ -385,7 +385,7 @@ namespace UnityEditor
 		{
 			for (int i = 0; i < source.Count; i++)
 			{
-				source[i].output = select;
+				source[i].select = select;
 			}
 		}
 
@@ -397,7 +397,7 @@ namespace UnityEditor
 
 			for (int i = 0; i < source.Count; i++)
 			{
-				if (source[i].output)
+				if (source[i].select)
 				{
                     try
                     {
