@@ -42,8 +42,6 @@ namespace UnityEngine
 
         protected abstract void Create(RenewableDownloadHandler handle);
 
-        protected bool Active { get { return this != null && this.gameObject.activeSelf; } }
-
         public virtual void ResetRenewable()
         {
             this.key = string.Empty;

@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine.UIElements;
 
 namespace UnityEngine.UI
 {
@@ -11,19 +10,19 @@ namespace UnityEngine.UI
             Image,
         }
 
-        public Action<Object> callBack;
-
         [SerializeField] private RenewableCompontentType type;
 
         [SerializeField] private Transform parent;
 
-        private string parameter;
+        private Action<Object> create;
+
+        private string resource;
 
         private Object asset;
 
         protected override DownloadFileType fileType { get { return DownloadFileType.None; } }
 
-        public void CreateAsset(string key, string url = "", string parameter = "", Action<Object> callBack = null)
+        public void CreateAsset(string key, string resource, string url = "", Action callBack = null, Action<Object> create = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -31,28 +30,28 @@ namespace UnityEngine.UI
 
             this.key = string.Empty;
 
-            this.parameter = parameter;
+            this.resource = resource;
 
-            this.callBack = callBack;
+            this.create = create;
 
-            if (RenewablePool.Instance.Exist(cache, key + parameter, string.Empty))
+            if (RenewablePool.Instance.Exist(cache, key + resource, string.Empty))
             {
-                this.asset = RenewablePool.Instance.Pop<Object>(cache, key + parameter);
+                this.asset = RenewablePool.Instance.Pop<Object>(cache, key + resource);
 
-                this.key = key; Refresh(this.asset);
+                this.key = key; Refresh(this.asset); callBack?.Invoke();
 
-                if (!RenewablePool.Instance.Recent(cache, key + parameter))
+                if (!RenewablePool.Instance.Recent(cache, key + resource))
                 {
-                    this.key = string.Empty; Get(key, url, parameter);
+                    this.key = string.Empty; Get(key, url, resource, callBack);
                 }
             }
             else
             {
-                Get(key, url, parameter);
+                Get(key, url, resource, callBack);
             }
         }
 
-        public void CreateAssetImmediate(string key, string url = "", string parameter = "", Action<Object> callBack = null)
+        public void CreateAssetImmediate(string key, string resource, string url = "", string local = "", Action callBack = null, Action<Object> create = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -60,19 +59,19 @@ namespace UnityEngine.UI
 
             this.key = string.Empty;
 
-            this.parameter = parameter;
+            this.resource = resource;
 
-            this.callBack = callBack;
+            this.create = create;
 
-            if (RenewablePool.Instance.Exist(cache, key + parameter, string.Empty))
+            if (RenewablePool.Instance.Exist(cache, key + resource, string.Empty))
             {
-                this.asset = RenewablePool.Instance.Pop<Object>(cache, key + parameter);
+                this.asset = RenewablePool.Instance.Pop<Object>(cache, key + resource);
 
-                this.key = key; Refresh(this.asset);
+                this.key = key; Refresh(this.asset); callBack?.Invoke();
 
-                if (!RenewablePool.Instance.Recent(cache, key + parameter))
+                if (!RenewablePool.Instance.Recent(cache, key + resource))
                 {
-                    this.key = string.Empty; Get(key, url, parameter);
+                    this.key = string.Empty; Get(key, url, resource, callBack);
                 }
             }
             else
@@ -85,7 +84,7 @@ namespace UnityEngine.UI
 
                     bool recent = RenewableResourceUpdate.Instance.Validation(key, buffer);
 
-                    Create(new RenewableDownloadHandler(key, parameter, string.Empty, recent, buffer, null));
+                    Create(new RenewableDownloadHandler(key, resource, string.Empty, recent, buffer, null));
 
                     if (recent)
                     {
@@ -93,14 +92,14 @@ namespace UnityEngine.UI
                     }
                     else
                     {
-                        Get(key, url, parameter);
+                        Get(key, url, resource, callBack);
                     }
                 }
                 else
                 {
-                    if (true)
+                    if (!string.IsNullOrEmpty(local))
                     {
-                        path = string.Format("Texture/{0}", parameter);
+                        path = local + resource;
 
                         if (TryLoad<Texture2D>(path, out Texture2D source))
                         {
@@ -108,15 +107,15 @@ namespace UnityEngine.UI
 
                             Object _temp;
 
-                            if (RenewablePool.Instance.Exist(cache, key + parameter, string.Empty))
+                            if (RenewablePool.Instance.Exist(cache, key + resource, string.Empty))
                             {
-                                _temp = RenewablePool.Instance.Pop<Object>(cache, key + parameter);
+                                _temp = RenewablePool.Instance.Pop<Object>(cache, key + resource);
                             }
                             else
                             {
                                 _temp = Instantiate(source);
 
-                                RenewablePool.Instance.Push(cache, key + parameter, string.Empty, recent, _temp);
+                                RenewablePool.Instance.Push(cache, key + resource, string.Empty, recent, _temp);
                             }
                             Refresh(_temp);
 
@@ -128,22 +127,49 @@ namespace UnityEngine.UI
                             }
                             else
                             {
-                                Get(key, url, parameter);
+                                Get(key, url, resource, callBack);
                             }
-
-                            Debug.LogError("??????");
                         }
                         else
                         {
-                            Get(key, url, parameter);
+                            Get(key, url, resource, callBack);
                         }
                     }
                     else
                     {
-                        Get(key, url, parameter);
+                        Get(key, url, resource, callBack);
                     }
                 }
             }
+        }
+
+        public bool Exist(string key, string resource, string local)
+        {
+            bool exist = false;
+
+            if (RenewablePool.Instance.Exist(cache, key + resource, string.Empty))
+            {
+                exist = true;
+            }
+            else
+            {
+                string path = Application.persistentDataPath + "/" + key;
+
+                if (RenewableFile.Exists(path))
+                {
+                    exist = true;
+                }
+                else
+                {
+                    path = local + resource;
+
+                    if (TryLoad<Texture2D>(path, out Texture2D source))
+                    {
+                        exist = true; Resources.UnloadAsset(source);
+                    }
+                }
+            }
+            return exist;
         }
 
         protected override void Create(RenewableDownloadHandler handle)
@@ -185,7 +211,7 @@ namespace UnityEngine.UI
                 bundle.Unload(false);
             }
 
-            if (current == handle.key && parameter == handle.parameter && _temp != null)
+            if (current == handle.key && resource == handle.parameter && _temp != null)
             {
                 Refresh(_temp);
             }
@@ -198,13 +224,14 @@ namespace UnityEngine.UI
             switch (type)
             {
                 case RenewableCompontentType.Image:
-                    RenewableImageCompontent compontent = GetComponent<RenewableImageCompontent>();
-                    if (compontent == null)
+                    if (!TryGetComponent<RenewableImageCompontent>(out RenewableImageCompontent compontent))
+                    {
                         compontent = gameObject.AddComponent<RenewableImageCompontent>();
+                    }
                     compontent.SetTexture(asset);
                     break;
             }
-            callBack?.Invoke(asset);
+            create?.Invoke(asset);
         }
     }
 }

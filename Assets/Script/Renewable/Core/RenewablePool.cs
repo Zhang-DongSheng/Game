@@ -61,7 +61,7 @@ namespace UnityEngine
             }
         }
 
-        public void Release(RPKey cache, List<string> ignore)
+        public void Release(RPKey cache, List<string> ignore, bool single = false)
         {
             foreach (var key in m_cache.Keys)
             {
@@ -76,6 +76,13 @@ namespace UnityEngine
                         m_cache[key].Release();
                     }
                 }
+                else
+                {
+                    if (!single)
+                    {
+                        m_cache[key].Release();
+                    }
+                }
             }
         }
 
@@ -85,13 +92,13 @@ namespace UnityEngine
             {
                 case RPKey.None:
                     return -1;
-                case RPKey.Image_Cover:
+                case RPKey.ImageCover:
                     return 3;
-                case RPKey.Image_Comment:
+                case RPKey.ImageComment:
                     return 3;
-                case RPKey.Audio_Cover:
+                case RPKey.AudioCover:
                     return 3;
-                case RPKey.AssetBundle_Normal:
+                case RPKey.AssetBundleNormal:
                     return -1;
                 default:
                     return -1;
@@ -274,9 +281,9 @@ namespace UnityEngine
     public enum RPKey
     {
         None,               //常驻资源
-        Image_Cover,        //封面
-        Image_Comment,      //评论
-        Audio_Cover,        //封面
-        AssetBundle_Normal,
+        ImageCover,         //封面
+        ImageComment,       //评论
+        AudioCover,         //封面
+        AssetBundleNormal,
     }
 }

@@ -324,7 +324,7 @@ namespace UnityEngine
         {
             get
             {
-                return "https://branchapptest-1302051570.cos.ap-beijing.myqcloud.com/";
+                return "https://www.baidu.com";
             }
         }
 
@@ -477,7 +477,7 @@ namespace UnityEngine
 
     public class RenewableResourceUpdate : Singleton<RenewableResourceUpdate>
     {
-        private const string Path = "information/md5fileAAA";
+        private const string Path = "information/md5file";
 
         private const string Extension = ".txt";
 

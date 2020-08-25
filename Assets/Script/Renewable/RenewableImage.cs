@@ -113,37 +113,32 @@ namespace UnityEngine.UI
             }
         }
 
-        public bool Exist(string key)
+        public bool Exist(string key, string resource)
         {
-            bool exist;
+            bool exist = false;
 
             if (RenewablePool.Instance.Exist(cache, key, string.Empty))
             {
-                exist = false;
+                exist = true;
             }
             else
             {
-                string path = string.Format("{0}/{1}", Application.persistentDataPath, key);
+                string path = Application.persistentDataPath + "/" + key;
 
                 if (RenewableFile.Exists(path))
                 {
-                    exist = false;
+                    exist = true;
                 }
                 else
                 {
-                    path = key;
+                    path = string.Format("{0}/{1}", resource, key);
 
-                    Object asset = Resources.Load<Object>(path);
-
-                    exist = asset != null;
-
-                    if (exist)
+                    if (TryLoad<Texture2D>(path, out Texture2D source))
                     {
-                        Resources.UnloadAsset(asset);
+                        exist = true; Resources.UnloadAsset(source);
                     }
                 }
             }
-
             return exist;
         }
 
@@ -171,6 +166,8 @@ namespace UnityEngine.UI
             }
             //Debug.LogErrorFormat("<color=green>[{0}]</color> ## <color=blue>[{1}]</color>", current, handle.key);
 
+            if (this == null) return;
+
             if (current != handle.key) return;
 
             SetTexture(_texture);
@@ -180,6 +177,8 @@ namespace UnityEngine.UI
         {
             if (compontent == null)
                 compontent = GetComponent<RenewableImageCompontent>();
+            if (compontent == null)
+                compontent = gameObject.AddComponent<RenewableImageCompontent>();
             compontent.SetTexture(texture);
         }
     }

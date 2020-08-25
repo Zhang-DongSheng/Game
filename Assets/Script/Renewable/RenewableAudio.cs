@@ -37,9 +37,9 @@ namespace UI
         {
             AudioClip clip = null;
 
-            if (RenewablePool.Instance.Exist(cache, key, handle.secret))
+            if (RenewablePool.Instance.Exist(cache, handle.key, handle.secret))
             {
-                clip = RenewablePool.Instance.Pop<AudioClip>(cache, key);
+                clip = RenewablePool.Instance.Pop<AudioClip>(cache, handle.key);
             }
             else
             {
@@ -47,13 +47,17 @@ namespace UI
                 {
                     clip = handle.Get<AudioClip>();
 
-                    RenewablePool.Instance.Push(cache, key, handle.secret, handle.recent, clip);
+                    RenewablePool.Instance.Push(cache, handle.key, handle.secret, handle.recent, clip);
                 }
                 else
                 {
-                    Debug.LogWarningFormat("{0} 无法解析！", key);
+                    Debug.LogWarningFormat("{0} 无法解析！", handle.key);
                 }
             }
+
+            if (this == null) return;
+
+            if (!gameObject.activeSelf) return;
 
             if (current != key) return;
 
@@ -66,7 +70,7 @@ namespace UI
 
             m_clip = clip;
 
-            //Play Audio clip!
+            //Play AudioClip ...
         }
     }
 }
