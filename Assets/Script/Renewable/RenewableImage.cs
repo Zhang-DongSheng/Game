@@ -11,7 +11,7 @@ namespace UnityEngine.UI
 
         protected override DownloadFileType fileType { get { return DownloadFileType.Image; } }
 
-        public void SetImage(string key, string url = null, string parameter = null, Action callBack = null)
+        public void SetImage(string key, string parameter = null,int order = 0, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -29,16 +29,16 @@ namespace UnityEngine.UI
 
                 if (!RenewablePool.Instance.Recent(cache, key))
                 {
-                    this.key = string.Empty; Get(key, url, parameter, callBack);
+                    this.key = string.Empty; Get(key, parameter, order, callBack);
                 }
             }
             else
             {
-                Get(key, url, parameter, callBack);
+                Get(key, parameter, order,callBack);
             }
         }
 
-        public void SetImageImmediate(string key, string url = null, string parameter = null, Action callBack = null)
+        public void SetImageImmediate(string key, string parameter = null, int order = 0, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -56,7 +56,7 @@ namespace UnityEngine.UI
 
                 if (!RenewablePool.Instance.Recent(cache, key))
                 {
-                    this.key = string.Empty; Get(key, url, parameter, callBack);
+                    this.key = string.Empty; Get(key, parameter, order, callBack);
                 }
             }
             else
@@ -79,7 +79,7 @@ namespace UnityEngine.UI
                     }
                     else
                     {
-                        Get(key, url, parameter, callBack);
+                        Get(key, parameter, order, callBack);
                     }
                 }
                 else
@@ -102,12 +102,12 @@ namespace UnityEngine.UI
                         }
                         else
                         {
-                            Get(key, url, parameter, callBack);
+                            Get(key, parameter, order, callBack);
                         }
                     }
                     else
                     {
-                        Get(key, url, parameter, callBack);
+                        Get(key, parameter, order, callBack);
                     }
                 }
             }

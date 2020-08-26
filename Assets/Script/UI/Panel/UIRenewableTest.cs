@@ -18,13 +18,13 @@ public class UIRenewableTest : UIBase
 
     private readonly List<string> urls = new List<string>()
     {
-        "android/dongsheng/texture//ceo.jpg",
-        "android/dongsheng/texture//deeplove.jpg",
-        "android/dongsheng/texture//indra.jpg",
-        "android/dongsheng/texture//lovebot.jpg",
-        "android/dongsheng/texture//ourhb.jpg",
-        "android/dongsheng/texture//indra.jpg",
-        "android/dongsheng/texture//indra.jpg",
+        "picture/cover/ceo.jpg",
+        "picture/cover/deeplove.jpg",
+        "picture/cover/indra.jpg",
+        "picture/cover/lovebot.jpg",
+        "picture/cover/ourhb.jpg",
+        "picture/cover/indra.jpg",
+        "picture/cover/indra.jpg",
     };
 
     private void Awake()
@@ -92,13 +92,13 @@ public class UIRenewableTest : UIBase
                 break;
         }
 
-url = "android/dongsheng/asset/" + key;
+url = "android/picture/cover/" + key;
 
         //Debug.LogError("Current:" + url);
 
         for (int i = 0; i < ren_asset.Count; i++)
         {
-            ren_asset[i].CreateAssetImmediate(url, "", key);
+            ren_asset[i].CreateAssetImmediate(url, key, "Texture111/");
         }
     }
 

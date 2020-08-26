@@ -13,7 +13,7 @@ namespace UI
 
         protected override DownloadFileType fileType { get { return DownloadFileType.Audio; } }
 
-        public void PlayMusic(string key, string url = null, string parameter = null, Action callBack = null)
+        public void PlayMusic(string key, string parameter = null, int order = 0, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -29,7 +29,7 @@ namespace UI
             }
             else
             {
-                Get(key, url, parameter, callBack);
+                Get(key, parameter, order, callBack);
             }
         }
 

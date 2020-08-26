@@ -15,7 +15,7 @@ namespace UnityEngine
 
         protected abstract DownloadFileType fileType { get; }
 
-        protected void Get(string key, string url, string parameter, Action callBack = null)
+        protected void Get(string key, string parameter, int order, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -25,7 +25,7 @@ namespace UnityEngine
             }
             else
             {
-                RenewableResource.Instance.Get(key, url, parameter, store, fileType, (handle) =>
+                RenewableResource.Instance.Get(new RenewableRequest(key, parameter, order, store, fileType), (handle) =>
                 {
                     Create(handle);
 
@@ -36,11 +36,16 @@ namespace UnityEngine
                             this.key = handle.key; callBack?.Invoke();
                         }
                     }
-                });
+                }, Fail);
             }
         }
 
         protected abstract void Create(RenewableDownloadHandler handle);
+
+        protected virtual void Fail()
+        { 
+            
+        }
 
         public virtual void ResetRenewable()
         {

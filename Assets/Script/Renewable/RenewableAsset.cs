@@ -14,15 +14,13 @@ namespace UnityEngine.UI
 
         [SerializeField] private Transform parent;
 
-        private Action<Object> create;
-
-        private string resource;
+        private string parameter;
 
         private Object asset;
 
         protected override DownloadFileType fileType { get { return DownloadFileType.None; } }
 
-        public void CreateAsset(string key, string resource, string url = "", Action callBack = null, Action<Object> create = null)
+        public void CreateAsset(string key, string parameter, int order, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -30,28 +28,26 @@ namespace UnityEngine.UI
 
             this.key = string.Empty;
 
-            this.resource = resource;
+            this.parameter = parameter;
 
-            this.create = create;
-
-            if (RenewablePool.Instance.Exist(cache, key + resource, string.Empty))
+            if (RenewablePool.Instance.Exist(cache, key + parameter, string.Empty))
             {
-                this.asset = RenewablePool.Instance.Pop<Object>(cache, key + resource);
+                this.asset = RenewablePool.Instance.Pop<Object>(cache, key + parameter);
 
                 this.key = key; Refresh(this.asset); callBack?.Invoke();
 
-                if (!RenewablePool.Instance.Recent(cache, key + resource))
+                if (!RenewablePool.Instance.Recent(cache, key + parameter))
                 {
-                    this.key = string.Empty; Get(key, url, resource, callBack);
+                    this.key = string.Empty; Get(key, parameter, order, callBack);
                 }
             }
             else
             {
-                Get(key, url, resource, callBack);
+                Get(key, parameter, order, callBack);
             }
         }
 
-        public void CreateAssetImmediate(string key, string resource, string url = "", string local = "", Action callBack = null, Action<Object> create = null)
+        public void CreateAssetImmediate(string key, string parameter, string local = "", int order = 0, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -59,19 +55,17 @@ namespace UnityEngine.UI
 
             this.key = string.Empty;
 
-            this.resource = resource;
+            this.parameter = parameter;
 
-            this.create = create;
-
-            if (RenewablePool.Instance.Exist(cache, key + resource, string.Empty))
+            if (RenewablePool.Instance.Exist(cache, key + parameter, string.Empty))
             {
-                this.asset = RenewablePool.Instance.Pop<Object>(cache, key + resource);
+                this.asset = RenewablePool.Instance.Pop<Object>(cache, key + parameter);
 
                 this.key = key; Refresh(this.asset); callBack?.Invoke();
 
-                if (!RenewablePool.Instance.Recent(cache, key + resource))
+                if (!RenewablePool.Instance.Recent(cache, key + parameter))
                 {
-                    this.key = string.Empty; Get(key, url, resource, callBack);
+                    this.key = string.Empty; Get(key, parameter, order, callBack);
                 }
             }
             else
@@ -84,7 +78,7 @@ namespace UnityEngine.UI
 
                     bool recent = RenewableResourceUpdate.Instance.Validation(key, buffer);
 
-                    Create(new RenewableDownloadHandler(key, resource, string.Empty, recent, buffer, null));
+                    Create(new RenewableDownloadHandler(key, parameter, string.Empty, recent, buffer, null));
 
                     if (recent)
                     {
@@ -92,14 +86,14 @@ namespace UnityEngine.UI
                     }
                     else
                     {
-                        Get(key, url, resource, callBack);
+                        Get(key, parameter, order, callBack);
                     }
                 }
                 else
                 {
                     if (!string.IsNullOrEmpty(local))
                     {
-                        path = local + resource;
+                        path = local + parameter;
 
                         if (TryLoad<Texture2D>(path, out Texture2D source))
                         {
@@ -107,15 +101,15 @@ namespace UnityEngine.UI
 
                             Object _temp;
 
-                            if (RenewablePool.Instance.Exist(cache, key + resource, string.Empty))
+                            if (RenewablePool.Instance.Exist(cache, key + parameter, string.Empty))
                             {
-                                _temp = RenewablePool.Instance.Pop<Object>(cache, key + resource);
+                                _temp = RenewablePool.Instance.Pop<Object>(cache, key + parameter);
                             }
                             else
                             {
                                 _temp = Instantiate(source);
 
-                                RenewablePool.Instance.Push(cache, key + resource, string.Empty, recent, _temp);
+                                RenewablePool.Instance.Push(cache, key + parameter, string.Empty, recent, _temp);
                             }
                             Refresh(_temp);
 
@@ -127,17 +121,17 @@ namespace UnityEngine.UI
                             }
                             else
                             {
-                                Get(key, url, resource, callBack);
+                                Get(key, parameter, order, callBack);
                             }
                         }
                         else
                         {
-                            Get(key, url, resource, callBack);
+                            Get(key, parameter, order, callBack);
                         }
                     }
                     else
                     {
-                        Get(key, url, resource, callBack);
+                        Get(key, parameter, order, callBack);
                     }
                 }
             }
@@ -211,7 +205,7 @@ namespace UnityEngine.UI
                 bundle.Unload(false);
             }
 
-            if (current == handle.key && resource == handle.parameter && _temp != null)
+            if (current == handle.key && parameter == handle.parameter && _temp != null)
             {
                 Refresh(_temp);
             }
@@ -231,7 +225,6 @@ namespace UnityEngine.UI
                     compontent.SetTexture(asset);
                     break;
             }
-            create?.Invoke(asset);
         }
     }
 }
