@@ -25,14 +25,18 @@ namespace UnityEditor
 
         private int index_assetbundle;
 
+        private string input_source;
+
+        private string input_assetbundle;
+
         private Vector2 scroll;
         #endregion
 
-        private int currentViewIndex;
+        private int currentViewIndex = -1;
 
-        private int currentSourceIndex;
+        private int currentSourceIndex = -1;
 
-        private int currentAssetbundleIndex;
+        private int currentAssetbundleIndex = -1;
 
         private string[] text_folder_source = new string[] { "None" };
 
@@ -46,7 +50,7 @@ namespace UnityEditor
 
         private readonly List<ItemUpload> m_asset = new List<ItemUpload>();
 
-        [MenuItem("Source/Upload")]
+        [MenuItem("Data/AssetBundle")]
         private static void Open()
         {
             AssetBundleBuilder window = EditorWindow.GetWindow<AssetBundleBuilder>();
@@ -61,6 +65,8 @@ namespace UnityEditor
             //QCloudCosSdk.Init();
 
             InitFolder();
+
+            UpdateFolder();
         }
 
         private void InitFolder()
@@ -88,7 +94,7 @@ namespace UnityEditor
                 {
                     folder_source.Add(new ItemFolder()
                     {
-                        name = root.Name + "/" + folder.Name,
+                        name = string.Format("{0}/{1}", root.Name, folder.Name),
                         path = folder.FullName,
                     });
                     text_folder_source[index++] = folder.Name;
@@ -98,8 +104,11 @@ namespace UnityEditor
             {
                 Directory.CreateDirectory(path);
             }
+        }
 
-            path = AssetBundlePath + "/" + SOURCE;
+        private void UpdateFolder()
+        {
+            string path = AssetBundlePath + "/" + SOURCE;
 
             folder_assetbundle.Clear();
 
@@ -122,7 +131,7 @@ namespace UnityEditor
                 {
                     folder_assetbundle.Add(new ItemFolder()
                     {
-                        name = root.Name + "/" + folder.Name,
+                        name = string.Format("{0}/{1}", root.Name, folder.Name),
                         path = folder.FullName,
                     });
                     text_folder_assetbundle[index++] = folder.Name;
@@ -177,11 +186,33 @@ namespace UnityEditor
 
                     if (folder_source.Count > currentSourceIndex)
                     {
-                        LoadFile(folder_source[currentSourceIndex].path, folder_source[currentSourceIndex].name, true);
+                        if (currentSourceIndex == 0)
+                            LoadAll(folder_source[0].path, folder_source[0].name, input_source, true);
+                        else
+                            Load(folder_source[currentSourceIndex].path, folder_source[currentSourceIndex].name, true);
                     }
                     else
                     {
                         items.Clear();
+                    }
+                }
+            }
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            {
+                if (currentSourceIndex == 0)
+                {
+                    GUILayout.Label("Search:", GUILayout.Width(50));
+
+                    input_source = GUILayout.TextField(input_source);
+
+                    if (GUILayout.Button("Refresh", GUILayout.Width(100)))
+                    {
+                        if (folder_source.Count > 0)
+                        {
+                            LoadAll(folder_source[0].path, folder_source[0].name, input_source);
+                        }
                     }
                 }
             }
@@ -275,11 +306,33 @@ namespace UnityEditor
 
                     if (folder_assetbundle.Count > currentAssetbundleIndex)
                     {
-                        LoadFile(folder_assetbundle[currentAssetbundleIndex].path, folder_assetbundle[currentAssetbundleIndex].name);
+                        if (currentAssetbundleIndex == 0)
+                            LoadAll(folder_assetbundle[0].path, folder_assetbundle[0].name, input_assetbundle);
+                        else
+                            Load(folder_assetbundle[currentAssetbundleIndex].path, folder_assetbundle[currentAssetbundleIndex].name);
                     }
                     else
                     {
                         items.Clear();
+                    }
+                }
+            }
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            {
+                if (currentAssetbundleIndex == 0)
+                {
+                    GUILayout.Label("Search:", GUILayout.Width(50));
+
+                    input_assetbundle = GUILayout.TextField(input_assetbundle);
+
+                    if (GUILayout.Button("Refresh", GUILayout.Width(100)))
+                    {
+                        if (folder_assetbundle.Count > 0)
+                        {
+                            LoadAll(folder_assetbundle[0].path, folder_assetbundle[0].name, input_assetbundle);
+                        }
                     }
                 }
             }
@@ -374,7 +427,7 @@ namespace UnityEditor
             }
         }
 
-        private void LoadFile(string path, string type = null, bool asset = false)
+        private void Load(string path, string type = null, bool asset = false)
         {
             if (string.IsNullOrEmpty(path)) return;
 
@@ -400,6 +453,56 @@ namespace UnityEditor
             }
         }
 
+        private void LoadAll(string path, string type = null, string predicate = null, bool asset = false)
+        {
+            if (string.IsNullOrEmpty(path)) return;
+
+            items.Clear();
+
+            if (Directory.Exists(path))
+            {
+                List<ItemFile> files = new List<ItemFile>();
+
+                Find(path, type, asset, ref files);
+
+                if (string.IsNullOrEmpty(predicate))
+                {
+                    items.AddRange(files);
+                }
+                else
+                {
+                    items.AddRange(files.FindAll(x => x.name.Contains(predicate)));
+                }
+            }
+        }
+
+        private void Find(string path, string type, bool asset, ref List<ItemFile> files)
+        {
+            if (Directory.Exists(path))
+            {
+                DirectoryInfo root = new DirectoryInfo(path);
+
+                foreach (FileInfo file in root.GetFiles())
+                {
+                    if (!IgnoreExtensionList.Contains(file.Extension))
+                    {
+                        files.Add(new ItemFile()
+                        {
+                            name = file.Name,
+                            path = asset ? AssetPath(file.FullName) : file.FullName,
+                            type = type,
+                            select = true,
+                        });
+                    }
+                }
+
+                foreach (DirectoryInfo dir in root.GetDirectories())
+                {
+                    Find(dir.FullName, string.Format("{0}/{1}", type, dir.Name), asset, ref files);
+                }
+            }
+        }
+
         private void BuildAssetBundle()
         {
             for (int i = 0; i < items.Count; i++)
@@ -409,6 +512,9 @@ namespace UnityEditor
                     BuildAssetBundle(items[i]);
                 }
             }
+
+            UpdateFolder();
+
             ShowNotification(new GUIContent("Build AssetBundle Success!"));
         }
 
