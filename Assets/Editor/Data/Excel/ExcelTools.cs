@@ -90,12 +90,12 @@ namespace UnityEditor
 
 			encoding = Encoding.Default;
 
-			LoadSource();
+			Load();
 		}
 
 		private void OnSelectionChange()
 		{
-			Show(); LoadSource(); Repaint();
+			Show(); Load(); Repaint();
 		}
 
 		private void OnGUI()
@@ -132,7 +132,7 @@ namespace UnityEditor
 				{
 					search = index_search;
 
-					LoadSource();
+					Load();
 				}
 			}
 			GUILayout.EndHorizontal();
@@ -159,7 +159,7 @@ namespace UnityEditor
 
 					if (GUILayout.Button(label_revise, GUILayout.Width(100)))
 					{
-						inputFolder = input_inputFolder; LoadSource();
+						inputFolder = input_inputFolder; Load();
 					}
 				}
 			}
@@ -314,7 +314,7 @@ namespace UnityEditor
 			}
 		}
 
-		private void LoadSource()
+		private void Load()
 		{
 			source.Clear();
 
