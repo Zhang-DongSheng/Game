@@ -1,14 +1,17 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Shake : MonoBehaviour
+public class SAMShake : MonoBehaviour
 {
     public float intensity = 0.3f;
+
     public float decay = 0.005f;
 
     private Vector3 fix_position;
+
     private Quaternion fix_rotation;
+
     private float shake_decay;
+
     private float shake_intensity;
 
     private void Awake()

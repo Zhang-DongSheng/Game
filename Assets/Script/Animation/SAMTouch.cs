@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Graphic)), DisallowMultipleComponent]
-public class TouchUIAnimation : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerClickHandler, IPointerUpHandler, IPointerExitHandler
+public class SAMTouch : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerClickHandler, IPointerUpHandler, IPointerExitHandler
 {
     [SerializeField] private Transform target;
 
@@ -155,7 +155,7 @@ public class TouchUIAnimation : MonoBehaviour, IPointerEnterHandler, IPointerDow
         {
             forward = false;
         }
-        else if(!forward && 0 > step)
+        else if (!forward && 0 > step)
         {
             Stop();
         }
@@ -216,7 +216,7 @@ public class TouchUIAnimation : MonoBehaviour, IPointerEnterHandler, IPointerDow
     }
 
     enum TouchType
-    { 
+    {
         None,
         Click,
         Press,
