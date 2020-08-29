@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace UnityEditor
 {
-    public class EbookTools : EditorWindow
+    public class EbookConvertWindow : EditorWindow
     {
         enum CodeType
         {
@@ -18,15 +18,7 @@ namespace UnityEditor
             Chinese,
         }
 
-        private const string Extension = ".txt";
-
         private readonly string[] text_title = new string[] { "主页", "设置", "其他" };
-
-        private readonly string[] lineParam_start = new string[] { "(", "[", "{", "<", "（", "【", "《", "‘", "“", "\'", "\"", "「", "第" };
-
-        private readonly string[] lineParam_center = new string[] { "《", "》", "章", "节", "篇"};
-
-        private readonly string[] lineParam_end = new string[] { ".", "。", "!", "！", "?", "？", "\'", "\"", "”", "’", ")", "]", "}", ">", "）", "】", "》", "」" };
 
         private readonly string label_code = "编码格式";
 
@@ -47,6 +39,8 @@ namespace UnityEditor
         private readonly string label_openOutputFolder = "打开输出文件夹";
 
         private readonly string label_refreshAsset = "刷新本地资源";
+
+        private readonly EbookConvert ebook = new EbookConvert();
 
         #region Temporary Variable
         private int index_view;
@@ -81,7 +75,7 @@ namespace UnityEditor
         [MenuItem("Other/Ebook")]
         private static void Open()
         {
-            EditorWindow window = EditorWindow.GetWindow<EbookTools>();
+            EditorWindow window = EditorWindow.GetWindow<EbookConvertWindow>();
             window.minSize = Vector2.one * 300;
             window.maxSize = Vector2.one * 1000;
             window.titleContent = new GUIContent("Ebook");
@@ -329,11 +323,11 @@ namespace UnityEditor
 
                 foreach (FileInfo file in root.GetFiles())
                 {
-                    if (file.Extension.Equals(Extension))
+                    if (file.Extension.Equals(".txt"))
                     {
                         if (Filter(index++, file.Name))
                         {
-                            Compute(file.FullName, file.Name);
+                            ebook.Convert(file.FullName, encoding);
                         }
                     }
                 }
@@ -344,24 +338,115 @@ namespace UnityEditor
             }
         }
 
-        private void Compute(string path, string name)
+        private void Redirect()
         {
-            PathCheck();
+            list.Clear();
 
-            name = name.Substring(0, name.Length - 4);
-
-            string newFilePath = string.Format("{0}/{1}{2}.txt", OutputPath, name, DateTime.Now.ToString("HH_mm"));
-
-            if (File.Exists(newFilePath))
+            if (Directory.Exists(InputPath))
             {
-                File.Delete(newFilePath);
+                DirectoryInfo root = new DirectoryInfo(InputPath);
+
+                foreach (FileInfo file in root.GetFiles())
+                {
+                    if (file.Extension.Equals(".txt"))
+                    {
+                        Book book = new Book()
+                        {
+                            name = file.Name,
+                            filter = false,
+                        };
+                        list.Add(book);
+                    }
+                }
             }
+        }
+
+        private bool Filter(int index, string name)
+        {
+            bool result = false;
+
+            if (list.Count > 0)
+            {
+                Book book = list.Find(x => x.name.Equals(name));
+
+                result = book != null ? book.filter : true;
+            }
+            else
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        private string InputPath
+        {
+            get
+            {
+                return Path.Combine(Application.dataPath, inputPath);
+            }
+        }
+
+        private string OutputPath
+        {
+            get
+            {
+                return Path.Combine(Application.dataPath, outputPath);
+            }
+        }
+        #endregion
+
+        private void OpenFolder(string path)
+        {
+            if (string.IsNullOrEmpty(path)) return;
+
+            if (Directory.Exists(path))
+            {
+                path = path.Replace("/", "\\");
+
+                System.Diagnostics.Process.Start("explorer.exe", path);
+            }
+            else
+            {
+                Debug.LogError("No Directory: " + path);
+            }
+        }
+
+        class Book
+        {
+            public string name;
+
+            public bool filter;
+        }
+    }
+
+    public class EbookConvert
+    {
+        private const string EXTENSION = ".txt";
+
+        private const int MAXNUMBER = 1000;
+
+        private readonly List<string> keyword_begin = new List<string> { "(", "[", "{", "<", "（", "【", "《", "‘", "“", "\'", "\"", "「", "第" };
+
+        private readonly List<string> keyword_among = new List<string> { "《", "》", "章", "节", "篇" };
+
+        private readonly List<string> keyword_ending = new List<string> { ".", "。", "!", "！", "?", "？", "\'", "\"", "”", "’", ")", "]", "}", ">", "）", "】", "》", "」" };
+
+        public void Convert(string source, Encoding encoding)
+        {
+            if (string.IsNullOrEmpty(source)) return;
+
+            if (!File.Exists(source)) return;
+
+            string document = string.Format("{0}/{1}{2}{3}", Path.GetDirectoryName(source), Path.GetFileNameWithoutExtension(source), DateTime.Now.ToString("HHmm"), EXTENSION);
+
+            if (File.Exists(document)) File.Delete(document);
 
             try
             {
-                FileStream stream = new FileStream(newFilePath, FileMode.CreateNew);
+                FileStream stream = new FileStream(document, FileMode.CreateNew);
 
-                using (FileStream fs = new FileStream(path, FileMode.Open))
+                using (FileStream fs = new FileStream(source, FileMode.Open))
                 {
                     StreamWriter sw = new StreamWriter(stream, encoding);
                     StreamReader sr = new StreamReader(fs, encoding);
@@ -409,77 +494,25 @@ namespace UnityEditor
             }
             finally
             {
-                ShowNotification(new GUIContent("Create New File Success!"));
 
-                AssetDatabase.Refresh();
             }
-        }
-
-        private void PathCheck()
-        {
-            if (Directory.Exists(OutputPath)) { }
-            else
-            {
-                Directory.CreateDirectory(OutputPath);
-            }
-        }
-
-        private void Redirect()
-        {
-            list.Clear();
-
-            if (Directory.Exists(InputPath))
-            {
-                DirectoryInfo root = new DirectoryInfo(InputPath);
-
-                foreach (FileInfo file in root.GetFiles())
-                {
-                    if (file.Extension.Equals(Extension))
-                    {
-                        Book book = new Book()
-                        {
-                            name = file.Name,
-                            filter = false,
-                        };
-                        list.Add(book);
-                    }
-                }
-            }
-        }
-
-        private bool Filter(int index, string name)
-        {
-            bool result = false;
-
-            if (list.Count > 0)
-            {
-                Book book = list.Find(x => x.name.Equals(name));
-
-                result = book != null ? book.filter : true;
-            }
-            else
-            {
-                result = true;
-            }
-
-            return result;
         }
 
         private bool ParagraphStart(string content)
         {
             if (string.IsNullOrEmpty(content)) return false;
 
-            for (int i = 0; i < lineParam_start.Length; i++)
+            for (int i = 0; i < keyword_begin.Count; i++)
             {
-                if (content.StartsWith(lineParam_start[i]))
+                if (content.StartsWith(keyword_begin[i]))
                 {
                     return true;
                 }
             }
 
-            for (int i = 0; i < lineParam_center.Length; i++)
+            for (int i = 0; i < keyword_among.Count; i++)
             {
-                if (content.Contains(lineParam_center[i]))
+                if (content.Contains(keyword_among[i]))
                 {
                     return true;
                 }
@@ -492,24 +525,24 @@ namespace UnityEditor
         {
             if (string.IsNullOrEmpty(content)) return false;
 
-            if (content.Length > lineCount)
+            if (content.Length > MAXNUMBER)
             {
-                Debug.LogWarningFormat("More than {0} words, content : {1}", lineCount, content);
+                Debug.LogWarningFormat("More than {0} words, content : {1}", MAXNUMBER, content);
                 return true;
             }
             else
             {
-                for (int i = 0; i < lineParam_center.Length; i++)
+                for (int i = 0; i < keyword_among.Count; i++)
                 {
-                    if (content.Contains(lineParam_center[i]))
+                    if (content.Contains(keyword_among[i]))
                     {
                         return true;
                     }
                 }
 
-                for (int i = 0; i < lineParam_end.Length; i++)
+                for (int i = 0; i < keyword_ending.Count; i++)
                 {
-                    if (content.EndsWith(lineParam_end[i]))
+                    if (content.EndsWith(keyword_ending[i]))
                     {
                         return true;
                     }
@@ -528,46 +561,6 @@ namespace UnityEditor
             content = content.Trim();
 
             return content;
-        }
-
-        private string InputPath
-        {
-            get
-            {
-                return Path.Combine(Application.dataPath, inputPath);
-            }
-        }
-
-        private string OutputPath
-        {
-            get
-            {
-                return Path.Combine(Application.dataPath, outputPath);
-            }
-        }
-        #endregion
-
-        private void OpenFolder(string path)
-        {
-            if (string.IsNullOrEmpty(path)) return;
-
-            if (Directory.Exists(path))
-            {
-                path = path.Replace("/", "\\");
-
-                System.Diagnostics.Process.Start("explorer.exe", path);
-            }
-            else
-            {
-                Debug.LogError("No Directory: " + path);
-            }
-        }
-
-        class Book
-        {
-            public string name;
-
-            public bool filter;
         }
     }
 }
