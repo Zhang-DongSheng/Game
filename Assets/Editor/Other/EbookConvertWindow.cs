@@ -424,13 +424,13 @@ namespace UnityEditor
     {
         private const string EXTENSION = ".txt";
 
-        private const int MAXNUMBER = 1000;
+        private const int MAXNUMBER = 500;
 
         private readonly List<string> keyword_begin = new List<string> { "(", "[", "{", "<", "（", "【", "《", "‘", "“", "\'", "\"", "「", "第" };
 
         private readonly List<string> keyword_among = new List<string> { "《", "》", "章", "节", "篇" };
 
-        private readonly List<string> keyword_ending = new List<string> { ".", "。", "!", "！", "?", "？", "\'", "\"", "”", "’", ")", "]", "}", ">", "）", "】", "》", "」" };
+        private readonly List<string> keyword_ending = new List<string> { ".", "。", "!", "！", "?", "？", "\'", "\"", "”", "’", ")", "]", "}", ">", "）", "】", "》", "」", "…" };
 
         public void Convert(string source, Encoding encoding)
         {
@@ -464,8 +464,11 @@ namespace UnityEditor
 
                         if (ParagraphStart(_temp))
                         {
-                            sw.WriteLine(content);
-                            sw.Flush();
+                            if (!string.IsNullOrEmpty(content))
+                            {
+                                sw.WriteLine(content);
+                                sw.Flush();
+                            }
                             content = string.Empty;
                         }
 
@@ -473,12 +476,14 @@ namespace UnityEditor
 
                         if (ParagraphEnd(content))
                         {
-                            sw.WriteLine(content);
-                            sw.Flush();
-                            content = string.Empty;
+                            if (!string.IsNullOrEmpty(content))
+                            {
+                                sw.WriteLine(content);
+                                sw.Flush();
+                            }
+                            content = content.Length > MAXNUMBER ? content.Remove(0, MAXNUMBER) : string.Empty;
                         }
                     }
-
                     if (!string.IsNullOrEmpty(content))
                     {
                         sw.WriteLine(content);
