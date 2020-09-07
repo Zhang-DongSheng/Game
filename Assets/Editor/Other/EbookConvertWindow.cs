@@ -481,7 +481,7 @@ namespace UnityEditor
                                 sw.WriteLine(content);
                                 sw.Flush();
                             }
-                            content = content.Length > MAXNUMBER ? content.Remove(0, MAXNUMBER) : string.Empty;
+                            content = string.Empty;
                         }
                     }
                     if (!string.IsNullOrEmpty(content))
@@ -490,7 +490,6 @@ namespace UnityEditor
                         sw.Flush();
                     }
                 }
-
                 stream.Dispose();
             }
             catch (Exception e)
@@ -553,7 +552,6 @@ namespace UnityEditor
                     }
                 }
             }
-
             return false;
         }
 
