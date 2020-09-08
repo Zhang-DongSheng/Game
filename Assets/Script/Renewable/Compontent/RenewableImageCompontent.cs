@@ -2,6 +2,13 @@
 {
     public class RenewableImageCompontent : MonoBehaviour
     {
+        enum RenewableImageType
+        {
+            Image,
+            RawImage,
+            SpriteRenderer,
+        }
+
         [SerializeField] private RenewableImageType type;
 
         [SerializeField] private Image image;
@@ -22,7 +29,7 @@
             }
             else
             {
-                Debug.LogWarningFormat("The Object is unknow Type!");
+                Debug.LogWarningFormat("The source Type is unknow!");
             }
         }
 
@@ -48,7 +55,23 @@
             }
         }
 
-        public void SetImage(Sprite sprite)
+        public void SetTexture(Sprite sprite)
+        {
+            switch (type)
+            {
+                case RenewableImageType.Image:
+                    SetImage(sprite);
+                    break;
+                case RenewableImageType.RawImage:
+                    SetRawImage(sprite.texture);
+                    break;
+                case RenewableImageType.SpriteRenderer:
+                    SetSpriteRenderer(sprite);
+                    break;
+            }
+        }
+
+        private void SetImage(Sprite sprite)
         {
             if (image == null)
                 image = GetComponentInChildren<Image>();
@@ -59,7 +82,7 @@
                 image.SetNativeSize();
         }
 
-        public void SetRawImage(Texture2D texture)
+        private void SetRawImage(Texture2D texture)
         {
             if (rawImage == null)
                 rawImage = GetComponent<RawImage>();
@@ -67,7 +90,7 @@
                 rawImage.texture = texture;
         }
 
-        public void SetSpriteRenderer(Sprite sprite)
+        private void SetSpriteRenderer(Sprite sprite)
         {
             if (render == null)
                 render = GetComponentInChildren<SpriteRenderer>();
@@ -95,17 +118,7 @@
 
         private void OnDestroy()
         {
-            if (m_sprite != null)
-            {
-                Destroy(m_sprite);
-            }
-        }
-
-        private enum RenewableImageType
-        {
-            Image,
-            RawImage,
-            SpriteRenderer,
+            if (m_sprite != null) { Destroy(m_sprite); }
         }
     }
 }

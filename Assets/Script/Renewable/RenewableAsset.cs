@@ -8,6 +8,7 @@ namespace UnityEngine.UI
         {
             None,
             Image,
+            Text,
         }
 
         [SerializeField] private RenewableCompontentType type;
@@ -20,7 +21,7 @@ namespace UnityEngine.UI
 
         protected override DownloadFileType fileType { get { return DownloadFileType.None; } }
 
-        public void CreateAsset(string key, string parameter, int order, Action callBack = null)
+        public void CreateAsset(string key, string parameter, int order = 0, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -213,7 +214,7 @@ namespace UnityEngine.UI
 
         private void Refresh(Object asset)
         {
-            if (asset == null) return;
+            if (this == null || asset == null) return;
 
             switch (type)
             {
@@ -223,6 +224,9 @@ namespace UnityEngine.UI
                         compontent = gameObject.AddComponent<RenewableImageCompontent>();
                     }
                     compontent.SetTexture(asset);
+                    break;
+                case RenewableCompontentType.Text:
+                    
                     break;
             }
         }

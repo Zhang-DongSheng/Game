@@ -5,13 +5,11 @@ namespace UnityEngine.UI
     [RequireComponent(typeof(RenewableImageCompontent))]
     public class RenewableImage : RenewableBase
     {
-        private RenewableImageCompontent compontent;
-
         private Texture2D m_texture;
 
         protected override DownloadFileType fileType { get { return DownloadFileType.Image; } }
 
-        public void SetImage(string key, string parameter = null,int order = 0, Action callBack = null)
+        public void SetImage(string key, string parameter = null, int order = 0, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -34,7 +32,7 @@ namespace UnityEngine.UI
             }
             else
             {
-                Get(key, parameter, order,callBack);
+                Get(key, parameter, order, callBack);
             }
         }
 
@@ -175,10 +173,10 @@ namespace UnityEngine.UI
 
         private void SetTexture(Texture2D texture)
         {
-            if (compontent == null)
-                compontent = GetComponent<RenewableImageCompontent>();
-            if (compontent == null)
+            if (!TryGetComponent<RenewableImageCompontent>(out RenewableImageCompontent compontent))
+            {
                 compontent = gameObject.AddComponent<RenewableImageCompontent>();
+            }
             compontent.SetTexture(texture);
         }
     }
