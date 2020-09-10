@@ -169,46 +169,28 @@ namespace UnityEngine.UI
 
         protected override void Create(RenewableDownloadHandler handle)
         {
-            AssetBundle bundle = null;
-
-            if (handle.source != null)
-            {
-                bundle = handle.source as AssetBundle;
-            }
-            else
-            {
-                try
-                {
-                    bundle = AssetBundle.LoadFromMemory(handle.buffer);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError(e.Message);
-                }
-            }
-
-            Object _temp = null;
-
             if (RenewablePool.Instance.Exist(cache, handle.key + handle.parameter, handle.secret))
             {
-                _temp = RenewablePool.Instance.Pop<Object>(cache, handle.key + handle.parameter);
+                Object asset = RenewablePool.Instance.Pop<Object>(cache, handle.key + handle.parameter);
 
-                bundle.Unload(true);
+                if (current == handle.key && parameter == handle.parameter && asset != null)
+                {
+                    Refresh(asset);
+                }
             }
             else
             {
-                if (bundle.Contains(handle.parameter))
+                RenewableAssetBundle.Instance.LoadAsync(handle.key, handle.buffer, handle.parameter, (asset) =>
                 {
-                    _temp = bundle.LoadAsset<Object>(handle.parameter);
-
-                    RenewablePool.Instance.Push(cache, handle.key + handle.parameter, handle.secret, handle.recent, _temp);
-                }
-                bundle.Unload(false);
-            }
-
-            if (current == handle.key && parameter == handle.parameter && _temp != null)
-            {
-                Refresh(_temp);
+                    if (asset != null)
+                    {
+                        if (current == handle.key && parameter == handle.parameter && asset != null)
+                        {
+                            Refresh(asset);
+                        }
+                        RenewablePool.Instance.Push(cache, handle.key + handle.parameter, handle.secret, handle.recent, asset);
+                    }
+                });
             }
         }
 
