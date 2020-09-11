@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 namespace UnityEngine.UI
 {
     [RequireComponent(typeof(Graphic))]
-    public class UISuspensionWindow : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class UISuspensionWindow : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerClickHandler
     {
         enum Anchors
         {
@@ -28,9 +28,13 @@ namespace UnityEngine.UI
 
         private Vector2 center;
 
+        private Vector2 shift;
+
         private Vector2 position;
 
-        public UnityEvent callBack;
+        public UnityEvent onClick;
+
+        public UnityEvent onHoming;
 
         private void Awake()
         {
@@ -54,6 +58,8 @@ namespace UnityEngine.UI
 
         public void OnDrag(PointerEventData eventData)
         {
+            shift += eventData.delta;
+
             RectTransformUtility.ScreenPointToLocalPointInRectangle(root, Input.mousePosition, null, out position);
 
             SetPosition(position);
@@ -64,6 +70,18 @@ namespace UnityEngine.UI
             RectTransformUtility.ScreenPointToLocalPointInRectangle(root, Input.mousePosition, null, out position);
 
             Homing(position);
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            shift = Vector2.zero;
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (shift != Vector2.zero) return;
+
+            onClick?.Invoke();
         }
 
         private void Homing(Vector2 position)
@@ -93,7 +111,7 @@ namespace UnityEngine.UI
 
             SetPosition(position);
 
-            callBack?.Invoke();
+            onHoming?.Invoke();
         }
 
         private void SetPosition(Vector2 position)
