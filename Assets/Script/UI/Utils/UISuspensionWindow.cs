@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI
@@ -28,6 +29,8 @@ namespace UnityEngine.UI
         private Vector2 center;
 
         private Vector2 position;
+
+        public UnityEvent callBack;
 
         private void Awake()
         {
@@ -87,7 +90,10 @@ namespace UnityEngine.UI
                     position.x = space.y;
                     break;
             }
+
             SetPosition(position);
+
+            callBack?.Invoke();
         }
 
         private void SetPosition(Vector2 position)
