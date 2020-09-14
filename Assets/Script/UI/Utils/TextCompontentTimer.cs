@@ -1,40 +1,45 @@
 ﻿using System;
-using System.Text;
-using TMPro;
+using System.Collections.Generic;
 
 namespace UnityEngine.UI
 {
     public class TextCompontentTimer : MonoBehaviour
     {
-        private readonly int Day = 86400, Hour = 3600, Minute = 60;
+        private const int Day = 86400, Hour = 3600, Minute = 60;
 
-        private enum TimeType
+        enum TimeType
         {
             Real,
             Game,
             Countdown,
-            AlarmClock,
         }
 
-        private enum TimeDisplay
+        enum TimeDisplay
         {
-            Day_Hour_Minute_Second,
-            Hour_Minute_Second,
-            Minute_Second,
-            Hour_Minute,
-            TotalSecond,
+            SMHDMY,
+            SMHDM,
+            SMHD,
+            SMH,
+            SM,
+            S,
         }
 
         public Action callBack;
 
-        [SerializeField] private Text txt_time;
+        [SerializeField] private TimeType type;
 
-        [SerializeField] private TextMeshProUGUI tmp_time;
+        [SerializeField] private TimeDisplay display;
 
-        [SerializeField] private TimeType timeType;
-        
-        [SerializeField] private TimeDisplay timeDisplay;
-        
+        [SerializeField] private Text txt_second;
+
+        [SerializeField] private Text txt_minute;
+
+        [SerializeField] private Text txt_hour;
+
+        [SerializeField] private Text txt_day;
+
+        [SerializeField] private List<GameObject> obj_respire;
+
         [SerializeField] private float interval;
 
         [SerializeField] private bool breathe;
@@ -43,7 +48,7 @@ namespace UnityEngine.UI
 
         private bool respire;
 
-        private float fixed_time;
+        private float terminal;
 
         private float timer_update;
 
@@ -53,41 +58,31 @@ namespace UnityEngine.UI
 
         private int total, day, hour, minute, second;
 
-        private readonly StringBuilder builder = new StringBuilder();
-
         #region Core
-        private void Awake()
-        {
-            if (txt_time == null)
-                txt_time = GetComponent<Text>();
-            if (tmp_time == null)
-                tmp_time = GetComponent<TextMeshProUGUI>();
-        }
-
         private void Update()
         {
             if (!work) return;
 
             timer_update += Time.deltaTime;
 
-            timer_countdown = fixed_time - Time.time;
-
             timer_breathe += Time.deltaTime;
+
+            timer_countdown = terminal - Time.time;
 
             if (timer_update > interval)
             {
                 timer_update = 0;
 
-                switch (timeType)
+                switch (type)
                 {
                     case TimeType.Real:
-                        SetTime(DateTime.Now.ToString());
+                        SetText(DateTime.Now);
                         break;
                     case TimeType.Game:
-                        SetTime(Time.time);
+                        SetText(Time.time);
                         break;
                     case TimeType.Countdown:
-                        SetTime(timer_countdown);
+                        SetText(timer_countdown);
                         if (timer_countdown <= 0)
                         {
                             Completed();
@@ -100,13 +95,56 @@ namespace UnityEngine.UI
 
             if (breathe && timer_breathe > 1)
             {
-                respire = !respire;
+                respire = !respire; timer_breathe = 0;
 
-                timer_breathe = 0;
+                SetRespire(respire);
             }
         }
 
-        private void SetTime(float totalSecond)
+        private void Completed()
+        {
+            callBack?.Invoke();
+            
+            work = false;
+        }
+        #endregion
+
+        #region Function
+        public void CountDown(float time, Action action = null)
+        {
+            type = TimeType.Countdown;
+
+            callBack = action;
+
+            terminal = Time.time + time;
+
+            work = true;
+
+            gameObject.SetActive(true);
+        }
+
+        public void StartUp()
+        {
+            work = true;
+
+            gameObject.SetActive(true);
+        }
+
+        public void Stop()
+        {
+            work = false;
+
+            gameObject.SetActive(false);
+        }
+        #endregion
+
+        #region Refresh
+        private void SetText(DateTime time)
+        {
+            SetText(time.Second, time.Minute, time.Hour, time.Day, time.Month, time.Year);
+        }
+
+        private void SetText(float totalSecond)
         {
             total = (int)totalSecond;
 
@@ -124,85 +162,77 @@ namespace UnityEngine.UI
 
             second = (int)totalSecond;
 
-            builder.Clear();
-
-            switch (timeDisplay)
+            if (display != TimeDisplay.S)
             {
-                case TimeDisplay.Day_Hour_Minute_Second:
-                    builder.Append(day);
-                    builder.Append(" ");
-                    goto case TimeDisplay.Hour_Minute_Second;
-                case TimeDisplay.Hour_Minute_Second:
-                    builder.Append(FormatTime(hour));
-                    builder.Append(":");
-                    goto case TimeDisplay.Minute_Second;
-                case TimeDisplay.Minute_Second:
-                    builder.Append(FormatTime(minute));
-                    builder.Append(breathe ? respire ? ":" : " " : ":");
-                    builder.Append(FormatTime(second));
-                    break;
-                case TimeDisplay.Hour_Minute:
-                    builder.Append(FormatTime(hour));
-                    builder.Append(breathe ? respire ? ":" : " " : ":");
-                    builder.Append(FormatTime(minute));
-                    break;
-                case TimeDisplay.TotalSecond:
-                    builder.Append(total);
-                    break;
-            }
-
-            SetTime(builder.ToString());
-        }
-
-        private void SetTime(string value)
-        {
-            if (txt_time != null)
-                txt_time.text = value;
-            if (tmp_time != null)
-                tmp_time.text = value;
-        }
-
-        private string FormatTime(int time)
-        {
-            if (time < 10)
-            {
-                return string.Format("0{0}", time);
+                SetText(second, minute, hour, day);
             }
             else
             {
-                return time.ToString();
+                SetText(total);
             }
         }
 
-        private void Completed()
+        private void SetText(int second, int minute = 0, int hour = 0, int day = 0, int month = 0, int year = 0)
         {
-            callBack?.Invoke(); work = false;
+            switch (display)
+            {
+                case TimeDisplay.S:
+                    SetText(txt_second, second, false);
+                    break;
+                case TimeDisplay.SM:
+                    SetText(txt_second, second);
+                    SetText(txt_minute, minute);
+                    break;
+                case TimeDisplay.SMH:
+                    SetText(txt_second, second);
+                    SetText(txt_minute, minute);
+                    SetText(txt_hour, hour);
+                    break;
+                case TimeDisplay.SMHD:
+                    SetText(txt_second, second);
+                    SetText(txt_minute, minute);
+                    SetText(txt_hour, hour);
+                    SetText(txt_day, day);
+                    break;
+                case TimeDisplay.SMHDM:
+                    SetText(txt_second, second);
+                    SetText(txt_minute, minute);
+                    SetText(txt_hour, hour);
+                    SetText(txt_day, string.Format("{0} {1}", month, day));
+                    break;
+                case TimeDisplay.SMHDMY:
+                    SetText(txt_second, second);
+                    SetText(txt_minute, minute);
+                    SetText(txt_hour, hour);
+                    SetText(txt_day, string.Format("{0}.{1} {2}", year, month, day));
+                    break;
+                default:
+                    break;
+            }
         }
-        #endregion
 
-        #region Function
-        public void Stop()
+        private void SetText(Text compontent, int number, bool cover = true)
         {
-            work = false;
+            string content = cover && number < 10 ? string.Format("0{0}", number) : number.ToString();
+
+            SetText(compontent, content);
         }
 
-        public void Countdown(float time, Action action = null)
+        private void SetText(Text compontent, string content)
         {
-            timeType = TimeType.Countdown;
-
-            callBack = action;
-
-            fixed_time = Time.time + time;
-
-            work = true;
+            if (compontent != null)
+                compontent.text = content;
         }
 
-        public void SetText(string value)
+        private void SetRespire(bool active)
         {
-            if (txt_time != null)
-                txt_time.text = value;
-            if (tmp_time != null)
-                tmp_time.text = value;
+            for (int i = 0; i < obj_respire.Count; i++)
+            {
+                if (obj_respire[i] != null && obj_respire[i].activeSelf != active)
+                {
+                    obj_respire[i].SetActive(active);
+                }
+            }
         }
         #endregion
     }
