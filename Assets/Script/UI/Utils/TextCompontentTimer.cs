@@ -5,7 +5,7 @@ namespace UnityEngine.UI
 {
     public class TextCompontentTimer : MonoBehaviour
     {
-        private const int Day = 86400, Hour = 3600, Minute = 60;
+        private readonly int Day = 60 * 60 * 24, Hour = 60 * 60, Minute = 60;
 
         enum TimeType
         {
@@ -106,6 +106,8 @@ namespace UnityEngine.UI
             callBack?.Invoke();
             
             work = false;
+
+            gameObject.SetActive(false);
         }
         #endregion
 
@@ -186,26 +188,17 @@ namespace UnityEngine.UI
                 case TimeDisplay.SMH:
                     SetText(txt_second, second);
                     SetText(txt_minute, minute);
-                    SetText(txt_hour, hour);
+                    SetText(txt_hour, hour, false);
                     break;
                 case TimeDisplay.SMHD:
-                    SetText(txt_second, second);
-                    SetText(txt_minute, minute);
-                    SetText(txt_hour, hour);
                     SetText(txt_day, day);
-                    break;
+                    goto case TimeDisplay.SMH;
                 case TimeDisplay.SMHDM:
-                    SetText(txt_second, second);
-                    SetText(txt_minute, minute);
-                    SetText(txt_hour, hour);
                     SetText(txt_day, string.Format("{0} {1}", month, day));
-                    break;
+                    goto case TimeDisplay.SMH;
                 case TimeDisplay.SMHDMY:
-                    SetText(txt_second, second);
-                    SetText(txt_minute, minute);
-                    SetText(txt_hour, hour);
                     SetText(txt_day, string.Format("{0}.{1} {2}", year, month, day));
-                    break;
+                    goto case TimeDisplay.SMH;
                 default:
                     break;
             }
