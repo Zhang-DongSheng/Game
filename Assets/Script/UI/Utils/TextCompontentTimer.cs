@@ -30,6 +30,10 @@ namespace UnityEngine.UI
 
         [SerializeField] private TimeDisplay display;
 
+        [SerializeField] private GameObject obj_detail;
+
+        [SerializeField] private Text txt_countdown;
+
         [SerializeField] private Text txt_second;
 
         [SerializeField] private Text txt_minute;
@@ -38,15 +42,21 @@ namespace UnityEngine.UI
 
         [SerializeField] private Text txt_day;
 
-        [SerializeField] private List<GameObject> obj_respire;
+        [SerializeField] private float interval = 0.5f;
 
-        [SerializeField] private float interval;
+        [SerializeField] private int number = -1;
+
+        [SerializeField] private bool countdown;
 
         [SerializeField] private bool breathe;
+
+        [SerializeField] private List<GameObject> obj_respire;
 
         private bool work;
 
         private bool respire;
+
+        private bool reverse;
 
         private float terminal;
 
@@ -97,7 +107,7 @@ namespace UnityEngine.UI
             {
                 respire = !respire; timer_breathe = 0;
 
-                SetRespire(respire);
+                SetActiveRespire(respire);
             }
         }
 
@@ -119,6 +129,8 @@ namespace UnityEngine.UI
             callBack = action;
 
             terminal = Time.time + time;
+
+            SetText(terminal);
 
             work = true;
 
@@ -176,31 +188,45 @@ namespace UnityEngine.UI
 
         private void SetText(int second, int minute = 0, int hour = 0, int day = 0, int month = 0, int year = 0)
         {
-            switch (display)
+            int sum = day * Day + hour * Hour + minute * Minute + second;
+
+            reverse = countdown && number > sum;
+
+            SetActiveDetail(!reverse);
+
+            if (reverse)
             {
-                case TimeDisplay.S:
-                    SetText(txt_second, second, false);
-                    break;
-                case TimeDisplay.SM:
-                    SetText(txt_second, second);
-                    SetText(txt_minute, minute);
-                    break;
-                case TimeDisplay.SMH:
-                    SetText(txt_second, second);
-                    SetText(txt_minute, minute);
-                    SetText(txt_hour, hour, false);
-                    break;
-                case TimeDisplay.SMHD:
-                    SetText(txt_day, day);
-                    goto case TimeDisplay.SMH;
-                case TimeDisplay.SMHDM:
-                    SetText(txt_day, string.Format("{0} {1}", month, day));
-                    goto case TimeDisplay.SMH;
-                case TimeDisplay.SMHDMY:
-                    SetText(txt_day, string.Format("{0}.{1} {2}", year, month, day));
-                    goto case TimeDisplay.SMH;
-                default:
-                    break;
+                SetText(txt_countdown, sum, false);
+            }
+            else
+            {
+                switch (display)
+                {
+                    case TimeDisplay.S:
+                        SetText(txt_second, sum, false);
+                        break;
+                    case TimeDisplay.SM:
+                        SetText(txt_second, second);
+                        SetText(txt_minute, minute);
+                        break;
+                    case TimeDisplay.SMH:
+                        SetText(txt_second, second);
+                        SetText(txt_minute, minute);
+                        SetText(txt_hour, hour, false);
+                        break;
+                    case TimeDisplay.SMHD:
+                        SetText(txt_day, day);
+                        goto case TimeDisplay.SMH;
+                    case TimeDisplay.SMHDM:
+                        SetText(txt_day, string.Format("{0} {1}", month, day));
+                        goto case TimeDisplay.SMH;
+                    case TimeDisplay.SMHDMY:
+                        SetText(txt_day, string.Format("{0}.{1} {2}", year, month, day));
+                        goto case TimeDisplay.SMH;
+                    default:
+                        break;
+                }
+                SetText(txt_countdown, string.Empty);
             }
         }
 
@@ -217,7 +243,7 @@ namespace UnityEngine.UI
                 compontent.text = content;
         }
 
-        private void SetRespire(bool active)
+        private void SetActiveRespire(bool active)
         {
             for (int i = 0; i < obj_respire.Count; i++)
             {
@@ -225,6 +251,14 @@ namespace UnityEngine.UI
                 {
                     obj_respire[i].SetActive(active);
                 }
+            }
+        }
+
+        private void SetActiveDetail(bool active)
+        {
+            if (obj_detail != null && obj_detail.activeSelf != active)
+            {
+                obj_detail.SetActive(active);
             }
         }
         #endregion

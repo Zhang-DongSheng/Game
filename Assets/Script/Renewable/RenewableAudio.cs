@@ -59,7 +59,7 @@ namespace UI
 
             if (!gameObject.activeSelf) return;
 
-            if (current != key) return;
+            if (current != handle.key) return;
 
             Play(clip);
         }
