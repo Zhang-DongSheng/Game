@@ -112,26 +112,127 @@ public static class Extension
     #endregion
 
     #region UnityEngine
-    public static void AddComponent<T>(this Transform target) where T : UnityEngine.Component
+    public static T AddComponent<T>(this Transform target) where T : UnityEngine.Component
     {
         if (target != null && target.gameObject != null)
         {
-            target.gameObject.AddComponent<T>();
+            return target.gameObject.AddComponent<T>();
         }
+        return null;
+    }
+
+    public static T GetOrAddCompontent<T>(this Transform target) where T : UnityEngine.Component
+    {
+        if (target != null && target.gameObject != null)
+        {
+            if (!target.TryGetComponent<T>(out T compontent))
+            {
+                compontent = target.gameObject.AddComponent<T>();
+            }
+            return compontent;
+        }
+        return null;
     }
 
     public static T GetComponentInChildren<T>(this Transform target, string name) where T : UnityEngine.Component
     {
         if (target != null)
         {
-            Transform node = target.Find(name);
-            if (node != null)
-                return node.GetComponent<T>();
+            Transform child = target.Find(name);
+            if (child != null)
+                return child.GetComponent<T>();
         }
         return null;
     }
 
-    public static void Clear(this Transform target)
+    public static void RemoveComponent<T>(this Transform target) where T : UnityEngine.Component
+    {
+        if (target != null && target.gameObject != null)
+        {
+            if (target.TryGetComponent<T>(out T compontent))
+            {
+                UnityEngine.Object.Destroy(compontent);
+            }
+        }
+    }
+
+    public static Transform Root<T>(this Transform target) where T : UnityEngine.Component
+    {
+        if (target != null)
+        {
+            Transform node = target;
+
+            while (node != null)
+            {
+                if (node.TryGetComponent<T>(out _))
+                {
+                    break;
+                }
+                node = node.parent;
+            }
+            return node;
+        }
+        return null;
+    }
+
+    public static void SetPositionX(this Transform target, float value, bool local = false)
+    {
+        if (target != null)
+        {
+            if (local)
+            {
+                Vector3 position = target.localPosition;
+                position.x = value;
+                target.localPosition = position;
+            }
+            else
+            {
+                Vector3 position = target.position;
+                position.x = value;
+                target.position = position;
+            }
+        }
+    }
+
+    public static void SetPositionY(this Transform target, float value, bool local = false)
+    {
+        if (target != null)
+        {
+            if (local)
+            {
+                Vector3 position = target.localPosition;
+                position.y = value;
+                target.localPosition = position;
+            }
+            else
+            {
+                Vector3 position = target.position;
+                position.y = value;
+                target.position = position;
+            }
+        }
+    }
+
+    public static void SetPositionZ(this Transform target, float value, bool local = false)
+    {
+        if (target != null)
+        {
+            if (local)
+            {
+                Vector3 position = target.localPosition;
+                position.z = value;
+                target.localPosition = position;
+            }
+            else
+            {
+                Vector3 position = target.position;
+                position.z = value;
+                target.position = position;
+            }
+        }
+    }
+
+    public static void ClearChildren(this Transform target)
     {
         if (target != null && target.childCount > 0)
         {
