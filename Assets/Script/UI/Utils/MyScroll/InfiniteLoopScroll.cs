@@ -4,6 +4,9 @@ using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI
 {
+    /// <summary>
+    /// 无限滚动循环列表 自动归位 前进，后退
+    /// </summary>
     public class InfiniteLoopScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         enum Direction
