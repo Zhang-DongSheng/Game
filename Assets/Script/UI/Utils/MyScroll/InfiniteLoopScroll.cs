@@ -28,6 +28,8 @@ namespace UnityEngine.UI
 
         [SerializeField] private float ratio = 1;
 
+        [SerializeField, Range(2, 5)] private int reserve = 2;
+
         [SerializeField, Range(3, 20)] private int count = 5;
 
         private Vector2 space;
@@ -148,7 +150,7 @@ namespace UnityEngine.UI
             {
                 cell = content.Cell;
 
-                back = 2;
+                back = reserve;
 
                 front = count - back;
 
@@ -299,10 +301,10 @@ namespace UnityEngine.UI
             switch (direction)
             {
                 case Direction.Horizontal:
-                    inside = Math.Abs(position.x - center.x) < cell.x * 0.5f;
+                    inside = Math.Abs(position.x - center.x) <= cell.x * 0.5f;
                     break;
                 case Direction.Vertical:
-                    inside = Math.Abs(position.y - center.y) < cell.y * 0.5f;
+                    inside = Math.Abs(position.y - center.y) <= cell.y * 0.5f;
                     break;
             }
 
@@ -379,7 +381,7 @@ namespace UnityEngine.UI
             }
             else
             {
-                Debug.LogError("xxx");
+                Debug.LogError("The Item is Null!");
             }
         }
         #endregion

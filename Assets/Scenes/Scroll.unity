@@ -254,7 +254,9 @@ MonoBehaviour:
   content: {fileID: 1168398771}
   prefab: {fileID: 2142870759}
   center: {x: 0, y: 0}
-  ratio: 0.5
+  spring: 30
+  ratio: 1
+  reserve: 2
   count: 5
 --- !u!114 &169765091
 MonoBehaviour:
