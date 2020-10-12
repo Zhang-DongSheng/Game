@@ -62,11 +62,11 @@ namespace UnityEngine.UI
 
         private DragStatus status;
 
-        private readonly List<object> source = new List<object> { 1, 3, 5, 7, 9, 12.55, 15 };
+        private readonly List<object> source = new List<object> { 1, 3, 5 };
 
         private readonly List<InfiniteLoopItem> items = new List<InfiniteLoopItem>();
 
-        public Action<object> onValueChanged;
+        public Action<int, object> onValueChanged;
 
         private void Awake()
         {
@@ -194,17 +194,15 @@ namespace UnityEngine.UI
 
                             index = source.Count - (items.Count - i);
 
-                            index = index < 0 ? source.Count + index : index;
+                            index = Round(index, source.Count);
 
-                            items[i].Refresh(source[index]);
+                            items[i].Refresh(index, source[index]);
                         }
                         else
                         {
-                            index = i;
+                            index = Round(i, source.Count);
 
-                            index %= source.Count;
-
-                            items[i].Refresh(source[index]);
+                            items[i].Refresh(index, source[index]);
                         }
                         break;
                     case Direction.Vertical:
@@ -278,17 +276,15 @@ namespace UnityEngine.UI
                 {
                     case Action.Front:
                         current++;
-                        current = current > source.Count - 1 ? 0 : current;
-                        index = current + front;
-                        index %= source.Count;
-                        items[i].Refresh(source[index]);
+                        current = Round(current, source.Count);
+                        index = Round(current + front, source.Count);
+                        items[i].Refresh(index, source[index]);
                         break;
                     case Action.Back:
                         current--;
-                        current = current < 0 ? source.Count - 1 : current;
-                        index = current - back + 1;
-                        index = index < 0 ? source.Count + index : index;
-                        items[i].Refresh(source[index]);
+                        current = Round(current, source.Count);
+                        index = Round(current - back + 1, source.Count);
+                        items[i].Refresh(index, source[index]);
                         break;
                 }
             }
@@ -364,22 +360,19 @@ namespace UnityEngine.UI
 
         private void Finish(Vector2 center)
         {
-            object result = null;
+            bool empty = true;
 
             for (int i = 0; i < items.Count; i++)
             {
                 if (Between(items[i].Position, center))
                 {
-                    result = items[i].Source;
+                    onValueChanged?.Invoke(items[i].Index, items[i].Source);
+                    empty = false;
                     break;
                 }
             }
 
-            if (result != null)
-            {
-                onValueChanged?.Invoke(result);
-            }
-            else
+            if (empty)
             {
                 Debug.LogError("The Item is Null!");
             }
@@ -416,6 +409,24 @@ namespace UnityEngine.UI
             status = DragStatus.Align;
 
             Finish(center + alignPosition);
+        }
+        #endregion
+
+        #region Utils
+        public static int Round(int number, int max, int min = 0)
+        {
+            if (number < min && max > min)
+            {
+                while (number < min)
+                {
+                    number += max - min;
+                }
+            }
+            else if (number >= max && max != 0)
+            {
+                number %= max;
+            }
+            return number;
         }
         #endregion
 

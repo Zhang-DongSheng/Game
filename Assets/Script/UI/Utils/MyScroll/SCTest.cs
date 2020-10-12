@@ -9,6 +9,6 @@ public class SCTest : InfiniteLoopItem
 
     protected override void Refresh()
     {
-        txt_label.text = source.ToString();
+        txt_label.text = Source.ToString();
     }
 }

@@ -30,8 +30,8 @@ public class SCView : MonoBehaviour
         scroll.Back();
     }
 
-    private void OnValueChanged(object data)
+    private void OnValueChanged(int index, object data)
     {
-        Debug.LogWarning(data);
+        Debug.LogWarning(index + " : " + data);
     }
 }

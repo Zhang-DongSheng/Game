@@ -2,23 +2,17 @@
 {
     public abstract class InfiniteLoopItem : MonoBehaviour
     {
-        protected object source;
+        public int Index { get; private set; }
+
+        public object Source { get; private set; }
 
         protected virtual void Refresh() { }
 
-        public void Refresh(object source)
+        public void Refresh(int index, object source)
         {
-            this.source = source;
+            Index = index; Source = source;
 
-            this.Refresh();
-        }
-
-        public object Source
-        {
-            get
-            {
-                return source;
-            }
+            Refresh();
         }
 
         public Vector2 Position
