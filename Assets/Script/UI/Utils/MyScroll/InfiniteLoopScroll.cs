@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
@@ -62,7 +63,7 @@ namespace UnityEngine.UI
 
         private DragStatus status;
 
-        private readonly List<object> source = new List<object> { 1, 3, 5 };
+        private readonly IList source = new List<object>() { 1, 2, 3 };
 
         private readonly List<InfiniteLoopItem> items = new List<InfiniteLoopItem>();
 
@@ -83,7 +84,7 @@ namespace UnityEngine.UI
 
                         alignNext = Vector2.Lerp(alignPosition, center, alignStep);
 
-                        alignVector =  alignNext - alignPosition;
+                        alignVector = alignNext - alignPosition;
 
                         alignPosition = alignNext;
 
@@ -136,6 +137,8 @@ namespace UnityEngine.UI
 
         private void Initialize()
         {
+            if (source.Count == 0) return;
+
             if (content == null) return;
 
             content.Clear(); items.Clear();
@@ -170,11 +173,7 @@ namespace UnityEngine.UI
             {
                 space = Vector2.zero;
             }
-            Format();
-        }
 
-        private void Format()
-        {
             int index;
 
             for (int i = 0; i < items.Count; i++)
@@ -380,11 +379,14 @@ namespace UnityEngine.UI
         #endregion
 
         #region Function
-        public void Refresh(List<object> source)
+        public void Refresh(IList source)
         {
             this.source.Clear();
 
-            this.source.AddRange(source);
+            for (int i = 0; i < source.Count; i++)
+            {
+                this.source.Add(source[i]);
+            }
 
             Initialize();
         }
@@ -410,6 +412,8 @@ namespace UnityEngine.UI
 
             Finish(center + alignPosition);
         }
+
+        public bool Lock { get; set; }
         #endregion
 
         #region Utils
@@ -438,7 +442,7 @@ namespace UnityEngine.UI
         }
 
         enum DragStatus
-        { 
+        {
             Idle,
             Drag,
             Align,

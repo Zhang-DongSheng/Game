@@ -20,6 +20,11 @@ public class SCView : MonoBehaviour
         btn_back.onClick.AddListener(OnClickBack);
     }
 
+    private void Start()
+    {
+        scroll.Refresh(new List<int>() { 1, 2, 3, 4, 5 });
+    }
+
     private void OnClickFront()
     {
         scroll.Front();

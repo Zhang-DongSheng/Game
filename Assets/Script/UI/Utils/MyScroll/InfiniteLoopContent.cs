@@ -69,7 +69,11 @@ namespace UnityEngine.UI
         {
             for (int i = transform.childCount - 1; i > -1; i--)
             {
-                GameObject.Destroy(transform.GetChild(i).gameObject);
+                GameObject _temp = transform.GetChild(i).gameObject;
+                if (_temp != null)
+                {
+                    GameObject.DestroyImmediate(_temp);
+                }
             }
         }
 
