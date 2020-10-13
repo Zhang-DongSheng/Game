@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using UnityEngine.UI.Scroll;
 
 namespace UnityEngine.UI
 {
-    public class LoopScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class ScrollList : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public Action<int> callBack;
         [SerializeField]

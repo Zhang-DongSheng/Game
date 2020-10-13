@@ -244,7 +244,7 @@ public class DynamicInfinityListRenderer : MonoBehaviour
 
     protected void UpdateRender()
     {
-        mRectMask.y = -mMaskSize.y - mRectTransformContainer.anchoredPosition.y;       
+        mRectMask.y = -mMaskSize.y - mRectTransformContainer.anchoredPosition.y;
         Dictionary<int, DynamicRect> inOverlaps = new Dictionary<int, DynamicRect>();
         foreach (DynamicRect dR in mDict_dRect.Values)
         {
@@ -283,7 +283,7 @@ public class DynamicInfinityListRenderer : MonoBehaviour
     DynamicInfinityItem GetNullDynmicItem()
     {
         int len = mList_items.Count;
-        for(int i=0;i< len;++i)
+        for (int i = 0; i < len; ++i)
         {
             DynamicInfinityItem item = mList_items[i];
             if (item.DRect == null)
