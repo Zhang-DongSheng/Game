@@ -9,7 +9,7 @@ namespace UnityEngine.UI
     /// <summary>
     /// 无限滚动循环列表 自动归位 前进，后退
     /// </summary>
-    public class InfiniteLoopScroll : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class InfiniteLoopScrollList : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         enum Direction
         {
@@ -20,7 +20,7 @@ namespace UnityEngine.UI
 
         [SerializeField] private Direction direction;
 
-        [SerializeField] private InfiniteLoopContent content;
+        [SerializeField] private InfiniteLoopLayout content;
 
         [SerializeField] private GameObject prefab;
 

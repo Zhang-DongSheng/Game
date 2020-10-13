@@ -160,7 +160,7 @@ namespace UnityEngine.UI
         {
             m_childs.Clear();
 
-            Content _content = content.GetComponent<Content>();
+            ScrollLayout _content = content.GetComponent<ScrollLayout>();
 
             if (_content == null)
                 Debug.LogError("Please AddCompontent<Content> on 'Content'");

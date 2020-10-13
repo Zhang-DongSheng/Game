@@ -2,7 +2,7 @@
 
 namespace UnityEngine.UI.Scroll
 {
-    public class InfiniteLoopContent : MonoBehaviour
+    public class InfiniteLoopLayout : MonoBehaviour
     {
         private readonly Vector2 half = new Vector2(0.5f, 0.5f);
 
@@ -12,7 +12,19 @@ namespace UnityEngine.UI.Scroll
             Vertical,
         }
 
+        private enum Stretch
+        {
+            None,
+            Horiaontal,
+            Vertical,
+            Full,
+        }
+
         [SerializeField] private Axis axis = Axis.Horizontal;
+
+        [SerializeField] private Stretch stretch = Stretch.None;
+
+        [SerializeField] private RectTransform anchor;
 
         [SerializeField] private Vector2 size = new Vector2(100, 100);
 
@@ -22,12 +34,18 @@ namespace UnityEngine.UI.Scroll
 
         private readonly List<RectTransform> childs = new List<RectTransform>();
 
-        public Vector2 Cell
+        private void Awake()
         {
-            get
-            {
-                return size + spacing;
-            }
+            UpdateStretch();
+        }
+
+        private void OnValidate()
+        {
+            if (Application.isPlaying) return;
+
+            UpdateStretch();
+
+            Format();
         }
 
         public void Format()
@@ -92,6 +110,34 @@ namespace UnityEngine.UI.Scroll
                 rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size.x);
 
                 rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size.y);
+            }
+        }
+
+        public Vector2 Cell
+        {
+            get
+            {
+                return size + spacing;
+            }
+        }
+
+        public void UpdateStretch()
+        {
+            if (anchor == null)
+                anchor = GetComponent<RectTransform>();
+
+            switch (stretch)
+            {
+                case Stretch.Horiaontal:
+                    size.x = anchor.rect.width;
+                    break;
+                case Stretch.Vertical:
+                    size.y = anchor.rect.height;
+                    break;
+                case Stretch.Full:
+                    size.x = anchor.rect.width;
+                    size.y = anchor.rect.height;
+                    break;
             }
         }
     }

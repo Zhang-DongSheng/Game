@@ -6,7 +6,7 @@ namespace Example
 {
     public class ScrollESC : MonoBehaviour
     {
-        public InfiniteLoopScroll scroll;
+        public InfiniteLoopScrollList scroll;
 
         public Button btn_front;
 

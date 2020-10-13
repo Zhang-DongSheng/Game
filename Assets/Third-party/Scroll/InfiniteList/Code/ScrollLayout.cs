@@ -3,7 +3,7 @@
 namespace UnityEngine.UI.Scroll
 {
     [ExecuteInEditMode]
-    public class Content : MonoBehaviour
+    public class ScrollLayout : MonoBehaviour
     {
         private enum Axis
         {
