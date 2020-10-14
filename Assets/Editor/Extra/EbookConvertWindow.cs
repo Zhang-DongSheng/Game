@@ -42,7 +42,7 @@ namespace UnityEditor
         private readonly List<Book> list = new List<Book>();
         #endregion
 
-        [MenuItem("Other/Ebook")]
+        [MenuItem("Extra/Ebook")]
         private static void Open()
         {
             EditorWindow window = EditorWindow.GetWindow<EbookConvertWindow>();

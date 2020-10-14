@@ -393,7 +393,7 @@ namespace UnityEditor
 		{
 			string folderName = node.Count > index_searchNode ? node[index_searchNode] : string.Empty;
 
-			string path = string.Format("{0}/{1}", outputFolder, folderName);
+			string path = string.Format("{0}/{1}/{2}", Application.dataPath, outputFolder, folderName);
 
 			for (int i = 0; i < source.Count; i++)
 			{
@@ -401,8 +401,8 @@ namespace UnityEditor
 				{
                     try
                     {
-                        
-                    }
+						Pfi.PfiImporter.AutoImport(source[i].path, string.Format("{0}/{1}", path, source[i].name));
+					}
                     catch (Exception e)
                     {
                         Debug.LogError(e.Message);

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Pfi
 {
-    public static class PfiImporter
+	public static class PfiImporter
 	{
 		public static void Menu_ImportPsd()
 		{
@@ -127,6 +127,8 @@ namespace Pfi
 		public static void AutoImport(string input, string output)
 		{
 			PfiDocument doc = Import(input);
+
+			if (!Directory.Exists(output)) Directory.CreateDirectory(output);
 
 			if (doc != null && doc.root.layers.Count > 0)
 			{
