@@ -9,9 +9,9 @@ namespace UnityEditor
 	{
 		private const string Extension = ".psd";
 
-		private const string InputPath = "Source/Arts";
+		private const string InputPath = "Source/PSD";
 
-		private const string OutputPath = "AssetRes/bookdata";
+		private const string OutputPath = "Art/PSD";
 
 		private readonly string[] text_view = new string[] { "PSD", "Setting", "Other" };
 
@@ -235,7 +235,7 @@ namespace UnityEditor
 
 						if (GUILayout.Button(label_outputFolder))
 						{
-							OpenFolder(Path.Combine(Application.dataPath, outputFolder));
+							OpenFolder(string.Format("{0}/{1}", Application.dataPath, outputFolder));
 						}
 					}
 					GUILayout.EndVertical();

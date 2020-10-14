@@ -20,25 +20,7 @@ namespace UnityEditor
 
         private readonly string[] text_title = new string[] { "主页", "设置", "其他" };
 
-        private readonly string label_code = "编码格式";
-
-        private readonly string label_input = "来源路径";
-
-        private readonly string label_output = "输出路径";
-
-        private readonly string label_number = "每段字数限制";
-
-        private readonly string label_save = "保存";
-
-        private readonly string label_switch = "转换";
-
-        private readonly string label_refresh = "刷新";
-
-        private readonly string label_openInputFolder = "打开输入文件夹";
-
-        private readonly string label_openOutputFolder = "打开输出文件夹";
-
-        private readonly string label_refreshAsset = "刷新本地资源";
+        private readonly string path = "Source/Ebook";
 
         private readonly EbookConvert ebook = new EbookConvert();
 
@@ -49,23 +31,11 @@ namespace UnityEditor
 
         private CodeType value_code;
 
-        private Rect rect_input;
-
-        private string value_input;
-
-        private Rect rect_output;
-
-        private string value_output;
-
         private int value_number = -1;
         #endregion
 
         #region Param
         private Encoding encoding = Encoding.Default;
-
-        private string inputPath = "Source/Ebook/Input";
-
-        private string outputPath = "Source/Ebook/Output";
 
         private int lineCount = 1000;
 
@@ -112,7 +82,7 @@ namespace UnityEditor
         {
             GUILayout.BeginHorizontal();
             {
-                GUILayout.Label(label_code, GUILayout.Width(100));
+                GUILayout.Label("编码格式", GUILayout.Width(100));
 
                 GUILayout.Label(encoding.ToString());
             }
@@ -120,7 +90,7 @@ namespace UnityEditor
 
             GUILayout.BeginHorizontal();
             {
-                GUILayout.Label(label_input, GUILayout.Width(100));
+                GUILayout.Label("来源路径", GUILayout.Width(100));
 
                 GUILayout.Label(InputPath);
             }
@@ -128,15 +98,7 @@ namespace UnityEditor
 
             GUILayout.BeginHorizontal();
             {
-                GUILayout.Label(label_output, GUILayout.Width(100));
-
-                GUILayout.Label(OutputPath);
-            }
-            GUILayout.EndHorizontal();
-
-            GUILayout.BeginHorizontal();
-            {
-                GUILayout.Label(label_number, GUILayout.Width(100));
+                GUILayout.Label("每段字数限制", GUILayout.Width(100));
 
                 GUILayout.Label(lineCount.ToString());
             }
@@ -169,29 +131,19 @@ namespace UnityEditor
 
                 GUILayout.BeginVertical();
                 {
-                    if (GUILayout.Button(label_refresh))
+                    if (GUILayout.Button("刷新"))
                     {
                         Redirect();
                     }
 
-                    if (GUILayout.Button(label_switch))
+                    if (GUILayout.Button("转换"))
                     {
                         StartUp();
                     }
 
-                    if (GUILayout.Button(label_openInputFolder))
+                    if (GUILayout.Button("打开文件夹"))
                     {
                         OpenFolder(InputPath);
-                    }
-
-                    if (GUILayout.Button(label_openOutputFolder))
-                    {
-                        OpenFolder(OutputPath);
-                    }
-
-                    if (GUILayout.Button(label_refreshAsset))
-                    {
-                        AssetDatabase.Refresh();
                     }
                 }
                 GUILayout.EndVertical();
@@ -203,11 +155,11 @@ namespace UnityEditor
         {
             GUILayout.BeginHorizontal();
             {
-                GUILayout.Label(label_code, GUILayout.Width(100));
+                GUILayout.Label("编码格式", GUILayout.Width(100));
 
                 value_code = (CodeType)EditorGUILayout.EnumPopup(value_code);
 
-                if (GUILayout.Button(label_save, GUILayout.Width(100)))
+                if (GUILayout.Button("保存", GUILayout.Width(100)))
                 {
                     switch (value_code)
                     {
@@ -239,64 +191,11 @@ namespace UnityEditor
 
             GUILayout.BeginHorizontal();
             {
-                GUILayout.Label(label_input, GUILayout.Width(100));
-
-                rect_input = EditorGUILayout.GetControlRect(GUILayout.Width(Screen.width - 247));
-
-                value_input = EditorGUI.TextField(rect_input, value_input);
-
-                if ((Event.current.type == EventType.DragUpdated || Event.current.type == EventType.DragExited) && rect_input.Contains(Event.current.mousePosition))
-                {
-                    DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
-
-                    if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0)
-                    {
-                        value_input = DragAndDrop.paths[0].Remove(0, 7);
-                    }
-                }
-
-                if (GUILayout.Button(label_save, GUILayout.Width(100)))
-                {
-                    inputPath = value_input;
-
-                    Redirect();
-                }
-            }
-            GUILayout.EndHorizontal();
-
-            GUILayout.BeginHorizontal();
-            {
-                GUILayout.Label(label_output, GUILayout.Width(100));
-
-                rect_output = EditorGUILayout.GetControlRect(GUILayout.Width(Screen.width - 247));
-
-                value_output = EditorGUI.TextField(rect_output, value_output);
-
-                if ((Event.current.type == EventType.DragUpdated ||
-                    Event.current.type == EventType.DragExited) &&
-                rect_output.Contains(Event.current.mousePosition))
-                {
-                    DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
-                    if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0)
-                    {
-                        value_output = DragAndDrop.paths[0].Remove(0, 7);
-                    }
-                }
-
-                if (GUILayout.Button(label_save, GUILayout.Width(100)))
-                {
-                    outputPath = value_output;
-                }
-            }
-            GUILayout.EndHorizontal();
-
-            GUILayout.BeginHorizontal();
-            {
-                GUILayout.Label(label_number, GUILayout.Width(100));
+                GUILayout.Label("每段字数限制", GUILayout.Width(100));
 
                 value_number = EditorGUILayout.IntField(value_number);
 
-                if (GUILayout.Button(label_save, GUILayout.Width(100)))
+                if (GUILayout.Button("保存", GUILayout.Width(100)))
                 {
                     lineCount = value_number;
                 }
@@ -383,15 +282,7 @@ namespace UnityEditor
         {
             get
             {
-                return Path.Combine(Application.dataPath, inputPath);
-            }
-        }
-
-        private string OutputPath
-        {
-            get
-            {
-                return Path.Combine(Application.dataPath, outputPath);
+                return Path.Combine(Application.dataPath.Remove(Application.dataPath.Length - 6, 6), path);
             }
         }
         #endregion

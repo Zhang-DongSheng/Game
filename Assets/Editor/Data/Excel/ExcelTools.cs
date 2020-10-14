@@ -10,9 +10,9 @@ namespace UnityEditor
 	{
 		private const string Extension = ".xlsx";
 
-		private const string InputPath = "Source/Excel/Input";
+		private const string InputPath = "Source/Excel";
 
-		private const string OutputPath = "Source/Excel/Output";
+		private const string OutputPath = "Art/Excel";
 
 		private readonly string[] text_view = new string[] { "Excel", "Setting", "Other" };
 
@@ -80,7 +80,7 @@ namespace UnityEditor
 
 		public void Init()
 		{
-			input_inputFolder = Path.Combine(Application.dataPath, InputPath);
+			input_inputFolder = Path.Combine(Application.dataPath.Remove(Application.dataPath.Length - 6, 6), InputPath);
 
 			inputFolder = input_inputFolder;
 
