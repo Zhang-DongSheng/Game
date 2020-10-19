@@ -1,75 +1,63 @@
-﻿using System;
+﻿using LitJson;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using UnityEngine;
 
 namespace Data
 {
     public class DataLanguage : ScriptableObject
     {
-        public List<Dictionary> m_data = new List<Dictionary>();
+        public List<Dictionary> m_data = new List<Dictionary>(Enum.GetValues(typeof(Language)).Length);
 
-        public void Load()
+#if UNITY_EDITOR
+        [ContextMenu("Reload Language")]
+        private void Reload()
         {
-            string path_folder = Application.streamingAssetsPath + "/Language";
+            string path = Application.streamingAssetsPath + "/language.txt";
 
-            if (Directory.Exists(path_folder))
+            if (File.Exists(path))
             {
-                DirectoryInfo dicInfo = new DirectoryInfo(path_folder);
-                FileInfo[] _files = dicInfo.GetFiles();
-                List<FileInfo> files = _files.ToList();
-
-                m_data.Clear();
-
-                foreach (FileInfo file in files)
+                using (FileStream stream = new FileStream(path, FileMode.Open))
                 {
-                    string[] file_name = file.Name.Split('.');
+                    StreamReader reader = new StreamReader(stream);
 
-                    if (file_name.Length == 2 && file_name[1] == "txt")
+                    JsonData list = JsonMapper.ToObject(reader.ReadToEnd());
+
+                    reader.Dispose(); m_data.Clear();
+
+                    if (list != null && list.IsArray)
                     {
-                        string[] param = file_name[0].Split('_');
-
-                        if (int.TryParse(param[1], out int value))
+                        foreach (var language in Enum.GetValues(typeof(Language)))
                         {
-                            if (value >= 0 && value < Enum.GetValues(typeof(Language)).Length)
+                            Dictionary dictionary = new Dictionary()
                             {
-                                Dictionary dic = new Dictionary
+                                language = (Language)language,
+                            };
+                            for (int i = 0; i < list.Count; i++)
+                            {
+                                Word word = new Word()
                                 {
-                                    language = (Language)value,
+                                    key = list[i].GetString(LanguageConfig.KEY),
                                 };
-                                dic.name = dic.language.ToString();
-
-                                using (FileStream fs = new FileStream(file.FullName, FileMode.OpenOrCreate))
+                                switch ((Language)language)
                                 {
-                                    StreamReader sr = new StreamReader(fs);
-
-                                    string content = sr.ReadLine();
-
-                                    while (!string.IsNullOrEmpty(content))
-                                    {
-                                        string[] _temp = content.Split(' ');
-
-                                        if (_temp.Length == 2 && !string.IsNullOrEmpty(_temp[0]))
-                                        {
-                                            Word word = new Word()
-                                            {
-                                                key = _temp[0],
-                                                value = _temp[1]
-                                            };
-                                            dic.words.Add(word);
-                                        }
-
-                                        content = sr.ReadLine();
-                                    }
+                                    case Language.Chinese:
+                                        word.value = list[i].GetString(LanguageConfig.Chinese);
+                                        break;
+                                    case Language.English:
+                                        word.value = list[i].GetString(LanguageConfig.English);
+                                        break;
                                 }
-                                m_data.Add(dic);
+                                dictionary.words.Add(word);
                             }
+                            m_data.Add(dictionary);
                         }
                     }
                 }
             }
         }
+#endif
     }
 
     [System.Serializable]
@@ -96,5 +84,14 @@ namespace Data
     {
         Chinese,
         English,
+    }
+
+    public static class LanguageConfig
+    {
+        public const string KEY = "key";
+
+        public const string Chinese = "cn";
+
+        public const string English = "en";
     }
 }
