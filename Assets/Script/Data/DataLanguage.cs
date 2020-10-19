@@ -8,7 +8,11 @@ namespace Data
 {
     public class DataLanguage : ScriptableObject
     {
-        public List<Dictionary> m_data = new List<Dictionary>(Enum.GetValues(typeof(Language)).Length);
+        [SerializeField] private List<Dictionary> m_data = new List<Dictionary>(Enum.GetValues(typeof(Language)).Length);
+
+        [SerializeField] private Language m_language;
+
+        private Dictionary dictionary;
 
 #if UNITY_EDITOR
         [ContextMenu("Reload Language")]
@@ -58,6 +62,34 @@ namespace Data
             }
         }
 #endif
+
+        #region Function
+        public void Init()
+        {
+            for (int i = 0; i < m_data.Count; i++)
+            {
+                if (m_language == m_data[i].language)
+                {
+                    dictionary = m_data[i];
+                    break;
+                }
+            }
+        }
+
+        public string Word(string key)
+        {
+            if (dictionary.TryParse(key, out string value))
+            {
+                return value;
+            }
+            return key;
+        }
+
+        public Font Font
+        {
+            get { return dictionary != null ? dictionary.font : null; }
+        }
+        #endregion
     }
 
     [System.Serializable]
@@ -67,9 +99,28 @@ namespace Data
 
         public Language language;
 
+        public Font font;
+
         public string description;
 
         public List<Word> words = new List<Word>();
+
+        public bool TryParse(string key, out string value)
+        {
+            int index = words.FindIndex(x => x.key == key);
+
+            bool exist = index != -1 && index < words.Count;
+
+            if (exist)
+            {
+                value = words[index].value;
+            }
+            else
+            {
+                value = string.Empty;
+            }
+            return exist;
+        }
     }
 
     [System.Serializable]
