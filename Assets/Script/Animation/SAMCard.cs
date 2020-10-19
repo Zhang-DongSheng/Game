@@ -2,13 +2,6 @@
 {
     public class SAMCard : MonoBehaviour
     {
-        enum CardStatus
-        {
-            Idle,
-            Front,
-            Back,
-        }
-
         [SerializeField] private Transform card;
 
         [SerializeField] private GameObject front;
@@ -29,7 +22,9 @@
 
         private float size;
 
-        private CardStatus status;
+        private SAMStatus status;
+
+        private SAMDirection direction;
 
         private void Awake()
         {
@@ -38,18 +33,21 @@
 
         private void Update()
         {
-            switch (status)
+            if (status == SAMStatus.Transition)
             {
-                case CardStatus.Front:
-                case CardStatus.Back:
-                    current = Mathf.MoveTowards(current, destination, speed * Time.deltaTime);
-                    if (Mathf.Abs(current - destination) < 0.1f)
-                    {
-                        current = destination;
-                        status = CardStatus.Idle;
-                    }
-                    Rotate(current);
-                    break;
+                switch (direction)
+                {
+                    case SAMDirection.Forward:
+                    case SAMDirection.Back:
+                        current = Mathf.MoveTowards(current, destination, speed * Time.deltaTime);
+                        if (Mathf.Abs(current - destination) < 0.1f)
+                        {
+                            current = destination;
+                            status = SAMStatus.Idel;
+                        }
+                        Rotate(current);
+                        break;
+                }
             }
         }
 
@@ -82,7 +80,9 @@
 
             center = SAMConfig.Ninety;
 
-            status = CardStatus.Front;
+            direction = SAMDirection.Forward;
+
+            status = SAMStatus.Transition;
         }
 
         public void ToBack()
@@ -93,7 +93,9 @@
 
             center = SAMConfig.Ninety;
 
-            status = CardStatus.Back;
+            direction = SAMDirection.Back;
+
+            status = SAMStatus.Transition;
         }
 
         public void Default()
@@ -102,7 +104,7 @@
 
             SetSide(true);
 
-            status = CardStatus.Idle;
+            status = SAMStatus.Idel;
         }
     }
 }

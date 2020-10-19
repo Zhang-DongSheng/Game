@@ -33,4 +33,10 @@
         Compute,
         Completed,
     }
+
+    public enum SAMDirection
+    { 
+        Forward,
+        Back,
+    }
 }
