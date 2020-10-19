@@ -1,26 +1,31 @@
-﻿using UnityEngine;
-
-public class SAMRotate : MonoBehaviour
+﻿namespace UnityEngine.SAM
 {
-    public Transform target;
-
-    public Vector3 angle;
-
-    public float speed;
-
-    public bool rotate;
-
-    private void Awake()
+    public class SAMRotate : MonoBehaviour
     {
-        if (target == null)
-            target = transform;
-    }
+        [SerializeField] private Transform target;
 
-    private void Update()
-    {
-        if (rotate)
+        [SerializeField] private Vector3 angle = new Vector3(0, 0, 1);
+
+        [SerializeField, Range(0.1f, 100f)] private float speed = 1f;
+
+        [SerializeField] private bool rotate = true;
+
+        [SerializeField] private bool useConfig = true;
+
+        private void Awake()
         {
-            target.Rotate(angle * speed * Time.deltaTime);
+            if (target == null)
+                target = GetComponent<Transform>();
+
+            speed = useConfig ? SAMConfig.SPEED : speed;
+        }
+
+        private void Update()
+        {
+            if (rotate)
+            {
+                target.Rotate(angle * speed * Time.deltaTime);
+            }
         }
     }
 }

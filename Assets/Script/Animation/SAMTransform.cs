@@ -1,31 +1,17 @@
 ﻿using System;
 
-namespace UnityEngine.UI
+namespace UnityEngine.SAM
 {
     [RequireComponent(typeof(RectTransform)), DisallowMultipleComponent]
     public class SAMTransform : MonoBehaviour
     {
-        private const float ANIMATION_SPEED = 6f;
-
         [SerializeField] private RectTransform target;
 
         [SerializeField] private CanvasGroup canvas;
 
-        [SerializeField] private Vector3 positionOrigin;
+        [SerializeField] private SAMInformation origin = new SAMInformation();
 
-        [SerializeField] private Vector3 positionDestination;
-
-        [SerializeField] private Vector3 rotationOrigin;
-
-        [SerializeField] private Vector3 rotationDestination;
-
-        [SerializeField] private float scaleOrigin = 1;
-
-        [SerializeField] private float scaleDestination = 1;
-
-        [SerializeField] private float alphaOrigin = 1;
-
-        [SerializeField] private float alphaDestination = 1;
+        [SerializeField] private SAMInformation destination = new SAMInformation();
 
         [SerializeField] private AnimationCurve curve = new AnimationCurve(new Keyframe(0f, 0f, 0f, 1f), new Keyframe(1f, 1f, 1f, 0f));
 
@@ -49,16 +35,14 @@ namespace UnityEngine.UI
             {
                 target = GetComponent<RectTransform>();
             }
-
             if (target != null && target is RectTransform)
             {
-                if (alphaOrigin != alphaDestination && canvas == null)
+                if (origin.alpha != destination.alpha && canvas == null)
                 {
                     canvas = target.gameObject.AddComponent<CanvasGroup>();
                 }
             }
-
-            speed = useConfig ? ANIMATION_SPEED : speed;
+            speed = useConfig ? SAMConfig.SPEED : speed;
         }
 
         private void OnEnable()
@@ -114,13 +98,13 @@ namespace UnityEngine.UI
         {
             progress = curve.Evaluate(step);
 
-            target.anchoredPosition = Vector3.Lerp(positionOrigin, positionDestination, progress);
+            target.anchoredPosition = Vector3.Lerp(origin.position, destination.position, progress);
 
-            target.localEulerAngles = Vector3.Lerp(rotationOrigin, rotationDestination, progress);
+            target.localEulerAngles = Vector3.Lerp(origin.rotation, destination.rotation, progress);
 
-            target.localScale = Vector3.one * Mathf.Lerp(scaleOrigin, scaleDestination, progress);
+            target.localScale = Vector3.Lerp(origin.scale, destination.scale, progress);
 
-            if (canvas != null) canvas.alpha = Mathf.Lerp(alphaOrigin, alphaDestination, progress);
+            if (canvas != null) canvas.alpha = Mathf.Lerp(origin.alpha, destination.alpha, progress);
         }
 
         private void Stop()
@@ -149,20 +133,20 @@ namespace UnityEngine.UI
 
         public void ScaleAnimation(float origin = 0, float destination = 1)
         {
-            scaleOrigin = origin;
-            scaleDestination = destination;
+            this.origin.scale = origin * Vector3.one;
+            this.destination.scale = destination * Vector3.one;
         }
 
         public void ShiftAnimation(Vector3 origin, Vector3 destination)
         {
-            positionOrigin = origin;
-            positionDestination = destination;
+            this.origin.position = origin;
+            this.destination.position = destination;
         }
 
         public void FadeAnimation(float origin = 0, float destination = 1)
         {
-            alphaOrigin = origin;
-            alphaDestination = destination;
+            this.origin.alpha = origin;
+            this.destination.alpha = destination;
         }
 
         public static SAMTransform AddCompontent(GameObject self, Transform target = null)

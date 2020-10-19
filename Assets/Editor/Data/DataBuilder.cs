@@ -13,7 +13,7 @@ namespace Data
         [MenuItem("Data/Create/Language")]
         private static void Create_Data_Language()
         {
-            Create_Data<Data_Language>("Language");
+            Create_Data<DataLanguage>("Language");
         }
         #endregion
 
@@ -21,67 +21,11 @@ namespace Data
         [MenuItem("Data/Load/Language")]
         private static void Load_Data_Language()
         {
-            Data_Language data = Resources.Load<Data_Language>("Data/Language");
+            DataLanguage data = Resources.Load<DataLanguage>("Data/Language");
 
             if (data != null)
             {
-                string path_folder = Application.streamingAssetsPath + "/Language";
-
-                if (Directory.Exists(path_folder))
-                {
-                    DirectoryInfo dicInfo = new DirectoryInfo(path_folder);
-                    FileInfo[] _files = dicInfo.GetFiles();
-                    List<FileInfo> files = _files.ToList();
-
-                    data.m_data.Clear();
-
-                    foreach (FileInfo file in files)
-                    {
-                        string[] file_name = file.Name.Split('.');
-
-                        if (file_name.Length == 2 && file_name[1] == "txt")
-                        {
-                            string[] param = file_name[0].Split('_');
-
-                            if (int.TryParse(param[1], out int value))
-                            {
-                                if (value >= 0 && value < Enum.GetValues(typeof(Language)).Length)
-                                {
-                                    Dictionary dic = new Dictionary
-                                    {
-                                        language = (Language)value,
-                                    };
-                                    dic.name = dic.language.ToString();
-
-                                    using (FileStream fs = new FileStream(file.FullName, FileMode.OpenOrCreate))
-                                    {
-                                        StreamReader sr = new StreamReader(fs);
-
-                                        string content = sr.ReadLine();
-
-                                        while (!string.IsNullOrEmpty(content))
-                                        {
-                                            string[] _temp = content.Split(' ');
-
-                                            if (_temp.Length == 2 && !string.IsNullOrEmpty(_temp[0]))
-                                            {
-                                                Word word = new Word()
-                                                {
-                                                    ID = _temp[0],
-                                                    content = _temp[1]
-                                                };
-                                                dic.words.Add(word);
-                                            }
-
-                                            content = sr.ReadLine();
-                                        }
-                                    }
-                                    data.m_data.Add(dic);
-                                }
-                            }
-                        }
-                    }
-                }
+                
             }
             else
             {
@@ -89,6 +33,7 @@ namespace Data
             }
 
             AssetDatabase.SaveAssets();
+
             AssetDatabase.Refresh();
         }
         #endregion

@@ -1,107 +1,108 @@
-﻿using UnityEngine;
-
-public class SAMCard : MonoBehaviour
+﻿namespace UnityEngine.SAM
 {
-    enum CardStatus
+    public class SAMCard : MonoBehaviour
     {
-        Idle,
-        Front,
-        Back,
-    }
-
-    [SerializeField] private Transform card;
-
-    [SerializeField] private GameObject front;
-
-    [SerializeField] private GameObject back;
-
-    [SerializeField] private float scale;
-
-    [SerializeField] private float speed;
-
-    private float destination;
-
-    private float center;
-
-    private float current;
-
-    private float progress;
-
-    private float size;
-
-    private CardStatus status;
-
-    private void Awake()
-    {
-        if (card == null) card = transform;
-    }
-
-    private void Update()
-    {
-        switch (status)
+        enum CardStatus
         {
-            case CardStatus.Front:
-            case CardStatus.Back:
-                current = Mathf.MoveTowards(current, destination, speed * Time.deltaTime);
-                if (Mathf.Abs(current - destination) < 0.1f)
-                {
-                    current = destination;
-                    status = CardStatus.Idle;
-                }
-                Rotate(current);
-                break;
+            Idle,
+            Front,
+            Back,
         }
-    }
 
-    private void Rotate(float angle)
-    {
-        card.localEulerAngles = Vector3.up * angle;
+        [SerializeField] private Transform card;
 
-        progress = 1 - Mathf.Abs(angle - center) / center;
+        [SerializeField] private GameObject front;
 
-        size = 1 + progress * (scale - 1);
+        [SerializeField] private GameObject back;
 
-        card.localScale = Vector3.one * size;
+        [SerializeField] private float scale;
 
-        SetSide(angle < center);
-    }
+        [SerializeField] private float speed;
 
-    private void SetSide(bool side)
-    {
-        if (front != null && front.activeSelf != side)
-            front.SetActive(side);
-        if (back != null && back.activeSelf != !side)
-            back.SetActive(!side);
-    }
+        private float destination;
 
-    public void ToFront()
-    {
-        current = card.localEulerAngles.y;
+        private float center;
 
-        destination = 0;
+        private float current;
 
-        center = 90;
+        private float progress;
 
-        status = CardStatus.Front;
-    }
+        private float size;
 
-    public void ToBack()
-    {
-        current = card.localEulerAngles.y;
+        private CardStatus status;
 
-        destination = 180;
+        private void Awake()
+        {
+            if (card == null) card = transform;
+        }
 
-        center = 90;
+        private void Update()
+        {
+            switch (status)
+            {
+                case CardStatus.Front:
+                case CardStatus.Back:
+                    current = Mathf.MoveTowards(current, destination, speed * Time.deltaTime);
+                    if (Mathf.Abs(current - destination) < 0.1f)
+                    {
+                        current = destination;
+                        status = CardStatus.Idle;
+                    }
+                    Rotate(current);
+                    break;
+            }
+        }
 
-        status = CardStatus.Back;
-    }
+        private void Rotate(float angle)
+        {
+            card.localEulerAngles = Vector3.up * angle;
 
-    public void Default()
-    {
-        card.localEulerAngles = Vector3.zero;
+            progress = 1 - Mathf.Abs(angle - center) / center;
 
-        SetSide(true);
+            size = 1 + progress * (scale - 1);
 
-        status = CardStatus.Idle;
+            card.localScale = Vector3.one * size;
+
+            SetSide(angle < center);
+        }
+
+        private void SetSide(bool side)
+        {
+            if (front != null && front.activeSelf != side)
+                front.SetActive(side);
+            if (back != null && back.activeSelf != !side)
+                back.SetActive(!side);
+        }
+
+        public void ToFront()
+        {
+            current = card.localEulerAngles.y;
+
+            destination = SAMConfig.ZERO;
+
+            center = SAMConfig.Ninety;
+
+            status = CardStatus.Front;
+        }
+
+        public void ToBack()
+        {
+            current = card.localEulerAngles.y;
+
+            destination = SAMConfig.Ninety * 2;
+
+            center = SAMConfig.Ninety;
+
+            status = CardStatus.Back;
+        }
+
+        public void Default()
+        {
+            card.localEulerAngles = Vector3.zero;
+
+            SetSide(true);
+
+            status = CardStatus.Idle;
+        }
     }
 }
