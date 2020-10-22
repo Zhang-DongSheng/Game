@@ -1,7 +1,11 @@
-﻿namespace UnityEngine.SAM
+﻿using System;
+
+namespace UnityEngine.SAM
 {
     public class SAMBillboard : MonoBehaviour
     {
+        [SerializeField] private BillboardType type;
+
         [SerializeField] private RectTransform viewPort;
 
         [SerializeField] private RectTransform content;
@@ -16,13 +20,15 @@
 
         private readonly SAMInformation destination = new SAMInformation();
 
-        private SAMStatus status = SAMStatus.Idel;
+        private SAMStatus _status = SAMStatus.Idel;
 
         private SAMDirection direction = SAMDirection.Forward;
 
         private float step = 0;
 
         private float progress;
+
+        public Action onCompleted;
 
         private void Awake()
         {
@@ -31,7 +37,7 @@
 
         private void Update()
         {
-            if (status == SAMStatus.Transition)
+            if (Status == SAMStatus.Transition)
             {
                 switch (direction)
                 {
@@ -39,14 +45,22 @@
                         step += Time.deltaTime * speed;
                         if (step >= SAMConfig.ONE)
                         {
+                            step = SAMConfig.ONE;
+
                             direction = SAMDirection.Back;
+
+                            Completed();
                         }
                         break;
                     case SAMDirection.Back:
                         step -= Time.deltaTime * speed;
                         if (step <= SAMConfig.ZERO)
                         {
+                            step = SAMConfig.ZERO;
+                            
                             direction = SAMDirection.Forward;
+
+                            Completed();
                         }
                         break;
                 }
@@ -54,9 +68,29 @@
             }
         }
 
+        private SAMStatus Status
+        {
+            get
+            {
+                return _status;
+            }
+            set
+            {
+                _status = value;
+
+                switch (_status)
+                {
+                    case SAMStatus.Completed:
+                        onCompleted?.Invoke();
+                        _status = SAMStatus.Idel;
+                        break;
+                }
+            }
+        }
+
         private void Compute()
         {
-            status = SAMStatus.Compute;
+            Status = SAMStatus.Compute;
 
             float space = viewPort.rect.height / 2f;
 
@@ -66,7 +100,23 @@
 
             destination.position.y = space - view;
 
-            status = SAMStatus.Transition;
+            switch (this.type)
+            {
+                case BillboardType.TopToBottom:
+                    step = 1;
+                    direction = SAMDirection.Back;
+                    break;
+                case BillboardType.BottomToTop:
+                    step = 0;
+                    direction = SAMDirection.Forward;
+                    break;
+                case BillboardType.Loop:
+                    step = 0.5f;
+                    direction = SAMDirection.Forward;
+                    break;
+            }
+
+            Status = SAMStatus.Transition;
         }
 
         private void Transition(float step)
@@ -82,9 +132,47 @@
             content.localScale = Vector3.Lerp(origin.scale, destination.scale, progress);
         }
 
-        public void StartUp()
+        private void Completed()
         {
-            Compute();
+            switch (this.type)
+            {
+                case BillboardType.Loop:
+                    break;
+                default:
+                    Status = SAMStatus.Completed;
+                    break;
+            }
+        }
+
+        public void StartUp(int index = -1)
+        {
+            if (index < (int)BillboardType.Count && index > -1)
+            {
+                this.type = (BillboardType)index;
+            }
+            else if (index == -1) { }
+            else
+            {
+                return;
+            }
+
+            switch (this.type)
+            {
+                case BillboardType.None:
+                    return;
+                default:
+                    Compute();
+                    break;
+            }
+        }
+
+        enum BillboardType
+        { 
+            None,
+            TopToBottom,
+            BottomToTop,
+            Loop,
+            Count,
         }
     }
 }
