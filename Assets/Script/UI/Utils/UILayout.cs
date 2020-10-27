@@ -19,30 +19,18 @@ namespace UnityEngine.UI
                 if (current + childs[i].rect.width > length)
                 {
                     current = 0; index++;
+                }
 
-                    if (parents.Count > index)
-                    {
-                        SetPosition(parents[index], childs[i], new Vector2(current, 0));
-                    }
-                    else
-                    {
-                        surplus = i;
-                        break;
-                    }
+                if (parents.Count > index)
+                {
+                    SetPosition(parents[index], childs[i], new Vector2(current, 0));
                 }
                 else
                 {
-                    if (parents.Count > index)
-                    {
-                        SetPosition(parents[index], childs[i], new Vector2(current, 0));
-                    }
-                    else
-                    {
-                        surplus = i;
-                        break;
-                    }
-                    current += childs[i].rect.width + interval;
+                    surplus = i;
+                    break;
                 }
+                current += childs[i].rect.width + interval;
 
                 SetActive(childs[i], true);
             }
