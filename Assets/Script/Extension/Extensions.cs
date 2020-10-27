@@ -56,6 +56,21 @@ public static class Extensions
         compontent.text = text;
     }
 
+    public static float SetTextAndGetWidth(this Text compontent, string content, float space, float min = 100, float max = 500)
+    {
+        compontent.text = content;
+
+        float width = compontent.preferredWidth;
+
+        width += space;
+
+        width = Math.Max(width, min);
+
+        width = Math.Min(width, max);
+
+        return width;
+    }
+
     #region LitJson
     public static string GetString(this JsonData json, string key)
     {
