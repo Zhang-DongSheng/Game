@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class Utils
+public class GameUtils
 {
     /// <summary>
     /// 获取网络类型
