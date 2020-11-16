@@ -39,6 +39,8 @@ namespace UnityEditor
 
         private int lineCount = 1000;
 
+        private bool select = false;
+
         private readonly List<Book> list = new List<Book>();
         #endregion
 
@@ -131,19 +133,34 @@ namespace UnityEditor
 
                 GUILayout.BeginVertical();
                 {
-                    if (GUILayout.Button("刷新"))
-                    {
-                        Redirect();
-                    }
-
-                    if (GUILayout.Button("转换"))
+                    if (GUILayout.Button("转换", GUILayout.Height(50)))
                     {
                         StartUp();
                     }
 
-                    if (GUILayout.Button("打开文件夹"))
+                    if (GUILayout.Button(select ? "反选" : "全选"))
+                    {
+                        Select();
+                    }
+
+                    if (GUILayout.Button("转码"))
+                    {
+                        Copy();
+                    }
+
+                    if (GUILayout.Button("重命名"))
+                    {
+                        Rename();
+                    }
+
+                    if (GUILayout.Button("目录"))
                     {
                         OpenFolder(InputPath);
+                    }
+
+                    if (GUILayout.Button("刷新"))
+                    {
+                        Redirect();
                     }
                 }
                 GUILayout.EndVertical();
@@ -278,6 +295,74 @@ namespace UnityEditor
             return result;
         }
 
+        public void Copy()
+        {
+            if (Directory.Exists(InputPath))
+            {
+                DirectoryInfo root = new DirectoryInfo(InputPath);
+
+                int index = 0;
+
+                foreach (FileInfo file in root.GetFiles())
+                {
+                    if (file.Extension.Equals(".txt"))
+                    {
+                        if (Filter(index++, file.Name))
+                        {
+                            string path = string.Format("{0}/{1}_{2}", InputPath, "copy", file.Name);
+
+                            try
+                            {
+                                File.WriteAllText(path, File.ReadAllText(file.FullName, encoding), Encoding.Default);
+                            }
+                            catch (Exception e)
+                            {
+                                Debug.LogError(e.Message);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Directory.CreateDirectory(InputPath);
+            }
+        }
+
+        public void Rename()
+        {
+            if (Directory.Exists(InputPath))
+            {
+                DirectoryInfo root = new DirectoryInfo(InputPath);
+
+                int index = 0;
+
+                foreach (FileInfo file in root.GetFiles())
+                {
+                    if (file.Extension.Equals(".txt"))
+                    {
+                        if (Filter(index++, file.Name))
+                        {
+                            string path = string.Format("{0}/{1}", InputPath, file.Name);
+
+                            try
+                            {
+                                file.CopyTo(path);
+                            }
+                            catch (Exception e)
+                            {
+                                Debug.LogError(e.Message);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Directory.CreateDirectory(InputPath);
+            }
+        }
+
         private string InputPath
         {
             get
@@ -286,6 +371,16 @@ namespace UnityEditor
             }
         }
         #endregion
+
+        private void Select()
+        {
+            select = !select;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                list[i].filter = select;
+            }
+        }
 
         private void OpenFolder(string path)
         {
