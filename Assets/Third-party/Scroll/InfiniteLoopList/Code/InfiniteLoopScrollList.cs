@@ -34,6 +34,8 @@ namespace UnityEngine.UI
 
         [SerializeField, Range(3, 20)] private int count = 5;
 
+        [SerializeField] private bool multi;
+
         private Vector2 space;
 
         private Vector2 cell;
@@ -49,6 +51,10 @@ namespace UnityEngine.UI
         private Action action;
 
         private int current, front, back, index;
+
+        private bool drag;
+
+        private ScrollRect scroll;
 
         #region Align
         private Vector2 alignPosition;
@@ -72,6 +78,10 @@ namespace UnityEngine.UI
 
         private void Awake()
         {
+            if (multi && scroll == null)
+            {
+                scroll = GetComponentInParent<ScrollRect>();
+            }
             Initialize();
         }
 
@@ -103,17 +113,53 @@ namespace UnityEngine.UI
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            OnBeginDrag();
+            drag = true;
+
+            if (multi && scroll != null)
+            {
+                switch (direction)
+                {
+                    case Direction.Horizontal:
+                        drag = ScrollUtils.Horizontal(eventData.delta);
+                        break;
+                    case Direction.Vertical:
+                        drag = ScrollUtils.Vertical(eventData.delta);
+                        break;
+                }
+            }
+
+            if (drag)
+            {
+                OnBeginDrag();
+            }
+            else
+            {
+                scroll.OnBeginDrag(eventData);
+            }
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            OnDrag(eventData.delta);
+            if (drag)
+            {
+                OnDrag(eventData.delta);
+            }
+            else
+            {
+                scroll.OnDrag(eventData);
+            }
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            OnEndDrag();
+            if (drag)
+            {
+                OnEndDrag();
+            }
+            else
+            {
+                scroll.OnEndDrag(eventData);
+            }
         }
 
         #region Core

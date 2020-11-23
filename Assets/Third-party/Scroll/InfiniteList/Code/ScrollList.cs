@@ -61,16 +61,18 @@ namespace UnityEngine.UI
 
         private bool onlyOne;
 
-        private ScrollRect multiScroll;
+        private ScrollRect scroll;
 
-        private ScrollCtrl ctrl;
+        private bool drag;
 
         private readonly List<RectTransform> m_childs = new List<RectTransform>();
 
         private void Awake()
         {
-            if (multiScroll == null)
-                multiScroll = GetComponentInParent<ScrollRect>();
+            if (multi && scroll == null)
+            {
+                scroll = GetComponentInParent<ScrollRect>();
+            }
             FormatPosition();
         }
 
@@ -112,47 +114,52 @@ namespace UnityEngine.UI
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            switch (direction)
+            drag = true;
+
+            if (multi && scroll != null)
             {
-                case Direction.Horizontal:
-                    ctrl = ScrollUtils.Horizontal(eventData.delta) ? ScrollCtrl.Single : ScrollCtrl.Multi;
-                    break;
-                case Direction.Vertical:
-                    ctrl = ScrollUtils.Vertical(eventData.delta) ? ScrollCtrl.Single : ScrollCtrl.Multi;
-                    break;
+                switch (direction)
+                {
+                    case Direction.Horizontal:
+                        drag = ScrollUtils.Horizontal(eventData.delta);
+                        break;
+                    case Direction.Vertical:
+                        drag = ScrollUtils.Vertical(eventData.delta);
+                        break;
+                }
             }
 
-            if (multi && ctrl == ScrollCtrl.Multi && multiScroll != null)
+            if (drag)
             {
-                multiScroll.OnBeginDrag(eventData);
+                OnBeginDrag();
             }
             else
             {
-                OnBeginDrag();
+                scroll.OnBeginDrag(eventData);
             }
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (multi && ctrl == ScrollCtrl.Multi && multiScroll != null)
+            if (drag)
             {
-                multiScroll.OnDrag(eventData);
+                OnDrag(eventData.delta);
             }
             else
             {
-                OnDrag(eventData.delta);
+                scroll.OnDrag(eventData);
             }
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (multi && ctrl == ScrollCtrl.Multi && multiScroll != null)
+            if (drag)
             {
-                multiScroll.OnEndDrag(eventData);
+                OnEndDrag();
             }
             else
             {
-                OnEndDrag();
+                scroll.OnEndDrag(eventData);
             }
         }
 
@@ -259,8 +266,8 @@ namespace UnityEngine.UI
 
         private void OnEndDrag()
         {
-            if (Lock || onlyOne) return; 
-            
+            if (Lock || onlyOne) return;
+
             if (!Drag) return;
 
             Drag = false;

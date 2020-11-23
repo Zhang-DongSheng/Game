@@ -4,60 +4,67 @@ namespace UnityEngine.UI
 {
     public class ScrollRectMulti : ScrollRect, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        [SerializeField] private ScrollRect multiScroll;
+        [SerializeField] private ScrollRect scroll;
 
-        private ScrollCtrl ctrl;
+        [SerializeField] private bool multi;
+
+        private bool drag;
 
         protected override void Awake()
         {
             base.Awake();
 
-            if (multiScroll == null)
-                multiScroll = GetMultiScroll();
+            if (scroll == null)
+                scroll = GetMultiScroll();
         }
 
         public override void OnBeginDrag(PointerEventData eventData)
         {
-            if (horizontal)
+            drag = true;
+
+            if (multi && scroll != null)
             {
-                ctrl = ScrollUtils.Horizontal(eventData.delta) ? ScrollCtrl.Single : ScrollCtrl.Multi;
-            }
-            else if (vertical)
-            {
-                ctrl = ScrollUtils.Vertical(eventData.delta) ? ScrollCtrl.Single : ScrollCtrl.Multi;
+                if (horizontal)
+                {
+                    drag = ScrollUtils.Horizontal(eventData.delta);
+                }
+                else if (vertical)
+                {
+                    drag = ScrollUtils.Vertical(eventData.delta);
+                }
             }
 
-            if (ctrl == ScrollCtrl.Multi && multiScroll != null)
+            if (drag)
             {
-                multiScroll.OnBeginDrag(eventData);
+                base.OnBeginDrag(eventData);
             }
             else
             {
-                base.OnBeginDrag(eventData);
+                scroll.OnBeginDrag(eventData);
             }
         }
 
         public override void OnDrag(PointerEventData eventData)
         {
-            if (ctrl == ScrollCtrl.Multi && multiScroll != null)
+            if (drag)
             {
-                multiScroll.OnDrag(eventData);
+                base.OnDrag(eventData);
             }
             else
             {
-                base.OnDrag(eventData);
+                scroll.OnDrag(eventData);
             }
         }
 
         public override void OnEndDrag(PointerEventData eventData)
         {
-            if (ctrl == ScrollCtrl.Multi && multiScroll != null)
+            if (drag)
             {
-                multiScroll.OnEndDrag(eventData);
+                base.OnEndDrag(eventData);
             }
             else
             {
-                base.OnEndDrag(eventData);
+                scroll.OnEndDrag(eventData);
             }
         }
 
@@ -97,11 +104,5 @@ namespace UnityEngine.UI
 
             return angle < Min || angle > Max;
         }
-    }
-
-    public enum ScrollCtrl
-    {
-        Single,
-        Multi,
     }
 }

@@ -71,5 +71,52 @@ public class SortUtils
     {
         return source;
     }
+
+    /// <summary>
+    /// 冒泡排序
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="source"></param>
+    /// <returns></returns>
+    private static List<T> BubbleSort<T>(List<T> source) where T : IComparer<T>
+    {
+        for (int i = 0; i < source.Count; i++)
+        {
+            for (int j = i + 1; j < source.Count; j++)
+            {
+                if (source[i].Compare(source[i], source[j]) < 0)
+                {
+                    Swap(source, i, j);
+                }
+            }
+        }
+        return source;
+    }
+
+    private static List<T> BucketSort<T>(List<T> source) where T : IComparer<T>
+    {
+        //for (int i = 0; i < source.Count; i++)
+        //{
+        //    for (int j = i + 1; j < source.Count; j++)
+        //    {
+        //        if (source[i].Compare(source[i], source[j]) < 0)
+        //        {
+        //            Swap(source, i, j);
+        //        }
+        //    }
+        //}
+        return source;
+    }
+    #endregion
+
+    #region Utils
+    private static void Swap<T>(List<T> list, int x, int y)
+    {
+        T temp = list[x];
+
+        list[x] = list[y];
+
+        list[y] = temp;
+    }
     #endregion
 }
