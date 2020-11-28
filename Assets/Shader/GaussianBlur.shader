@@ -27,7 +27,6 @@
             "PreviewType" = "Plane"
             "CanUseSpriteAtlas" = "True"
         }
-
         //MASK SUPPORT ADD
         Stencil
         {
@@ -39,7 +38,6 @@
         }
         ColorMask [_ColorMask]
         //MASK SUPPORT END
-    
         Cull Off
         Lighting Off
         ZWrite Off

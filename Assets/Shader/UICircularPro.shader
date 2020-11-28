@@ -1,4 +1,5 @@
-﻿Shader "UI/CircularPro"
+﻿//圆角Shader
+Shader "UI/CircularPro"
 {
 	Properties 
 	{
