@@ -5,26 +5,15 @@ using UnityEngine.UI;
 
 public class UITest : MonoBehaviour
 {
-    public List<RectTransform> parents;
-
-    public List<RectTransform> childs;
-
-
-
-
+    public Image image;
 
 
     void Start()
     {
-        for (int i = 0; i < childs.Count; i++)
-        {
-            Text text = childs[i].GetComponentInChildren<Text>();
 
-            float width =  text.SetTextAndGetWidth(Random.Range(0, int.MaxValue).ToString(), 10);
+        RenewableUtils.SetImage(image, "andasset/picture/icon/ceo");
 
-            childs[i].SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
-        }
-        UILayout.Horizontal(parents, childs, 10);
+        //asset.CreateAsset("andasset/picture/icon/ceo", "ceo");
     }
 
     // Update is called once per frame
