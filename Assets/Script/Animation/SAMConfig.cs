@@ -39,4 +39,10 @@
         Forward,
         Back,
     }
+
+    public enum SAMCircle
+    { 
+        Once,
+        Loop,
+    }
 }

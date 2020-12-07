@@ -6,6 +6,10 @@ namespace UnityEngine.SAM
     {
         [SerializeField] private BillboardType type;
 
+        [SerializeField] private SAMCircle circle;
+
+        [SerializeField] private bool forward;
+
         [SerializeField] private RectTransform viewPort;
 
         [SerializeField] private RectTransform content;
@@ -33,6 +37,14 @@ namespace UnityEngine.SAM
         private void Awake()
         {
             speed = useConfig ? SAMConfig.SPEED : speed;
+        }
+
+        private void OnEnable()
+        {
+            if (type != BillboardType.None)
+            {
+                Compute();
+            }
         }
 
         private void Update()
@@ -92,28 +104,33 @@ namespace UnityEngine.SAM
         {
             Status = SAMStatus.Compute;
 
-            float space = viewPort.rect.height / 2f;
+            Vector2 space = new Vector2(viewPort.rect.width / 2f, viewPort.rect.height / 2f);
 
-            float view = content.rect.height / 2f;
+            Vector2 view = new Vector2(content.rect.width / 2f, content.rect.height / 2f);
 
-            origin.position.y = view - space;
+            origin.position = view - space;
 
-            destination.position.y = space - view;
+            destination.position = space - view;
 
-            switch (this.type)
+            switch (type)
             {
-                case BillboardType.TopToBottom:
-                    step = 1;
-                    direction = SAMDirection.Back;
+                case BillboardType.Horzontal:
+                    origin.position.y =  destination.position.y = 0;
                     break;
-                case BillboardType.BottomToTop:
-                    step = 0;
-                    direction = SAMDirection.Forward;
+                case BillboardType.Vertical:
+                    origin.position.x = destination.position.x = 0;
                     break;
-                case BillboardType.Loop:
-                    step = 0.5f;
-                    direction = SAMDirection.Forward;
+                default:
                     break;
+            }
+
+            if (forward)
+            {
+                step = SAMConfig.ZERO; direction = SAMDirection.Forward;
+            }
+            else
+            {
+                step = SAMConfig.ONE; direction = SAMDirection.Back;
             }
 
             Status = SAMStatus.Transition;
@@ -134,9 +151,9 @@ namespace UnityEngine.SAM
 
         private void Completed()
         {
-            switch (this.type)
+            switch (circle)
             {
-                case BillboardType.Loop:
+                case SAMCircle.Loop:
                     break;
                 default:
                     Status = SAMStatus.Completed;
@@ -146,14 +163,11 @@ namespace UnityEngine.SAM
 
         public void StartUp(int index = -1)
         {
-            if (index < (int)BillboardType.Count && index > -1)
-            {
-                this.type = (BillboardType)index;
-            }
-            else if (index == -1) { }
+            if (index < 0 || index >= Enum.GetValues(typeof(BillboardType)).Length)
+            { }
             else
             {
-                return;
+                this.type = (BillboardType)index;
             }
 
             switch (this.type)
@@ -167,12 +181,11 @@ namespace UnityEngine.SAM
         }
 
         enum BillboardType
-        { 
+        {
             None,
-            TopToBottom,
-            BottomToTop,
-            Loop,
-            Count,
+            Horzontal,
+            Vertical,
+            Slant,
         }
     }
 }
