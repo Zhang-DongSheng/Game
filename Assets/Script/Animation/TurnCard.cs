@@ -1,6 +1,6 @@
 ﻿namespace UnityEngine.SAM
 {
-    public class SAMCard : MonoBehaviour
+    public class TurnCard : MonoBehaviour
     {
         [SerializeField] private Transform card;
 
@@ -24,8 +24,6 @@
 
         private SAMStatus status;
 
-        private SAMDirection direction;
-
         private void Awake()
         {
             if (card == null) card = transform;
@@ -35,19 +33,13 @@
         {
             if (status == SAMStatus.Transition)
             {
-                switch (direction)
+                current = Mathf.MoveTowards(current, destination, speed * Time.deltaTime);
+                if (Mathf.Abs(current - destination) < 0.1f)
                 {
-                    case SAMDirection.Forward:
-                    case SAMDirection.Back:
-                        current = Mathf.MoveTowards(current, destination, speed * Time.deltaTime);
-                        if (Mathf.Abs(current - destination) < 0.1f)
-                        {
-                            current = destination;
-                            status = SAMStatus.Idel;
-                        }
-                        Rotate(current);
-                        break;
+                    current = destination;
+                    status = SAMStatus.Idel;
                 }
+                Rotate(current);
             }
         }
 
@@ -80,8 +72,6 @@
 
             center = SAMConfig.Ninety;
 
-            direction = SAMDirection.Forward;
-
             status = SAMStatus.Transition;
         }
 
@@ -92,8 +82,6 @@
             destination = SAMConfig.Ninety * 2;
 
             center = SAMConfig.Ninety;
-
-            direction = SAMDirection.Back;
 
             status = SAMStatus.Transition;
         }

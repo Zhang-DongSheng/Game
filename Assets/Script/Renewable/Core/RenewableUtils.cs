@@ -9,6 +9,30 @@ namespace UnityEngine
     {
         private static readonly Dictionary<string, List<Image>> compontents = new Dictionary<string, List<Image>>();
 
+        public static void Preload(string key, RPKey cache = RPKey.None)
+        {
+            string parameter = Path.GetFileNameWithoutExtension(key);
+
+            if (RenewablePool.Instance.Exist(cache, key, string.Empty)) { }
+            else
+            {
+                RenewableResource.Instance.Get(new RenewableRequest(key, parameter, 0, StorageClass.Write, DownloadFileType.None), (handle) =>
+                {
+                    if (RenewablePool.Instance.Exist(cache, handle.key + handle.parameter, handle.secret)) { }
+                    else
+                    {
+                        RenewableAssetBundle.Instance.LoadAsync(handle.key, handle.buffer, handle.parameter, (asset) =>
+                        {
+                            if (asset != null)
+                            {
+                                RenewablePool.Instance.Push(cache, handle.key + handle.parameter, handle.secret, handle.recent, asset);
+                            }
+                        });
+                    }
+                }, null);
+            }
+        }
+
         public static void SetImage(Image image, string key, RPKey cache = RPKey.None, Action<string> callback = null)
         {
             string parameter = Path.GetFileNameWithoutExtension(key);

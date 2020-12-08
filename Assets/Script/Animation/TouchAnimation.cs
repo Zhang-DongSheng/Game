@@ -4,7 +4,7 @@ using UnityEngine.UI;
 namespace UnityEngine.SAM
 {
     [RequireComponent(typeof(Graphic)), DisallowMultipleComponent]
-    public class SAMTouch : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerClickHandler, IPointerUpHandler, IPointerExitHandler
+    public class TouchAnimation : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerClickHandler, IPointerUpHandler, IPointerExitHandler
     {
         [SerializeField] private Transform target;
 
@@ -43,7 +43,7 @@ namespace UnityEngine.SAM
             if (graphic == null)
                 graphic = GetComponent<Graphic>();
 
-            graphicChanged = origin.alpha != destination.alpha || origin.color != destination.color;
+            //graphicChanged = origin.alpha != destination.alpha || origin.color != destination.color;
 
             speed = useConfig ? SAMConfig.SPEED : speed;
         }
@@ -204,9 +204,9 @@ namespace UnityEngine.SAM
 
             if (graphicChanged && graphic != null)
             {
-                color = Color.Lerp(origin.color, destination.color, progress);
+                //color = Color.Lerp(origin.color, destination.color, progress);
 
-                color.a = Mathf.Lerp(origin.alpha, destination.alpha, progress);
+                //color.a = Mathf.Lerp(origin.alpha, destination.alpha, progress);
 
                 graphic.color = color;
             }
