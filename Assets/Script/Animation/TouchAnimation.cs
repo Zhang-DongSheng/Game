@@ -16,6 +16,10 @@ namespace UnityEngine.SAM
 
         [SerializeField] private SAMInformation destination = new SAMInformation();
 
+        [SerializeField] private Color originColor = Color.white;
+
+        [SerializeField] private Color destinationColor = Color.white;
+
         [SerializeField] private AnimationCurve curve = new AnimationCurve(new Keyframe(0f, 0f, 0f, 1f), new Keyframe(1f, 1f, 1f, 0f));
 
         [SerializeField, Range(0.1f, 100)] private float speed = 0.1f;
@@ -34,8 +38,6 @@ namespace UnityEngine.SAM
 
         private bool graphicChanged;
 
-        private Color color;
-
         private void Awake()
         {
             if (target == null)
@@ -43,7 +45,7 @@ namespace UnityEngine.SAM
             if (graphic == null)
                 graphic = GetComponent<Graphic>();
 
-            //graphicChanged = origin.alpha != destination.alpha || origin.color != destination.color;
+            graphicChanged = originColor != destinationColor;
 
             speed = useConfig ? SAMConfig.SPEED : speed;
         }
@@ -204,11 +206,7 @@ namespace UnityEngine.SAM
 
             if (graphicChanged && graphic != null)
             {
-                //color = Color.Lerp(origin.color, destination.color, progress);
-
-                //color.a = Mathf.Lerp(origin.alpha, destination.alpha, progress);
-
-                graphic.color = color;
+                graphic.color = Color.Lerp(originColor, destinationColor, progress);
             }
         }
 
