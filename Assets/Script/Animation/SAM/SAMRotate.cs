@@ -4,6 +4,8 @@
     {
         [SerializeField] private SAMCircle circle;
 
+        [SerializeField] private Vector3 origin, destination;
+
         [SerializeField] private Vector3 eulers;
 
         protected override void Renovate()
@@ -35,32 +37,9 @@
 
             progress = curve.Evaluate(step);
 
-            vector = Vector3.Lerp(origin.rotation, destination.rotation, progress);
+            vector = Vector3.Lerp(origin, destination, progress);
 
             target.localEulerAngles = vector;
-        }
-
-        protected override void Completed()
-        {
-            status = SAMStatus.Completed;
-
-            onCompleted?.Invoke();
-        }
-
-        protected override void Compute()
-        {
-            status = SAMStatus.Compute;
-
-            step = 0;
-
-            onBegin?.Invoke();
-
-            status = SAMStatus.Transition;
-        }
-
-        public override void Begin(bool forward)
-        {
-            Compute();
         }
     }
 }

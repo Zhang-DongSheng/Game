@@ -4,11 +4,11 @@
     {
         [SerializeField] private float intensity = 0.3f;
 
+        private float range;
+
         private Vector3 position;
 
         private Quaternion rotation;
-
-        private float range;
 
         protected override void Awake()
         {
@@ -63,11 +63,6 @@
             onBegin?.Invoke();
 
             status = SAMStatus.Transition;
-        }
-
-        public override void Begin(bool forward)
-        {
-            Compute();
         }
 
         public override void Default()

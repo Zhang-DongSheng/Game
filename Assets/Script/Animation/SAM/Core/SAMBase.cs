@@ -1,5 +1,4 @@
 ﻿using UnityEngine.Events;
-using UnityEngine.UI;
 
 namespace UnityEngine.SAM
 {
@@ -10,10 +9,6 @@ namespace UnityEngine.SAM
 
         [SerializeField] protected RectTransform target;
 
-        [SerializeField] protected SAMInformation origin;
-
-        [SerializeField] protected SAMInformation destination;
-
         [SerializeField] protected AnimationCurve curve = new AnimationCurve(new Keyframe(0f, 0f, 0f, 1f), new Keyframe(1f, 1f, 1f, 0f));
 
         [SerializeField, Range(0.1f, 100)] protected float speed = 1;
@@ -23,6 +18,8 @@ namespace UnityEngine.SAM
         [SerializeField] protected bool enable;
 
         [SerializeField, Range(0, 1)] protected float step;
+
+        protected bool forward;
 
         protected float progress;
 
@@ -43,7 +40,7 @@ namespace UnityEngine.SAM
             }
         }
 
-        protected virtual void OnValidate()
+        private void OnValidate()
         {
             if (!Application.isPlaying)
             {
@@ -51,7 +48,7 @@ namespace UnityEngine.SAM
             }
         }
 
-        protected virtual void Update()
+        private void Update()
         {
             Renovate();
         }
@@ -60,18 +57,36 @@ namespace UnityEngine.SAM
 
         protected abstract void Transition(float step);
 
-        protected abstract void Completed();
+        protected virtual void Completed()
+        {
+            status = SAMStatus.Completed;
 
-        protected virtual void Compute() { }
+            onCompleted?.Invoke();
+
+            status = SAMStatus.Idel;
+        }
+
+        protected virtual void Compute()
+        {
+            status = SAMStatus.Compute;
+
+            step = SAMConfig.ZERO;
+
+            onBegin?.Invoke();
+
+            status = SAMStatus.Transition;
+        }
 
         public virtual void Begin(bool forward)
         {
+            this.forward = forward;
 
+            Compute();
         }
 
-        public virtual void Pause()
+        public virtual void Pause(bool pause)
         {
-            status = SAMStatus.Idel;
+            status = pause ? SAMStatus.Idel : SAMStatus.Transition;
         }
 
         public virtual void Close()
@@ -91,17 +106,5 @@ namespace UnityEngine.SAM
                 gameObject.SetActive(active);
             }
         }
-    }
-
-    [System.Serializable]
-    public class SAMInformation
-    {
-        public Vector3 position = Vector3.zero;
-
-        public Vector3 rotation = Vector3.zero;
-
-        public Vector3 scale = Vector3.one;
-
-        public Vector2 size = Vector2.zero;
     }
 }

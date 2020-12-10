@@ -5,7 +5,7 @@ public class SAMSize : SAMBase
 {
     [SerializeField] private SAMAxis axis;
 
-    private bool forward;
+    [SerializeField] private Vector2 origin, destination;
 
     protected override void Renovate()
     {
@@ -28,7 +28,7 @@ public class SAMSize : SAMBase
 
         progress = curve.Evaluate(step);
 
-        vector = Vector2.Lerp(origin.size, destination.size, progress);
+        vector = Vector2.Lerp(origin, destination, progress);
 
         switch (axis)
         {
@@ -40,33 +40,7 @@ public class SAMSize : SAMBase
                 break;
             default:
                 target.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, vector.x);
-                target.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, vector.y);
-                break;
+                goto case SAMAxis.Vertical;
         }
-    }
-
-    protected override void Completed()
-    {
-        status = SAMStatus.Completed;
-
-        onCompleted?.Invoke();
-    }
-
-    protected override void Compute()
-    {
-        status = SAMStatus.Compute;
-
-        step = 0;
-
-        onBegin?.Invoke();
-
-        status = SAMStatus.Transition;
-    }
-
-    public override void Begin(bool forward)
-    {
-        this.forward = forward;
-
-        Compute();
     }
 }

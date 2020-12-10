@@ -2,7 +2,7 @@
 {
     public class SAMTransform : SAMBase
     {
-        private bool forward;
+        [SerializeField] private SAMTransformInformation origin, destination;
 
         protected override void Renovate()
         {
@@ -31,30 +31,17 @@
 
             target.localScale = Vector3.Lerp(origin.scale, destination.scale, progress);
         }
+    }
 
-        protected override void Completed()
-        {
-            status = SAMStatus.Completed;
+    [System.Serializable]
+    public class SAMTransformInformation
+    {
+        public Vector3 position = Vector3.zero;
 
-            onCompleted?.Invoke();
-        }
+        public Vector3 rotation = Vector3.zero;
 
-        protected override void Compute()
-        {
-            status = SAMStatus.Compute;
+        public Vector3 scale = Vector3.one;
 
-            step = 0;
-
-            onBegin?.Invoke();
-
-            status = SAMStatus.Transition;
-        }
-
-        public override void Begin(bool forward)
-        {
-            this.forward = forward;
-
-            Compute();
-        }
+        public Vector2 size = Vector2.zero;
     }
 }

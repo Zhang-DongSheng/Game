@@ -6,11 +6,9 @@
 
         [SerializeField] private SAMCircle circle;
 
-        [SerializeField] private bool direction;
-
         [SerializeField] private RectTransform viewPort;
 
-        private bool forward;
+        private Vector3 origin, destination;
 
         protected override void Renovate()
         {
@@ -36,11 +34,7 @@
 
             progress = curve.Evaluate(step);
 
-            target.localPosition = Vector3.Lerp(origin.position, destination.position, progress);
-
-            target.localEulerAngles = Vector3.Lerp(origin.rotation, destination.rotation, progress);
-
-            target.localScale = Vector3.Lerp(origin.scale, destination.scale, progress);
+            target.localPosition = Vector3.Lerp(origin, destination, progress);
         }
 
         protected override void Completed()
@@ -61,21 +55,19 @@
 
             Vector2 view = new Vector2(target.rect.width / 2f, target.rect.height / 2f);
 
-            origin.position = view - space;
+            origin = view - space;
 
-            destination.position = space - view;
+            destination = space - view;
 
             step = SAMConfig.ZERO;
-
-            forward = direction;
 
             switch (axis)
             {
                 case SAMAxis.Horizontal:
-                    origin.position.y = destination.position.y = 0;
+                    origin.y = destination.y = 0;
                     break;
                 case SAMAxis.Vertical:
-                    origin.position.x = destination.position.x = 0;
+                    origin.x = destination.x = 0;
                     break;
                 default:
                     break;
@@ -88,14 +80,11 @@
 
         public override void Begin(bool forward)
         {
-            switch (axis)
-            {
-                case SAMAxis.None:
-                    return;
-                default:
-                    Compute();
-                    break;
-            }
+            if (axis == SAMAxis.None) return;
+
+            this.forward = forward;
+
+            Compute();
         }
     }
 }

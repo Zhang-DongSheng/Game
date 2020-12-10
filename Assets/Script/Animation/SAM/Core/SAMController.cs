@@ -41,8 +41,6 @@ namespace UnityEngine.SAM
             else
             {
                 onCompleted?.Invoke();
-
-                Debug.LogError("完成了");
             }
         }
 

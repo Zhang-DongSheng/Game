@@ -326,7 +326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &394926636
 RectTransform:
   m_ObjectHideFlags: 0
@@ -359,9 +359,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1a6f49ff44c3d4a896ef216f505920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  viewPort: {fileID: 394926636}
-  content: {fileID: 1226394484}
+  onBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  target: {fileID: 0}
   curve:
     serializedVersion: 2
     m_Curve:
@@ -388,6 +392,11 @@ MonoBehaviour:
     m_RotationOrder: 4
   speed: 1
   useConfig: 0
+  enable: 0
+  step: 0
+  axis: 0
+  circle: 0
+  viewPort: {fileID: 394926636}
 --- !u!114 &394926638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,7 +458,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9100f01bdf59d6b4c9e382fbe007f906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SAM: {fileID: 394926637}
+  img_test: {fileID: 0}
+  asset_test: {fileID: 0}
+  audio_test: {fileID: 0}
+  btn_test: {fileID: 0}
+  input_test: {fileID: 0}
 --- !u!1 &540533557
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,7 +837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1190032343
 RectTransform:
   m_ObjectHideFlags: 0
@@ -858,85 +871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2df5c1d15ee14fc4aa534ae58a080d1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animations:
-  - target: {fileID: 2043671261}
-    graphic: {fileID: 2043671262}
-    origin:
-      position: {x: -100, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-      color: {r: 1, g: 1, b: 1, a: 1}
-      alpha: 1
-    destination:
-      position: {x: -100, y: 100, z: 0}
-      rotation: {x: 0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-      color: {r: 0.32858673, g: 0.9811321, b: 0.42897123, a: 1}
-      alpha: 0.2
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 1
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 1
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    speed: 0.9
-  - target: {fileID: 1049464309}
-    graphic: {fileID: 1049464310}
-    origin:
-      position: {x: 100, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-      color: {r: 1, g: 1, b: 1, a: 1}
-      alpha: 1
-    destination:
-      position: {x: 100, y: -100, z: 0}
-      rotation: {x: 0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-      color: {r: 0.8773585, g: 0.11173906, b: 0.11173906, a: 1}
-      alpha: 1
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 1
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 1
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    speed: 6
+  sams: []
 --- !u!1 &1226394483
 GameObject:
   m_ObjectHideFlags: 0

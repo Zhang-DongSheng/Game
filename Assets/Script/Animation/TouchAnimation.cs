@@ -12,9 +12,9 @@ namespace UnityEngine.SAM
 
         [SerializeField] private TouchType touchType;
 
-        [SerializeField] private SAMInformation origin = new SAMInformation();
+        [SerializeField] private SAMTransformInformation origin = new SAMTransformInformation();
 
-        [SerializeField] private SAMInformation destination = new SAMInformation();
+        [SerializeField] private SAMTransformInformation destination = new SAMTransformInformation();
 
         [SerializeField] private Color originColor = Color.white;
 
