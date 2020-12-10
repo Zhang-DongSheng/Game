@@ -1000,14 +1000,14 @@ MonoBehaviour:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0}
     scale: {x: 1, y: 1, z: 1}
-    size: {x: 0, y: 0}
+    color: {r: 1, g: 1, b: 1, a: 1}
+    alpha: 1
   destination:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0}
     scale: {x: 1.2, y: 1.2, z: 1}
-    size: {x: 0, y: 0}
-  originColor: {r: 1, g: 1, b: 1, a: 1}
-  destinationColor: {r: 0.8396226, g: 0.14653791, b: 0.14653791, a: 1}
+    color: {r: 0.9622642, g: 0.13163051, b: 0.13163051, a: 1}
+    alpha: 1
   curve:
     serializedVersion: 2
     m_Curve:
@@ -1034,7 +1034,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   speed: 0.1
   time: 1
-  useConfig: 1
   step: 0
 --- !u!114 &1116144938
 MonoBehaviour:

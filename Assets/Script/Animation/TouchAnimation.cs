@@ -1,7 +1,7 @@
 ﻿using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace UnityEngine.SAM
+namespace UnityEngine
 {
     [RequireComponent(typeof(Graphic)), DisallowMultipleComponent]
     public class TouchAnimation : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerClickHandler, IPointerUpHandler, IPointerExitHandler
@@ -12,13 +12,9 @@ namespace UnityEngine.SAM
 
         [SerializeField] private TouchType touchType;
 
-        [SerializeField] private SAMTransformInformation origin = new SAMTransformInformation();
+        [SerializeField] private TouchParameter origin;
 
-        [SerializeField] private SAMTransformInformation destination = new SAMTransformInformation();
-
-        [SerializeField] private Color originColor = Color.white;
-
-        [SerializeField] private Color destinationColor = Color.white;
+        [SerializeField] private TouchParameter destination;
 
         [SerializeField] private AnimationCurve curve = new AnimationCurve(new Keyframe(0f, 0f, 0f, 1f), new Keyframe(1f, 1f, 1f, 0f));
 
@@ -26,9 +22,9 @@ namespace UnityEngine.SAM
 
         [SerializeField] private float time = 1;
 
-        [SerializeField] private bool useConfig = true;
-
         [SerializeField, Range(0, 1)] private float step;
+
+        private Color color;
 
         private float progress;
 
@@ -36,18 +32,12 @@ namespace UnityEngine.SAM
 
         private bool play;
 
-        private bool graphicChanged;
-
         private void Awake()
         {
             if (target == null)
                 target = transform;
             if (graphic == null)
                 graphic = GetComponent<Graphic>();
-
-            graphicChanged = originColor != destinationColor;
-
-            speed = useConfig ? SAMConfig.SPEED : speed;
         }
 
         private void OnEnable()
@@ -98,8 +88,7 @@ namespace UnityEngine.SAM
             switch (touchType)
             {
                 case TouchType.Through:
-                    step = 0;
-                    forward = true;
+                    step = 0; forward = true;
                     play = true;
                     break;
             }
@@ -111,8 +100,7 @@ namespace UnityEngine.SAM
             {
                 case TouchType.Press:
                 case TouchType.Drag:
-                    step = 0;
-                    forward = true;
+                    step = 0; forward = true;
                     play = true;
                     break;
             }
@@ -123,8 +111,7 @@ namespace UnityEngine.SAM
             switch (touchType)
             {
                 case TouchType.Click:
-                    step = 0;
-                    forward = true;
+                    step = 0; forward = true;
                     play = true;
                     break;
             }
@@ -204,9 +191,13 @@ namespace UnityEngine.SAM
 
             target.localScale = Vector3.Lerp(origin.scale, destination.scale, progress);
 
-            if (graphicChanged && graphic != null)
+            if (graphic != null)
             {
-                graphic.color = Color.Lerp(originColor, destinationColor, progress);
+                color = Color.Lerp(origin.color, destination.color, progress);
+
+                color.a = Mathf.Lerp(origin.alpha, destination.alpha, progress);
+
+                graphic.color = color;
             }
         }
 
@@ -214,14 +205,12 @@ namespace UnityEngine.SAM
         {
             play = false;
 
-            step = 0;
-
-            Transition(step);
+            Default();
         }
 
         private void Default()
         {
-            Transition(SAMConfig.ZERO);
+            Transition(0);
         }
 
         enum TouchType
@@ -231,6 +220,20 @@ namespace UnityEngine.SAM
             Press,
             Drag,
             Through,
+        }
+
+        [System.Serializable]
+        class TouchParameter
+        {
+            public Vector3 position = Vector3.zero;
+
+            public Vector3 rotation = Vector3.zero;
+
+            public Vector3 scale = Vector3.one;
+
+            public Color color = Color.white;
+
+            [Range(0, 1)] public float alpha = 1;
         }
     }
 }
