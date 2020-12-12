@@ -41,7 +41,5 @@
         public Vector3 rotation = Vector3.zero;
 
         public Vector3 scale = Vector3.one;
-
-        public Vector2 size = Vector2.zero;
     }
 }

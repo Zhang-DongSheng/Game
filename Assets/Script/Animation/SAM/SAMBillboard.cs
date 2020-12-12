@@ -39,12 +39,13 @@
 
         protected override void Completed()
         {
-            if (circle == SAMCircle.Once)
-            {
-                status = SAMStatus.Completed;
+            if (circle == SAMCircle.Loop) return;
 
-                onCompleted?.Invoke();
-            }
+            status = SAMStatus.Completed;
+
+            onCompleted?.Invoke();
+
+            status = SAMStatus.Idel;
         }
 
         protected override void Compute()
