@@ -214,7 +214,7 @@ public static class Extensions
     #endregion
 
     #region UI
-    public static Material MaterialClone(this Graphic graphic)
+    public static Material CloneMaterial(this Graphic graphic)
     {
         if (graphic != null && graphic.material != null)
         {
