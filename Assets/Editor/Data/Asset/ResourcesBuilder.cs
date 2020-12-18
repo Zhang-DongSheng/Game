@@ -34,6 +34,8 @@ namespace UnityEditor
         {
             nodes = Finder.Find(Application.dataPath + "/Resources");
 
+
+
             style_folder.normal.textColor = Color.blue;
 
             style_folder.fontStyle = FontStyle.Bold;
@@ -50,14 +52,6 @@ namespace UnityEditor
 
         private void RefreshUI()
         {
-            GUILayout.BeginHorizontal();
-            {
-
-            }
-            GUILayout.EndHorizontal();
-
-            GUILayout.Space(5);
-
             GUILayout.BeginHorizontal();
             {
                 GUILayout.BeginVertical();

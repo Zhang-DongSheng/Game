@@ -7,6 +7,8 @@ namespace UnityEngine.Factory
     {
         private readonly Dictionary<string, PrefabInformation> config = new Dictionary<string, PrefabInformation>();
 
+        private readonly Dictionary<string, Transform> parents = new Dictionary<string, Transform>();
+
         private readonly Dictionary<string, Workshop> shops = new Dictionary<string, Workshop>();
 
         [RuntimeInitializeOnLoadMethod]
@@ -57,7 +59,7 @@ namespace UnityEngine.Factory
         {
             try
             {
-                shops.Add(prefab.key, new Workshop(prefab.path, Parent(prefab.parent), prefab.capacity));
+                shops.Add(prefab.key, new Workshop(prefab.path, Parent(prefab.key, prefab.extension), prefab.capacity));
             }
             catch (Exception e)
             {
@@ -74,9 +76,43 @@ namespace UnityEngine.Factory
             shops.Clear();
         }
 
-        private Transform Parent(Parent root)
+        private Transform Parent(string name, string extension)
         {
-            return null;
+            string key;
+
+            switch (extension)
+            {
+                case ".prefab":
+                    if (name.StartsWith("UI"))
+                    {
+                        key = "UI";
+                    }
+                    else
+                    {
+                        key = "Prefab";
+                    }
+                    break;
+                default:
+                    key = "Root";
+                    break;
+            }
+
+            if (string.IsNullOrEmpty(key)) return null;
+
+            if (parents.ContainsKey(key))
+            {
+                return parents[key];
+            }
+            else
+            {
+                Transform parent = new GameObject(key).transform;
+
+                parent.SetParent(transform);
+
+                parents.Add(key, parent);
+
+                return parent;
+            }
         }
     }
 
@@ -94,9 +130,9 @@ namespace UnityEngine.Factory
 
         public string path;
 
-        public Parent parent;
-
         public int capacity;
+
+        public string extension;
     }
     [System.Serializable]
     public class FactoryConfig
@@ -119,13 +155,6 @@ namespace UnityEngine.Factory
             {
                 list.Add(config.prefabs[i].key, config.prefabs[i]);
             }
-        }
-
-        public void Save()
-        {
-            string content = JsonUtility.ToJson(this);
-
-
         }
     }
 }
