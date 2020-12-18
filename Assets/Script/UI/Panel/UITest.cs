@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Factory;
 using UnityEngine.UI;
 
 public class UITest : MonoBehaviour
@@ -10,15 +11,16 @@ public class UITest : MonoBehaviour
 
     void Start()
     {
-
-        RenewableUtils.SetImage(image, "andasset/picture/icon/ceo");
-
-        //asset.CreateAsset("andasset/picture/icon/ceo", "ceo");
+        Factory.Instance.Pop("Test");
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Factory.Instance.Remove("Test");
+        }
     }
 }

@@ -237,7 +237,7 @@ namespace UnityEngine.UI
             //panel_name ：资源路径地址，可替换
             string panel_path = panel_name;
 
-            GameObject panel = ResourcesFactory.Instance.Create(panel_name, panel_path, parent);
+            GameObject panel = null;// Factory.Factory.Instance.Pop(panel_name, panel_path, parent);
 
             UIBase component = panel.GetComponent<T>();
             if (component == null)

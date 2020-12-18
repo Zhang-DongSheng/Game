@@ -20,7 +20,7 @@ namespace UnityEngine.UI
         {
             callBack?.Invoke();
 
-            ResourcesFactory.Instance.Destroy(panel_name, gameObject);
+            SetActive(false);
         }
 
         public virtual void Init() { }
