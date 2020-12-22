@@ -10,9 +10,11 @@ namespace UnityEngine.UI
 
         [SerializeField] private bool ignore = false;
 
+        [SerializeField] private bool variety = false;
+
         [SerializeField] private Color color = Color.white;
 
-        [SerializeField, Range(0, 255)] private int lighteness = 0;
+        [SerializeField, Range(0, 255)] private int lighteness = 255;
 
         private GameObject target;
 
@@ -67,11 +69,18 @@ namespace UnityEngine.UI
             SetLighteness(lighteness);
         }
 
+        public void ShowOrHide(bool active)
+        {
+            this.active = active;
+
+            SetActive(this.active && ctrlActive);
+        }
+
         private void Notice(EventMessageArgs args)
         {
             if (ignore) return;
 
-            ctrlActive = args.GetMessage<bool>("active");
+            ctrlActive = args.GetMessage<bool>("status");
 
             SetActive(this.active && ctrlActive);
         }
@@ -92,7 +101,7 @@ namespace UnityEngine.UI
         {
             if (!auto) return;
 
-            int order = 1;
+            int order = 0;
 
             GetCanvas(target.transform);
 
@@ -132,6 +141,8 @@ namespace UnityEngine.UI
 
         private void SetLighteness(int lighteness)
         {
+            if (!variety) return;
+
             this.lighteness = lighteness;
 
             if (this.lighteness < 1) return;
