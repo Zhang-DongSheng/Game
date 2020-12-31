@@ -1,77 +1,10 @@
 ﻿using LitJson;
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public static class Extensions
+public static partial class Extension
 {
-    public static void SetTextWithEllipsis(this TextMeshProUGUI compontent, string content)
-    {
-        if (string.IsNullOrEmpty(content))
-        {
-            compontent.text = string.Empty;
-        }
-        else
-        {
-            compontent.text = content;
-
-            compontent.ForceMeshUpdate();
-
-            string text = compontent.GetParsedText();
-
-            if (string.IsNullOrEmpty(text)) return;
-
-            if (text.Length < 3) return;
-
-            if (text.Length < content.Length)
-            {
-                text = content.Substring(0, text.Length - 3) + "...";
-            }
-
-            compontent.text = text;
-        }
-    }
-
-    public static void SetTextWithEllipsis(this Text compontent, string content)
-    {
-        TextGenerator generator = new TextGenerator();
-
-        RectTransform rectTransform = compontent.GetComponent<RectTransform>();
-
-        TextGenerationSettings settings = compontent.GetGenerationSettings(rectTransform.rect.size);
-
-        generator.Populate(content, settings);
-
-        int count = generator.characterCountVisible;
-
-        var text = content;
-
-        if (content.Length > count)
-        {
-            text = content.Substring(0, count - 3) + "...";
-        }
-
-        compontent.text = text;
-    }
-
-    public static float SetTextAndGetWidth(this Text compontent, string content, float space, float min = 100, float max = 500)
-    {
-        compontent.text = content;
-
-        float width = compontent.preferredWidth;
-
-        width += space;
-
-        width = Math.Max(width, min);
-
-        width = Math.Min(width, max);
-
-        return width;
-    }
-
-    #region LitJson
     public static string GetString(this JsonData json, string key)
     {
         string result = string.Empty;
@@ -80,7 +13,6 @@ public static class Extensions
         {
             result = json[key].ToString();
         }
-
         return result;
     }
 
@@ -92,7 +24,6 @@ public static class Extensions
         {
             int.TryParse(json[key].ToString(), out result);
         }
-
         return result;
     }
 
@@ -104,7 +35,6 @@ public static class Extensions
         {
             float.TryParse(json[key].ToString(), out result);
         }
-
         return result;
     }
 
@@ -116,7 +46,6 @@ public static class Extensions
         {
             long.TryParse(json[key].ToString(), out result);
         }
-
         return result;
     }
 
@@ -128,7 +57,6 @@ public static class Extensions
         {
             result = (bool)json[key];
         }
-
         return result;
     }
 
@@ -140,7 +68,6 @@ public static class Extensions
         {
             result = (byte)json[key];
         }
-
         return result;
     }
 
@@ -188,7 +115,6 @@ public static class Extensions
                 }
             }
         }
-
         return result;
     }
 
@@ -208,25 +134,30 @@ public static class Extensions
                 }
             }
         }
-
         return result;
     }
-    #endregion
 
-    #region UI
-    public static Material CloneMaterial(this Graphic graphic)
+    public static Color GetColor(this JsonData json, string key, float alpha = 1)
     {
-        if (graphic != null && graphic.material != null)
+        Color color = Color.white;
+
+        if (json != null && json.ContainsKey(key))
         {
-            Material source = graphic.material;
+            string value = json[key].ToString();
 
-            Material clone = GameObject.Instantiate(source);
-
-            graphic.material = clone;
-
-            return clone;
+            if (string.IsNullOrEmpty(value))
+            {
+                color.a = alpha;
+            }
+            else
+            {
+                if (value.Substring(0, 1) != "#")
+                {
+                    value = "#" + value;
+                }
+                ColorUtility.TryParseHtmlString(value, out color);
+            }
         }
-        return null;
+        return color;
     }
-    #endregion
 }
