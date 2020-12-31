@@ -7,7 +7,27 @@ public static partial class NumberExtension
         return self >= value;
     }
 
+    public static bool EqualOrMoreThan(this float self, float value)
+    {
+        return self >= value;
+    }
+
+    public static bool EqualOrMoreThan(this double self, double value)
+    {
+        return self >= value;
+    }
+
     public static bool EqualOrLessThan(this int self, int value)
+    {
+        return self <= value;
+    }
+
+    public static bool EqualOrLessThan(this float self, float value)
+    {
+        return self <= value;
+    }
+
+    public static bool EqualOrLessThan(this double self, double value)
     {
         return self <= value;
     }
@@ -17,29 +37,14 @@ public static partial class NumberExtension
         return self >= min && self <= max;
     }
 
-    public static bool Near(this int self, int other, int distance)
-    {
-        return self.Between(other - distance, other + distance);
-    }
-
-    public static bool EqualOrMoreThan(this float self, float value)
-    {
-        return self >= value;
-    }
-
-    public static bool EqualOrLessThan(this float self, float value)
-    {
-        return self <= value;
-    }
-
     public static bool Between(this float self, float min, float max)
     {
         return self >= min && self <= max;
     }
 
-    public static bool Near(this float self, float other, float distance)
+    public static bool Between(this double self, double min, double max)
     {
-        return self.Between(other - distance, other + distance);
+        return self >= min && self <= max;
     }
 
     public static string ToSimple(this int self, int digit)

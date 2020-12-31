@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public static partial class Extension
 {
-    public static V FindByIndex<K, V>(this Dictionary<K, V> pairs, int index)
+    public static V IndexOf<K, V>(this Dictionary<K, V> pairs, int index)
     {
         if (index > -1 && pairs.Count > index)
         {
@@ -30,17 +30,13 @@ public static partial class Extension
         return default;
     }
 
-    public static List<T> ToList<T>(this string source, char separator)
+    public static List<V> ToList<K, V>(this Dictionary<K, V> pairs)
     {
-        if (string.IsNullOrEmpty(source)) return null;
+        List<V> list = new List<V>();
 
-        var list = new List<T>();
-
-        var strs = source.Split(separator);
-
-        foreach (var str in strs)
+        foreach (KeyValuePair<K, V> pair in pairs)
         {
-            list.Add((T)Convert.ChangeType(str, typeof(T)));
+            list.Add(pair.Value);
         }
         return list;
     }
