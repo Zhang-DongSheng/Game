@@ -1,4 +1,4 @@
-﻿Shader "UI/Effect"
+﻿Shader "UI/Effect Mask"
 {
 	Properties 
 	{

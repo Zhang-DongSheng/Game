@@ -5,7 +5,10 @@ namespace UnityEngine.UI
     public class UIManager : MonoSingleton<UIManager>
     {
         private readonly List<Transform> m_parent = new List<Transform>();
+
         private readonly List<UIBase> m_panel = new List<UIBase>();
+
+        private Canvas canvas;
 
         private int current_ID;
 
@@ -21,7 +24,8 @@ namespace UnityEngine.UI
 
         private void Init()
         {
-            Canvas canvas = GetComponentInChildren<Canvas>();
+            canvas = GetComponentInChildren<Canvas>();
+
             canvas = canvas ?? FindObjectOfType<Canvas>();
 
             if (canvas != null)
@@ -255,6 +259,18 @@ namespace UnityEngine.UI
                 current_ID = 0;
             }
             return current_ID;
+        }
+
+        public Vector2 Resolution
+        {
+            get
+            {
+                if (canvas != null && canvas.TryGetComponent(out RectTransform content))
+                {
+                    return new Vector2(content.rect.width, content.rect.height);
+                }
+                return new Vector2(Screen.width, Screen.height);
+            }
         }
     }
 

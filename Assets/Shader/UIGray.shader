@@ -1,4 +1,4 @@
-﻿Shader "Unlit/Gray"
+﻿Shader "UI/Gray"
 {
     Properties
     {

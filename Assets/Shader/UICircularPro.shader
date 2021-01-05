@@ -28,8 +28,9 @@ Shader "UI/CircularPro"
 
 			#include "unitycg.cginc"
 
-			fixed _Radius;
 			sampler2D _MainTex;
+			float4 _MainTex_ST;
+			fixed _Radius;
 			float _Width;
 			float _Height;
 

@@ -122,6 +122,13 @@ public static partial class Extension
         }
     }
 
+    public static void SetSize(this RectTransform target, Vector2 size)
+    {
+        target.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size.x);
+
+        target.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size.y);
+    }
+
     public static void ClearChildren(this Transform target)
     {
         if (target != null && target.childCount > 0)
