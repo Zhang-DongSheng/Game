@@ -8,8 +8,8 @@ namespace TEST
 {
     public class Test : MonoBehaviour
     {
-        [MenuItem("Test/OnClick")]
-        private static void OnClick()
+        [MenuItem("Test/OnClick1")]
+        private static void OnClick1()
         {
 
             List<SortStruct> sorts = new List<SortStruct>();
@@ -32,6 +32,12 @@ namespace TEST
             {
                 Debug.LogError(list[i].ID);
             }
+        }
+
+        [MenuItem("Test/OnClick2")]
+        private static void OnClick2()
+        {
+            Debug.LogError(MathUtils.Distance(-5, -3));
         }
     }
 }
