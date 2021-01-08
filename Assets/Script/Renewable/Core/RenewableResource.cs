@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine.Networking;
 
-namespace UnityEngine
+namespace UnityEngine.Renewable
 {
     public class RenewableResource : MonoSingleton<RenewableResource>
     {

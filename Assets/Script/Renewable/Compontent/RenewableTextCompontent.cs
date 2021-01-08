@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine.UI;
 
-namespace UnityEngine
+namespace UnityEngine.Renewable.Compontent
 {
     public class RenewableTextCompontent : MonoBehaviour
     {

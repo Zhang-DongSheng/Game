@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace UnityEngine.UI
+namespace Game.UI
 {
     public abstract class UIBase : MonoBehaviour
     {

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace UnityEngine
+namespace UnityEngine.Renewable
 {
     public class RenewableAssetBundle : MonoSingleton<RenewableAssetBundle>
     {

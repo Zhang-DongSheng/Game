@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UnityEngine
+namespace UnityEngine.Renewable
 {
     public class RenewablePool : Singleton<RenewablePool>
     {

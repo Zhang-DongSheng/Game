@@ -1,6 +1,8 @@
 ﻿using System;
+using UnityEngine.Renewable;
+using UnityEngine.Renewable.Compontent;
 
-namespace UnityEngine.UI
+namespace UnityEngine
 {
     [RequireComponent(typeof(RenewableImageCompontent))]
     public class RenewableImage : RenewableBase

@@ -1,4 +1,6 @@
-﻿namespace UnityEngine.UI
+﻿using UnityEngine.UI;
+
+namespace UnityEngine.Renewable.Compontent
 {
     public class RenewableImageCompontent : MonoBehaviour
     {

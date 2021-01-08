@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine.UI;
 
-namespace UnityEngine
+namespace UnityEngine.Renewable
 {
     public static class RenewableUtils
     {

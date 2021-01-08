@@ -4,23 +4,26 @@ using UnityEngine;
 using UnityEngine.Factory;
 using UnityEngine.UI;
 
-public class UITest : MonoBehaviour
+namespace Game.UI
 {
-    public Image image;
-
-
-    void Start()
+    public class UITest : UIBase
     {
-        Factory.Instance.Pop("Test");
-        
-    }
+        public Image image;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
+
+        void Start()
         {
-            Factory.Instance.Remove("Test");
+            Factory.Instance.Pop("Test");
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Factory.Instance.Remove("Test");
+            }
         }
     }
 }

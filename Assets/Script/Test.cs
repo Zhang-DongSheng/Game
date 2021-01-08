@@ -1,60 +1,62 @@
 ﻿using System.Collections.Generic;
-using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Test : MonoBehaviour
+namespace Game
 {
-    public RenewableImage img_test;
+    public class Test : MonoBehaviour
+    {
+        public RenewableImage img_test;
 
-    public RenewableAsset asset_test;
+        public RenewableAsset asset_test;
 
-    public RenewableAudio audio_test;
+        public RenewableAudio audio_test;
 
-    public Button btn_test;
+        public Button btn_test;
 
-    public InputField input_test;
+        public InputField input_test;
 
-    private string variable;
+        private string variable;
 
-    private readonly List<string> urls = new List<string>()
+        private readonly List<string> urls = new List<string>()
     {
         "picture/cover/ceo.jpg",
         "picture/cover/ourhb.jpg",
     };
 
-    private void Awake()
-    {
-        if (btn_test != null)
+        private void Awake()
         {
-            btn_test.onClick.AddListener(OnClickTest);
+            if (btn_test != null)
+            {
+                btn_test.onClick.AddListener(OnClickTest);
+            }
+
+            if (input_test != null)
+            {
+                input_test.onEndEdit.AddListener(OnSubmit);
+            }
         }
 
-        if (input_test != null)
+        private void Start()
         {
-            input_test.onEndEdit.AddListener(OnSubmit);
+
         }
-    }
 
-    private void Start()
-    {
-        
-    }
+        private void Update()
+        {
 
-    private void Update()
-    {
-        
-    }
+        }
 
-    private void OnClickTest()
-    {
-        
-    }
+        private void OnClickTest()
+        {
 
-    Sprite sprite;
+        }
 
-    private void OnSubmit(string value)
-    {
-        variable = value;
+        Sprite sprite;
+
+        private void OnSubmit(string value)
+        {
+            variable = value;
+        }
     }
 }

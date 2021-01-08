@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
-namespace UI
+namespace UnityEngine.UI
 {
     /// <summary>
     /// 【UI粒子特效显示区域】

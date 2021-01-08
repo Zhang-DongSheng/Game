@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Text;
+using UnityEngine.Renewable;
+using UnityEngine.Renewable.Compontent;
 
-namespace UnityEngine.UI
+namespace UnityEngine
 {
     public class RenewableText : RenewableBase
     {

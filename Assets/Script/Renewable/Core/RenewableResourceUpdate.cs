@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace UnityEngine
+namespace UnityEngine.Renewable
 {
     public class RenewableResourceUpdate : Singleton<RenewableResourceUpdate>
     {

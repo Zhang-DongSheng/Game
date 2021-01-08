@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace UnityEngine
+namespace UnityEngine.Renewable
 {
     public class RenewableFile
     {
