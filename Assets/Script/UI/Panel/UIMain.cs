@@ -1,12 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Factory;
 using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class UITest : UIBase
+    public class UIMain : UIBase
     {
         public Button btn_next;
 
@@ -17,7 +16,7 @@ namespace Game.UI
 
         private void OnClick()
         {
-            UIManager.Instance.Open<UILogin>("");
+            UIManager.Instance.Open<UITest>("");
         }
     }
 }

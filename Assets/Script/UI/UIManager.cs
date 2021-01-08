@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Factory;
 using UnityEngine.UI;
 
 namespace Game.UI
@@ -241,11 +242,16 @@ namespace Game.UI
         private UIBase InitPanel<T>(string panel_name, Transform parent) where T : UIBase
         {
             //panel_name ：资源路径地址，可替换
-            string panel_path = panel_name;
+            string panel_path = typeof(T).Name;
 
-            GameObject panel = null;// Factory.Factory.Instance.Pop(panel_name, panel_path, parent);
+            GameObject panel = Factory.Instance.Pop(panel_path) as GameObject;
+
+            panel.transform.parent = parent;
+
+            panel.SetActive(true);
 
             UIBase component = panel.GetComponent<T>();
+
             if (component == null)
             {
                 component = panel.AddComponent<T>();
