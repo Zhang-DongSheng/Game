@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
     public abstract class UIBase : MonoBehaviour
     {
         [HideInInspector] public int panel_ID;
+
         [HideInInspector] public string panel_name;
+
         [HideInInspector] public PanelType panel_type;
 
         protected CanvasGroup panel_canvas;

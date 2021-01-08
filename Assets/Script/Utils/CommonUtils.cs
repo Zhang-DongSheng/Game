@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class GameUtils
+public class CommonUtils
 {
     /// <summary>
     /// 获取网络类型
@@ -28,7 +28,6 @@ public class GameUtils
             return net_type;
         }
     }
-
     /// <summary>
     /// 打开系统邮箱
     /// </summary>
@@ -41,7 +40,6 @@ public class GameUtils
 
         Application.OpenURL(uri.AbsoluteUri);
     }
-
     /// <summary>
     /// 复制到剪切板
     /// </summary>

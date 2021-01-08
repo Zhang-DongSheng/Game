@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 public static class TimeUtils
 {
+    private static readonly Dictionary<string, DateTime> timer = new Dictionary<string, DateTime>();
+
     public static DateTime Now
     {
         get
@@ -29,11 +32,33 @@ public static class TimeUtils
         return time + TimeZoneInfo.Local.BaseUtcOffset;
     }
 
+    public static void TimBegin(string key)
+    {
+        if (timer.ContainsKey(key))
+        {
+            timer[key] = DateTime.Now;
+        }
+        else
+        {
+            timer.Add(key, DateTime.Now);
+        }
+    }
+
+    public static double TimEnd(string key)
+    {
+        if (timer.ContainsKey(key))
+        {
+            return DateTime.Now.Subtract(timer[key]).TotalMilliseconds;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
     public static double TotalSeconds(DateTime begin, DateTime end)
     {
-        TimeSpan span = end - begin;
-
-        return span.TotalSeconds;
+        return begin.Subtract(end).TotalSeconds;
     }
 
     public static DateTime ToDateTime(long ticket)

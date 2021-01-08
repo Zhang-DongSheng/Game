@@ -4,10 +4,8 @@ using System.IO;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class FileUtils
+public static class FileUtils
 {
-    private static readonly List<string> md5Pool = new List<string>();
-
     public static void DeleteFolder(string path, bool recursive = true)
     {
         if (Directory.Exists(path))
@@ -78,21 +76,7 @@ public class FileUtils
         }
         else
         {
-            if (md5Pool.Contains(path))
-            {
-                return true;
-            }
-            else
-            {
-                if (FileMD5(path) == code)
-                {
-                    md5Pool.Add(path); return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            return FileMD5(path) == code;
         }
     }
 

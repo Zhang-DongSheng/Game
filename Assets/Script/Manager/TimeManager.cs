@@ -154,51 +154,6 @@ namespace UnityEngine
             }
         }
 
-        public static string ToTime(int number)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            if (number > 86400)
-            {
-                int day = number / 86400;
-                int hour = number % 86400 / 3600;
-                int minute = number % 3600 / 60;
-                int second = number % 60;
-
-                sb.Append(day);
-                sb.Append("d");
-                sb.Append(hour < 10 ? "0" + hour.ToString() : hour.ToString());
-                sb.Append("h");
-                sb.Append(minute < 10 ? "0" + minute.ToString() : minute.ToString());
-                sb.Append("m");
-                sb.Append(second < 10 ? "0" + second.ToString() : second.ToString());
-                sb.Append("s");
-            }
-            else if (number > 3600)
-            {
-                int hour = number / 3600;
-                int minute = number % 3600 / 60;
-                int second = number % 60;
-
-                sb.Append(hour < 10 ? "0" + hour.ToString() : hour.ToString());
-                sb.Append(":");
-                sb.Append(minute < 10 ? "0" + minute.ToString() : minute.ToString());
-                sb.Append(":");
-                sb.Append(second < 10 ? "0" + second.ToString() : second.ToString());
-            }
-            else
-            {
-                int minute = number / 60;
-                int second = number % 60;
-
-                sb.Append(minute < 10 ? "0" + minute.ToString() : minute.ToString());
-                sb.Append(":");
-                sb.Append(second < 10 ? "0" + second.ToString() : second.ToString());
-            }
-
-            return sb.ToString();
-        }
-
         private void OnDestroy()
         {
             PlayerPrefs.SetFloat("Game_Time", Game_Time);
