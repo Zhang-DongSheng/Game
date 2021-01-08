@@ -9,3 +9,6 @@
 /Logs
 /Temp
 /*.csproj
+/UIElementsSchema
+/UserSettings
+/.vsconfig
