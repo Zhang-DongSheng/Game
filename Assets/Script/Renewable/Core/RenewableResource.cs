@@ -165,7 +165,7 @@ namespace UnityEngine.Renewable
 
                 if (request.isDone)
                 {
-                    if (request.isHttpError || request.isNetworkError)
+                    if (request.result != UnityWebRequest.Result.Success)
                     {
                         if (m_task.ContainsKey(key))
                         {
@@ -215,7 +215,7 @@ namespace UnityEngine.Renewable
 
             if (request.isDone)
             {
-                if (request.isHttpError || request.isNetworkError)
+                if (request.result != UnityWebRequest.Result.Success)
                 {
                     if (m_task.ContainsKey(key))
                     {

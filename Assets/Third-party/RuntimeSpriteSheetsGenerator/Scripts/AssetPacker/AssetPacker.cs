@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Networking;
 
 namespace DaVikingCode.AssetPacker
 {
@@ -72,11 +73,14 @@ namespace DaVikingCode.AssetPacker
 
 			foreach (TextureToPack itemToRaster in itemsToRaster)
 			{
-				WWW loader = new WWW("file:///" + itemToRaster.file);
+				UnityWebRequest loader = UnityWebRequestTexture.GetTexture("file:///" + itemToRaster.file);
 
-				yield return loader;
+				yield return loader.SendWebRequest();
 
-				textures.Add(loader.texture);
+				DownloadHandlerTexture handler = loader.downloadHandler as DownloadHandlerTexture;
+
+				textures.Add(handler.texture);
+
 				images.Add(itemToRaster.id);
 			}
 
@@ -174,18 +178,24 @@ namespace DaVikingCode.AssetPacker
 
 			for (int i = 0; i < numFiles / 2; ++i)
 			{
+				UnityWebRequest loaderTexture = UnityWebRequestTexture.GetTexture("file:///" + savePath + "/data" + i + ".png");
 
-				WWW loaderTexture = new WWW("file:///" + savePath + "/data" + i + ".png");
-				yield return loaderTexture;
+				yield return loaderTexture.SendWebRequest();
 
-				WWW loaderJSON = new WWW("file:///" + savePath + "/data" + i + ".json");
-				yield return loaderJSON;
+				UnityWebRequest loaderJSON = new UnityWebRequest("file:///" + savePath + "/data" + i + ".json");
 
-				TextureAssets textureAssets = JsonUtility.FromJson<TextureAssets>(loaderJSON.text);
+				yield return loaderJSON.SendWebRequest();
 
-				Texture2D t = loaderTexture.texture; // prevent creating a new Texture2D each time.
+				TextureAssets textureAssets = JsonUtility.FromJson<TextureAssets>(loaderJSON.downloadHandler.text);
+
+				DownloadHandlerTexture handler = loaderTexture.downloadHandler as DownloadHandlerTexture;
+
+				Texture2D t = handler.texture; // prevent creating a new Texture2D each time.
+
 				foreach (TextureAsset textureAsset in textureAssets.assets)
+				{
 					mSprites.Add(textureAsset.name, Sprite.Create(t, new Rect(textureAsset.x, textureAsset.y, textureAsset.width, textureAsset.height), Vector2.zero, pixelsPerUnit, 0, SpriteMeshType.FullRect));
+				}
 			}
 
 			yield return null;

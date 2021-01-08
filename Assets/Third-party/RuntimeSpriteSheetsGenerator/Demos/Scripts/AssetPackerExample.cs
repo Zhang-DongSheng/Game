@@ -1,59 +1,61 @@
 ﻿using DaVikingCode.AssetPacker;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AssetPackerExample : MonoBehaviour {
-	
-	public Image anim;
+namespace Example
+{
+    public class AssetPackerExample : MonoBehaviour
+	{
+		public Image anim;
 
-	AssetPacker assetPacker;
-	
-	void Start () {
+		AssetPacker assetPacker;
 
-		// We just copy and paste files, so you don't have to do it manually.
-		CopyPasteFoldersAndPNG(Application.dataPath + "/RuntimeSpriteSheetsGenerator/Demos/Sprites", Application.persistentDataPath);
+		void Start()
+		{
+			// We just copy and paste files, so you don't have to do it manually.
+			CopyPasteFoldersAndPNG(Application.dataPath + "/RuntimeSpriteSheetsGenerator/Demos/Sprites", Application.persistentDataPath);
 
-		string[] files = Directory.GetFiles(Application.persistentDataPath + "/Textures", "*.png");
+			string[] files = Directory.GetFiles(Application.persistentDataPath + "/Textures", "*.png");
 
-		assetPacker = GetComponent<AssetPacker>();
+			assetPacker = GetComponent<AssetPacker>();
 
-		assetPacker.OnProcessCompleted.AddListener(LaunchAnimations);
+			assetPacker.OnProcessCompleted.AddListener(LaunchAnimations);
 
-		assetPacker.AddTexturesToPack(files);
-		assetPacker.Process();
-	}
+			assetPacker.AddTexturesToPack(files);
+			assetPacker.Process();
+		}
 
-	void LaunchAnimations() {
+		void LaunchAnimations()
+		{
+			StartCoroutine(LoadAnimation());
+		}
 
-		StartCoroutine(LoadAnimation());
-	}
+		IEnumerator LoadAnimation()
+		{
+			Sprite[] sprites = assetPacker.GetSprites("walking");
 
-	IEnumerator LoadAnimation() {
+			int j = 0;
+			while (j < sprites.Length)
+			{
 
-		Sprite[] sprites = assetPacker.GetSprites("walking");
+				anim.sprite = sprites[j++];
 
-		int j = 0;
-		while (j < sprites.Length) {
+				yield return new WaitForSeconds(0.1f);
 
-			anim.sprite = sprites[j++];
+				if (j == sprites.Length)
+					j = 0;
+			}
+		}
 
-			yield return new WaitForSeconds(0.1f);
+		void CopyPasteFoldersAndPNG(string SourcePath, string DestinationPath)
+		{
+			foreach (string dirPath in Directory.GetDirectories(SourcePath, "*", SearchOption.AllDirectories))
+				Directory.CreateDirectory(dirPath.Replace(SourcePath, DestinationPath));
 
-			if (j == sprites.Length)
-				j = 0;
+			foreach (string newPath in Directory.GetFiles(SourcePath, "*.png", SearchOption.AllDirectories))
+				File.Copy(newPath, newPath.Replace(SourcePath, DestinationPath), true);
 		}
 	}
-
-	void CopyPasteFoldersAndPNG(string SourcePath, string DestinationPath) {
-
-		foreach (string dirPath in Directory.GetDirectories(SourcePath, "*", SearchOption.AllDirectories))
-			Directory.CreateDirectory(dirPath.Replace(SourcePath, DestinationPath));
-
-		foreach (string newPath in Directory.GetFiles(SourcePath, "*.png", SearchOption.AllDirectories))
-			File.Copy(newPath, newPath.Replace(SourcePath, DestinationPath), true);
-	}
-
 }

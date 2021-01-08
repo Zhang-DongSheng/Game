@@ -564,7 +564,7 @@ namespace UnityEditor
         {
             string path = HistoryPath;
 
-            string url = "information/md5file.txt";
+            //string url = "information/md5file.txt";
 
             if (!File.Exists(path)) return;
 
