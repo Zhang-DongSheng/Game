@@ -8,7 +8,7 @@ namespace Game.UI
     {
         public UILayer layer = UILayer.Base;
 
-        private int ID;
+        public int order;
 
         public virtual void Init() { }
 
@@ -31,19 +31,6 @@ namespace Game.UI
             callBack?.Invoke();
         }
 
-        public void First()
-        {
-            if (transform.parent != null)
-            {
-                transform.SetSiblingIndex(transform.parent.childCount - 1);
-            }
-        }
-
-        public void SetID(int ID)
-        {
-            this.ID = ID;
-        }
-
         public void SetName(string name)
         {
             transform.name = name;
@@ -63,11 +50,6 @@ namespace Game.UI
             {
                 transform.SetParent(parent);
             }
-        }
-
-        public void Reset()
-        {
-
         }
 
         public virtual void Close()

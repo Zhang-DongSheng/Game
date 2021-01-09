@@ -50,7 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0df52aa4534c4054fb377409920934b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layer: 5
+  layer: 2
+  order: 0
   btn_next: {fileID: 7890283857169606548}
 --- !u!1 &1035457184317079505
 GameObject:

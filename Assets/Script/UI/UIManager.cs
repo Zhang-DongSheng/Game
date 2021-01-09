@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -118,6 +119,30 @@ namespace Game.UI
                 Debug.LogException(e);
             }
             return null;
+        }
+
+        public void SortDisplay(UILayer layer, Transform panel)
+        {
+            panel.SetAsLastSibling();
+
+            List<UIBase> childs = GetParent(layer).GetComponentsInChildren<UIBase>(true).ToList();
+
+            childs.Sort((a, b) =>
+            {
+                if (a.order != b.order)
+                {
+                    return a.order > b.order ? 1 : -1;
+                }
+                else
+                {
+                    return 0;
+                }
+            });
+
+            for (int i = 0; i < childs.Count; i++)
+            {
+                childs[i].transform.SetSiblingIndex(i);
+            }
         }
 
         public Vector2 Resolution

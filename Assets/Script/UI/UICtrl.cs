@@ -49,6 +49,8 @@ namespace Game.UI
             if (view != null)
             {
                 view.Refresh(); view.Reopen();
+
+                UIManager.Instance.SortDisplay(view.layer, view.transform);
             }
         }
 
@@ -98,6 +100,8 @@ namespace Game.UI
             view.Refresh();
 
             view.SetActive(active);
+
+            UIManager.Instance.SortDisplay(view.layer, go.transform);
 
             status = UIStatus.Done;
         }
