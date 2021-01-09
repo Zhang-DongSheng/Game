@@ -17,7 +17,7 @@ namespace Game.UI
             SetActive(true);
         }
 
-        public virtual void Refresh() { }
+        public virtual void Refresh(params object[] paramter) { }
 
         public void Delay(float time, Action callBack = null)
         {

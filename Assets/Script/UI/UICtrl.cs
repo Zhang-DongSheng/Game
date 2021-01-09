@@ -10,6 +10,8 @@ namespace Game.UI
 
         private bool active;
 
+        private object[] paramter;
+
         private UIStatus status = UIStatus.None;
 
         public void Open(UIKey key, UILayer layer)
@@ -25,6 +27,11 @@ namespace Game.UI
                     Show();
                     break;
             }
+        }
+
+        public void Paramter(params object[] paramter)
+        {
+            this.paramter = paramter;
         }
 
         public void Close(bool destroy)
@@ -48,7 +55,7 @@ namespace Game.UI
         {
             if (view != null)
             {
-                view.Refresh(); view.Reopen();
+                view.Refresh(paramter); view.Reopen();
 
                 UIManager.Instance.SortDisplay(view.layer, view.transform);
             }
@@ -97,7 +104,7 @@ namespace Game.UI
 
             view.Init();
 
-            view.Refresh();
+            view.Refresh(paramter);
 
             view.SetActive(active);
 

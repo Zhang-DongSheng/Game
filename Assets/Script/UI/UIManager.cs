@@ -14,10 +14,9 @@ namespace Game.UI
 
         private readonly Dictionary<UIKey, UICtrl> m_panel = new Dictionary<UIKey, UICtrl>();
 
-
         private void Awake()
         {
-            Init();
+            Init(); Register();
         }
 
         private void Init()
@@ -64,6 +63,12 @@ namespace Game.UI
             {
                 Debug.LogError("Can't Find Canvas, Please Add 'Canvas' in Hierarchy!");
             }
+        }
+
+        private void Register()
+        {
+            m_panel.Add(UIKey.UINotice, new UICtrl());
+            m_panel.Add(UIKey.UIConfirm, new UICtrl());
         }
 
         public void Open(UIKey key, UILayer layer = UILayer.None)
@@ -174,6 +179,8 @@ namespace Game.UI
         UILogin,
         UIMain,
         UITest,
+        UIConfirm,
+        UINotice,
         Count,
     }
 }

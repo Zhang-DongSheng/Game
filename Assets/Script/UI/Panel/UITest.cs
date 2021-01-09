@@ -15,6 +15,21 @@ namespace Game.UI
             btn_next.onClick.AddListener(OnClick);
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                UIQuickEntry.OpenUIConfirm("A","B",()=>
+                {
+                    Debug.LogError(Random.Range(0, 100));
+                });
+            }
+            else if (Input.GetKeyDown(KeyCode.N))
+            {
+                UIQuickEntry.OpenUINotice("A..");
+            }
+        }
+
         private void OnClick()
         {
             //UIManager.Instance.Close(UIKey.UITest);
