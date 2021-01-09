@@ -122,11 +122,31 @@ public static partial class Extension
         }
     }
 
+    public static void Reset(this RectTransform target)
+    {
+        target.localPosition = Vector3.zero;
+
+        target.localRotation = Quaternion.identity;
+
+        target.localScale = Vector3.one;
+    }
+
     public static void SetSize(this RectTransform target, Vector2 size)
     {
         target.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size.x);
 
         target.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size.y);
+    }
+
+    public static void Full(this RectTransform target)
+    {
+        target.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, 0);
+
+        target.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, 0);
+
+        target.anchorMin = Vector2.zero;
+
+        target.anchorMax = Vector2.one;
     }
 
     public static void ClearChildren(this Transform target)

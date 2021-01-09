@@ -1,65 +1,62 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Factory;
 using UnityEngine.UI;
 
 namespace Game.UI
 {
     public class UIManager : MonoSingleton<UIManager>
     {
-        private readonly List<Transform> m_parent = new List<Transform>();
-
-        private readonly List<UIBase> m_panel = new List<UIBase>();
-
         private Canvas canvas;
 
-        private int current_ID;
+        private readonly List<Transform> m_parent = new List<Transform>();
+
+        private readonly Dictionary<UIKey, UICtrl> m_panel = new Dictionary<UIKey, UICtrl>();
+
 
         private void Awake()
         {
             Init();
         }
 
-        private void Start()
-        {
-            Main();
-        }
-
         private void Init()
         {
             canvas = GetComponentInChildren<Canvas>();
-
-            canvas = canvas ?? FindObjectOfType<Canvas>();
 
             if (canvas != null)
             {
                 CanvasScaler scale = canvas.GetComponent<CanvasScaler>();
 
-                if (Screen.width / (float)Screen.height > 16 / 9f)
+                if (UIConfig.ScreenRatio > UIConfig.ResolutionRatio)
                 {
                     scale.matchWidthOrHeight = 1;
                 }
                 //生成节点
-                for (int i = 0; i < (int)PanelType.Count; i++)
+                foreach (var layer in Enum.GetValues(typeof(UILayer)))
                 {
-                    PanelType _PT = (PanelType)i;
+                    if ((UILayer)layer == UILayer.None) continue;
 
-                    GameObject parent = new GameObject(_PT.ToString());
+                    GameObject parent = new GameObject(layer.ToString());
+
                     parent.transform.SetParent(canvas.transform);
+
                     parent.layer = LayerMask.NameToLayer("UI");
-                    RectTransform _rect = parent.AddComponent<RectTransform>();
 
-                    _rect.localEulerAngles = Vector3.zero;
-                    _rect.localPosition = Vector3.zero;
-                    _rect.localScale = Vector3.one;
+                    RectTransform rect = parent.AddComponent<RectTransform>();
 
-                    _rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, 0);
-                    _rect.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, 0);
+                    rect.Reset(); rect.Full();
 
-                    _rect.anchorMin = Vector2.zero;
-                    _rect.anchorMax = Vector2.one;
-                    
-                    m_parent.Add(_rect);
+                    Canvas _canvas = parent.AddComponent<Canvas>();
+
+                    _canvas.pixelPerfect = true;
+
+                    _canvas.overrideSorting = true;
+
+                    _canvas.sortingOrder = (int)layer * 10;
+
+                    parent.AddComponent<GraphicRaycaster>();
+
+                    m_parent.Add(rect);
                 }
             }
             else
@@ -68,205 +65,59 @@ namespace Game.UI
             }
         }
 
-        public void Open<T>(string panel_name, bool onlyOne = true, PanelType panel_type = PanelType.Window, PanelEvent panel_event = PanelEvent.None) where T : UIBase, new()
+        public void Open(UIKey key, UILayer layer = UILayer.None)
         {
-            Transform parent = GetParent(panel_type);
-
-            switch (panel_event)
-            {
-                case PanelEvent.Hide_Pre:
-                    if (m_panel.Count != 0)
-                    {
-                        m_panel[m_panel.Count - 1].SetActive(false);
-                    }
-                    break;
-                case PanelEvent.Close_Pre:
-                    if (m_panel.Count != 0)
-                    {
-                        m_panel[m_panel.Count - 1].Close();
-                        m_panel.RemoveAt(m_panel.Count - 1);
-                    }
-                    break;
-                case PanelEvent.Close_All:
-                    for (int i = 0; i < m_panel.Count; i++)
-                    {
-                        m_panel[i].Close();
-                    }
-                    m_panel.Clear();
-                    break;
-                default: break;
-            }
-
             try
             {
-                UIBase panel = null;
-
-                if (onlyOne)
-                {
-                    for (int i = 0; i < m_panel.Count; i++)
-                    {
-                        if (m_panel[i].panel_name == panel_name)
-                        {
-                            panel = m_panel[i];
-                            m_panel.RemoveAt(i);
-                            break;
-                        }
-                    }
-
-                    if (panel != null)
-                    {
-                        panel.SetParent(parent);
-                        panel.First();
-                        panel.Reopen();
-                    }
-                    else
-                    {
-                        panel = InitPanel<T>(panel_name, parent);
-                    }
-                }
+                if (m_panel.ContainsKey(key)) { }
                 else
                 {
-                    panel = InitPanel<T>(panel_name, parent);
+                    m_panel.Add(key, new UICtrl());
                 }
-
-                panel.panel_type = panel_type;
-                panel.panel_name = panel_name;
-                panel.panel_ID = NextID();
-                panel.Refresh();
-
-                m_panel.Add(panel);
+                m_panel[key].Open(key, layer);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
             }
         }
 
-        public void Back()
+        public void Close(UIKey key, bool destroy = false)
         {
-            if (m_panel.Count != 0)
+            if (m_panel.ContainsKey(key))
             {
-                m_panel[m_panel.Count - 1].Close();
-                m_panel.RemoveAt(m_panel.Count - 1);
-            }
-            //刷新当前界面
-            if (m_panel.Count != 0)
-            {
-                m_panel[m_panel.Count - 1].Reopen();
-                m_panel[m_panel.Count - 1].Refresh();
+                m_panel[key].Close(destroy);
             }
         }
 
-        public void Close(int panel_ID)
+        public void CloseAll(bool destroy = false)
         {
-            for (int i = 0; i < m_panel.Count; i++)
+            foreach (var panel in m_panel.Values)
             {
-                if (m_panel[i].panel_ID == panel_ID)
-                {
-                    m_panel[i].Close();
-                    m_panel.RemoveAt(i);
-                    break;
-                }
+                panel.Close(destroy);
             }
         }
 
-        public void Close(string panel_name)
+        public UICtrl GetCtrl(UIKey key)
         {
-            for (int i = 0; i < m_panel.Count; i++)
+            if (m_panel.ContainsKey(key))
             {
-                if (m_panel[i].panel_name == panel_name)
-                {
-                    m_panel[i].Close();
-                    m_panel.RemoveAt(i);
-                    break;
-                }
+                return m_panel[key];
             }
+            return null;
         }
 
-        public void Close_All()
+        public Transform GetParent(UILayer layer)
         {
-            for (int i = 0; i < m_panel.Count; i++)
-            {
-                m_panel[i].Close();
-            }
-            m_panel.Clear();
-        }
-
-        public void Main()
-        {
-            for (int i = 0; i < m_panel.Count; i++)
-            {
-                m_panel[i].Close();
-            }
-            m_panel.Clear();
-        }
-
-        public UIBase Top()
-        {
-            if (m_panel.Count > 0)
-            {
-                return m_panel[m_panel.Count - 1];
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public UIBase Get(int panel_ID)
-        {
-            return m_panel.Find(x => x.panel_ID == panel_ID);
-        }
-
-        public UIBase Get(string panel_name)
-        {
-            return m_panel.Find(x => x.panel_name == panel_name);
-        }
-
-        public Transform GetParent(PanelType panel_type)
-        {
-            Transform parent = null;
-
             try
             {
-                parent = m_parent[(int)panel_type];
+                return m_parent[(int)layer - 1];
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
             }
-
-            return parent;
-        }
-
-        private UIBase InitPanel<T>(string panel_name, Transform parent) where T : UIBase
-        {
-            //panel_name ：资源路径地址，可替换
-            string panel_path = typeof(T).Name;
-
-            GameObject panel = Factory.Instance.Pop(panel_path) as GameObject;
-
-            panel.transform.parent = parent;
-
-            panel.SetActive(true);
-
-            UIBase component = panel.GetComponent<T>();
-
-            if (component == null)
-            {
-                component = panel.AddComponent<T>();
-            }
-
-            return component;
-        }
-
-        private int NextID()
-        {
-            if (++current_ID >= int.MaxValue)
-            {
-                current_ID = 0;
-            }
-            return current_ID;
+            return null;
         }
 
         public Vector2 Resolution
@@ -282,21 +133,22 @@ namespace Game.UI
         }
     }
 
-    public enum PanelType
+    public enum UILayer
     {
+        None,
         Bottom,
         Base,
         Window,
         Widget,
         Top,
-        Count,
     }
 
-    public enum PanelEvent
+    public enum UIKey
     {
         None,
-        Hide_Pre,
-        Close_Pre,
-        Close_All,
+        UILogin,
+        UIMain,
+        UITest,
+        Count,
     }
 }

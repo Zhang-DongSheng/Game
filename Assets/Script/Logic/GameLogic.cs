@@ -9,7 +9,7 @@ namespace Game
     {
         private void Start()
         {
-            UIManager.Instance.Open<UILogin>("");
+            UIManager.Instance.Open(UIKey.UILogin);
         }
     }
 }

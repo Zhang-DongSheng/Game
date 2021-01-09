@@ -17,7 +17,9 @@ namespace Game.UI
 
         private void OnClick()
         {
-            UIManager.Instance.Open<UILogin>("");
+            UIManager.Instance.Close(UIKey.UITest);
+
+            UIManager.Instance.Open(UIKey.UILogin);
         }
     }
 }

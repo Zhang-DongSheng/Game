@@ -6,27 +6,16 @@ namespace Game.UI
 {
     public abstract class UIBase : MonoBehaviour
     {
-        [HideInInspector] public int panel_ID;
+        public UILayer layer = UILayer.Base;
 
-        [HideInInspector] public string panel_name;
+        private int ID;
 
-        [HideInInspector] public PanelType panel_type;
-
-        protected CanvasGroup panel_canvas;
+        public virtual void Init() { }
 
         public virtual void Reopen()
         {
             SetActive(true);
         }
-
-        public virtual void Close(Action callBack = null)
-        {
-            callBack?.Invoke();
-
-            SetActive(false);
-        }
-
-        public virtual void Init() { }
 
         public virtual void Refresh() { }
 
@@ -50,6 +39,11 @@ namespace Game.UI
             }
         }
 
+        public void SetID(int ID)
+        {
+            this.ID = ID;
+        }
+
         public void SetName(string name)
         {
             transform.name = name;
@@ -63,16 +57,6 @@ namespace Game.UI
             }
         }
 
-        public void SetActive_Canvas(bool active)
-        {
-            if (panel_canvas != null)
-            {
-                panel_canvas.alpha = active ? 1 : 0;
-                panel_canvas.interactable = active;
-                panel_canvas.blocksRaycasts = active;
-            }
-        }
-
         public void SetParent(Transform parent)
         {
             if (transform.parent != parent)
@@ -81,9 +65,18 @@ namespace Game.UI
             }
         }
 
-        public override string ToString()
+        public void Reset()
         {
-            return panel_name;
+            RectTransform rect = GetComponent<RectTransform>();
+
+            rect.Reset(); rect.Full();
+        }
+
+        public virtual void Close(Action callBack = null)
+        {
+            callBack?.Invoke();
+
+            SetActive(false);
         }
     }
 }

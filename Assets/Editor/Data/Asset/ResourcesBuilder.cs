@@ -224,6 +224,7 @@ namespace UnityEditor
                     writer.Write(content);
                     writer.Dispose();
                 }
+                ShowNotification(new GUIContent("Write XML Done!"));
             }
         }
 

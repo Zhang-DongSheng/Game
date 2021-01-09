@@ -1,1 +1,1 @@
-{"version":0,"prefabs":[{"key":"Test","path":"Prefab/Panel/UIRenewableTest","parent":0,"capacity":0}]}
+{"version":0,"prefabs":[{"key":"UILogin","path":"Prefab/Panel/UILogin","capacity":0,"extension":""},{"key":"UIMain","path":"Prefab/Panel/UIMain","capacity":0,"extension":""},{"key":"UITest","path":"Prefab/Panel/UITest","capacity":0,"extension":""}]}
