@@ -3,4 +3,6 @@
     public const string Test = "Test";
 
     public const string EffectStatus = "EffectStatus";
+
+    public const string RedDot = "RedDot";
 }
