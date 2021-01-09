@@ -31,7 +31,7 @@ namespace Game.UI
                 {
                     scale.matchWidthOrHeight = 1;
                 }
-                //生成节点
+
                 foreach (var layer in Enum.GetValues(typeof(UILayer)))
                 {
                     if ((UILayer)layer == UILayer.None) continue;

@@ -19,10 +19,10 @@ namespace Game.UI
             switch (status)
             {
                 case UIStatus.None:
-                    Create(key, layer);
+                    Load(key, layer);
                     break;
                 case UIStatus.Done:
-                    SetActive(active);
+                    Show();
                     break;
             }
         }
@@ -40,31 +40,33 @@ namespace Game.UI
             }
             else
             {
-                SetActive(active);
+                Hide();
             }
         }
 
-        public void Create(UIKey key, UILayer layer)
+        protected virtual void Show()
+        {
+            if (view != null)
+            {
+                view.Refresh(); view.Reopen();
+            }
+        }
+
+        protected virtual void Hide()
+        {
+            if (view != null)
+            {
+                view.Close();
+            }
+        }
+
+        private void Load(UIKey key, UILayer layer)
         {
             status = UIStatus.Loading;
 
             try
             {
-                GameObject go = Factory.Instance.Pop(key.ToString()) as GameObject;
-
-                view = go.GetComponent<UIBase>();
-
-                view.layer = layer != UILayer.None ? layer : view.layer;
-
-                view.SetParent(UIManager.Instance.GetParent(view.layer));
-
-                view.SetName(key.ToString());
-
-                view.Reset();
-
-                view.SetActive(active);
-
-                status = UIStatus.Done;
+                Create(key, layer, Factory.Instance.Pop(key.ToString()) as GameObject);
             }
             catch (Exception e)
             {
@@ -72,12 +74,32 @@ namespace Game.UI
             }
         }
 
-        private void SetActive(bool active)
+        private void LoadAsync(UIKey key, UILayer layer)
         {
-            if (view != null)
-            {
-                view.SetActive(active);
-            }
+            status = UIStatus.Loading;
+        }
+
+        private void Create(UIKey key, UILayer layer, GameObject go)
+        {
+            RectTransform rect = go.GetComponent<RectTransform>();
+
+            view = go.GetComponent<UIBase>();
+
+            view.layer = layer != UILayer.None ? layer : view.layer;
+
+            view.SetParent(UIManager.Instance.GetParent(view.layer));
+
+            view.SetName(key.ToString());
+
+            rect.Reset(); rect.Full();
+
+            view.Init();
+
+            view.Refresh();
+
+            view.SetActive(active);
+
+            status = UIStatus.Done;
         }
 
         enum UIStatus

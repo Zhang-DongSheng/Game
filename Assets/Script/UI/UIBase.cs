@@ -67,15 +67,11 @@ namespace Game.UI
 
         public void Reset()
         {
-            RectTransform rect = GetComponent<RectTransform>();
 
-            rect.Reset(); rect.Full();
         }
 
-        public virtual void Close(Action callBack = null)
+        public virtual void Close()
         {
-            callBack?.Invoke();
-
             SetActive(false);
         }
     }
