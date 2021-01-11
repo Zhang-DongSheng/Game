@@ -8,15 +8,17 @@ namespace Game.UI
     {
         private UIBase view;
 
-        private bool active;
-
         private object[] paramter;
+
+        private int number;
+
+        private bool active;
 
         private UIStatus status = UIStatus.None;
 
         public void Open(UIKey key, UILayer layer)
         {
-            active = true;
+            active = true; number++;
 
             switch (status)
             {
@@ -112,6 +114,8 @@ namespace Game.UI
 
             status = UIStatus.Done;
         }
+
+        public int Number { get { return number; } }
 
         enum UIStatus
         {
