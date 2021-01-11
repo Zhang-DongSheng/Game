@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 3564559710
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d77e264680099294b49c6745a23c96fc
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b0363f7088f9761414f730641bf9a24b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Art/Texture/indra.jpg
+Dependencies: []

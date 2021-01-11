@@ -530,7 +530,7 @@ namespace UnityEditor
 
 		public string path;
 
-		public string type;
+		public string folder;
 
 		public bool select;
 	}

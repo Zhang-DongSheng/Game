@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 3951775529
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: lovebot
+      Dependencies: {}

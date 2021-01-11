@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 814234939
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9c2b80cc3e8248d2199fb172b3b04319
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b0363f7088f9761414f730641bf9a24b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Art/Texture/lovebot.jpg
+Dependencies: []

@@ -8,12 +8,6 @@ namespace UnityEditor
 {
     public class AssetBundleBuilder : EditorWindow
     {
-        private const string SOURCE = "Art";
-
-        private const string ASSETBUNDLE = "AssetBundle";
-
-        private const string HISTORY = "history.txt";
-
         private readonly List<string> IgnoreExtensionList = new List<string>() { ".meta", ".manifest" };
 
         #region GUI
@@ -51,7 +45,7 @@ namespace UnityEditor
         private readonly List<ItemUpload> m_asset = new List<ItemUpload>();
 
         [MenuItem("Data/AssetBundle")]
-        private static void Open()
+        private static void Open()  
         {
             AssetBundleBuilder window = EditorWindow.GetWindow<AssetBundleBuilder>();
             window.titleContent = new GUIContent("Asset");
@@ -108,7 +102,7 @@ namespace UnityEditor
 
         private void UpdateFolder()
         {
-            string path = AssetBundlePath + "/" + SOURCE;
+            string path = AssetBundlePath + "/" + GameConfig.ArtPath;
 
             folder_assetbundle.Clear();
 
@@ -377,7 +371,7 @@ namespace UnityEditor
                     {
                         if (GUILayout.Button("上传", GUILayout.Height(60)))
                         {
-                            //Upload();
+                            Upload();
 
                             RecordHistory();
                         }
@@ -427,7 +421,7 @@ namespace UnityEditor
             }
         }
 
-        private void Load(string path, string type = null, bool asset = false)
+        private void Load(string path, string folder = null, bool asset = false)
         {
             if (string.IsNullOrEmpty(path)) return;
 
@@ -441,19 +435,23 @@ namespace UnityEditor
                 {
                     if (!IgnoreExtensionList.Contains(file.Extension))
                     {
-                        items.Add(new ItemFile()
+                        if (!string.IsNullOrEmpty(folder) && folder.EndsWith(file.Name)) { }
+                        else
                         {
-                            name = file.Name,
-                            path = asset ? AssetPath(file.FullName) : file.FullName,
-                            type = type,
-                            select = true,
-                        });
+                            items.Add(new ItemFile()
+                            {
+                                name = file.Name,
+                                path = asset ? AssetPath(file.FullName) : file.FullName,
+                                folder = folder,
+                                select = true,
+                            });
+                        }
                     }
                 }
             }
         }
 
-        private void LoadAll(string path, string type = null, string predicate = null, bool asset = false)
+        private void LoadAll(string path, string folder = null, string predicate = null, bool asset = false)
         {
             if (string.IsNullOrEmpty(path)) return;
 
@@ -463,7 +461,7 @@ namespace UnityEditor
             {
                 List<ItemFile> files = new List<ItemFile>();
 
-                Find(path, type, asset, ref files);
+                Find(path, folder, asset, ref files);
 
                 if (string.IsNullOrEmpty(predicate))
                 {
@@ -486,13 +484,17 @@ namespace UnityEditor
                 {
                     if (!IgnoreExtensionList.Contains(file.Extension))
                     {
-                        files.Add(new ItemFile()
+                        if (!string.IsNullOrEmpty(type) && type.EndsWith(file.Name)){ }
+                        else
                         {
-                            name = file.Name,
-                            path = asset ? AssetPath(file.FullName) : file.FullName,
-                            type = type,
-                            select = true,
-                        });
+                            files.Add(new ItemFile()
+                            {
+                                name = file.Name,
+                                path = asset ? AssetPath(file.FullName) : file.FullName,
+                                folder = type,
+                                select = true,
+                            });
+                        }
                     }
                 }
 
@@ -520,7 +522,7 @@ namespace UnityEditor
 
         private void BuildAssetBundle(ItemFile file)
         {
-            string path = string.Format("{0}/{1}", AssetBundlePath, file.type);
+            string path = string.Format("{0}/{1}", AssetBundlePath, file.folder);
 
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
@@ -538,33 +540,12 @@ namespace UnityEditor
 
         private void Upload()
         {
-            int count = m_asset.Count;
-
-            for (int i = 0; i < count; i++)
-            {
-                int index = i + 1;
-
-                string name = m_asset[i].name;
-
-                //QCloudCosSdk.PutLocalFile( m_asset[i].path, m_asset[i].url, delegate ()
-                //{
-                //    EditorUtility.DisplayProgressBar(string.Format("资源上传中({0}/{1})", index, count), "update...", index / count);
-                //}, 
-                //delegate ()
-                //{
-                //    Debug.LogError("资源上传失败: " + name);
-                //});
-            }
-            EditorUtility.ClearProgressBar();
-
             ShowNotification(new GUIContent("Upload Done!"));
         }
 
         private void UploadMD5()
         {
             string path = HistoryPath;
-
-            //string url = "information/md5file.txt";
 
             if (!File.Exists(path)) return;
 
@@ -603,15 +584,6 @@ namespace UnityEditor
                 lines.Add(string.Join("|", line.Key, line.Value));
             }
             File.WriteAllLines(path, lines);
-
-            //QCloudCosSdk.PutLocalFile(path, url, delegate ()
-            //{
-            //    ShowNotification(new GUIContent("MD5 资源上传成功！"));
-            //},
-            //delegate ()
-            //{
-            //    Debug.LogError("资源上传失败: " + name);
-            //});
         }
 
         private void OpenMD5()
@@ -674,7 +646,7 @@ namespace UnityEditor
 
                 for (int i = 0; i < items.Count; i++)
                 {
-                    key = items[i].type + "/" + items[i].name;
+                    key = items[i].folder + "/" + items[i].name;
 
                     value = ComputeMD5(items[i].path);
 
@@ -739,7 +711,7 @@ namespace UnityEditor
         {
             get
             {
-                return Application.dataPath + "/" + SOURCE;
+                return Application.dataPath + "/" + GameConfig.ArtPath;
             }
         }
 
@@ -747,7 +719,7 @@ namespace UnityEditor
         {
             get
             {
-                return Application.dataPath.Remove(Application.dataPath.Length - 6, 6) + ASSETBUNDLE;
+                return string.Format("{0}{1}/{2}", Application.dataPath.Remove(Application.dataPath.Length - 6, 6), GameConfig.AssetBundlePath, GameConfig.BuildTarget);
             }
         }
 
@@ -755,7 +727,7 @@ namespace UnityEditor
         {
             get
             {
-                return AssetBundlePath + "/" + HISTORY;
+                return AssetBundlePath + "/" + GameConfig.History;
             }
         }
 
