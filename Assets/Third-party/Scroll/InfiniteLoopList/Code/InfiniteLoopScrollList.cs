@@ -440,6 +440,8 @@ namespace UnityEngine.UI
 
         public void Front()
         {
+            if (status == DragStatus.Align && alignStep < 0.1f) return;
+
             alignPosition -= cell;
 
             alignStep = 0;
@@ -451,6 +453,8 @@ namespace UnityEngine.UI
 
         public void Back()
         {
+            if (status == DragStatus.Align && alignStep < 0.1f) return;
+
             alignPosition += cell;
 
             alignStep = 0;

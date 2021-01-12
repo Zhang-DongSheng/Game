@@ -72,16 +72,42 @@ namespace UnityEngine.Renewable
 
         IEnumerator LoadAssetBundleAsync(string key, byte[] buffer, string name)
         {
-            AssetBundleCreateRequest ABrequest = AssetBundle.LoadFromMemoryAsync(buffer);
+            AssetBundle check = null;
 
-            AssetBundleRequest request = ABrequest.assetBundle.LoadAssetAsync<Object>(name);
+            IEnumerator<AssetBundle> list = AssetBundle.GetAllLoadedAssetBundles().GetEnumerator();
+
+            while (list.MoveNext())
+            {
+                if (list.Current == null)
+                {
+                    break;
+                }
+                else
+                {
+                    if (list.Current.name == name)
+                    {
+                        Debug.LogWarning("<color=red>has same bundel : </color>" + name);
+                        check = list.Current;
+                        break;
+                    }
+                }
+            }
+
+            if (check != null)
+            {
+                check.Unload(false);
+            }
+
+            AssetBundleCreateRequest reqAB = AssetBundle.LoadFromMemoryAsync(buffer);
+
+            AssetBundleRequest request = reqAB.assetBundle.LoadAssetAsync<Object>(name);
 
             if (downloading.ContainsKey(key))
             {
                 downloading[key]?.Invoke(request.asset);
                 downloading.Remove(key);
             }
-            ABrequest.assetBundle.Unload(false);
+            reqAB.assetBundle.Unload(false);
 
             yield return null;
         }
