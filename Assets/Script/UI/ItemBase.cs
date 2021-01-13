@@ -4,7 +4,7 @@ namespace Game.UI
 {
     public class ItemBase : MonoBehaviour
     {
-        [SerializeField] private GameObject target;
+        [SerializeField] protected GameObject target;
 
         protected virtual void Awake()
         {

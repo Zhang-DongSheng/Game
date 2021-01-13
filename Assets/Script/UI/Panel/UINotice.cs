@@ -13,7 +13,11 @@ namespace Game.UI
 
         private NoticeStatus status;
 
+        private int nextID;
+
         private readonly List<string> message = new List<string>();
+
+        private readonly List<ItemNotice> items = new List<ItemNotice>();
 
         private void Update()
         {
@@ -53,7 +57,13 @@ namespace Game.UI
 
                 ItemNotice item = prefab.Create<ItemNotice>();
 
+                item.ID = NextID;
+
+                item.callback = Next;
+
                 item.Init(Vector2.zero, content);
+
+                items.Add(item);
 
                 status = NoticeStatus.Transition;
             }
@@ -63,9 +73,25 @@ namespace Game.UI
             }
         }
 
+        private void Next(int ID)
+        {
+            int index = items.FindIndex(x => x.ID == ID);
+
+            if (index != -1)
+            {
+                items[index].Destroy();
+                items.RemoveAt(index);
+            }
+
+            Compute();
+        }
+
         private void Transition()
         {
-            
+            for (int i = 0; i < items.Count; i++)
+            {
+                items[i].Transition();
+            }
         }
 
         private void Completed()
@@ -73,6 +99,11 @@ namespace Game.UI
             status = NoticeStatus.None;
 
             Close();
+        }
+
+        private int NextID
+        {
+            get { return nextID++; }
         }
     }
 
