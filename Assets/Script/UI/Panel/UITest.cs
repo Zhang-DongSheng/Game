@@ -26,7 +26,7 @@ namespace Game.UI
             }
             else if (Input.GetKeyDown(KeyCode.N))
             {
-                UIQuickEntry.OpenUINotice("A..");
+                UIQuickEntry.OpenUINotice("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA..");
             }
         }
 

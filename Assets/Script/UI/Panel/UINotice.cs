@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -51,29 +49,30 @@ namespace Game.UI
         {
             if (message.Count > 0)
             {
-                string content = message[0];
-
-                message.RemoveAt(0);
-
                 ItemNotice item = prefab.Create<ItemNotice>();
 
                 item.ID = NextID;
 
-                item.callback = Next;
+                item.next = Next;
 
-                item.Init(Vector2.zero, content);
+                item.completed = Completed;
+
+                item.Init(message[0], UIConfig.ScreenHalfWidth);
 
                 items.Add(item);
 
+                message.RemoveAt(0);
+
                 status = NoticeStatus.Transition;
-            }
-            else
-            {
-                status = NoticeStatus.Completed;
             }
         }
 
-        private void Next(int ID)
+        private void Next()
+        {
+            Compute();
+        }
+
+        private void Completed(int ID)
         {
             int index = items.FindIndex(x => x.ID == ID);
 
@@ -83,7 +82,10 @@ namespace Game.UI
                 items.RemoveAt(index);
             }
 
-            Compute();
+            if (items.Count == 0)
+            {
+                status = NoticeStatus.Completed;
+            }
         }
 
         private void Transition()

@@ -6,7 +6,9 @@ namespace Game.UI
 {
     public class ItemNotice : ItemBase
     {
-        public Action<int> callback;
+        public Action next;
+
+        public Action<int> completed;
 
         [SerializeField] private RectTransform rect;
 
@@ -16,25 +18,33 @@ namespace Game.UI
 
         [SerializeField] private int min;
 
-        private float origin, destination;
+        private float origin, destination, point;
 
         private Vector2 position;
 
+        private NoticeStatus status;
+
         public int ID { get; set; }
 
-        public float Init(Vector2 position, string content)
+        public float Init(string content, float screen, float space = 100)
         {
+            status = NoticeStatus.First;
+
             text.text = content;
-
-            origin = 1000;
-
-            destination = -1000;
-
-            this.position = new Vector2(origin, 0);
 
             float width = Mathf.Max(text.preferredWidth, min);
 
+            origin = screen + space;
+
+            point = screen - width;
+
+            destination = (screen + width + space) * -1;
+
+            this.position = new Vector2(origin, 0);
+
             Adapt(position, width);
+
+            status = NoticeStatus.Next;
 
             return width;
         }
@@ -45,9 +55,24 @@ namespace Game.UI
 
             target.transform.localPosition = position;
 
-            if (position.x < destination)
+            switch (status)
             {
-                callback?.Invoke(ID);
+                case NoticeStatus.Next:
+                    if (position.x < point)
+                    {
+                        next?.Invoke();
+
+                        status = NoticeStatus.Final;
+                    }
+                    break;
+                case NoticeStatus.Final:
+                    if (position.x < destination)
+                    {
+                        completed?.Invoke(ID);
+
+                        status = NoticeStatus.End;
+                    }
+                    break;
             }
         }
 
@@ -64,6 +89,14 @@ namespace Game.UI
             {
                 GameObject.Destroy(gameObject);
             }
+        }
+
+        enum NoticeStatus
+        {
+            First,
+            Next,
+            Final,
+            End,
         }
     }
 }
