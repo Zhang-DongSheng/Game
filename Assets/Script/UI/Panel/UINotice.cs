@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SAM;
 
 namespace Game.UI
 {
@@ -9,6 +10,8 @@ namespace Game.UI
 
         [SerializeField] private float space;
 
+        [SerializeField] private SAMSize animator;
+
         private NoticeStatus status;
 
         private int nextID;
@@ -16,6 +19,12 @@ namespace Game.UI
         private readonly List<string> message = new List<string>();
 
         private readonly List<ItemNotice> items = new List<ItemNotice>();
+
+        private void OnEnable()
+        {
+            animator.onCompleted.RemoveAllListeners();
+            animator.Begin(true);
+        }
 
         private void Update()
         {
@@ -100,7 +109,11 @@ namespace Game.UI
         {
             status = NoticeStatus.None;
 
-            Close();
+            animator.onCompleted.AddListener(() =>
+            {
+                UIManager.Instance.Close(UIKey.UINotice);
+            });
+            animator.Begin(false);
         }
 
         private int NextID
