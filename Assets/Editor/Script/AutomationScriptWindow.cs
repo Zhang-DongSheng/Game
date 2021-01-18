@@ -1,21 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 namespace UnityEditor.Script
 {
-    public class AutomationScriptWindow: EditorWindow
+    public class AutomationScriptWindow : EditorWindow
     {
-        private const string SCRIPTPATH = "Script/";
+        private string code;
 
-        private const string SCRIPTEXTENSION = ".cs";
-
-        private readonly string[] types = new string[] { "" };
-
+        private int index;
 
         private readonly List<PropertyParameter> parameters = new List<PropertyParameter>();
-
 
         [MenuItem("Window/AutomationScript")]
         private static void Open()
@@ -37,17 +33,30 @@ namespace UnityEditor.Script
             {
                 GUILayout.BeginVertical(GUILayout.Width(50));
                 {
-                    if (GUILayout.Button("+"))
+                    foreach (var value in Enum.GetValues(typeof(PropertyType)))
                     {
-                        parameters.Add(new PropertyParameter());
-                    }
+                        PropertyType property = (PropertyType)value;
 
-                    if (GUILayout.Button("-"))
-                    {
-                        parameters.Add(new PropertyParameter());
+                        GUI.color = GetColor(property);
+
+                        if (GUILayout.Button(property.ToString()))
+                        {
+                            parameters.Add(new PropertyParameter()
+                            {
+                                property = property,
+                                order = parameters.Count,
+                                old = parameters.Count,
+                                name = string.Format("{0}{1}", property, index),
+                                ID = index++
+                            });
+                        }
                     }
                 }
                 GUILayout.EndVertical();
+
+                GUI.color = Color.white;
+
+                GUILayout.Box(string.Empty, GUILayout.Width(3), GUILayout.ExpandHeight(true));
 
                 GUILayout.BeginVertical();
                 {
@@ -60,11 +69,22 @@ namespace UnityEditor.Script
                 }
                 GUILayout.EndVertical();
 
+                GUI.color = Color.white;
+
+                GUILayout.Box(string.Empty, GUILayout.Width(3), GUILayout.ExpandHeight(true));
+
                 GUILayout.BeginVertical(GUILayout.Width(150));
                 {
+                    code = GUILayout.TextField(code);
+
                     if (GUILayout.Button("Build"))
                     {
-                        CreateScript(CodeType.Data, name, parameters.ToArray());
+                        CreateScript(code, parameters.ToArray());
+                    }
+
+                    if (GUILayout.Button("Reset Index"))
+                    {
+                        index = 0;
                     }
                 }
                 GUILayout.EndVertical();
@@ -76,20 +96,57 @@ namespace UnityEditor.Script
         {
             GUILayout.BeginHorizontal();
             {
-                if (GUILayout.Button("", GUILayout.Width(30)))
-                {
+                GUI.color = GetColor(parameter.property);
 
+                parameter.old = EditorGUILayout.IntField(parameter.old, GUILayout.Width(30));
+
+                if (parameter.order != parameter.old)
+                {
+                    parameter.order = parameter.old;
+
+                    Sort();
                 }
+
+                parameter.variable = (VariableType)EditorGUILayout.EnumPopup(parameter.variable, GUILayout.Width(60));
+
+                switch (parameter.variable)
+                {
+                    case VariableType.Array:
+                    case VariableType.List:
+                    case VariableType.Dictionary:
+                        parameter.assistant = (VariableType)EditorGUILayout.EnumPopup(parameter.assistant, GUILayout.Width(60));
+                        break;
+                }
+
+
                 parameter.name = GUILayout.TextField(parameter.name);
+
+                if (GUILayout.Button("-", GUILayout.Width(30)))
+                {
+                    int index = parameters.FindIndex(x => x.ID == parameter.ID);
+
+                    if (index != -1)
+                    {
+                        parameters.RemoveAt(index);
+                    }
+                }
             }
             GUILayout.EndHorizontal();
         }
 
-        private static void CreateScript(CodeType type, string name, params PropertyParameter[] parameters)
+        private void Sort()
         {
-            string[] path = GetScriptPath(type, name);
+            parameters.Sort((a, b) =>
+            {
+                return a.order > b.order ? 1 : -1;
+            });
+        }
 
-            FileStream stream = new FileStream(path[1], FileMode.OpenOrCreate);
+        private static void CreateScript(string code, params PropertyParameter[] parameters)
+        {
+            string[] path = NewScript(code);
+
+            FileStream stream = new FileStream(path[0], FileMode.OpenOrCreate);
 
             StreamWriter writer = new StreamWriter(stream);
 
@@ -108,81 +165,29 @@ namespace UnityEditor.Script
             writer.WriteLine("{");
 
             #region Class
-            content = string.Format("\tpublic class {0}", path[0]);
-            switch (type)
-            {
-                case CodeType.None:
-                    content = string.Format("{0} : {1}", content, "MonoBehaviour");
-                    break;
-                case CodeType.Data:
-                    content = string.Format("{0} : {1}", content, "ScriptableObject");
-                    break;
-                case CodeType.UI:
-                    content = string.Format("{0} : {1}", content, "UIBase");
-                    break;
-                default:
-                    content = string.Format("{0} : {1}", content, "MonoBehaviour");
-                    break;
-            }
+            content = string.Format("\tpublic class {0}", path[1]);
+
+            content = string.Format("{0} : {1}", content, "MonoBehaviour");
+
             writer.WriteLine(content);
             writer.WriteLine("\t{");
             #endregion
 
             #region Attribute & Method
-
-            switch (type)
+            if (parameters.Length > 0)
             {
-                case CodeType.Data:
-                    writer.WriteLine(string.Format("\t\tpublic List<{0}Information> m_data = new List<{1}Information>();", path[0], path[0]));
-                    writer.WriteLine();
-                    writer.WriteLine(string.Format("\t\tpublic {0}Information Get(string key)", path[0]));
-                    writer.WriteLine("\t\t{");
-                    writer.WriteLine("\t\t\treturn null;");
-                    writer.WriteLine("\t\t}");
-                    break;
-                default:
-                    if (parameters.Length > 0)
-                    {
-                        for (int i = 0; i < parameters.Length; i++)
-                        {
-                            Write(ref writer, parameters[i]);
-                        }
-                    }
-                    else
-                    {
-                        writer.WriteLine("\t\t");
-                    }
-                    break;
+                for (int i = 0; i < parameters.Length; i++)
+                {
+                    Write(ref writer, parameters[i]);
+                }
+            }
+            else
+            {
+                writer.WriteLine("\t\t");
             }
             #endregion
 
             writer.WriteLine("\t}");
-
-            #region Extra Class
-            switch (type)
-            {
-                case CodeType.Data:
-                    writer.WriteLine();
-                    writer.WriteLine("\t[System.Serializable]");
-                    writer.WriteLine(string.Format("\tpublic class {0}Information", path[0]));
-                    writer.WriteLine("\t{");
-                    {
-                        if (parameters.Length > 0)
-                        {
-                            for (int i = 0; i < parameters.Length; i++)
-                            {
-                                Write(ref writer, parameters[i]);
-                            }
-                        }
-                        else
-                        {
-                            writer.WriteLine("\t\t");
-                        }
-                    }
-                    writer.WriteLine("\t}");
-                    break;
-            }
-            #endregion
 
             writer.WriteLine("}");
 
@@ -199,107 +204,187 @@ namespace UnityEditor.Script
 
             switch (parameter.property)
             {
-                case PropertyType.Property:
-                    content = string.Format("\t\tpublic {0} {1};", parameter.DataType, parameter.name);
+                case PropertyType.Variable:
+                    content = string.Format("\t\tpublic {0} {1};", parameter.Returned, parameter.name);
                     writer.WriteLine(content);
                     break;
-                case PropertyType.Method:
-                    content = string.Format("\t\tpublic {0} {1}()", parameter.DataType, parameter.name);
+                case PropertyType.Property:
+                    string value = parameter.name.ToLowerInvariant();
+                    content = string.Format("\t\tpublic {0} {1};", parameter.Returned, parameter.name.ToLowerInvariant());
+                    writer.WriteLine(content);
+                    content = string.Format("\t\tpublic {0} {1}", parameter.Returned, parameter.name.ToUpperInvariant());
                     writer.WriteLine(content);
                     writer.WriteLine("\t\t{");
-                    writer.WriteLine("\t\t\t");
+                    writer.WriteLine("\t\t\tget");
+                    writer.WriteLine("\t\t\t{");
+                    writer.WriteLine("\t\t\t\t" + string.Format("return {0};", value));
+                    writer.WriteLine("\t\t\t}");
+                    writer.WriteLine("\t\t\tset");
+                    writer.WriteLine("\t\t\t{");
+                    writer.WriteLine("\t\t\t\t" + string.Format("{0} = value;", value));
+                    writer.WriteLine("\t\t\t}");
+                    writer.WriteLine("\t\t}");
+                    break;
+                case PropertyType.Method:
+                    content = string.Format("\t\tpublic {0} {1}()", parameter.Returned, parameter.name);
+                    writer.WriteLine(content);
+                    writer.WriteLine("\t\t{");
+                    switch (parameter.variable)
+                    {
+                        case VariableType.Bool:
+                            writer.WriteLine("\t\t\treturn false;");
+                            break;
+                        case VariableType.Byte:
+                        case VariableType.Int:
+                        case VariableType.Float:
+                        case VariableType.Double:
+                            writer.WriteLine("\t\t\treturn 0;");
+                            break;
+                        case VariableType.String:
+                            writer.WriteLine("\t\t\treturn string.Empty;");
+                            break;
+                        case VariableType.Array:
+                        case VariableType.List:
+                        case VariableType.Dictionary:
+                            writer.WriteLine("\t\t\treturn null;");
+                            break;
+                        default:
+                            writer.WriteLine(string.Empty);
+                            break;
+                    }
                     writer.WriteLine("\t\t}");
                     break;
             }
         }
 
-        private static string[] GetScriptPath(CodeType type, string name)
+        private static string[] NewScript(string code)
         {
-            string folder = Path.Combine(Application.dataPath, SCRIPTPATH);
+            if (string.IsNullOrEmpty(code)) code = "NewScript";
 
-            switch (type)
-            {
-                case CodeType.None:
-                    name = string.IsNullOrEmpty(name) ? "NewsScript" : name;
-                    break;
-                case CodeType.Data:
-                    name = "Data" + name;
-                    break;
-                case CodeType.UI:
-                    name = "UI" + name;
-                    break;
-                default:
-                    name = string.IsNullOrEmpty(name) ? "NewsScript" : name;
-                    break;
-            }
+            string folder = string.Format("{0}/Script/", Application.dataPath);
 
-            string path = string.Format("{0}{1}{2}", folder, name, SCRIPTEXTENSION);
+            string file = code;
 
-            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+            string path = string.Format("{0}{1}.cs", folder, file);
 
             int index = 0;
+
+            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
 
             if (File.Exists(path))
             {
                 while (File.Exists(path))
                 {
-                    path = string.Format("{0}{1}_{2}{3}", folder, name, ++index, SCRIPTEXTENSION);
+                    file = code + ++index;
+
+                    path = string.Format("{0}{1}.cs", folder, file);
                 }
             }
 
-            return new string[2] { index > 0 ? string.Format("{0}_{1}", name, index) : name, path };
+            return new string[2] { path, file };
+        }
+
+        private Color GetColor(PropertyType property)
+        {
+            switch (property)
+            {
+                case PropertyType.Variable:
+                    return Color.green;
+                case PropertyType.Property:
+                    return Color.yellow;
+                case PropertyType.Method:
+                    return Color.grey;
+                default:
+                    return Color.white;
+            }
         }
     }
 
     public class PropertyParameter
     {
-        public PropertyType property;
-
-        public ReturnType returned;
-
         public string name;
 
-        public string DataType
+        public int ID;
+
+        public int old;
+
+        public int order;
+
+        public PropertyType property;
+
+        public VariableType variable;
+
+        public VariableType assistant;
+
+        public string Returned
         {
             get
             {
-                switch (returned)
+                switch (variable)
                 {
-                    case ReturnType.None:
-                        return "void";
-                    case ReturnType.String:
-                        return "string";
-                    case ReturnType.Int:
-                        return "int";
-                    case ReturnType.Float:
-                        return "float";
+                    case VariableType.None:
+                        return property switch
+                        {
+                            PropertyType.Method => "void",
+                            _ => "string",
+                        };
+                    case VariableType.Array:
+                        return string.Format("{0}[]", Variable(assistant));
+                    case VariableType.List:
+                        return string.Format("List<{0}>", Variable(assistant));
+                    case VariableType.Dictionary:
+                        return string.Format("Dictionary<int, {0}>", Variable(assistant));
                     default:
-                        return "void";
+                        return Variable(variable);
                 }
+            }
+        }
+
+        private string Variable(VariableType variable)
+        {
+            switch (variable)
+            {
+                case VariableType.None:
+                    return "string";
+                case VariableType.Byte:
+                    return "byte";
+                case VariableType.Bool:
+                    return "bool";
+                case VariableType.Char:
+                    return "char";
+                case VariableType.Int:
+                    return "int";
+                case VariableType.Float:
+                    return "float";
+                case VariableType.Double:
+                    return "double";
+                case VariableType.String:
+                    return "string";
+                default:
+                    goto case VariableType.None;
             }
         }
     }
 
     public enum PropertyType
     {
+        Variable,
         Property,
         Method,
     }
 
-    public enum ReturnType
-    { 
+    public enum VariableType
+    {
         None,
-        String,
+        Bool,
+        Byte,
+        Char,
         Int,
         Float,
         Double,
-    }
-
-    public enum CodeType
-    {
-        None,
-        Data,
-        UI,
-        Count,
+        String,
+        Array,
+        List,
+        Dictionary,
     }
 }
