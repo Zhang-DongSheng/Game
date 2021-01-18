@@ -11,15 +11,21 @@ namespace Data
     {
         #region Create
         [MenuItem("Data/Create/Language")]
-        private static void Create_Data_Language()
+        private static void Create_DataLanguage()
         {
-            Create_Data<DataLanguage>("Language");
+            Create<DataLanguage>("Language");
+        }
+
+        [MenuItem("Data/Create/Config")]
+        private static void Create_DataConfig()
+        {
+            Create<DataConfig>("Config");
         }
         #endregion
 
         #region Load
         [MenuItem("Data/Load/Language")]
-        private static void Load_Data_Language()
+        private static void Load_DataLanguage()
         {
             DataLanguage data = Resources.Load<DataLanguage>("Data/Language");
 
@@ -38,7 +44,7 @@ namespace Data
         }
         #endregion
 
-        private static void Create_Data<T>(string name) where T : ScriptableObject
+        private static void Create<T>(string name) where T : ScriptableObject
         {
             ScriptableObject script = ScriptableObject.CreateInstance<T>();
             string path = Application.dataPath + "/Resources/Data";
