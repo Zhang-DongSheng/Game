@@ -183,7 +183,7 @@ public class ExcelUtility
 		if (m_rowCount < 1 || m_columnCount < 1)
 			return;
 
-		AutomationScriptTools.CreateDataScript(m_dataTable.TableName, m_dataTable);
+		//AutomationScriptWindow.CreateDataScript(m_dataTable.TableName, m_dataTable);
 	}
 
     /// <summary>

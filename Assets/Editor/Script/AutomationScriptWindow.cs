@@ -1,48 +1,88 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using UnityEngine;
 
 namespace UnityEditor.Script
 {
-    public class AutomationScriptTools
+    public class AutomationScriptWindow: EditorWindow
     {
         private const string SCRIPTPATH = "Script/";
 
         private const string SCRIPTEXTENSION = ".cs";
 
-        [MenuItem("Assets/Create/C# Code/Data")]
-        private static void CreateDataScript()
+        private readonly string[] types = new string[] { "" };
+
+
+        private readonly List<PropertyParameter> parameters = new List<PropertyParameter>();
+
+
+        [MenuItem("Window/AutomationScript")]
+        private static void Open()
         {
-            CreateScript(CodeType.Data, "Test");
+            AutomationScriptWindow window = EditorWindow.GetWindow<AutomationScriptWindow>();
+            window.titleContent = new GUIContent("AutomationScript");
+            window.minSize = new Vector2(500, 300);
+            window.Show();
         }
 
-        [MenuItem("Assets/Create/C# Code/UI")]
-        private static void CreateUIScript()
+        private void OnGUI()
         {
-            CreateScript(CodeType.UI, "Test");
+            Refresh();
         }
 
-        public static void CreateDataScript(string name, DataTable table)
+        private void Refresh()
         {
-            if (table != null && table.Rows.Count > 0)
+            GUILayout.BeginHorizontal();
             {
-                PropertyParameter[] parameters = new PropertyParameter[table.Columns.Count];
-
-                for (int i = 0; i < table.Columns.Count; i++)
+                GUILayout.BeginVertical(GUILayout.Width(50));
                 {
-                    parameters[i] = new PropertyParameter()
+                    if (GUILayout.Button("+"))
                     {
-                        name = table.Rows[0][i].ToString(),
-                        property = PropertyType.Property,
-                        returned = ReturnType.String,
-                    };
+                        parameters.Add(new PropertyParameter());
+                    }
+
+                    if (GUILayout.Button("-"))
+                    {
+                        parameters.Add(new PropertyParameter());
+                    }
                 }
-                CreateScript(CodeType.Data, name, parameters);
+                GUILayout.EndVertical();
+
+                GUILayout.BeginVertical();
+                {
+                    GUILayout.Label(parameters.Count.ToString());
+
+                    for (int i = 0; i < parameters.Count; i++)
+                    {
+                        RefreshParameter(parameters[i]);
+                    }
+                }
+                GUILayout.EndVertical();
+
+                GUILayout.BeginVertical(GUILayout.Width(150));
+                {
+                    if (GUILayout.Button("Build"))
+                    {
+                        CreateScript(CodeType.Data, name, parameters.ToArray());
+                    }
+                }
+                GUILayout.EndVertical();
             }
-            else
+            GUILayout.EndHorizontal();
+        }
+
+        private void RefreshParameter(PropertyParameter parameter)
+        {
+            GUILayout.BeginHorizontal();
             {
-                CreateScript(CodeType.Data, name);
+                if (GUILayout.Button("", GUILayout.Width(30)))
+                {
+
+                }
+                parameter.name = GUILayout.TextField(parameter.name);
             }
+            GUILayout.EndHorizontal();
         }
 
         private static void CreateScript(CodeType type, string name, params PropertyParameter[] parameters)
@@ -213,11 +253,11 @@ namespace UnityEditor.Script
 
     public class PropertyParameter
     {
-        public string name;
-
         public PropertyType property;
 
         public ReturnType returned;
+
+        public string name;
 
         public string DataType
         {
