@@ -1,12 +1,13 @@
-ï»¿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Study
 {
     /// <summary>
-    /// è´å¡å°”æ›²çº¿
+    /// BÑùÌõÇúÏß
     /// </summary>
-    public class StudyBezier : MonoBehaviour
+    public class StudyB_SplineCurves : MonoBehaviour
     {
         [SerializeField] private List<Vector3> points;
 
