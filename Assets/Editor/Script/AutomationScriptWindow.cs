@@ -118,8 +118,9 @@ namespace UnityEditor.Script
                         break;
                 }
 
-
                 parameter.name = GUILayout.TextField(parameter.name);
+
+                parameter.description = GUILayout.TextField(parameter.description, GUILayout.Width(120));
 
                 if (GUILayout.Button("-", GUILayout.Width(30)))
                 {
@@ -134,15 +135,7 @@ namespace UnityEditor.Script
             GUILayout.EndHorizontal();
         }
 
-        private void Sort()
-        {
-            parameters.Sort((a, b) =>
-            {
-                return a.order > b.order ? 1 : -1;
-            });
-        }
-
-        private static void CreateScript(string code, params PropertyParameter[] parameters)
+        private void CreateScript(string code, params PropertyParameter[] parameters)
         {
             string[] path = NewScript(code);
 
@@ -198,9 +191,22 @@ namespace UnityEditor.Script
             AssetDatabase.Refresh();
         }
 
-        private static void Write(ref StreamWriter writer, PropertyParameter parameter)
+        /// <param name="writer"></param>
+        /// <param name="parameter"></param>
+        private void Write(ref StreamWriter writer, PropertyParameter parameter)
         {
             string content;
+
+            if (!string.IsNullOrEmpty(parameter.description))
+            {
+                writer.WriteLine("\t\t/// <summary>");
+                writer.WriteLine("\t\t/// " + parameter.description);
+                writer.WriteLine("\t\t/// </summary>");
+            }
+            else
+            {
+                writer.WriteLine(string.Empty);
+            }
 
             switch (parameter.property)
             {
@@ -257,7 +263,15 @@ namespace UnityEditor.Script
             }
         }
 
-        private static string[] NewScript(string code)
+        private void Sort()
+        {
+            parameters.Sort((a, b) =>
+            {
+                return a.order > b.order ? 1 : -1;
+            });
+        }
+
+        private string[] NewScript(string code)
         {
             if (string.IsNullOrEmpty(code)) code = "NewScript";
 
@@ -315,6 +329,8 @@ namespace UnityEditor.Script
         public VariableType variable;
 
         public VariableType assistant;
+
+        public string description;
 
         public string Returned
         {
