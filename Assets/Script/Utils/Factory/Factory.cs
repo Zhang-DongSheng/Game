@@ -7,14 +7,12 @@ namespace UnityEngine.Factory
     {
         private readonly Dictionary<string, PrefabInformation> config = new Dictionary<string, PrefabInformation>();
 
-        private readonly Dictionary<string, Transform> parents = new Dictionary<string, Transform>();
-
         private readonly Dictionary<string, Workshop> shops = new Dictionary<string, Workshop>();
 
         [RuntimeInitializeOnLoadMethod]
         private static void Init()
         {
-            FactoryConfig.Init(Instance.config);
+            FactoryConfig.Load(Instance.config);
         }
 
         public Object Pop(string key)
@@ -27,15 +25,19 @@ namespace UnityEngine.Factory
             }
             else if (config.ContainsKey(key))
             {
-                Add(config[key]);
-
-                asset = shops[key].Pop();
+                Add(config[key]); asset = shops[key].Pop();
             }
             return asset;
         }
 
         public void Push(string key, Object asset)
         {
+            if (asset is GameObject go)
+            {
+                go.transform.SetParent(transform);
+                go.SetActive(false);
+            }
+
             if (shops.ContainsKey(key))
             {
                 shops[key].Push(asset);
@@ -59,7 +61,7 @@ namespace UnityEngine.Factory
         {
             try
             {
-                shops.Add(prefab.key, new Workshop(prefab.path, Parent(prefab.key, prefab.extension), prefab.capacity));
+                shops.Add(prefab.key, new Workshop(prefab.path, prefab.capacity));
             }
             catch (Exception e)
             {
@@ -75,54 +77,10 @@ namespace UnityEngine.Factory
             }
             shops.Clear();
         }
-
-        private Transform Parent(string name, string extension)
-        {
-            string key;
-
-            switch (extension)
-            {
-                case ".prefab":
-                    if (name.StartsWith("UI"))
-                    {
-                        key = "UI";
-                    }
-                    else
-                    {
-                        key = "Prefab";
-                    }
-                    break;
-                default:
-                    key = "Root";
-                    break;
-            }
-
-            if (string.IsNullOrEmpty(key)) return null;
-
-            if (parents.ContainsKey(key))
-            {
-                return parents[key];
-            }
-            else
-            {
-                Transform parent = new GameObject(key).transform;
-
-                parent.SetParent(transform);
-
-                parents.Add(key, parent);
-
-                return parent;
-            }
-        }
     }
-
-    public enum Parent
-    {
-        None,
-        Cube,
-        UI,
-        Special,
-    }
+    /// <summary>
+    /// 预制体信息
+    /// </summary>
     [System.Serializable]
     public class PrefabInformation
     {
@@ -134,6 +92,9 @@ namespace UnityEngine.Factory
 
         public string extension;
     }
+    /// <summary>
+    /// 工厂配置信息
+    /// </summary>
     [System.Serializable]
     public class FactoryConfig
     {
@@ -143,7 +104,7 @@ namespace UnityEngine.Factory
 
         public List<PrefabInformation> prefabs = new List<PrefabInformation>();
 
-        public static void Init(Dictionary<string, PrefabInformation> list)
+        public static void Load(Dictionary<string, PrefabInformation> list)
         {
             TextAsset asset = Resources.Load<TextAsset>(XML);
 
@@ -153,7 +114,14 @@ namespace UnityEngine.Factory
 
             for (int i = 0; i < config.prefabs.Count; i++)
             {
-                list.Add(config.prefabs[i].key, config.prefabs[i]);
+                if (list.ContainsKey(config.prefabs[i].key))
+                {
+                    Debug.LogErrorFormat("存在重复Key: <color=blue>{0}</color>, 请重命名该资源", config.prefabs[i].key);
+                }
+                else
+                {
+                    list.Add(config.prefabs[i].key, config.prefabs[i]);
+                }
             }
         }
     }

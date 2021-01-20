@@ -26,7 +26,7 @@ namespace Utils
 					{
 						NodeFolder folder = new NodeFolder()
 						{
-							key = dir,
+							name = dir,
 							path = dir,
 							order = order,
 							type = NodeType.Folder,
@@ -41,7 +41,7 @@ namespace Utils
 				{
 					nodes.Add(new NodeFile()
 					{
-						key = Path.GetFileNameWithoutExtension(file.Name),
+						name = Path.GetFileNameWithoutExtension(file.Name),
 						order = order,
 						type = NodeType.File,
 						path = file.FullName,
@@ -54,7 +54,7 @@ namespace Utils
 
 	public abstract class Node
 	{
-		public string key;
+		public string name;
 
 		public NodeType type;
 

@@ -8,9 +8,7 @@ namespace UnityEditor
 {
     public class ResourcesBuilder : EditorWindow
     {
-        private const string XML = "config";
-
-        private readonly FactoryConfig config = new FactoryConfig();
+        private FactoryConfig config;
 
         private List<Node> nodes;
 
@@ -20,11 +18,11 @@ namespace UnityEditor
 
         private readonly GUIStyle style_file = new GUIStyle();
 
-        [MenuItem("Data/Resource")]
+        [MenuItem("Data/Resources")]
         private static void Open()
         {
             ResourcesBuilder window = EditorWindow.GetWindow<ResourcesBuilder>();
-            window.titleContent = new GUIContent("Resources");
+            window.titleContent = new GUIContent("Resources Builder");
             window.minSize = new Vector2(500, 300);
             window.Init();
             window.Show();
@@ -32,9 +30,27 @@ namespace UnityEditor
 
         private void Init()
         {
+            TextAsset asset = Resources.Load<TextAsset>(FactoryConfig.XML);
+
+            if (asset != null)
+            {
+                config = JsonUtility.FromJson<FactoryConfig>(asset.text);
+            }
+            else
+            {
+                config = new FactoryConfig();
+            }
+
             nodes = Finder.Find(Application.dataPath + "/Resources");
 
+            int index = nodes.FindIndex(x => x.name == FactoryConfig.XML);
 
+            if (index != -1) nodes.RemoveAt(index);
+
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                Select(nodes[i]);
+            }
 
             style_folder.normal.textColor = Color.blue;
 
@@ -43,6 +59,25 @@ namespace UnityEditor
             style_folder.fontSize = 20;
 
             style_file.normal.textColor = Color.red;
+        }
+
+        private void Select(Node node)
+        {
+            if (node.type == NodeType.Folder)
+            {
+                NodeFolder folder = node as NodeFolder;
+
+                for (int i = 0; i < folder.nodes.Count; i++)
+                {
+                    Select(folder.nodes[i]);
+                }
+            }
+            else
+            {
+                NodeFile file = node as NodeFile;
+
+                file.select = config.prefabs.Exists(x => x.key == node.name);
+            }
         }
 
         private void OnGUI()
@@ -62,6 +97,8 @@ namespace UnityEditor
                     }
                     GUILayout.EndHorizontal();
 
+                    GUILayout.Box(string.Empty, GUILayout.ExpandWidth(true), GUILayout.Height(3));
+
                     scroll = GUILayout.BeginScrollView(scroll);
                     {
                         for (int i = 0; i < nodes.Count; i++)
@@ -73,25 +110,25 @@ namespace UnityEditor
                 }
                 GUILayout.EndVertical();
 
-                GUILayout.Space(5);
+                GUILayout.Box(string.Empty, GUILayout.Width(3), GUILayout.ExpandHeight(true));
 
                 GUILayout.BeginVertical(GUILayout.Width(100));
                 {
                     GUILayout.Space(30);
 
-                    if (GUILayout.Button("Build", GUILayout.Height(30)))
-                    {
-                        Build();
-                    }
-
-                    if (GUILayout.Button("Refresh"))
+                    if (GUILayout.Button("刷新", GUILayout.Height(30)))
                     {
                         Init();
                     }
 
-                    if (GUILayout.Button("Open Config"))
+                    if (GUILayout.Button("生成XML", GUILayout.Height(20)))
                     {
-                        System.Diagnostics.Process.Start("notepad.exe", XMLPath);
+                        Build();
+                    }
+
+                    if (GUILayout.Button("打开XML", GUILayout.Height(20)))
+                    {
+                        System.Diagnostics.Process.Start("notepad.exe", XML);
                     }
                 }
                 GUILayout.EndVertical();
@@ -120,13 +157,11 @@ namespace UnityEditor
                 {
                     GUILayout.Space(20);
                 }
-
                 if (GUILayout.Button(node.status ? "▲" : "▼", GUILayout.Width(30)))
                 {
                     node.status = !node.status;
                 }
-
-                GUILayout.Label(string.Format("{0} >", Format(node.key)), style_folder);
+                GUILayout.Label(string.Format("{0} >", Format(node.name)), style_folder);
             }
             GUILayout.EndHorizontal();
 
@@ -149,12 +184,11 @@ namespace UnityEditor
                 {
                     GUILayout.Space(20);
                 }
-
                 GUILayout.Label(Format(node.path), style_file);
 
-                node.select = GUILayout.Toggle(node.select, "", GUILayout.Width(20));
+                node.name = GUILayout.TextField(node.name, GUILayout.Width(100));
 
-                node.key = GUILayout.TextField(node.key, GUILayout.Width(100));
+                node.select = GUILayout.Toggle(node.select, "", GUILayout.Width(20));
             }
             GUILayout.EndHorizontal();
         }
@@ -165,7 +199,7 @@ namespace UnityEditor
 
             for (int i = 0; i < nodes.Count; i++)
             {
-                Compute(nodes[i]);
+                Builder(nodes[i]);
             }
 
             string content = JsonUtility.ToJson(config);
@@ -175,7 +209,7 @@ namespace UnityEditor
             AssetDatabase.Refresh();
         }
 
-        private void Compute(Node node)
+        private void Builder(Node node)
         {
             if (node.type == NodeType.Folder)
             {
@@ -183,7 +217,7 @@ namespace UnityEditor
 
                 for (int i = 0; i < folder.nodes.Count; i++)
                 {
-                    Compute(folder.nodes[i]);
+                    Builder(folder.nodes[i]);
                 }
             }
             else
@@ -194,31 +228,26 @@ namespace UnityEditor
                 {
                     config.prefabs.Add(new PrefabInformation()
                     {
-                        key = file.key,
+                        key = file.name,
                         path = Format(file.path).Replace(file.extension, ""),
+                        capacity = 100,
+                        extension = file.extension,
                     });
                 }
             }
         }
 
-        private string ReadXML()
-        {
-            if (File.Exists(XMLPath))
-            {
-                return File.ReadAllText(XMLPath);
-            }
-            return null;
-        }
-
         private void WriteXML(string content)
         {
-            if (File.Exists(XMLPath))
+            string path = XML;
+
+            if (File.Exists(path))
             {
-                File.WriteAllText(XMLPath, content);
+                File.WriteAllText(path, content);
             }
             else
             {
-                using (FileStream stream = new FileStream(XMLPath, FileMode.OpenOrCreate))
+                using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
                 {
                     StreamWriter writer = new StreamWriter(stream);
                     writer.Write(content);
@@ -247,11 +276,11 @@ namespace UnityEditor
             }
         }
 
-        private string XMLPath
+        private string XML
         {
             get
             {
-                return string.Format("{0}/{1}.txt", Path, XML);
+                return string.Format("{0}/{1}.txt", Path, FactoryConfig.XML);
             }
         }
     }

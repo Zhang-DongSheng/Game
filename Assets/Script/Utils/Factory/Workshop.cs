@@ -5,18 +5,14 @@ namespace UnityEngine.Factory
 {
     public class Workshop
     {
-        private readonly Transform parent;
-
         private readonly Object prefab;
 
         private readonly int capacity;
 
         private readonly Stack<Object> memory = new Stack<Object>();
 
-        public Workshop(string path, Transform parent, int capacity = -1)
+        public Workshop(string path, int capacity = -1)
         {
-            this.parent = parent;
-
             this.capacity = capacity;
 
             try
@@ -57,7 +53,7 @@ namespace UnityEngine.Factory
             }
             else
             {
-                return GameObject.Instantiate(Prefab, Parent);
+                return GameObject.Instantiate(Prefab);
             }
         }
 
@@ -69,8 +65,6 @@ namespace UnityEngine.Factory
             }
             memory.Clear();
         }
-
-        protected Transform Parent { get { return parent; } }
 
         protected Object Prefab { get { return prefab; } }
     }
