@@ -1,21 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine.Events;
 
 namespace UnityEngine.SAM
 {
     public class SAMController : MonoBehaviour
     {
-        public Action onCompleted;
+        [SerializeField] private bool enable;
 
         [SerializeField] private List<SAMBase> sams = new List<SAMBase>();
+
+        public UnityEvent onCompleted;
 
         private SAMBase current;
 
         private int index;
 
-        private void Start()
+        private void OnEnable()
         {
-            Begin();
+            if (enable)
+            {
+                Begin();
+            }
         }
 
         private void Next()

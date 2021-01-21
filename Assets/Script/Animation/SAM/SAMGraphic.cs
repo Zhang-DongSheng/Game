@@ -6,19 +6,17 @@ namespace UnityEngine.SAM
     {
         [SerializeField] private Graphic graphic;
 
-        [SerializeField] private SAMGraphicInformation origin, destination;
-
-        private Color color;
+        [SerializeField] private ColorInterval color;
 
         protected override void Renovate()
         {
-            if (status == SAMStatus.Transition)
+            if (status == Status.Transition)
             {
                 step += Time.deltaTime * speed;
 
                 Transition(step);
 
-                if (step >= SAMConfig.ONE)
+                if (step >= Config.ONE)
                 {
                     Completed();
                 }
@@ -31,19 +29,7 @@ namespace UnityEngine.SAM
 
             progress = curve.Evaluate(step);
 
-            color = Color.Lerp(origin.color, destination.color, progress);
-
-            color.a = Mathf.Lerp(origin.alpha, destination.alpha, progress);
-
-            graphic.color = color;
+            graphic.color = color.Lerp(progress);
         }
-    }
-
-    [System.Serializable]
-    public class SAMGraphicInformation
-    {
-        public Color color = Color.white;
-        [Range(0, 1)]
-        public float alpha = 1;
     }
 }

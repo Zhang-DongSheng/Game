@@ -2,17 +2,21 @@
 {
     public class SAMTransform : SAMBase
     {
-        [SerializeField] private SAMTransformInformation origin, destination;
+        [SerializeField] private Vector3Interval position;
+
+        [SerializeField] private Vector3Interval rotation;
+
+        [SerializeField] private Vector3Interval scale;
 
         protected override void Renovate()
         {
-            if (status == SAMStatus.Transition)
+            if (status == Status.Transition)
             {
                 step += speed * Time.deltaTime;
 
                 Transition(forward ? step : 1 - step);
 
-                if (step >= SAMConfig.ONE)
+                if (step >= Config.ONE)
                 {
                     Completed();
                 }
@@ -25,21 +29,11 @@
 
             progress = curve.Evaluate(step);
 
-            target.anchoredPosition = Vector3.Lerp(origin.position, destination.position, progress);
+            target.anchoredPosition = position.Lerp(progress);
 
-            target.localEulerAngles = Vector3.Lerp(origin.rotation, destination.rotation, progress);
+            target.localEulerAngles = rotation.Lerp(progress);
 
-            target.localScale = Vector3.Lerp(origin.scale, destination.scale, progress);
+            target.localScale = scale.Lerp(progress);
         }
-    }
-
-    [System.Serializable]
-    public class SAMTransformInformation
-    {
-        public Vector3 position = Vector3.zero;
-
-        public Vector3 rotation = Vector3.zero;
-
-        public Vector3 scale = Vector3.one;
     }
 }

@@ -12,19 +12,19 @@
 
         protected override void Awake()
         {
-            position = target.position;
-            rotation = target.rotation;
+            position = target.localPosition;
+            rotation = target.localRotation;
         }
 
         protected override void Renovate()
         {
-            if (status == SAMStatus.Transition)
+            if (status == Status.Transition)
             {
                 step += speed * Time.deltaTime;
 
                 Transition(1 - step);
 
-                if (step >= SAMConfig.ONE)
+                if (step >= Config.ONE)
                 {
                     Completed();
                 }
@@ -35,8 +35,8 @@
         {
             if (target == null) return;
 
-            target.position = position + Random.insideUnitSphere * range;
-            target.rotation = new Quaternion(
+            target.localPosition = position + Random.insideUnitSphere * range;
+            target.localRotation = new Quaternion(
                 rotation.x + Random.Range(-range, range) * 0.2f,
                 rotation.y + Random.Range(-range, range) * 0.2f,
                 rotation.z + Random.Range(-range, range) * 0.2f,
@@ -45,7 +45,7 @@
 
         protected override void Completed()
         {
-            status = SAMStatus.Completed;
+            status = Status.Completed;
 
             onCompleted?.Invoke();
 
@@ -54,7 +54,7 @@
 
         protected override void Compute()
         {
-            status = SAMStatus.Compute;
+            status = Status.Compute;
 
             step = 0;
 
@@ -62,13 +62,13 @@
 
             onBegin?.Invoke();
 
-            status = SAMStatus.Transition;
+            status = Status.Transition;
         }
 
         public override void Default()
         {
-            target.position = position;
-            target.rotation = rotation;
+            target.localPosition = position;
+            target.localRotation = rotation;
         }
     }
 }

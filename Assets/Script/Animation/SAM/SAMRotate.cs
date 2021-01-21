@@ -2,29 +2,29 @@
 {
     public class SAMRotate : SAMBase
     {
-        [SerializeField] private SAMCircle circle;
+        [SerializeField] private Circle circle;
 
-        [SerializeField] private Vector3 origin, destination;
+        [SerializeField] private Vector3Interval rotation;
 
         [SerializeField] private Vector3 eulers;
 
         protected override void Renovate()
         {
-            if (status == SAMStatus.Transition)
+            if (status == Status.Transition)
             {
                 switch (circle)
                 {
-                    case SAMCircle.Once:
+                    case Circle.Once:
                         step += speed * Time.deltaTime;
 
                         Transition(step);
 
-                        if (step >= SAMConfig.ONE)
+                        if (step >= Config.ONE)
                         {
                             Completed();
                         }
                         break;
-                    case SAMCircle.Loop:
+                    case Circle.Loop:
                         target.Rotate(eulers * speed * Time.deltaTime);
                         break;
                 }
@@ -37,7 +37,7 @@
 
             progress = curve.Evaluate(step);
 
-            vector = Vector3.Lerp(origin, destination, progress);
+            vector = rotation.Lerp(progress);
 
             target.localEulerAngles = vector;
         }

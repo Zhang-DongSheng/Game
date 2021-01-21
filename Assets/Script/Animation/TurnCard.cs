@@ -22,7 +22,7 @@
 
         private float size;
 
-        private SAMStatus status;
+        private Status status;
 
         private void Awake()
         {
@@ -31,13 +31,13 @@
 
         private void Update()
         {
-            if (status == SAMStatus.Transition)
+            if (status == Status.Transition)
             {
                 current = Mathf.MoveTowards(current, destination, speed * Time.deltaTime);
                 if (Mathf.Abs(current - destination) < 0.1f)
                 {
                     current = destination;
-                    status = SAMStatus.Idel;
+                    status = Status.Idel;
                 }
                 Rotate(current);
             }
@@ -68,22 +68,22 @@
         {
             current = card.localEulerAngles.y;
 
-            destination = SAMConfig.ZERO;
+            destination = Config.ZERO;
 
-            center = SAMConfig.Ninety;
+            center = Config.Ninety;
 
-            status = SAMStatus.Transition;
+            status = Status.Transition;
         }
 
         public void ToBack()
         {
             current = card.localEulerAngles.y;
 
-            destination = SAMConfig.Ninety * 2;
+            destination = Config.Ninety * 2;
 
-            center = SAMConfig.Ninety;
+            center = Config.Ninety;
 
-            status = SAMStatus.Transition;
+            status = Status.Transition;
         }
 
         public void Default()
@@ -92,7 +92,7 @@
 
             SetSide(true);
 
-            status = SAMStatus.Idel;
+            status = Status.Idel;
         }
     }
 }

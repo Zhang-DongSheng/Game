@@ -25,11 +25,11 @@ namespace UnityEngine.SAM
 
         protected Vector3 vector;
 
-        protected SAMStatus status;
+        protected Status status;
 
         protected virtual void Awake()
         {
-            speed = useConfig ? SAMConfig.SPEED : speed;
+            speed = useConfig ? Config.SPEED : speed;
         }
 
         protected virtual void OnEnable()
@@ -59,22 +59,22 @@ namespace UnityEngine.SAM
 
         protected virtual void Completed()
         {
-            status = SAMStatus.Completed;
+            status = Status.Completed;
 
             onCompleted?.Invoke();
 
-            status = SAMStatus.Idel;
+            status = Status.Idel;
         }
 
         protected virtual void Compute()
         {
-            status = SAMStatus.Compute;
+            status = Status.Compute;
 
-            step = SAMConfig.ZERO;
+            step = Config.ZERO;
 
             onBegin?.Invoke();
 
-            status = SAMStatus.Transition;
+            status = Status.Transition;
         }
 
         public virtual void Begin(bool forward)
@@ -86,17 +86,17 @@ namespace UnityEngine.SAM
 
         public virtual void Pause(bool pause)
         {
-            status = pause ? SAMStatus.Idel : SAMStatus.Transition;
+            status = pause ? Status.Idel : Status.Transition;
         }
 
         public virtual void Close()
         {
-            status = SAMStatus.Idel;
+            status = Status.Idel;
         }
 
         public virtual void Default()
         {
-            Transition(0);
+            Transition(step = 0);
         }
 
         protected virtual void SetActive(bool active)

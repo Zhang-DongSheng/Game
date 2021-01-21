@@ -2,19 +2,19 @@
 {
     public class SAMSize : SAMBase
     {
-        [SerializeField] private SAMAxis axis;
+        [SerializeField] private Axis axis;
 
-        [SerializeField] private Vector2 origin, destination;
+        [SerializeField] private Vector2Interval size;
 
         protected override void Renovate()
         {
-            if (status == SAMStatus.Transition)
+            if (status == Status.Transition)
             {
                 step += speed * Time.deltaTime;
 
                 Transition(forward ? step : 1 - step);
 
-                if (step >= SAMConfig.ONE)
+                if (step >= Config.ONE)
                 {
                     Completed();
                 }
@@ -27,19 +27,19 @@
 
             progress = curve.Evaluate(step);
 
-            vector = Vector2.Lerp(origin, destination, progress);
+            vector = size.Lerp(progress);
 
             switch (axis)
             {
-                case SAMAxis.Horizontal:
+                case Axis.Horizontal:
                     target.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, vector.x);
                     break;
-                case SAMAxis.Vertical:
+                case Axis.Vertical:
                     target.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, vector.y);
                     break;
                 default:
                     target.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, vector.x);
-                    goto case SAMAxis.Vertical;
+                    goto case Axis.Vertical;
             }
         }
     }

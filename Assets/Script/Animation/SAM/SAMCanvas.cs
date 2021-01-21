@@ -5,7 +5,7 @@
     {
         [SerializeField] private CanvasGroup canvas;
 
-        [SerializeField] private float origin, destination;
+        [SerializeField] private FloatInterval alpha;
 
         protected override void Awake()
         {
@@ -15,13 +15,13 @@
 
         protected override void Renovate()
         {
-            if (status == SAMStatus.Transition)
+            if (status == Status.Transition)
             {
                 step += speed * Time.deltaTime;
 
                 Transition(forward ? step : 1 - step);
 
-                if (step >= SAMConfig.ONE)
+                if (step >= Config.ONE)
                 {
                     Completed();
                 }
@@ -34,7 +34,7 @@
 
             progress = curve.Evaluate(step);
 
-            canvas.alpha = Mathf.Lerp(origin, destination, progress);
+            canvas.alpha = alpha.Lerp(progress);
         }
     }
 }
