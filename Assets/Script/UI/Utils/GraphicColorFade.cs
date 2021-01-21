@@ -2,143 +2,113 @@
 
 namespace UnityEngine.UI
 {
-    [RequireComponent(typeof(Graphic))]
-    public class GraphicColorFade : BaseMeshEffect
+    [RequireComponent(typeof(CanvasRenderer))]
+    public class GraphicColorFade : MaskableGraphic
     {
         [SerializeField] private Axis axis;
 
-        [SerializeField] private Color32 origin = Color.white;
+        [SerializeField] private Color origin = Color.white;
 
-        [SerializeField] private Color32 destination = Color.white;
+        [SerializeField] private Color destination = Color.white;
 
-        private Vector2 horizontal = new Vector2();
+        private new Color color;
 
-        private Vector2 vertical = new Vector2();
+        private float width, height;
 
-        private float width;
-
-        private float height;
+        private Vector2 topLeft, topRight, bottomLeft, bottomRight;
 
         private readonly List<UIVertex> m_vertexs = new List<UIVertex>();
 
-        public override void ModifyMesh(VertexHelper helper)
+        protected override void OnPopulateMesh(VertexHelper helper)
         {
             if (!IsActive()) return;
 
-            int count = helper.currentVertCount;
+            helper.Clear(); m_vertexs.Clear();
 
-            if (count == 0) return;
+            width = GetComponent<RectTransform>().rect.width / 2f;
 
-            m_vertexs.Clear();
+            height = GetComponent<RectTransform>().rect.height / 2f;
 
-            for (var i = 0; i < count; i++)
-            {
-                var vertex = new UIVertex();
+            topLeft = new Vector2(width * -1, height);
 
-                helper.PopulateUIVertex(ref vertex, i);
+            topRight = new Vector2(width, height);
 
-                m_vertexs.Add(vertex);
-            }
+            bottomLeft = new Vector2(width * -1, height * -1);
 
-            switch (axis)
-            {
-                case Axis.Slant:
-                    Compute(Axis.Horizontal);
-                    Compute(Axis.Vertical);
-                    break;
-                default:
-                    Compute(axis);
-                    break;
-            }
+            bottomRight = new Vector2(width, height * -1);
 
-            for (int i = 0; i < count; i++)
-            {
-                var vertex = m_vertexs[i];
+            m_vertexs.Add(AddUIVertex(topLeft, Location.TopLeft));
 
-                Color color = Color32.Lerp(origin, destination, Progress(vertex.position));
+            m_vertexs.Add(AddUIVertex(topRight, Location.TopRight));
 
-                vertex.color = color;
+            m_vertexs.Add(AddUIVertex(bottomLeft, Location.BottomLeft));
 
-                helper.SetUIVertex(vertex, i);
-            }
+            m_vertexs.Add(AddUIVertex(bottomRight, Location.BottomRight));
+
+            m_vertexs.Add(AddUIVertex(bottomLeft, Location.BottomLeft));
+
+            m_vertexs.Add(AddUIVertex(topRight, Location.TopRight));
+
+            helper.AddUIVertexTriangleStream(m_vertexs);
         }
 
-        /// <summary>
-        /// 获取大小及长宽
-        /// </summary>
-        /// <param name="axis">方向</param>
-        private void Compute(Axis axis)
+        private UIVertex AddUIVertex(Vector2 position, Location location)
         {
-            float position;
-
             switch (axis)
             {
                 case Axis.Horizontal:
-                    horizontal.x = m_vertexs[0].position.x;
-                    horizontal.y = m_vertexs[0].position.x;
-
-                    for (var i = 1; i < m_vertexs.Count; i++)
+                    switch (location)
                     {
-                        position = m_vertexs[i].position.x;
-
-                        if (position > horizontal.x)
-                        {
-                            horizontal.x = position;
-                        }
-                        else if (position < horizontal.y)
-                        {
-                            horizontal.y = position;
-                        }
+                        case Location.TopLeft:
+                        case Location.BottomLeft:
+                            color = origin * base.color;
+                            break;
+                        default:
+                            color = destination * base.color;
+                            break;
                     }
-                    width = horizontal.x - horizontal.y;
                     break;
                 case Axis.Vertical:
-                    vertical.x = m_vertexs[0].position.y;
-                    vertical.y = m_vertexs[0].position.y;
-
-                    for (var i = 1; i < m_vertexs.Count; i++)
+                    switch (location)
                     {
-                        position = m_vertexs[i].position.y;
-
-                        if (position > vertical.x)
-                        {
-                            vertical.x = position;
-                        }
-                        else if (position < vertical.y)
-                        {
-                            vertical.y = position;
-                        }
+                        case Location.TopLeft:
+                        case Location.TopRight:
+                            color = origin * base.color;
+                            break;
+                        default:
+                            color = destination * base.color;
+                            break;
                     }
-                    height = vertical.x - vertical.y;
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// 计算当前位置
-        /// </summary>
-        /// <param name="position">位置</param>
-        /// <returns></returns>
-        private float Progress(Vector2 position)
-        {
-            float progress = 0;
-
-            switch (axis)
-            {
-                case Axis.Horizontal:
-                    progress = (position.x - horizontal.y) / width;
-                    break;
-                case Axis.Vertical:
-                    progress = (position.y - vertical.y) / height;
-                    break;
-                case Axis.Slant:
-                    progress = ((position.x - horizontal.y) / width + (position.y - vertical.y) / height) / 2f;
                     break;
                 default:
+                    switch (location)
+                    {
+                        case Location.TopLeft:
+                            color = origin * base.color;
+                            break;
+                        case Location.BottomRight:
+                            color = destination * base.color;
+                            break;
+                        default:
+                            color = Color.Lerp(origin, destination, 0.5f);
+                            break;
+                    }
                     break;
             }
 
-            return progress;
+            return new UIVertex()
+            {
+                position = position,
+                color = color,
+            };
+        }
+
+        enum Location
+        {
+            TopLeft,
+            TopRight,
+            BottomLeft,
+            BottomRight
         }
 
         enum Axis
