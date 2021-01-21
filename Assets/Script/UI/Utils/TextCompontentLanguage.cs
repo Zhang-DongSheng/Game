@@ -1,4 +1,5 @@
 ﻿using Data;
+using Game;
 
 namespace UnityEngine.UI
 {
@@ -11,39 +12,39 @@ namespace UnityEngine.UI
 
         [SerializeField] private bool language;
 
-        private string value;
+        private DataLanguage config;
 
-        DataLanguage data;
+        private string value;
 
         private void Awake()
         {
             if (compontent == null)
+            {
                 compontent = GetComponent<Text>();
-
-            //Test ...
-            data = DataManager.Instance.Load<DataLanguage>("language", "Data/Language");
-
-            data.Init();
+            }
         }
 
-#if UNITY_EDITOR
+        private void Start()
+        {
+            config = GameLogic.Instance.Language;
+        }
+
         private void OnValidate()
         {
             Refresh();
         }
-#endif
 
         private void Refresh()
         {
             if (language)
             {
-                if (data != null)
+                if (config != null)
                 {
-                    if (data.Font != null && compontent.font != data.Font)
+                    if (config != null && config.Font != null && config.Font != compontent.font)
                     {
-                        compontent.font = data.Font;
+                        compontent.font = config.Font;
                     }
-                    value = data.Word(text);
+                    value = config.Word(text);
                 }
                 compontent.text = value;
             }

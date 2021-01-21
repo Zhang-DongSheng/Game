@@ -14,9 +14,8 @@ namespace Data
 
         private Dictionary dictionary;
 
-#if UNITY_EDITOR
         [ContextMenu("Reload Language")]
-        private void Reload()
+        protected void Reload()
         {
             string path = Application.streamingAssetsPath + "/language.txt";
 
@@ -61,7 +60,6 @@ namespace Data
                 }
             }
         }
-#endif
 
         #region Function
         public void Init()
