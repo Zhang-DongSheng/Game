@@ -29,4 +29,20 @@ public static partial class Extension
         }
         return list;
     }
+
+    public static string ToUpperFirst(this string text)
+    {
+        if (text.Length > 0)
+        {
+            string first = text.Substring(0, 1);
+
+            if (!string.IsNullOrEmpty(first))
+            {
+                first = first.ToUpperInvariant();
+            }
+
+            text = first.Append(text.Remove(0, 1));
+        }
+        return text;
+    }
 }

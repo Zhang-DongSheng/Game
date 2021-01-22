@@ -37,17 +37,9 @@ namespace TEST
         [MenuItem("Test/OnClick2")]
         private static void OnClick2()
         {
-            string path = "Assets/Art/PSD/微信图片_20210119201254 2.jpg";
+            string test = "dd得到张 abcjjjjFFFbbbb  dddd";
 
-
-            Object asset = AssetDatabase.LoadAssetAtPath<Object>(path);
-
-            if (asset != null)
-            {
-                Debug.LogError("一家在"); return;
-            }
-
-            Debug.LogError(MathUtils.Distance(-5, -3));
+            Debug.LogError(test.ToUpperFirst());
         }
     }
 }
