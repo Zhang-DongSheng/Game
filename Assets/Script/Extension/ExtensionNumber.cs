@@ -1,53 +1,77 @@
 ﻿using System;
+using UnityEngine;
 
 public static partial class NumberExtension
 {
-    public static bool EqualOrMoreThan(this int self, int value)
+    public static int Between(this int self, int min, int max)
     {
-        return self >= value;
+        if (self < min)
+        {
+            self = min;
+        }
+        else if (self > max)
+        {
+            self = max;
+        }
+        return self;
     }
 
-    public static bool EqualOrMoreThan(this float self, float value)
+    public static float Between(this float self, float min, float max)
     {
-        return self >= value;
+        if (self < min)
+        {
+            self = min;
+        }
+        else if (self > max)
+        {
+            self = max;
+        }
+        return self;
     }
 
-    public static bool EqualOrMoreThan(this double self, double value)
+    public static double Between(this double self, double min, double max)
     {
-        return self >= value;
+        if (self < min)
+        {
+            self = min;
+        }
+        else if (self > max)
+        {
+            self = max;
+        }
+        return self;
     }
 
-    public static bool EqualOrLessThan(this int self, int value)
+    public static float Distance(this float origin, float destination)
     {
-        return self <= value;
+        return Math.Abs(origin - destination);
     }
 
-    public static bool EqualOrLessThan(this float self, float value)
+    public static float Distance(this Vector2 origin, Vector2 destination, bool simple = true)
     {
-        return self <= value;
+        if (simple)
+        {
+            return Math.Abs(origin.x - destination.x) + Math.Abs(origin.y - destination.y);
+        }
+        else
+        {
+            return Vector2.Distance(origin, destination);
+        }
     }
 
-    public static bool EqualOrLessThan(this double self, double value)
+    public static float Distance(this Vector3 origin, Vector3 destination, bool simple = true)
     {
-        return self <= value;
+        if (simple)
+        {
+            return Math.Abs(origin.x - destination.x) + Math.Abs(origin.y - destination.y) + Math.Abs(origin.z - destination.z);
+        }
+        else
+        {
+            return Vector3.Distance(origin, destination);
+        }
     }
 
-    public static bool Between(this int self, int min, int max)
-    {
-        return self >= min && self <= max;
-    }
-
-    public static bool Between(this float self, float min, float max)
-    {
-        return self >= min && self <= max;
-    }
-
-    public static bool Between(this double self, double min, double max)
-    {
-        return self >= min && self <= max;
-    }
-
-    public static string ToSimple(this int self, int digit)
+    public static string ToSimpleString(this int self, int digit)
     {
         float number;
 
