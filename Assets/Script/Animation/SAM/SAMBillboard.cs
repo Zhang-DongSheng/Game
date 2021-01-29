@@ -16,15 +16,24 @@
             {
                 step += Time.deltaTime * speed;
 
+                Transition(forward ? step : 1 - step);
+
                 if (step >= Config.ONE)
                 {
                     step = Config.ZERO;
 
-                    forward = !forward;
-
-                    Completed();
+                    switch (circle)
+                    {
+                        case Circle.Once:
+                            Completed();
+                            break;
+                        case Circle.PingPong:
+                            forward = !forward;
+                            break;
+                        case Circle.Loop:
+                            break;
+                    }
                 }
-                Transition(forward ? step : 1 - step);
             }
         }
 
@@ -39,8 +48,6 @@
 
         protected override void Completed()
         {
-            if (circle == Circle.Loop) return;
-
             status = Status.Completed;
 
             onCompleted?.Invoke();

@@ -12,7 +12,7 @@
         {
             if (status == Status.Transition)
             {
-                step += speed * Time.deltaTime;
+                step += Time.deltaTime * speed;
 
                 Transition(forward ? step : 1 - step);
 

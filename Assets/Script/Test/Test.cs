@@ -6,7 +6,7 @@ namespace Game
 {
     public class Test : MonoBehaviour
     {
-        public Text text;
+        public TextRunningHorseLamp text;
 
         private void Awake()
         {
@@ -15,7 +15,7 @@ namespace Game
 
         private void Start()
         {
-            text.SetTextWithEmoji("AAAABCD<emoji=walking0001/>HLH<emoji=walking0002/>TTTTTTTAAAABCD<emoji=walking0001/>HLH<emoji=walking0002/>zzz");
+            text.Text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";// ("AAAABCD<emoji=walking0001/>HLH<emoji=walking0002/>TTTTTTTAAAABCD<emoji=walking0001/>HLH<emoji=walking0002/>zzz");
         }
 
         private void Update()

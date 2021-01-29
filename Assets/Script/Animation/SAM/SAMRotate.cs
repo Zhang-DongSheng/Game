@@ -6,26 +6,30 @@
 
         [SerializeField] private Vector3Interval rotation;
 
-        [SerializeField] private Vector3 eulers;
-
         protected override void Renovate()
         {
             if (status == Status.Transition)
             {
+                step += Time.deltaTime * speed;
+
                 switch (circle)
                 {
                     case Circle.Once:
-                        step += speed * Time.deltaTime;
-
-                        Transition(step);
-
+                        Transition(forward ? step : 1 - step);
                         if (step >= Config.ONE)
                         {
                             Completed();
                         }
                         break;
+                    case Circle.PingPong:
+                        Transition(forward ? step : 1 - step);
+                        if (step >= Config.ONE)
+                        {
+                            step = Config.ZERO; forward = !forward;
+                        }
+                        break;
                     case Circle.Loop:
-                        target.Rotate(eulers * speed * Time.deltaTime);
+                        target.Rotate(rotation.origin * Time.deltaTime * speed);
                         break;
                 }
             }

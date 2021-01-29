@@ -111,5 +111,6 @@ namespace UnityEngine.SAM
     {
         Once,
         Loop,
+        PingPong,
     }
 }
