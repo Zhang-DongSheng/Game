@@ -196,6 +196,8 @@ namespace UnityEngine.UI
             }
             content.Format();
 
+            current = 0;
+
             if (count > 1)
             {
                 cell = content.Cell;
