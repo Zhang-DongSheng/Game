@@ -6,6 +6,8 @@
 
         [SerializeField] private Vector3Interval rotation;
 
+        [SerializeField] private bool around;
+
         protected override void Renovate()
         {
             if (status == Status.Transition)
@@ -29,7 +31,14 @@
                         }
                         break;
                     case Circle.Loop:
-                        target.Rotate(rotation.origin * Time.deltaTime * speed);
+                        if (around)
+                        {
+                            target.RotateAround(rotation.destination, rotation.origin, Time.deltaTime * speed);
+                        }
+                        else
+                        {
+                            target.Rotate(rotation.origin * Time.deltaTime * speed);
+                        }
                         break;
                 }
             }

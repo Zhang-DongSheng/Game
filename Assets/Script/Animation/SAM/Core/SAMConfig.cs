@@ -88,7 +88,7 @@ namespace UnityEngine.SAM
     /// 状态
     /// </summary>
     public enum Status
-    { 
+    {
         Idel,
         Ready,
         Transition,
