@@ -86,7 +86,16 @@ namespace UnityEngine.SAM
 
         public virtual void Pause(bool pause)
         {
-            status = pause ? Status.Idel : Status.Transition;
+            switch (status)
+            {
+                case Status.Transition:
+                case Status.Pause:
+                    status = pause ? Status.Pause : Status.Transition;
+                    break;
+                default:
+                    Debug.LogWarningFormat("Current status : {0} don't support pause!");
+                    break;
+            }
         }
 
         public virtual void Close()
@@ -98,6 +107,8 @@ namespace UnityEngine.SAM
         {
             Transition(step = 0);
         }
+
+        public bool Enable { get { return enable; } set { enable = value; } }
 
         protected virtual void SetActive(bool active)
         {

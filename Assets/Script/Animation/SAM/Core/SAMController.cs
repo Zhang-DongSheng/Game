@@ -23,6 +23,17 @@ namespace UnityEngine.SAM
             }
         }
 
+        private void OnValidate()
+        {
+            for (int i = 0; i < sams.Count; i++)
+            {
+                if (sams[i] != null)
+                {
+                    sams[i].Enable = false;
+                }
+            }
+        }
+
         private void Next()
         {
             index++;

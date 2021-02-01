@@ -92,6 +92,7 @@ namespace UnityEngine.SAM
         Idel,
         Ready,
         Transition,
+        Pause,
         Compute,
         Completed,
     }
