@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
+using UnityEngine;
 
 public static partial class Extension
 {
@@ -8,7 +10,7 @@ public static partial class Extension
     {
         StringBuilder builder = new StringBuilder(self);
 
-        for(int i = 0;i<values.Length;i++)
+        for (int i = 0; i < values.Length; i++)
         {
             builder.Append(values[i]);
         }
@@ -27,6 +29,7 @@ public static partial class Extension
         {
             list.Add((T)Convert.ChangeType(str, typeof(T)));
         }
+
         return list;
     }
 
@@ -43,6 +46,44 @@ public static partial class Extension
 
             text = first.Append(text.Remove(0, 1));
         }
+
         return text;
+    }
+
+    public static bool RegexContains(this string source, string start, string end = null)
+    {
+        try
+        {
+            return new Regex(string.Format(@"{0}(.+?){1}", start, end)).IsMatch(source);
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+        }
+        return false;
+    }
+
+    public static List<string> RegexList(this string source, string start, string end)
+    {
+        try
+        {
+            Regex regex = new Regex(string.Format(@"{0}(.+?){1}", start, end));
+
+            if (regex.IsMatch(source))
+            {
+                List<string> list = new List<string>();
+
+                foreach (Match match in regex.Matches(source))
+                {
+                    list.Add(match.Groups[1].Value);
+                }
+                return list;
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+        }
+        return null;
     }
 }

@@ -39,7 +39,14 @@ namespace TEST
         {
             string test = "dd得到张 abcjjjjFFFbbbb  dddd";
 
-            Debug.LogError(test.ToUpperFirst());
+            if (test.RegexContains("ab","dd"))
+            {
+                Debug.LogError(test.RegexList("ab", "dd")[0]);
+            }
+            else
+            {
+                Debug.LogError("Fail");
+            }
         }
     }
 }

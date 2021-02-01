@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public static partial class Extension
 {
@@ -147,6 +148,21 @@ public static partial class Extension
         target.anchorMin = Vector2.zero;
 
         target.anchorMax = Vector2.one;
+    }
+
+    public static List<T> Children<T>(this Transform target)
+    {
+        List<T> list = new List<T>();
+
+        for (int i = 0; i < target.childCount; i++)
+        {
+            if (target.GetChild(i).TryGetComponent(out T compontent))
+            {
+                list.Add(compontent);
+            }
+        }
+
+        return list;
     }
 
     public static void ClearChildren(this Transform target)

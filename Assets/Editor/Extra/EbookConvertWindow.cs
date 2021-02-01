@@ -20,7 +20,7 @@ namespace UnityEditor
 
         private readonly string[] text_title = new string[] { "主页", "设置", "其他" };
 
-        private readonly string path = "Source/Ebook";
+        private readonly string KEY = "EBOOKPATH";
 
         private readonly EbookConvert ebook = new EbookConvert();
 
@@ -31,7 +31,9 @@ namespace UnityEditor
 
         private CodeType value_code;
 
-        private int value_number = -1;
+        private int value_number = 1000;
+
+        private string value_input;
         #endregion
 
         #region Param
@@ -48,13 +50,28 @@ namespace UnityEditor
         private static void Open()
         {
             EditorWindow window = EditorWindow.GetWindow<EbookConvertWindow>();
+            window.titleContent = new GUIContent("Ebook");
             window.minSize = Vector2.one * 300;
             window.maxSize = Vector2.one * 1000;
-            window.titleContent = new GUIContent("Ebook");
         }
 
         private void Awake()
         {
+            ebook.onSuccess = () =>
+            {
+                ShowNotification(new GUIContent("书籍转换完成！"));
+            };
+            ebook.onFail = (error) =>
+            {
+                ShowNotification(new GUIContent("书籍转换失败！" + error));
+            };
+
+            value_input = PlayerPrefs.GetString(KEY);
+
+            if (string.IsNullOrEmpty(value_input))
+            {
+                value_input = Path.Combine(Application.dataPath.Remove(Application.dataPath.Length - 6, 6), "Source/Ebook");
+            }
             Redirect();
         }
 
@@ -84,7 +101,7 @@ namespace UnityEditor
         {
             GUILayout.BeginHorizontal();
             {
-                GUILayout.Label("编码格式", GUILayout.Width(100));
+                GUILayout.Label("编码格式:", GUILayout.Width(100));
 
                 GUILayout.Label(encoding.ToString());
             }
@@ -92,21 +109,21 @@ namespace UnityEditor
 
             GUILayout.BeginHorizontal();
             {
-                GUILayout.Label("来源路径", GUILayout.Width(100));
-
-                GUILayout.Label(InputPath);
-            }
-            GUILayout.EndHorizontal();
-
-            GUILayout.BeginHorizontal();
-            {
-                GUILayout.Label("每段字数限制", GUILayout.Width(100));
+                GUILayout.Label("字数限制:", GUILayout.Width(100));
 
                 GUILayout.Label(lineCount.ToString());
             }
             GUILayout.EndHorizontal();
 
-            GUILayout.Space(20);
+            GUILayout.BeginHorizontal();
+            {
+                GUILayout.Label("来源路径:", GUILayout.Width(100));
+
+                GUILayout.Label(InputPath);
+            }
+            GUILayout.EndHorizontal();
+
+            GUILayout.Box(string.Empty, GUILayout.ExpandWidth(true), GUILayout.Height(3));
 
             GUILayout.BeginHorizontal();
             {
@@ -129,7 +146,7 @@ namespace UnityEditor
                 }
                 GUILayout.EndVertical();
 
-                GUILayout.Space(15);
+                GUILayout.Box(string.Empty, GUILayout.Width(3), GUILayout.ExpandHeight(true));
 
                 GUILayout.BeginVertical();
                 {
@@ -138,19 +155,14 @@ namespace UnityEditor
                         StartUp();
                     }
 
+                    if (GUILayout.Button("转码"))
+                    {
+                        Transcoding();
+                    }
+
                     if (GUILayout.Button(select ? "反选" : "全选"))
                     {
                         Select();
-                    }
-
-                    if (GUILayout.Button("转码"))
-                    {
-                        Copy();
-                    }
-
-                    if (GUILayout.Button("重命名"))
-                    {
-                        Rename();
                     }
 
                     if (GUILayout.Button("目录"))
@@ -172,7 +184,7 @@ namespace UnityEditor
         {
             GUILayout.BeginHorizontal();
             {
-                GUILayout.Label("编码格式", GUILayout.Width(100));
+                GUILayout.Label("编码格式:", GUILayout.Width(100));
 
                 value_code = (CodeType)EditorGUILayout.EnumPopup(value_code);
 
@@ -208,13 +220,28 @@ namespace UnityEditor
 
             GUILayout.BeginHorizontal();
             {
-                GUILayout.Label("每段字数限制", GUILayout.Width(100));
+                GUILayout.Label("字数限制:", GUILayout.Width(100));
 
                 value_number = EditorGUILayout.IntField(value_number);
 
-                if (GUILayout.Button("保存", GUILayout.Width(100)))
+                if (lineCount != value_number)
                 {
                     lineCount = value_number;
+                }
+            }
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            {
+                GUILayout.Label("来源路径:", GUILayout.Width(100));
+
+                if (GUILayout.Button(InputPath))
+                {
+                    value_input = EditorUtility.SaveFolderPanel("Intput", InputPath, string.Empty);
+
+                    PlayerPrefs.SetString(KEY, value_input);
+
+                    Redirect();
                 }
             }
             GUILayout.EndHorizontal();
@@ -233,20 +260,14 @@ namespace UnityEditor
         {
             if (Directory.Exists(InputPath))
             {
-                DirectoryInfo root = new DirectoryInfo(InputPath);
-
-                int index = 0;
-
-                foreach (FileInfo file in root.GetFiles())
+                foreach (Book book in list)
                 {
-                    if (file.Extension.Equals(".txt"))
+                    if (book.filter)
                     {
-                        if (Filter(index++, file.Name))
-                        {
-                            ebook.Convert(file.FullName, encoding);
-                        }
+                        ebook.Convert(book.path, encoding);
                     }
                 }
+                Redirect();
             }
             else
             {
@@ -262,104 +283,48 @@ namespace UnityEditor
             {
                 DirectoryInfo root = new DirectoryInfo(InputPath);
 
-                foreach (FileInfo file in root.GetFiles())
+                foreach (FileInfo file in root.GetFiles("*.txt", SearchOption.AllDirectories))
                 {
-                    if (file.Extension.Equals(".txt"))
+                    Book book = new Book()
                     {
-                        Book book = new Book()
-                        {
-                            name = file.Name,
-                            filter = false,
-                        };
-                        list.Add(book);
-                    }
+                        name = file.Name,
+
+                        path = file.FullName,
+
+                        directory = file.DirectoryName,
+
+                        filter = false,
+                    };
+                    list.Add(book);
                 }
             }
         }
 
-        private bool Filter(int index, string name)
-        {
-            bool result = false;
-
-            if (list.Count > 0)
-            {
-                Book book = list.Find(x => x.name.Equals(name));
-
-                result = book != null ? book.filter : true;
-            }
-            else
-            {
-                result = true;
-            }
-
-            return result;
-        }
-
-        public void Copy()
+        public void Transcoding()
         {
             if (Directory.Exists(InputPath))
             {
-                DirectoryInfo root = new DirectoryInfo(InputPath);
-
-                int index = 0;
-
-                foreach (FileInfo file in root.GetFiles())
+                foreach (Book book in list)
                 {
-                    if (file.Extension.Equals(".txt"))
-                    {
-                        if (Filter(index++, file.Name))
-                        {
-                            string path = string.Format("{0}/{1}_{2}", InputPath, "copy", file.Name);
+                    string path = string.Format("{0}/{1}_{2}.txt", book.directory, Path.GetFileNameWithoutExtension(book.name), "new");
 
-                            try
-                            {
-                                File.WriteAllText(path, File.ReadAllText(file.FullName, encoding), Encoding.Default);
-                            }
-                            catch (Exception e)
-                            {
-                                Debug.LogError(e.Message);
-                            }
+                    try
+                    {
+                        if (book.filter)
+                        {
+                            File.WriteAllText(path, File.ReadAllText(book.path, encoding), Encoding.Default);
                         }
                     }
+                    catch (Exception e)
+                    {
+                        Debug.LogError(e.Message);
+                    }
                 }
+                Redirect();
             }
             else
             {
-                Directory.CreateDirectory(InputPath);
-            }
-        }
-
-        public void Rename()
-        {
-            if (Directory.Exists(InputPath))
-            {
-                DirectoryInfo root = new DirectoryInfo(InputPath);
-
-                int index = 0;
-
-                foreach (FileInfo file in root.GetFiles())
-                {
-                    if (file.Extension.Equals(".txt"))
-                    {
-                        if (Filter(index++, file.Name))
-                        {
-                            string path = string.Format("{0}/{1}", InputPath, file.Name);
-
-                            try
-                            {
-                                file.CopyTo(path);
-                            }
-                            catch (Exception e)
-                            {
-                                Debug.LogError(e.Message);
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Directory.CreateDirectory(InputPath);
+                Debug.LogError("You have to Create a new Floder");
             }
         }
 
@@ -367,7 +332,7 @@ namespace UnityEditor
         {
             get
             {
-                return Path.Combine(Application.dataPath.Remove(Application.dataPath.Length - 6, 6), path);
+                return value_input;
             }
         }
         #endregion
@@ -402,12 +367,20 @@ namespace UnityEditor
         {
             public string name;
 
+            public string path;
+
+            public string directory;
+
             public bool filter;
         }
     }
 
     public class EbookConvert
     {
+        public Action onSuccess;
+
+        public Action<string> onFail;
+
         private const string EXTENSION = ".txt";
 
         private const int MAXNUMBER = 500;
@@ -480,11 +453,11 @@ namespace UnityEditor
             }
             catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                onFail?.Invoke(e.Message);
             }
             finally
             {
-
+                onSuccess?.Invoke();
             }
         }
 
@@ -507,7 +480,6 @@ namespace UnityEditor
                     return true;
                 }
             }
-
             return false;
         }
 
@@ -546,9 +518,7 @@ namespace UnityEditor
             content = content.Replace("/n", "");
             content = content.Replace("/r", "");
             content = content.Replace("/t", "");
-
             content = content.Trim();
-
             return content;
         }
     }
