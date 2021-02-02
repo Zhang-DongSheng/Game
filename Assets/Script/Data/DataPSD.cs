@@ -6,6 +6,8 @@ namespace Data
 {
     public class DataPSD : ScriptableObject
     {
+        public string ID;
+
         public List<PSDInformation> list = new List<PSDInformation>();
 
         public void OnValidate()
@@ -27,7 +29,7 @@ namespace Data
     {
         public string name;
 
-        public Sprite sprite;
+        public Texture2D sprite;
 
         public Vector2 position;
 

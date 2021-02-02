@@ -18,12 +18,6 @@ namespace Data
         {
             Create<DataLanguage>("Language");
         }
-
-        [MenuItem("Data/Create/PSD")]
-        private static void Create_DataPSD()
-        {
-            Create<DataPSD>("PSD");
-        }
         #endregion
 
         private static void Create<T>(string name) where T : ScriptableObject
