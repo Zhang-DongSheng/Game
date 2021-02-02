@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,37 +7,22 @@ namespace Data
     public class DataBuilder : MonoBehaviour
     {
         #region Create
+        [MenuItem("Data/Create/Config")]
+        private static void Create_DataConfig()
+        {
+            Create<DataConfig>("Config");
+        }
+
         [MenuItem("Data/Create/Language")]
         private static void Create_DataLanguage()
         {
             Create<DataLanguage>("Language");
         }
 
-        [MenuItem("Data/Create/Config")]
-        private static void Create_DataConfig()
+        [MenuItem("Data/Create/PSD")]
+        private static void Create_DataPSD()
         {
-            Create<DataConfig>("Config");
-        }
-        #endregion
-
-        #region Load
-        [MenuItem("Data/Load/Language")]
-        private static void Load_DataLanguage()
-        {
-            DataLanguage data = Resources.Load<DataLanguage>("Data/Language");
-
-            if (data != null)
-            {
-                
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Warning！", "请先创建数据！", "关闭");
-            }
-
-            AssetDatabase.SaveAssets();
-
-            AssetDatabase.Refresh();
+            Create<DataPSD>("PSD");
         }
         #endregion
 

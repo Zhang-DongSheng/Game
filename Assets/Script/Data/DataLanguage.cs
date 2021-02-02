@@ -89,7 +89,6 @@ namespace Data
         }
         #endregion
     }
-
     [System.Serializable]
     public class Dictionary
     {
@@ -120,7 +119,6 @@ namespace Data
             return exist;
         }
     }
-
     [System.Serializable]
     public class Word
     {
