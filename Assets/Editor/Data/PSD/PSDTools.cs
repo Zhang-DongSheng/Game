@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UnityEditor
 {
-    public class PsdTools : EditorWindow
+	public class PsdTools : EditorWindow
 	{
 		private const string Extension = ".psd";
 
@@ -48,7 +48,7 @@ namespace UnityEditor
 		private readonly List<FileItem> source = new List<FileItem>();
 
 		[MenuItem("Data/Psd")]
-		private static void Open()
+		protected static void Open()
 		{
 			PsdTools window = EditorWindow.GetWindow<PsdTools>();
 			window.titleContent = new GUIContent("PSD 导出工具");
