@@ -9,37 +9,23 @@ namespace UnityEditor
 	{
 		private const string Extension = ".psd";
 
-		private const string InputPath = "Source/PSD";
+		private const string InputPath = "Source/Psd";
 
 		private const string OutputPath = "Art/PSD";
 
-		private readonly string[] text_view = new string[] { "PSD", "Setting", "Other" };
+		private readonly string[] text_view = new string[] { "PSD", "设置", "其他" };
 
-		private readonly string[] text_seacrch = new string[] { "Select", "Specify", "Auto" };
+		private readonly string[] text_seacrch = new string[] { "选择", "指定目录", "检索游戏内资源" };
 
-		private readonly string label_inputFolder = "Input Folder";
+		private readonly string label_inputFolder = "输入：";
 
-		private readonly string label_outputFolder = "Output Folder";
-
-		private readonly string label_search = "Search";
-
-		private readonly string label_convert = "Convert";
-
-		private readonly string label_select = "Select ";
-
-		private readonly string label_revise = "Revise";
-
-		private readonly string label_save = "Save";
+		private readonly string label_outputFolder = "输出：";
 
 		private int index_view;
 
 		private int index_search;
 
 		private int index_searchNode;
-
-		private Rect rect_inputFolder;
-
-		private Rect rect_outputFolder;
 
 		private string input_inputFolder;
 
@@ -51,19 +37,21 @@ namespace UnityEditor
 
 		private int searchNode;
 
+		private bool assetbundle;
+
 		private string inputFolder;
 
 		private string outputFolder;
 
 		private readonly List<string> node = new List<string>();
 
-		private readonly List<ItemFile> source = new List<ItemFile>();
+		private readonly List<FileItem> source = new List<FileItem>();
 
-		[MenuItem("Data/PSD")]
+		[MenuItem("Data/Psd")]
 		private static void Open()
 		{
 			PsdTools window = EditorWindow.GetWindow<PsdTools>();
-			window.titleContent = new GUIContent("PSD Tools");
+			window.titleContent = new GUIContent("PSD 导出工具");
 			window.minSize = new Vector2(500, 200);
 			window.Init();
 			window.Show();
@@ -115,7 +103,7 @@ namespace UnityEditor
 		{
 			GUILayout.BeginHorizontal();
 			{
-				GUILayout.Label(label_search, GUILayout.Width(100));
+				GUILayout.Label("搜索：", GUILayout.Width(100));
 
 				index_search = EditorGUILayout.Popup(index_search, text_seacrch);
 
@@ -134,21 +122,17 @@ namespace UnityEditor
 				{
 					GUILayout.Label(label_inputFolder, GUILayout.Width(100));
 
-					rect_inputFolder = EditorGUILayout.GetControlRect(GUILayout.Width(Screen.width - 247));
-
-					input_inputFolder = EditorGUI.TextField(rect_inputFolder, input_inputFolder);
-
-					if ((Event.current.type == EventType.DragUpdated || Event.current.type == EventType.DragExited) && rect_inputFolder.Contains(Event.current.mousePosition))
+					if (GUILayout.Button(input_inputFolder))
 					{
-						DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
+						input_inputFolder = EditorUtility.SaveFolderPanel("输出文件夹", input_inputFolder, string.Empty);
 
-						if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0)
+						if (string.IsNullOrEmpty(input_inputFolder))
 						{
-							input_inputFolder = Application.dataPath + DragAndDrop.paths[0].Remove(0, 6);
+							input_inputFolder = Path.Combine(Application.dataPath.Remove(Application.dataPath.Length - 6, 6), InputPath);
 						}
 					}
 
-					if (GUILayout.Button(label_revise, GUILayout.Width(100)))
+					if (GUILayout.Button("刷新", GUILayout.Width(100)))
 					{
 						inputFolder = input_inputFolder;
 
@@ -162,7 +146,7 @@ namespace UnityEditor
 			{
 				if (search == 1 && node != null && node.Count > 0)
 				{
-					GUILayout.Label(label_inputFolder, GUILayout.Width(100));
+					GUILayout.Label("列表：", GUILayout.Width(100));
 
 					index_searchNode = EditorGUILayout.Popup(index_searchNode, node.ToArray());
 
@@ -178,15 +162,19 @@ namespace UnityEditor
 
 			if (source.Count > 0)
 			{
+				GUILayout.Space(5);
+
+				GUILayout.Box(string.Empty, GUILayout.ExpandWidth(true), GUILayout.Height(3));
+
 				GUILayout.BeginHorizontal();
 				{
 					GUILayout.BeginVertical();
 					{
 						GUILayout.BeginHorizontal();
 						{
-							GUILayout.Label("S", GUILayout.Width(20));
-							GUILayout.Label("Name", GUILayout.Width(120));
-							GUILayout.Label("Path");
+							GUILayout.Label("※", GUILayout.Width(20));
+							GUILayout.Label("名称", GUILayout.Width(120));
+							GUILayout.Label("路径");
 						}
 						GUILayout.EndHorizontal();
 
@@ -196,7 +184,7 @@ namespace UnityEditor
 							{
 								GUILayout.BeginHorizontal();
 								{
-									source[i].select = GUILayout.Toggle(source[i].select, string.Empty, GUILayout.Width(20));
+									source[i].output = GUILayout.Toggle(source[i].output, string.Empty, GUILayout.Width(20));
 									GUILayout.Label(source[i].name, GUILayout.Width(120));
 									GUILayout.Label(source[i].path);
 								}
@@ -207,35 +195,37 @@ namespace UnityEditor
 					}
 					GUILayout.EndVertical();
 
-					GUILayout.Space(15);
+					GUILayout.Box(string.Empty, GUILayout.Width(3), GUILayout.ExpandHeight(true));
+
+					GUILayout.Space(5);
 
 					GUILayout.BeginVertical(GUILayout.Width(100));
 					{
-						GUILayout.Space(20);
+						assetbundle = GUILayout.Toggle(assetbundle, "AssetBundle");
 
-						if (GUILayout.Button(label_convert, GUILayout.Height(40)))
+						if (GUILayout.Button("转换", GUILayout.Height(40)))
 						{
 							Convert();
 						}
 
-						if (GUILayout.Button(label_select + "All"))
+						if (GUILayout.Button("全选"))
 						{
 							Select(true);
 						}
 
-						if (GUILayout.Button(label_select + "None"))
+						if (GUILayout.Button("反选"))
 						{
 							Select(false);
 						}
 
-						if (GUILayout.Button(label_inputFolder))
+						if (GUILayout.Button("输入路径"))
 						{
 							OpenFolder(inputFolder);
 						}
 
-						if (GUILayout.Button(label_outputFolder))
+						if (GUILayout.Button("输出路径"))
 						{
-							OpenFolder(string.Format("{0}/{1}", Application.dataPath, outputFolder));
+							OpenFolder(Path.Combine(Application.dataPath, outputFolder));
 						}
 					}
 					GUILayout.EndVertical();
@@ -254,29 +244,27 @@ namespace UnityEditor
 		{
 			GUILayout.BeginHorizontal();
 			{
-
-			}
-			GUILayout.EndHorizontal();
-
-			GUILayout.BeginHorizontal();
-			{
 				GUILayout.Label(label_outputFolder, GUILayout.Width(100));
 
-				rect_outputFolder = EditorGUILayout.GetControlRect(GUILayout.Width(Screen.width - 247));
-
-				input_outputFolder = EditorGUI.TextField(rect_outputFolder, input_outputFolder);
-
-				if ((Event.current.type == EventType.DragUpdated || Event.current.type == EventType.DragExited) && rect_outputFolder.Contains(Event.current.mousePosition))
+				if (GUILayout.Button(input_outputFolder))
 				{
-					DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
+					input_outputFolder = EditorUtility.SaveFolderPanel("输出文件夹", Path.Combine(Application.dataPath, OutputPath), string.Empty);
 
-					if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0)
+					if (string.IsNullOrEmpty(input_outputFolder))
 					{
-						input_outputFolder = Application.dataPath + DragAndDrop.paths[0].Remove(0, 6);
+						input_outputFolder = OutputPath;
+					}
+					else if (input_outputFolder.StartsWith(Application.dataPath))
+					{
+						input_outputFolder = input_outputFolder.Remove(0, Application.dataPath.Length + 1);
+					}
+					else
+					{
+						input_outputFolder = OutputPath;
 					}
 				}
 
-				if (GUILayout.Button(label_save, GUILayout.Width(100)))
+				if (GUILayout.Button("保存", GUILayout.Width(100)))
 				{
 					outputFolder = input_outputFolder;
 				}
@@ -311,11 +299,11 @@ namespace UnityEditor
 
 							if (path.EndsWith(Extension))
 							{
-								source.Add(new ItemFile()
+								source.Add(new FileItem()
 								{
-									name = FileName(path, Extension),
+									name = Path.GetFileNameWithoutExtension(path),
 									path = Application.dataPath + path.Remove(0, 6),
-									select = true,
+									output = true,
 								});
 							}
 						}
@@ -348,32 +336,29 @@ namespace UnityEditor
 					{
 						DirectoryInfo root = new DirectoryInfo(path);
 
-						foreach (FileInfo file in root.GetFiles())
+						foreach (FileInfo file in root.GetFiles("*.psd", SearchOption.AllDirectories))
 						{
-							if (file.Extension.Equals(Extension))
+							source.Add(new FileItem()
 							{
-								source.Add(new ItemFile()
-								{
-									name = FileName(file.Name, Extension),
-									path = file.FullName,
-									select = true,
-								});
-							}
+								name = Path.GetFileNameWithoutExtension(file.Name),
+								path = file.FullName,
+								output = true,
+							});
 						}
 					}
 					break;
 				default:
-					List<string> searchResult = Find(Application.dataPath, Extension);
-
-					if (searchResult.Count > 0)
+					if (Directory.Exists(Application.dataPath))
 					{
-						foreach (string file in searchResult)
+						DirectoryInfo root = new DirectoryInfo(Application.dataPath);
+
+						foreach (FileInfo file in root.GetFiles("*.psd", SearchOption.AllDirectories))
 						{
-							source.Add(new ItemFile()
+							source.Add(new FileItem()
 							{
-								name = FileName(file, Extension),
-								path = file,
-								select = true,
+								name = Path.GetFileNameWithoutExtension(file.Name),
+								path = file.FullName,
+								output = true,
 							});
 						}
 					}
@@ -385,87 +370,34 @@ namespace UnityEditor
 		{
 			for (int i = 0; i < source.Count; i++)
 			{
-				source[i].select = select;
+				source[i].output = select;
 			}
 		}
 
 		private void Convert()
 		{
-			string folderName = node.Count > index_searchNode ? node[index_searchNode] : string.Empty;
+			string folder = node.Count > index_searchNode ? node[index_searchNode] : string.Empty;
 
-			string path = string.Format("{0}/{1}/{2}", Application.dataPath, outputFolder, folderName);
+			string path = string.Format("{0}/{1}/{2}", Application.dataPath, outputFolder, folder);
 
 			for (int i = 0; i < source.Count; i++)
 			{
-				if (source[i].select)
+				try
 				{
-                    try
-                    {
-						Pfi.PfiImporter.AutoImport(source[i].path, string.Format("{0}/{1}", path, source[i].name));
-					}
-                    catch (Exception e)
-                    {
-                        Debug.LogError(e.Message);
-                    }
-                    finally
-                    {
-
-                    }
-                }
-				AssetDatabase.Refresh();
-			}
-		}
-
-		private List<string> Find(string path, string suffix)
-		{
-			List<string> result = new List<string>();
-
-			Find(path, suffix, ref result);
-
-			return result;
-		}
-
-		private void Find(string path, string suffix, ref List<string> result)
-		{
-			if (Directory.Exists(path))
-			{
-				DirectoryInfo root = new DirectoryInfo(path);
-
-				foreach (FileInfo file in root.GetFiles())
-				{
-					if (file.Extension.Equals(suffix))
-					{
-						result.Add(file.FullName);
-					}
+					Pfi.PfiImporter.AutoImport(source[i].path, string.Format("{0}/{1}", path, source[i].name));
 				}
-
-				string[] dirs = Directory.GetDirectories(path);
-
-				if (dirs.Length > 0)
+				catch (Exception e)
 				{
-					foreach (string dir in dirs)
-					{
-						Find(dir, suffix, ref result);
-					}
+					Debug.LogError(e.Message);
+				}
+				finally
+				{
+
 				}
 			}
-		}
+			AssetDatabase.Refresh();
 
-		private string FileName(string path, string extension)
-		{
-			string[] param = path.Split('/', '\\');
-
-			if (param != null && param.Length > 0)
-			{
-				path = param[param.Length - 1];
-			}
-
-			if (path.EndsWith(extension))
-			{
-				path = path.Remove(path.Length - extension.Length, extension.Length);
-			}
-
-			return path;
+			ShowNotification(new GUIContent("Convert Done!"));
 		}
 
 		private void OpenFolder(string path)
@@ -483,5 +415,14 @@ namespace UnityEditor
 				Debug.LogError("No Directory: " + path);
 			}
 		}
+	}
+
+	public class FileItem
+	{
+		public string name;
+
+		public string path;
+
+		public bool output;
 	}
 }
