@@ -386,7 +386,7 @@ namespace UnityEditor
 				{
 					if (source[i].output)
 					{
-						Pfi.PfiImporter.AutoImport(source[i].path, string.Format("{0}{1}", path, source[i].name));
+						Pfi.PfiImporter.AutoImport(source[i].path, Path.Combine(path, source[i].name));
 					}
 				}
 				catch (Exception e)
