@@ -185,7 +185,7 @@ namespace Pfi
 						psd.sprites.Add(new SpriteInformation()
 						{
 							name = layer.name,
-							sprite = AssetDatabase.LoadAssetAtPath<Texture2D>(string.Format("{0}/{1}.png", path, layer.name)),
+							texture = AssetDatabase.LoadAssetAtPath<Texture2D>(string.Format("{0}/{1}.png", path, layer.name)),
 							position = layer.position,
 							size = new Vector2(layer.texture.width, layer.texture.height),
 							order = i,

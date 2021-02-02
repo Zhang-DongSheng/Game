@@ -10,9 +10,21 @@ namespace Data
 
         public List<PSDInformation> list = new List<PSDInformation>();
 
-        public void OnValidate()
+        public PSDInformation First
         {
-            
+            get 
+            {
+                if (list.Count > 0)
+                {
+                    return list[0];
+                }
+                return null;
+            }
+        }
+
+        public PSDInformation Get(string index)
+        {
+            return list.Find(x => x.name == index);
         }
     }
     [Serializable]
@@ -29,7 +41,7 @@ namespace Data
     {
         public string name;
 
-        public Texture2D sprite;
+        public Texture2D texture;
 
         public Vector2 position;
 
