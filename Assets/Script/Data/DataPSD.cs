@@ -34,6 +34,8 @@ namespace Data
 
         public List<SpriteInformation> sprites = new List<SpriteInformation>();
 
+        public Dictionary<string, List<SpriteInformation>> groups = new Dictionary<string, List<SpriteInformation>>();
+
         public string description;
     }
     [Serializable]
