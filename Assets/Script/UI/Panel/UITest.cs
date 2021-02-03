@@ -8,11 +8,20 @@ namespace Game.UI
 {
     public class UITest : UIBase
     {
+        public RawImage image;
+
         public Button btn_next;
 
         private void Awake()
         {
             btn_next.onClick.AddListener(OnClick);
+        }
+
+        private void Start()
+        {
+            GameLogic.Instance.model.Show();
+
+            image.texture = GameLogic.Instance.model.Texture;
         }
 
         private void Update()
@@ -33,6 +42,8 @@ namespace Game.UI
         private void OnClick()
         {
             //UIManager.Instance.Close(UIKey.UITest);
+
+            GameLogic.Instance.model.Hide();
 
             UIManager.Instance.Open(UIKey.UILogin);
         }

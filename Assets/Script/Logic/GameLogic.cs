@@ -1,14 +1,14 @@
-﻿using Game.UI;
-using System.Collections.Generic;
+﻿using Data;
+using Game.UI;
 using UnityEngine;
-using UnityEngine.UI;
-using Data;
 
 namespace Game
 {
     [ExecuteInEditMode]
     public class GameLogic : MonoSingleton<GameLogic>
     {
+        public Game3DModel model;
+
         public DataLanguage Language { get; private set; }
 
         private void Awake()
@@ -22,6 +22,8 @@ namespace Game
         {
             if (Application.isPlaying)
             {
+                model.Hide();
+
                 UIManager.Instance.Open(UIKey.UILogin);
             }
         }
