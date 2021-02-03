@@ -3,302 +3,173 @@ using UnityEngine;
 
 namespace Game
 {
-    /// <summary>
-    /// 样条曲线。每根样条曲线包含4个控制点
-    /// </summary>
     public class SplineCurves
     {
-        /// <summary>
-        /// 样点数。在点Pk和Pk+1之间，将会生成若干个样点。所以"u"将会从0.00F增长到0.05F.
-        /// </summary>
-        private static readonly int _samplePointCount = 20;
+        private readonly float ratio = 0;
 
-        /// <summary>
-        /// 在基数算法中的t
-        /// </summary>
-        private static readonly float _tension = 0.0F;
+        private readonly int count = 20;
 
-        #region 属性
-        private Vector3 _startControlPoint;
+        private Vector3 origin, destination;
 
-        /// <summary>
-        /// "Pk-1"点(起始控制点)
-        /// </summary>
-        public Vector3 StartControlPoint
-        {
-            get
-            {
-                return this._startControlPoint;
-            }
-            set
-            {
-                this._startControlPoint = value;
-            }
-        }
+        private Vector3 start, end;
 
-        private Vector3 _startPoint;
-        /// <summary>
-        ///  "Pk"点(起始点)
-        /// </summary>
-        public Vector3 StartPoint
-        {
-            get
-            {
-                return this._startPoint;
-            }
-            set
-            {
-                this._startPoint = value;
-            }
-        }
+        private readonly Vector3[] points;
 
-
-
-        private Vector3 _endPoint;
-        /// <summary>
-        /// "Pk+1"点(结束点)
-        /// </summary>
-        public Vector3 EndPoint
-        {
-            get
-            {
-                return this._endPoint;
-            }
-            set
-            {
-                this._endPoint = value;
-            }
-        }
-
-
-        private Vector3 _endControlPoint;
-        /// <summary>
-        /// "Pk+2"点(结束控制点)
-        /// </summary>
-        public Vector3 EndControlPoint
-        {
-            get
-            {
-                return this._endControlPoint;
-            }
-            set
-            {
-                this._endControlPoint = value;
-            }
-        }
-
-
-        private Vector3[] _ctrlPoints;
-        /// <summary>
-        /// 曲线点(控制点及模拟的样点)
-        /// </summary>
-        public Vector3[] CtrlPoints
-        {
-            get
-            {
-                return this._ctrlPoints;
-            }
-        }
-
-
-        private bool _isFirst = false;
-        /// <summary>
-        /// 标识当前样条曲线是否是第一条，如果是m_startControlPoint 和 m_startPoint将会相同。
-        /// 因为在Pk和Pk+1之间需要4个点来决定样条曲线，所以我们需要在Pk-1点前手动添加一个点。
-        /// 这样我们才能在Pk-1和Pk+1之间绘制样条曲线。
-        /// 同样的，最后一根样条曲线的Pk+2点会与它的"Pk+1"点相同，
-        /// 这样我们才能在Pk+1和Pk+2之间绘制样条曲线。
-        /// </summary>
-        public bool IsFirst
-        {
-            get
-            {
-                return this._isFirst;
-            }
-            set
-            {
-                this._isFirst = value;
-            }
-        }
-        #endregion
+        public bool First { get; private set; }
 
         public SplineCurves()
         {
-            _startControlPoint = new Vector3();
-            _startPoint = new Vector3();
-            _endPoint = new Vector3();
-            _endControlPoint = new Vector3();
-            _ctrlPoints = new Vector3[_samplePointCount + 1];
-            for (int i = 0; i < _ctrlPoints.Length; i++)
+            origin = new Vector3();
+
+            destination = new Vector3();
+
+            start = new Vector3();
+
+            end = new Vector3();
+
+            points = new Vector3[count + 1];
+
+            for (int i = 0; i < count; i++)
             {
-                _ctrlPoints[i] = new Vector3();
+                points[i] = new Vector3();
             }
         }
         /// <summary>
-        ///添加关节。将新控制点添加到控制点列表中，并更新前面的样条曲线。
+        /// 添加关节。将新控制点添加到控制点列表中，并更新前面的样条曲线。
         /// </summary>
-        /// <param name="prevSpline">前一根样条曲线</param>
-        /// <param name="currentPoint">当前点</param>
-        public void AddJoint(SplineCurves prevSpline, Vector3 currentPoint)
+        /// <param name="spline">上一条样条曲线</param>
+        /// <param name="point">当前点</param>
+        public void AddJoint(SplineCurves spline, Vector3 point)
         {
-            //前一根样条曲线(prevSpline)为null，说明控制点列表中只有一个点，所以4个控制点样同。
-            //当第2个及之后的控制点添加到控制点列表中时，那第1根样条曲线的Pk+1和Pk+2点需要更新
-            if (null == prevSpline)
+            //前一根样条曲线不为null，所以更新前一根样条曲线的控制点列表，同时更新当前样条曲线的控制点列表。
+            if (spline != null)
             {
-                this._startControlPoint = currentPoint;
-                this._startPoint = currentPoint;
-                this._endPoint = currentPoint;
-                this._endControlPoint = currentPoint;
-                this._isFirst = true;
-            }
-            else//前一根样条曲线不为null，所以更新前一根样条曲线的控制点列表，同时更新当前样条曲线的控制点列表。
-            {
+                
                 //前一根样条曲线是第1根样条曲线，更新它的Pk+1和Pk+2点
-                if (true == prevSpline._isFirst)
+                if (spline.First)
                 {
-                    this._startControlPoint = prevSpline.StartControlPoint;
-                    this._startPoint = prevSpline.StartPoint;
-                    this._endPoint = currentPoint;
-                    this._endControlPoint = currentPoint;
+                    origin = spline.origin;
+                    start = spline.start;
+                    destination = point;
+                    end = point;
                     GenerateSamplePoint();
                     return;
                 }
-                else///前一根样条曲线不是第1根样条曲线，仅更新它的Pk+2点
+                //前一根样条曲线不是第1根样条曲线，仅更新它的Pk+2点
+                else
                 {
-                    prevSpline.EndControlPoint = currentPoint;
-                    prevSpline.GenerateSamplePoint();
-
-                    //模拟当前样条曲线的样点
-                    this._startControlPoint = prevSpline._startPoint;
-                    this._startPoint = prevSpline._endPoint;
-                    this._endPoint = currentPoint;
-                    this._endControlPoint = currentPoint;
+                    spline.destination = point;
                     GenerateSamplePoint();
 
+                    origin = spline.start;
+                    start = spline.end;
+                    destination = point;
+                    end = point;
+                    GenerateSamplePoint();
                 }
             }
-        }
+            //前一根样条曲线spline为null，说明控制点列表中只有一个点，所以4个控制点样同。
+            else
+            {
+                origin = destination = start = end = point;
 
+                First = true;
+            }
+        }
         /// <summary>
         /// 使用基数算法生成样点
         /// </summary>
-        public void GenerateSamplePoint()
+        private void GenerateSamplePoint()
         {
-            Vector3 startControlPoint = this.StartControlPoint;
-            Vector3 startPoint = this.StartPoint;
-            Vector3 endPoint = this.EndPoint;
-            Vector3 endControlPoint = this.EndControlPoint;
-            float step = 1.0F / (float)_samplePointCount;
-            float uValue = 0.00F;
+            float ratio = 1.0f / count;
 
-            for (int i = 0; i < _samplePointCount; i++)
+            float step = 0;
+
+            for (int i = 0; i < count; i++)
             {
-                Vector3 pointNew = GenerateSimulatePoint(uValue, startControlPoint, startPoint, endPoint, endControlPoint);
-                this.CtrlPoints[i] = pointNew;
-                uValue += step;
+                points[i] = GenerateSamplePoint(origin, start, end, destination, step);
+                step += ratio;
             }
-            this.CtrlPoints[_ctrlPoints.Length - 1] = endPoint;
+            points[points.Length - 1] = end;
         }
-        #region GenerateSimulatePoint
         /// <summary>
-        /// 生成曲线模拟点，该点在startPoint和endPoint之间
+        /// 生成曲线模拟点，该点在start和end之间
         /// </summary>
-        /// <param name="u">介于0和1之间的变量</param>
-        /// <param name="startControlPoint">起始点startPoint之前的控制点, 协助确定曲线的外观</param>
-        /// <param name="startPoint">目标曲线的起始点startPoint,当u=0时，返回结果为起始点startPoint</param>
-        /// <param name="endPoint">目标曲线的结束点endPoint, 当u=1时,返回结果为结束点endPoint</param>
-        /// <param name="endControlPoint">在起结点startPoint之后的控制点, 协助确定曲线的外观</param>
-        /// <returns>返回介于startPoint和endPoint的点</returns>
-        private Vector3 GenerateSimulatePoint(float u,
-                                Vector3 startControlPoint,
-                                Vector3 startPoint,
-                                Vector3 endPoint,
-                                Vector3 endControlPoint)
+        /// <param name="origin">起始点start之前的控制点, 协助确定曲线的外观</param>
+        /// <param name="start">目标曲线的起始点start,当step=0时，返回结果为起始点start</param>
+        /// <param name="end">目标曲线的结束点end, 当step=1时,返回结果为结束点end</param>
+        /// <param name="destination">在起结点start之后的控制点, 协助确定曲线的外观</param>
+        /// <param name="step">介于0和1之间的变量</param>
+        /// <returns>返回介于start和end的点</returns>
+        private Vector3 GenerateSamplePoint(Vector3 origin, Vector3 start, Vector3 end, Vector3 destination, float step)
         {
-            float s = (1 - _tension) / 2;
-            Vector3 resultPoint = new Vector3();
-            resultPoint.x = CalculateAxisCoordinate(startControlPoint.x, startPoint.x, endPoint.x, endControlPoint.x, s, u);
-            resultPoint.y = CalculateAxisCoordinate(startControlPoint.y, startPoint.y, endPoint.y, endControlPoint.y, s, u);
-            return resultPoint;
-        }
+            float ratio = (1 - this.ratio) / 2f;
 
+            Vector3 point = new Vector3()
+            {
+                x = CalculateAxisCoordinate(origin.x, start.x, end.x, destination.x, ratio, step),
+
+                y = CalculateAxisCoordinate(origin.y, start.y, end.y, destination.y, ratio, step),
+
+                z = CalculateAxisCoordinate(origin.z, start.z, end.z, destination.z, ratio, step),
+            };
+
+            return point;
+        }
         /// <summary>
         /// 计算轴坐标
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="s"></param>
-        /// <param name="u"></param>
-        /// <returns></returns>
-        private float CalculateAxisCoordinate(float a, float b, float c, float d, float s, float u)
+        private float CalculateAxisCoordinate(float o, float s, float e, float d, float r, float t)
         {
-            float result = 0.0F;
-            result = a * (2 * s * u * u - s * u * u * u - s * u)
-                   + b * ((2 - s) * u * u * u + (s - 3) * u * u + 1)
-                   + c * ((s - 2) * u * u * u + (3 - 2 * s) * u * u + s * u)
-                   + d * (s * u * u * u - s * u * u);
-            return result;
+            return o * (2 * r * t * t - r * t * t * t - r * t)
+                   + s * ((2 - r) * t * t * t + (r - 3) * t * t + 1)
+                   + e * ((r - 2) * t * t * t + (3 - 2 * r) * t * t + r * t)
+                   + d * (r * t * t * t - r * t * t);
         }
         /// <summary>
-        /// 绘制样条曲线
+        /// 获取样条曲线
         /// </summary>
-        public void Draw()
+        /// <param name="points">基准点</param>
+        /// <returns>样条曲线</returns>
+        public static List<Vector3> FetchPoints(params Vector3[] points)
         {
-            for (int i = 0; i < _ctrlPoints.Length - 1; i++)
-            {
-                Gizmos.DrawLine(_ctrlPoints[i], _ctrlPoints[i + 1]);
-            }
-        }
-        #endregion
+            if (points == null || points.Length == 0) return null;
 
-        /// <summary>
-        /// 获取样条曲线上的点
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="pen"></param>
-        /// <param name="points"></param>
-        public static List<Vector3> FetchPoints(Vector3[] points)
-        {
-            if (points == null || points.Length <= 0)
+            List<SplineCurves> splines = new List<SplineCurves>();
+
+            SplineCurves current, pre;
+
+            for (int i = 0; i < points.Length; i++)
             {
-                return null;
-            }
-            List<SplineCurves> _splines = new List<SplineCurves>();
-            SplineCurves splineNew = null;
-            SplineCurves lastNew = null;
-            foreach (Vector3 nowPoint in points)
-            {
-                if (null == _splines || 0 == _splines.Count)
+                if (i == 0)
                 {
-                    splineNew = new SplineCurves();
-                    splineNew.AddJoint(null, nowPoint);
-                    _splines.Add(splineNew);
+                    current = new SplineCurves();
+                    current.AddJoint(null, points[i]);
+                    splines.Add(current);
                 }
                 else
                 {
-                    splineNew = new SplineCurves();
-                    lastNew = _splines[_splines.Count - 1] as SplineCurves;
-                    splineNew.AddJoint(lastNew, nowPoint);
-                    _splines.Add(splineNew);
-                };
+                    current = new SplineCurves();
+                    pre = splines[splines.Count - 1];
+                    current.AddJoint(pre, points[i]);
+                    splines.Add(current);
+                }
             }
 
             List<Vector3> _points = new List<Vector3>();
-            foreach (SplineCurves spline in _splines)
+
+            foreach (SplineCurves spline in splines)
             {
-                if (spline.IsFirst)
+                if (spline.First)
                 {
                     continue;
                 }
-                foreach (Vector3 point in spline.CtrlPoints)
+                foreach (Vector3 point in spline.points)
                 {
                     if (_points.Contains(point))
                     {
                         continue;
                     }
-
                     _points.Add(point);
                 }
             }

@@ -22,38 +22,9 @@ namespace TEST
 
         private readonly List<Vector3> nodes = new List<Vector3>();
 
-        private readonly List<SplineCurves> scs = new List<SplineCurves>();
-
         private void OnValidate()
         {
-            Compute();
-        }
-
-        private void Compute()
-        {
-            scs.Clear();
-
-            if (points != null && points.Count > 1)
-            {
-                SplineCurves spline, pre;
-
-                for (int i = 0; i < points.Count; i++)
-                {
-                    if (scs.Count == 0)
-                    {
-                        spline = new SplineCurves();
-                        spline.AddJoint(null, points[i]);
-                        scs.Add(spline);
-                    }
-                    else
-                    {
-                        spline = new SplineCurves();
-                        pre = scs[scs.Count - 1];
-                        spline.AddJoint(pre, points[i]);
-                        scs.Add(spline);
-                    }
-                }
-            }
+            
         }
 
         private void OnDrawGizmos()
@@ -89,6 +60,10 @@ namespace TEST
                 case CurvesTpye.Spline:
                     if (points == null || points.Count < 3) return;
 
+                    nodes.Clear();
+
+                    nodes.AddRange(SplineCurves.FetchPoints(points.ToArray()));
+
                     Gizmos.color = Color.green;
 
                     for (int i = 0; i < points.Count; i++)
@@ -98,13 +73,9 @@ namespace TEST
 
                     Gizmos.color = Color.yellow;
 
-                    for (int i = 1; i < scs.Count; i++)
+                    for (int i = 1; i < nodes.Count; i++)
                     {
-                        if (i == 0)
-                        {
-                            continue;
-                        }
-                        scs[i].Draw();
+                        Gizmos.DrawLine(nodes[i - 1], nodes[i]);
                     }
                     break;
             }
