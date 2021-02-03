@@ -1,71 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SplineTest
+namespace Game
 {
-    public class StudySplineCurves : MonoBehaviour
-    {
-        [SerializeField] private List<Vector3> points;
-
-        private readonly List<SplineCurves> nodes = new List<SplineCurves>();
-
-        private void OnValidate()
-        {
-            Compute();
-        }
-
-        private void Compute()
-        {
-            nodes.Clear();
-
-            if (points != null && points.Count > 1)
-            {
-                SplineCurves spline, pre;
-
-                for (int i = 0; i < points.Count; i++)
-                {
-                    if (nodes.Count == 0)
-                    {
-                        spline = new SplineCurves();
-                        spline.AddJoint(null, points[i]);
-                        nodes.Add(spline);
-                    }
-                    else
-                    {
-                        spline = new SplineCurves();
-                        pre = nodes[nodes.Count - 1];
-                        spline.AddJoint(pre, points[i]);
-                        nodes.Add(spline);
-                    }
-                }
-            }
-        }
-
-        private void OnDrawGizmos()
-        {
-            if (points == null || points.Count < 3) return;
-
-            Gizmos.color = Color.green;
-
-            for (int i = 0; i < points.Count; i++)
-            {
-                Gizmos.DrawSphere(points[i], 1);
-            }
-
-            Gizmos.color = Color.yellow;
-
-            for (int i = 1; i < nodes.Count; i++)
-            {
-                if (i == 0)
-                {
-                    continue;
-                }
-                nodes[i].Draw();
-            }
-        }
-    }
-
-    /// <summary>    
+    /// <summary>
     /// 样条曲线。每根样条曲线包含4个控制点
     /// </summary>
     public class SplineCurves
@@ -79,7 +17,6 @@ namespace SplineTest
         /// 在基数算法中的t
         /// </summary>
         private static readonly float _tension = 0.0F;
-
 
         #region 属性
         private Vector3 _startControlPoint;

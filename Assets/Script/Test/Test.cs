@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game
+namespace TEST
 {
     public class Test : MonoBehaviour
     {
