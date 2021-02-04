@@ -46,7 +46,6 @@ namespace Game
             //前一根样条曲线不为null，所以更新前一根样条曲线的控制点列表，同时更新当前样条曲线的控制点列表。
             if (spline != null)
             {
-
                 //前一根样条曲线是第1根样条曲线，更新它的Pk+1和Pk+2点
                 if (spline.First)
                 {

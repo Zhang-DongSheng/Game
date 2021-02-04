@@ -17,7 +17,7 @@ namespace TEST
 
         [SerializeField] private List<Vector3> points;
 
-        [SerializeField, Range(1, 30)] private int ratio;
+        [SerializeField, Range(1, 25)] private int ratio;
 
         private readonly List<Vector3> nodes = new List<Vector3>();
 
