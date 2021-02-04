@@ -64,6 +64,7 @@ namespace Game
                     curves.Add(Bezier((float)(i * ratio + j) / count, points));
                 }
             }
+            curves.Add(points[points.Length - 1]);
 
             return curves;
         }
