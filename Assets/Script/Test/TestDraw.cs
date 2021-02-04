@@ -7,77 +7,56 @@ namespace TEST
     public class TestDraw : MonoBehaviour
     {
         enum CurvesTpye
-        { 
+        {
             Bezier,
             Spline,
+            Spline2,
         }
 
         [SerializeField] private CurvesTpye type;
 
         [SerializeField] private List<Vector3> points;
 
-        [SerializeField, Range(1, 10)] private int ratio;
-
-        private int count;
+        [SerializeField, Range(1, 30)] private int ratio;
 
         private readonly List<Vector3> nodes = new List<Vector3>();
 
         private void OnValidate()
         {
-            
+            if (points == null || points.Count < 3) return;
+
+            nodes.Clear();
+
+            switch (type)
+            {
+                case CurvesTpye.Bezier:
+                    nodes.AddRange(BezierCurves.FetchCurves(ratio, points.ToArray()));
+                    break;
+                case CurvesTpye.Spline:
+                    nodes.AddRange(SplineCurves.FetchCurves(ratio, points.ToArray()));
+                    break;
+                case CurvesTpye.Spline2:
+                    nodes.AddRange(SplineCurves2.FetchCurves(ratio, points.ToArray()));
+                    break;
+            }
         }
 
         private void OnDrawGizmos()
         {
-            switch (type)
+            if (points == null) return;
+
+            Gizmos.color = Color.green;
+
+            for (int i = 0; i < points.Count; i++)
             {
-                case CurvesTpye.Bezier:
-                    if (points.Count < 3) return;
+                Gizmos.DrawSphere(points[i], 1);
+            }
 
-                    Gizmos.color = Color.green;
+            Gizmos.color = Color.yellow;
 
-                    nodes.Clear();
-
-                    count = points.Count * ratio;
-
-                    for (int i = 0; i < points.Count; i++)
-                    {
-                        Gizmos.DrawSphere(points[i], 1);
-
-                        for (int j = 0; j < ratio; j++)
-                        {
-                            nodes.Add(BezierCurves.Bezier((float)(i * ratio + j) / count, points));
-                        }
-                    }
-
-                    Gizmos.color = Color.yellow;
-
-                    for (int i = 1; i < nodes.Count; i++)
-                    {
-                        Gizmos.DrawLine(nodes[i - 1], nodes[i]);
-                    }
-                    break;
-                case CurvesTpye.Spline:
-                    if (points == null || points.Count < 3) return;
-
-                    nodes.Clear();
-
-                    nodes.AddRange(SplineCurves.FetchPoints(points.ToArray()));
-
-                    Gizmos.color = Color.green;
-
-                    for (int i = 0; i < points.Count; i++)
-                    {
-                        Gizmos.DrawSphere(points[i], 1);
-                    }
-
-                    Gizmos.color = Color.yellow;
-
-                    for (int i = 1; i < nodes.Count; i++)
-                    {
-                        Gizmos.DrawLine(nodes[i - 1], nodes[i]);
-                    }
-                    break;
+            for (int i = 1; i < nodes.Count; i++)
+            {
+                Gizmos.DrawLine(nodes[i - 1], nodes[i]);
             }
         }
     }

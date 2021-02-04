@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game
 {
@@ -37,18 +37,35 @@ namespace Game
             return Vector3.Lerp(p0p1p2, p1p2p3, t);
         }
 
-        public static Vector3 Bezier(float t, List<Vector3> p)
+        public static Vector3 Bezier(float t, params Vector3[] points)
         {
-            if (p.Count <= 1) return p[0];
+            if (points.Length <= 1) return points[0];
 
-            List<Vector3> newP = new List<Vector3>();
+            Vector3[] newP = new Vector3[points.Length - 1];
 
-            for (int i = 1; i < p.Count; i++)
+            for (int i = 1; i < points.Length; i++)
             {
-                newP.Add(Vector3.Lerp(p[i - 1], p[i], t));
+                newP[i - 1] = Vector3.Lerp(points[i - 1], points[i], t);
             }
 
             return Bezier(t, newP);
+        }
+
+        public static List<Vector3> FetchCurves(int ratio, params Vector3[] points)
+        {
+            List<Vector3> curves = new List<Vector3>();
+
+            int count = points.Length * ratio;
+
+            for (int i = 0; i < points.Length; i++)
+            {
+                for (int j = 0; j < ratio; j++)
+                {
+                    curves.Add(Bezier((float)(i * ratio + j) / count, points));
+                }
+            }
+
+            return curves;
         }
     }
 }

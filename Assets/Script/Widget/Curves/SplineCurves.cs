@@ -5,9 +5,7 @@ namespace Game
 {
     public class SplineCurves
     {
-        private readonly float ratio = 0;
-
-        private readonly int count = 20;
+        private readonly float coefficient = 0;
 
         private Vector3 origin, destination;
 
@@ -15,10 +13,14 @@ namespace Game
 
         private readonly Vector3[] points;
 
+        private readonly int ratio;
+
         public bool First { get; private set; }
 
-        public SplineCurves()
+        public SplineCurves(int ratio)
         {
+            this.ratio = ratio;
+
             origin = new Vector3();
 
             destination = new Vector3();
@@ -27,9 +29,9 @@ namespace Game
 
             end = new Vector3();
 
-            points = new Vector3[count + 1];
+            points = new Vector3[this.ratio + 1];
 
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < this.ratio; i++)
             {
                 points[i] = new Vector3();
             }
@@ -44,7 +46,7 @@ namespace Game
             //前一根样条曲线不为null，所以更新前一根样条曲线的控制点列表，同时更新当前样条曲线的控制点列表。
             if (spline != null)
             {
-                
+
                 //前一根样条曲线是第1根样条曲线，更新它的Pk+1和Pk+2点
                 if (spline.First)
                 {
@@ -81,11 +83,11 @@ namespace Game
         /// </summary>
         private void GenerateSamplePoint()
         {
-            float ratio = 1.0f / count;
+            float ratio = 1.0f / this.ratio;
 
             float step = 0;
 
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < this.ratio; i++)
             {
                 points[i] = GenerateSamplePoint(origin, start, end, destination, step);
                 step += ratio;
@@ -103,7 +105,7 @@ namespace Game
         /// <returns>返回介于start和end的点</returns>
         private Vector3 GenerateSamplePoint(Vector3 origin, Vector3 start, Vector3 end, Vector3 destination, float step)
         {
-            float ratio = (1 - this.ratio) / 2f;
+            float ratio = (1 - this.coefficient) / 2f;
 
             Vector3 point = new Vector3()
             {
@@ -131,7 +133,7 @@ namespace Game
         /// </summary>
         /// <param name="points">基准点</param>
         /// <returns>样条曲线</returns>
-        public static List<Vector3> FetchPoints(params Vector3[] points)
+        public static List<Vector3> FetchCurves(int ratio, params Vector3[] points)
         {
             if (points == null || points.Length == 0) return null;
 
@@ -143,20 +145,20 @@ namespace Game
             {
                 if (i == 0)
                 {
-                    current = new SplineCurves();
+                    current = new SplineCurves(ratio);
                     current.AddJoint(null, points[i]);
                     splines.Add(current);
                 }
                 else
                 {
-                    current = new SplineCurves();
+                    current = new SplineCurves(ratio);
                     pre = splines[splines.Count - 1];
                     current.AddJoint(pre, points[i]);
                     splines.Add(current);
                 }
             }
 
-            List<Vector3> _points = new List<Vector3>();
+            List<Vector3> curves = new List<Vector3>();
 
             foreach (SplineCurves spline in splines)
             {
@@ -166,14 +168,14 @@ namespace Game
                 }
                 foreach (Vector3 point in spline.points)
                 {
-                    if (_points.Contains(point))
+                    if (curves.Contains(point))
                     {
                         continue;
                     }
-                    _points.Add(point);
+                    curves.Add(point);
                 }
             }
-            return _points;
+            return curves;
         }
     }
 }
