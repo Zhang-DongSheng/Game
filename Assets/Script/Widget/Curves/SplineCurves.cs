@@ -11,15 +11,15 @@ namespace Game
 
         private Vector3 start, end;
 
-        private readonly Vector3[] points;
+        private readonly int multiple;
 
-        private readonly int ratio;
+        private readonly Vector3[] points;
 
         public bool First { get; private set; }
 
         public SplineCurves(int ratio)
         {
-            this.ratio = ratio;
+            multiple = ratio;
 
             origin = new Vector3();
 
@@ -29,9 +29,9 @@ namespace Game
 
             end = new Vector3();
 
-            points = new Vector3[this.ratio + 1];
+            points = new Vector3[multiple + 1];
 
-            for (int i = 0; i < this.ratio; i++)
+            for (int i = 0; i < multiple; i++)
             {
                 points[i] = new Vector3();
             }
@@ -51,8 +51,8 @@ namespace Game
                 {
                     origin = spline.origin;
                     start = spline.start;
-                    destination = point;
                     end = point;
+                    destination = point;
                     GenerateSamplePoint();
                     return;
                 }
@@ -60,20 +60,22 @@ namespace Game
                 else
                 {
                     spline.destination = point;
-                    GenerateSamplePoint();
+                    spline.GenerateSamplePoint();
 
                     origin = spline.start;
                     start = spline.end;
-                    destination = point;
                     end = point;
+                    destination = point;
                     GenerateSamplePoint();
                 }
             }
             //前一根样条曲线spline为null，说明控制点列表中只有一个点，所以4个控制点样同。
             else
             {
-                origin = destination = start = end = point;
-
+                origin = point;
+                start = point;
+                end = point;
+                destination = point;
                 First = true;
             }
         }
@@ -82,11 +84,11 @@ namespace Game
         /// </summary>
         private void GenerateSamplePoint()
         {
-            float ratio = 1.0f / this.ratio;
+            float ratio = 1.0f / multiple;
 
             float step = 0;
 
-            for (int i = 0; i < this.ratio; i++)
+            for (int i = 0; i < multiple; i++)
             {
                 points[i] = GenerateSamplePoint(origin, start, end, destination, step);
                 step += ratio;
@@ -140,19 +142,19 @@ namespace Game
 
             SplineCurves current, pre;
 
-            for (int i = 0; i < points.Length; i++)
+            foreach (var point in points)
             {
-                if (i == 0)
+                if (splines.Count == 0)
                 {
                     current = new SplineCurves(ratio);
-                    current.AddJoint(null, points[i]);
+                    current.AddJoint(null, point);
                     splines.Add(current);
                 }
                 else
                 {
                     current = new SplineCurves(ratio);
                     pre = splines[splines.Count - 1];
-                    current.AddJoint(pre, points[i]);
+                    current.AddJoint(pre, point);
                     splines.Add(current);
                 }
             }
