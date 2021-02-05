@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
 
-public partial class Extension
+public static partial class Extension
 {
     private const char special = '#';
 

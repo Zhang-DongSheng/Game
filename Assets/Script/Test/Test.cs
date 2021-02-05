@@ -6,7 +6,7 @@ namespace TEST
 {
     public class Test : MonoBehaviour
     {
-        public TextRunningHorseLamp text;
+        public Animation anima;
 
         private void Awake()
         {
@@ -15,7 +15,23 @@ namespace TEST
 
         private void Start()
         {
-            text.Text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";// ("AAAABCD<emoji=walking0001/>HLH<emoji=walking0002/>TTTTTTTAAAABCD<emoji=walking0001/>HLH<emoji=walking0002/>zzz");
+            //anima.RegisterBeginEvent(() =>
+            //{
+            //    Debug.LogError("接受成功");
+            //});
+            //anima.Play();
+
+            //anima.RegisterEvent(1.2f,() =>
+            //{
+            //    Debug.LogError("接受成功");
+            //});
+            //anima.Play();
+
+            anima.RegisterEndEvent(() =>
+             {
+                 Debug.LogError("接受成功");
+             });
+            anima.Play();
         }
 
         private void Update()
