@@ -13,9 +13,9 @@ namespace Game.UI
 
         [SerializeField] private Button btn_login;
 
-        private readonly Regex regexAccount = new Regex("");
+        private readonly Regex regexAccount = new Regex(@"^[A-Za-z0-9]{3,15}$");
 
-        private readonly Regex regexPassword = new Regex("");
+        private readonly Regex regexPassword = new Regex(@"^.*(?=.{6,15})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$");
 
         private string account, password;
 
@@ -52,16 +52,24 @@ namespace Game.UI
 
         private void OnValueChangedAccount(string value)
         {
+            input_account.textComponent.color = Color.red;
+
             if (regexAccount.IsMatch(value))
             {
+                input_account.textComponent.color = Color.black;
+
                 account = value;
             }
         }
 
         private void OnValueChangedPassword(string value)
         {
+            input_password.textComponent.color = Color.red;
+
             if (regexPassword.IsMatch(value))
             {
+                input_password.textComponent.color = Color.black;
+
                 password = value;
             }
         }
