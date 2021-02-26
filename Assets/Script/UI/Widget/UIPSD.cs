@@ -1,17 +1,17 @@
 using Data;
-using Game.UI;
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace UnityEngine.UI
+namespace Game.UI
 {
     [DisallowMultipleComponent]
-    public class UIPSD : MonoBehaviour
+    public class UIPsd : MonoBehaviour
     {
         [SerializeField] private DataPSD source;
 
         [SerializeField] private ParentAndPrefab prefab;
 
-        private readonly List<ItemPSD> items = new List<ItemPSD>();
+        private readonly List<ItemPsd> items = new List<ItemPsd>();
 
         public PSDInformation config { get; set; }
 
@@ -30,7 +30,7 @@ namespace UnityEngine.UI
             {
                 if (i >= items.Count)
                 {
-                    items.Add(prefab.Create<ItemPSD>());
+                    items.Add(prefab.Create<ItemPsd>());
                 }
                 items[i].Refresh(config.sprites[i]);
             }

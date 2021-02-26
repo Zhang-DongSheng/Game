@@ -1,12 +1,11 @@
 using Data;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace UnityEngine.UI
+namespace Game.UI
 {
     [RequireComponent(typeof(RawImage))]
-    public class ItemPSD : MonoBehaviour
+    public class ItemPsd : MonoBehaviour
     {
         [SerializeField] private RectTransform target;
 
