@@ -50,23 +50,35 @@ namespace TEST
             {
                 GUILayout.Label(key, GUILayout.Width(50));
 
-                if (int.TryParse(GUILayout.TextField(list.Count.ToString()), out int count))
+                if (!int.TryParse(GUILayout.TextField(list.Count.ToString()), out int count))
                 {
-                    if (list.Count != count)
+                    count = 0;
+                }
+
+                if (GUILayout.Button("-", GUILayout.Width(30)))
+                {
+                    count--;
+                }
+
+                if (GUILayout.Button("+", GUILayout.Width(30)))
+                {
+                    count++;
+                }
+
+                if (list.Count != count)
+                {
+                    if (list.Count < count)
                     {
-                        if (list.Count < count)
+                        while (list.Count < count)
                         {
-                            while (list.Count < count)
-                            {
-                                list.Add(string.Empty);
-                            }
+                            list.Add(string.Empty);
                         }
-                        else
+                    }
+                    else
+                    {
+                        while (list.Count > count)
                         {
-                            while (list.Count > count)
-                            {
-                                list.RemoveAt(list.Count - 1);
-                            }
+                            list.RemoveAt(list.Count - 1);
                         }
                     }
                 }
@@ -77,9 +89,9 @@ namespace TEST
             {
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Space(20);
+                    GUILayout.Space(10);
 
-                    GUILayout.Label(i.ToString(), GUILayout.Width(20));
+                    GUILayout.Label(string.Format("※{0}", i), GUILayout.Width(30));
 
                     list[i] = GUILayout.TextField(list[i].ToString());
                 }
