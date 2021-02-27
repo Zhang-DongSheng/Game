@@ -56,8 +56,6 @@ namespace UnityEditor
 
         private void Init()
         {
-            //QCloudCosSdk.Init();
-
             InitFolder();
 
             UpdateFolder();

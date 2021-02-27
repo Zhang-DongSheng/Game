@@ -177,6 +177,7 @@ namespace Game.UI
     {
         None,
         UILogin,
+        UILoading,
         UIMain,
         UITest,
         UIConfirm,

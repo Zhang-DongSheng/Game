@@ -7,19 +7,16 @@ namespace Game
     {
         public void RequestLogin(JsonData json)
         {
-            string account = json.GetString("account");
-
-            string password = json.GetString("password");
-
-            if (account.Length == 3 && password.Length == 6)
-            {
-                OnReceivedLogin();
-            }
+            OnReceivedLogin();
         }
 
         private void OnReceivedLogin()
         {
             EventMessageArgs args = new EventMessageArgs();
+
+            args.AddOrReplaceMessage("status", true);
+
+            args.AddOrReplaceMessage("message", "");
 
             EventManager.PostEvent(EventKey.Login, args);
         }

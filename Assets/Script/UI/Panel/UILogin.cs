@@ -7,6 +7,10 @@ namespace Game.UI
 {
     public class UILogin : UIBase
     {
+        private const string ACCOUNT = "ACCOUNT";
+
+        private const string PASSWORD = "PASSWORD";
+
         [SerializeField] private InputField input_account;
 
         [SerializeField] private InputField input_password;
@@ -40,14 +44,29 @@ namespace Game.UI
 
         private void Start()
         {
-            input_account.text = LocalManager.GetString("ACCOUNT");
+            input_account.text = LocalManager.GetString(ACCOUNT);
 
-            input_password.text = LocalManager.GetString("PASSWORD");
+            input_password.text = LocalManager.GetString(PASSWORD);
         }
 
         private void OnReceivedLogin(EventMessageArgs args)
         {
-            UIManager.Instance.Open(UIKey.UIMain);
+            bool status = args.GetMessage<bool>("status");
+
+            if (status)
+            {
+                LocalManager.SetString(ACCOUNT, account);
+
+                LocalManager.SetString(PASSWORD, password);
+
+                UIManager.Instance.Open(UIKey.UILoading);
+            }
+            else
+            {
+                string error = args.GetMessage<string>("message");
+
+                UIQuickEntry.OpenUINotice(error);
+            }
         }
 
         private void OnValueChangedAccount(string value)
