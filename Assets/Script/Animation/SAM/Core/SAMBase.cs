@@ -116,7 +116,7 @@ namespace UnityEngine.SAM
             }
             else
             {
-                return Mathf.Max(step, Config.ZERO);
+                return Mathf.Max(Config.ONE - step, Config.ZERO);
             }
         }
 
