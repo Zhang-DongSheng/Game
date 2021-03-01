@@ -12,9 +12,13 @@ namespace Game.UI
 
         public Button btn_next;
 
+        public ToggleGroupHelper toggle;
+
         private void Awake()
         {
             btn_next.onClick.AddListener(OnClick);
+
+            toggle.OnClick.AddListener(OnClickToggle);
         }
 
         private void Start()
@@ -46,6 +50,11 @@ namespace Game.UI
             GameLogic.Instance.model.Hide();
 
             UIManager.Instance.Open(UIKey.UILogin);
+        }
+
+        private void OnClickToggle(int index)
+        {
+            Debug.LogError(index);
         }
     }
 }

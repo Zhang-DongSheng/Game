@@ -14,7 +14,7 @@ namespace UnityEngine.SAM
             {
                 step += Time.deltaTime * speed;
 
-                Transition(step);
+                Transition(Format(forward, step));
 
                 if (step >= Config.ONE)
                 {

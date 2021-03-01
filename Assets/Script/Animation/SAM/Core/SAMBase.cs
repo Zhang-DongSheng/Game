@@ -108,6 +108,18 @@ namespace UnityEngine.SAM
             Transition(step = 0);
         }
 
+        public virtual float Format(bool forward, float step)
+        {
+            if (forward)
+            {
+                return Mathf.Min(step, Config.ONE);
+            }
+            else
+            {
+                return Mathf.Max(step, Config.ZERO);
+            }
+        }
+
         public bool Enable { get { return enable; } set { enable = value; } }
 
         protected virtual void SetActive(bool active)

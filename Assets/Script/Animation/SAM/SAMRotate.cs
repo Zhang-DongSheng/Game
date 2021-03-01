@@ -17,14 +17,14 @@
                 switch (circle)
                 {
                     case Circle.Once:
-                        Transition(forward ? step : 1 - step);
+                        Transition(Format(forward, step));
                         if (step >= Config.ONE)
                         {
                             Completed();
                         }
                         break;
                     case Circle.PingPong:
-                        Transition(forward ? step : 1 - step);
+                        Transition(Format(forward, step));
                         if (step >= Config.ONE)
                         {
                             step = Config.ZERO; forward = !forward;

@@ -14,7 +14,7 @@
             {
                 step += Time.deltaTime * speed;
 
-                Transition(forward ? step : 1 - step);
+                Transition(Format(forward, step));
 
                 if (step >= Config.ONE)
                 {

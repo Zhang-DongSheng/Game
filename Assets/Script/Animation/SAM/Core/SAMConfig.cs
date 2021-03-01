@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine.UI;
 
 namespace UnityEngine.SAM
 {
@@ -11,6 +12,19 @@ namespace UnityEngine.SAM
         public const int Ninety = 90;
 
         public const float SPEED = 6f;
+    }
+    /// <summary>
+    /// 状态区间
+    /// </summary>
+    [Serializable]
+    public struct BoolInterval
+    {
+        public bool origin, destination;
+
+        public bool Lerp(float value)
+        {
+            return value != 0 ? destination : origin;
+        }
     }
     /// <summary>
     /// 浮点区间

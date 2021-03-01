@@ -15,7 +15,7 @@ namespace Game.UI
 
         private void Awake()
         {
-            ing = true;
+            Ready();
         }
 
         private void Update()
@@ -26,23 +26,28 @@ namespace Game.UI
 
                 if (step < 1)
                 {
-                    OnChanged(step);
+                    Run(step);
                 }
                 else
                 {
-                    OnCompleted();
+                    Completed();
                 }
 
                 ing = step < 1;
             }
         }
 
-        private void OnChanged(float value)
+        public void Ready()
+        {
+            step = 0; ing = true;
+        }
+
+        private void Run(float value)
         {
             progress.value = value;
         }
 
-        private void OnCompleted()
+        private void Completed()
         {
             UIManager.Instance.Open(UIKey.UIMain);
         }
