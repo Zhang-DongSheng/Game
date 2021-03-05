@@ -1,5 +1,6 @@
 ﻿using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SAM;
 
 namespace UnityEngine
 {
@@ -12,9 +13,13 @@ namespace UnityEngine
 
         [SerializeField] private TouchType touchType;
 
-        [SerializeField] private TouchParameter origin;
+        [SerializeField] private Vector2Interval position;
 
-        [SerializeField] private TouchParameter destination;
+        [SerializeField] private Vector3Interval rotation;
+
+        [SerializeField] private Vector3Interval scale = Vector3Interval.One;
+
+        [SerializeField] private ColorInterval color = ColorInterval.White;
 
         [SerializeField] private AnimationCurve curve = new AnimationCurve(new Keyframe(0f, 0f, 0f, 1f), new Keyframe(1f, 1f, 1f, 0f));
 
@@ -23,8 +28,6 @@ namespace UnityEngine
         [SerializeField] private float time = 1;
 
         [SerializeField, Range(0, 1)] private float step;
-
-        private Color color;
 
         private float progress;
 
@@ -185,19 +188,15 @@ namespace UnityEngine
         {
             progress = curve.Evaluate(step);
 
-            target.localPosition = Vector3.Lerp(origin.position, destination.position, progress);
+            target.localPosition = position.Lerp(progress);
 
-            target.localEulerAngles = Vector3.Lerp(origin.rotation, destination.rotation, progress);
+            target.localEulerAngles = rotation.Lerp(progress);
 
-            target.localScale = Vector3.Lerp(origin.scale, destination.scale, progress);
+            target.localScale = scale.Lerp(progress);
 
             if (graphic != null)
             {
-                color = Color.Lerp(origin.color, destination.color, progress);
-
-                color.a = Mathf.Lerp(origin.alpha, destination.alpha, progress);
-
-                graphic.color = color;
+                graphic.color = color.Lerp(progress);
             }
         }
 
@@ -220,20 +219,6 @@ namespace UnityEngine
             Press,
             Drag,
             Through,
-        }
-
-        [System.Serializable]
-        class TouchParameter
-        {
-            public Vector3 position = Vector3.zero;
-
-            public Vector3 rotation = Vector3.zero;
-
-            public Vector3 scale = Vector3.one;
-
-            public Color color = Color.white;
-
-            [Range(0, 1)] public float alpha = 1;
         }
     }
 }

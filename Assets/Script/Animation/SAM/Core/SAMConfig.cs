@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine.UI;
 
 namespace UnityEngine.SAM
 {
@@ -43,6 +42,10 @@ namespace UnityEngine.SAM
         {
             return Mathf.Lerp(origin, destination, Random.Range(0, 1f));
         }
+
+        public static FloatInterval Zero { get { return new FloatInterval { origin = 1, destination = 1 }; } }
+
+        public static FloatInterval One { get { return new FloatInterval { origin = 0, destination = 0 }; } }
     }
     /// <summary>
     /// 2维向量区间
@@ -61,6 +64,10 @@ namespace UnityEngine.SAM
         {
             return Vector2.Lerp(origin, destination, Random.Range(0, 1f));
         }
+
+        public static Vector2Interval Zero { get { return new Vector2Interval { origin = Vector2.zero, destination = Vector2.zero }; } }
+
+        public static Vector2Interval One { get { return new Vector2Interval { origin = Vector2.one, destination = Vector2.one }; } }
     }
     /// <summary>
     /// 向量区间
@@ -79,6 +86,10 @@ namespace UnityEngine.SAM
         {
             return Vector3.Lerp(origin, destination, Random.Range(0, 1f));
         }
+
+        public static Vector3Interval Zero { get { return new Vector3Interval { origin = Vector3.zero, destination = Vector3.zero }; } }
+
+        public static Vector3Interval One { get { return new Vector3Interval { origin = Vector3.one, destination = Vector3.one }; } }
     }
     /// <summary>
     /// 颜色区间
@@ -97,6 +108,10 @@ namespace UnityEngine.SAM
         {
             return Color.Lerp(origin, destination, Random.Range(0, 1f));
         }
+
+        public static ColorInterval White { get { return new ColorInterval { origin = Color.white, destination = Color.white }; } }
+
+        public static ColorInterval Balck { get { return new ColorInterval { origin = Color.black, destination = Color.black }; } }
     }
     /// <summary>
     /// 状态
