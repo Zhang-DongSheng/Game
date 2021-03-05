@@ -1,22 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.SAM;
 
 namespace UnityEngine.UI
 {
-    [RequireComponent(typeof(Slider))]
-    public class SliderHelper : MonoBehaviour
+    [RequireComponent(typeof(SAMAction))]
+    public class SliderHelper : Slider
     {
-        private Slider slider;
+        private new SAMAction animation;
 
-        private void Awake()
+        private FloatInterval interval = new FloatInterval();
+
+        protected override void Awake()
         {
-            slider = GetComponent<Slider>();
+            if (TryGetComponent(out animation))
+            {
+                animation.callback = OnAnimation;
+            }
         }
 
-        private void OnValueChange()
-        { 
-            
+        private void OnAnimation(float value)
+        {
+            this.value = interval.Lerp(value);
+        }
+
+        public void Play(float target)
+        {
+            interval.origin = value;
+
+            interval.destination = target;
+
+            animation.Begin(true);
         }
     }
 }

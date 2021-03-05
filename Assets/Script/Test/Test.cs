@@ -6,7 +6,7 @@ namespace TEST
 {
     public class Test : MonoBehaviour
     {
-        public Animation anima;
+        public SliderHelper slider;
 
         private void Awake()
         {
@@ -27,16 +27,19 @@ namespace TEST
             //});
             //anima.Play();
 
-            anima.RegisterEndEvent(() =>
-             {
-                 Debug.LogError("接受成功");
-             });
-            anima.Play();
+            //anima.RegisterEndEvent(() =>
+            // {
+            //     Debug.LogError("接受成功");
+            // });
+            //anima.Play();
         }
 
         private void Update()
         {
-
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                slider.Play(Random.Range(0, 1f));
+            }
         }
     }
 }
