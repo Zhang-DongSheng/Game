@@ -10,7 +10,7 @@ namespace Game
 
         public void Init()
         {
-            
+
         }
 
         public bool Trigger(params RedKey[] keys)
@@ -48,11 +48,11 @@ namespace Game
         {
             string index = string.Format("red_{0}", key);
 
-            if (DateTime.UtcNow.Day != LocalManager.GetInt(index))
+            if (LocalManager.GetInt(index) != DateTime.UtcNow.DayOfYear)
             {
-                Update(key, true);
+                LocalManager.SetInt(index, DateTime.UtcNow.DayOfYear);
 
-                LocalManager.SetInt(index, DateTime.UtcNow.Day);
+                Update(key, true);
             }
         }
     }
