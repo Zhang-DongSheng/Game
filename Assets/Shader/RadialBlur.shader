@@ -3,7 +3,7 @@ Shader "Unlit/RadialBlur"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
+        [PerRendererData] _MainTex ("Texture", 2D) = "white" {}
 
         _FocusPos ("Focus Position", Vector) = (0, 0, 0, 0)
 

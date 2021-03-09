@@ -3,7 +3,7 @@ Shader "UI/CornerPro"
 {
 	Properties
 	{
-		[PerRendererData]_MainTex ("Base(RGBA)", 2D) = "white"{}
+		[PerRendererData] _MainTex ("Base(RGBA)", 2D) = "white"{}
 
 		_Top("Top", Vector) = (-0.5, 0.5, 0.5, 0.5)
 
