@@ -8,6 +8,13 @@ namespace TEST
     {
         public SliderHelper slider;
 
+        [ContextMenuItem("add testName", "ContextMenuFunc2")]
+        public string testName = "";
+        private void ContextMenuFunc2()
+        {
+            testName = "testName";
+        }
+
         private void Awake()
         {
 
