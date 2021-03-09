@@ -13,7 +13,7 @@ namespace UnityEngine.Renewable
         {
             string parameter = Path.GetFileNameWithoutExtension(key);
 
-            if (RenewablePool.Instance.Exist(cache, key, string.Empty)) { }
+            if (RenewablePool.Instance.Exist(cache, key + parameter, string.Empty)) { }
             else
             {
                 RenewableResource.Instance.Get(new RenewableRequest(key, parameter, 0, StorageClass.Write, DownloadFileType.None), (handle) =>
@@ -37,7 +37,7 @@ namespace UnityEngine.Renewable
         {
             string parameter = Path.GetFileNameWithoutExtension(key);
 
-            if (RenewablePool.Instance.Exist(cache, key, string.Empty))
+            if (RenewablePool.Instance.Exist(cache, key + parameter, string.Empty))
             {
                 Object asset = RenewablePool.Instance.Pop<Object>(cache, key + parameter);
 

@@ -11,7 +11,7 @@ namespace UnityEngine
 
         protected override DownloadFileType fileType { get { return DownloadFileType.Image; } }
 
-        public void SetImage(string key, string parameter = null, int order = 0, Action callBack = null)
+        public void SetImage(string key, int order = 0, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -29,12 +29,12 @@ namespace UnityEngine
 
                 if (!RenewablePool.Instance.Recent(cache, key))
                 {
-                    this.key = string.Empty; Get(key, parameter, order, callBack);
+                    this.key = string.Empty; Get(key, null, order, callBack);
                 }
             }
             else
             {
-                Get(key, parameter, order, callBack);
+                Get(key, null, order, callBack);
             }
         }
 

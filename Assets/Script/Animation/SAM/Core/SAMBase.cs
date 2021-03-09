@@ -77,6 +77,14 @@ namespace UnityEngine.SAM
             status = Status.Transition;
         }
 
+        protected virtual void SetActive(bool active)
+        {
+            if (gameObject != null && gameObject.activeSelf != active)
+            {
+                gameObject.SetActive(active);
+            }
+        }
+
         public virtual void Begin(bool forward)
         {
             this.forward = forward;
@@ -121,13 +129,5 @@ namespace UnityEngine.SAM
         }
 
         public bool Enable { get { return enable; } set { enable = value; } }
-
-        protected virtual void SetActive(bool active)
-        {
-            if (gameObject != null && gameObject.activeSelf != active)
-            {
-                gameObject.SetActive(active);
-            }
-        }
     }
 }

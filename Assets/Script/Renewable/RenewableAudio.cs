@@ -13,7 +13,7 @@ namespace UnityEngine
 
         protected override DownloadFileType fileType { get { return DownloadFileType.Audio; } }
 
-        public void PlayMusic(string key, string parameter = null, int order = 0, Action callBack = null)
+        public void PlayMusic(string key, int order = 0, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -29,7 +29,7 @@ namespace UnityEngine
             }
             else
             {
-                Get(key, parameter, order, callBack);
+                Get(key, null, order, callBack);
             }
         }
 

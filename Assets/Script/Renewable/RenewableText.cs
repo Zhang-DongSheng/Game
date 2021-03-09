@@ -9,11 +9,11 @@ namespace UnityEngine
     {
         protected override DownloadFileType fileType { get { return DownloadFileType.None; } }
 
-        public void SetText(string key, string parameter = null, int order = 0, Action callBack = null)
+        public void SetText(string key, int order = 0, Action callBack = null)
         {
             current = key;
 
-            Get(key, parameter, order, callBack);
+            Get(key, null, order, callBack);
         }
 
         protected override void Create(RenewableDownloadHandler handle)
