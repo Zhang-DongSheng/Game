@@ -8,29 +8,24 @@
 
         [SerializeField] private bool around;
 
-        protected override void Renovate()
+        protected override void Transition(float step)
         {
-            if (status == Status.Transition)
-            {
-                step += Time.deltaTime * speed;
+            if (target == null) return;
 
-                switch (circle)
-                {
-                    case Circle.Once:
-                        Transition(Format(forward, step));
-                        if (step >= Config.ONE)
-                        {
-                            Completed();
-                        }
-                        break;
-                    case Circle.PingPong:
-                        Transition(Format(forward, step));
-                        if (step >= Config.ONE)
-                        {
-                            step = Config.ZERO; forward = !forward;
-                        }
-                        break;
-                    case Circle.Loop:
+            switch (circle)
+            {
+                case Circle.Once:
+                case Circle.PingPong:
+                    {
+                        progress = curve.Evaluate(step);
+
+                        vector = rotation.Lerp(progress);
+
+                        target.localEulerAngles = vector;
+                    }
+                    break;
+                case Circle.Loop:
+                    {
                         if (around)
                         {
                             target.RotateAround(rotation.destination, rotation.origin, Time.deltaTime * speed);
@@ -39,20 +34,25 @@
                         {
                             target.Rotate(rotation.origin * Time.deltaTime * speed);
                         }
-                        break;
-                }
+                    }
+                    break;
             }
         }
 
-        protected override void Transition(float step)
+        protected override void Completed()
         {
-            if (target == null) return;
-
-            progress = curve.Evaluate(step);
-
-            vector = rotation.Lerp(progress);
-
-            target.localEulerAngles = vector;
+            switch (circle)
+            {
+                case Circle.Once:
+                    base.Completed();
+                    break;
+                case Circle.PingPong:
+                    step = Config.ZERO; forward = !forward;
+                    break;
+                case Circle.Loop:
+                    step = Config.ZERO;
+                    break;
+            }
         }
     }
 }

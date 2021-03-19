@@ -2,7 +2,7 @@
 
 namespace UnityEngine.SAM
 {
-    [RequireComponent(typeof(RectTransform)), ExecuteInEditMode]
+    [RequireComponent(typeof(RectTransform))]
     public abstract class SAMBase : MonoBehaviour
     {
         public UnityEvent onBegin, onCompleted;
