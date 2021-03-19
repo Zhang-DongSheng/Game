@@ -5,6 +5,11 @@ namespace Game
 {
     public class UserLogic : Singleton<UserLogic>
     {
+        public void Init()
+        { 
+            
+        }
+
         public void RequestLogin(JsonData json)
         {
             OnReceivedLogin();

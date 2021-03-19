@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
+    [DisallowMultipleComponent]
     public abstract class UIBase : MonoBehaviour
     {
         public UILayer layer = UILayer.Base;

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UnityEngine
 {
-    public class TimeManager : MonoBehaviour
+    public class TimeManager : MonoSingleton<TimeManager>
     {
         private static readonly Dictionary<string, TimeTask> Loop_Task = new Dictionary<string, TimeTask>();
         private static readonly List<string> loop_cache = new List<string>();

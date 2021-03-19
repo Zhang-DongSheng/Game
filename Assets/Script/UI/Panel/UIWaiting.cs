@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class UIWaiting : MonoBehaviour
+    public class UIWaiting : UIBase
     {
         [SerializeField] private Transform icon;
 
@@ -29,14 +29,6 @@ namespace Game.UI
         private void Update()
         {
             icon.Rotate(vector * Time.deltaTime);
-        }
-
-        public void SetActive(bool active)
-        {
-            if (gameObject != null && gameObject.activeSelf != active)
-            {
-                gameObject.SetActive(active);
-            }
         }
     }
 }

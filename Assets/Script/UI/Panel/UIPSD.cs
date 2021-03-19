@@ -4,8 +4,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    [DisallowMultipleComponent]
-    public class UIPsd : MonoBehaviour
+    public class UIPsd : UIBase
     {
         [SerializeField] private DataPSD source;
 
