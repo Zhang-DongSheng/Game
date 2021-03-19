@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Game
 {
-    public class RedDotLogic : Singleton<RedDotLogic>
+    public class ReddotLogic : Singleton<ReddotLogic>
     {
-        private readonly Dictionary<RedKey, RedDot> _reddots = new Dictionary<RedKey, RedDot>();
+        private readonly Dictionary<RedKey, Reddot> _reddots = new Dictionary<RedKey, Reddot>();
 
         public void Init()
         {
@@ -39,7 +39,7 @@ namespace Game
             }
             else
             {
-                _reddots.Add(key, new RedDot() { active = value });
+                _reddots.Add(key, new Reddot() { active = value });
             }
             EventManager.PostEvent(EventKey.RedDot, new EventMessageArgs());
         }
@@ -57,7 +57,7 @@ namespace Game
         }
     }
 
-    public class RedDot
+    public class Reddot
     {
         public bool active;
     }

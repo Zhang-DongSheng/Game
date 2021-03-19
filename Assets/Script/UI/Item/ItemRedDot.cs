@@ -30,7 +30,7 @@ namespace Game.UI
 
         private void RefreshRedDot()
         {
-            active = RedDotLogic.Instance.Trigger(key) || RedDotLogic.Instance.Trigger(list.ToArray());
+            active = ReddotLogic.Instance.Trigger(key) || ReddotLogic.Instance.Trigger(list.ToArray());
 
             SetActive(active);
         }

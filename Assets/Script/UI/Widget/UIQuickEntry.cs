@@ -6,7 +6,7 @@ namespace Game.UI
     {
         public static void OpenUIConfirm(string title, string message, Action confirm, Action cancel = null)
         {
-            if (UIManager.Instance.GetCtrl(UIKey.UIConfirm) is UICtrl ctrl)
+            if (UIManager.Instance.GetCtrl(UIKey.UIConfirm) is UICtrlBase ctrl)
             {
                 ctrl.Paramter(title, message, confirm, cancel);
             }
@@ -15,7 +15,7 @@ namespace Game.UI
 
         public static void OpenUINotice(string message, float time = -1)
         {
-            if (UIManager.Instance.GetCtrl(UIKey.UINotice) is UICtrl ctrl)
+            if (UIManager.Instance.GetCtrl(UIKey.UINotice) is UICtrlBase ctrl)
             {
                 ctrl.Paramter(message, time);
             }

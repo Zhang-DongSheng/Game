@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Game3DModel : MonoBehaviour
+    public class ModelDisplay : MonoBehaviour
     {
         [SerializeField] private GameObject self;
 

@@ -4,7 +4,7 @@ using UnityEngine.Factory;
 
 namespace Game.UI
 {
-    public class UICtrl
+    public class UICtrlBase
     {
         private UIBase view;
 

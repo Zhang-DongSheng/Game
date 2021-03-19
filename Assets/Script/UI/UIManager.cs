@@ -12,7 +12,7 @@ namespace Game.UI
 
         private readonly List<Transform> m_parent = new List<Transform>();
 
-        private readonly Dictionary<UIKey, UICtrl> m_panel = new Dictionary<UIKey, UICtrl>();
+        private readonly Dictionary<UIKey, UICtrlBase> m_panel = new Dictionary<UIKey, UICtrlBase>();
 
         private void Awake()
         {
@@ -67,8 +67,8 @@ namespace Game.UI
 
         private void Register()
         {
-            m_panel.Add(UIKey.UINotice, new UICtrl());
-            m_panel.Add(UIKey.UIConfirm, new UICtrl());
+            m_panel.Add(UIKey.UINotice, new UICtrlBase());
+            m_panel.Add(UIKey.UIConfirm, new UICtrlBase());
         }
 
         public void Open(UIKey key, UILayer layer = UILayer.None)
@@ -78,7 +78,7 @@ namespace Game.UI
                 if (m_panel.ContainsKey(key)) { }
                 else
                 {
-                    m_panel.Add(key, new UICtrl());
+                    m_panel.Add(key, new UICtrlBase());
                 }
                 m_panel[key].Open(key, layer);
             }
@@ -104,7 +104,7 @@ namespace Game.UI
             }
         }
 
-        public UICtrl GetCtrl(UIKey key)
+        public UICtrlBase GetCtrl(UIKey key)
         {
             if (m_panel.ContainsKey(key))
             {

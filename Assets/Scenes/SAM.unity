@@ -1616,11 +1616,11 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   speed: 1
-  useConfig: 0
-  enable: 0
+  useConfig: 1
+  enable: 1
   step: 0
-  axis: 0
-  circle: 0
+  axis: 1
+  circle: 1
   viewPort: {fileID: 1733213838}
 --- !u!114 &1733213840
 MonoBehaviour:

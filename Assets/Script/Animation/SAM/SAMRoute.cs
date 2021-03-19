@@ -56,7 +56,6 @@ namespace UnityEngine.SAM
                             }
                             break;
                     }
-
                     Position(forward, index, route);
                 }
             }

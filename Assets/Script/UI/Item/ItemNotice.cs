@@ -53,7 +53,7 @@ namespace Game.UI
         {
             position += Time.deltaTime * speed * Vector2.right * -1;
 
-            target.transform.localPosition = position;
+            SetPosition(position);
 
             switch (status)
             {
@@ -78,7 +78,7 @@ namespace Game.UI
 
         private void Adapt(Vector2 position, float width)
         {
-            target.transform.localPosition = position;
+            SetPosition(position);
 
             rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
         }

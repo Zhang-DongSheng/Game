@@ -7,7 +7,7 @@ namespace Game
     [ExecuteInEditMode]
     public class GameLogic : MonoSingleton<GameLogic>
     {
-        public Game3DModel model;
+        public ModelDisplay model;
 
         public DataLanguage Language { get; private set; }
 

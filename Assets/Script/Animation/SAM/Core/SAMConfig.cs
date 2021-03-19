@@ -10,6 +10,8 @@ namespace UnityEngine.SAM
 
         public const int Ninety = 90;
 
+        public const float HALF = 0.5f;
+
         public const float SPEED = 6f;
     }
     /// <summary>
