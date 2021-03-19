@@ -6,4 +6,16 @@ namespace UnityEngine.Audio
 
         public static float volum = 1f;
     }
+
+    public enum SourceEnum
+    {
+        Music,
+        Effect,
+    }
+
+    public enum ListenerEnum
+    {
+        Environment,
+        Personal,
+    }
 }

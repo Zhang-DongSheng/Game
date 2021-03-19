@@ -1,11 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using UnityEngine;
 
 public static class FileUtils
 {
+    public static string Read(string path)
+    {
+        string content = string.Empty;
+
+        if (File.Exists(path))
+        {
+            content = File.ReadAllText(path);
+        }
+        return content;
+    }
+
+    public static void Write(string path, string content)
+    {
+        string folder = Path.GetDirectoryName(path);
+
+        try
+        {
+            if (Directory.Exists(folder) == false)
+            {
+                Directory.CreateDirectory(folder);
+            }
+            File.WriteAllText(path, content);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e.Message);
+        }
+    }
+
     public static void DeleteFolder(string path, bool recursive = true)
     {
         if (Directory.Exists(path))
@@ -68,19 +96,7 @@ public static class FileUtils
         return result;
     }
 
-    public static bool MD5Validation(string path, string code)
-    {
-        if (string.IsNullOrEmpty(code))
-        {
-            return true;
-        }
-        else
-        {
-            return FileMD5(path) == code;
-        }
-    }
-
-    public static string FileMD5(string path)
+    public static string MD5(string path)
     {
         string result = string.Empty;
 
