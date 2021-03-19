@@ -10,33 +10,6 @@
 
         private Vector3Interval position;
 
-        protected override void Renovate()
-        {
-            if (status == Status.Transition)
-            {
-                step += Time.deltaTime * speed;
-
-                Transition(Format(forward, step));
-
-                if (step >= Config.ONE)
-                {
-                    step = Config.ZERO;
-
-                    switch (circle)
-                    {
-                        case Circle.Once:
-                            Completed();
-                            break;
-                        case Circle.PingPong:
-                            forward = !forward;
-                            break;
-                        case Circle.Loop:
-                            break;
-                    }
-                }
-            }
-        }
-
         protected override void Transition(float step)
         {
             if (target == null) return;
@@ -44,15 +17,6 @@
             progress = curve.Evaluate(step);
 
             target.localPosition = position.Lerp(progress);
-        }
-
-        protected override void Completed()
-        {
-            status = Status.Completed;
-
-            onCompleted?.Invoke();
-
-            status = Status.Idel;
         }
 
         protected override void Compute()
@@ -86,11 +50,20 @@
             status = Status.Transition;
         }
 
-        public override void Begin(bool forward)
+        protected override void Completed()
         {
-            this.forward = forward;
-
-            Compute();
+            switch (circle)
+            {
+                case Circle.Once:
+                    base.Completed();
+                    break;
+                case Circle.PingPong:
+                    step = Config.ZERO; forward = !forward;
+                    break;
+                case Circle.Loop:
+                    step = Config.ZERO;
+                    break;
+            }
         }
     }
 }

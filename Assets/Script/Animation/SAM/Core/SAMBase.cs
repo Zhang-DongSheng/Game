@@ -87,6 +87,8 @@ namespace UnityEngine.SAM
 
         protected virtual void Completed()
         {
+            step = Config.ZERO;
+
             status = Status.Completed;
 
             onCompleted?.Invoke();
