@@ -143,4 +143,12 @@ namespace UnityEngine.SAM
         Loop,
         PingPong,
     }
+    /// <summary>
+    /// 关联
+    /// </summary>
+    public enum Relevance
+    { 
+        Self,
+        Children,
+    }
 }

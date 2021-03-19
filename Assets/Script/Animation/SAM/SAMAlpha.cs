@@ -5,6 +5,8 @@ namespace UnityEngine.SAM
 {
     public class SAMAlpha : SAMBase
     {
+        [SerializeField] private Relevance relevance;
+
         [SerializeField] private FloatInterval alpha;
 
         private Color color;
@@ -17,7 +19,18 @@ namespace UnityEngine.SAM
 
             graphics.Clear();
 
-            graphics.AddRange(target.GetComponentsInChildren<Graphic>());
+            switch (relevance)
+            {
+                case Relevance.Self:
+                    if (target.TryGetComponent(out Graphic graphic))
+                    {
+                        graphics.Add(graphic);
+                    }
+                    break;
+                case Relevance.Children:
+                    graphics.AddRange(target.GetComponentsInChildren<Graphic>());
+                    break;
+            }
         }
 
         protected override void Transition(float step)

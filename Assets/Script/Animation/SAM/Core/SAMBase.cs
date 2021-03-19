@@ -2,7 +2,7 @@
 
 namespace UnityEngine.SAM
 {
-    [RequireComponent(typeof(RectTransform))]
+    [RequireComponent(typeof(RectTransform)), ExecuteInEditMode]
     public abstract class SAMBase : MonoBehaviour
     {
         public UnityEvent onBegin, onCompleted;
@@ -29,10 +29,14 @@ namespace UnityEngine.SAM
 
         protected virtual void Awake()
         {
+            if (target == null)
+            {
+                target = GetComponent<RectTransform>();
+            }
             speed = useConfig ? Config.SPEED : speed;
         }
 
-        protected virtual void OnEnable()
+        protected void OnEnable()
         {
             if (enable)
             {
@@ -40,7 +44,7 @@ namespace UnityEngine.SAM
             }
         }
 
-        private void OnValidate()
+        protected void OnValidate()
         {
             if (!Application.isPlaying)
             {
@@ -48,12 +52,10 @@ namespace UnityEngine.SAM
             }
         }
 
-        private void Update()
+        protected void Update()
         {
             Renovate();
         }
-
-        protected abstract void Transition(float step);
 
         protected virtual void Renovate()
         {
@@ -69,6 +71,8 @@ namespace UnityEngine.SAM
                 }
             }
         }
+
+        protected abstract void Transition(float step);
 
         protected virtual void Compute()
         {
