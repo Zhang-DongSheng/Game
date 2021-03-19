@@ -8,21 +8,6 @@
 
         [SerializeField] private Vector3Interval scale;
 
-        protected override void Renovate()
-        {
-            if (status == Status.Transition)
-            {
-                step += Time.deltaTime * speed;
-
-                Transition(Format(forward, step));
-
-                if (step >= Config.ONE)
-                {
-                    Completed();
-                }
-            }
-        }
-
         protected override void Transition(float step)
         {
             if (target == null) return;

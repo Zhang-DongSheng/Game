@@ -53,17 +53,21 @@ namespace UnityEngine.SAM
             Renovate();
         }
 
-        protected abstract void Renovate();
-
         protected abstract void Transition(float step);
 
-        protected virtual void Completed()
+        protected virtual void Renovate()
         {
-            status = Status.Completed;
+            if (status == Status.Transition)
+            {
+                step += Time.deltaTime * speed;
 
-            onCompleted?.Invoke();
+                Transition(Format(forward, step));
 
-            status = Status.Idel;
+                if (step >= Config.ONE)
+                {
+                    Completed();
+                }
+            }
         }
 
         protected virtual void Compute()
@@ -75,6 +79,15 @@ namespace UnityEngine.SAM
             onBegin?.Invoke();
 
             status = Status.Transition;
+        }
+
+        protected virtual void Completed()
+        {
+            status = Status.Completed;
+
+            onCompleted?.Invoke();
+
+            status = Status.Idel;
         }
 
         protected virtual void SetActive(bool active)

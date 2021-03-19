@@ -12,23 +12,10 @@
 
         protected override void Awake()
         {
+            base.Awake();
+
             position = target.localPosition;
             rotation = target.localRotation;
-        }
-
-        protected override void Renovate()
-        {
-            if (status == Status.Transition)
-            {
-                step += Time.deltaTime * speed;
-
-                Transition(1 - step);
-
-                if (step >= Config.ONE)
-                {
-                    Completed();
-                }
-            }
         }
 
         protected override void Transition(float step)
@@ -57,6 +44,8 @@
             status = Status.Compute;
 
             step = 0;
+
+            forward = true;
 
             range = intensity;
 

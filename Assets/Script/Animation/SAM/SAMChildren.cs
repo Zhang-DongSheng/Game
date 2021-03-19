@@ -6,24 +6,9 @@ namespace UnityEngine.SAM
     {
         [SerializeField] private List<Transform> children;
 
-        protected override void Renovate()
-        {
-            if (status == Status.Transition)
-            {
-                step += Time.deltaTime * speed;
-
-                Transition(Format(forward, step));
-
-                if (step >= Config.ONE)
-                {
-                    Completed();
-                }
-            }
-        }
-
         protected override void Transition(float step)
         {
-            if (children == null) return;
+            if (children == null || children.Count == 0) return;
 
             progress = curve.Evaluate(step);
 
@@ -32,6 +17,7 @@ namespace UnityEngine.SAM
 
             }
         }
+
         [ContextMenu("Children")]
         private void Children()
         {

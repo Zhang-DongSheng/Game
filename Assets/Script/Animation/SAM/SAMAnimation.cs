@@ -5,7 +5,7 @@ namespace UnityEngine.SAM
     {
         [SerializeField] private new Animation animation;
 
-        private float time;
+        private float interval;
 
         protected override void Renovate()
         {
@@ -13,7 +13,7 @@ namespace UnityEngine.SAM
             {
                 step += Time.deltaTime;
 
-                if (step >= time)
+                if (step >= interval)
                 {
                     step = Config.ZERO;
 
@@ -32,7 +32,7 @@ namespace UnityEngine.SAM
 
             if (animation.clip == null) return;
 
-            time = animation.clip.length;
+            interval = animation.clip.length;
 
             animation.Play();
 
