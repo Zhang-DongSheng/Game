@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// 悬浮窗
+    /// </summary>
     [RequireComponent(typeof(Graphic))]
     public class UISuspensionWindow : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerClickHandler
     {
@@ -53,10 +56,7 @@ namespace Game.UI
             center = new Vector2(root.rect.width / 2f, root.rect.height / 2f);
         }
 
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-
-        }
+        public void OnBeginDrag(PointerEventData eventData) { }
 
         public void OnDrag(PointerEventData eventData)
         {

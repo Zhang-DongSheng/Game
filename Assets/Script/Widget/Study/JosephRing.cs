@@ -7,7 +7,7 @@ namespace Study
     /// <summary>
     /// 约瑟夫环[有死循环未解决]
     /// </summary>
-    public class StudyJosephRing : MonoBehaviour
+    public class JosephRing : MonoBehaviour
     {
         private readonly List<int> people = new List<int>();
 
@@ -17,11 +17,10 @@ namespace Study
             {
                 people.Add(i + 1);
             }
-
-            JosephRing(people, 3);
+            Compute(people, 3);
         }
 
-        private void JosephRing(List<int> list, int circle = 3)
+        private void Compute(List<int> list, int circle = 3)
         {
             int index = 0, step = 0;
 

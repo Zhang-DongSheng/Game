@@ -3,6 +3,9 @@ using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI
 {
+    /// <summary>
+    /// 方向摇杆
+    /// </summary>
     public class UIJoyStick : MonoBehaviour
     {
         enum JoyStickState

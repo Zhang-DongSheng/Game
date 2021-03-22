@@ -12,7 +12,7 @@ public static partial class Extension
         return null;
     }
 
-    public static T GetOrAddCompontent<T>(this Transform target) where T : UnityEngine.Component
+    public static T GetOrAddComponent<T>(this Transform target) where T : UnityEngine.Component
     {
         if (target != null && target.gameObject != null)
         {

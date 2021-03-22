@@ -27,9 +27,9 @@ namespace UnityEngine
 
         private void SetText(string value)
         {
-            if (!TryGetComponent<RenewableTextCompontent>(out RenewableTextCompontent compontent))
+            if (!TryGetComponent<RenewableTextComponent>(out RenewableTextComponent compontent))
             {
-                compontent = gameObject.AddComponent<RenewableTextCompontent>();
+                compontent = gameObject.AddComponent<RenewableTextComponent>();
             }
             compontent.SetContent(value);
         }

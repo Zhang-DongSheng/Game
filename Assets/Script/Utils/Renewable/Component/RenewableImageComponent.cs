@@ -2,7 +2,7 @@
 
 namespace UnityEngine.Renewable.Compontent
 {
-    public class RenewableImageCompontent : MonoBehaviour
+    public class RenewableImageComponent : MonoBehaviour
     {
         enum RenewableImageType
         {

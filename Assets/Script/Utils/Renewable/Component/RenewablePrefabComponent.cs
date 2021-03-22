@@ -1,6 +1,6 @@
 ﻿namespace UnityEngine.Renewable.Compontent
 {
-    public class RenewablePrefabCompontent : MonoBehaviour
+    public class RenewablePrefabComponent : MonoBehaviour
     {
         [SerializeField] private Transform parent;
 

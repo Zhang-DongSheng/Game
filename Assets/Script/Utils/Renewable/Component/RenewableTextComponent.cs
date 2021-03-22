@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace UnityEngine.Renewable.Compontent
 {
-    public class RenewableTextCompontent : MonoBehaviour
+    public class RenewableTextComponent : MonoBehaviour
     {
         enum RenewableTextType
         {

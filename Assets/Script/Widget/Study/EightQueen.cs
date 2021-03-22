@@ -8,7 +8,7 @@ namespace Study
     /// <summary>
     /// 八皇后问题
     /// </summary>
-    public class StudyEightQueen : MonoBehaviour
+    public class EightQueen : MonoBehaviour
     {
         private const int column = 8;
 

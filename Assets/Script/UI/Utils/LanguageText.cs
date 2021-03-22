@@ -4,9 +4,9 @@ using Game;
 namespace UnityEngine.UI
 {
     [ExecuteInEditMode, RequireComponent(typeof(Text))]
-    public class TextCompontentLanguage : MonoBehaviour
+    public class LanguageText : MonoBehaviour
     {
-        [SerializeField] private Text compontent;
+        [SerializeField] private Text component;
 
         [SerializeField, TextArea] private string text;
 
@@ -18,9 +18,9 @@ namespace UnityEngine.UI
 
         private void Awake()
         {
-            if (compontent == null)
+            if (component == null)
             {
-                compontent = GetComponent<Text>();
+                component = GetComponent<Text>();
             }
         }
 
@@ -40,17 +40,17 @@ namespace UnityEngine.UI
             {
                 if (config != null)
                 {
-                    if (config != null && config.Font != null && config.Font != compontent.font)
+                    if (config != null && config.Font != null && config.Font != component.font)
                     {
-                        compontent.font = config.Font;
+                        component.font = config.Font;
                     }
                     value = config.Word(text);
                 }
-                compontent.text = value;
+                component.text = value;
             }
             else
             {
-                compontent.text = text;
+                component.text = text;
             }
         }
 

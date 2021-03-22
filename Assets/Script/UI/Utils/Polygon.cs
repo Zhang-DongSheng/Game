@@ -2,9 +2,15 @@
 
 namespace UnityEngine.UI
 {
-    public class GraphicHelper : BaseMeshEffect
+    /// <summary>
+    /// 自定义多边形
+    /// </summary>
+    [RequireComponent(typeof(Image))]
+    public class Polygon : BaseMeshEffect
     {
-        [SerializeField] private List<Vector3> points;
+        [SerializeField] private List<Vector2> points;
+
+        [SerializeField] private Color32 color;
 
         public override void ModifyMesh(VertexHelper helper)
         {
@@ -13,7 +19,7 @@ namespace UnityEngine.UI
             //设置坐标点
             foreach (var point in points)
             {
-                helper.AddVert(point, Random.ColorHSV(), new Vector2(0f, 0f));
+                helper.AddVert(point, color, new Vector2(0f, 0f));
             }
 
             int count = points.Count;

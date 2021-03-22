@@ -4,7 +4,7 @@ using UnityEngine.Renewable.Compontent;
 
 namespace UnityEngine
 {
-    [RequireComponent(typeof(RenewableImageCompontent))]
+    [RequireComponent(typeof(RenewableImageComponent))]
     public class RenewableImage : RenewableBase
     {
         private Texture2D m_texture;
@@ -175,9 +175,9 @@ namespace UnityEngine
 
         private void SetTexture(Texture2D texture)
         {
-            if (!TryGetComponent<RenewableImageCompontent>(out RenewableImageCompontent compontent))
+            if (!TryGetComponent<RenewableImageComponent>(out RenewableImageComponent compontent))
             {
-                compontent = gameObject.AddComponent<RenewableImageCompontent>();
+                compontent = gameObject.AddComponent<RenewableImageComponent>();
             }
             compontent.SetTexture(texture);
         }

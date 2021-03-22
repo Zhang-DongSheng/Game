@@ -203,9 +203,9 @@ namespace UnityEngine
             switch (type)
             {
                 case RenewableCompontentType.Image:
-                    if (!TryGetComponent<RenewableImageCompontent>(out RenewableImageCompontent compontent))
+                    if (!TryGetComponent<RenewableImageComponent>(out RenewableImageComponent compontent))
                     {
-                        compontent = gameObject.AddComponent<RenewableImageCompontent>();
+                        compontent = gameObject.AddComponent<RenewableImageComponent>();
                     }
                     compontent.SetTexture(asset);
                     break;

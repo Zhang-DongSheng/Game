@@ -71,7 +71,7 @@ public static partial class NumberExtension
         }
     }
 
-    public static string ToSimpleString(this int self, int digit)
+    public static string ToString(this int self, int digit)
     {
         float number;
 
@@ -90,5 +90,12 @@ public static partial class NumberExtension
             number = self / 1000000; unit = "m+";
         }
         return string.Format("{0}{1}", Math.Round(number, digit), unit);
+    }
+
+    public static string ToStringTime(this float second)
+    {
+        TimeSpan span = TimeSpan.FromSeconds(second);
+
+        return span.ToString();
     }
 }

@@ -5,32 +5,17 @@ using UnityEngine;
 
 public static class FileUtils
 {
-    public static string Read(string path)
+    public static void CreateFolder(string path)
     {
-        string content = string.Empty;
-
-        if (File.Exists(path))
-        {
-            content = File.ReadAllText(path);
-        }
-        return content;
-    }
-
-    public static void Write(string path, string content)
-    {
-        string folder = Path.GetDirectoryName(path);
+        if (Directory.Exists(path)) return;
 
         try
         {
-            if (Directory.Exists(folder) == false)
-            {
-                Directory.CreateDirectory(folder);
-            }
-            File.WriteAllText(path, content);
+            Directory.CreateDirectory(path);
         }
         catch (Exception e)
         {
-            Debug.LogError(e.Message);
+            Debug.LogException(e);
         }
     }
 
@@ -49,7 +34,7 @@ public static class FileUtils
         }
     }
 
-    public static float FolderSize(string path)
+    public static float SizeOfFolder(string path)
     {
         float size = 0;
 
@@ -66,7 +51,7 @@ public static class FileUtils
         return size;
     }
 
-    public static string SizeFormat(float length)
+    public static string FormatSize(float length)
     {
         int KB = 1024;
 
@@ -122,5 +107,34 @@ public static class FileUtils
         }
 
         return result;
+    }
+
+    public static string Read(string path)
+    {
+        string content = string.Empty;
+
+        if (File.Exists(path))
+        {
+            content = File.ReadAllText(path);
+        }
+        return content;
+    }
+
+    public static void Write(string path, string content)
+    {
+        string folder = Path.GetDirectoryName(path);
+
+        try
+        {
+            if (Directory.Exists(folder) == false)
+            {
+                Directory.CreateDirectory(folder);
+            }
+            File.WriteAllText(path, content);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e.Message);
+        }
     }
 }
