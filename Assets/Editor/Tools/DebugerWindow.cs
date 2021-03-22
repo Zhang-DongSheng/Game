@@ -100,8 +100,15 @@ namespace UnityEditor
         }
 
         private void Startup()
-        { 
-            
+        {
+
+            string path = Application.dataPath + "/encrypt.txt";
+
+            //FileUtils.WriteEncrypt(path, parameter[0]);
+             
+            string value= FileUtils.ReadEncrypt(path);
+
+            Debug.LogError(value);
         }
     }
 }

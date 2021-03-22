@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Utils
 {
-    public class EncodingUtils
+    public static class FileEncoding
     {
         public static readonly Encoding DEFAULT = Encoding.Default;
 

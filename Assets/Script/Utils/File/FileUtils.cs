@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 using UnityEngine;
 
 public static class FileUtils
@@ -120,6 +121,19 @@ public static class FileUtils
         return content;
     }
 
+    public static string ReadEncrypt(string path)
+    {
+        string content = string.Empty;
+
+        if (File.Exists(path))
+        {
+            byte[] buffer = File.ReadAllBytes(path);
+            buffer = FileEncrypt.DecryptBytes(buffer);
+            content = Encoding.Default.GetString(buffer);
+        }
+        return content;
+    }
+
     public static void Write(string path, string content)
     {
         string folder = Path.GetDirectoryName(path);
@@ -131,6 +145,26 @@ public static class FileUtils
                 Directory.CreateDirectory(folder);
             }
             File.WriteAllText(path, content);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e.Message);
+        }
+    }
+
+    public static void WriteEncrypt(string path, string content)
+    {
+        string folder = Path.GetDirectoryName(path);
+
+        try
+        {
+            if (Directory.Exists(folder) == false)
+            {
+                Directory.CreateDirectory(folder);
+            }
+            byte[] buffer = Encoding.Default.GetBytes(content);
+            buffer = FileEncrypt.EncryptBytes(buffer);
+            File.WriteAllBytes(path, buffer);
         }
         catch (Exception e)
         {
