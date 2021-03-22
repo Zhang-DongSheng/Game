@@ -33,13 +33,13 @@ namespace Game.UI
         {
             if (paramter == null) return;
 
-            this.confirm = paramter[2] as Action;
-
-            this.cancel = paramter[3] as Action;
-
             txt_title.text = paramter[0].ToString();
 
             txt_message.text = paramter[1].ToString();
+
+            this.confirm = paramter[2] as Action;
+
+            this.cancel = paramter[3] as Action;
         }
 
         private void OnClickConfirm()

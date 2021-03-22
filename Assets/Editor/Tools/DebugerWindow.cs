@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace TEST
+namespace UnityEditor
 {
-    public class TestWindow : EditorWindow
+    public class DebugerWindow : EditorWindow
     {
         private readonly List<string> parameter = new List<string>();
 
         private Vector2 scroll;
 
-        [MenuItem("Extra/Test")]
+        [MenuItem("Window/Debuger")]
         private static void Open()
         {
-            EditorWindow window = GetWindow<TestWindow>();
-            window.titleContent = new GUIContent("测试窗口");
+            EditorWindow window = GetWindow<DebugerWindow>();
+            window.titleContent = new GUIContent("Debuger");
             window.minSize = Vector2.one * 300;
             window.maxSize = Vector2.one * 1000;
             window.Show();

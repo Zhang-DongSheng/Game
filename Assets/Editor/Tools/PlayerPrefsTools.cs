@@ -141,6 +141,5 @@ public static class PlayerPrefsExtension
 public struct PlayerPrefPair
 {
 	public string Key { get; set; }
-
 	public object Value { get; set; }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [CustomEditor(typeof(UIEffectHelper))]
-public class EffectHelperInspector : Editor
+public class InspectorEffectHelper : Editor
 {
     private UIEffectHelper helper;
 
