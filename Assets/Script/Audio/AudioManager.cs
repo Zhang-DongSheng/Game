@@ -8,24 +8,11 @@ namespace UnityEngine.Audio
     {
         private readonly Dictionary<SourceEnum, AudioSource> sources = new Dictionary<SourceEnum, AudioSource>();
 
-        private readonly Dictionary<ListenerEnum, AudioListener> listeners = new Dictionary<ListenerEnum, AudioListener>();
-
-        private readonly Dictionary<string, AudioClip> clips = new Dictionary<string, AudioClip>(); 
+        private readonly Dictionary<string, AudioClip> clips = new Dictionary<string, AudioClip>();
 
         public void Init()
         {
 
-        }
-
-        public void SwitchListener(ListenerEnum key)
-        {
-            foreach (var listener in listeners)
-            {
-                if (listener.Value != null)
-                {
-                    listener.Value.enabled = listener.Key == key;
-                }
-            }
         }
 
         public void PlayMusic(string sound, bool loop)
@@ -40,8 +27,24 @@ namespace UnityEngine.Audio
 
         private void Play(SourceEnum key, string sound, bool loop)
         {
+            if (clips.ContainsKey(sound))
+            {
+                Play(key, clips[sound], loop);
+            }
+            else
+            {
+
+            }
+        }
+
+        private void Play(SourceEnum key, AudioClip clip, bool loop)
+        {
             if (sources.ContainsKey(key))
             {
+                sources[key].loop = loop;
+
+                sources[key].clip = clip;
+
                 sources[key].Play();
             }
         }
@@ -50,6 +53,7 @@ namespace UnityEngine.Audio
         {
             AudioClip clip = null;
 
+            //load clip
 
             return clip;
         }

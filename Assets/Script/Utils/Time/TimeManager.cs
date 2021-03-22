@@ -14,7 +14,7 @@ namespace UnityEngine
         private readonly List<string> cache = new List<string>();
 
         private TimeTask current;
-
+         
         private void Awake()
         {
             GameLength = Local.GetLong("gamelength");
@@ -30,7 +30,7 @@ namespace UnityEngine
 
                 if (Time.time >= current.timer)
                 {
-                    current.callBack?.Invoke();
+                    current.Invoke();
 
                     if (current.loop)
                     {
@@ -137,8 +137,8 @@ namespace UnityEngine
         }
 
         public void Invoke()
-        { 
-            
+        {
+            callBack?.Invoke();
         }
     }
 }

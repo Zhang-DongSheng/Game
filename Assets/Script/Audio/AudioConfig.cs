@@ -12,10 +12,4 @@ namespace UnityEngine.Audio
         Music,
         Effect,
     }
-
-    public enum ListenerEnum
-    {
-        Environment,
-        Personal,
-    }
 }

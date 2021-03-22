@@ -10,7 +10,7 @@ namespace Data
         [MenuItem("Data/Create/Config")]
         private static void Create_DataConfig()
         {
-            Create<DataConfig>("Config");
+            Create<ConfigInformation>("Config");
         }
 
         [MenuItem("Data/Create/Language")]

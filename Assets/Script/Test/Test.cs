@@ -6,14 +6,7 @@ namespace TEST
 {
     public class Test : MonoBehaviour
     {
-        public SliderHelper slider;
-
-        [ContextMenuItem("add testName", "ContextMenuFunc2")]
-        public string testName = "";
-        private void ContextMenuFunc2()
-        {
-            testName = "testName";
-        }
+        public TimeHelper helper;
 
         private void Awake()
         {
@@ -45,8 +38,33 @@ namespace TEST
         {
             if (Input.GetKeyDown(KeyCode.P))
             {
-                slider.Play(Random.Range(0, 1f));
+                //slider.Play(Random.Range(0, 1f));
+
+                helper.onValueChanged.AddListener((value) =>
+                {
+                    GetComponent<Text>().text = value.ToString();
+                });
+
+                helper.Start(60);
             }
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                //slider.Play(Random.Range(0, 1f));
+
+                TimeManager.Instance.Register("Test", new TimeTask()
+                {
+                    timer = Time.time + 5,
+                    interval = 5,
+                    loop = true,
+                    callBack = OnCompleted
+                });
+            }
+        }
+
+        private void OnCompleted()
+        {
+            Debug.LogError("10 last BG");
         }
     }
 }

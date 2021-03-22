@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Data
 {
-    public class DataConfig : ScriptableObject
+    public class ConfigInformation : ScriptableObject
     {
         public bool debug;
 
