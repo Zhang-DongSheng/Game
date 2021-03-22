@@ -1,189 +1,144 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace UnityEngine
 {
     public class TimeManager : MonoSingleton<TimeManager>
     {
-        private static readonly Dictionary<string, TimeTask> Loop_Task = new Dictionary<string, TimeTask>();
-        private static readonly List<string> loop_cache = new List<string>();
+        private readonly Dictionary<string, DateTime> timing = new Dictionary<string, DateTime>();
 
-        private static readonly Dictionary<string, TimeTask> Delay_Task = new Dictionary<string, TimeTask>();
-        private static readonly List<string> delay_cache = new List<string>();
+        private readonly Dictionary<string, TimeTask> handler = new Dictionary<string, TimeTask>();
 
-        private Dictionary<string, TimeTask>.Enumerator loop_eunmer;
-        private Dictionary<string, TimeTask>.Enumerator delay_eunmer;
+        private Dictionary<string, TimeTask>.Enumerator eunmer;
 
-        private TimeTask current_LT;
-        private TimeTask current_DT;
+        private readonly List<string> cache = new List<string>();
 
-        private static float _timer;
-        public static float Game_Time
-        {
-            get
-            {
-                if (_timer != 0)
-                {
-                    return _timer;
-                }
-                else
-                {
-                    return PlayerPrefs.GetFloat("Game_Time");
-                }
-            }
-            private set
-            {
-                if (value > int.MaxValue)
-                {
-                    value = 0;
-                }
-                _timer = value;
-            }
-        }
+        private TimeTask current;
 
         private void Awake()
         {
-            Game_Time = PlayerPrefs.GetFloat("Game_Time");
+            GameLength = Local.GetLong("gamelength");
         }
 
         private void Update()
         {
-            #region 计时器
-            Game_Time += Time.deltaTime;
-            #endregion
+            eunmer = handler.GetEnumerator();
 
-            #region 循环任务
-            loop_eunmer = Loop_Task.GetEnumerator();
-
-            while (loop_eunmer.MoveNext())
+            while (eunmer.MoveNext())
             {
-                current_LT = loop_eunmer.Current.Value;
+                current = eunmer.Current.Value;
 
-                if (Time.time >= current_LT.timer)
+                if (Time.time >= current.timer)
                 {
-                    if (current_LT.callBack != null)
+                    current.callBack?.Invoke();
+
+                    if (current.loop)
                     {
-                        current_LT.callBack();
+                        current.timer = Time.time + current.interval;
                     }
-                    current_LT.timer = Time.time + current_LT.interval;
+                    else
+                    {
+                        cache.Add(eunmer.Current.Key);
+                    }
                 }
             }
 
-            if (loop_cache.Count > 0)
+            if (cache.Count > 0)
             {
-                for (int i = loop_cache.Count - 1; i >= 0; i--)
+                for (int i = cache.Count - 1; i >= 0; i--)
                 {
-                    if (Loop_Task.ContainsKey(loop_cache[i]))
+                    if (handler.ContainsKey(cache[i]))
                     {
-                        Loop_Task.Remove(loop_cache[i]);
+                        handler.Remove(cache[i]);
                     }
-                    loop_cache.RemoveAt(i);
-                }
-            }
-            #endregion
-
-            #region 延时任务
-            delay_eunmer = Delay_Task.GetEnumerator();
-
-            while (delay_eunmer.MoveNext())
-            {
-                current_DT = delay_eunmer.Current.Value;
-
-                if (Time.time >= current_DT.timer)
-                {
-                    if (current_DT.callBack != null)
-                    {
-                        current_DT.callBack();
-                    }
-                    delay_cache.Add(delay_eunmer.Current.Key);
+                    cache.RemoveAt(i);
                 }
             }
 
-            if (delay_cache.Count > 0)
-            {
-                for (int i = delay_cache.Count - 1; i >= 0; i--)
-                {
-                    if (Delay_Task.ContainsKey(delay_cache[i]))
-                    {
-                        Delay_Task.Remove(delay_cache[i]);
-                    }
-                    delay_cache.RemoveAt(i);
-                }
-            }
-            #endregion
+            GameLength += (long)Time.deltaTime;
         }
 
-        public static void RegisterLoopEvent(string eventKey, TimeTask task)
+        public void Register(string key, TimeTask task)
         {
-            if (Loop_Task.ContainsKey(eventKey))
+            if (handler.ContainsKey(key))
             {
-                Loop_Task[eventKey] = task;
+                handler[key].Register(task.callBack);
             }
             else
             {
-                Loop_Task.Add(eventKey, task);
+                handler.Add(key, task);
             }
         }
 
-        public static void UnregisterLoopEvent(string eventKey)
+        public void Unregister(string key)
         {
-            if (Loop_Task.ContainsKey(eventKey))
+            if (handler.ContainsKey(key))
             {
-                loop_cache.Add(eventKey);
-            }
-        }
-
-        public static void RegisterDelayEvent(string eventKey, TimeTask task)
-        {
-            if (Delay_Task.ContainsKey(eventKey))
-            {
-                Delay_Task[eventKey] = task;
-            }
-            else
-            {
-                Delay_Task.Add(eventKey, task);
-            }
-        }
-
-        public static void UnregisterDelayEvent(string eventKey)
-        {
-            if (Delay_Task.ContainsKey(eventKey))
-            {
-                delay_cache.Add(eventKey);
+                cache.Add(key);
             }
         }
 
         private void OnDestroy()
         {
-            PlayerPrefs.SetFloat("Game_Time", Game_Time);
+            Local.SetLong("gamelength", GameLength);
         }
+
+        public void TimBegin(string key)
+        {
+            if (timing.ContainsKey(key))
+            {
+                timing[key] = DateTime.Now;
+            }
+            else
+            {
+                timing.Add(key, DateTime.Now);
+            }
+        }
+
+        public double TimEnd(string key)
+        {
+            if (timing.ContainsKey(key))
+            {
+                return DateTime.Now.Subtract(timing[key]).TotalMilliseconds;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public long GameLength { get; private set; }
     }
 
-    public class TimeTask : IDisposable
+    public class TimeTask
     {
+        public string name;
+
+        public bool loop;
+
         public float timer;
+
         public float interval;
+
         public Action callBack;
 
-        private TimeTask() { }
-
-        public TimeTask(float time, Action callBack)
+        public void Register(Action action)
         {
-            timer = Time.time + time;
-            this.callBack = callBack;
+            if (callBack != null)
+            {
+                Delegate[] dels = callBack.GetInvocationList();
+                foreach (Delegate del in dels)
+                {
+                    if (del.Equals(action))
+                        return;
+                }
+            }
+            callBack += action;
         }
 
-        public TimeTask(float time, float interval, Action callBack)
-        {
-            timer = Time.time + time;
-            this.interval = interval;
-            this.callBack = callBack;
-        }
-
-        public void Dispose()
-        {
-            callBack = null;
+        public void Invoke()
+        { 
+            
         }
     }
 }

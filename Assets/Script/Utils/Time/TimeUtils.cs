@@ -1,82 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 
-public static class TimeUtils
+namespace UnityEngine
 {
-    private static readonly Dictionary<string, DateTime> timer = new Dictionary<string, DateTime>();
-
-    public static DateTime Now
+    public static class TimeUtils
     {
-        get
+        public static DateTime Now
         {
-            return DateTime.Now;
+            get
+            {
+                return DateTime.Now;
+            }
         }
-    }
 
-    public static DateTime UtcNow
-    {
-        get
+        public static DateTime UtcNow
         {
-            return DateTime.UtcNow;
+            get
+            {
+                return DateTime.UtcNow;
+            }
         }
-    }
 
-    public static DateTime LocalToUtc(DateTime time)
-    { 
-        return time - TimeZoneInfo.Local.BaseUtcOffset;
-    }
-
-    public static DateTime UtcToLocal(DateTime time)
-    {
-        return time + TimeZoneInfo.Local.BaseUtcOffset;
-    }
-
-    public static void TimBegin(string key)
-    {
-        if (timer.ContainsKey(key))
+        public static DateTime LocalToUtc(DateTime time)
         {
-            timer[key] = DateTime.Now;
+            return time - TimeZoneInfo.Local.BaseUtcOffset;
         }
-        else
+
+        public static DateTime UtcToLocal(DateTime time)
         {
-            timer.Add(key, DateTime.Now);
+            return time + TimeZoneInfo.Local.BaseUtcOffset;
         }
-    }
 
-    public static double TimEnd(string key)
-    {
-        if (timer.ContainsKey(key))
+        public static DateTime ToDateTime(long ticket)
         {
-            return DateTime.Now.Subtract(timer[key]).TotalMilliseconds;
+            return new DateTime(ticket);
         }
-        else
+
+        public static DateTime ToDateTime(string time)
         {
-            return 0;
+            DateTimeFormatInfo format = new DateTimeFormatInfo()
+            {
+                ShortDatePattern = "yyyy-MM-dd",
+            };
+            return Convert.ToDateTime(time, format);
         }
-    }
 
-    public static double TotalSeconds(DateTime begin, DateTime end)
-    {
-        return begin.Subtract(end).TotalSeconds;
-    }
-
-    public static DateTime ToDateTime(long ticket)
-    {
-        return new DateTime(ticket);
-    }
-
-    public static DateTime ToDateTime(string time)
-    {
-        DateTimeFormatInfo format = new DateTimeFormatInfo()
+        public static double TotalSeconds(DateTime begin, DateTime end)
         {
-            ShortDatePattern = "yyyy-MM-dd",
-        };
-        return Convert.ToDateTime(time, format);
-    }
+            return begin.Subtract(end).TotalSeconds;
+        }
 
-    public static string ToString(DateTime time)
-    {
-        return time.ToString();
+        public static string ToString(DateTime time)
+        {
+            return time.ToString();
+        }
     }
 }

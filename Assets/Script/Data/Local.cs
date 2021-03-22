@@ -20,9 +20,18 @@ namespace UnityEngine
             return PlayerPrefs.GetInt(key, value);
         }
 
-        public static float GetFloat(string key, float value = 0)
+        public static float GetFloat(string key, float value = 0F)
         {
             return PlayerPrefs.GetFloat(key, value);
+        }
+
+        public static long GetLong(string key, long value = 0L)
+        {
+            if (PlayerPrefs.HasKey(key))
+            {
+                long.TryParse(PlayerPrefs.GetString(key), out value);
+            }
+            return value;
         }
 
         public static Color GetColor(string key)
@@ -60,6 +69,11 @@ namespace UnityEngine
         public static void SetFloat(string key, float value)
         {
             PlayerPrefs.SetFloat(key, value);
+        }
+
+        public static void SetLong(string key, long value)
+        {
+            PlayerPrefs.SetString(key, value.ToString());
         }
 
         public static void SetColor(string key, Color value)
