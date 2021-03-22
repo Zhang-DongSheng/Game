@@ -44,9 +44,9 @@ namespace Game.UI
 
         private void Start()
         {
-            input_account.text = LocalManager.GetString(ACCOUNT);
+            input_account.text = Local.GetString(ACCOUNT);
 
-            input_password.text = LocalManager.GetString(PASSWORD);
+            input_password.text = Local.GetString(PASSWORD);
         }
 
         private void OnReceivedLogin(EventMessageArgs args)
@@ -55,9 +55,9 @@ namespace Game.UI
 
             if (status)
             {
-                LocalManager.SetString(ACCOUNT, account);
+                Local.SetString(ACCOUNT, account);
 
-                LocalManager.SetString(PASSWORD, password);
+                Local.SetString(PASSWORD, password);
 
                 UIManager.Instance.Open(UIKey.UILoading);
             }

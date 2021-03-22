@@ -54,7 +54,7 @@ namespace UnityEngine.UI
 
         private void Start()
         {
-            ctrlActive = ignore || LocalManager.GetBool(LocalKey.EffectStatus);
+            ctrlActive = ignore || Local.GetBool(LocalKey.EffectStatus);
 
             SetOrder();
 

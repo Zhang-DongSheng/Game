@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityEngine
 {
-    public static class LocalManager
+    public static class Local
     {
         public static bool GetBool(string key, bool value = false)
         {
