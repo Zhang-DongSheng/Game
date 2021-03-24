@@ -13,11 +13,11 @@ namespace UnityEditor.Script
 
         private readonly List<PropertyParameter> parameters = new List<PropertyParameter>();
 
-        [MenuItem("Window/AutomationScript")]
+        [MenuItem("Window/Script Editor")]
         private static void Open()
         {
             AutomationScriptWindow window = EditorWindow.GetWindow<AutomationScriptWindow>();
-            window.titleContent = new GUIContent("AutomationScript");
+            window.titleContent = new GUIContent("Script Editor");
             window.minSize = new Vector2(500, 300);
             window.Show();
         }
