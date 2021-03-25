@@ -1,4 +1,5 @@
 ﻿using Data;
+using Game.Model;
 using Game.UI;
 using UnityEngine;
 
