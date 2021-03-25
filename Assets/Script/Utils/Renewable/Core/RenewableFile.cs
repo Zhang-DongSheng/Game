@@ -5,6 +5,20 @@ namespace UnityEngine.Renewable
 {
     public class RenewableFile
     {
+        public static void FolderCheck(string folder)
+        {
+            folder = Path.GetDirectoryName(folder);
+
+            if (!Directory.Exists(folder))
+            {
+                if (File.Exists(folder))
+                {
+                    File.Delete(folder);
+                }
+                Directory.CreateDirectory(folder);
+            }
+        }
+
         public static bool Exists(string path)
         {
             return File.Exists(path);

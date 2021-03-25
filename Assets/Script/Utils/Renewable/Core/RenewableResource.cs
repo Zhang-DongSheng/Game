@@ -50,6 +50,7 @@ namespace UnityEngine.Renewable
             {
                 DownloadLimit = 1; RenewableResourceUpdate.Instance.Load();
             }
+            RenewableFile.FolderCheck(System.IO.Path.Combine(Application.persistentDataPath, "assets/"));
         }
 
         public void Get(RenewableRequest request, Action<RenewableDownloadHandler> success = null, Action fail = null)
