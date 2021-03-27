@@ -6,11 +6,25 @@ namespace TEST
 {
     public class Test : MonoBehaviour
     {
-        public TimeHelper helper;
+        public UIPage helper;
 
         private void Awake()
         {
+            List<int> list = new List<int>();
 
+            for (int i = 0; i < 5 * 6 + 2; i++)
+            {
+                list.Add(i);
+            }
+
+            helper.updateItem = (item, data) =>
+            {
+                item.GetComponentInChildren<Text>().text = data.ToString();
+            };
+                
+
+
+            helper.Init(list, 5);
         }
 
         private void Start()
@@ -38,27 +52,12 @@ namespace TEST
         {
             if (Input.GetKeyDown(KeyCode.P))
             {
-                //slider.Play(Random.Range(0, 1f));
-
-                helper.onValueChanged.AddListener((value) =>
-                {
-                    GetComponent<Text>().text = value.ToString();
-                });
-
-                helper.Start(60);
+                helper.Next(1);
             }
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                //slider.Play(Random.Range(0, 1f));
-
-                TimeManager.Instance.Register("Test", new TimeTask()
-                {
-                    timer = Time.time + 5,
-                    interval = 5,
-                    loop = true,
-                    callBack = OnCompleted
-                });
+                helper.Next(-1);
             }
         }
 

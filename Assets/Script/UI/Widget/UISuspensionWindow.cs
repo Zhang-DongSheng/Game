@@ -1,10 +1,8 @@
 ﻿using System;
-using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-namespace Game.UI
+namespace UnityEngine.UI
 {
     /// <summary>
     /// 悬浮窗

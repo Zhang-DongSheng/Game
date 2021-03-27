@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace Game.UI
+namespace UnityEngine
 {
     [System.Serializable]
     public class ParentAndPrefab
