@@ -6,25 +6,25 @@ namespace TEST
 {
     public class Test : MonoBehaviour
     {
-        public UIPage helper;
+        public UISegment helper;
 
         private void Awake()
         {
             List<int> list = new List<int>();
 
-            for (int i = 0; i < 5 * 6 + 2; i++)
+            for (int i = 0; i < 5 * 60 + 2; i++)
             {
                 list.Add(i);
             }
 
-            helper.updateItem = (item, data) =>
+            helper.callback = (item, data) =>
             {
                 item.GetComponentInChildren<Text>().text = data.ToString();
             };
                 
 
 
-            helper.Init(list, 5);
+            helper.Refresh(list);
         }
 
         private void Start()
@@ -52,12 +52,12 @@ namespace TEST
         {
             if (Input.GetKeyDown(KeyCode.P))
             {
-                helper.Next(1);
+                //helper.Next(1);
             }
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                helper.Next(-1);
+               // helper.Next(-1);
             }
         }
 
