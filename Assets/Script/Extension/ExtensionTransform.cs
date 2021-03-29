@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static partial class Extension
 {
-    public static T AddComponent<T>(this Transform target) where T : UnityEngine.Component
+    public static T AddComponent<T>(this Transform target) where T : Component
     {
         if (target != null && target.gameObject != null)
         {
@@ -12,7 +11,7 @@ public static partial class Extension
         return null;
     }
 
-    public static T GetOrAddComponent<T>(this Transform target) where T : UnityEngine.Component
+    public static T AddOrReplaceComponent<T>(this Transform target) where T : Component
     {
         if (target != null && target.gameObject != null)
         {
@@ -25,18 +24,7 @@ public static partial class Extension
         return null;
     }
 
-    public static T GetComponentInChildren<T>(this Transform target, string name) where T : UnityEngine.Component
-    {
-        if (target != null)
-        {
-            Transform child = target.Find(name);
-            if (child != null)
-                return child.GetComponent<T>();
-        }
-        return null;
-    }
-
-    public static void RemoveComponent<T>(this Transform target) where T : UnityEngine.Component
+    public static void RemoveComponent<T>(this Transform target) where T : Component
     {
         if (target != null && target.gameObject != null)
         {
@@ -47,96 +35,48 @@ public static partial class Extension
         }
     }
 
-    public static Transform Root<T>(this Transform target) where T : UnityEngine.Component
+    public static void SetPosition(this Transform target, Vector3 position, bool local = true)
     {
-        if (target != null)
+        if (local)
         {
-            Transform node = target;
-
-            while (node != null)
-            {
-                if (node.TryGetComponent<T>(out _))
-                {
-                    break;
-                }
-                node = node.parent;
-            }
-            return node;
+            target.localPosition = position;
         }
-        return null;
+        else
+        {
+            target.position = position;
+        }
     }
 
-    public static void SetPositionX(this Transform target, float value, bool local = false)
+    public static void SetPosition(this Transform target, float value, TDAxis axis, bool local = true)
     {
-        if (target != null)
+        Vector3 position = local ? target.localPosition : target.position;
+
+        switch (axis)
         {
-            if (local)
-            {
-                Vector3 position = target.localPosition;
+            case TDAxis.X:
                 position.x = value;
-                target.localPosition = position;
-            }
-            else
-            {
-                Vector3 position = target.position;
-                position.x = value;
-                target.position = position;
-            }
-        }
-    }
-
-    public static void SetPositionY(this Transform target, float value, bool local = false)
-    {
-        if (target != null)
-        {
-            if (local)
-            {
-                Vector3 position = target.localPosition;
+                break;
+            case TDAxis.Y:
                 position.y = value;
-                target.localPosition = position;
-            }
-            else
-            {
-                Vector3 position = target.position;
-                position.y = value;
-                target.position = position;
-            }
-        }
-    }
-
-    public static void SetPositionZ(this Transform target, float value, bool local = false)
-    {
-        if (target != null)
-        {
-            if (local)
-            {
-                Vector3 position = target.localPosition;
+                break;
+            case TDAxis.Z:
                 position.z = value;
-                target.localPosition = position;
-            }
-            else
-            {
-                Vector3 position = target.position;
-                position.z = value;
-                target.position = position;
-            }
+                break;
         }
+
+        target.SetPosition(position, local);
+    } 
+
+    public static void SetPosition(this RectTransform rect, Vector2 position)
+    {
+        rect.anchoredPosition = position;
     }
 
-    public static void Reset(this RectTransform target)
+    public static void SetSize(this RectTransform rect, Vector2 size)
     {
-        target.localPosition = Vector3.zero;
+        rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size.x);
 
-        target.localRotation = Quaternion.identity;
-
-        target.localScale = Vector3.one;
-    }
-
-    public static void SetSize(this RectTransform target, Vector2 size)
-    {
-        target.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size.x);
-
-        target.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size.y);
+        rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size.y);
     }
 
     public static void Full(this RectTransform target)
@@ -150,22 +90,16 @@ public static partial class Extension
         target.anchorMax = Vector2.one;
     }
 
-    public static List<T> Children<T>(this Transform target)
+    public static void Reset(this RectTransform rect)
     {
-        List<T> list = new List<T>();
+        rect.localPosition = Vector3.zero;
 
-        for (int i = 0; i < target.childCount; i++)
-        {
-            if (target.GetChild(i).TryGetComponent(out T compontent))
-            {
-                list.Add(compontent);
-            }
-        }
+        rect.localRotation = Quaternion.identity;
 
-        return list;
+        rect.localScale = Vector3.one;
     }
 
-    public static void ClearChildren(this Transform target)
+    public static void Clear(this Transform target)
     {
         if (target != null && target.childCount > 0)
         {
@@ -175,4 +109,11 @@ public static partial class Extension
             }
         }
     }
+}
+
+public enum TDAxis
+{
+    X,
+    Y,
+    Z,
 }

@@ -25,7 +25,7 @@ public static partial class Extension
 
     public static void SetTextWithEmoji(this Text compontent, string content)
     {
-        compontent.transform.ClearChildren();
+        compontent.transform.Clear();
 
         if (emojiRegex.IsMatch(content))
         {
