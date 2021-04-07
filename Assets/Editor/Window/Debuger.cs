@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
-namespace UnityEditor
+namespace UnityEditor.Window
 {
-    public class DebugerWindow : EditorWindow
+    class Debuger : EditorWindow
     {
         private readonly List<string> parameter = new List<string>();
 
@@ -14,7 +13,7 @@ namespace UnityEditor
         [MenuItem("Window/Debuger")]
         private static void Open()
         {
-            EditorWindow window = GetWindow<DebugerWindow>();
+            EditorWindow window = GetWindow<Debuger>();
             window.titleContent = new GUIContent("Debuger");
             window.minSize = Vector2.one * 300;
             window.maxSize = Vector2.one * 1000;

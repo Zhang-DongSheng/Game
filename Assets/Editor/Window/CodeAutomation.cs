@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace UnityEditor.Script
+namespace UnityEditor.Window
 {
-    public class AutomationScriptWindow : EditorWindow
+    class CodeAutomation : EditorWindow
     {
         private string code;
 
@@ -16,7 +16,7 @@ namespace UnityEditor.Script
         [MenuItem("Window/Script Editor")]
         private static void Open()
         {
-            AutomationScriptWindow window = EditorWindow.GetWindow<AutomationScriptWindow>();
+            CodeAutomation window = EditorWindow.GetWindow<CodeAutomation>();
             window.titleContent = new GUIContent("Script Editor");
             window.minSize = new Vector2(500, 300);
             window.Show();

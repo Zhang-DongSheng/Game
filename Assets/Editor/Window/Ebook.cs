@@ -4,9 +4,9 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-namespace UnityEditor
+namespace UnityEditor.Window
 {
-    public class EbookConvertWindow : EditorWindow
+    class Ebook : EditorWindow
     {
         enum CodeType
         {
@@ -49,7 +49,7 @@ namespace UnityEditor
         [MenuItem("Extra/Ebook")]
         private static void Open()
         {
-            EditorWindow window = EditorWindow.GetWindow<EbookConvertWindow>();
+            EditorWindow window = EditorWindow.GetWindow<Ebook>();
             window.titleContent = new GUIContent("Ebook");
             window.minSize = Vector2.one * 300;
             window.maxSize = Vector2.one * 1000;

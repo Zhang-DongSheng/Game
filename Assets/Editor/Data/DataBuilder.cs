@@ -1,26 +1,26 @@
-﻿using System.IO;
-using UnityEditor;
+﻿using Data;
+using System.IO;
 using UnityEngine;
 
-namespace Data
+namespace UnityEditor
 {
-    public class DataBuilder : MonoBehaviour
+    class DataBuilder
     {
         #region Create
         [MenuItem("Data/Create/Config")]
-        private static void Create_DataConfig()
+        protected static void Create_DataConfig()
         {
             Create<ConfigInformation>("Config");
         }
 
         [MenuItem("Data/Create/Language")]
-        private static void Create_DataLanguage()
+        protected static void Create_DataLanguage()
         {
             Create<DataLanguage>("Language");
         }
         #endregion
 
-        private static void Create<T>(string name) where T : ScriptableObject
+        protected static void Create<T>(string name) where T : ScriptableObject
         {
             ScriptableObject script = ScriptableObject.CreateInstance<T>();
             string path = Application.dataPath + "/Resources/Data";

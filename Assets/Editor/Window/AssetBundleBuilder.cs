@@ -4,9 +4,9 @@ using System.IO;
 using System.Security.Cryptography;
 using UnityEngine;
 
-namespace UnityEditor
+namespace UnityEditor.Window
 {
-    public class AssetBundleBuilder : EditorWindow
+    class AssetBundleBuilder : EditorWindow
     {
         private readonly List<string> IgnoreExtensionList = new List<string>() { ".meta", ".manifest" };
 
