@@ -56,7 +56,7 @@ namespace UnityEditor
             OpenFolder(Application.temporaryCachePath);
         }
 
-        [MenuItem("Tools/File/Console")]
+        [MenuItem("Tools/File/Log")]
         private static void OpenConsoleFile()
         {
             OpenFile(Application.consoleLogPath);
@@ -68,9 +68,7 @@ namespace UnityEditor
 
             if (Directory.Exists(path))
             {
-                path = path.Replace("/", "\\");
-
-                System.Diagnostics.Process.Start("explorer.exe", path);
+                System.Diagnostics.Process.Start("explorer.exe", path.Replace('/', '\\'));
             }
             else
             {
@@ -84,29 +82,7 @@ namespace UnityEditor
 
             if (File.Exists(path))
             {
-                string[] fileInfo = path.Split('.');
-
-                string suffix = fileInfo[fileInfo.Length - 1];
-
-                string process;
-
-                switch (suffix)
-                {
-                    case "txt":
-                    case "log":
-                        process = "notepad.exe";
-                        break;
-                    default:
-                        process = "explorer.exe";
-                        break;
-                }
-
-                path = path.Replace("/", "\\");
-
-                if (!string.IsNullOrEmpty(process))
-                {
-                    System.Diagnostics.Process.Start(process, path);
-                }
+                EditorUtility.OpenWithDefaultApp(path);
             }
             else
             {

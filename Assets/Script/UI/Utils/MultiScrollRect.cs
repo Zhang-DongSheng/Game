@@ -2,7 +2,7 @@
 
 namespace UnityEngine.UI
 {
-    public class ScrollRectMulti : ScrollRect, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class MultiScrollRect : ScrollRect, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [SerializeField] private ScrollRect scroll;
 

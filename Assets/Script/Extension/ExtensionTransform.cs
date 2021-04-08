@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public static partial class Extension
 {
@@ -17,11 +18,40 @@ public static partial class Extension
         {
             if (!target.TryGetComponent<T>(out T compontent))
             {
-                compontent = target.gameObject.AddComponent<T>();
+                compontent = target.AddComponent<T>();
             }
             return compontent;
         }
         return null;
+    }
+
+    public static List<T> FindComponentsInChildren<T>(this Transform target) where T : Component
+    {
+        List<T> components = new List<T>();
+
+        for (int i = 0; i < target.childCount; i++)
+        {
+            if (target.GetChild(i).TryGetComponent(out T component))
+            {
+                components.Add(component);
+            }
+        }
+        return components;
+    }
+
+    public static T FindComponentInParent<T>(this Transform target) where T : Component
+    {
+        Transform parent = target; T component = null;
+
+        while (parent != null)
+        {
+            if (parent.TryGetComponent<T>(out component))
+            {
+                break;
+            }
+            parent = parent.parent;
+        }
+        return component;
     }
 
     public static void RemoveComponent<T>(this Transform target) where T : Component
@@ -77,6 +107,25 @@ public static partial class Extension
         rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size.x);
 
         rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size.y);
+    }
+
+    public static Vector2 Offset(RectTransform rect)
+    {
+        Vector2 offset = Vector2.zero;
+
+        while (rect != null)
+        {
+            if (rect.TryGetComponent(out Canvas _))
+            {
+                break;
+            }
+            else
+            {
+                offset += rect.anchoredPosition;
+            }
+            rect = rect.parent.GetComponent<RectTransform>();
+        }
+        return offset;
     }
 
     public static void Full(this RectTransform target)

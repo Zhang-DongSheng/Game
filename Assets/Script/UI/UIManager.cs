@@ -161,6 +161,23 @@ namespace Game.UI
                 return new Vector2(Screen.width, Screen.height);
             }
         }
+
+        public bool ScreentPointToUGUIPosition(RectTransform parent, Vector2 point, out Vector2 position)
+        {
+            if (canvas == null)
+            {
+                position = Vector2.zero; return false;
+            }
+
+            if (canvas.renderMode == RenderMode.ScreenSpaceCamera && canvas.worldCamera != null)
+            {
+                return RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, point, canvas.worldCamera, out position);
+            }
+            else
+            {
+                return RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, point, null, out position);
+            }
+        }
     }
 
     public enum UILayer

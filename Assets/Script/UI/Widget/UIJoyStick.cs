@@ -1,4 +1,4 @@
-﻿using System;
+﻿using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI
@@ -8,7 +8,7 @@ namespace UnityEngine.UI
     /// </summary>
     public class UIJoyStick : MonoBehaviour
     {
-        enum JoyStickState
+        enum Status
         {
             None,
             OnEnter,
@@ -16,57 +16,59 @@ namespace UnityEngine.UI
             OnLeave,
         }
 
-        public Transform m_background;
-        public Transform m_foreground;
-        public Transform m_arrow;
+        [SerializeField] private RectTransform parent;
 
-        [Range(1, 100)]
-        public float m_radius;
+        [SerializeField] private Transform m_background;
 
-        public Action onEnter;
-        public Action<Vector2> onMove;
-        public Action onLeave;
+        [SerializeField] private Transform m_foreground;
 
-        private JoyStickState _js_state;
-        private JoyStickState js_state
+        [SerializeField] private Transform m_arrow;
+
+        [SerializeField, Range(1, 100)] private float m_radius;
+
+        [SerializeField] private bool force = true;
+
+        public UnityEvent onEnter, onLeave;
+
+        public UnityEvent<Vector2> onMove;
+
+        private Status _status;
+        private Status status
         {
             get
             {
-                return _js_state;
+                return _status;
             }
             set
             {
-                if (_js_state != value)
+                if (_status != value)
                 {
                     switch (value)
                     {
-                        case JoyStickState.OnEnter:
-                            m_timer = Time.time;
+                        case Status.OnEnter:
+                            timer = Time.time;
                             break;
-                        case JoyStickState.OnStay:
+                        case Status.OnStay:
                             SetActive(true, point_pre);
                             break;
-                        case JoyStickState.OnLeave:
+                        case Status.OnLeave:
                             SetActive(false, Vector3.zero);
                             break;
                         default:
                             break;
                     }
-                    _js_state = value;
+                    _status = value;
                 }
             }
         }
 
-        private Touch m_touch;
-        private int m_touch_ID;
+        private Touch touch;
 
-        private float m_timer;
-        private Vector3 m_position;
+        private int touch_ID;
 
-        private Vector2 point_pre;
-        private Vector2 point_now;
+        private float timer;
 
-        public bool m_force = true;
+        private Vector2 point_pre, point_now;
 
         private void Awake()
         {
@@ -83,26 +85,23 @@ namespace UnityEngine.UI
                     //实现左半屏触发
                     if (Input.mousePosition.x <= UIConfig.ScreenHalfWidth)
                     {
-                        if (onEnter != null)
-                        {
-                            onEnter();
-                        }
-                        js_state = JoyStickState.OnEnter;
+                        onEnter?.Invoke();
+                        status = Status.OnEnter;
                     }
                 }
             }
             if (Input.GetMouseButton(0))
             {
-                if (js_state == JoyStickState.OnEnter)
+                if (status == Status.OnEnter)
                 {
                     //等待一帧，区别射线的触发
-                    if (Time.time - m_timer > Time.deltaTime)
+                    if (Time.time - timer > Time.deltaTime)
                     {
                         point_pre = Input.mousePosition;
-                        js_state = JoyStickState.OnStay;
+                        status = Status.OnStay;
                     }
                 }
-                else if (js_state == JoyStickState.OnStay)
+                else if (status == Status.OnStay)
                 {
                     point_now = Input.mousePosition;
                     Vector2 vector = Get_Postion(point_now, point_pre);
@@ -110,94 +109,85 @@ namespace UnityEngine.UI
                     m_foreground.localEulerAngles = rotation;
                     m_arrow.localPosition = vector;
 
-                    if (m_force && onMove != null)
+                    if (force)
                     {
-                        onMove(vector / m_radius);
+                        onMove?.Invoke(vector / m_radius);
                     }
                 }
             }
             if (Input.GetMouseButtonUp(0))
             {
-                if (js_state != JoyStickState.OnLeave)
+                if (status != Status.OnLeave)
                 {
-                    if (onLeave != null)
-                    {
-                        onLeave();
-                    }
-                    js_state = JoyStickState.OnLeave;
+                    onLeave?.Invoke();
+                    status = Status.OnLeave;
                 }
             }
 #elif UNITY_IOS || UNITY_ANDROID
-        if (Input.touchCount > 0)
-        {
-            for (int i = 0; i < Input.touchCount; i++)
+            if (Input.touchCount > 0)
             {
-                m_touch = Input.GetTouch(i);
-
-                switch (m_touch.phase)
+                for (int i = 0; i < Input.touchCount; i++)
                 {
-                    case TouchPhase.Began:
-                        if (!EventSystem.current.IsPointerOverGameObject(m_touch.fingerId))
-                        {
-                            if (m_touch.position.x <= UIConfig.ScreenHalfWidth)
-                            {
-                                m_touch_ID = m_touch.fingerId;
-                                if (onEnter != null)
-                                {
-                                    onEnter();
-                                }
-                                js_state = JoyStickState.OnEnter;
-                            }
-                        }
-                        break;
-                    case TouchPhase.Stationary:
-                        if (m_touch.fingerId == m_touch_ID)
-                        {
-                            if (js_state == JoyStickState.OnEnter)
-                            {
-                                if (Time.time - m_timer > Time.deltaTime)
-                                {
-                                    point_pre = m_touch.position;
-                                    js_state = JoyStickState.OnStay;
-                                }
-                            }
-                            else if (js_state == JoyStickState.OnStay)
-                            {
-                                point_now = m_touch.position;
-                                Vector2 vector = Get_Postion(point_now, point_pre);
-                                Vector3 rotation = Get_Rotation(vector);
-                                m_foreground.localEulerAngles = rotation;
-                                m_arrow.localPosition = vector;
+                    touch = Input.GetTouch(i);
 
-                                if (m_force && onMove != null)
-                                {
-                                    onMove(vector / m_radius);
-                                }
-                            }
-                        }
-                        break;
-                    case TouchPhase.Moved:
-                        goto case TouchPhase.Stationary;
-                    case TouchPhase.Canceled:
-                        if (m_touch.fingerId == m_touch_ID)
-                        {
-                            if (js_state != JoyStickState.OnLeave)
+                    switch (touch.phase)
+                    {
+                        case TouchPhase.Began:
+                            if (!EventSystem.current.IsPointerOverGameObject(touch.fingerId))
                             {
-                                if (onLeave != null)
+                                if (touch.position.x <= UIConfig.ScreenHalfWidth)
                                 {
-                                    onLeave();
+                                    touch_ID = touch.fingerId;
+                                    onEnter?.Invoke();
+                                    status = Status.OnEnter;
                                 }
-                                js_state = JoyStickState.OnLeave;
                             }
-                        }
-                        break;
-                    case TouchPhase.Ended:
-                        goto case TouchPhase.Canceled;
-                    default:
-                        break;
+                            break;
+                        case TouchPhase.Stationary:
+                            if (touch.fingerId == touch_ID)
+                            {
+                                if (status == Status.OnEnter)
+                                {
+                                    if (Time.time - timer > Time.deltaTime)
+                                    {
+                                        point_pre = touch.position;
+                                        status = Status.OnStay;
+                                    }
+                                }
+                                else if (status == Status.OnStay)
+                                {
+                                    point_now = touch.position;
+                                    Vector2 vector = Get_Postion(point_now, point_pre);
+                                    Vector3 rotation = Get_Rotation(vector);
+                                    m_foreground.localEulerAngles = rotation;
+                                    m_arrow.localPosition = vector;
+
+                                    if (force)
+                                    {
+                                        onMove?.Invoke(vector / m_radius);
+                                    }
+                                }
+                            }
+                            break;
+                        case TouchPhase.Moved:
+                            goto case TouchPhase.Stationary;
+                        case TouchPhase.Canceled:
+                            if (touch.fingerId == touch_ID)
+                            {
+                                if (status != Status.OnLeave)
+                                {
+                                    onLeave?.Invoke();
+                                    status = Status.OnLeave;
+                                }
+                            }
+                            break;
+                        case TouchPhase.Ended:
+                            goto case TouchPhase.Canceled;
+                        default:
+                            break;
+                    }
                 }
             }
-        }
 #else
         
 #endif
@@ -208,21 +198,21 @@ namespace UnityEngine.UI
         /// </summary>
         public void BreakeJoyStick()
         {
-            if (js_state != JoyStickState.OnLeave)
+            if (status != Status.OnLeave)
             {
-                if (onLeave != null)
-                {
-                    onLeave();
-                }
-                js_state = JoyStickState.OnLeave;
+                onLeave?.Invoke();
+                status = Status.OnLeave;
             }
         }
 
-        private void SetActive(bool state, Vector3 pos)
+        private void SetActive(bool state, Vector2 point)
         {
             if (state)
             {
-                m_background.localPosition = UIUtils.PositionFormat(pos, Vector3.zero);
+                if (Game.UI.UIManager.Instance.ScreentPointToUGUIPosition(parent, point, out Vector2 position))
+                {
+                    m_background.localPosition = position;
+                }
             }
             if (m_background.gameObject.activeSelf != state)
             {
@@ -230,24 +220,27 @@ namespace UnityEngine.UI
             }
         }
 
-        private Vector3 Get_Postion(Vector3 point_now, Vector3 point_pre)
+        private Vector2 Get_Postion(Vector2 point_now, Vector2 point_pre)
         {
-            Vector3 vector = point_now - point_pre;
+            Vector2 vector = point_now - point_pre;
 
             float ratio = 1;
-            float distance = Vector3.Distance(point_now, point_pre);
+
+            float distance = Vector2.Distance(point_now, point_pre);
+
             if (distance >= m_radius)
             {
                 ratio = m_radius / distance;
             }
-
             return vector * ratio;
         }
 
         private Vector3 Get_Rotation(Vector2 position)
         {
             Vector3 dir = new Vector3(position.x, 0, position.y);
+
             Vector3 angle = Quaternion.LookRotation(dir, Vector3.up).eulerAngles;
+
             return Vector3.forward * angle.y * -1f;
         }
     }
