@@ -1,74 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using UnityEngine.UI;
 
 namespace UnityEngine.Renewable
 {
     public static class RenewableUtils
     {
-        private static readonly Dictionary<string, List<Image>> compontents = new Dictionary<string, List<Image>>();
-
-        public static void Preload(string key, RPKey cache = RPKey.None)
+        public static void SetImage(string key, Action<Sprite> callback = null)
         {
-            string parameter = Path.GetFileNameWithoutExtension(key);
+            string parameter = AssetKey(key);
 
-            if (RenewablePool.Instance.Exist(cache, key + parameter, string.Empty)) { }
+            if (RenewablePool.Instance.Exist(RPKey.None, key + parameter, string.Empty))
+            {
+                Object asset = RenewablePool.Instance.Pop<Object>(RPKey.None, key + parameter);
+
+                if (asset != null)
+                {
+                    callback?.Invoke(ConvertToSprite(asset));
+                }
+            }
             else
             {
                 RenewableResource.Instance.Get(new RenewableRequest(key, parameter, 0, StorageClass.Write, DownloadFileType.None), (handle) =>
                 {
-                    if (RenewablePool.Instance.Exist(cache, handle.key + handle.parameter, handle.secret)) { }
-                    else
+                    if (RenewablePool.Instance.Exist(RPKey.None, handle.key + handle.parameter, handle.secret))
                     {
-                        RenewableAssetBundle.Instance.LoadAsync(handle.key, handle.buffer, handle.parameter, (asset) =>
+                        Object asset = RenewablePool.Instance.Pop<Object>(RPKey.None, handle.key + handle.parameter);
+
+                        if (asset != null)
                         {
-                            if (asset != null)
-                            {
-                                RenewablePool.Instance.Push(cache, handle.key + handle.parameter, handle.secret, handle.recent, asset);
-                            }
-                        });
-                    }
-                }, null);
-            }
-        }
-
-        public static void SetImage(Image image, string key, RPKey cache = RPKey.None, Action<string> callback = null)
-        {
-            string parameter = Path.GetFileNameWithoutExtension(key);
-
-            if (RenewablePool.Instance.Exist(cache, key + parameter, string.Empty))
-            {
-                Object asset = RenewablePool.Instance.Pop<Object>(cache, key + parameter);
-
-                SetImage(image, asset as Texture2D);
-
-                callback?.Invoke(key);
-            }
-            else
-            {
-                if (compontents.ContainsKey(key))
-                {
-                    compontents[key].Add(image);
-                }
-                else
-                {
-                    compontents.Add(key, new List<Image>() { image });
-                }
-
-                RenewableResource.Instance.Get(new RenewableRequest(key, parameter, 0, StorageClass.Write, DownloadFileType.None), (handle) =>
-                {
-                    if (RenewablePool.Instance.Exist(cache, handle.key + handle.parameter, handle.secret))
-                    {
-                        Object asset = RenewablePool.Instance.Pop<Object>(cache, handle.key + handle.parameter);
-
-                        if (asset != null && compontents.ContainsKey(handle.key))
-                        {
-                            SetImages(compontents[handle.key], asset as Texture2D);
-
-                            callback?.Invoke(handle.key);
-
-                            compontents.Remove(handle.key);
+                            callback?.Invoke(ConvertToSprite(asset));
                         }
                     }
                     else
@@ -77,15 +36,9 @@ namespace UnityEngine.Renewable
                         {
                             if (asset != null)
                             {
-                                if (asset != null && compontents.ContainsKey(handle.key))
-                                {
-                                    SetImages(compontents[handle.key], asset as Texture2D);
+                                callback?.Invoke(ConvertToSprite(asset));
 
-                                    callback?.Invoke(handle.key);
-
-                                    compontents.Remove(handle.key);
-                                }
-                                RenewablePool.Instance.Push(cache, handle.key + handle.parameter, handle.secret, handle.recent, asset);
+                                RenewablePool.Instance.Push(RPKey.None, handle.key + handle.parameter, handle.secret, handle.recent, asset);
                             }
                         });
                     }
@@ -93,31 +46,22 @@ namespace UnityEngine.Renewable
             }
         }
 
-        public static void SetImages(List<Image> images, Texture2D texture)
+        public static Sprite ConvertToSprite(Object asset)
         {
-            for (int i = 0; i < images.Count; i++)
+            if (asset != null && asset is Texture2D texture)
             {
-                if (images[i].sprite != null)
-                {
-                    UnityEngine.GameObject.Destroy(images[i].sprite);
-                }
+                return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
             }
-
-            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
-
-            for (int i = 0; i < images.Count; i++)
-            {
-                images[i].sprite = sprite;
-            }
+            return null;
         }
 
-        public static void SetImage(Image image, Texture2D texture)
+        public static string AssetKey(string key)
         {
-            if (image.sprite != null)
+            if (key.Contains("_"))
             {
-                UnityEngine.GameObject.Destroy(image.sprite);
+                return key.Substring(key.IndexOf('_') + 1);
             }
-            image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+            return key;
         }
     }
 }
