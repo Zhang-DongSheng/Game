@@ -1,5 +1,5 @@
 // 15.10.2 [映射, 使用GrabPass, 需要用球体显示]
-Shader "Study/GrabPass/Mapping"
+Shader "GrabPass/Mapping"
 {
     SubShader
     {

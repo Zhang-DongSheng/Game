@@ -1,5 +1,5 @@
 // 15.10.1 [×¥ÆÁ, Ê¹ÓÃGrabPass]
-Shader "Study/GrabPass/Capture"
+Shader "GrabPass/Capture"
 {
     Properties
     {
