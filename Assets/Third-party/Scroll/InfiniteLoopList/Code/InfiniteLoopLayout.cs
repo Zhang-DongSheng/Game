@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace UnityEngine.UI.Scroll
+namespace UnityEngine.UI
 {
     public class InfiniteLoopLayout : MonoBehaviour
     {
