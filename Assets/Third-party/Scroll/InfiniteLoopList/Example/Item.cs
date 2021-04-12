@@ -1,8 +1,8 @@
 ﻿using UnityEngine.UI;
 
-namespace Example
+namespace Example.Scroll.InfiniteLoop
 {
-    public class ItemESC : InfiniteLoopItem
+    public class Item : InfiniteLoopItem
     {
         public Text txt_label;
 

@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Example
+namespace Example.Scroll.InfiniteLoop
 {
-    public class ScrollESC : MonoBehaviour
+    public class Scroll : MonoBehaviour
     {
         public InfiniteLoopScrollList scroll;
 
