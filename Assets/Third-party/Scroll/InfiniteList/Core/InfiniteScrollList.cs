@@ -1,23 +1,96 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI
 {
-    public class InfiniteScrollList : MonoBehaviour
+    public class InfiniteScrollList : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        [SerializeField] private InfiniteLayout content;
+        enum Direction
+        {
+            None,
+            Horizontal,
+            Vertical,
+        }
 
-        [SerializeField] private RectTransform viewPort;
+        [SerializeField] private Direction direction;
+
+        [SerializeField] private InfiniteLayout content;
 
         [SerializeField] private GameObject prefab;
 
-        [SerializeField] private int count = 10;
+        [SerializeField] private ScrollRect scroll;
 
-        private IList source;
+        [SerializeField, Range(5, 20)] private int count = 10;
+
+        private bool drag;
+
+        private readonly IList source;
 
         private readonly List<InfiniteItem> items = new List<InfiniteItem>();
 
+        private void Awake()
+        {
+
+        }
+
+        private void Update()
+        {
+
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            drag = true;
+
+            if (scroll != null)
+            {
+                switch (direction)
+                {
+                    case Direction.Horizontal:
+                        drag = ScrollUtils.Horizontal(eventData.delta);
+                        break;
+                    case Direction.Vertical:
+                        drag = ScrollUtils.Vertical(eventData.delta);
+                        break;
+                }
+            }
+
+            if (drag)
+            {
+                OnBeginDrag();
+            }
+            else
+            {
+                scroll.OnBeginDrag(eventData);
+            }
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            if (drag)
+            {
+                OnDrag(eventData.delta);
+            }
+            else
+            {
+                scroll.OnDrag(eventData);
+            }
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            if (drag)
+            {
+                OnEndDrag();
+            }
+            else
+            {
+                scroll.OnEndDrag(eventData);
+            }
+        }
+
+        #region Core
         public void Initialize()
         {
             for (int i = 0; i < count; i++)
@@ -30,9 +103,34 @@ namespace UnityEngine.UI
             }
         }
 
+        private void OnBeginDrag()
+        {
+
+        }
+
+        private void OnDrag(Vector2 vector)
+        {
+
+        }
+
+        private void OnEndDrag()
+        {
+
+        }
+        #endregion
+
+        #region Function
         public void Refresh(IList source)
         {
-            this.source = source;
+            this.source.Clear();
+
+            for (int i = 0; i < source.Count; i++)
+            {
+                this.source.Add(source[i]);
+            }
+
+
         }
+        #endregion
     }
 }

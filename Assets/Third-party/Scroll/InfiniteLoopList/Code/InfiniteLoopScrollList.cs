@@ -23,6 +23,8 @@ namespace UnityEngine.UI
 
         [SerializeField] private GameObject prefab;
 
+        [SerializeField] private ScrollRect scroll;
+
         [SerializeField] private Vector2 center;
 
         [SerializeField] private float spring = 30f;
@@ -32,8 +34,6 @@ namespace UnityEngine.UI
         [SerializeField, Range(2, 5)] private int reserve = 2;
 
         [SerializeField, Range(3, 20)] private int count = 5;
-
-        [SerializeField] private bool multi;
 
         private Vector2 space;
 
@@ -52,8 +52,6 @@ namespace UnityEngine.UI
         private int current, front, back, index;
 
         private bool drag;
-
-        private ScrollRect scroll;
 
         #region Align
         private Vector2 alignPosition;
@@ -77,10 +75,6 @@ namespace UnityEngine.UI
 
         private void Awake()
         {
-            if (multi && scroll == null)
-            {
-                scroll = GetComponentInParent<ScrollRect>();
-            }
             Initialize();
         }
 
@@ -114,7 +108,7 @@ namespace UnityEngine.UI
         {
             drag = true;
 
-            if (multi && scroll != null)
+            if (scroll != null)
             {
                 switch (direction)
                 {

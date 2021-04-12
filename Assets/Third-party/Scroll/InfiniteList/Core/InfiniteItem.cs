@@ -14,14 +14,17 @@ namespace UnityEngine.UI
 
         public Vector2 Size { get; private set; }
 
-        protected virtual void Refresh() { }
-
-        public void Refresh(int index, object source, Vector2 position, Vector2 size)
+        public void Refresh(int index, object source)
         {
             Index = index;
 
             Source = source;
+        }
 
+        public abstract Vector2 Compute();
+
+        public virtual void SetRect(Vector2 position, Vector2 size)
+        {
             Position = position;
 
             Size = size;
@@ -43,5 +46,7 @@ namespace UnityEngine.UI
                 gameObject.SetActive(active);
             }
         }
+
+        protected virtual void Refresh() { }
     }
 }
