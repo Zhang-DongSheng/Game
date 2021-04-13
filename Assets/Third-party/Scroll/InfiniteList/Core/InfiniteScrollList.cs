@@ -23,7 +23,17 @@ namespace UnityEngine.UI
 
         [SerializeField, Range(5, 20)] private int count = 10;
 
+        [SerializeField, Range(5, 20)] private float ratio = 1;
+
+        private Vector2 position, vector;
+
+        private Vector2 delta;
+
+        private float offset;
+
         private bool drag;
+
+        private Vector2 space;
 
         private readonly IList source;
 
@@ -91,7 +101,24 @@ namespace UnityEngine.UI
         }
 
         #region Core
-        public void Initialize()
+        private void OnBeginDrag()
+        {
+
+        }
+
+        private void OnDrag(Vector2 delta)
+        {
+            this.delta += delta * ratio;
+
+            Shift(delta * ratio);
+        }
+
+        private void OnEndDrag()
+        {
+
+        }
+
+        private void Initialize()
         {
             for (int i = 0; i < count; i++)
             {
@@ -103,19 +130,63 @@ namespace UnityEngine.UI
             }
         }
 
-        private void OnBeginDrag()
+        private void Shift(Vector2 delta)
         {
+            switch (direction)
+            {
+                case Direction.Horizontal:
+                    vector.x = delta.x;
+                    vector.y = 0;
+                    break;
+                case Direction.Vertical:
+                    vector.x = 0;
+                    vector.y = delta.y;
+                    break;
+                default:
+                    vector = delta;
+                    break;
+            }
 
-        }
+            for (int i = 0; i < items.Count; i++)
+            {
+                position = items[i].Position;
+                position += vector;
+                //action = Action.None;
 
-        private void OnDrag(Vector2 vector)
-        {
-
-        }
-
-        private void OnEndDrag()
-        {
-
+                switch (direction)
+                {
+                    case Direction.Horizontal:
+                        if (position.x > space.y)
+                        {
+                            offset = position.x - space.y;
+                            position.x = space.x + offset;
+                            //action = Action.Back;
+                        }
+                        else if (position.x < space.x)
+                        {
+                            offset = position.x - space.x;
+                            position.x = space.y + offset;
+                            //action = Action.Front;
+                        }
+                        break;
+                    case Direction.Vertical:
+                        if (position.y > space.y)
+                        {
+                            offset = position.y - space.y;
+                            position.y = space.x + offset;
+                            //action = Action.Front;
+                        }
+                        else if (position.y < space.x)
+                        {
+                            offset = position.y - space.x;
+                            position.y = space.y + offset;
+                            //action = Action.Back;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
         #endregion
 
@@ -129,7 +200,7 @@ namespace UnityEngine.UI
                 this.source.Add(source[i]);
             }
 
-
+            Initialize();
         }
         #endregion
     }

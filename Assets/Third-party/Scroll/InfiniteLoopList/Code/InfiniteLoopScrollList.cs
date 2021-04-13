@@ -185,7 +185,9 @@ namespace UnityEngine.UI
 
             for (int i = 0; i < count; i++)
             {
-                items.Add(GameObject.Instantiate(prefab, content.transform).GetComponent<InfiniteLoopItem>());
+                InfiniteLoopItem item = GameObject.Instantiate(prefab, content.transform).GetComponent<InfiniteLoopItem>();
+                item.Init();
+                items.Add(item);
             }
             content.Format();
 

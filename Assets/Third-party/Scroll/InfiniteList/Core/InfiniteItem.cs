@@ -6,13 +6,11 @@ namespace UnityEngine.UI
 {
     public abstract class InfiniteItem : MonoBehaviour
     {
+        protected RectTransform self;
+
         public int Index { get; private set; }
 
         public object Source { get; private set; }
-
-        public Vector2 Position { get; private set; }
-
-        public Vector2 Size { get; private set; }
 
         public void Refresh(int index, object source)
         {
@@ -23,19 +21,29 @@ namespace UnityEngine.UI
 
         public abstract Vector2 Compute();
 
-        public virtual void SetRect(Vector2 position, Vector2 size)
+        public Vector2 Position 
         {
-            Position = position;
-
-            Size = size;
-
-            if (TryGetComponent(out RectTransform self))
+            get
             {
-                self.anchoredPosition = position;
+                return self.anchoredPosition;
+            }
+            set
+            {
+                self.anchoredPosition = value;
+            }
+        }
 
-                self.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size.x);
+        public Vector2 Size
+        {
+            get
+            {
+                return new Vector2(self.rect.width, self.rect.height);
+            }
+            set
+            {
+                self.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, value.x);
 
-                self.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size.y);
+                self.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, value.y);
             }
         }
 

@@ -2,28 +2,37 @@
 {
     public abstract class InfiniteLoopItem : MonoBehaviour
     {
-        public int Index { get; private set; }
-
-        public object Source { get; private set; }
+        protected RectTransform target;
 
         protected virtual void Refresh() { }
 
+        public void Init()
+        {
+            target = transform.GetComponent<RectTransform>();
+        }
+
         public void Refresh(int index, object source)
         {
-            Index = index; Source = source;
+            Index = index;
+
+            Source = source;
 
             Refresh();
         }
+
+        public int Index { get; private set; }
+
+        public object Source { get; private set; }
 
         public Vector2 Position
         {
             get
             {
-                return transform.localPosition;
+                return target.anchoredPosition;
             }
             set
             {
-                transform.localPosition = value;
+                target.anchoredPosition = value;
             }
         }
     }
