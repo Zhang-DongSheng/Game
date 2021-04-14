@@ -13,7 +13,7 @@ namespace Example.Scroll.Infinite
         {
             List<string> list = new List<string>();
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 3; i++)
             {
                 list.Add(i.ToString());
             }

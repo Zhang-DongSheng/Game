@@ -21,7 +21,9 @@ namespace UnityEngine.UI
 
         [SerializeField] private ScrollRect scroll;
 
-        [SerializeField] private Vector2 center;
+        [SerializeField] private Vector2 front, back;
+
+        [SerializeField] private float distance;
 
         [SerializeField, Range(1, 5)] private int reserve = 2;
 
@@ -33,24 +35,49 @@ namespace UnityEngine.UI
 
         private Vector2 space;
 
-        private Vector2 delta;
-
         private bool drag;
 
-        private int last;
+        private int first, last;
+
+        private DragStatus status;
+
+        #region Align
+        private Vector2 alignPosition;
+
+        private Vector2 alighTarget;
+
+        private Vector2 alignNext;
+
+        private Vector2 alignVector;
+
+        private float alignRatio = 1f;
+
+        private float alignStep;
+        #endregion
 
         private readonly IList source = new List<object>() { 1, 2, 3 };
 
         private readonly List<InfiniteItem> items = new List<InfiniteItem>();
 
-        private void Awake()
-        {
-
-        }
-
         private void Update()
         {
+            if (status == DragStatus.Align)
+            {
+                alignStep += Time.deltaTime * alignRatio;
 
+                alignNext = Vector2.Lerp(alignPosition, alighTarget, alignStep);
+
+                alignVector = alignNext - alignPosition;
+
+                alignPosition = alignNext;
+
+                Shift(alignVector);
+
+                if (alignStep > 1)
+                {
+                    status = DragStatus.Idle;
+                }
+            }
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -107,26 +134,47 @@ namespace UnityEngine.UI
         #region Core
         private void OnBeginDrag()
         {
-
+            status = DragStatus.Drag;
         }
 
         private void OnDrag(Vector2 delta)
         {
-            this.delta += delta * ratio;
-
             Shift(delta * ratio);
         }
 
         private void OnEndDrag()
         {
+            if (OverflowFront(new Vector2(1, -1)))
+            {
+                alignPosition = items[0].Position;
 
+                alighTarget = front;
+
+                alignStep = 0;
+
+                status = DragStatus.Align;
+            }
+            else if (OverflowBack(new Vector2(-1, 1)))
+            {
+                alignPosition = items[last].Position;
+
+                alighTarget = back;
+
+                alignStep = 0;
+
+                status = DragStatus.Align;
+            }
+            else
+            {
+                status = DragStatus.Idle;
+            }
         }
 
         private void Initialize()
         {
             int count = Mathf.Min(this.count, source.Count);
 
-            last = count - 1;
+            first = 0; last = count - 1;
 
             for (int i = 0; i < count; i++)
             {
@@ -138,13 +186,13 @@ namespace UnityEngine.UI
                 }
                 items[i].Refresh(i, source[i]);
 
-                if (i == 0)
+                if (i == first)
                 {
-                    items[i].Position = Vector2.zero;
+                    items[i].Position = front;
                 }
                 else
                 {
-                    items[i].Position = Position(items[i - 1], true);
+                    items[i].Position = Next(items[i - 1], true);
                 }
             }
             UpdateSpace();
@@ -152,6 +200,9 @@ namespace UnityEngine.UI
 
         private void Shift(Vector2 delta)
         {
+            if (OverflowFront(delta, distance)) return;
+            else if (OverflowBack(delta, distance)) return;
+
             vector = Vector2.zero;
 
             switch (direction)
@@ -208,22 +259,86 @@ namespace UnityEngine.UI
             }
         }
 
-        private int Current
+        private void ToFront(int index)
         {
-            get 
+            InfiniteItem item = items[first];
+
+            items.RemoveAt(first);
+
+            items.Add(item);
+
+            items[last].Refresh(index, source[index]);
+
+            items[last].Position = Next(items[last - 1], true);
+
+            UpdateSpace();
+        }
+
+        private void ToBack(int index)
+        {
+            InfiniteItem item = items[last];
+
+            items.RemoveAt(last);
+
+            items.Insert(first, item);
+
+            items[first].Refresh(index, source[index]);
+
+            items[first].Position = Next(items[first + 1], false) + new Vector2(0, items[first].Size.y);
+
+            UpdateSpace();
+        }
+
+        private void UpdateSpace()
+        {
+            space = Vector2.zero;
+
+            for (int i = 0; i < reserve; i++)
             {
-                for (int i = 0; i < items.Count; i++)
-                {
-                    if (items[i].Exist(new Vector2(0,space.x)))
-                    {
-                        return items[i].Index;
-                    }
-                }
-                return items[0].Index;
+                space.x += content.space.y;
+
+                space.x += items[i].Size.y;
+            }
+
+            for (int i = reserve; i < items.Count; i++)
+            {
+                space.y -= items[i].Size.y;
+
+                space.y -= content.space.y;
             }
         }
 
-        private Vector2 Position(InfiniteItem item, bool forward)
+        private bool OverflowFront(Vector2 vector, float distance = 0)
+        {
+            if (items[first].Index == 0)
+            {
+                switch (direction)
+                {
+                    case Direction.Horizontal:
+                        return vector.x > 0 && items[first].Position.x - distance > front.x;
+                    case Direction.Vertical:
+                        return vector.y < 0 && items[first].Position.y + distance < front.y;
+                }
+            }
+            return false;
+        }
+
+        private bool OverflowBack(Vector2 vector, float distance = 0)
+        {
+            if (items[last].Index == source.Count - 1)
+            {
+                switch (direction)
+                {
+                    case Direction.Horizontal:
+                        return vector.x < 0 && items[last].Position.x + distance < back.x;
+                    case Direction.Vertical:
+                        return vector.y > 0 && items[last].Position.y - distance > back.y;
+                }
+            }
+            return false;
+        }
+
+        private Vector2 Next(InfiniteItem item, bool forward)
         {
             Vector2 position;
 
@@ -257,59 +372,6 @@ namespace UnityEngine.UI
             }
             return position;
         }
-
-        private void ToFront(int index)
-        {
-            InfiniteItem item = items[0];
-
-            items.RemoveAt(0);
-
-            items.Add(item);
-
-            items[last].Refresh(index, source[index]);
-
-            items[last].Position = Position(items[last - 1], true);
-
-            //Debug.LogError("Front");
-
-            UpdateSpace();
-        }
-
-        private void ToBack(int index)
-        {
-            InfiniteItem item = items[last];
-
-            items.RemoveAt(last);
-
-            items.Insert(0, item);
-
-            items[0].Refresh(index, source[index]);
-
-            items[0].Position = Position(items[1], false) + new Vector2(0, items[0].Size.y);
-
-            //Debug.LogError("Back");
-
-            UpdateSpace();
-        }
-
-        private void UpdateSpace()
-        {
-            space = Vector2.zero;
-
-            for (int i = 0; i < reserve; i++)
-            {
-                space.x += content.space.y;
-
-                space.x += items[i].Size.y;
-            }
-
-            for (int i = reserve; i < items.Count; i++)
-            {
-                space.y -= items[i].Size.y;
-
-                space.y -= content.space.y;
-            }
-        }
         #endregion
 
         #region Function
@@ -324,5 +386,20 @@ namespace UnityEngine.UI
             Initialize();
         }
         #endregion
+
+        enum DragStatus
+        {
+            Idle,
+            Drag,
+            Align,
+            Break,
+        }
+
+        enum Overflow
+        {
+            None,
+            OverflowFront,
+            OverflowBack,
+        }
     }
 }
