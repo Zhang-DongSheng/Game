@@ -19,6 +19,8 @@ namespace UnityEngine.Renewable.Compontent
 
         [SerializeField] private SpriteRenderer render;
 
+        [SerializeField] private Vector4 border;
+
         [SerializeField] private bool nativeSize = false;
 
         private Sprite m_sprite;
@@ -43,7 +45,7 @@ namespace UnityEngine.Renewable.Compontent
             {
                 case RenewableImageType.Image:
                     if (m_sprite != null) { Destroy(m_sprite); }
-                    m_sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+                    m_sprite = Create(texture);
                     SetImage(m_sprite);
                     break;
                 case RenewableImageType.RawImage:
@@ -51,7 +53,7 @@ namespace UnityEngine.Renewable.Compontent
                     break;
                 case RenewableImageType.SpriteRenderer:
                     if (m_sprite != null) { Destroy(m_sprite); }
-                    m_sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+                    m_sprite = Create(texture);
                     SetSpriteRenderer(m_sprite);
                     break;
             }
@@ -116,6 +118,12 @@ namespace UnityEngine.Renewable.Compontent
                 render = GetComponent<SpriteRenderer>();
             if (render != null)
                 render.color = color;
+        }
+
+        private Sprite Create(Texture2D texture)
+        {
+            //PixelsPerUnit 对应 Canvas Scale: referencePixelsPerUnit [世界空间中一个单位的精灵中的像素数]
+            return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f, 100f, 0, SpriteMeshType.FullRect, border);
         }
 
         private void OnDestroy()

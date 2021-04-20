@@ -701,7 +701,9 @@ MonoBehaviour:
   content: {fileID: 186487274}
   prefab: {fileID: 486856896}
   scroll: {fileID: 0}
-  center: {x: 0, y: 0}
+  front: {x: 0, y: 0}
+  back: {x: 0, y: -600}
+  distance: 300
   reserve: 2
   count: 10
   ratio: 5
