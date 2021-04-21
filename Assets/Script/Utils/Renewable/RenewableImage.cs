@@ -1,12 +1,13 @@
 ﻿using System;
 using UnityEngine.Renewable;
-using UnityEngine.Renewable.Compontent;
 
 namespace UnityEngine
 {
     [RequireComponent(typeof(RenewableImageComponent))]
     public class RenewableImage : RenewableBase
     {
+        [SerializeField] private RenewableImageComponent component;
+
         private Texture2D m_texture;
 
         protected override DownloadFileType fileType { get { return DownloadFileType.Image; } }
@@ -38,7 +39,7 @@ namespace UnityEngine
             }
         }
 
-        public void SetImageImmediate(string key, string parameter = null, int order = 0, Action callBack = null)
+        public void SetImageImmediate(string key, string resource = null, int order = 0, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -56,7 +57,7 @@ namespace UnityEngine
 
                 if (!RenewablePool.Instance.Recent(cache, key))
                 {
-                    this.key = string.Empty; Get(key, parameter, order, callBack);
+                    this.key = string.Empty; Get(key, null, order, callBack);
                 }
             }
             else
@@ -79,12 +80,12 @@ namespace UnityEngine
                     }
                     else
                     {
-                        Get(key, parameter, order, callBack);
+                        Get(key, null, order, callBack);
                     }
                 }
                 else
                 {
-                    path = key;
+                    path = string.Format("{0}{1}", resource, key);
 
                     if (TryLoad<Texture2D>(path, out Texture2D source))
                     {
@@ -102,12 +103,12 @@ namespace UnityEngine
                         }
                         else
                         {
-                            Get(key, parameter, order, callBack);
+                            Get(key, null, order, callBack);
                         }
                     }
                     else
                     {
-                        Get(key, parameter, order, callBack);
+                        Get(key, null, order, callBack);
                     }
                 }
             }
@@ -131,7 +132,7 @@ namespace UnityEngine
                 }
                 else
                 {
-                    path = string.Format("{0}/{1}", resource, key);
+                    path = string.Format("{0}{1}", resource, key);
 
                     if (TryLoad<Texture2D>(path, out Texture2D source))
                     {
@@ -164,7 +165,6 @@ namespace UnityEngine
                 }
                 RenewablePool.Instance.Push(cache, handle.key, handle.secret, handle.recent, _texture);
             }
-            //Debug.LogErrorFormat("<color=green>[{0}]</color> ## <color=blue>[{1}]</color>", current, handle.key);
 
             if (this == null) return;
 
@@ -175,11 +175,10 @@ namespace UnityEngine
 
         private void SetTexture(Texture2D texture)
         {
-            if (!TryGetComponent<RenewableImageComponent>(out RenewableImageComponent compontent))
+            if (component != null)
             {
-                compontent = gameObject.AddComponent<RenewableImageComponent>();
+                component.SetTexture(texture);
             }
-            compontent.SetTexture(texture);
         }
     }
 }

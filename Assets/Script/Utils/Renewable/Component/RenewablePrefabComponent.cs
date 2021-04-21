@@ -1,8 +1,15 @@
-﻿namespace UnityEngine.Renewable.Compontent
+﻿namespace UnityEngine.Renewable
 {
-    public class RenewablePrefabComponent : MonoBehaviour
+    public class RenewablePrefabComponent : RenewableComponent
     {
         [SerializeField] private Transform parent;
+
+        private GameObject target;
+
+        public override void Refresh(Object source)
+        {
+            Create(source as GameObject);
+        }
 
         public void Create(GameObject prefab)
         {

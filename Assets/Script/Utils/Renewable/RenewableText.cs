@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Text;
 using UnityEngine.Renewable;
-using UnityEngine.Renewable.Compontent;
 
 namespace UnityEngine
 {
+    [RequireComponent(typeof(RenewableTextComponent))]
     public class RenewableText : RenewableBase
     {
+        [SerializeField] private RenewableTextComponent component;
+
         protected override DownloadFileType fileType { get { return DownloadFileType.None; } }
 
         public void SetText(string key, int order = 0, Action callBack = null)
@@ -27,11 +29,10 @@ namespace UnityEngine
 
         private void SetText(string value)
         {
-            if (!TryGetComponent<RenewableTextComponent>(out RenewableTextComponent compontent))
+            if (component != null)
             {
-                compontent = gameObject.AddComponent<RenewableTextComponent>();
+                component.Refresh(value);
             }
-            compontent.SetContent(value);
         }
     }
 }

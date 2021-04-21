@@ -1,21 +1,11 @@
 ﻿using System;
 using UnityEngine.Renewable;
-using UnityEngine.Renewable.Compontent;
 
 namespace UnityEngine
 {
     public class RenewableAsset : RenewableBase
     {
-        enum RenewableCompontentType
-        {
-            None,
-            Image,
-            Text,
-        }
-
-        [SerializeField] private RenewableCompontentType type;
-
-        [SerializeField] private Transform parent;
+        public RenewableComponent component;
 
         private string parameter;
 
@@ -50,7 +40,7 @@ namespace UnityEngine
             }
         }
 
-        public void CreateAssetImmediate(string key, string parameter, string local = "", int order = 0, Action callBack = null)
+        public void CreateAssetImmediate(string key, string parameter, string resource = null, int order = 0, Action callBack = null)
         {
             if (string.IsNullOrEmpty(key)) return;
 
@@ -94,38 +84,31 @@ namespace UnityEngine
                 }
                 else
                 {
-                    if (!string.IsNullOrEmpty(local))
+                    path = string.Format("{0}{1}", resource, parameter);
+
+                    if (TryLoad<Texture2D>(path, out Texture2D source))
                     {
-                        path = local + parameter;
+                        bool recent = RenewableResourceUpdate.Instance.Validation(key, null);
 
-                        if (TryLoad<Texture2D>(path, out Texture2D source))
+                        Object _temp;
+
+                        if (RenewablePool.Instance.Exist(cache, key + parameter, string.Empty))
                         {
-                            bool recent = RenewableResourceUpdate.Instance.Validation(key, null);
+                            _temp = RenewablePool.Instance.Pop<Object>(cache, key + parameter);
+                        }
+                        else
+                        {
+                            _temp = Instantiate(source);
 
-                            Object _temp;
+                            RenewablePool.Instance.Push(cache, key + parameter, string.Empty, recent, _temp);
+                        }
+                        Refresh(_temp);
 
-                            if (RenewablePool.Instance.Exist(cache, key + parameter, string.Empty))
-                            {
-                                _temp = RenewablePool.Instance.Pop<Object>(cache, key + parameter);
-                            }
-                            else
-                            {
-                                _temp = Instantiate(source);
+                        Resources.UnloadAsset(source);
 
-                                RenewablePool.Instance.Push(cache, key + parameter, string.Empty, recent, _temp);
-                            }
-                            Refresh(_temp);
-
-                            Resources.UnloadAsset(source);
-
-                            if (recent)
-                            {
-                                this.key = key; RenewableResourceUpdate.Instance.Remove(key);
-                            }
-                            else
-                            {
-                                Get(key, parameter, order, callBack);
-                            }
+                        if (recent)
+                        {
+                            this.key = key; RenewableResourceUpdate.Instance.Remove(key);
                         }
                         else
                         {
@@ -140,11 +123,11 @@ namespace UnityEngine
             }
         }
 
-        public bool Exist(string key, string resource, string local)
+        public bool Exist(string key, string parameter, string resource = null)
         {
             bool exist = false;
 
-            if (RenewablePool.Instance.Exist(cache, key + resource, string.Empty))
+            if (RenewablePool.Instance.Exist(cache, key + parameter, string.Empty))
             {
                 exist = true;
             }
@@ -158,7 +141,7 @@ namespace UnityEngine
                 }
                 else
                 {
-                    path = local + resource;
+                    path = string.Format("{0}{1}", resource, parameter);
 
                     if (TryLoad<Texture2D>(path, out Texture2D source))
                     {
@@ -200,18 +183,9 @@ namespace UnityEngine
         {
             if (this == null || asset == null) return;
 
-            switch (type)
+            if (component != null)
             {
-                case RenewableCompontentType.Image:
-                    if (!TryGetComponent<RenewableImageComponent>(out RenewableImageComponent compontent))
-                    {
-                        compontent = gameObject.AddComponent<RenewableImageComponent>();
-                    }
-                    compontent.SetTexture(asset);
-                    break;
-                case RenewableCompontentType.Text:
-                    
-                    break;
+                component.Refresh(asset);
             }
         }
     }

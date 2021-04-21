@@ -3,7 +3,7 @@ using System.IO;
 
 namespace UnityEngine.Renewable
 {
-    public class RenewableFile
+    public static class RenewableFile
     {
         public static void FolderCheck(string folder)
         {

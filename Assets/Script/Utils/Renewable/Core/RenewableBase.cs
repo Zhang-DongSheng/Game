@@ -43,8 +43,8 @@ namespace UnityEngine.Renewable
         protected abstract void Create(RenewableDownloadHandler handle);
 
         protected virtual void Fail()
-        { 
-            
+        {
+
         }
 
         public virtual void ResetRenewable()

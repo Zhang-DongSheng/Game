@@ -1,8 +1,8 @@
 ﻿using UnityEngine.UI;
 
-namespace UnityEngine.Renewable.Compontent
+namespace UnityEngine.Renewable
 {
-    public class RenewableImageComponent : MonoBehaviour
+    public class RenewableImageComponent : RenewableComponent
     {
         enum RenewableImageType
         {
@@ -25,7 +25,7 @@ namespace UnityEngine.Renewable.Compontent
 
         private Sprite m_sprite;
 
-        public void SetTexture(Object source)
+        public override void Refresh(Object source)
         {
             if (source != null && source is Texture2D)
             {
@@ -122,8 +122,14 @@ namespace UnityEngine.Renewable.Compontent
 
         private Sprite Create(Texture2D texture)
         {
-            //PixelsPerUnit 对应 Canvas Scale: referencePixelsPerUnit [世界空间中一个单位的精灵中的像素数]
-            return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f, 100f, 0, SpriteMeshType.FullRect, border);
+            if (border != Vector4.zero)
+            {
+                return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f, 100f, 0, SpriteMeshType.FullRect, border);
+            }
+            else
+            {
+                return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+            }
         }
 
         private void OnDestroy()

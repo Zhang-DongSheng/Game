@@ -5,8 +5,6 @@ namespace UnityEngine
 {
     public class RenewableAudio : RenewableBase
     {
-        [HideInInspector] public bool enable;
-
         [SerializeField] private bool loop;
 
         private AudioClip m_clip;
@@ -57,8 +55,6 @@ namespace UnityEngine
 
             if (this == null) return;
 
-            if (!gameObject.activeSelf) return;
-
             if (current != handle.key) return;
 
             Play(clip);
@@ -66,11 +62,13 @@ namespace UnityEngine
 
         private void Play(AudioClip clip)
         {
-            if (!enable || clip == null) return;
+            if (clip == null) return;
+
+            if (gameObject.activeSelf == false) return;
 
             m_clip = clip;
 
-            //Play AudioClip ...
+            //play...
         }
     }
 }
