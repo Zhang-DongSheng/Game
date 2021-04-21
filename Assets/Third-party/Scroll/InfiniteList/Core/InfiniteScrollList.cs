@@ -35,6 +35,8 @@ namespace UnityEngine.UI
 
         private Vector2 space;
 
+        private bool overflow;
+
         private bool drag;
 
         private int first, last;
@@ -71,7 +73,7 @@ namespace UnityEngine.UI
 
                 alignPosition = alignNext;
 
-                Shift(alignVector);
+                Shift(alignVector, true);
 
                 if (alignStep > 1)
                 {
@@ -144,7 +146,24 @@ namespace UnityEngine.UI
 
         private void OnEndDrag()
         {
-            if (OverflowFront(new Vector2(1, -1)))
+            if (!overflow)
+            {
+                if (items.Count > 0)
+                {
+                    alignPosition = items[0].Position;
+
+                    alighTarget = front;
+
+                    alignStep = 0;
+
+                    status = DragStatus.Align;
+                }
+                else
+                {
+                    status = DragStatus.Idle;
+                }
+            }
+            else if (OverflowFront(new Vector2(1, -1)))
             {
                 alignPosition = items[0].Position;
 
@@ -176,6 +195,8 @@ namespace UnityEngine.UI
 
             first = 0; last = count - 1;
 
+            items.Clear(); content.Clear();
+
             for (int i = 0; i < count; i++)
             {
                 if (i >= items.Count)
@@ -195,13 +216,13 @@ namespace UnityEngine.UI
                     items[i].Position = Next(items[i - 1], true);
                 }
             }
-            UpdateSpace();
+            UpdateSpace(); Overflow(count - 1);
         }
 
-        private void Shift(Vector2 delta)
+        private void Shift(Vector2 delta, bool align = false)
         {
-            if (OverflowFront(delta, distance)) return;
-            else if (OverflowBack(delta, distance)) return;
+            if (!align && OverflowFront(delta, distance)) return;
+            else if (!align && OverflowBack(delta, distance)) return;
 
             vector = Vector2.zero;
 
@@ -293,18 +314,43 @@ namespace UnityEngine.UI
         {
             space = Vector2.zero;
 
-            for (int i = 0; i < reserve; i++)
+            if (items.Count >= reserve)
             {
-                space.x += content.space.y;
+                for (int i = 0; i < reserve; i++)
+                {
+                    space.x += content.space.y;
 
-                space.x += items[i].Size.y;
+                    space.x += items[i].Size.y;
+                }
+                for (int i = reserve; i < items.Count; i++)
+                {
+                    space.y -= items[i].Size.y;
+
+                    space.y -= content.space.y;
+                }
             }
+        }
 
-            for (int i = reserve; i < items.Count; i++)
+        private void Overflow(int index)
+        {
+            if (items.Count > 0)
             {
-                space.y -= items[i].Size.y;
-
-                space.y -= content.space.y;
+                switch (direction)
+                {
+                    case Direction.Horizontal:
+                        overflow = items[index].Position.x >= back.x;
+                        break;
+                    case Direction.Vertical:
+                        overflow = items[index].Position.y <= back.y;
+                        break;
+                    default:
+                        overflow = false;
+                        break;
+                }
+            }
+            else
+            {
+                overflow = false;
             }
         }
 
@@ -393,13 +439,6 @@ namespace UnityEngine.UI
             Drag,
             Align,
             Break,
-        }
-
-        enum Overflow
-        {
-            None,
-            OverflowFront,
-            OverflowBack,
         }
     }
 }

@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace UnityEngine.UI
 {
     public abstract class InfiniteItem : MonoBehaviour
@@ -61,20 +57,19 @@ namespace UnityEngine.UI
             }
         }
 
-        internal bool Exist(Vector2 point)
-        {
-            if (point.y < Position.y && point.y > Position.y - Size.y)
-            {
-                return true;
-            }
-            return false;
-        }
-
         public void SetActive(bool active)
         {
             if (gameObject != null && gameObject.activeSelf != active)
             {
                 gameObject.SetActive(active);
+            }
+        }
+
+        public void Destroy()
+        {
+            if (this.gameObject != null)
+            {
+                GameObject.Destroy(this.gameObject);
             }
         }
     }
