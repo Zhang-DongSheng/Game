@@ -10,23 +10,32 @@ namespace Example.Scroll.Infinite
 
         [SerializeField] private InfiniteScrollList scroll;
 
+        private readonly List<string> list = new List<string>();
+
         private void Start()
         {
-            List<string> list = new List<string>();
-
-            for (int i = 0; i < count; i++)
-            {
-                list.Add(i.ToString());
-            }
-            scroll.Refresh(list);
+            Refresh();
         }
 
         private void OnValidate()
         {
             if (Application.isPlaying)
             {
-                Start();
+                Refresh();
             }
+        }
+
+        private void Refresh()
+        {
+            if (list.Count == count) return;
+
+            list.Clear();
+
+            for (int i = 0; i < count; i++)
+            {
+                list.Add(i.ToString());
+            }
+            scroll.Refresh(list);
         }
     }
 }

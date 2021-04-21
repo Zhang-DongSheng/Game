@@ -4,7 +4,7 @@
     {
         [SerializeField] private Transform parent;
 
-        private GameObject target;
+        private GameObject model;
 
         public override void Refresh(Object source)
         {
@@ -13,15 +13,11 @@
 
         public void Create(GameObject prefab)
         {
-            if (prefab == null) return;
-
-            if (parent == null) parent = transform;
-
-            for (int i = 0; i < parent.childCount; i++)
+            if (model != null)
             {
-                Destroy(parent.GetChild(0));
+                GameObject.Destroy(model);
             }
-            Instantiate(prefab, parent);
+            model = Instantiate(prefab, parent);
         }
     }
 }

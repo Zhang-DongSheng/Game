@@ -6,7 +6,13 @@ namespace UnityEngine.UI
 
         public void Clear()
         {
-            transform.Clear();
+            if (transform != null && transform.childCount > 0)
+            {
+                for (int i = transform.childCount - 1; i > -1; i--)
+                {
+                    GameObject.Destroy(transform.GetChild(i).gameObject);
+                }
+            }
         }
     }
 }
