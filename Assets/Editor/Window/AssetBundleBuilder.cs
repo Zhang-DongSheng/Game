@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
 using UnityEngine;
 
 namespace UnityEditor.Window
@@ -11,7 +9,7 @@ namespace UnityEditor.Window
         private readonly List<string> IgnoreExtensionList = new List<string>() { ".meta", ".manifest" };
 
         #region GUI
-        private readonly string[] text_view = new string[] { "AssetBundle", "Upload", "Other" };
+        private readonly string[] text_view = new string[] { "资源", "Bundle", "其他" };
 
         private int index_view;
 
@@ -42,10 +40,8 @@ namespace UnityEditor.Window
 
         private readonly List<ItemFile> items = new List<ItemFile>();
 
-        private readonly List<ItemUpload> m_asset = new List<ItemUpload>();
-
         [MenuItem("Data/AssetBundle")]
-        private static void Open()  
+        protected static void Open()  
         {
             AssetBundleBuilder window = EditorWindow.GetWindow<AssetBundleBuilder>();
             window.titleContent = new GUIContent("Asset");
@@ -56,12 +52,12 @@ namespace UnityEditor.Window
 
         private void Init()
         {
-            InitFolder();
+            UpdateAssetFolder();
 
-            UpdateFolder();
+            UpdateAssetBundleFolder();
         }
 
-        private void InitFolder()
+        private void UpdateAssetFolder()
         {
             string path = SourcePath;
 
@@ -98,7 +94,7 @@ namespace UnityEditor.Window
             }
         }
 
-        private void UpdateFolder()
+        private void UpdateAssetBundleFolder()
         {
             string path = AssetBundlePath + "/" + GameConfig.ArtPath;
 
@@ -151,10 +147,10 @@ namespace UnityEditor.Window
                 switch (currentViewIndex)
                 {
                     case 0:
-                        RefreshUIAssetBundle();
+                        RefreshUIAsset();
                         break;
                     case 1:
-                        RefreshUIUpload();
+                        RefreshUIAssetBundle();
                         break;
                     default:
                         RefreshUIOther();
@@ -164,7 +160,7 @@ namespace UnityEditor.Window
             GUILayout.EndArea();
         }
 
-        private void RefreshUIAssetBundle()
+        private void RefreshUIAsset()
         {
             GUILayout.BeginHorizontal();
             {
@@ -216,32 +212,7 @@ namespace UnityEditor.Window
             {
                 if (items.Count > 0)
                 {
-                    GUILayout.BeginVertical();
-                    {
-                        GUILayout.BeginHorizontal();
-                        {
-                            GUILayout.Label("S", GUILayout.Width(20));
-                            GUILayout.Label("Name", GUILayout.Width(120));
-                            GUILayout.Label("Path");
-                        }
-                        GUILayout.EndHorizontal();
-
-                        scroll = GUILayout.BeginScrollView(scroll);
-                        {
-                            for (int i = 0; i < items.Count; i++)
-                            {
-                                GUILayout.BeginHorizontal();
-                                {
-                                    items[i].select = GUILayout.Toggle(items[i].select, string.Empty, GUILayout.Width(20));
-                                    GUILayout.Label(items[i].name, GUILayout.Width(120));
-                                    GUILayout.Label(items[i].path);
-                                }
-                                GUILayout.EndHorizontal();
-                            }
-                        }
-                        GUILayout.EndScrollView();
-                    }
-                    GUILayout.EndVertical();
+                    RefreshUIList();
 
                     GUILayout.Space(5);
 
@@ -268,12 +239,12 @@ namespace UnityEditor.Window
                             }
                         }
 
-                        if (GUILayout.Button("打开文件夹：Source"))
+                        if (GUILayout.Button("资源文件夹"))
                         {
                             OpenFolder(SourcePath);
                         }
 
-                        if (GUILayout.Button("打开文件夹：AssetBundle"))
+                        if (GUILayout.Button("Bundle文件夹"))
                         {
                             OpenFolder(AssetBundlePath);
                         }
@@ -284,7 +255,7 @@ namespace UnityEditor.Window
             GUILayout.EndHorizontal();
         }
 
-        private void RefreshUIUpload()
+        private void RefreshUIAssetBundle()
         {
             GUILayout.BeginHorizontal();
             {
@@ -336,32 +307,7 @@ namespace UnityEditor.Window
             {
                 if (items.Count > 0)
                 {
-                    GUILayout.BeginVertical();
-                    {
-                        GUILayout.BeginHorizontal();
-                        {
-                            GUILayout.Label("S", GUILayout.Width(20));
-                            GUILayout.Label("Name", GUILayout.Width(120));
-                            GUILayout.Label("Path");
-                        }
-                        GUILayout.EndHorizontal();
-
-                        scroll = GUILayout.BeginScrollView(scroll);
-                        {
-                            for (int i = 0; i < items.Count; i++)
-                            {
-                                GUILayout.BeginHorizontal();
-                                {
-                                    items[i].select = GUILayout.Toggle(items[i].select, string.Empty, GUILayout.Width(20));
-                                    GUILayout.Label(items[i].name, GUILayout.Width(120));
-                                    GUILayout.Label(items[i].path);
-                                }
-                                GUILayout.EndHorizontal();
-                            }
-                        }
-                        GUILayout.EndScrollView();
-                    }
-                    GUILayout.EndVertical();
+                    RefreshUIList();
 
                     GUILayout.Space(5);
 
@@ -371,7 +317,7 @@ namespace UnityEditor.Window
                         {
                             Upload();
 
-                            RecordHistory();
+                            Md5Tool.Record(HistoryPath, string.Empty, items);
                         }
 
                         if (GUILayout.Button("全选"))
@@ -392,23 +338,60 @@ namespace UnityEditor.Window
 
                         if (GUILayout.Button("打开MD5"))
                         {
-                            OpenMD5();
+                            OpenFileMd5();
                         }
 
                         if (GUILayout.Button("更新MD5"))
                         {
-                            UploadMD5();
+                            UploadMd5();
                         }
 
                         if (GUILayout.Button("删除MD5"))
                         {
-                            DeleteMD5();
+                            string path = HistoryPath;
+
+                            if (File.Exists(path))
+                            {
+                                File.Delete(path);
+                            }
                         }
                     }
                     GUILayout.EndVertical();
                 }
             }
             GUILayout.EndHorizontal();
+        }
+
+        private void RefreshUIList()
+        {
+            GUILayout.BeginVertical();
+            {
+                GUILayout.BeginHorizontal();
+                {
+                    GUILayout.Label("S", GUILayout.Width(20));
+                    GUILayout.Label("名称", GUILayout.Width(120));
+                    GUILayout.Label("路径");
+                    GUILayout.Label("大小", GUILayout.Width(100));
+                }
+                GUILayout.EndHorizontal();
+
+                scroll = GUILayout.BeginScrollView(scroll);
+                {
+                    for (int i = 0; i < items.Count; i++)
+                    {
+                        GUILayout.BeginHorizontal();
+                        {
+                            items[i].select = GUILayout.Toggle(items[i].select, string.Empty, GUILayout.Width(20));
+                            GUILayout.Label(items[i].name, GUILayout.Width(120));
+                            GUILayout.Label(items[i].path);
+                            GUILayout.Label(items[i].length.ToSize(), GUILayout.Width(100));
+                        }
+                        GUILayout.EndHorizontal();
+                    }
+                }
+                GUILayout.EndScrollView();
+            }
+            GUILayout.EndVertical();
         }
 
         private void RefreshUIOther()
@@ -441,6 +424,7 @@ namespace UnityEditor.Window
                                 name = file.Name,
                                 path = asset ? AssetPath(file.FullName) : file.FullName,
                                 folder = folder,
+                                length = file.Length,
                                 select = true,
                             });
                         }
@@ -490,6 +474,7 @@ namespace UnityEditor.Window
                                 name = file.Name,
                                 path = asset ? AssetPath(file.FullName) : file.FullName,
                                 folder = type,
+                                length = file.Length,
                                 select = true,
                             });
                         }
@@ -513,7 +498,7 @@ namespace UnityEditor.Window
                 }
             }
 
-            UpdateFolder();
+            UpdateAssetBundleFolder();
 
             ShowNotification(new GUIContent("Build AssetBundle Success!"));
         }
@@ -541,136 +526,27 @@ namespace UnityEditor.Window
             ShowNotification(new GUIContent("Upload Done!"));
         }
 
-        private void UploadMD5()
+        private void UploadMd5()
         {
             string path = HistoryPath;
 
-            if (!File.Exists(path)) return;
-
-            Dictionary<string, string> md5 = new Dictionary<string, string>();
-
-            List<string> lines = new List<string>();
-
-            using (FileStream stream = new FileStream(path, FileMode.Open))
+            if (File.Exists(path))
             {
-                StreamReader reader = new StreamReader(stream);
-
-                string line = reader.ReadLine();
-
-                string[] param = new string[2];
-
-                while (!string.IsNullOrEmpty(line))
-                {
-                    param = line.Split('|');
-
-                    if (param.Length == 2)
-                    {
-                        if (md5.ContainsKey(param[0]))
-                        {
-                            md5[param[0]] = param[1];
-                        }
-                        else
-                        {
-                            md5.Add(param[0], param[1]);
-                        }
-                    }
-                    line = reader.ReadLine();
-                }
+                Md5Tool.Recompilation(path);
             }
-            foreach (var line in md5)
-            {
-                lines.Add(string.Join("|", line.Key, line.Value));
+            else
+            { 
+                
             }
-            File.WriteAllLines(path, lines);
         }
 
-        private void OpenMD5()
+        private void OpenFileMd5()
         {
             string path = HistoryPath;
 
             if (File.Exists(path))
             {
                 System.Diagnostics.Process.Start("notepad.exe", path);
-            }
-        }
-
-        private void DeleteMD5()
-        {
-            string path = HistoryPath;
-
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
-        }
-
-        private string ComputeMD5(string path)
-        {
-            string result = string.Empty;
-
-            try
-            {
-                if (File.Exists(path))
-                {
-                    byte[] buffer = File.ReadAllBytes(path);
-
-                    MD5 md5 = new MD5CryptoServiceProvider();
-
-                    byte[] hash = md5.ComputeHash(buffer);
-
-                    foreach (byte v in hash)
-                    {
-                        result += Convert.ToString(v, 16);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e.Message);
-            }
-
-            return result;
-        }
-
-        private void RecordHistory()
-        {
-            string path = HistoryPath;
-
-            string key, value;
-
-            if (File.Exists(path))
-            {
-                StreamWriter writer = new StreamWriter(path, true);
-
-                for (int i = 0; i < items.Count; i++)
-                {
-                    key = items[i].folder + "/" + items[i].name;
-
-                    value = ComputeMD5(items[i].path);
-
-                    writer.WriteLine(string.Format("{0}|{1}", key, value));
-                }
-
-                writer.Dispose();
-            }
-            else
-            {
-                FileStream stream = new FileStream(path, FileMode.OpenOrCreate);
-
-                StreamWriter writer = new StreamWriter(stream);
-
-                for (int i = 0; i < items.Count; i++)
-                {
-                    key = items[i].name;
-
-                    value = ComputeMD5(items[i].path);
-
-                    writer.WriteLine(string.Format("{0}|{1}", key, value));
-                }
-
-                writer.Dispose();
-
-                stream.Dispose();
             }
         }
 
@@ -729,18 +605,9 @@ namespace UnityEditor.Window
             }
         }
 
-        class ItemUpload
-        {
-            public string name;
-
-            public string path;
-
-            public string url;
-        }
-
         #region Select
         [MenuItem("Assets/Build AssetBundle")]
-        private static void BuildAssetToAssetBundle()
+        protected static void BuildAssetToAssetBundle()
         {
             string folder = Application.dataPath.Remove(Application.dataPath.Length - 6) + "AssetBundle/Select/";
 

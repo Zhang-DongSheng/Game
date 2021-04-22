@@ -532,6 +532,8 @@ namespace UnityEditor
 
 		public string folder;
 
+		public long length;
+
 		public bool select;
 	}
 }

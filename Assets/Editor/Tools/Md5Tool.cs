@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -13,7 +14,7 @@ namespace UnityEditor
         private string result;
 
         [MenuItem("Tools/File/MD5")]
-        private static void Open()
+        protected static void Open()
         {
             Md5Tool window = EditorWindow.GetWindow<Md5Tool>();
             window.titleContent = new GUIContent("MD5");
@@ -81,7 +82,7 @@ namespace UnityEditor
             GUILayout.EndArea();
         }
 
-        private string ComputeContent(string value)
+        private static string ComputeContent(string value)
         {
             string result = string.Empty;
 
@@ -105,7 +106,7 @@ namespace UnityEditor
             return result;
         }
 
-        private string ComputeFile(string path)
+        private static string ComputeFile(string path)
         {
             string result = string.Empty;
 
@@ -130,6 +131,90 @@ namespace UnityEditor
                 Debug.LogError(e.Message);
             }
             return result;
+        }
+
+        public static void Record(string path, string root, List<ItemFile> items)
+        {
+            string key, value;
+
+            if (File.Exists(path))
+            {
+                StreamWriter writer = new StreamWriter(path, true);
+
+                for (int i = 0; i < items.Count; i++)
+                {
+                    if (items[i].select)
+                    {
+                        key = root + items[i].folder + "/" + items[i].name;
+
+                        value = ComputeFile(items[i].path);
+
+                        writer.WriteLine(string.Format("{0}|{1}", key, value));
+                    }
+                }
+                writer.Dispose();
+            }
+            else
+            {
+                using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
+                {
+                    StreamWriter writer = new StreamWriter(stream);
+
+                    for (int i = 0; i < items.Count; i++)
+                    {
+                        if (items[i].select)
+                        {
+                            key = root + items[i].folder + "/" + items[i].name;
+
+                            value = ComputeFile(items[i].path);
+
+                            writer.WriteLine(string.Format("{0}|{1}", key, value));
+                        }
+                    }
+                    writer.Dispose();
+                };
+            }
+        }
+
+        public static void Recompilation(string path)
+        {
+            if (!File.Exists(path)) return;
+
+            Dictionary<string, string> md5 = new Dictionary<string, string>();
+
+            List<string> lines = new List<string>();
+
+            using (FileStream stream = new FileStream(path, FileMode.Open))
+            {
+                StreamReader reader = new StreamReader(stream);
+
+                string line = reader.ReadLine();
+
+                string[] param = new string[2];
+
+                while (!string.IsNullOrEmpty(line))
+                {
+                    param = line.Split('|');
+
+                    if (param.Length == 2)
+                    {
+                        if (md5.ContainsKey(param[0]))
+                        {
+                            md5[param[0]] = param[1];
+                        }
+                        else
+                        {
+                            md5.Add(param[0], param[1]);
+                        }
+                    }
+                    line = reader.ReadLine();
+                }
+            }
+            foreach (var line in md5)
+            {
+                lines.Add(string.Join("|", line.Key, line.Value));
+            }
+            File.WriteAllLines(path, lines);
         }
     }
 }

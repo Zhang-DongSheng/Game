@@ -3,6 +3,12 @@ using UnityEngine;
 
 public static partial class NumberExtension
 {
+    private const int GB = 1024 * 1024 * 1024;
+
+    private const int MB = 1024 * 1024;
+
+    private const int KB = 1024;
+
     private static double value;
 
     public static int Between(this int self, int min, int max)
@@ -77,7 +83,7 @@ public static partial class NumberExtension
         return (float)value;
     }
 
-    public static string ToString(this int self, int digit)
+    public static string ToNumber(this int self, int digit)
     {
         float number;
 
@@ -98,7 +104,31 @@ public static partial class NumberExtension
         return string.Format("{0}{1}", Math.Round(number, digit), unit);
     }
 
-    public static string ToDateTime(this float second)
+    public static string ToSize(this long self)
+    {
+        float value; string unit;
+
+        if (self >= GB)
+        {
+            value = self / GB; unit = "G";
+        }
+        else if (self >= MB)
+        {
+            value = self / MB; unit = "M";
+        }
+        else if (self >= KB)
+        {
+            value = self / KB; unit = "K";
+        }
+        else
+        {
+            value = self; unit = "B";
+        }
+
+        return string.Format("{0}{1}", value, unit);
+    }
+
+    public static string ToTimeSpan(this float second)
     {
         TimeSpan span = TimeSpan.FromSeconds(second);
 
