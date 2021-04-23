@@ -1,74 +1,53 @@
-﻿using System;
+﻿using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI
 {
     [RequireComponent(typeof(MaskableGraphic))]
-    public class ButtonPro : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerClickHandler
+    public class ButtonPro : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerClickHandler
     {
-        public Action onEnter;
-        public Action onDown;
-        public Action onUp;
-        public Action onExit;
-        public Action onClick;
-        public Action onDoubleClick;
-        public Action<int> onPress;
+        [SerializeField, Range(0.1f, 5)] private float interval = 1;
 
-        [SerializeField, Range(0, 1)] private float interval_press;
-        [SerializeField, Range(0, 1)] private float interval_double;
+        [SerializeField, Range(1, 5)] private int multiple = 1;
 
-        //Long Press
+        public UnityEvent onClick;
+
+        public UnityEvent onMultipleClick;
+
+        public UnityEvent<int> onPress;
+
+        private int press_number;
+
         private float press_timer;
-        private int m_press_number;
-        private bool _press;
-        public bool press
-        {
-            get { return _press; }
-            set
-            {
-                if (value)
-                {
-                    m_press_number = 0;
-                    press_timer = Time.time + interval_press;
-                }
-                _press = value;
-            }
-        }
 
-        //Double Click
-        private float double_timer;
-        private int m_double_number;
+        private int multiple_number;
+
+        private float multiple_timer;
+
+        private TouchStatus status;
 
         private void OnEnable()
         {
-            press = false;
-        }
-
-        private void OnDisable()
-        {
-            if (press)
-            {
-                if (onExit != null)
-                {
-                    onExit.Invoke();
-                }
-                press = false;
-            }
+            status = TouchStatus.Exit;
         }
 
         private void Update()
         {
-            if (press)
+            switch (status)
             {
-                if (Time.time >= press_timer)
-                {
-                    m_press_number++;
-                    press_timer = Time.time + interval_press;
-                    if (onPress != null)
+                case TouchStatus.Enter:
+                    if (Time.time >= press_timer)
                     {
-                        onPress.Invoke(m_press_number);
+                        press_number++;
+
+                        press_timer = Time.time + interval;
+
+                        if (onPress != null)
+                        {
+                            onPress.Invoke(press_number);
+                        }
                     }
-                }
+                    break;
             }
         }
 
@@ -78,70 +57,46 @@ namespace UnityEngine.UI
             {
                 onClick.Invoke();
             }
-            switch (m_double_number)
-            {
-                case 0:
-                    goto default;
-                case 1:
-                    if (Time.time - double_timer < interval_double)
-                    {
-                        m_double_number++;
-                        if (onDoubleClick != null)
-                        {
-                            onDoubleClick.Invoke();
-                        }
-                    }
-                    else
-                    {
-                        goto default;
-                    }
-                    break;
-                default:
-                    m_double_number = 1;
-                    double_timer = Time.time;
-                    break;
-            }
-        }
 
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            if (onEnter != null)
+            if (Time.time > multiple_timer)
             {
-                onEnter.Invoke();
+                multiple_number = 1;
             }
+            else
+            {
+                multiple_number++;
+
+                if (multiple_number >= multiple)
+                {
+                    onMultipleClick?.Invoke();
+                }
+            }
+            multiple_timer = Time.time + interval;
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (onDown != null)
-            {
-                onDown.Invoke();
-            }
-            press = true;
+            press_number = 0;
+
+            press_timer = Time.time + interval;
+
+            status = TouchStatus.Enter;
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (press)
-            {
-                if (onUp != null)
-                {
-                    onUp.Invoke();
-                }
-                press = false;
-            }
+            status = TouchStatus.Exit;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (press)
-            {
-                if (onExit != null)
-                {
-                    onExit.Invoke();
-                }
-                press = false;
-            }
+            status = TouchStatus.Exit;
+        }
+
+        enum TouchStatus
+        {
+            Enter,
+            Exit,
         }
     }
 }
