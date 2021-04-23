@@ -8,6 +8,11 @@ namespace UnityEngine.UI
     {
         public UnityEvent onClick;
 
+        protected ButtonEmpty()
+        {
+            useLegacyMeshGeneration = false;
+        }
+
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             vh.Clear();
