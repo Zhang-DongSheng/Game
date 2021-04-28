@@ -5,29 +5,30 @@ namespace UnityEngine.UI
     /// <summary>
     /// 自定义多边形
     /// </summary>
-    [RequireComponent(typeof(Image))]
-    public class Polygon : BaseMeshEffect
+    [RequireComponent(typeof(CanvasRenderer))]
+    public class Polygon : MaskableGraphic
     {
         [SerializeField] private List<Vector2> points;
 
-        [SerializeField] private Color32 color;
-
-        public override void ModifyMesh(VertexHelper helper)
+        protected override void OnPopulateMesh(VertexHelper helper)
         {
             helper.Clear();
 
-            //设置坐标点
-            foreach (var point in points)
+            if (points != null && points.Count > 0)
             {
-                helper.AddVert(point, color, new Vector2(0f, 0f));
-            }
+                int count = points.Count;
 
-            int count = points.Count;
+                //设置坐标点
+                foreach (var point in points)
+                {
+                    helper.AddVert(point, color, new Vector2(0f, 0f));
+                }
 
-            //自定义三角形
-            for (int i = 0; i < count - 1; i++)
-            {
-                helper.AddTriangle(i, Index(i + 1, count), Index(i + 2, count));
+                //自定义三角形
+                for (int i = 0; i < count - 1; i++)
+                {
+                    helper.AddTriangle(i, Index(i + 1, count), Index(i + 2, count));
+                }
             }
         }
 

@@ -4,7 +4,7 @@ using Game;
 namespace UnityEngine.UI
 {
     [ExecuteInEditMode, RequireComponent(typeof(Text))]
-    public class LanguageText : MonoBehaviour
+    public class TextLanguage : MonoBehaviour
     {
         [SerializeField] private Text component;
 

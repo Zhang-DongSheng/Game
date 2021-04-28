@@ -1,6 +1,6 @@
 using UnityEngine.Events;
 
-namespace UnityEngine.Polygon
+namespace UnityEngine
 {
     [RequireComponent(typeof(SpriteRenderer), typeof(PolygonCollider2D))]
     public class PolygonSpriteButton : MonoBehaviour

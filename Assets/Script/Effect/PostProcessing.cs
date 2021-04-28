@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Effect
@@ -7,11 +5,18 @@ namespace Game.Effect
     [RequireComponent(typeof(Camera))]
     public class PostProcessing : MonoBehaviour
     {
-        [SerializeField] private Material material;
+        [SerializeField] private Shader shader;
+
+        private Material material;
 
         private void Awake()
         {
-            
+            Material();
+        }
+
+        private void OnValidate()
+        {
+            Material();
         }
 
         private void OnRenderImage(RenderTexture source, RenderTexture destination)
@@ -28,8 +33,20 @@ namespace Game.Effect
             }
         }
 
+        protected virtual void Material()
+        {
+            if (shader != null && shader.isSupported)
+            {
+                if (material != null && material.shader == shader) { }
+                else
+                {
+                    material = new Material(shader);
+                }
+            }
+        }
+
         protected virtual void Compute(Material material)
-        { 
+        {
             
         }
     }

@@ -1,11 +1,10 @@
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-namespace UnityEngine.Polygon
+namespace UnityEngine.UI
 {
     [RequireComponent(typeof(PolygonCollider2D))]
-    public class PolygonImageButton : Image, IPointerClickHandler
+    public class PolygonButton : Image, IPointerClickHandler
     {
         private PolygonCollider2D polygon;
 
