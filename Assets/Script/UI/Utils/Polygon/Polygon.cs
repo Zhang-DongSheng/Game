@@ -8,7 +8,11 @@ namespace UnityEngine.UI
     [RequireComponent(typeof(CanvasRenderer))]
     public class Polygon : MaskableGraphic
     {
-        [SerializeField] private List<Vector2> points;
+        [SerializeField]
+        private List<Vector2> points = new List<Vector2>()
+        {
+            new Vector2(50, 50), new Vector2(50, -50), new Vector2(-50, -50), new Vector2(-50, 50)
+        };
 
         protected override void OnPopulateMesh(VertexHelper helper)
         {
@@ -21,31 +25,15 @@ namespace UnityEngine.UI
                 //设置坐标点
                 foreach (var point in points)
                 {
-                    helper.AddVert(point, color, new Vector2(0f, 0f));
+                    helper.AddVert(point, color, Vector2.zero);
                 }
 
                 //自定义三角形
-                for (int i = 0; i < count - 1; i++)
+                for (int i = 1; i < count - 1; i++)
                 {
-                    helper.AddTriangle(i, Index(i + 1, count), Index(i + 2, count));
+                    helper.AddTriangle(i, 0, i + 1);
                 }
             }
-        }
-
-        private int Index(int index, int max)
-        {
-            if (index < max)
-            {
-                while (index < 0 && max > 0)
-                {
-                    index += max;
-                }
-            }
-            else
-            {
-                index %= max;
-            }
-            return index;
         }
     }
-}
+} 
