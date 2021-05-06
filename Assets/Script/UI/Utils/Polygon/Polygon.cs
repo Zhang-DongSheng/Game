@@ -8,15 +8,25 @@ namespace UnityEngine.UI
     [RequireComponent(typeof(CanvasRenderer))]
     public class Polygon : MaskableGraphic
     {
+        [SerializeField] private Texture2D texture;
+
         [SerializeField]
         private List<Vector2> points = new List<Vector2>()
         {
             new Vector2(50, 50), new Vector2(50, -50), new Vector2(-50, -50), new Vector2(-50, 50)
         };
 
+        private Vector2 space = new Vector2();
+
+        public override Texture mainTexture => texture == null ? s_WhiteTexture : texture;
+
         protected override void OnPopulateMesh(VertexHelper helper)
         {
             helper.Clear();
+
+            space.x = rectTransform.rect.width;
+
+            space.y = rectTransform.rect.height;
 
             if (points != null && points.Count > 0)
             {
@@ -25,7 +35,7 @@ namespace UnityEngine.UI
                 //设置坐标点
                 foreach (var point in points)
                 {
-                    helper.AddVert(point, color, Vector2.zero);
+                    helper.AddVert(GetUIVertex(point));
                 }
 
                 //自定义三角形
@@ -35,5 +45,15 @@ namespace UnityEngine.UI
                 }
             }
         }
+
+        private UIVertex GetUIVertex(Vector3 position)
+        {
+            return new UIVertex()
+            {
+                position = position,
+                color = color,
+                uv0 = new Vector2(position.x / space.x + 0.5f, position.y / space.y + 0.5f),
+            };
+        }
     }
-} 
+}

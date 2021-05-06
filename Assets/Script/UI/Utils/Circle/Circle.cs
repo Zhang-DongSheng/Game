@@ -1,5 +1,8 @@
 namespace UnityEngine.UI
 {
+    /// <summary>
+    /// т╡пн
+    /// </summary>
     [RequireComponent(typeof(CanvasRenderer))]
     public class Circle : MaskableGraphic
     {
@@ -30,7 +33,7 @@ namespace UnityEngine.UI
 
             float radian = 2 * Mathf.PI / segements;
 
-            helper.AddVert(GetUIVertex(color, Vector2.zero));
+            helper.AddVert(GetUIVertex(Vector2.zero));
 
             float value = 0;
 
@@ -42,7 +45,7 @@ namespace UnityEngine.UI
 
                 value += radian;
 
-                helper.AddVert(GetUIVertex(color, position));
+                helper.AddVert(GetUIVertex(position));
             }
         }
 
@@ -65,7 +68,7 @@ namespace UnityEngine.UI
             }
         }
 
-        private UIVertex GetUIVertex(Color32 color, Vector3 position)
+        private UIVertex GetUIVertex(Vector3 position)
         {
             return new UIVertex()
             {
