@@ -3,7 +3,7 @@
 namespace UnityEngine.UI
 {
     /// <summary>
-    /// 自定义多边形
+    /// 多边形
     /// </summary>
     [RequireComponent(typeof(CanvasRenderer))]
     public class Polygon : MaskableGraphic

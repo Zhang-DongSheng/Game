@@ -6,13 +6,16 @@ namespace UnityEngine.UI
     [RequireComponent(typeof(Toggle))]
     public class ToggleHelper : MonoBehaviour
     {
-        [SerializeField] private List<SAMBase> animations;
-
         [SerializeField] private Transform cursorParent;
 
-        private void Awake()
+        [SerializeField] private List<SAMBase> animations;
+
+        protected void Awake()
         {
-            GetComponent<Toggle>().onValueChanged.AddListener(OnValueChanged);
+            if (TryGetComponent(out Toggle toggle))
+            {
+                toggle.onValueChanged.AddListener(OnValueChanged);
+            }
         }
 
         private void OnValueChanged(bool isOn)

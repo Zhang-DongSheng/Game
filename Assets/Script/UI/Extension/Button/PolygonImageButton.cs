@@ -3,8 +3,11 @@ using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI
 {
+    /// <summary>
+    /// ¶à±ßÐÎ°´Å¥
+    /// </summary>
     [RequireComponent(typeof(PolygonCollider2D))]
-    public class PolygonButton : Image, IPointerClickHandler
+    public class PolygonImageButton : Image, IPointerClickHandler
     {
         private PolygonCollider2D polygon;
 

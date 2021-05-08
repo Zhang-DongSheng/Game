@@ -3,6 +3,9 @@ using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI
 {
+    /// <summary>
+    /// 双击长按按钮
+    /// </summary>
     [RequireComponent(typeof(MaskableGraphic))]
     public class ButtonPro : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerClickHandler
     {

@@ -2,6 +2,9 @@ using UnityEngine.SAM;
 
 namespace UnityEngine.UI
 {
+    /// <summary>
+    /// »¬¶¯Ìõ
+    /// </summary>
     [RequireComponent(typeof(SAMAction))]
     public class SliderHelper : Slider
     {

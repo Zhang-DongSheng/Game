@@ -2,6 +2,9 @@
 
 namespace UnityEngine.UI
 {
+    /// <summary>
+    /// 无限滚动循环列表-布局组件
+    /// </summary>
     public class InfiniteLoopLayout : MonoBehaviour
     {
         private readonly Vector2 half = new Vector2(0.5f, 0.5f);

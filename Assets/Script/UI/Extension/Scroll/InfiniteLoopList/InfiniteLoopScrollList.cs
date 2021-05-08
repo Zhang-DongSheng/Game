@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 namespace UnityEngine.UI
 {
     /// <summary>
-    /// 无限滚动循环列表 自动归位 前进，后退
+    /// 无限滚动循环列表
     /// </summary>
     public class InfiniteLoopScrollList : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {

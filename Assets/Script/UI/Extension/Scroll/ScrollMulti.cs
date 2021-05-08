@@ -2,7 +2,10 @@
 
 namespace UnityEngine.UI
 {
-    public class MultiScrollRect : ScrollRect, IBeginDragHandler, IDragHandler, IEndDragHandler
+    /// <summary>
+    /// 叠加滑动列表
+    /// </summary>
+    public class ScrollMulti : ScrollRect, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [SerializeField] private ScrollRect scroll;
 
@@ -80,29 +83,6 @@ namespace UnityEngine.UI
                 }
             }
             return null;
-        }
-    }
-
-    public class ScrollUtils
-    {
-        private static readonly float Min = 45f;
-
-        private static readonly float Max = 135f;
-
-        private static float angle;
-
-        public static bool Horizontal(Vector2 vector)
-        {
-            angle = Vector2.Angle(vector, Vector2.up);
-
-            return angle > Min && angle < Max;
-        }
-
-        public static bool Vertical(Vector2 vector)
-        {
-            angle = Vector2.Angle(vector, Vector2.up);
-
-            return angle < Min || angle > Max;
         }
     }
 }

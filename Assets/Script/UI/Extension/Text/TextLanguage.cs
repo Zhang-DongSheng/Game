@@ -3,6 +3,9 @@ using Game;
 
 namespace UnityEngine.UI
 {
+    /// <summary>
+    /// 多语言文本
+    /// </summary>
     [ExecuteInEditMode, RequireComponent(typeof(Text))]
     public class TextLanguage : MonoBehaviour
     {

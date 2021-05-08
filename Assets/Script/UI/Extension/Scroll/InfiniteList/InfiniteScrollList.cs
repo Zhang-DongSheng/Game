@@ -4,6 +4,9 @@ using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI
 {
+    /// <summary>
+    /// Ñ­»·ÁÐ±í
+    /// </summary>
     public class InfiniteScrollList : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         enum Direction

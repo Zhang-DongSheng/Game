@@ -1,10 +1,9 @@
-﻿using Game.UI;
-using UnityEngine.Events;
+﻿using UnityEngine.Events;
 
 namespace UnityEngine.UI
 {
     [RequireComponent(typeof(ScrollRect))]
-    public class ScrollRectHelper : MonoBehaviour
+    public class ScrollOverflow : MonoBehaviour
     {
         [SerializeField] private ScrollRect scroll;
 
@@ -16,7 +15,7 @@ namespace UnityEngine.UI
 
         public UnityEvent onTop, onBottom;
 
-        private Vector2 resolution;
+        private Vector2 resolution = new Vector2(1, 1);
 
         private float timer;
 
@@ -24,11 +23,16 @@ namespace UnityEngine.UI
 
         private void Awake()
         {
-            resolution = UIManager.Instance.Resolution;
-
             if (scroll == null)
                 scroll = GetComponent<ScrollRect>();
             scroll.onValueChanged.AddListener(OnValueChanged);
+
+            Canvas canvas = GetComponentInParent<Canvas>();
+
+            if (canvas != null && canvas.TryGetComponent(out RectTransform rect))
+            {
+                resolution = new Vector2(rect.rect.width, rect.rect.height);
+            }
         }
 
         private void Update()

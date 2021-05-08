@@ -3,12 +3,15 @@ using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI
 {
+    /// <summary>
+    /// ø’∞¥≈•£¨≤ª‰÷»æ
+    /// </summary>
     [RequireComponent(typeof(CanvasRenderer))]
-    public class ButtonEmpty : Graphic, IPointerClickHandler
+    public class EmptyButton : Graphic, IPointerClickHandler
     {
         public UnityEvent onClick;
 
-        protected ButtonEmpty()
+        protected EmptyButton()
         {
             useLegacyMeshGeneration = false;
         }

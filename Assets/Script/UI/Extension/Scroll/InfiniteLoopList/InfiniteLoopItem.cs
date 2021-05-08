@@ -1,5 +1,8 @@
 ﻿namespace UnityEngine.UI
 {
+    /// <summary>
+    /// 无限滚动循环列表-格子基类
+    /// </summary>
     public abstract class InfiniteLoopItem : MonoBehaviour
     {
         protected RectTransform target;

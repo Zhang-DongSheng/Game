@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace UnityEngine.UI
 {
     /// <summary>
-    /// 圆形
+    /// 圆形专业版
     /// </summary>
     [RequireComponent(typeof(CanvasRenderer))]
     public class CirclePro : MaskableGraphic
