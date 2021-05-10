@@ -178,6 +178,21 @@ namespace Game.UI
                 return RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, point, null, out position);
             }
         }
+
+        public Canvas Canvas(UIBase view)
+        {
+            Transform parent = view.transform;
+
+            while (parent != null)
+            {
+                if (parent.TryGetComponent(out Canvas canvas))
+                {
+                    return canvas;
+                }
+                parent = parent.parent;
+            }
+            return null;
+        }
     }
 
     public enum UILayer

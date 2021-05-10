@@ -16,7 +16,7 @@ namespace UnityEngine.UI
 
         private readonly List<Toggle> toggles = new List<Toggle>();
 
-        [Space(5)] public UnityEvent<int> OnClick;
+        [Space(5)] public UnityEvent<int> onClick;
 
         private float step, progress;
 
@@ -41,7 +41,7 @@ namespace UnityEngine.UI
                 {
                     if (isOn)
                     {
-                        OnClick?.Invoke(index); OnValueChanged(index);
+                        onClick?.Invoke(index); OnValueChanged(index);
                     }
                 });
             }

@@ -18,7 +18,7 @@ namespace Game.UI
         {
             btn_next.onClick.AddListener(OnClick);
 
-            toggle.OnClick.AddListener(OnClickToggle);
+            toggle.onClick.AddListener(OnClickToggle);
         }
 
         private void Start()
