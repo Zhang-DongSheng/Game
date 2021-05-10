@@ -54,7 +54,7 @@ public static partial class Extension
         compontent.text = text;
     }
 
-    public static float SetTextAndGetWidth(this Text compontent, string content, float space, float min = 100, float max = 500)
+    public static float SetTextAndWidth(this Text compontent, string content, float space = 0, float min = -1, float max = -1)
     {
         compontent.text = content;
 
@@ -62,10 +62,35 @@ public static partial class Extension
 
         width += space;
 
-        width = Math.Max(width, min);
+        if (min != -1) width = Math.Max(width, min);
 
-        width = Math.Min(width, max);
+        if (max != -1) width = Math.Min(width, max);
 
         return width;
+    }
+
+    public static float SetTextAndHeight(this Text compontent, string content, float space = 0, float min = -1, float max = -1)
+    {
+        compontent.text = content;
+
+        float height = compontent.preferredHeight;
+
+        height += space;
+
+        if (min != -1) height = Math.Max(height, min);
+
+        if (max != -1) height = Math.Min(height, max);
+
+        return height;
+    }
+
+    public static void ToTop(this ScrollRect scroll)
+    {
+        scroll.normalizedPosition = new Vector2(0, 1);
+    }
+
+    public static void ToBottom(this ScrollRect scroll)
+    {
+        scroll.normalizedPosition = new Vector2(0, 0);
     }
 }
