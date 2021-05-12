@@ -1,34 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace UnityEngine.UI
 {
     [RequireComponent(typeof(Graphic))]
     public class GraphicMirror : BaseMeshEffect
     {
-        public enum MirrorType
-        {
-            None,
-            Horizontal,
-            Vertical,
-            Quarter,
-        }
+        [SerializeField] private Direction direction = Direction.Horizontal;
 
-        /// <summary>
-        /// 镜像类型
-        /// </summary>
-        [SerializeField]
-        private MirrorType m_MirrorType = MirrorType.Horizontal;
-
-        [NonSerialized]
-        private RectTransform m_RectTransform;
-
-        public RectTransform RectTransform
-        {
-            get { return m_RectTransform ?? (m_RectTransform = GetComponent<RectTransform>()); }
-        }
-
-        private readonly List<UIVertex> output = new List<UIVertex>();
+        private readonly List<UIVertex> vertexs = new List<UIVertex>();
 
         /// <summary>
         /// 设置原始尺寸
@@ -42,26 +21,29 @@ namespace UnityEngine.UI
 
                 if (overrideSprite != null)
                 {
-                    float w = overrideSprite.rect.width / (graphic as Image).pixelsPerUnit;
-                    float h = overrideSprite.rect.height / (graphic as Image).pixelsPerUnit;
-                    RectTransform.anchorMax = RectTransform.anchorMin;
+                    RectTransform rect = GetComponent<RectTransform>();
 
-                    switch (m_MirrorType)
+                    float w = overrideSprite.rect.width / (graphic as Image).pixelsPerUnit;
+
+                    float h = overrideSprite.rect.height / (graphic as Image).pixelsPerUnit;
+
+                    rect.anchorMax = rect.anchorMin;
+
+                    switch (direction)
                     {
-                        case MirrorType.None:
-                            RectTransform.sizeDelta = new Vector2(w, h);
+                        case Direction.None:
+                            rect.sizeDelta = new Vector2(w, h);
                             break;
-                        case MirrorType.Horizontal:
-                            RectTransform.sizeDelta = new Vector2(w * 2, h);
+                        case Direction.Horizontal:
+                            rect.sizeDelta = new Vector2(w * 2, h);
                             break;
-                        case MirrorType.Vertical:
-                            RectTransform.sizeDelta = new Vector2(w, h * 2);
+                        case Direction.Vertical:
+                            rect.sizeDelta = new Vector2(w, h * 2);
                             break;
-                        case MirrorType.Quarter:
-                            RectTransform.sizeDelta = new Vector2(w * 2, h * 2);
+                        case Direction.Slant:
+                            rect.sizeDelta = new Vector2(w * 2, h * 2);
                             break;
                     }
-
                     graphic.SetVerticesDirty();
                 }
             }
@@ -71,9 +53,9 @@ namespace UnityEngine.UI
         {
             if (!IsActive()) return;
 
-            vh.GetUIVertexStream(output);
+            vh.GetUIVertexStream(vertexs);
 
-            int count = output.Count;
+            int count = vertexs.Count;
 
             if (graphic is Image)
             {
@@ -82,7 +64,7 @@ namespace UnityEngine.UI
                 switch (type)
                 {
                     case Image.Type.Simple:
-                        DrawSimple(output, count);
+                        DrawSimple(vertexs, count);
                         break;
                     case Image.Type.Sliced:
 
@@ -97,11 +79,11 @@ namespace UnityEngine.UI
             }
             else
             {
-                DrawSimple(output, count);
+                DrawSimple(vertexs, count);
             }
 
             vh.Clear();
-            vh.AddUIVertexTriangleStream(output);
+            vh.AddUIVertexTriangleStream(vertexs);
         }
 
         /// <summary>
@@ -115,17 +97,17 @@ namespace UnityEngine.UI
 
             SimpleScale(rect, output, count);
 
-            switch (m_MirrorType)
+            switch (direction)
             {
-                case MirrorType.Horizontal:
+                case Direction.Horizontal:
                     ExtendCapacity(output, count);
                     MirrorVerts(rect, output, count, true);
                     break;
-                case MirrorType.Vertical:
+                case Direction.Vertical:
                     ExtendCapacity(output, count);
                     MirrorVerts(rect, output, count, false);
                     break;
-                case MirrorType.Quarter:
+                case Direction.Slant:
                     ExtendCapacity(output, count * 3);
                     MirrorVerts(rect, output, count, true);
                     MirrorVerts(rect, output, count * 2, false);
@@ -150,12 +132,12 @@ namespace UnityEngine.UI
 
                 Vector3 position = vertex.position;
 
-                if (m_MirrorType == MirrorType.Horizontal || m_MirrorType == MirrorType.Quarter)
+                if (direction == Direction.Horizontal || direction == Direction.Slant)
                 {
                     position.x = (position.x + rect.x) * 0.5f;
                 }
 
-                if (m_MirrorType == MirrorType.Vertical || m_MirrorType == MirrorType.Quarter)
+                if (direction == Direction.Vertical || direction == Direction.Slant)
                 {
                     position.y = (position.y + rect.y) * 0.5f;
                 }

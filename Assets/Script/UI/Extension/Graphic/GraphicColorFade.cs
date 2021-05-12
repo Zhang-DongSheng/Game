@@ -5,15 +5,13 @@ namespace UnityEngine.UI
     [RequireComponent(typeof(CanvasRenderer))]
     public class GraphicColorFade : MaskableGraphic
     {
-        [SerializeField] private Axis axis;
+        [SerializeField] private Direction direction;
 
         [SerializeField] private Color origin = Color.white;
 
         [SerializeField] private Color destination = Color.white;
 
         private new Color color;
-
-        private float width, height;
 
         private Vector2 topLeft, topRight, bottomLeft, bottomRight;
 
@@ -25,9 +23,9 @@ namespace UnityEngine.UI
 
             helper.Clear(); m_vertexs.Clear();
 
-            width = GetComponent<RectTransform>().rect.width / 2f;
+            float width = GetComponent<RectTransform>().rect.width / 2f;
 
-            height = GetComponent<RectTransform>().rect.height / 2f;
+            float height = GetComponent<RectTransform>().rect.height / 2f;
 
             topLeft = new Vector2(width * -1, height);
 
@@ -54,9 +52,9 @@ namespace UnityEngine.UI
 
         private UIVertex AddUIVertex(Vector2 position, Location location)
         {
-            switch (axis)
+            switch (direction)
             {
-                case Axis.Horizontal:
+                case Direction.Horizontal:
                     switch (location)
                     {
                         case Location.TopLeft:
@@ -68,7 +66,7 @@ namespace UnityEngine.UI
                             break;
                     }
                     break;
-                case Axis.Vertical:
+                case Direction.Vertical:
                     switch (location)
                     {
                         case Location.TopLeft:
@@ -80,7 +78,7 @@ namespace UnityEngine.UI
                             break;
                     }
                     break;
-                default:
+                case Direction.Slant:
                     switch (location)
                     {
                         case Location.TopLeft:
@@ -93,6 +91,9 @@ namespace UnityEngine.UI
                             color = Color.Lerp(origin, destination, 0.5f);
                             break;
                     }
+                    break;
+                default:
+                    color = base.color;
                     break;
             }
 
@@ -109,13 +110,6 @@ namespace UnityEngine.UI
             TopRight,
             BottomLeft,
             BottomRight
-        }
-
-        enum Axis
-        {
-            Horizontal,
-            Vertical,
-            Slant,
         }
     }
 }
