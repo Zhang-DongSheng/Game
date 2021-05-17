@@ -5,14 +5,14 @@ using UnityEngine.SceneManagement;
 
 namespace UnityEditor
 {
-    public class GameTools
+    public class Game
     {
         private static readonly string sceneName = "Main";
 
         private static int pictureIndex;
 
         [MenuItem("Tools/OpenMainScene &Q")]
-        private static void OpenMainScene()
+        protected static void OpenMainScene()
         {
             string path_scene = sceneName;
             Scene scene_cur = EditorSceneManager.GetActiveScene();
@@ -25,7 +25,7 @@ namespace UnityEditor
         }
 
         [MenuItem("Tools/Screenshot &X")]
-        private static void Screenshot()
+        protected static void Screenshot()
         {
             string pic_name = Application.dataPath + string.Format("/Pic_{0}.png", ++pictureIndex);
             ScreenCapture.CaptureScreenshot(pic_name);
@@ -33,36 +33,36 @@ namespace UnityEditor
         }
 
         [MenuItem("Tools/Folder/Data")]
-        private static void OpenDataFolder()
+        protected static void OpenDataFolder()
         {
             OpenFolder(Application.dataPath);
         }
 
         [MenuItem("Tools/Folder/StreamingAssets")]
-        private static void OpenStreamingAssetsFolder()
+        protected static void OpenStreamingAssetsFolder()
         {
             OpenFolder(Application.streamingAssetsPath);
         }
 
         [MenuItem("Tools/Folder/PersistentData")]
-        private static void OpenPersistentDataFolder()
+        protected static void OpenPersistentDataFolder()
         {
             OpenFolder(Application.persistentDataPath);
         }
 
         [MenuItem("Tools/Folder/TemporaryCache")]
-        private static void OpenTemporaryCacheFolder()
+        protected static void OpenTemporaryCacheFolder()
         {
             OpenFolder(Application.temporaryCachePath);
         }
 
         [MenuItem("Tools/File/Log")]
-        private static void OpenConsoleFile()
+        protected static void OpenConsoleFile()
         {
             OpenFile(Application.consoleLogPath);
         }
 
-        private static void OpenFolder(string path)
+        protected static void OpenFolder(string path)
         {
             if (string.IsNullOrEmpty(path)) return;
 
@@ -76,7 +76,7 @@ namespace UnityEditor
             }
         }
 
-        private static void OpenFile(string path)
+        protected static void OpenFile(string path)
         {
             if (string.IsNullOrEmpty(path)) return;
 

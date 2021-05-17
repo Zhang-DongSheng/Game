@@ -5,7 +5,7 @@ namespace UnityEditor
 {
     [CanEditMultipleObjects]
     [CustomEditor(typeof(TextPicture))]
-    public class TextPictureInspector : UnityEditor.UI.TextEditor
+    public class InspectorTextPicture : UnityEditor.UI.TextEditor
     {
         private SerializedProperty offset;
 

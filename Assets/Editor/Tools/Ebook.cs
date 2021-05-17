@@ -66,7 +66,7 @@ namespace UnityEditor.Window
                 ShowNotification(new GUIContent("书籍转换失败！" + error));
             };
 
-            value_input = PlayerPrefs.GetString(KEY);
+            value_input = UnityEngine.PlayerPrefs.GetString(KEY);
 
             if (string.IsNullOrEmpty(value_input))
             {
@@ -239,7 +239,7 @@ namespace UnityEditor.Window
                 {
                     value_input = EditorUtility.SaveFolderPanel("Intput", InputPath, string.Empty);
 
-                    PlayerPrefs.SetString(KEY, value_input);
+                    UnityEngine.PlayerPrefs.SetString(KEY, value_input);
 
                     Redirect();
                 }

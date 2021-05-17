@@ -68,8 +68,8 @@ namespace UnityEditor
 
 		private readonly List<ItemFile> source = new List<ItemFile>();
 
-		[MenuItem("Data/Excel")]
-		private static void Open()
+		[MenuItem("Art/Excel")]
+		protected static void Open()
 		{
 			ExcelTools window = EditorWindow.GetWindow<ExcelTools>();
 			window.titleContent = new GUIContent("Excel Tools");

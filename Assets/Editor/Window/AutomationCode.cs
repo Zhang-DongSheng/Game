@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UnityEditor.Window
 {
-    class CodeAutomation : EditorWindow
+    class AutomationCode : EditorWindow
     {
         private string code;
 
@@ -13,10 +13,10 @@ namespace UnityEditor.Window
 
         private readonly List<PropertyParameter> parameters = new List<PropertyParameter>();
 
-        [MenuItem("Window/Script Editor")]
-        private static void Open()
+        [MenuItem("Script/Editor")]
+        protected static void Open()
         {
-            CodeAutomation window = EditorWindow.GetWindow<CodeAutomation>();
+            AutomationCode window = EditorWindow.GetWindow<AutomationCode>();
             window.titleContent = new GUIContent("Script Editor");
             window.minSize = new Vector2(500, 300);
             window.Show();

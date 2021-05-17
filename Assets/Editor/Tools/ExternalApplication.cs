@@ -33,7 +33,7 @@ namespace UnityEditor.Window
         {
             applications.Clear();
 
-            string value = PlayerPrefs.GetString(KEY);
+            string value = UnityEngine.PlayerPrefs.GetString(KEY);
 
             if (!string.IsNullOrEmpty(value))
             {
@@ -199,7 +199,7 @@ namespace UnityEditor.Window
                     value += ",";
                 }
             }
-            PlayerPrefs.SetString(KEY, value);
+            UnityEngine.PlayerPrefs.SetString(KEY, value);
         }
     }
 

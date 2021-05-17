@@ -47,7 +47,7 @@ namespace UnityEditor
 
 		private readonly List<FileItem> source = new List<FileItem>();
 
-		[MenuItem("Data/Psd")]
+		[MenuItem("Art/PSD")]
 		protected static void Open()
 		{
 			PsdTools window = EditorWindow.GetWindow<PsdTools>();

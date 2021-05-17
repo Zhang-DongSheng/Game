@@ -4,7 +4,7 @@ using UnityEngine.UI;
 namespace UnityEditor.Inspector
 {
     [CustomEditor(typeof(UIEffectHelper))]
-    class UIEffectHelperInspector : Editor
+    class InspectorUIEffectHelper : Editor
     {
         private UIEffectHelper helper;
 

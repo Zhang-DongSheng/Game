@@ -10,7 +10,7 @@ namespace UnityEditor.Window
 
         private Vector2 scroll;
 
-        [MenuItem("Window/Debuger")]
+        [MenuItem("Script/Debuger")]
         private static void Open()
         {
             EditorWindow window = GetWindow<Debuger>();

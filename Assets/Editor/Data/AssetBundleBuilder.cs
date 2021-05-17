@@ -317,7 +317,7 @@ namespace UnityEditor.Window
                         {
                             Upload();
 
-                            Md5Tool.Record(HistoryPath, string.Empty, items);
+                            Md5Helper.Record(HistoryPath, string.Empty, items);
                         }
 
                         if (GUILayout.Button("全选"))
@@ -532,7 +532,7 @@ namespace UnityEditor.Window
 
             if (File.Exists(path))
             {
-                Md5Tool.Recompilation(path);
+                Md5Helper.Recompilation(path);
             }
             else
             { 
