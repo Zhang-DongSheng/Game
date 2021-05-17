@@ -18,7 +18,7 @@ namespace UnityEditor.Window
 
         private ExApplication application;
 
-        [MenuItem("Extra/Application")]
+        [MenuItem("Application/Extra")]
         protected static void Open()
         {
             ExternalApplication window = GetWindow<ExternalApplication>();

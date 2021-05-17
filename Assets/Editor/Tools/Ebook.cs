@@ -46,7 +46,7 @@ namespace UnityEditor.Window
         private readonly List<Book> list = new List<Book>();
         #endregion
 
-        [MenuItem("Extra/Ebook")]
+        [MenuItem("Application/Ebook")]
         private static void Open()
         {
             EditorWindow window = EditorWindow.GetWindow<Ebook>();
