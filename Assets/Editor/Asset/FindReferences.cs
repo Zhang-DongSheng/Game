@@ -46,13 +46,7 @@ namespace UnityEditor
             }
         }
 
-        [MenuItem("Art/Empty References Sprite", false, 5)]
-        protected static void EmptySprite()
-        {
-            Empty("t:Sprite", "Assets/Resources");
-        }
-
-        protected static void Empty(string filter, params string[] folders)
+        public static void Empty(string filter, params string[] folders)
         {
             if (folders == null || folders.Length == 0) return;
 
@@ -84,6 +78,38 @@ namespace UnityEditor
                     Debug.Log("<color=blue>Completed!</color>");
                 }
             });
+        }
+
+        public static bool Missing(GameObject go)
+        {
+            bool missing = false;
+
+            Component[] components = go.GetComponentsInChildren<Component>(true);
+
+            foreach (var component in components)
+            {
+                if (component != null)
+                {
+                    SerializedObject so = new SerializedObject(component);
+
+                    SerializedProperty sp = so.GetIterator();
+
+                    while (sp.NextVisible(true))
+                    {
+                        if (sp.propertyType == SerializedPropertyType.ObjectReference &&
+                            sp.objectReferenceInstanceIDValue != 0 &&
+                            sp.objectReferenceValue == null)
+                        {
+                            Debug.LogErrorFormat("{0} Missing : {1}", go.name, sp.propertyPath);
+                        }
+                    }
+                }
+                else
+                {
+                    missing = true;
+                }
+            }
+            return missing;
         }
 
         protected static void Match(string[] guids, int index, List<string> assets, System.Action complete = null)
@@ -151,7 +177,7 @@ namespace UnityEditor
             return assets.Count > 0;
         }
 
-        protected static string ToAssetPath(string path)
+        public static string ToAssetPath(string path)
         {
             return "Assets/" + path.Replace(Application.dataPath, string.Empty).Replace('\\', '/');
         }
