@@ -7,6 +7,18 @@ namespace UnityEditor
 {
     public class FindReferences
     {
+        private static readonly Dictionary<string, int> references = new Dictionary<string, int>();
+
+        private static readonly List<string> assets = new List<string>();
+
+        private static readonly List<string> extensions = new List<string>()
+        {
+            ".prefab",
+            ".unity",
+            ".mat",
+            ".asset"
+        };
+
         [MenuItem("Assets/Find References", false, 24)]
         protected static void Find()
         {
@@ -16,64 +28,130 @@ namespace UnityEditor
 
             if (!string.IsNullOrEmpty(path))
             {
-                string[] files = Directory.GetFiles(Application.dataPath, "*.*", SearchOption.AllDirectories);
-
                 string guid = AssetDatabase.AssetPathToGUID(path);
 
-                List<string> extensions = new List<string>()
+                if (!Load()) return;
+
+                Match(guid, assets, true, (key) =>
                 {
-                    ".prefab",
-                    ".unity",
-                    ".mat",
-                    ".asset"
-                };
-
-                List<string> assets = new List<string>();
-
-                foreach (var file in files)
-                {
-                    if (extensions.Contains(Path.GetExtension(file).ToLower()))
+                    if (references[key] > 0)
                     {
-                        assets.Add(file);
+                        Debug.Log("<color=blue>Completed!</color>");
                     }
-                }
-
-                if (assets.Count == 0) return;
-
-                int index = 0; bool contain = false;
-
-                EditorApplication.update = delegate ()
-                {
-                    string file = assets[index];
-
-                    bool cancel = EditorUtility.DisplayCancelableProgressBar("Finding ...", file, index / (float)assets.Count);
-
-                    if (Regex.IsMatch(File.ReadAllText(file), guid))
+                    else
                     {
-                        contain = true;
-
-                        Debug.Log(string.Format("<color=green>{0}</color>", file), AssetDatabase.LoadAssetAtPath<Object>(LocalToAssetPath(file)));
+                        Debug.LogFormat("<color=red>[{0}]</color> Not Found References!", key);
                     }
-
-                    if (cancel || ++index >= assets.Count)
-                    {
-                        EditorUtility.ClearProgressBar();
-                        EditorApplication.update = null;
-
-                        if (contain)
-                        {
-                            Debug.Log("搜索完成！");
-                        }
-                        else
-                        {
-                            Debug.Log("未发现任何引用！");
-                        }
-                    }
-                };
+                });
             }
         }
 
-        protected static string LocalToAssetPath(string path)
+        [MenuItem("Art/Empty References Sprite", false, 5)]
+        protected static void EmptySprite()
+        {
+            Empty("t:Sprite", "Assets/Resources");
+        }
+
+        protected static void Empty(string filter, params string[] folders)
+        {
+            if (folders == null || folders.Length == 0) return;
+
+            EditorSettings.serializationMode = SerializationMode.ForceText;
+
+            string[] guids = AssetDatabase.FindAssets(filter, folders);
+
+            if (guids.Length == 0) return;
+
+            if (!Load()) return;
+
+            references.Clear();
+
+            Match(guids, 0, assets, () =>
+            {
+                bool empty = false;
+
+                foreach (var item in references)
+                {
+                    if (item.Value == 0)
+                    {
+                        Debug.LogFormat("<color=red>[{0}]</color> Not Found References!", item.Key);
+                        empty = true;
+                    }
+                }
+
+                if (!empty)
+                {
+                    Debug.Log("<color=blue>Completed!</color>");
+                }
+            });
+        }
+
+        protected static void Match(string[] guids, int index, List<string> assets, System.Action complete = null)
+        {
+            if (guids.Length > index)
+            {
+                Match(guids[index], assets, false, (_) =>
+                {
+                    Match(guids, ++index, assets, complete);
+                });
+            }
+            else
+            {
+                complete?.Invoke();
+            }
+        }
+
+        protected static void Match(string guid, List<string> assets, bool debug = false, System.Action<string> complete = null)
+        {
+            string key = AssetDatabase.GUIDToAssetPath(guid);
+
+            if (!references.ContainsKey(key)) references.Add(key, 0);
+
+            int index = 0;
+
+            EditorApplication.update = delegate ()
+            {
+                string file = assets[index];
+
+                bool cancel = EditorUtility.DisplayCancelableProgressBar("Finding ...", file, index / (float)assets.Count);
+
+                if (Regex.IsMatch(File.ReadAllText(file), guid))
+                {
+                    if (debug)
+                    {
+                        Debug.Log(string.Format("<color=green>{0}</color>", file), AssetDatabase.LoadAssetAtPath<Object>(ToAssetPath(file)));
+                    }
+                    references[key]++;
+                }
+
+                if (cancel || ++index >= assets.Count)
+                {
+                    EditorUtility.ClearProgressBar();
+
+                    EditorApplication.update = null;
+
+                    complete?.Invoke(key);
+                }
+            };
+        }
+
+        protected static bool Load()
+        {
+            string[] files = Directory.GetFiles(Application.dataPath, "*.*", SearchOption.AllDirectories);
+
+            assets.Clear();
+
+            foreach (var file in files)
+            {
+                if (extensions.Contains(Path.GetExtension(file).ToLower()))
+                {
+                    assets.Add(file);
+                }
+            }
+            return assets.Count > 0;
+        }
+
+        protected static string ToAssetPath(string path)
         {
             return "Assets/" + path.Replace(Application.dataPath, string.Empty).Replace('\\', '/');
         }
