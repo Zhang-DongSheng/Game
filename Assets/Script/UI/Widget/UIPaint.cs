@@ -4,94 +4,120 @@ namespace UnityEngine.UI
 {
     public class UIPaint : MonoBehaviour
     {
-        [Tooltip("图案将被此载体渲染")]
-        public Renderer m_rendered;
+        [SerializeField] private SpriteRenderer sprite;
 
-        [Range(50f, 200f)]
-        [Tooltip("线条连贯性(我还没过四级)")]
-        public float m_lineSmooth;
-        [Tooltip("是否保持图案原有纵横比")]
-        public bool m_isKeepRatio;
-        [Space(2)]
-        [Header("颜色")]
-        [Tooltip("绘画时显示的颜色")]
-        public Color m_drawColor;
-        [Tooltip("在material时的颜色")]
-        public Color m_renderedColor;
+        [SerializeField, Range(1, 30)] private int density = 3;
 
-        private List<List<Vector3>> m_vertexList;
-        private void Start()
+        [SerializeField, Range(1, 5)] private int ratio = 1;
+
+        [SerializeField, Range(0, 5f)] private float thickness = 1;
+
+        [SerializeField] private Color color;
+
+        private Vector2 start, end, node = new Vector2(0, 0);
+
+        private int width, height;
+
+        private Texture2D texture;
+
+        private readonly List<Vector2> line = new List<Vector2>();
+
+        private readonly List<Vector2> nodes = new List<Vector2>();
+
+        private readonly List<Vector2> offset = new List<Vector2>(9)
         {
-            m_vertexList = new List<List<Vector3>>();
+            new Vector2(0, 0),
+            new Vector2(0, 1),
+            new Vector2(1, 1),
+            new Vector2(1, 0),
+            new Vector2(-1, 1),
+            new Vector2(-1, 0),
+            new Vector2(-1, -1),
+            new Vector2(0, -1),
+            new Vector2(1, -1)
+        };
+
+        private void Awake()
+        {
+            width = Screen.width;
+
+            height = Screen.height;
+
+            texture = new Texture2D(width, height);
+
+            sprite.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
         }
 
         private void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
-                List<Vector3> newList = new List<Vector3>();
-                m_vertexList.Add(newList);
+                line.Clear(); line.Add(Camera.main.ScreenToViewportPoint(Input.mousePosition));
             }
             else if (Input.GetMouseButton(0))
             {
-                m_vertexList[m_vertexList.Count - 1].Add(Camera.main.ScreenToViewportPoint(Input.mousePosition));
+                line.Add(Camera.main.ScreenToViewportPoint(Input.mousePosition));
             }
-            else if (Input.GetMouseButtonDown(1))
+            else if (Input.GetMouseButtonUp(0))
             {
                 PaintGraphics();
             }
         }
 
-        public void OnRenderObject()
+        private void OnRenderObject()
         {
             GL.Begin(GL.LINES);
             GL.LoadOrtho();
-            GL.Color(m_drawColor);
-            int vertexListCount = m_vertexList.Count;
-
-            for (int i = 0; i < vertexListCount; i++)
+            GL.Color(color);
+            Compute();
+            for (int i = 0; i < nodes.Count; i++)
             {
-                int vertexCount = m_vertexList[i].Count;
-                for (int j = 1; j < vertexCount; j++)
-                {
-                    GL.Vertex3(m_vertexList[i][j - 1].x, m_vertexList[i][j - 1].y, 0);
-                    GL.Vertex3(m_vertexList[i][j].x, m_vertexList[i][j].y, 0);
-                }
-
+                GL.Vertex3(nodes[i].x, nodes[i].y, 0);
             }
             GL.End();
         }
+
         private void PaintGraphics()
         {
-            Texture2D newTexture = new Texture2D(Screen.width, Screen.height);
+            Vector2 point; Compute();
 
-            //设置像素点
-            int vertexListCount = m_vertexList.Count;
-
-            for (int i = 0; i < vertexListCount; i++)
+            for (int i = 0; i < nodes.Count; i++)
             {
-                int vertexCount = m_vertexList[i].Count;
-                for (int j = 1; j < vertexCount; j++)
+                node.x = nodes[i].x * width;
+
+                node.y = nodes[i].y * height;
+
+                texture.SetPixel((int)node.x, (int)node.y, color);
+
+                if (thickness > 0)
                 {
-                    float x = m_vertexList[i][j - 1].x;
-                    float y = m_vertexList[i][j - 1].y;
-                    for (int k = 0; k <= (int)m_lineSmooth; k++)
+                    for (int k = 1; k < offset.Count; k++)
                     {
-                        x = Mathf.Lerp(x, m_vertexList[i][j].x, 1 / m_lineSmooth);
-                        y = Mathf.Lerp(y, m_vertexList[i][j].y, 1 / m_lineSmooth);
-                        newTexture.SetPixel((int)(x * newTexture.width), (int)(y * newTexture.height), m_renderedColor);
-                        //Debug.Log((int)(x * newTexture.width) + " " + (int)(y * newTexture.height));
+                        for (int v = 1; v <= ratio; v++)
+                        {
+                            point = node + Vector2.Lerp(Vector2.zero, offset[k], (float)v / ratio) * thickness;
+
+                            texture.SetPixel((int)point.x, (int)point.y, color);
+                        }
                     }
                 }
-
             }
-            newTexture.Apply();
-            //赋值
-            m_rendered.material.mainTexture = newTexture;
-            if (m_isKeepRatio)
-                this.transform.localScale = new Vector3(1f, Screen.height * 1.0f / Screen.width, 1f);
-            m_vertexList.Clear();
+            texture.Apply(); line.Clear();
+        }
 
+        private void Compute()
+        {
+            nodes.Clear();
+
+            for (int i = 1; i < line.Count; i++)
+            {
+                start = line[i - 1]; end = line[i];
+
+                for (int j = 0; j < density; j++)
+                {
+                    nodes.Add(Vector2.Lerp(start, end, j / (float)density));
+                }
+            }
         }
     }
 }
