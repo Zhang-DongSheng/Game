@@ -26,7 +26,7 @@ namespace UnityEngine
 
         public static DateTime LocalToUtc(DateTime time)
         {
-            return time - TimeZoneInfo.Local.BaseUtcOffset;
+            return time.ToUniversalTime();
         }
 
         public static DateTime UtcToLocal(DateTime time)
