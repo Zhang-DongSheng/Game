@@ -4,42 +4,41 @@ using UnityEngine;
 
 namespace UnityEditor.Window
 {
-    class Debuger : EditorWindow
+    class Debuger : CustomWindow
     {
+        protected override string Title { get { return "调试工具"; } }
+
+        protected Vector2 scroll;
+
         private readonly List<string> parameter = new List<string>();
 
-        private Vector2 scroll;
-
         [MenuItem("Script/Debuger")]
-        private static void Open()
+        protected static void Open()
         {
-            EditorWindow window = GetWindow<Debuger>();
-            window.titleContent = new GUIContent("Debuger");
-            window.minSize = Vector2.one * 300;
-            window.maxSize = Vector2.one * 1000;
-            window.Show();
+            Open<Debuger>();
         }
 
-        private void OnGUI()
+        #region UI
+        protected override void Init()
         {
-            RefreshUI();
+
         }
 
-        private void RefreshUI()
+        protected override void Refresh()
         {
             GUILayout.BeginVertical(GUILayout.Height(Screen.height - 64));
             {
                 scroll = GUILayout.BeginScrollView(scroll);
                 {
-                    RefreshParameter("参数：", parameter);
+                    RefreshParameter("Count:", parameter);
                 }
                 GUILayout.EndScrollView();
             }
             GUILayout.EndVertical();
 
-            if (GUILayout.Button("启动", GUILayout.Height(36)))
+            if (GUILayout.Button("测试", GUILayout.Height(36)))
             {
-                Startup();
+                Test();
             }
         }
 
@@ -97,17 +96,14 @@ namespace UnityEditor.Window
                 GUILayout.EndHorizontal();
             }
         }
+        #endregion
 
-        private void Startup()
+        private void Test()
         {
-
-            string path = Application.dataPath + "/encrypt.txt";
-
-            //FileUtils.WriteEncrypt(path, parameter[0]);
-             
-            string value= FileUtils.ReadEncrypt(path);
-
-            Debug.LogError(value);
+            for (int i = 0; i < parameter.Count; i++)
+            {
+                Debug.LogError(parameter[i]);
+            }
         }
     }
 }

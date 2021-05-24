@@ -516,24 +516,4 @@ namespace UnityEditor
 			}
 		}
 	}
-
-	public class ItemFolder
-	{
-		public string name;
-
-		public string path;
-	}
-
-	public class ItemFile
-	{
-		public string name;
-
-		public string path;
-
-		public string folder;
-
-		public long length;
-
-		public bool select;
-	}
 }

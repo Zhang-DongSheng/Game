@@ -145,7 +145,7 @@ namespace UnityEditor
                 {
                     if (items[i].select)
                     {
-                        key = root + items[i].folder + "/" + items[i].name;
+                        key = root + items[i].root + "/" + items[i].name;
 
                         value = ComputeFile(items[i].path);
 
@@ -164,7 +164,7 @@ namespace UnityEditor
                     {
                         if (items[i].select)
                         {
-                            key = root + items[i].folder + "/" + items[i].name;
+                            key = root + items[i].root + "/" + items[i].name;
 
                             value = ComputeFile(items[i].path);
 

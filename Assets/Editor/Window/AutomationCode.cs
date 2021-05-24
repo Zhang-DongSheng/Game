@@ -5,8 +5,10 @@ using UnityEngine;
 
 namespace UnityEditor.Window
 {
-    class AutomationCode : EditorWindow
+    class AutomationCode : CustomWindow
     {
+        protected override string Title { get { return "代码生成"; } }
+
         private string code;
 
         private int index;
@@ -16,18 +18,15 @@ namespace UnityEditor.Window
         [MenuItem("Script/Editor")]
         protected static void Open()
         {
-            AutomationCode window = EditorWindow.GetWindow<AutomationCode>();
-            window.titleContent = new GUIContent("Script Editor");
-            window.minSize = new Vector2(500, 300);
-            window.Show();
+            Open<AutomationCode>();
         }
 
-        private void OnGUI()
+        protected override void Init()
         {
-            Refresh();
+
         }
 
-        private void Refresh()
+        protected override void Refresh()
         {
             GUILayout.BeginHorizontal();
             {
@@ -312,6 +311,8 @@ namespace UnityEditor.Window
                     return Color.white;
             }
         }
+
+
     }
 
     public class PropertyParameter
@@ -384,9 +385,9 @@ namespace UnityEditor.Window
 
     public enum PropertyType
     {
-        Variable,
-        Property,
-        Method,
+        Variable,           //变量
+        Property,           //属性
+        Method,             //方法
     }
 
     public enum VariableType

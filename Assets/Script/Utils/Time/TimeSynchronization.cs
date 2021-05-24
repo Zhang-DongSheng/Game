@@ -23,6 +23,11 @@ namespace UnityEngine
 
         private void Awake()
         {
+            DontDestroyOnLoad(gameObject);
+        }
+
+        private void Start()
+        {
             Synchronization();
         }
 
