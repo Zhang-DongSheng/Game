@@ -13,94 +13,27 @@ MonoBehaviour:
   m_Name: Language
   m_EditorClassIdentifier: 
   m_data:
-  - name: 
-    language: 0
-    font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    description: 
-    words:
-    - key: 1001
-      value: "\u6D4B\u8BD51001"
-    - key: 1002
-      value: "\u6D4B\u8BD51002"
-    - key: 1003
-      value: "\u6D4B\u8BD51003"
-    - key: 1004
-      value: "\u6D4B\u8BD51004"
-    - key: 1005
-      value: "\u6D4B\u8BD51005"
-    - key: 1006
-      value: "\u6D4B\u8BD51006"
-    - key: 1007
-      value: "\u6D4B\u8BD51007"
-    - key: 1008
-      value: "\u6D4B\u8BD51008"
-    - key: 1009
-      value: "\u6D4B\u8BD51009"
-    - key: 1010
-      value: "\u6D4B\u8BD51010"
-    - key: 1011
-      value: "\u6D4B\u8BD51011"
-    - key: 1012
-      value: "\u6D4B\u8BD51012"
-    - key: 1013
-      value: "\u6D4B\u8BD51013"
-    - key: 1014
-      value: "\u6D4B\u8BD51014"
-    - key: 1015
-      value: "\u6D4B\u8BD51015"
-    - key: 1016
-      value: "\u6D4B\u8BD51016"
-    - key: 1017
-      value: "\u6D4B\u8BD51017"
-    - key: 1018
-      value: "\u6D4B\u8BD51018"
-    - key: 1019
-      value: "\u6D4B\u8BD51019"
-    - key: 1020
-      value: "\u6D4B\u8BD51020"
-  - name: 
-    language: 1
+  - language: 0
+    icon: {fileID: 0}
     font: {fileID: 0}
-    description: 
     words:
-    - key: 1001
-      value: Test1001
-    - key: 1002
-      value: Test1002
-    - key: 1003
-      value: Test1003
-    - key: 1004
-      value: Test1004
-    - key: 1005
-      value: Test1005
-    - key: 1006
-      value: Test1006
-    - key: 1007
-      value: Test1007
-    - key: 1008
-      value: Test1008
-    - key: 1009
-      value: Test1009
-    - key: 1010
-      value: Test1010
-    - key: 1011
-      value: Test1011
-    - key: 1012
-      value: Test1012
-    - key: 1013
-      value: Test1013
-    - key: 1014
-      value: Test1014
-    - key: 1015
-      value: Test1015
-    - key: 1016
-      value: Test1016
-    - key: 1017
-      value: Test1017
-    - key: 1018
-      value: Test1018
-    - key: 1019
-      value: Test1019
-    - key: 1020
-      value: Test1020
-  m_language: 1
+    - key: 101
+      value: a
+    - key: 102
+      value: b
+    - key: 103
+      value: c
+    - key: 104
+      value: d
+  - language: 1
+    icon: {fileID: 0}
+    font: {fileID: 0}
+    words:
+    - key: 101
+      value: 111
+    - key: 102
+      value: 222
+    - key: 103
+      value: 333
+    - key: 104
+      value: 44

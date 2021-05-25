@@ -7,4 +7,6 @@
     public const string RedDot = "RedDot";
 
     public const string Login = "Login";
+
+    public const string Language = "Language";
 }

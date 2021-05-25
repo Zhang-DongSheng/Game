@@ -1,123 +1,96 @@
-﻿using LitJson;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 namespace Data
 {
     public class DataLanguage : ScriptableObject
     {
-        [SerializeField] private List<Dictionary> m_data = new List<Dictionary>(Enum.GetValues(typeof(Language)).Length);
+        [SerializeField] private List<Dictionary> m_data = new List<Dictionary>();
 
-        [SerializeField] private Language m_language;
-
-        private Dictionary dictionary;
-
-        [ContextMenu("Reload Language")]
-        protected void Reload()
+        public Dictionary Dictionary(Language language)
         {
-            string path = Application.streamingAssetsPath + "/language.txt";
+            return m_data.Find(x => x.language == language);
+        }
+        [ContextMenu("Initialize")]
+        protected void Initialize()
+        {
+            int count = Enum.GetValues(typeof(Language)).Length;
 
-            if (File.Exists(path))
+            if (m_data.Count != count)
             {
-                using (FileStream stream = new FileStream(path, FileMode.Open))
+                if (m_data.Count > count)
                 {
-                    StreamReader reader = new StreamReader(stream);
-
-                    JsonData list = JsonMapper.ToObject(reader.ReadToEnd());
-
-                    reader.Dispose(); m_data.Clear();
-
-                    if (list != null && list.IsArray)
+                    while (m_data.Count > count)
                     {
-                        foreach (var language in Enum.GetValues(typeof(Language)))
+                        m_data.RemoveAt(m_data.Count - 1);
+                    }
+                }
+                else
+                {
+                    while (m_data.Count < count)
+                    {
+                        m_data.Add(new Dictionary());
+                    }
+                }
+
+                for (int i = 0; i < count; i++)
+                {
+                    m_data[i].language = (Language)i;
+                }
+            }
+        }
+        [ContextMenu("Synchronization")]
+        protected void Synchronization()
+        {
+            List<string> keys = new List<string>();
+
+            for (int i = 0; i < m_data.Count; i++)
+            {
+                for (int j = 0; j < m_data[i].words.Count; j++)
+                {
+                    if (!keys.Contains(m_data[i].words[j].key))
+                    {
+                        keys.Add(m_data[i].words[j].key);
+                    }
+                }
+            }
+
+            for (int i = 0; i < m_data.Count; i++)
+            {
+                for (int j = 0; j < keys.Count; j++)
+                {
+                    if (m_data[i].words.Count > j)
+                    {
+                        if (m_data[i].words[j].key != keys[j])
                         {
-                            Dictionary dictionary = new Dictionary()
+                            m_data[i].words[j] = new Word()
                             {
-                                language = (Language)language,
+                                key = keys[j],
                             };
-                            for (int i = 0; i < list.Count; i++)
-                            {
-                                Word word = new Word()
-                                {
-                                    key = list[i].GetString(LanguageConfig.KEY),
-                                };
-                                switch ((Language)language)
-                                {
-                                    case Language.Chinese:
-                                        word.value = list[i].GetString(LanguageConfig.Chinese);
-                                        break;
-                                    case Language.English:
-                                        word.value = list[i].GetString(LanguageConfig.English);
-                                        break;
-                                }
-                                dictionary.words.Add(word);
-                            }
-                            m_data.Add(dictionary);
                         }
+                    }
+                    else
+                    {
+                        m_data[i].words.Add(new Word()
+                        {
+                            key = keys[j],
+                        });
                     }
                 }
             }
         }
-
-        #region Function
-        public void Init()
-        {
-            for (int i = 0; i < m_data.Count; i++)
-            {
-                if (m_language == m_data[i].language)
-                {
-                    dictionary = m_data[i];
-                    break;
-                }
-            }
-        }
-
-        public string Word(string key)
-        {
-            if (dictionary.TryParse(key, out string value))
-            {
-                return value;
-            }
-            return key;
-        }
-
-        public Font Font
-        {
-            get { return dictionary != null ? dictionary.font : null; }
-        }
-        #endregion
     }
     [System.Serializable]
     public class Dictionary
     {
-        public string name;
-
         public Language language;
+
+        public Sprite icon;
 
         public Font font;
 
-        public string description;
-
         public List<Word> words = new List<Word>();
-
-        public bool TryParse(string key, out string value)
-        {
-            int index = words.FindIndex(x => x.key == key);
-
-            bool exist = index != -1 && index < words.Count;
-
-            if (exist)
-            {
-                value = words[index].value;
-            }
-            else
-            {
-                value = string.Empty;
-            }
-            return exist;
-        }
     }
     [System.Serializable]
     public class Word
@@ -126,19 +99,12 @@ namespace Data
 
         public string value;
     }
-
+    /// <summary>
+    /// 语言
+    /// </summary>
     public enum Language
     {
         Chinese,
         English,
-    }
-
-    public static class LanguageConfig
-    {
-        public const string KEY = "key";
-
-        public const string Chinese = "cn";
-
-        public const string English = "en";
     }
 }

@@ -10,13 +10,9 @@ namespace Game
     {
         public ModelDisplay model;
 
-        public DataLanguage Language { get; private set; }
-
         private void Awake()
         {
-            Language = DataManager.Instance.Load<DataLanguage>("language", "Data/Language");
 
-            Language.Init();
         }
 
         private void Start()
