@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace UnityEngine
 {
     public class TimeManager : MonoSingleton<TimeManager>
     {
-        private readonly Dictionary<string, DateTime> timing = new Dictionary<string, DateTime>();
+        private const string KEY = "gameduration";
+
+        private readonly static Dictionary<string, Stopwatch> watch = new Dictionary<string, Stopwatch>();
 
         private readonly Dictionary<string, TimeTask> handler = new Dictionary<string, TimeTask>();
 
@@ -14,10 +17,10 @@ namespace UnityEngine
         private readonly List<string> cache = new List<string>();
 
         private TimeTask current;
-         
+
         private void Awake()
         {
-            GameLength = Local.GetLong("gamelength");
+            GameDuration = Local.GetLong(KEY) + (long)Time.time;
         }
 
         private void Update()
@@ -55,7 +58,12 @@ namespace UnityEngine
                 }
             }
 
-            GameLength += (long)Time.deltaTime;
+            GameDuration += (long)Time.deltaTime;
+        }
+
+        private void OnDestroy()
+        {
+            Local.SetLong(KEY, GameDuration);
         }
 
         public void Register(string key, TimeTask task)
@@ -78,36 +86,34 @@ namespace UnityEngine
             }
         }
 
-        private void OnDestroy()
+        public static void TimBegin(string key)
         {
-            Local.SetLong("gamelength", GameLength);
-        }
-
-        public void TimBegin(string key)
-        {
-            if (timing.ContainsKey(key))
+            if (watch.ContainsKey(key))
             {
-                timing[key] = DateTime.Now;
+                watch[key].Start();
             }
             else
             {
-                timing.Add(key, DateTime.Now);
+                watch.Add(key, Stopwatch.StartNew());
             }
         }
 
-        public double TimEnd(string key)
+        public static float TimEnd(string key)
         {
-            if (timing.ContainsKey(key))
-            {
-                return DateTime.Now.Subtract(timing[key]).TotalMilliseconds;
-            }
-            else
-            {
-                return 0;
-            }
-        }
+            long time = 0;
 
-        public long GameLength { get; private set; }
+            if (watch.ContainsKey(key))
+            {
+                time = watch[key].ElapsedTicks;
+
+                watch[key].Stop();
+            }
+            return time;
+        }
+        /// <summary>
+        /// 游戏总时长，单位(s)
+        /// </summary>
+        public long GameDuration { get; private set; }
     }
 
     public class TimeTask

@@ -10,7 +10,7 @@ namespace UnityEditor
         [MenuItem("Data/Create/Config")]
         protected static void Create_DataConfig()
         {
-            Create<ConfigInformation>("Config");
+            Create<Config>("Config");
         }
 
         [MenuItem("Data/Create/Language")]
