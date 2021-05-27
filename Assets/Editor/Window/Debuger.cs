@@ -100,10 +100,7 @@ namespace UnityEditor.Window
 
         private void Test()
         {
-            for (int i = 0; i < parameter.Count; i++)
-            {
-                Debug.LogError(parameter[i]);
-            }
+
         }
     }
 }

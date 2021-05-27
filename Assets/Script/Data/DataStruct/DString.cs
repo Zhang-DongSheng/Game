@@ -1,9 +1,9 @@
-using System.Collections;
+using System;
 using System.Text;
 
 namespace UnityEngine.DataStruct
 {
-    public class DString : IComparer
+    public class DString : IComparable<DString>
     {
         private readonly StringBuilder builder = new StringBuilder();
 
@@ -57,9 +57,34 @@ namespace UnityEngine.DataStruct
             }
         }
 
-        public int Compare(object x, object y)
+        public int CompareTo(DString target)
         {
-            return 0;
+            if (value == target.value)
+            {
+                return 0;
+            }
+            else
+            {
+                return value[0] > target[0] ? 1 : -1;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return string.Format("{0}#{1}", System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.FullName, value).GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is DString target)
+            {
+                return value == target.value;
+            }
+            else if (obj is string value)
+            {
+                return this.value == value;
+            }
+            return false;
         }
 
         public override string ToString()
