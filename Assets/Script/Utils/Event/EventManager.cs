@@ -8,150 +8,132 @@ namespace UnityEngine
     /// </summary>
     public class EventManager
     {
-        private readonly static Dictionary<string, Action<EventMessageArgs>> eventTask = new Dictionary<string, Action<EventMessageArgs>>();
+        private readonly static Dictionary<EventKey, Action<EventMessageArgs>> events = new Dictionary<EventKey, Action<EventMessageArgs>>();
 
         /// <summary>
         /// 注册事件
         /// </summary>
-        /// <param name="eventKey">事件索引</param>
-        /// <param name="actionValue">事件回调</param>
-        public static void RegisterEvent(string eventKey, Action<EventMessageArgs> actionValue)
+        public static void RegisterEvent(EventKey key, Action<EventMessageArgs> action)
         {
-            if (!eventTask.ContainsKey(eventKey))
+            if (!events.ContainsKey(key))
             {
-                eventTask[eventKey] = actionValue;
+                events[key] = action;
             }
             else
             {
-                if (eventTask[eventKey] != null)
+                if (events[key] != null)
                 {
-                    Delegate[] dels = eventTask[eventKey].GetInvocationList();
+                    Delegate[] dels = events[key].GetInvocationList();
                     foreach (Delegate del in dels)
                     {
-                        if (del.Equals(actionValue))
+                        if (del.Equals(action))
                             return;
                     }
                 }
-                eventTask[eventKey] += actionValue;
+                events[key] += action;
             }
         }
-
         /// <summary>
         /// 注销事件
         /// </summary>
-        /// <param name="eventKey">事件索引</param>
-        /// <param name="actionValue">事件回调</param>
-        public static void UnregisterEvent(string eventKey, Action<EventMessageArgs> actionValue)
+        public static void UnregisterEvent(EventKey key, Action<EventMessageArgs> value)
         {
-            if (eventTask.ContainsKey(eventKey))
+            if (events.ContainsKey(key))
             {
-                eventTask[eventKey] -= actionValue;
+                events[key] -= value;
 
-                if (eventTask[eventKey] == null)
+                if (events[key] == null)
                 {
-                    eventTask.Remove(eventKey);
+                    events.Remove(key);
                 }
             }
         }
-
         /// <summary>
         /// 触发事件
         /// </summary>
-        /// <param name="eventKey">事件索引</param>
-        /// <param name="args">消息内容（只在单次触发有效，若要连续传递请使用 CopyMessage ）</param>
-        public static void PostEvent(string eventKey, EventMessageArgs args)
+        public static void PostEvent(EventKey key, EventMessageArgs args = null)
         {
-            if (eventTask.ContainsKey(eventKey))
+            if (events.ContainsKey(key))
             {
-                eventTask[eventKey](args);
+                events[key](args);
             }
-            args.Dispose();
+            args?.Dispose();
         }
     }
-
     /// <summary>
     /// 事件通知数据
     /// </summary>
     public class EventMessageArgs : IDisposable
     {
+        private readonly Dictionary<string, object> messages;
+
         public EventMessageArgs()
         {
             messages = new Dictionary<string, object>();
         }
-
-        private Dictionary<string, object> messages;
-
         /// <summary>
         /// 复制
         /// </summary>
-        /// <param name="msg"></param>
-        public void CopyMessage(EventMessageArgs msg)
+        public EventMessageArgs Clone()
         {
-            messages = msg.messages;
+            return MemberwiseClone() as EventMessageArgs;
         }
-
         /// <summary>
         /// 新增或替换
         /// </summary>
-        /// <param name="key">索引</param>
-        /// <param name="value">新数据</param>
         public void AddOrReplaceMessage(string key, object value)
         {
-            if (CheckMessage(key))
+            if (Contains(key))
                 messages[key] = value;
             else
                 messages.Add(key, value);
         }
-
         /// <summary>
         /// 删除
         /// </summary>
-        /// <param name="key">索引</param>
         public void RemoveMessage(string key)
         {
-            if (CheckMessage(key))
+            if (Contains(key))
                 messages.Remove(key);
         }
-
         /// <summary>
         /// 获取内容
         /// </summary>
-        /// <param name="key">索引</param>
-        /// <returns>引用类型数据</returns>
         public object GetMessage(string key)
         {
-            if (CheckMessage(key))
+            if (Contains(key))
                 return messages[key];
             else
                 return null;
         }
-
+        /// <summary>
+        /// 是否包含
+        /// </summary>
+        private bool Contains(string key)
+        {
+            return messages.ContainsKey(key);
+        }
         /// <summary>
         /// 获取内容
         /// </summary>
-        /// <typeparam name="T">类型</typeparam>
-        /// <param name="key">索引</param>
-        /// <returns>数据</returns>
         public T GetMessage<T>(string key)
         {
-            if (CheckMessage(key))
+            if (Contains(key))
                 return (T)messages[key];
             else
                 return default(T);
         }
-
         /// <summary>
         /// 释放
         /// </summary>
         public void Dispose()
         {
             messages.Clear();
-            messages = null;
         }
 
-        private bool CheckMessage(string key)
+        public override string ToString()
         {
-            return messages.ContainsKey(key);
+            return string.Join(",", messages);
         }
     }
 }

@@ -1,12 +1,12 @@
-﻿public class EventKey
+﻿public enum EventKey
 {
-    public const string Test = "Test";
+    Test,
 
-    public const string EffectStatus = "EffectStatus";
+    EffectStatus,
 
-    public const string RedDot = "RedDot";
+    RedDot,
 
-    public const string Login = "Login";
+    Login,
 
-    public const string Language = "Language";
+    Language,
 }
