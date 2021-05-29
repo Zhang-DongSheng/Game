@@ -18,15 +18,11 @@ namespace UnityEditor.Window
             Open<Debuger>();
         }
 
-        #region UI
-        protected override void Init()
-        {
-
-        }
+        protected override void Init() { }
 
         protected override void Refresh()
         {
-            GUILayout.BeginVertical(GUILayout.Height(Screen.height - 64));
+            GUILayout.BeginVertical(GUILayout.Height(Screen.height - 100));
             {
                 scroll = GUILayout.BeginScrollView(scroll);
                 {
@@ -36,9 +32,22 @@ namespace UnityEditor.Window
             }
             GUILayout.EndVertical();
 
+            GUILayout.BeginHorizontal();
+            {
+                if (GUILayout.Button("清除参数列表", GUILayout.ExpandHeight(true)))
+                {
+                    parameter.Clear();
+                }
+                if (GUILayout.Button("打开测试代码", GUILayout.ExpandHeight(true)))
+                {
+                    EditorUtility.OpenWithDefaultApp(string.Format("{0}/Script/Test/Test.cs", Application.dataPath));
+                }
+            }
+            GUILayout.EndHorizontal();
+
             if (GUILayout.Button("测试", GUILayout.Height(36)))
             {
-                Test();
+                TEST.Test.Startover(parameter.ToArray());
             }
         }
 
@@ -95,12 +104,6 @@ namespace UnityEditor.Window
                 }
                 GUILayout.EndHorizontal();
             }
-        }
-        #endregion
-
-        private void Test()
-        {
-
         }
     }
 }
