@@ -7,16 +7,15 @@ namespace UnityEditor
     class DataBuilder
     {
         #region Create
-        [MenuItem("Data/Create/Config")]
-        protected static void Create_DataConfig()
-        {
-            Create<Config>("Config");
-        }
-
         [MenuItem("Data/Create/Language")]
-        protected static void Create_DataLanguage()
+        public static void Create_DataLanguage()
         {
             Create<DataLanguage>("Language");
+        }
+        [MenuItem("Data/Create/Prefab")]
+        public static void Create_Prefab()
+        {
+            Create<DataPrefab>("Prefab");
         }
         #endregion
 

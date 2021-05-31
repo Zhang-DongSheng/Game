@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UnityEditor
 {
-    public class Md5Helper : EditorWindow
+    public class MD5Tools : EditorWindow
     {
         private string input_string, input_file;
 
@@ -16,7 +16,7 @@ namespace UnityEditor
         [MenuItem("Tools/File/MD5")]
         protected static void Open()
         {
-            Md5Helper window = EditorWindow.GetWindow<Md5Helper>();
+            MD5Tools window = EditorWindow.GetWindow<MD5Tools>();
             window.titleContent = new GUIContent("MD5");
             window.minSize = new Vector2(500, 100);
             window.Show();
@@ -82,7 +82,7 @@ namespace UnityEditor
             GUILayout.EndArea();
         }
 
-        private static string ComputeContent(string value)
+        public static string ComputeContent(string value)
         {
             string result = string.Empty;
 
@@ -106,7 +106,7 @@ namespace UnityEditor
             return result;
         }
 
-        private static string ComputeFile(string path)
+        public static string ComputeFile(string path)
         {
             string result = string.Empty;
 

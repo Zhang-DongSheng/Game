@@ -47,8 +47,16 @@ namespace Game.Model
         }
 
         private void OnEnd()
-        { 
-            
+        {
+
         }
+    }
+
+    public enum ModelDragStatus
+    {
+        Idle,
+        Select,
+        Drag,
+        Complete,
     }
 }

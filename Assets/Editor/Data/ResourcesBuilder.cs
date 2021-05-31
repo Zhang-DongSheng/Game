@@ -3,14 +3,15 @@ using System.IO;
 using Utils;
 using UnityEngine;
 using UnityEngine.Factory;
+using Data;
 
 namespace UnityEditor
 {
     public class ResourcesBuilder : EditorWindow
     {
-        private FactoryConfig config;
-
         private List<Node> nodes;
+
+        private DataPrefab data;
 
         private Vector2 scroll;
 
@@ -30,22 +31,15 @@ namespace UnityEditor
 
         private void Init()
         {
-            TextAsset asset = Resources.Load<TextAsset>(FactoryConfig.XML);
+            data = DataManager.Instance.Load<DataPrefab>("Prefab", "Data/Prefab");
 
-            if (asset != null)
+            if (data == null)
             {
-                config = JsonUtility.FromJson<FactoryConfig>(asset.text);
-            }
-            else
-            {
-                config = new FactoryConfig();
+                DataBuilder.Create_Prefab();
+                data = DataManager.Instance.Load<DataPrefab>("Prefab", "Data/Prefab");
             }
 
             nodes = Finder.Find(Application.dataPath + "/Resources");
-
-            int index = nodes.FindIndex(x => x.name == FactoryConfig.XML);
-
-            if (index != -1) nodes.RemoveAt(index);
 
             for (int i = 0; i < nodes.Count; i++)
             {
@@ -76,7 +70,7 @@ namespace UnityEditor
             {
                 NodeFile file = node as NodeFile;
 
-                file.select = config.prefabs.Exists(x => x.key == node.name);
+                file.select = data.Exist(node.name);
             }
         }
 
@@ -125,11 +119,6 @@ namespace UnityEditor
                     {
                         Build();
                     }
-
-                    if (GUILayout.Button("打开XML", GUILayout.Height(20)))
-                    {
-                        System.Diagnostics.Process.Start("notepad.exe", XML);
-                    }
                 }
                 GUILayout.EndVertical();
             }
@@ -176,8 +165,6 @@ namespace UnityEditor
 
         private void RefreshFile(NodeFile node)
         {
-            if (node.extension == ".meta") return;
-
             GUILayout.BeginHorizontal();
             {
                 for (int i = 0; i < node.order; i++)
@@ -195,17 +182,13 @@ namespace UnityEditor
 
         private void Build()
         {
-            config.prefabs.Clear();
+            data.resources.Clear();
 
             for (int i = 0; i < nodes.Count; i++)
             {
                 Builder(nodes[i]);
             }
-
-            string content = JsonUtility.ToJson(config);
-
-            WriteXML(content);
-
+            EditorUtility.SetDirty(data);
             AssetDatabase.Refresh();
         }
 
@@ -222,66 +205,23 @@ namespace UnityEditor
             }
             else
             {
-                NodeFile file = node as NodeFile;
-
-                if (file.select)
+                if (node is NodeFile file && file.select)
                 {
-                    config.prefabs.Add(new PrefabInformation()
+                    data.resources.Add(new PrefabInformation()
                     {
                         key = file.name,
-                        path = Format(file.path).Replace(file.extension, ""),
-                        capacity = 100,
-                        extension = file.extension,
+                        capacity = -1,
+                        secret = MD5Tools.ComputeFile(file.path),
+                        prefab = AssetDatabase.LoadAssetAtPath(Format(file.path), typeof(Object)),
+                        description = file.path,
                     });
                 }
             }
         }
 
-        private void WriteXML(string content)
-        {
-            string path = XML;
-
-            if (File.Exists(path))
-            {
-                File.WriteAllText(path, content);
-            }
-            else
-            {
-                using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
-                {
-                    StreamWriter writer = new StreamWriter(stream);
-                    writer.Write(content);
-                    writer.Dispose();
-                }
-                ShowNotification(new GUIContent("Write XML Done!"));
-            }
-        }
-
         private string Format(string path)
         {
-            path = path.Replace("\\", "/");
-
-            if (path.StartsWith(Path))
-            {
-                return path.Remove(0, Path.Length + 1);
-            }
-            return path;
-        }
-
-        private string Path
-        {
-            get
-            {
-                return Application.dataPath + "/" + "Resources";
-            }
-        }
-
-        private string XML
-        {
-            get
-            {
-                return string.Format("{0}/{1}.txt", Path, FactoryConfig.XML);
-            }
+            return path.Remove(0, Application.dataPath.Length - 6).Replace("\\", "/");
         }
     }
 }

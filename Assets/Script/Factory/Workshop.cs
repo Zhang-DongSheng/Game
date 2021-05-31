@@ -3,34 +3,25 @@ using System.Collections.Generic;
 
 namespace UnityEngine.Factory
 {
-    public class Workshop
+    public sealed class Workshop : IDisposable
     {
-        private readonly Object prefab;
+        private readonly string ID;
 
-        private readonly int capacity;
+        private readonly int capacity = -1;
+
+        private readonly string secret;
+
+        private readonly Object prefab;
 
         private readonly Stack<Object> memory = new Stack<Object>();
 
-        public Workshop(string path, int capacity = -1)
+        public Workshop(string ID, Object prefab, int capacity = -1)
         {
+            this.ID = ID;
+
+            this.prefab = prefab;
+
             this.capacity = capacity;
-
-            try
-            {
-                prefab = Resources.Load(path);
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e.Message);
-            }
-        }
-
-        ~Workshop()
-        {
-            if (Prefab != null)
-            {
-                Resources.UnloadAsset(Prefab);
-            }
         }
 
         public void Push(Object asset)
@@ -53,7 +44,7 @@ namespace UnityEngine.Factory
             }
             else
             {
-                return GameObject.Instantiate(Prefab);
+                return GameObject.Instantiate(prefab);
             }
         }
 
@@ -66,6 +57,9 @@ namespace UnityEngine.Factory
             memory.Clear();
         }
 
-        protected Object Prefab { get { return prefab; } }
+        public void Dispose()
+        {
+
+        }
     }
 }

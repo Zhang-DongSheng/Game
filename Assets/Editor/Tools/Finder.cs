@@ -39,14 +39,17 @@ namespace Utils
 
 				foreach (FileInfo file in root.GetFiles())
 				{
-					nodes.Add(new NodeFile()
+					if (file.Extension != ".meta")
 					{
-						name = Path.GetFileNameWithoutExtension(file.Name),
-						order = order,
-						type = NodeType.File,
-						path = file.FullName,
-						extension = file.Extension,
-					});
+						nodes.Add(new NodeFile()
+						{
+							name = Path.GetFileNameWithoutExtension(file.Name),
+							order = order,
+							type = NodeType.File,
+							path = file.FullName,
+							extension = file.Extension,
+						});
+					}
 				}
 			}
 		}
