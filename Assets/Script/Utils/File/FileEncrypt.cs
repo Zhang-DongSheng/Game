@@ -1,38 +1,118 @@
+using System;
+using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 
-public static class FileEncrypt
+namespace UnityEngine.Encrypt
 {
-    private static bool encrypt = true;
-
-    private static readonly byte[] cryptKey = new byte[] { 0xfe, 0xcc, 0xaa, 0xec, 0xbb, 0x12, 0x01, 0x4c, 0xee, 0x56, 0x0a, 0x13, 0x2b, 0x1a, 0xb3, 0xeb, 0xfe, 0x2c, 0xfa, 0x3c, 0xcb, 0x1d, 0xe1, 0x4c, 0xe3, 0x16, 0x09, 0x18, 0x27, 0x6a, 0xb4, 0x2b };
-
-    private static readonly byte[] cryptIV = new byte[] { 0xff, 0xaa, 0xbb, 0x01, 0xee, 0x0a, 0x2b, 0xc1, 0xef, 0xca, 0xe4, 0x31, 0xef, 0xaa, 0xbc, 0x22 };
-
-    public static byte[] EncryptBytes(byte[] buffer)
+    public static class FileEncrypt
     {
-        if (!encrypt) return buffer;
+        private const string AESKEY32 = "abcdefghijklmnopqrstuvwxyz123456";
 
-        byte[] encrypted = null;
+        private const string AESIV16 = "abcdefghijklmnop";
 
-        using (RijndaelManaged managed = new RijndaelManaged())
+        private const string DESKEY8 = "abcdefgh";
+
+        private const string DESIV8 = "abcdefgh";
+
+        public static string Encrypt(string value, EncryptType encrypt = EncryptType.AES)
         {
-            ICryptoTransform crypt = managed.CreateEncryptor(cryptKey, cryptIV);
-            encrypted = crypt.TransformFinalBlock(buffer, 0, buffer.Length);
+            switch (encrypt)
+            {
+                case EncryptType.AES:
+                    return AESEncrypt(value);
+                case EncryptType.DES:
+                    return DESEncrypt(value);
+                default:
+                    return value;
+            }
         }
-        return encrypted;
+
+        public static string Decrypt(string value, EncryptType encrypt = EncryptType.AES)
+        {
+            switch (encrypt)
+            {
+                case EncryptType.AES:
+                    return AESDecrypt(value);
+                case EncryptType.DES:
+                    return DESDecrypt(value);
+                default:
+                    return value;
+            }
+        }
+
+        private static byte[] AESKEY { get { return Encoding.Default.GetBytes(AESKEY32); } }
+
+        private static byte[] AESIV { get { return Encoding.Default.GetBytes(AESIV16); } }
+
+        private static string AESEncrypt(string value)
+        {
+            byte[] buffer = Encoding.Default.GetBytes(value);
+
+            using (RijndaelManaged managed = new RijndaelManaged())
+            {
+                ICryptoTransform crypt = managed.CreateEncryptor(AESKEY, AESIV);
+                value = Convert.ToBase64String(crypt.TransformFinalBlock(buffer, 0, buffer.Length));
+            }
+            return value;
+        }
+
+        private static string AESDecrypt(string value)
+        {
+            byte[] buffer = Convert.FromBase64String(value);
+
+            using (RijndaelManaged managed = new RijndaelManaged())
+            {
+                ICryptoTransform crypt = managed.CreateDecryptor(AESKEY, AESIV);
+                value = Encoding.Default.GetString(crypt.TransformFinalBlock(buffer, 0, buffer.Length));
+            }
+            return value;
+        }
+
+        private static byte[] DESKEY { get { return Encoding.Default.GetBytes(DESKEY8); } }
+
+        private static byte[] DESIV { get { return Encoding.Default.GetBytes(DESIV8); } }
+
+        private static string DESEncrypt(string value)
+        {
+            DESCryptoServiceProvider provider = new DESCryptoServiceProvider();
+
+            MemoryStream memory = new MemoryStream();
+
+            CryptoStream crypto = new CryptoStream(memory, provider.CreateEncryptor(DESKEY, DESIV), CryptoStreamMode.Write);
+
+            StreamWriter writer = new StreamWriter(crypto);
+
+            writer.Write(value);
+
+            writer.Flush();
+
+            crypto.FlushFinalBlock();
+
+            writer.Flush();
+
+            return Convert.ToBase64String(memory.GetBuffer(), 0, (int)memory.Length);
+        }
+
+        private static string DESDecrypt(string value)
+        {
+            byte[] buffer = Convert.FromBase64String(value);
+
+            DESCryptoServiceProvider provider = new DESCryptoServiceProvider();
+
+            MemoryStream memory = new MemoryStream(buffer);
+
+            CryptoStream crypto = new CryptoStream(memory, provider.CreateDecryptor(DESKEY, DESIV), CryptoStreamMode.Read);
+
+            StreamReader reader = new StreamReader(crypto);
+
+            return reader.ReadToEnd();
+        }
     }
 
-    public static byte[] DecryptBytes(byte[] buffer)
+    public enum EncryptType
     {
-        if (!encrypt) return buffer;
-
-        byte[] decrypted = null;
-
-        using (RijndaelManaged rijAlg = new RijndaelManaged())
-        {
-            ICryptoTransform crypt = rijAlg.CreateDecryptor(cryptKey, cryptIV);
-            decrypted = crypt.TransformFinalBlock(buffer, 0, buffer.Length);
-        }
-        return decrypted;
+        AES,
+        DES,
     }
 }

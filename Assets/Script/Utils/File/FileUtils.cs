@@ -3,6 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Encrypt;
 
 public static class FileUtils
 {
@@ -128,8 +129,7 @@ public static class FileUtils
         if (File.Exists(path))
         {
             byte[] buffer = File.ReadAllBytes(path);
-            buffer = FileEncrypt.DecryptBytes(buffer);
-            content = Encoding.Default.GetString(buffer);
+            content = FileEncrypt.Encrypt(Encoding.Default.GetString(buffer));
         }
         return content;
     }
@@ -162,8 +162,7 @@ public static class FileUtils
             {
                 Directory.CreateDirectory(folder);
             }
-            byte[] buffer = Encoding.Default.GetBytes(content);
-            buffer = FileEncrypt.EncryptBytes(buffer);
+            byte[] buffer = Encoding.Default.GetBytes(FileEncrypt.Decrypt(content));
             File.WriteAllBytes(path, buffer);
         }
         catch (Exception e)
