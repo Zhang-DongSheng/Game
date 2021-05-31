@@ -15,14 +15,20 @@ namespace UnityEngine.Encrypt
 
         private const string DESIV8 = "abcdefgh";
 
+        private const string RSAKEY = "abcdefgh";
+
         public static string Encrypt(string value, EncryptType encrypt = EncryptType.AES)
         {
+            if (string.IsNullOrEmpty(value)) return null;
+
             switch (encrypt)
             {
                 case EncryptType.AES:
                     return AESEncrypt(value);
                 case EncryptType.DES:
                     return DESEncrypt(value);
+                case EncryptType.RSA:
+                    return RSAEncrypt(value);
                 default:
                     return value;
             }
@@ -30,12 +36,16 @@ namespace UnityEngine.Encrypt
 
         public static string Decrypt(string value, EncryptType encrypt = EncryptType.AES)
         {
+            if (string.IsNullOrEmpty(value)) return null;
+
             switch (encrypt)
             {
                 case EncryptType.AES:
                     return AESDecrypt(value);
                 case EncryptType.DES:
                     return DESDecrypt(value);
+                case EncryptType.RSA:
+                    return RSADecrypt(value);
                 default:
                     return value;
             }
@@ -108,11 +118,42 @@ namespace UnityEngine.Encrypt
 
             return reader.ReadToEnd();
         }
+
+        private static string RSAEncrypt(string value)
+        {
+            byte[] buffer = Encoding.Default.GetBytes(value);
+
+            CspParameters parameters = new CspParameters()
+            {
+                KeyContainerName = RSAKEY,
+            };
+            using (RSACryptoServiceProvider provider = new RSACryptoServiceProvider(parameters))
+            {
+                buffer = provider.Encrypt(buffer, false);
+            }
+            return Convert.ToBase64String(buffer);
+        }
+
+        private static string RSADecrypt(string value)
+        {
+            byte[] buffer = Convert.FromBase64String(value);
+
+            CspParameters parameters = new CspParameters()
+            {
+                KeyContainerName = RSAKEY,
+            };
+            using (RSACryptoServiceProvider provider = new RSACryptoServiceProvider(parameters))
+            {
+                buffer = provider.Decrypt(buffer, false);
+            }
+            return Encoding.Default.GetString(buffer);
+        }
     }
 
     public enum EncryptType
     {
         AES,
         DES,
+        RSA,
     }
 }

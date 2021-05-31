@@ -29,11 +29,11 @@ namespace TEST
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            string v1 = "i am a good boy! please give me money!i am a good boy! please give me money!i am a good boy! please give me money!i am a good boy! please give me money!i am a good boy! please give me money!i am a good boy! please give me money!i am a good boy! please give me money!i am a good boy! please give me money!i am a good boy! please give me money!i am a good boy! please give me money!i am a good boy! please give me money!i am a good boy! please give me money!i am a good boy! please give me money!i am a good boy! please give me money!i am a good boy! please give me money!i am a good boy! please give me money!i am a good boy! please give me money!i am a good boy! please give me money!";
+            string v1 = "i am a good boy! please give me money!";
 
-            string v2 = FileEncrypt.Encrypt(v1);
+            string v2 = FileEncrypt.Encrypt(v1, EncryptType.RSA);
 
-            string v3 = FileEncrypt.Decrypt(v2);
+            string v3 = FileEncrypt.Decrypt(v2, EncryptType.RSA);
 
             //string v2 = FileEncrypt.DESEncrypt(v1);
 
