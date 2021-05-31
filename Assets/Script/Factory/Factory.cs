@@ -1,5 +1,4 @@
 ﻿using Data;
-using System;
 using System.Collections.Generic;
 
 namespace UnityEngine.Factory
@@ -19,27 +18,33 @@ namespace UnityEngine.Factory
                 {
                     PrefabInformation prefab = data.resources[i];
 
-                    if (true) 
+                    if (true)
                     {
                         Instance.shops.Add(prefab.key, new Workshop(prefab));
-
-
-                        Debug.LogError(prefab.key);
                     }
                 }
             }
-
-            Debug.LogError("sss");
         }
 
         public Object Pop(string key)
         {
+            if (shops.ContainsKey(key))
+            {
+                return shops[key].Pop();
+            }
             return null;
         }
 
         public void Push(string key, Object asset)
         {
-            
+            if (shops.ContainsKey(key))
+            {
+                shops[key].Push(asset);
+            }
+            else
+            {
+                GameObject.Destroy(asset);
+            }
         }
     }
 }
