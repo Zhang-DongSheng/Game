@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Utils;
+﻿using Data;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Factory;
-using Data;
+using Utils;
 
 namespace UnityEditor
 {
@@ -36,6 +34,7 @@ namespace UnityEditor
             if (data == null)
             {
                 DataBuilder.Create_Prefab();
+
                 data = DataManager.Instance.Load<DataPrefab>("Prefab", "Data/Prefab");
             }
 

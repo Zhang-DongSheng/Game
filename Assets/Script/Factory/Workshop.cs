@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
 
 namespace UnityEngine.Factory
@@ -15,13 +16,15 @@ namespace UnityEngine.Factory
 
         private readonly Stack<Object> memory = new Stack<Object>();
 
-        public Workshop(string ID, Object prefab, int capacity = -1)
+        public Workshop(PrefabInformation prefab)
         {
-            this.ID = ID;
+            ID = prefab.key;
 
-            this.prefab = prefab;
+            secret = prefab.secret;
 
-            this.capacity = capacity;
+            capacity = prefab.capacity;
+
+            this.prefab = prefab.prefab;
         }
 
         public void Push(Object asset)

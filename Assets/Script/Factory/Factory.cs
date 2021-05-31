@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
 
 namespace UnityEngine.Factory
@@ -10,7 +11,25 @@ namespace UnityEngine.Factory
         [RuntimeInitializeOnLoadMethod]
         private static void Init()
         {
-            
+            DataPrefab data = DataManager.Instance.Load<DataPrefab>("Prefab", "Data/Prefab");
+
+            if (data != null)
+            {
+                for (int i = 0; i < data.resources.Count; i++)
+                {
+                    PrefabInformation prefab = data.resources[i];
+
+                    if (true) 
+                    {
+                        Instance.shops.Add(prefab.key, new Workshop(prefab));
+
+
+                        Debug.LogError(prefab.key);
+                    }
+                }
+            }
+
+            Debug.LogError("sss");
         }
 
         public Object Pop(string key)
