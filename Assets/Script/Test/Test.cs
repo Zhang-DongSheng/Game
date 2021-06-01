@@ -9,9 +9,26 @@ namespace TEST
 {
     public class Test : MonoBehaviour
     {
+        public InputField inputField;
+
+        public Button button;
+
+        private string value;
+
+        private Game.Network.Client network;
+
         private void Awake()
         {
+            inputField.onValueChanged.AddListener(OnValueChanged);
 
+            button.onClick.AddListener(OnSubmit);
+
+            network = new Game.Network.Client("127.0.0.1", 88);
+
+            network.onReceive = (message) =>
+              {
+                  Debug.LogError(message);
+              };
         }
 
         private void Start()
@@ -29,21 +46,17 @@ namespace TEST
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            string v1 = "i am a good boy! please give me money!";
+            
+        }
 
-            string v2 = FileEncrypt.Encrypt(v1, EncryptType.RSA);
+        private void OnValueChanged(string value)
+        {
+            this.value = value;
+        }
 
-            string v3 = FileEncrypt.Decrypt(v2, EncryptType.RSA);
-
-            //string v2 = FileEncrypt.DESEncrypt(v1);
-
-            //string v3 = FileEncrypt.DESDecrypt(v2);
-
-            Debug.Log("v1 : " + v1);
-
-            Debug.Log("v2 : " + v2);
-
-            Debug.Log("v3 : " + v3);
+        private void OnSubmit()
+        {
+            network.Send(value);
         }
     }
 }
