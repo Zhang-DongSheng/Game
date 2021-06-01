@@ -18,7 +18,10 @@ namespace UnityEditor.PostListener
         {
             foreach (string str in importedAsset)
             {
-                Debug.LogFormat("新增 : <color=green>{0}</color>", str);
+                if (str.StartsWith("Assets/"))
+                {
+                    Debug.LogFormat("新增 : <color=green>{0}</color>", str);
+                }
             }
             foreach (string str in deletedAssets)
             {

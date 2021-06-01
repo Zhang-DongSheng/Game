@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Data
 {
-    public class DataPrefab : ScriptableObject
+    public class DataResource : ScriptableObject
     {
-        public List<PrefabInformation> resources = new List<PrefabInformation>();
+        public List<ResourceInformation> resources = new List<ResourceInformation>();
 
-        public PrefabInformation Get(string key)
+        public ResourceInformation Get(string key)
         {
             return null;
         }
@@ -18,7 +18,7 @@ namespace Data
         }
     }
     [System.Serializable]
-    public class PrefabInformation
+    public class ResourceInformation
     {
         public string key;
 

@@ -12,10 +12,10 @@ namespace UnityEditor
         {
             Create<DataLanguage>("Language");
         }
-        [MenuItem("Data/Create/Prefab")]
-        public static void Create_Prefab()
+        [MenuItem("Data/Create/Resource")]
+        public static void Create_Resource()
         {
-            Create<DataPrefab>("Prefab");
+            Create<DataResource>("Resource");
         }
         #endregion
 

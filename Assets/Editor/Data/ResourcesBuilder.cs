@@ -9,7 +9,7 @@ namespace UnityEditor
     {
         private List<Node> nodes;
 
-        private DataPrefab data;
+        private DataResource data;
 
         private Vector2 scroll;
 
@@ -18,7 +18,7 @@ namespace UnityEditor
         private readonly GUIStyle style_file = new GUIStyle();
 
         [MenuItem("Data/Resources")]
-        private static void Open()
+        protected static void Open()
         {
             ResourcesBuilder window = EditorWindow.GetWindow<ResourcesBuilder>();
             window.titleContent = new GUIContent("Resources Builder");
@@ -29,13 +29,12 @@ namespace UnityEditor
 
         private void Init()
         {
-            data = DataManager.Instance.Load<DataPrefab>("Prefab", "Data/Prefab");
+            Load();
 
             if (data == null)
             {
-                DataBuilder.Create_Prefab();
-
-                data = DataManager.Instance.Load<DataPrefab>("Prefab", "Data/Prefab");
+                DataBuilder.Create_Resource();
+                Load();
             }
 
             nodes = Finder.Find(Application.dataPath + "/Resources");
@@ -52,6 +51,11 @@ namespace UnityEditor
             style_folder.fontSize = 20;
 
             style_file.normal.textColor = Color.red;
+        }
+
+        private void Load()
+        {
+            data = DataManager.Instance.Load<DataResource>("Resource", "Data/Resource");
         }
 
         private void Select(Node node)
@@ -206,7 +210,7 @@ namespace UnityEditor
             {
                 if (node is NodeFile file && file.select)
                 {
-                    data.resources.Add(new PrefabInformation()
+                    data.resources.Add(new ResourceInformation()
                     {
                         key = file.name,
                         capacity = -1,

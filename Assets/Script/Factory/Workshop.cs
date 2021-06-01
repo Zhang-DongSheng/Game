@@ -16,7 +16,7 @@ namespace UnityEngine.Factory
 
         private readonly Stack<Object> memory = new Stack<Object>();
 
-        public Workshop(PrefabInformation prefab)
+        public Workshop(ResourceInformation prefab)
         {
             ID = prefab.key;
 

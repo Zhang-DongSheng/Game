@@ -10,17 +10,17 @@ namespace UnityEngine.Factory
         [RuntimeInitializeOnLoadMethod]
         private static void Init()
         {
-            DataPrefab data = DataManager.Instance.Load<DataPrefab>("Prefab", "Data/Prefab");
+            DataResource data = DataManager.Instance.Load<DataResource>("Resource", "Data/Resource");
 
             if (data != null)
             {
                 for (int i = 0; i < data.resources.Count; i++)
                 {
-                    PrefabInformation prefab = data.resources[i];
+                    ResourceInformation res = data.resources[i];
 
                     if (true)
                     {
-                        Instance.shops.Add(prefab.key, new Workshop(prefab));
+                        Instance.shops.Add(res.key, new Workshop(res));
                     }
                 }
             }
