@@ -70,7 +70,7 @@ namespace Game.Network
         {
             if (socket != null && socket.Connected)
             {
-                socket.Disconnect(true);
+                socket.Shutdown(SocketShutdown.Both);
                 socket.Close();
             }
         }
