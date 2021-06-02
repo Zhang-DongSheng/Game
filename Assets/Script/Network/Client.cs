@@ -74,9 +74,15 @@ namespace Game.Network
                 {
                     int length = socket.Receive(buffer, 0, 1024, SocketFlags.None);
 
+                    if (length == 0) break;
+
                     string message = Convert.ToString(buffer, 0, length);
 
                     onReceive?.Invoke(message);
+                }
+                catch (ThreadAbortException)
+                {
+
                 }
                 catch (Exception e)
                 {
@@ -98,6 +104,10 @@ namespace Game.Network
 
                         socket.Send(Convert.ToBytes(officer.value));
                     }
+                }
+                catch (ThreadAbortException)
+                {
+
                 }
                 catch (Exception e)
                 {
@@ -134,11 +144,6 @@ namespace Game.Network
         {
             get { return socket != null && socket.Connected; }
         }
-
-        ~Client()
-        {
-            Close();
-        }
     }
 
     public class NetworkOfficer
@@ -153,13 +158,21 @@ namespace Game.Network
 
         public void Reset()
         {
-            if (sender != null && sender.IsAlive)
+            if (sender != null)
             {
-                sender.Abort(); sender = null;
+                if (sender.IsAlive)
+                {
+                    sender.Abort();
+                }
+                sender = null;
             }
-            if (receiver != null && receiver.IsAlive)
+            if (receiver != null)
             {
-                receiver.Abort(); receiver = null;
+                if (receiver.IsAlive)
+                {
+                    receiver.Abort();
+                }
+                receiver = null;
             }
         }
     }
