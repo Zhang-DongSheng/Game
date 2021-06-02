@@ -16,7 +16,7 @@ namespace Game.Network
 
         private readonly byte[] buffer = new byte[1024];
 
-        private readonly NetworkMessage message = new NetworkMessage();
+        private readonly NetworkOfficer officer = new NetworkOfficer();
 
         public Client(string ipString, int port)
         {
@@ -46,17 +46,19 @@ namespace Game.Network
                 }
                 socket.Connect(IP);
 
-                Thread receive = new Thread(Receive)
-                {
-                    IsBackground = true,
-                };
-                receive.Start();
+                officer.Reset();
 
-                Thread send = new Thread(Send)
+                officer.receiver = new Thread(Receive)
                 {
                     IsBackground = true,
                 };
-                send.Start();
+                officer.receiver.Start();
+
+                officer.sender = new Thread(Send)
+                {
+                    IsBackground = true,
+                };
+                officer.sender.Start();
             }
             catch (Exception e)
             {
@@ -90,11 +92,11 @@ namespace Game.Network
             {
                 try
                 {
-                    if (message != null && message.status)
+                    if (officer.status)
                     {
-                        message.status = false;
+                        officer.status = false;
 
-                        socket.Send(Convert.ToBytes(message.value));
+                        socket.Send(Convert.ToBytes(officer.value));
                     }
                 }
                 catch (Exception e)
@@ -113,9 +115,9 @@ namespace Game.Network
             {
                 Retry();
             }
-            message.value = value;
+            officer.value = value;
 
-            message.status = true;
+            officer.status = true;
         }
 
         public void Close()
@@ -125,20 +127,40 @@ namespace Game.Network
                 socket.Shutdown(SocketShutdown.Both);
                 socket.Close();
             }
+            officer.Reset();
         }
 
         private bool Connected
         {
             get { return socket != null && socket.Connected; }
         }
+
+        ~Client()
+        {
+            Close();
+        }
     }
 
-    public class NetworkMessage
+    public class NetworkOfficer
     {
-        public string ID;
+        public Thread sender;
+
+        public Thread receiver;
 
         public string value;
 
         public bool status;
+
+        public void Reset()
+        {
+            if (sender != null && sender.IsAlive)
+            {
+                sender.Abort(); sender = null;
+            }
+            if (receiver != null && receiver.IsAlive)
+            {
+                receiver.Abort(); receiver = null;
+            }
+        }
     }
 }
