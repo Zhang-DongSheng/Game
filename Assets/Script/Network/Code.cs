@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Network
 {
-    public class NetworkCode
+    public class Code
     {
         
     }

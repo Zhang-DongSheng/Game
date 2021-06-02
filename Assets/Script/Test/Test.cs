@@ -38,7 +38,14 @@ namespace TEST
 
         private void Update()
         {
-
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                network.Close();
+            }
+            else if (Input.GetKeyDown(KeyCode.P))
+            {
+                network.Send("Try");
+            }
         }
         /// <summary>
         /// 测试模块
