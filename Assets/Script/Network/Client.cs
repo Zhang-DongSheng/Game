@@ -82,7 +82,7 @@ namespace Game.Network
                 }
                 catch (ThreadAbortException)
                 {
-
+                    break;
                 }
                 catch (Exception e)
                 {
@@ -107,7 +107,7 @@ namespace Game.Network
                 }
                 catch (ThreadAbortException)
                 {
-
+                    break;
                 }
                 catch (Exception e)
                 {
@@ -160,18 +160,12 @@ namespace Game.Network
         {
             if (sender != null)
             {
-                if (sender.IsAlive)
-                {
-                    sender.Abort();
-                }
+                sender.Abort();
                 sender = null;
             }
             if (receiver != null)
             {
-                if (receiver.IsAlive)
-                {
-                    receiver.Abort();
-                }
+                receiver.Abort();
                 receiver = null;
             }
         }

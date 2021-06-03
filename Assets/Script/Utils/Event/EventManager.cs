@@ -6,9 +6,9 @@ namespace UnityEngine
     /// <summary>
     /// 事件管理器
     /// </summary>
-    public class EventManager
+    public static class EventManager
     {
-        private readonly static Dictionary<EventKey, Action<EventMessageArgs>> events = new Dictionary<EventKey, Action<EventMessageArgs>>();
+        private static readonly Dictionary<EventKey, Action<EventMessageArgs>> events = new Dictionary<EventKey, Action<EventMessageArgs>>();
 
         /// <summary>
         /// 注册事件
@@ -36,11 +36,11 @@ namespace UnityEngine
         /// <summary>
         /// 注销事件
         /// </summary>
-        public static void UnregisterEvent(EventKey key, Action<EventMessageArgs> value)
+        public static void UnregisterEvent(EventKey key, Action<EventMessageArgs> action)
         {
             if (events.ContainsKey(key))
             {
-                events[key] -= value;
+                events[key] -= action;
 
                 if (events[key] == null)
                 {

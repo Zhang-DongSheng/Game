@@ -26,9 +26,9 @@ namespace TEST
             network = new Game.Network.Client("127.0.0.1", 88);
 
             network.onReceive = (message) =>
-              {
+            {
                   Debug.LogError(message);
-              };
+            };
         }
 
         private void Start()
