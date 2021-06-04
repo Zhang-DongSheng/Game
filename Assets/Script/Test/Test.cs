@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using Game.Network;
 using UnityEngine;
-using UnityEngine.Encrypt;
 using UnityEngine.UI;
 
 namespace TEST
@@ -15,20 +12,23 @@ namespace TEST
 
         private string value;
 
-        private Game.Network.Client network;
-
         private void Awake()
         {
             inputField.onValueChanged.AddListener(OnValueChanged);
 
             button.onClick.AddListener(OnSubmit);
 
-            network = new Game.Network.Client("127.0.0.1", 88);
+            NetworkManager.Instance.Connection();
+        }
 
-            network.onReceive = (message) =>
-            {
-                  Debug.LogError(message);
-            };
+        private void OnEnable()
+        {
+            NetworkEventManager.Register(NetworkEventKey.Test, OnReceiveTest);
+        }
+
+        private void OnDisable()
+        {
+            NetworkEventManager.Unregister(NetworkEventKey.Test, OnReceiveTest);
         }
 
         private void Start()
@@ -40,11 +40,11 @@ namespace TEST
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                network.Close();
+                NetworkManager.Instance.Close();
             }
             else if (Input.GetKeyDown(KeyCode.P))
             {
-                network.Send("Try");
+                NetworkManager.Instance.Send("Try");
             }
         }
         /// <summary>
@@ -53,7 +53,7 @@ namespace TEST
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            
+
         }
 
         private void OnValueChanged(string value)
@@ -63,7 +63,12 @@ namespace TEST
 
         private void OnSubmit()
         {
-            network.Send(value);
+            NetworkManager.Instance.Send(value);
+        }
+
+        private void OnReceiveTest(NetworkEventHandle handle)
+        {
+            Debug.LogError(handle.content);
         }
     }
 }

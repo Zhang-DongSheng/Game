@@ -53,6 +53,8 @@ namespace Game.Network
 
     public class NetworkEventHandle : IDisposable
     {
+        public string content;
+
         public void Dispose()
         {
 
