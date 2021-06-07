@@ -12,7 +12,7 @@ namespace UnityEngine
 
         private readonly Dictionary<string, TimeEvent> handler = new Dictionary<string, TimeEvent>();
 
-        private readonly List<string> cache = new List<string>();
+        private readonly List<string> delete = new List<string>();
 
         private Dictionary<string, TimeEvent>.Enumerator eunmer;
 
@@ -41,20 +41,20 @@ namespace UnityEngine
                     }
                     else
                     {
-                        cache.Add(eunmer.Current.Key);
+                        delete.Add(eunmer.Current.Key);
                     }
                 }
             }
 
-            if (cache.Count > 0)
+            if (delete.Count > 0)
             {
-                for (int i = cache.Count - 1; i >= 0; i--)
+                for (int i = delete.Count - 1; i >= 0; i--)
                 {
-                    if (handler.ContainsKey(cache[i]))
+                    if (handler.ContainsKey(delete[i]))
                     {
-                        handler.Remove(cache[i]);
+                        handler.Remove(delete[i]);
                     }
-                    cache.RemoveAt(i);
+                    delete.RemoveAt(i);
                 }
             }
             Duration += (long)Time.deltaTime;
@@ -81,7 +81,7 @@ namespace UnityEngine
         {
             if (handler.ContainsKey(key))
             {
-                cache.Add(key);
+                delete.Add(key);
             }
         }
 
