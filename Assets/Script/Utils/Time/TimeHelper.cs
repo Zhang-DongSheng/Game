@@ -7,58 +7,34 @@ namespace UnityEngine
         enum TimeStatus
         {
             Idle,
-            Pause,
             Update,
             Complete,
         }
 
-        [SerializeField] private float interval;
-
-        [SerializeField] private bool fixedUpdate;
+        [SerializeField] private float interval = 1;
 
         public UnityEvent<float> onValueChanged;
 
         public UnityEvent onCompleted;
 
-        private float timer, countdown;
+        private float timer, end;
 
         private TimeStatus status;
 
-        private void Start()
-        {
-            
-        }
-
         private void Update()
-        {
-            if (fixedUpdate) return;
-
-            Update(Time.deltaTime);
-        }
-
-        private void FixedUpdate()
-        {
-            if (!fixedUpdate) return;
-
-            Update(Time.fixedDeltaTime);
-        }
-
-        private void Update(float delta)
         {
             if (status == TimeStatus.Update)
             {
-                countdown -= delta;
-
-                timer += delta;
+                timer += Time.deltaTime;
 
                 if (timer >= interval)
                 {
                     timer = 0;
 
-                    OnValueChanged(countdown);
+                    OnValueChanged(Time.time - end);
                 }
 
-                if (countdown <= 0)
+                if (Time.time >= end)
                 {
                     status = TimeStatus.Complete;
 
@@ -77,11 +53,15 @@ namespace UnityEngine
             onCompleted?.Invoke();
         }
 
-        public void Start(float time)
+        public void Startup(float time)
         {
             status = TimeStatus.Idle;
 
-            countdown = time;
+            end = Time.time + time;
+
+            timer = 0;
+
+            OnValueChanged(time);
 
             status = TimeStatus.Update;
         }
