@@ -1,6 +1,5 @@
 using System;
 using System.Net.Sockets;
-using System.Threading;
 using UnityEngine;
 
 namespace Game.Network
@@ -18,7 +17,7 @@ namespace Game.Network
             {
                 socket = Create();
 
-                IAsyncResult async = socket.BeginConnect(IP, ConnectionComplete, null);
+                IAsyncResult async = socket.BeginConnect(IP, ConnectionCallback, null);
 
                 bool success = async.AsyncWaitHandle.WaitOne(1000 * 60, true);
 
@@ -33,19 +32,13 @@ namespace Game.Network
             }
         }
 
-        private void ConnectionComplete(IAsyncResult async)
+        private void ConnectionCallback(IAsyncResult async)
         {
             try
             {
                 socket.EndConnect(async);
 
-                officer.Reset();
-
-                officer.receiver = new Thread(Receive)
-                {
-                    IsBackground = true,
-                };
-                officer.receiver.Start();
+                Receive();
             }
             catch
             {
@@ -55,28 +48,36 @@ namespace Game.Network
 
         protected override void Receive()
         {
-            while (true)
+            try
             {
-                try
+                socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallback, null);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+        }
+
+        private void ReceiveCallback(IAsyncResult async)
+        {
+            try
+            {
+                int length = socket.EndReceive(async);
+
+                if (length > 0)
                 {
-                    int length = socket.Receive(buffer, 0, 1024, SocketFlags.None);
+                    onReceive?.Invoke(Convert.ToString(buffer));
 
-                    if (length == 0) break;
-
-                    string message = Convert.ToString(buffer, 0, length);
-
-                    onReceive?.Invoke(message);
+                    Receive();
                 }
-                catch (ThreadAbortException)
+                else
                 {
-                    break;
-                }
-                catch (Exception e)
-                {
-                    Debug.LogException(e);
                     Close();
-                    break;
                 }
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
             }
         }
 
@@ -90,10 +91,10 @@ namespace Game.Network
             }
             byte[] buffer = Convert.ToBytes(value);
 
-            socket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, SendComplete, null);
+            socket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, SendCallback, null);
         }
 
-        private void SendComplete(IAsyncResult async)
+        private void SendCallback(IAsyncResult async)
         {
             try
             {

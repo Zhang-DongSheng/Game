@@ -75,7 +75,10 @@ namespace Game.Network
                 {
                     if (officer.stack.Count > 0)
                     {
-                        socket.Send(Convert.ToBytes(officer.stack.Pop()));
+                        lock (officer.stack)
+                        {
+                            socket.Send(Convert.ToBytes(officer.stack.Pop()));
+                        }
                     }
                 }
                 catch (ThreadAbortException)

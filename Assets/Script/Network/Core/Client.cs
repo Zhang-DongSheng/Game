@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 
 namespace Game.Network
@@ -15,6 +16,8 @@ namespace Game.Network
         protected Socket socket;
 
         protected readonly byte[] buffer = new byte[1024];
+
+        protected readonly StringBuilder builder = new StringBuilder();
 
         protected readonly NetworkOfficer officer = new NetworkOfficer();
 
