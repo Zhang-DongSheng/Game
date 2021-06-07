@@ -17,4 +17,9 @@ public static partial class Extension
         }
         return null;
     }
+
+    public static Sprite Sprite(this Texture2D texture)
+    {
+        return UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+    }
 }
