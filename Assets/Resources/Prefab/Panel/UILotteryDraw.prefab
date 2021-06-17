@@ -604,7 +604,7 @@ MonoBehaviour:
   layer: 2
   order: 0
   target: {fileID: 2934783889048015274}
-  btn_draw: {fileID: 2934783887897175414}
+  button: {fileID: 2934783887897175414}
   speed:
     origin: 30
     destination: 1000
@@ -614,4 +614,4 @@ MonoBehaviour:
     destination: 1
     value: 0.2
   circle: 3
-  display: 2
+  count: 2
