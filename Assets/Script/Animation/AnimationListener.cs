@@ -14,7 +14,7 @@ namespace UnityEngine
             this.action = action;
         }
 
-        private void OnTriggerAnimation()
+        protected void OnTriggerAnimation()
         {
             action?.Invoke();
         }
