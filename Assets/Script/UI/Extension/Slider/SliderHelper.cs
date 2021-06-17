@@ -16,7 +16,7 @@ namespace UnityEngine.UI
         {
             if (TryGetComponent(out animation))
             {
-                animation.callback = OnAnimation;
+                animation.action = OnAnimation;
             }
         }
 

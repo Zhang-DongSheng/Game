@@ -1,16 +1,19 @@
 ﻿namespace UnityEngine.SAM
 {
-    public class SAMCanvas : SAMBase
+    public class SAMCanvasGroup : SAMBase
     {
-        [SerializeField] private FloatInterval alpha;
+        [SerializeField] private CanvasGroup canvas;
 
-        private CanvasGroup canvas;
+        [SerializeField] private FloatInterval alpha;
 
         protected override void Awake()
         {
             base.Awake();
 
-            target.TryGetComponent<CanvasGroup>(out canvas);
+            if (canvas == null && !target.TryGetComponent(out canvas))
+            {
+                canvas = gameObject.AddComponent<CanvasGroup>();
+            }
         }
 
         protected override void Transition(float step)

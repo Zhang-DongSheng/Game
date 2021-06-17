@@ -4,23 +4,28 @@
     {
         [SerializeField] private float intensity = 0.3f;
 
-        private float range;
+        private Quaternion rotation;
 
         private Vector3 position;
 
-        private Quaternion rotation;
+        private float range;
 
         protected override void Awake()
         {
             base.Awake();
 
             position = target.localPosition;
+
             rotation = target.localRotation;
         }
 
         protected override void Transition(float step)
         {
             if (target == null) return;
+
+            progress = curve.Evaluate(step);
+
+            range = Mathf.Lerp(0, intensity, progress);
 
             target.localPosition = position + Random.insideUnitSphere * range;
             target.localRotation = new Quaternion(
@@ -32,32 +37,17 @@
 
         protected override void Completed()
         {
+            step = Config.ZERO;
+
             status = Status.Completed;
+
+            target.localPosition = position;
+
+            target.localRotation = rotation;
 
             onCompleted?.Invoke();
 
-            Default();
-        }
-
-        protected override void Compute()
-        {
-            status = Status.Compute;
-
-            step = 0;
-
-            forward = true;
-
-            range = intensity;
-
-            onBegin?.Invoke();
-
-            status = Status.Transition;
-        }
-
-        public override void Default()
-        {
-            target.localPosition = position;
-            target.localRotation = rotation;
+            status = Status.Idel;
         }
     }
 }

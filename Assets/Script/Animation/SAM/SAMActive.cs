@@ -4,43 +4,28 @@ namespace UnityEngine.SAM
 {
     public class SAMActive : SAMBase
     {
-        [SerializeField] private List<GameObject> show;
+        [SerializeField] private List<GameObject> fore;
 
-        [SerializeField] private List<GameObject> hide;
-
-        protected override void Renovate()
-        {
-            if (status == Status.Transition)
-            {
-                if (forward)
-                {
-                    Transition(1);
-                }
-                else
-                {
-                    Transition(0);
-                }
-                Completed();
-            }
-        }
+        [SerializeField] private List<GameObject> back;
 
         protected override void Transition(float step)
         {
             bool active = step > 0.5f;
 
-            for (int i = 0; i < show.Count; i++)
-            {
-                if (show[i] != null && show[i].activeSelf != active)
-                {
-                    show[i].SetActive(active);
-                }
-            }
+            SetActive(fore, active);
 
-            for (int i = 0; i < hide.Count; i++)
+            SetActive(back, !active);
+        }
+
+        private void SetActive(List<GameObject> list, bool active)
+        {
+            if (list == null || list.Count == 0) return;
+
+            for (int i = 0; i < list.Count; i++)
             {
-                if (hide[i] != null && hide[i].activeSelf == active)
+                if (list[i] != null && list[i].activeSelf != active)
                 {
-                    hide[i].SetActive(!active);
+                    list[i].SetActive(active);
                 }
             }
         }

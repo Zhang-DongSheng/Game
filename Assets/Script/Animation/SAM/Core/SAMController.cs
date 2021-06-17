@@ -69,7 +69,7 @@ namespace UnityEngine.SAM
         {
             if (current != null)
             {
-                current.Close();
+                current.Stop();
             }
         }
     }

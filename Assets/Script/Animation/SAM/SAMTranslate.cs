@@ -1,12 +1,12 @@
-﻿namespace UnityEngine.SAM
+namespace UnityEngine.SAM
 {
-    public class SAMRotate : SAMBase
+    public class SAMTranslate : SAMBase
     {
         [SerializeField] private Circle circle;
 
-        [SerializeField] private Vector3Interval rotation;
+        [SerializeField] private Vector3Interval position;
 
-        [SerializeField] private bool around;
+        [SerializeField] private bool local = true;
 
         protected override void Transition(float step)
         {
@@ -16,23 +16,21 @@
             {
                 case Circle.Always:
                     {
-                        if (around)
-                        {
-                            target.RotateAround(rotation.destination, rotation.origin, Time.deltaTime * speed);
-                        }
-                        else
-                        {
-                            target.Rotate(rotation.origin * Time.deltaTime * speed);
-                        }
+                        target.Translate(position.origin * Time.deltaTime * speed);
                     }
                     break;
                 default:
                     {
                         progress = curve.Evaluate(step);
 
-                        vector = rotation.Lerp(progress);
-
-                        target.localEulerAngles = vector;
+                        if (local)
+                        {
+                            target.anchoredPosition = position.Lerp(progress);
+                        }
+                        else
+                        {
+                            target.position = position.Lerp(progress);
+                        }
                     }
                     break;
             }

@@ -4,15 +4,18 @@ namespace UnityEngine.SAM
 {
     public class SAMGraphic : SAMBase
     {
-        [SerializeField] private ColorInterval color;
+        [SerializeField] private Graphic graphic;
 
-        private Graphic graphic;
+        [SerializeField] private ColorInterval color;
 
         protected override void Awake()
         {
             base.Awake();
 
-            target.TryGetComponent<Graphic>(out graphic);
+            if (graphic == null)
+            {
+                graphic = target.GetComponent<Graphic>();
+            }
         }
 
         protected override void Transition(float step)

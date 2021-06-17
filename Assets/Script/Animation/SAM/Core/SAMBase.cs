@@ -116,8 +116,10 @@ namespace UnityEngine.SAM
             switch (status)
             {
                 case Status.Transition:
+                    status = Status.Pause;
+                    break;
                 case Status.Pause:
-                    status = pause ? Status.Pause : Status.Transition;
+                    status = Status.Transition;
                     break;
                 default:
                     Debug.LogWarningFormat("Current status : {0} don't support pause!");
@@ -125,7 +127,7 @@ namespace UnityEngine.SAM
             }
         }
 
-        public virtual void Close()
+        public virtual void Stop()
         {
             status = Status.Idel;
         }

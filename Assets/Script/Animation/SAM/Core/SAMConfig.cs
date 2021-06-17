@@ -141,15 +141,15 @@ namespace UnityEngine.SAM
     /// </summary>
     public enum Circle
     {
-        Once,
-        Loop,
-        PingPong,
+        Single,
+        Always,
+        Round,
     }
     /// <summary>
     /// 关联
     /// </summary>
     public enum Relevance
-    { 
+    {
         Self,
         Children,
     }

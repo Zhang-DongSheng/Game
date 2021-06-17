@@ -54,13 +54,13 @@
         {
             switch (circle)
             {
-                case Circle.Once:
+                case Circle.Single:
                     base.Completed();
                     break;
-                case Circle.PingPong:
-                    step = Config.ZERO; forward = !forward;
+                case Circle.Round:
+                    forward = !forward; step = Config.ZERO;
                     break;
-                case Circle.Loop:
+                case Circle.Always:
                     step = Config.ZERO;
                     break;
             }

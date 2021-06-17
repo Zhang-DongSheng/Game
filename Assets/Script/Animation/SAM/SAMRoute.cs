@@ -4,9 +4,9 @@ namespace UnityEngine.SAM
 {
     public class SAMRoute : SAMBase
     {
-        [SerializeField] private List<Vector3> route = new List<Vector3>();
-
         [SerializeField] private Circle circle;
+
+        [SerializeField] private List<Vector3> route = new List<Vector3>();
 
         private int index, next;
 
@@ -14,8 +14,6 @@ namespace UnityEngine.SAM
 
         protected override void Renovate()
         {
-            if (route.Count == 0) return;
-
             if (status == Status.Transition)
             {
                 step += Time.deltaTime * speed;
@@ -30,19 +28,19 @@ namespace UnityEngine.SAM
 
                     switch (circle)
                     {
-                        case Circle.Once:
+                        case Circle.Single:
                             if (Finish(forward, index, route.Count))
                             {
                                 Completed(); return;
                             }
                             break;
-                        case Circle.PingPong:
+                        case Circle.Round:
                             if (Finish(forward, index, route.Count))
                             {
                                 forward = !forward;
                             }
                             break;
-                        case Circle.Loop:
+                        case Circle.Always:
                             if (forward)
                             {
                                 index %= route.Count;
@@ -72,6 +70,8 @@ namespace UnityEngine.SAM
 
         protected override void Compute()
         {
+            if (route.Count == 0) return;
+
             index = forward ? 0 : route.Count - 1;
 
             Position(forward, index, route);

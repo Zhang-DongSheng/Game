@@ -9,9 +9,9 @@ namespace UnityEngine.SAM
 
         [SerializeField] private FloatInterval alpha;
 
-        private Color color;
-
         private readonly List<Graphic> graphics = new List<Graphic>();
+
+        private Color color;
 
         protected override void Awake()
         {
