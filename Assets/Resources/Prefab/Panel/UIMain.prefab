@@ -26,8 +26,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2798793969682128435}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.7900956, y: 0.31221777, z: -0.2721703, w: 0.45187634}
+  m_LocalPosition: {x: 0, y: 0, z: 0.098437935}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7506063118124596812}
@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.035395585, y: 0.27133724}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1231259447853171430
@@ -94,7 +94,6 @@ MonoBehaviour:
   onCompleted:
     m_PersistentCalls:
       m_Calls: []
-  target: {fileID: 4314228412079080219}
   curve:
     serializedVersion: 2
     m_Curve:
@@ -119,10 +118,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 1
-  useConfig: 1
   enable: 0
+  useConfig: 1
+  speed: 1
   step: 0
+  target: {fileID: 4314228412079080219}
   intensity: 0.3
 --- !u!1 &3475235642826711133
 GameObject:
@@ -271,7 +271,6 @@ MonoBehaviour:
   onCompleted:
     m_PersistentCalls:
       m_Calls: []
-  target: {fileID: 1940134062891358848}
   curve:
     serializedVersion: 2
     m_Curve:
@@ -296,15 +295,16 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 1
-  useConfig: 1
   enable: 0
+  useConfig: 1
+  speed: 1
   step: 0
+  target: {fileID: 1940134062891358848}
   circle: 0
   rotation:
     origin: {x: 0, y: 0, z: 0}
     destination: {x: 0, y: 0, z: 90}
-  eulers: {x: 0, y: 0, z: 0}
+  around: 0
 --- !u!1 &3824846505319453524
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,7 +826,6 @@ MonoBehaviour:
   onCompleted:
     m_PersistentCalls:
       m_Calls: []
-  target: {fileID: 5226045126019480519}
   curve:
     serializedVersion: 2
     m_Curve:
@@ -851,10 +850,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 1
-  useConfig: 0
   enable: 0
+  useConfig: 0
+  speed: 1
   step: 0
+  target: {fileID: 5226045126019480519}
   graphic: {fileID: 2593473630708030077}
   color:
     origin: {r: 1, g: 0.4669811, b: 0.4669811, a: 1}
@@ -953,7 +953,6 @@ MonoBehaviour:
   onCompleted:
     m_PersistentCalls:
       m_Calls: []
-  target: {fileID: 5340092387176751518}
   curve:
     serializedVersion: 2
     m_Curve:
@@ -978,10 +977,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 1
-  useConfig: 1
   enable: 0
+  useConfig: 1
+  speed: 1
   step: 0
+  target: {fileID: 5340092387176751518}
   position:
     origin: {x: -150, y: 200, z: 0}
     destination: {x: -60, y: 180, z: 0}
@@ -1085,7 +1085,6 @@ MonoBehaviour:
   onCompleted:
     m_PersistentCalls:
       m_Calls: []
-  target: {fileID: 2793567642820718714}
   curve:
     serializedVersion: 2
     m_Curve:
@@ -1110,10 +1109,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 1
-  useConfig: 1
   enable: 0
+  useConfig: 1
+  speed: 1
   step: 0
+  target: {fileID: 2793567642820718714}
   axis: 0
   size:
     origin: {x: 100, y: 100}
@@ -1340,7 +1340,6 @@ MonoBehaviour:
   onCompleted:
     m_PersistentCalls:
       m_Calls: []
-  target: {fileID: 7794170417526128819}
   curve:
     serializedVersion: 2
     m_Curve:
@@ -1365,10 +1364,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 1
-  useConfig: 0
   enable: 0
+  useConfig: 0
+  speed: 1
   step: 0
+  target: {fileID: 7794170417526128819}
   canvas: {fileID: 7485600076510457329}
   alpha:
     origin: 1
@@ -1469,7 +1469,6 @@ MonoBehaviour:
   onCompleted:
     m_PersistentCalls:
       m_Calls: []
-  target: {fileID: 4603798238212225618}
   curve:
     serializedVersion: 2
     m_Curve:
@@ -1494,13 +1493,14 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speed: 1
-  useConfig: 0
   enable: 0
+  useConfig: 0
+  speed: 1
   step: 0
+  target: {fileID: 4603798238212225618}
+  viewPort: {fileID: 5030754889102432808}
   axis: 0
   circle: 0
-  viewPort: {fileID: 5030754889102432808}
 --- !u!114 &1172322365396384378
 MonoBehaviour:
   m_ObjectHideFlags: 0
