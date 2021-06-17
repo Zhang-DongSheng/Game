@@ -4,9 +4,11 @@ namespace UnityEngine.SAM
     {
         [SerializeField] private Circle circle;
 
+        [SerializeField] private bool anchor = true;
+
         [SerializeField] private Vector3Interval position;
 
-        [SerializeField] private bool local = true;
+        protected override void Init() { }
 
         protected override void Transition(float step)
         {
@@ -23,13 +25,13 @@ namespace UnityEngine.SAM
                     {
                         progress = curve.Evaluate(step);
 
-                        if (local)
+                        if (anchor)
                         {
                             target.anchoredPosition = position.Lerp(progress);
                         }
                         else
                         {
-                            target.position = position.Lerp(progress);
+                            target.localPosition = position.Lerp(progress);
                         }
                     }
                     break;
@@ -44,7 +46,7 @@ namespace UnityEngine.SAM
                     base.Completed();
                     break;
                 default:
-                    forward = !forward; step = Config.ZERO;
+                    forward = !forward; step = Config.Zero;
                     break;
             }
         }

@@ -13,10 +13,8 @@ namespace UnityEngine.SAM
 
         private Color color;
 
-        protected override void Awake()
+        protected override void Init()
         {
-            base.Awake();
-
             graphics.Clear();
 
             switch (relevance)

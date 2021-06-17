@@ -6,10 +6,8 @@
 
         [SerializeField] private FloatInterval alpha;
 
-        protected override void Awake()
+        protected override void Init()
         {
-            base.Awake();
-
             if (canvas == null && !target.TryGetComponent(out canvas))
             {
                 canvas = gameObject.AddComponent<CanvasGroup>();

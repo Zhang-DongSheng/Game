@@ -4,6 +4,8 @@ namespace UnityEngine.SAM
     {
         [SerializeField] private Vector3Interval scale;
 
+        protected override void Init() { }
+
         protected override void Transition(float step)
         {
             if (target == null) return;

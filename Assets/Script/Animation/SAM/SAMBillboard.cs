@@ -2,13 +2,15 @@
 {
     public class SAMBillboard : SAMBase
     {
+        [SerializeField] private RectTransform viewPort;
+
         [SerializeField] private Axis axis;
 
         [SerializeField] private Circle circle;
 
-        [SerializeField] private RectTransform viewPort;
-
         private Vector3Interval position;
+
+        protected override void Init() { }
 
         protected override void Transition(float step)
         {
@@ -16,7 +18,7 @@
 
             progress = curve.Evaluate(step);
 
-            target.localPosition = position.Lerp(progress);
+            target.anchoredPosition = position.Lerp(progress);
         }
 
         protected override void Compute()
@@ -31,19 +33,19 @@
 
             position.destination = space - view;
 
-            step = Config.ZERO;
-
             switch (axis)
             {
                 case Axis.Horizontal:
-                    position.origin.y = position.destination.y = 0;
+                    position.origin.y = position.destination.y = target.anchoredPosition.y;
                     break;
                 case Axis.Vertical:
-                    position.origin.x = position.destination.x = 0;
+                    position.origin.x = position.destination.x = target.anchoredPosition.x;
                     break;
                 default:
                     break;
             }
+
+            step = Config.Zero;
 
             onBegin?.Invoke();
 
@@ -58,10 +60,10 @@
                     base.Completed();
                     break;
                 case Circle.Round:
-                    forward = !forward; step = Config.ZERO;
+                    forward = !forward; step = Config.Zero;
                     break;
                 case Circle.Always:
-                    step = Config.ZERO;
+                    step = Config.Zero;
                     break;
             }
         }

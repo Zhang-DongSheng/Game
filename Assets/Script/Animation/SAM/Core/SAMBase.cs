@@ -7,36 +7,38 @@ namespace UnityEngine.SAM
     {
         public UnityEvent onBegin, onCompleted;
 
-        [SerializeField] protected RectTransform target;
-
         [SerializeField] protected AnimationCurve curve = new AnimationCurve(new Keyframe(0f, 0f, 0f, 1f), new Keyframe(1f, 1f, 1f, 0f));
-
-        [SerializeField, Range(0.1f, 100)] protected float speed = 1;
-
-        [SerializeField] protected bool useConfig;
 
         [SerializeField] protected bool enable;
 
+        [SerializeField] protected bool useConfig = true;
+
+        [SerializeField, Range(0.1f, 100)] protected float speed = 1;
+
         [SerializeField, Range(0, 1)] protected float step;
 
-        protected bool forward;
+        [SerializeField] protected RectTransform target;
 
         protected float progress;
 
         protected Vector3 vector;
 
+        protected bool forward;
+
         protected Status status;
 
-        protected virtual void Awake()
+        private void Awake()
         {
             if (target == null)
             {
                 target = GetComponent<RectTransform>();
             }
-            speed = useConfig ? Config.SPEED : speed;
+            speed = useConfig ? Config.Speed : speed;
+
+            Init();
         }
 
-        protected void OnEnable()
+        private void OnEnable()
         {
             if (enable)
             {
@@ -44,7 +46,7 @@ namespace UnityEngine.SAM
             }
         }
 
-        protected void OnValidate()
+        private void OnValidate()
         {
             if (!Application.isPlaying)
             {
@@ -52,10 +54,14 @@ namespace UnityEngine.SAM
             }
         }
 
-        protected void Update()
+        private void Update()
         {
             Renovate();
         }
+
+        protected abstract void Init();
+
+        protected abstract void Transition(float step);
 
         protected virtual void Renovate()
         {
@@ -65,20 +71,18 @@ namespace UnityEngine.SAM
 
                 Transition(Format(forward, step));
 
-                if (step >= Config.ONE)
+                if (step >= Config.One)
                 {
                     Completed();
                 }
             }
         }
 
-        protected abstract void Transition(float step);
-
         protected virtual void Compute()
         {
             status = Status.Compute;
 
-            step = Config.ZERO;
+            step = Config.Zero;
 
             onBegin?.Invoke();
 
@@ -87,13 +91,23 @@ namespace UnityEngine.SAM
 
         protected virtual void Completed()
         {
-            step = Config.ZERO;
-
             status = Status.Completed;
 
             onCompleted?.Invoke();
 
             status = Status.Idel;
+        }
+
+        protected virtual float Format(bool forward, float step)
+        {
+            if (forward)
+            {
+                return Mathf.Min(step, Config.One);
+            }
+            else
+            {
+                return Mathf.Max(Config.One - step, Config.Zero);
+            }
         }
 
         protected virtual void SetActive(bool active)
@@ -122,7 +136,7 @@ namespace UnityEngine.SAM
                     status = Status.Transition;
                     break;
                 default:
-                    Debug.LogWarningFormat("Current status : {0} don't support pause!");
+                    Debug.LogWarningFormat("Paause doesn't support current state :{0}", status);
                     break;
             }
         }
@@ -135,18 +149,6 @@ namespace UnityEngine.SAM
         public virtual void Default()
         {
             Transition(step = 0);
-        }
-
-        public virtual float Format(bool forward, float step)
-        {
-            if (forward)
-            {
-                return Mathf.Min(step, Config.ONE);
-            }
-            else
-            {
-                return Mathf.Max(Config.ONE - step, Config.ZERO);
-            }
         }
 
         public bool Enable { get { return enable; } set { enable = value; } }

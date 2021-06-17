@@ -4,15 +4,15 @@ namespace UnityEngine.SAM
 {
     public static class Config
     {
-        public const int ZERO = 0;
+        public const int Zero = 0;
 
-        public const int ONE = 1;
+        public const int One = 1;
 
         public const int Ninety = 90;
 
-        public const float HALF = 0.5f;
+        public const float Half = 0.5f;
 
-        public const float SPEED = 6f;
+        public const float Speed = 6f;
     }
     /// <summary>
     /// 状态区间

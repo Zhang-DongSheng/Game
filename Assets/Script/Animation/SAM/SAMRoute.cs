@@ -8,56 +8,11 @@ namespace UnityEngine.SAM
 
         [SerializeField] private List<Vector3> route = new List<Vector3>();
 
-        private int index, next;
+        private int index, count, next;
 
         private Vector3Interval position;
 
-        protected override void Renovate()
-        {
-            if (status == Status.Transition)
-            {
-                step += Time.deltaTime * speed;
-
-                Transition(step);
-
-                if (step >= Config.ONE)
-                {
-                    step = Config.ZERO;
-
-                    index = forward ? index + 1 : index - 1;
-
-                    switch (circle)
-                    {
-                        case Circle.Single:
-                            if (Finish(forward, index, route.Count))
-                            {
-                                Completed(); return;
-                            }
-                            break;
-                        case Circle.Round:
-                            if (Finish(forward, index, route.Count))
-                            {
-                                forward = !forward;
-                            }
-                            break;
-                        case Circle.Always:
-                            if (forward)
-                            {
-                                index %= route.Count;
-                            }
-                            else
-                            {
-                                if (index < 0)
-                                {
-                                    index += route.Count;
-                                }
-                            }
-                            break;
-                    }
-                    Position(forward, index, route);
-                }
-            }
-        }
+        protected override void Init() { }
 
         protected override void Transition(float step)
         {
@@ -72,30 +27,76 @@ namespace UnityEngine.SAM
         {
             if (route.Count == 0) return;
 
-            index = forward ? 0 : route.Count - 1;
+            status = Status.Compute;
 
-            Position(forward, index, route);
+            count = route.Count;
 
-            base.Compute();
+            index = forward ? 0 : count - 1;
+
+            Position(forward, index);
+
+            step = Config.Zero;
+
+            onBegin?.Invoke();
+
+            status = Status.Transition;
         }
 
-        private void Position(bool forward, int index, List<Vector3> route)
+        protected override void Completed()
         {
-            position.origin = route[index];
+            step = Config.Zero;
 
+            index = forward ? index + 1 : index - 1;
+
+            switch (circle)
+            {
+                case Circle.Single:
+                    if (Over(forward, index))
+                    {
+                        base.Completed(); return;
+                    }
+                    break;
+                case Circle.Round:
+                    if (Over(forward, index))
+                    {
+                        forward = !forward;
+                    }
+                    break;
+                case Circle.Always:
+                    if (forward)
+                    {
+                        index = count > index ? index : index %= count;
+                    }
+                    else if (index < 0)
+                    {
+                        index += count;
+                    }
+                    break;
+            }
+            Position(forward, index);
+        }
+
+        private void Position(bool forward, int index)
+        {
             if (forward)
             {
-                next = ++index % route.Count;
+                position.origin = route[index];
+
+                next = count > ++index ? index : index % count;
+
+                position.destination = route[next];
             }
             else
             {
-                next = --index < 0 ? index + route.Count : index;
-            }
+                position.destination = route[index];
 
-            position.destination = route[next];
+                next = --index < 0 ? index + count : index;
+
+                position.origin = route[next];
+            }
         }
 
-        private bool Finish(bool forward, int index, int count)
+        private bool Over(bool forward, int index)
         {
             if (forward)
             {

@@ -6,6 +6,8 @@
 
         [SerializeField] private Vector2Interval size;
 
+        protected override void Init() { }
+
         protected override void Transition(float step)
         {
             if (target == null) return;

@@ -8,6 +8,8 @@
 
         [SerializeField] private bool around;
 
+        protected override void Init() { }
+
         protected override void Transition(float step)
         {
             if (target == null) return;
@@ -46,7 +48,7 @@
                     base.Completed();
                     break;
                 default:
-                    forward = !forward; step = Config.ZERO;
+                    forward = !forward; step = Config.Zero;
                     break;
             }
         }

@@ -7,6 +7,11 @@ namespace UnityEngine.SAM
 
         private float interval;
 
+        protected override void Init()
+        {
+
+        }
+
         protected override void Renovate()
         {
             if (status == Status.Transition)
@@ -15,7 +20,7 @@ namespace UnityEngine.SAM
 
                 if (step >= interval)
                 {
-                    step = Config.ZERO;
+                    step = Config.Zero;
 
                     Completed();
                 }
@@ -28,7 +33,7 @@ namespace UnityEngine.SAM
         {
             status = Status.Compute;
 
-            step = Config.ZERO;
+            step = Config.Zero;
 
             if (animation.clip == null) return;
 

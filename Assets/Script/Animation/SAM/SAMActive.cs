@@ -8,6 +8,8 @@ namespace UnityEngine.SAM
 
         [SerializeField] private List<GameObject> back;
 
+        protected override void Init() { }
+
         protected override void Transition(float step)
         {
             bool active = step > 0.5f;

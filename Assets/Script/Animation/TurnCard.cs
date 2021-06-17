@@ -68,7 +68,7 @@
         {
             current = card.localEulerAngles.y;
 
-            destination = Config.ZERO;
+            destination = Config.Zero;
 
             center = Config.Ninety;
 

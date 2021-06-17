@@ -10,10 +10,8 @@
 
         private float range;
 
-        protected override void Awake()
+        protected override void Init()
         {
-            base.Awake();
-
             position = target.localPosition;
 
             rotation = target.localRotation;
@@ -23,7 +21,7 @@
         {
             if (target == null) return;
 
-            progress = curve.Evaluate(step);
+            progress = curve.Evaluate(Config.One - step);
 
             range = Mathf.Lerp(0, intensity, progress);
 
@@ -37,8 +35,6 @@
 
         protected override void Completed()
         {
-            step = Config.ZERO;
-
             status = Status.Completed;
 
             target.localPosition = position;

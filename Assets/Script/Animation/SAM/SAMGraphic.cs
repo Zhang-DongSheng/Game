@@ -8,10 +8,8 @@ namespace UnityEngine.SAM
 
         [SerializeField] private ColorInterval color;
 
-        protected override void Awake()
+        protected override void Init()
         {
-            base.Awake();
-
             if (graphic == null)
             {
                 graphic = target.GetComponent<Graphic>();

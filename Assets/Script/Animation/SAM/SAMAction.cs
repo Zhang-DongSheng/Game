@@ -6,6 +6,8 @@ namespace UnityEngine.SAM
     {
         public Action<float> action;
 
+        protected override void Init() { }
+
         protected override void Transition(float step)
         {
             progress = curve.Evaluate(step);
