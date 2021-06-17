@@ -7,7 +7,7 @@ namespace Game.UI
     {
         [SerializeField] private Transform target;
 
-        [SerializeField] private Button btn_draw;
+        [SerializeField] private Button button;
 
         [SerializeField] private FloatInterval speed = new FloatInterval(30, 200, 6f);
 
@@ -15,74 +15,72 @@ namespace Game.UI
 
         [SerializeField, Range(1, 20)] private int circle = 3;
 
-        [SerializeField, Range(1, 5)] private int display = 2;
+        [SerializeField, Range(1, 5)] private int count = 2;
 
-        private FloatInterval m_display = new FloatInterval();
+        private FloatInterval display = new FloatInterval();
 
-        private float m_step, m_speed;
+        private float euler;
 
-        private float m_euler;
+        private int number;
 
-        private int m_number;
-
-        private DrawStatus m_status;
+        private DrawStatus status;
 
         private void Awake()
         {
-            btn_draw.onClick.AddListener(OnClickDraw);
+            button.onClick.AddListener(OnClickDraw);
         }
 
         private void Update()
         {
-            switch (m_status)
+            switch (status)
             {
                 case DrawStatus.Idle:
 
                     break;
                 case DrawStatus.Ready:
                     {
-                        m_speed += speed.value * Time.deltaTime;
+                        speed.current += speed.value * Time.deltaTime;
 
-                        m_euler += m_speed * Time.deltaTime;
+                        euler += speed.current * Time.deltaTime;
 
-                        Rotate(m_euler);
+                        Rotate(euler);
 
-                        if (m_speed > speed.destination)
+                        if (speed.current > speed.destination)
                         {
-                            m_speed = speed.destination;
+                            speed.current = speed.destination;
 
-                            m_status = DrawStatus.Rotate;
+                            status = DrawStatus.Rotate;
                         }
                     }
                     break;
                 case DrawStatus.Rotate:
                     {
-                        m_euler += m_speed * Time.deltaTime;
+                        euler += speed.current * Time.deltaTime;
 
-                        if (360 > m_euler) { }
+                        if (360 > euler) { }
                         else
                         {
-                            m_euler %= 360; m_number++;
+                            euler %= 360; number++;
                         }
-                        Rotate(m_euler);
+                        Rotate(euler);
 
-                        if (m_number > circle && m_euler > m_display.origin)
+                        if (number > circle && euler > display.origin)
                         {
-                            m_status = DrawStatus.Display;
+                            status = DrawStatus.Display;
                         }
                     }
                     break;
                 case DrawStatus.Display:
                     {
-                        m_step += step.value * Time.deltaTime;
+                        step.current += step.value * Time.deltaTime;
 
-                        m_euler = Mathf.Lerp(m_display.origin + m_display.value * m_step, m_display.destination, m_step);
+                        euler = Mathf.Lerp(display.origin + display.value * step.current, display.destination, step.current);
 
-                        Rotate(m_euler);
+                        Rotate(euler);
 
-                        if (m_step > step.destination)
+                        if (step.current > step.destination)
                         {
-                            m_status = DrawStatus.Complete;
+                            status = DrawStatus.Complete;
                         }
                     }
                     break;
@@ -90,7 +88,7 @@ namespace Game.UI
                     {
                         Complete();
 
-                        m_status = DrawStatus.Idle;
+                        status = DrawStatus.Idle;
                     }
                     break;
             }
@@ -112,19 +110,19 @@ namespace Game.UI
 
             float value = Random.Range(0, 360);
 
-            m_number = 0;
+            number = 0;
 
-            m_step = step.origin;
+            step.current = step.origin;
 
-            m_speed = speed.origin;
+            speed.current = speed.origin;
 
-            m_display.origin = value;
+            display.origin = value;
 
-            m_display.value = 360 * display;
+            display.value = 360 * count;
 
-            m_display.destination = m_display.origin + m_display.value;
+            display.destination = display.origin + display.value;
 
-            m_status = DrawStatus.Ready;
+            status = DrawStatus.Ready;
         }
 
         private void OnClickDraw()
@@ -149,6 +147,8 @@ namespace Game.UI
 
             public float value;
 
+            [System.NonSerialized] public float current;
+
             public FloatInterval(float origin, float destination, float value)
             {
                 this.origin = origin;
@@ -156,6 +156,8 @@ namespace Game.UI
                 this.destination = destination;
 
                 this.value = value;
+
+                this.current = origin;
             }
         }
     }
