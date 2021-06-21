@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class ItemDrag : ItemBase, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class ItemDragBase : ItemBase, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [SerializeField] Axis axis;
 

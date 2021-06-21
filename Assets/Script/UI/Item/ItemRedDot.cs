@@ -7,7 +7,7 @@ namespace Game.UI
     {
         [SerializeField] private GameObject target;
 
-        [SerializeField] private RedKey key;
+        [SerializeField] private RedKey main;
 
         [SerializeField] private List<RedKey> list;
 
@@ -20,37 +20,42 @@ namespace Game.UI
 
         private void Start()
         {
-            RefreshRedDot();
+            Refresh();
+        }
+
+        private void OnDestroy()
+        {
+            EventManager.Unregister(EventKey.RedDot, Refresh);
         }
 
         private void Refresh(EventMessageArgs args)
         {
-            RefreshRedDot();
+            Refresh();
         }
 
-        private void RefreshRedDot()
+        private void Refresh()
         {
-            active = ReddotLogic.Instance.Trigger(key) || ReddotLogic.Instance.Trigger(list.ToArray());
+            active = ReddotLogic.Instance.Trigger(main) || ReddotLogic.Instance.Trigger(list.ToArray());
 
             SetActive(active);
         }
 
         public void UpdeteRedDotKey(params RedKey[] keys)
         {
-            key = RedKey.None; list.Clear();
+            main = RedKey.None; list.Clear();
 
             switch (keys.Length)
             {
                 case 0:
                     break;
                 case 1:
-                    key = keys[0];
+                    main = keys[0];
                     break;
                 default:
                     list.AddRange(keys);
                     break;
             }
-            RefreshRedDot();
+            Refresh();
         }
 
         private void SetActive(bool active)
@@ -59,11 +64,6 @@ namespace Game.UI
             {
                 target.SetActive(active);
             }
-        }
-
-        private void OnDestroy()
-        {
-            EventManager.Unregister(EventKey.RedDot, Refresh);
         }
     }
 }

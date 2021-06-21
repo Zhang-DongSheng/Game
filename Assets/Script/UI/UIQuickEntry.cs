@@ -1,4 +1,6 @@
+using Data;
 using System;
+using System.Collections.Generic;
 
 namespace Game.UI
 {
@@ -33,13 +35,14 @@ namespace Game.UI
             UIManager.Instance.Open(UIPanel.UINotice);
         }
 
-        public static void OpenUIReward(string title)
+        public static void OpenUIReward(string title, List<PropInformation> props)
         {
             if (UIManager.Instance.GetCtrl(UIPanel.UIReward) is CtrlBase ctrl)
             {
                 Paramter paramter = new Paramter()
                 {
                     ["title"] = title,
+                    ["props"] = props,
                 };
                 ctrl.Paramter(paramter);
             }

@@ -57,7 +57,7 @@ namespace Game.Network
 
         public void Dispose()
         {
-
+            content = null;
         }
     }
 }

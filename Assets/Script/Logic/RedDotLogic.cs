@@ -19,13 +19,12 @@ namespace Game
 
             for (int i = 0; i < keys.Length; i++)
             {
-                if (keys[i] != RedKey.None)
+                if (keys[i] == RedKey.None) continue;
+
+                if (_reddots.ContainsKey(keys[i]) && _reddots[keys[i]].active)
                 {
-                    if (_reddots.ContainsKey(keys[i]) && _reddots[keys[i]].active)
-                    {
-                        active = true;
-                        break;
-                    }
+                    active = true;
+                    break;
                 }
             }
             return active;
@@ -66,6 +65,5 @@ namespace Game
     {
         None,
         Test,
-        Count,
     }
 }
