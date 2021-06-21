@@ -215,6 +215,7 @@ namespace Game.UI
         UIConfirm,
         UINotice,
         UIReward,
+        UILotteryDraw,
         UITest,
         Count,
     }

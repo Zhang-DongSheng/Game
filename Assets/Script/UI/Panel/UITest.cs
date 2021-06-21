@@ -32,18 +32,29 @@ namespace Game.UI
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.A))
             {
                 UIQuickEntry.OpenUIConfirm("A","B",()=>
                 {
                     Debug.LogError(Random.Range(0, 100));
                 });
             }
-            else if (Input.GetKeyDown(KeyCode.N))
+            else if (Input.GetKeyDown(KeyCode.B))
             {
                 index++;
 
                 UIQuickEntry.OpenUINotice(string.Format("当前测试第{0}条消息！", index));
+            }
+            else if (Input.GetKeyDown(KeyCode.C))
+            {
+                UIQuickEntry.OpenUIReward("Test", new List<Data.PropInformation>()
+                { 
+                    new Data.PropInformation(),
+                });
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                UIManager.Instance.Open(UIPanel.UILotteryDraw);
             }
         }
 

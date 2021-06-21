@@ -101,7 +101,7 @@ namespace Game.UI
 
         private void Complete()
         {
-            Debug.LogError("Success!");
+            Debug.LogError("Success!" + display.origin);
         }
 
         private void Copmpute()
