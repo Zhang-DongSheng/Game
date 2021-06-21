@@ -3,9 +3,23 @@
 
 ##UI模块
 + UImanager `UI管理器`
-+ UIConfig `配置参数`
-+ UICtrlBase `控制基类`
-+ UIBase `UI基类`
++ Config `配置`
++ Paramter `参数`
++ CtrlBase `控制基类`
++ UIBase : MonoBehaviour `UI基类`
+  - UIMain
+  - UILogin
+  - UILoading
+  - UIWaiting
+  - UIConfirm
+  - UINotice
+  - UIReward
+  - UILotteryDraw
+```javascript
+private void Open() {
+    UIManager.Instance.Open(UIPanel.UILotteryDraw);
+}
+```
 
 ##事件通知模块
 - EventManager `派发器`
@@ -14,27 +28,33 @@
 ```javascript
 private void Send() {
     EventMessageArgs args = new EventMessageArgs();
-    args.AddOrReplaceMessage("a", 1);
-    args.AddOrReplaceMessage("b", "2");
-    EventManager.PostEvent(EventKey.Login, args);
+    args.AddOrReplace("a", 1);
+    args.AddOrReplace("b", "2");
+    EventManager.Post(EventKey.Login, args);
 }
 ```
 
+##网络消息
++ Client `客户端`
+    + AsyncNetworkClient `异步连接`
+    + NetworkClient `同步`
+
 ##动画模块 SAM (Sample Animation)
-+ SAMController `动画管理器` 可自定义添加动画片段控制播放
++ SAMController `动画管理器` 可连续播放动画片段
 + SAMConfig `配置参数`
-+ SAMBase `动画片段基类` 包含 { SAMAlpha, SAMSize, SAMRotate ...}
++ SAMBase : MonoBehaviour `动画片段基类` 包含 { SAMAlpha, SAMSize, SAMRotate ...}
   + SAMAction `事件`
   + SAMActive `活动`
   + SAMAlpha `透明度`
   + SAMAnimation `动画`
   + SAMBillboard `广告牌`
-  + SAMCanvas `CanvasGroup`
+  + SAMCanvasGroup `CanvasGroup`
   + SAMGraphic `图形`
   + SAMRotate `旋转`
   + SAMRoute `路径`
+  + SAMScale `大小`
   + SAMShake `抖动`
-  + SAMSize `大小`
+  + SAMSize `UI大小`
   + SAMTransform `位置, 方向，大小`
 
 ##资源下载模块 Renewable
@@ -44,15 +64,16 @@ private void Send() {
 + RenewableFile `文件管理`
 + Renewablepool `对象池`
 + RenewableUtils `扩展调用`
-+ RenewableBase
++ RenewableBase : MonoBehaviour
   + RenewableAsset `AssetBundle`
   + RenewableAudio `音频`
-  + Renewablelmage  `图片`
+  + Renewablelmage `图片`
   + RenewableText  `文本`
 + Component : MonoBehaviour
-  + RenewablelmageComponent `图片组件`
-  + RenewablePrefabComponent `预制体组件`
-  + RenewableTextComponent `文本组件`
+  + RenewableComponent `关联组件`
+  + RenewableImageComponent `图片`
+  + RenewablePrefabComponent `预制体`
+  + RenewableTextComponent `文本`
 
 ##扩展方法 Extension
 - ExtensionAnimation `动画`
