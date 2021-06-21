@@ -9,4 +9,6 @@
     Login,
 
     Language,
+
+    Progress,
 }

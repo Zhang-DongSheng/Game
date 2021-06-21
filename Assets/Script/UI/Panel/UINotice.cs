@@ -112,7 +112,7 @@ namespace Game.UI
 
             animator.onCompleted.AddListener(() =>
             {
-                UIManager.Instance.Close(UIKey.UINotice);
+                UIManager.Instance.Close(UIPanel.UINotice);
             });
             animator.Begin(false);
         }

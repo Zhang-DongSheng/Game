@@ -20,7 +20,7 @@ namespace Game
             {
                 model.Hide();
 
-                UIManager.Instance.Open(UIKey.UILogin);
+                UIManager.Instance.Open(UIPanel.UILogin);
             }
         }
     }

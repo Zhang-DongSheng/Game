@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,45 +9,31 @@ namespace Game.UI
 
         private float step;
 
-        private bool ing;
-
         private void Awake()
         {
-            Ready();
+            progress.onValueChanged.AddListener(OnValueChanged);
         }
 
-        private void Update()
-        {  
-            if(ing)
-            {
-                step += Time.deltaTime * 1f;
-
-                if (step < 1)
-                {
-                    Run(step);
-                }
-                else
-                {
-                    Completed();
-                }
-
-                ing = step < 1;
-            }
-        }
-
-        public void Ready()
+        private void OnEnable()
         {
-            step = 0; ing = true;
+            EventManager.RegisterEvent(EventKey.Progress, Refresh);
         }
 
-        private void Run(float value)
+        private void OnDisable()
         {
-            progress.value = value;
+            EventManager.UnregisterEvent(EventKey.Progress, Refresh);
         }
 
-        private void Completed()
+        private void Refresh(EventMessageArgs args)
         {
-            UIManager.Instance.Open(UIKey.UIMain);
+            step = args.GetMessage<float>("progress");
+
+            progress.value = step;
+        }
+
+        private void OnValueChanged(float value)
+        {
+
         }
     }
 }

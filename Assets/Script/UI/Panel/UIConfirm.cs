@@ -16,7 +16,7 @@ namespace Game.UI
 
         [SerializeField] private Button btn_cancel;
 
-        [SerializeField] private Button btn_background;
+        [SerializeField] private Button btn_close;
 
         private Action confirm, cancel;
 
@@ -26,7 +26,7 @@ namespace Game.UI
 
             btn_cancel.onClick.AddListener(OnClickCancel);
 
-            btn_background.onClick.AddListener(OnClickCancel);
+            btn_close.onClick.AddListener(OnClickClose);
         }
 
         public override void Refresh(params object[] paramter)
@@ -46,14 +46,19 @@ namespace Game.UI
         {
             confirm?.Invoke();
 
-            UIManager.Instance.Close(UIKey.UIConfirm);
+            UIManager.Instance.Close(UIPanel.UIConfirm);
         }
 
         private void OnClickCancel()
         {
             cancel?.Invoke();
 
-            UIManager.Instance.Close(UIKey.UIConfirm);
+            UIManager.Instance.Close(UIPanel.UIConfirm);
+        }
+
+        private void OnClickClose()
+        {
+            OnClickCancel();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Game.UI
 
         private readonly List<Transform> m_parent = new List<Transform>();
 
-        private readonly Dictionary<UIKey, UICtrlBase> m_panel = new Dictionary<UIKey, UICtrlBase>();
+        private readonly Dictionary<UIPanel, UICtrlBase> m_panel = new Dictionary<UIPanel, UICtrlBase>();
 
         private void Awake()
         {
@@ -67,11 +67,11 @@ namespace Game.UI
 
         private void Register()
         {
-            m_panel.Add(UIKey.UINotice, new UICtrlBase());
-            m_panel.Add(UIKey.UIConfirm, new UICtrlBase());
+            m_panel.Add(UIPanel.UINotice, new UICtrlBase());
+            m_panel.Add(UIPanel.UIConfirm, new UICtrlBase());
         }
 
-        public void Open(UIKey key, UILayer layer = UILayer.None)
+        public void Open(UIPanel key, UILayer layer = UILayer.None)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace Game.UI
             }
         }
 
-        public void Close(UIKey key, bool destroy = false)
+        public void Close(UIPanel key, bool destroy = false)
         {
             if (m_panel.ContainsKey(key))
             {
@@ -104,7 +104,7 @@ namespace Game.UI
             }
         }
 
-        public UICtrlBase GetCtrl(UIKey key)
+        public UICtrlBase GetCtrl(UIPanel key)
         {
             if (m_panel.ContainsKey(key))
             {
@@ -181,15 +181,15 @@ namespace Game.UI
 
         public Canvas Canvas(UIBase view)
         {
-            Transform parent = view.transform;
+            Transform node = view.transform;
 
-            while (parent != null)
+            while (node != null)
             {
-                if (parent.TryGetComponent(out Canvas canvas))
+                if (node.TryGetComponent(out Canvas canvas))
                 {
                     return canvas;
                 }
-                parent = parent.parent;
+                node = node.parent;
             }
             return null;
         }
@@ -205,7 +205,7 @@ namespace Game.UI
         Top,
     }
 
-    public enum UIKey
+    public enum UIPanel
     {
         None,
         UILogin,

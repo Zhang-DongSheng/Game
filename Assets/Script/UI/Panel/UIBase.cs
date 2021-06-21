@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game.UI
 {
@@ -20,18 +18,6 @@ namespace Game.UI
 
         public virtual void Refresh(params object[] paramter) { }
 
-        public void Delay(float time, Action callBack = null)
-        {
-            StartCoroutine(DelayedExecution(time, callBack));
-        }
-
-        private IEnumerator DelayedExecution(float time, Action callBack)
-        {
-            yield return new WaitForSeconds(time);
-
-            callBack?.Invoke();
-        }
-
         public void SetName(string name)
         {
             transform.name = name;
@@ -45,17 +31,20 @@ namespace Game.UI
             }
         }
 
+        public void SetActive(Component component, bool active)
+        {
+            if (component != null && component.gameObject.activeSelf != active)
+            {
+                component.gameObject.SetActive(active);
+            }
+        }
+
         public void SetParent(Transform parent)
         {
             if (transform.parent != parent)
             {
                 transform.SetParent(parent);
             }
-        }
-
-        public virtual void Close()
-        {
-            SetActive(false);
         }
     }
 }

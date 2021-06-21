@@ -6,20 +6,20 @@ namespace Game.UI
     {
         public static void OpenUIConfirm(string title, string message, Action confirm, Action cancel = null)
         {
-            if (UIManager.Instance.GetCtrl(UIKey.UIConfirm) is UICtrlBase ctrl)
+            if (UIManager.Instance.GetCtrl(UIPanel.UIConfirm) is UICtrlBase ctrl)
             {
                 ctrl.Paramter(title, message, confirm, cancel);
             }
-            UIManager.Instance.Open(UIKey.UIConfirm);
+            UIManager.Instance.Open(UIPanel.UIConfirm);
         }
 
         public static void OpenUINotice(string message, float time = -1)
         {
-            if (UIManager.Instance.GetCtrl(UIKey.UINotice) is UICtrlBase ctrl)
+            if (UIManager.Instance.GetCtrl(UIPanel.UINotice) is UICtrlBase ctrl)
             {
                 ctrl.Paramter(message, time);
             }
-            UIManager.Instance.Open(UIKey.UINotice);
+            UIManager.Instance.Open(UIPanel.UINotice);
         }
     }
 }

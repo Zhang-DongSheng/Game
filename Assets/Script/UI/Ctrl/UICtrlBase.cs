@@ -16,7 +16,7 @@ namespace Game.UI
 
         private UIStatus status = UIStatus.None;
 
-        public void Open(UIKey key, UILayer layer)
+        public void Open(UIPanel key, UILayer layer)
         {
             active = true; number++;
 
@@ -67,11 +67,11 @@ namespace Game.UI
         {
             if (view != null)
             {
-                view.Close();
+                view.SetActive(false);
             }
         }
 
-        private void Load(UIKey key, UILayer layer)
+        private void Load(UIPanel key, UILayer layer)
         {
             status = UIStatus.Loading;
 
@@ -85,12 +85,12 @@ namespace Game.UI
             }
         }
 
-        private void LoadAsync(UIKey key, UILayer layer)
+        private void LoadAsync(UIPanel key, UILayer layer)
         {
             status = UIStatus.Loading;
         }
 
-        private void Create(UIKey key, UILayer layer, GameObject go)
+        private void Create(UIPanel key, UILayer layer, GameObject go)
         {
             RectTransform rect = go.GetComponent<RectTransform>();
 

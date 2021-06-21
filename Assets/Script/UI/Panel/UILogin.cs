@@ -11,15 +11,15 @@ namespace Game.UI
 
         private const string PASSWORD = "PASSWORD";
 
+        private readonly Regex regexAccount = new Regex(@"^[A-Za-z0-9]{3,15}$");
+
+        private readonly Regex regexPassword = new Regex(@"^.*(?=.{6,15})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$");
+
         [SerializeField] private InputField input_account;
 
         [SerializeField] private InputField input_password;
 
         [SerializeField] private Button btn_login;
-
-        private readonly Regex regexAccount = new Regex(@"^[A-Za-z0-9]{3,15}$");
-
-        private readonly Regex regexPassword = new Regex(@"^.*(?=.{6,15})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$");
 
         private string account, password;
 
@@ -59,7 +59,7 @@ namespace Game.UI
 
                 Local.SetString(PASSWORD, password);
 
-                UIManager.Instance.Open(UIKey.UILoading);
+                UIManager.Instance.Open(UIPanel.UILoading);
             }
             else
             {

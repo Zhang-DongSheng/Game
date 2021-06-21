@@ -49,7 +49,7 @@ namespace Game.UI
 
             GameLogic.Instance.model.Hide();
 
-            UIManager.Instance.Open(UIKey.UILogin);
+            UIManager.Instance.Open(UIPanel.UILogin);
         }
 
         private void OnClickToggle(int index)

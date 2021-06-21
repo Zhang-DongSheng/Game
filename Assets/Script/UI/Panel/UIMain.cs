@@ -16,9 +16,7 @@ namespace Game.UI
 
         private void OnClick()
         {
-            //UIManager.Instance.Close(UIKey.UIMain);
-
-            UIManager.Instance.Open(UIKey.UITest);
+            UIManager.Instance.Open(UIPanel.UITest);
         }
     }
 }
