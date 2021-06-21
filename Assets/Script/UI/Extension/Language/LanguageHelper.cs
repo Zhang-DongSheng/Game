@@ -45,7 +45,7 @@ namespace UnityEngine.UI
             {
                 dictionary = m_data.Dictionary(language);
             }
-            EventManager.PostEvent(EventKey.Language, new EventMessageArgs());
+            EventManager.Post(EventKey.Language, new EventMessageArgs());
         }
 
         public string Word(string key)

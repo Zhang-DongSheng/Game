@@ -16,7 +16,7 @@ namespace Game.UI
             SetActive(true);
         }
 
-        public virtual void Refresh(params object[] paramter) { }
+        public virtual void Refresh(Paramter paramter) { }
 
         public void SetName(string name)
         {

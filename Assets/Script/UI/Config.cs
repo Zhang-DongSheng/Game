@@ -1,6 +1,6 @@
 ﻿namespace UnityEngine.UI
 {
-    public class UIConfig
+    public class Config
     {
         public const float ResolutionWidth = 2160;
 

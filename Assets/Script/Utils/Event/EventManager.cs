@@ -9,11 +9,10 @@ namespace UnityEngine
     public static class EventManager
     {
         private static readonly Dictionary<EventKey, Action<EventMessageArgs>> events = new Dictionary<EventKey, Action<EventMessageArgs>>();
-
         /// <summary>
         /// 注册事件
         /// </summary>
-        public static void RegisterEvent(EventKey key, Action<EventMessageArgs> action)
+        public static void Register(EventKey key, Action<EventMessageArgs> action)
         {
             if (!events.ContainsKey(key))
             {
@@ -36,7 +35,7 @@ namespace UnityEngine
         /// <summary>
         /// 注销事件
         /// </summary>
-        public static void UnregisterEvent(EventKey key, Action<EventMessageArgs> action)
+        public static void Unregister(EventKey key, Action<EventMessageArgs> action)
         {
             if (events.ContainsKey(key))
             {
@@ -51,7 +50,7 @@ namespace UnityEngine
         /// <summary>
         /// 触发事件
         /// </summary>
-        public static void PostEvent(EventKey key, EventMessageArgs args = null)
+        public static void Post(EventKey key, EventMessageArgs args = null)
         {
             if (events.ContainsKey(key))
             {
@@ -63,7 +62,7 @@ namespace UnityEngine
     /// <summary>
     /// 事件通知数据
     /// </summary>
-    public class EventMessageArgs : IDisposable
+    public sealed class EventMessageArgs : IDisposable
     {
         private readonly Dictionary<string, object> messages;
 
@@ -79,32 +78,71 @@ namespace UnityEngine
             return MemberwiseClone() as EventMessageArgs;
         }
         /// <summary>
+        /// 索引访问器
+        /// </summary>
+        public object this[string key]
+        {
+            get
+            {
+                return Get(key);
+            }
+            set
+            {
+                AddOrReplace(key, value);
+            }
+        }
+        /// <summary>
         /// 新增或替换
         /// </summary>
-        public void AddOrReplaceMessage(string key, object value)
+        public void AddOrReplace(string key, object value)
         {
             if (Contains(key))
+            {
                 messages[key] = value;
+            }
             else
+            {
                 messages.Add(key, value);
+            }
         }
         /// <summary>
         /// 删除
         /// </summary>
-        public void RemoveMessage(string key)
+        public void Remove(string key)
         {
             if (Contains(key))
+            {
                 messages.Remove(key);
+            }
         }
         /// <summary>
         /// 获取内容
         /// </summary>
-        public object GetMessage(string key)
+        public object Get(string key)
         {
             if (Contains(key))
+            {
                 return messages[key];
-            else
-                return null;
+            }
+            return null;
+        }
+        /// <summary>
+        /// 获取内容
+        /// </summary>
+        public T Get<T>(string key)
+        {
+            if (Contains(key))
+            {
+                try
+                {
+                    return (T)messages[key];
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+            }
+            return default;
         }
         /// <summary>
         /// 是否包含
@@ -112,16 +150,6 @@ namespace UnityEngine
         private bool Contains(string key)
         {
             return messages.ContainsKey(key);
-        }
-        /// <summary>
-        /// 获取内容
-        /// </summary>
-        public T GetMessage<T>(string key)
-        {
-            if (Contains(key))
-                return (T)messages[key];
-            else
-                return default(T);
         }
         /// <summary>
         /// 释放

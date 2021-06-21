@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SAM;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -43,11 +42,11 @@ namespace Game.UI
             }
         }
 
-        public override void Refresh(params object[] paramter)
+        public override void Refresh(Paramter paramter)
         {
             if (paramter == null) return;
 
-            message.Add(paramter[0].ToString());
+            message.Add(paramter.Get<string>("message"));
 
             if (status == NoticeStatus.None)
             {
@@ -67,7 +66,7 @@ namespace Game.UI
 
                 item.completed = Completed;
 
-                item.Init(message[0], UIConfig.ScreenHalfWidth);
+                item.Init(message[0], UnityEngine.UI.Config.ScreenHalfWidth);
 
                 items.Add(item);
 

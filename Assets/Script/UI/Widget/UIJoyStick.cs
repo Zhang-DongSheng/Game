@@ -83,7 +83,7 @@ namespace UnityEngine.UI
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
                     //实现左半屏触发
-                    if (Input.mousePosition.x <= UIConfig.ScreenHalfWidth)
+                    if (Input.mousePosition.x <= Config.ScreenHalfWidth)
                     {
                         onEnter?.Invoke();
                         status = Status.OnEnter;

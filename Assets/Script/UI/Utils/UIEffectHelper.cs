@@ -42,7 +42,7 @@ namespace UnityEngine.UI
 
             particles = target.GetComponentsInChildren<ParticleSystem>();
 
-            EventManager.RegisterEvent(EventKey.EffectStatus, Notice);
+            EventManager.Register(EventKey.EffectStatus, Notice);
         }
 
         private void OnEnable()
@@ -80,7 +80,7 @@ namespace UnityEngine.UI
         {
             if (ignore) return;
 
-            ctrlActive = args.GetMessage<bool>("status");
+            ctrlActive = args.Get<bool>("status");
 
             SetActive(this.active && ctrlActive);
         }
@@ -195,7 +195,7 @@ namespace UnityEngine.UI
 
         private void OnDestroy()
         {
-            EventManager.UnregisterEvent(EventKey.EffectStatus, Notice);
+            EventManager.Unregister(EventKey.EffectStatus, Notice);
         }
     }
 }

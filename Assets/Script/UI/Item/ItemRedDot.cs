@@ -15,7 +15,7 @@ namespace Game.UI
 
         private void Awake()
         {
-            EventManager.RegisterEvent(EventKey.RedDot, Refresh);
+            EventManager.Register(EventKey.RedDot, Refresh);
         }
 
         private void Start()
@@ -63,7 +63,7 @@ namespace Game.UI
 
         private void OnDestroy()
         {
-            EventManager.UnregisterEvent(EventKey.RedDot, Refresh);
+            EventManager.Unregister(EventKey.RedDot, Refresh);
         }
     }
 }

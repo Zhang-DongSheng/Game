@@ -19,11 +19,11 @@ namespace Game
         {
             EventMessageArgs args = new EventMessageArgs();
 
-            args.AddOrReplaceMessage("status", true);
+            args.AddOrReplace("status", true);
 
-            args.AddOrReplaceMessage("message", "");
+            args.AddOrReplace("message", "");
 
-            EventManager.PostEvent(EventKey.Login, args);
+            EventManager.Post(EventKey.Login, args);
         }
     }
 }

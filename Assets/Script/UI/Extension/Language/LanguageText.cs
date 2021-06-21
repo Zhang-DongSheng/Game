@@ -13,12 +13,12 @@
         {
             base.Awake();
 
-            EventManager.RegisterEvent(EventKey.Language, Refresh);
+            EventManager.Register(EventKey.Language, Refresh);
         }
 
         protected override void OnDestroy()
         {
-            EventManager.UnregisterEvent(EventKey.Language, Refresh);
+            EventManager.Unregister(EventKey.Language, Refresh);
 
             base.OnDestroy();
         }

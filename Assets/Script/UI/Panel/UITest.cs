@@ -14,6 +14,8 @@ namespace Game.UI
 
         public ToggleGroupHelper toggle;
 
+        private int index;
+
         private void Awake()
         {
             btn_next.onClick.AddListener(OnClick);
@@ -23,9 +25,9 @@ namespace Game.UI
 
         private void Start()
         {
-            GameLogic.Instance.model.Show();
+            GameController.Instance.model.Show();
 
-            image.texture = GameLogic.Instance.model.Texture;
+            image.texture = GameController.Instance.model.Texture;
         }
 
         private void Update()
@@ -39,7 +41,9 @@ namespace Game.UI
             }
             else if (Input.GetKeyDown(KeyCode.N))
             {
-                UIQuickEntry.OpenUINotice("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA..");
+                index++;
+
+                UIQuickEntry.OpenUINotice(string.Format("当前测试第{0}条消息！", index));
             }
         }
 
@@ -47,7 +51,7 @@ namespace Game.UI
         {
             //UIManager.Instance.Close(UIKey.UITest);
 
-            GameLogic.Instance.model.Hide();
+            GameController.Instance.model.Hide();
 
             UIManager.Instance.Open(UIPanel.UILogin);
         }

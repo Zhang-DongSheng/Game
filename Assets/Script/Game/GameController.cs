@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Game
 {
     [ExecuteInEditMode]
-    public class GameLogic : MonoSingleton<GameLogic>
+    public class GameController : MonoSingleton<GameController>
     {
         public ModelDisplay model;
 
@@ -22,6 +22,11 @@ namespace Game
 
                 UIManager.Instance.Open(UIPanel.UILogin);
             }
+        }
+
+        private void Update()
+        {
+            
         }
     }
 }

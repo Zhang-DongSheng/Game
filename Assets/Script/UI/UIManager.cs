@@ -10,9 +10,9 @@ namespace Game.UI
     {
         private Canvas canvas;
 
-        private readonly List<Transform> m_parent = new List<Transform>();
+        private readonly List<Transform> parents = new List<Transform>();
 
-        private readonly Dictionary<UIPanel, UICtrlBase> m_panel = new Dictionary<UIPanel, UICtrlBase>();
+        private readonly Dictionary<UIPanel, CtrlBase> panels = new Dictionary<UIPanel, CtrlBase>();
 
         private void Awake()
         {
@@ -27,7 +27,7 @@ namespace Game.UI
             {
                 CanvasScaler scale = canvas.GetComponent<CanvasScaler>();
 
-                if (UIConfig.ScreenRatio > UIConfig.ResolutionRatio)
+                if (Config.ScreenRatio > Config.ResolutionRatio)
                 {
                     scale.matchWidthOrHeight = 1;
                 }
@@ -56,7 +56,7 @@ namespace Game.UI
 
                     parent.AddComponent<GraphicRaycaster>();
 
-                    m_parent.Add(rect);
+                    parents.Add(rect);
                 }
             }
             else
@@ -67,20 +67,19 @@ namespace Game.UI
 
         private void Register()
         {
-            m_panel.Add(UIPanel.UINotice, new UICtrlBase());
-            m_panel.Add(UIPanel.UIConfirm, new UICtrlBase());
+            panels.Add(UIPanel.UIConfirm, new CtrlBase());
         }
 
         public void Open(UIPanel key, UILayer layer = UILayer.None)
         {
             try
             {
-                if (m_panel.ContainsKey(key)) { }
+                if (panels.ContainsKey(key)) { }
                 else
                 {
-                    m_panel.Add(key, new UICtrlBase());
+                    panels.Add(key, new CtrlBase());
                 }
-                m_panel[key].Open(key, layer);
+                panels[key].Open(key, layer);
             }
             catch (Exception e)
             {
@@ -90,25 +89,25 @@ namespace Game.UI
 
         public void Close(UIPanel key, bool destroy = false)
         {
-            if (m_panel.ContainsKey(key))
+            if (panels.ContainsKey(key))
             {
-                m_panel[key].Close(destroy);
+                panels[key].Close(destroy);
             }
         }
 
         public void CloseAll(bool destroy = false)
         {
-            foreach (var panel in m_panel.Values)
+            foreach (var panel in panels.Values)
             {
                 panel.Close(destroy);
             }
         }
 
-        public UICtrlBase GetCtrl(UIPanel key)
+        public CtrlBase GetCtrl(UIPanel key)
         {
-            if (m_panel.ContainsKey(key))
+            if (panels.ContainsKey(key))
             {
-                return m_panel[key];
+                return panels[key];
             }
             return null;
         }
@@ -117,7 +116,7 @@ namespace Game.UI
         {
             try
             {
-                return m_parent[(int)layer - 1];
+                return parents[(int)layer - 1];
             }
             catch (Exception e)
             {
@@ -181,15 +180,15 @@ namespace Game.UI
 
         public Canvas Canvas(UIBase view)
         {
-            Transform node = view.transform;
+            Transform root = view.transform;
 
-            while (node != null)
+            while (root != null)
             {
-                if (node.TryGetComponent(out Canvas canvas))
+                if (root.TryGetComponent(out Canvas canvas))
                 {
                     return canvas;
                 }
-                node = node.parent;
+                root = root.parent;
             }
             return null;
         }
@@ -202,18 +201,21 @@ namespace Game.UI
         Base,
         Window,
         Widget,
+        Overlayer,
         Top,
     }
 
     public enum UIPanel
     {
         None,
+        UIMain,
         UILogin,
         UILoading,
-        UIMain,
-        UITest,
+        UIWaiting,
         UIConfirm,
         UINotice,
+        UIReward,
+        UITest,
         Count,
     }
 }

@@ -34,12 +34,12 @@ namespace Game.UI
 
         private void OnEnable()
         {
-            EventManager.RegisterEvent(EventKey.Login, OnReceivedLogin);
+            EventManager.Register(EventKey.Login, OnReceivedLogin);
         }
 
         private void OnDisable()
         {
-            EventManager.UnregisterEvent(EventKey.Login, OnReceivedLogin);
+            EventManager.Unregister(EventKey.Login, OnReceivedLogin);
         }
 
         private void Start()
@@ -51,7 +51,7 @@ namespace Game.UI
 
         private void OnReceivedLogin(EventMessageArgs args)
         {
-            bool status = args.GetMessage<bool>("status");
+            bool status = args.Get<bool>("status");
 
             if (status)
             {
@@ -59,11 +59,13 @@ namespace Game.UI
 
                 Local.SetString(PASSWORD, password);
 
-                UIManager.Instance.Open(UIPanel.UILoading);
+                UIManager.Instance.Open(UIPanel.UIMain);
+
+                UIManager.Instance.Close(UIPanel.UILogin);
             }
             else
             {
-                string error = args.GetMessage<string>("message");
+                string error = args.Get<string>("message");
 
                 UIQuickEntry.OpenUINotice(error);
             }

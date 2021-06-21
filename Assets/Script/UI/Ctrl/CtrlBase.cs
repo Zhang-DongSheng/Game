@@ -4,17 +4,17 @@ using UnityEngine.Factory;
 
 namespace Game.UI
 {
-    public class UICtrlBase
+    public class CtrlBase
     {
-        private UIBase view;
+        protected UIBase view;
 
-        private object[] paramter;
+        protected Paramter paramter;
 
-        private int number;
+        protected int number;
 
-        private bool active;
+        protected bool active;
 
-        private UIStatus status = UIStatus.None;
+        private Status status = Status.None;
 
         public void Open(UIPanel key, UILayer layer)
         {
@@ -22,16 +22,19 @@ namespace Game.UI
 
             switch (status)
             {
-                case UIStatus.None:
+                case Status.None:
                     Load(key, layer);
                     break;
-                case UIStatus.Done:
+                case Status.Loading:
+                    Debug.LogWarningFormat("The paenl of [{0}] is loading...", key);
+                    break;
+                case Status.Display:
                     Show();
                     break;
             }
         }
 
-        public void Paramter(params object[] paramter)
+        public void Paramter(Paramter paramter)
         {
             this.paramter = paramter;
         }
@@ -46,6 +49,7 @@ namespace Game.UI
                 {
                     GameObject.Destroy(view.gameObject);
                 }
+                status = Status.None;
             }
             else
             {
@@ -57,7 +61,7 @@ namespace Game.UI
         {
             if (view != null)
             {
-                view.Refresh(paramter); view.Reopen();
+                view.Reopen(); view.Refresh(paramter);
 
                 UIManager.Instance.SortDisplay(view.layer, view.transform);
             }
@@ -73,7 +77,7 @@ namespace Game.UI
 
         private void Load(UIPanel key, UILayer layer)
         {
-            status = UIStatus.Loading;
+            status = Status.Loading;
 
             try
             {
@@ -87,7 +91,7 @@ namespace Game.UI
 
         private void LoadAsync(UIPanel key, UILayer layer)
         {
-            status = UIStatus.Loading;
+            status = Status.Loading;
         }
 
         private void Create(UIPanel key, UILayer layer, GameObject go)
@@ -112,16 +116,16 @@ namespace Game.UI
 
             UIManager.Instance.SortDisplay(view.layer, go.transform);
 
-            status = UIStatus.Done;
+            status = Status.Display;
         }
 
         public int Number { get { return number; } }
 
-        enum UIStatus
+        enum Status
         {
             None,
             Loading,
-            Done,
+            Display,
         }
     }
 }

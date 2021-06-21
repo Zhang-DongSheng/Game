@@ -41,7 +41,7 @@ namespace Game
             {
                 _reddots.Add(key, new Reddot() { active = value });
             }
-            EventManager.PostEvent(EventKey.RedDot, new EventMessageArgs());
+            EventManager.Post(EventKey.RedDot, new EventMessageArgs());
         }
 
         public void Today(RedKey key)

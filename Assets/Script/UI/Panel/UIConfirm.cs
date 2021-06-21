@@ -29,22 +29,24 @@ namespace Game.UI
             btn_close.onClick.AddListener(OnClickClose);
         }
 
-        public override void Refresh(params object[] paramter)
+        public override void Refresh(Paramter paramter)
         {
             if (paramter == null) return;
 
-            txt_title.text = paramter[0].ToString();
+            txt_title.text = paramter.Get<string>("title");
 
-            txt_message.text = paramter[1].ToString();
+            txt_message.text = paramter.Get<string>("message");
 
-            this.confirm = paramter[2] as Action;
+            confirm = paramter.Get<Action>("confirm");
 
-            this.cancel = paramter[3] as Action;
+            cancel = paramter.Get<Action>("cancel");
         }
 
         private void OnClickConfirm()
         {
             confirm?.Invoke();
+
+            confirm = null;
 
             UIManager.Instance.Close(UIPanel.UIConfirm);
         }
@@ -52,6 +54,8 @@ namespace Game.UI
         private void OnClickCancel()
         {
             cancel?.Invoke();
+
+            cancel = null;
 
             UIManager.Instance.Close(UIPanel.UIConfirm);
         }
