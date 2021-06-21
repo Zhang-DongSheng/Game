@@ -105,11 +105,11 @@ namespace Game.UI
 
         public CtrlBase GetCtrl(UIPanel key)
         {
-            if (panels.ContainsKey(key))
+            if (panels.ContainsKey(key) == false)
             {
-                return panels[key];
+                panels.Add(key, new CtrlBase());
             }
-            return null;
+            return panels[key];
         }
 
         public Transform GetParent(UILayer layer)
