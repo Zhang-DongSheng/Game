@@ -27,12 +27,14 @@ namespace Game.UI
 
         public override void Refresh(Paramter paramter)
         {
-            title.text = paramter.Get<string>("title");
+            RewardInformation reward = paramter.Get<RewardInformation>("reward");
 
-            coroutine = StartCoroutine(Refresh(paramter.Get<List<PropInformation>>("props")));
+            title.text = reward.title;
+
+            coroutine = StartCoroutine(Refresh(reward.props));
         }
 
-        IEnumerator Refresh(List<PropInformation> props)
+        IEnumerator Refresh(List<Prop> props)
         {
             if (props != null && props.Count > 0)
             {

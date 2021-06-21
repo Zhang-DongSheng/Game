@@ -6,37 +6,37 @@ namespace Data
 {
     public class DataLanguage : ScriptableObject
     {
-        [SerializeField] private List<Dictionary> m_data = new List<Dictionary>();
+        public List<Dictionary> dictionaries = new List<Dictionary>();
 
         public Dictionary Dictionary(Language language)
         {
-            return m_data.Find(x => x.language == language);
+            return dictionaries.Find(x => x.language == language);
         }
         [ContextMenu("Initialize")]
         protected void Initialize()
         {
             int count = Enum.GetValues(typeof(Language)).Length;
 
-            if (m_data.Count != count)
+            if (dictionaries.Count != count)
             {
-                if (m_data.Count > count)
+                if (dictionaries.Count > count)
                 {
-                    while (m_data.Count > count)
+                    while (dictionaries.Count > count)
                     {
-                        m_data.RemoveAt(m_data.Count - 1);
+                        dictionaries.RemoveAt(dictionaries.Count - 1);
                     }
                 }
                 else
                 {
-                    while (m_data.Count < count)
+                    while (dictionaries.Count < count)
                     {
-                        m_data.Add(new Dictionary());
+                        dictionaries.Add(new Dictionary());
                     }
                 }
 
                 for (int i = 0; i < count; i++)
                 {
-                    m_data[i].language = (Language)i;
+                    dictionaries[i].language = (Language)i;
                 }
             }
         }
@@ -45,26 +45,26 @@ namespace Data
         {
             List<string> keys = new List<string>();
 
-            for (int i = 0; i < m_data.Count; i++)
+            for (int i = 0; i < dictionaries.Count; i++)
             {
-                for (int j = 0; j < m_data[i].words.Count; j++)
+                for (int j = 0; j < dictionaries[i].words.Count; j++)
                 {
-                    if (!keys.Contains(m_data[i].words[j].key))
+                    if (!keys.Contains(dictionaries[i].words[j].key))
                     {
-                        keys.Add(m_data[i].words[j].key);
+                        keys.Add(dictionaries[i].words[j].key);
                     }
                 }
             }
 
-            for (int i = 0; i < m_data.Count; i++)
+            for (int i = 0; i < dictionaries.Count; i++)
             {
                 for (int j = 0; j < keys.Count; j++)
                 {
-                    if (m_data[i].words.Count > j)
+                    if (dictionaries[i].words.Count > j)
                     {
-                        if (m_data[i].words[j].key != keys[j])
+                        if (dictionaries[i].words[j].key != keys[j])
                         {
-                            m_data[i].words[j] = new Word()
+                            dictionaries[i].words[j] = new Word()
                             {
                                 key = keys[j],
                             };
@@ -72,7 +72,7 @@ namespace Data
                     }
                     else
                     {
-                        m_data[i].words.Add(new Word()
+                        dictionaries[i].words.Add(new Word()
                         {
                             key = keys[j],
                         });
@@ -81,7 +81,7 @@ namespace Data
             }
         }
     }
-    [System.Serializable]
+    [Serializable]
     public class Dictionary
     {
         public Language language;
@@ -92,7 +92,7 @@ namespace Data
 
         public List<Word> words = new List<Word>();
     }
-    [System.Serializable]
+    [Serializable]
     public class Word
     {
         public string key;

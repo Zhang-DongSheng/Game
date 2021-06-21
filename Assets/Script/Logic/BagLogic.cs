@@ -1,11 +1,50 @@
-using System.Collections;
+using Data;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Game
 {
     public class BagLogic : Singleton<BagLogic>
     {
-        
+        private readonly List<Currency> currencies = new List<Currency>();
+
+        private readonly List<Prop> props = new List<Prop>();
+
+        public void RenovateCurrency(CurrencyType currency, int number)
+        {
+            if (currencies.Exists(x => x.currency == currency))
+            {
+                for (int i = 0; i < currencies.Count; i++)
+                {
+                    if (currencies[i].currency == currency)
+                    {
+                        currencies[i].number = number;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                currencies.Add(new Currency(currency, number));
+            }
+        }
+
+        public void RenovateProp(Prop prop)
+        {
+            if (props.Exists(x => x.ID == prop.ID))
+            {
+                for (int i = 0; i < props.Count; i++)
+                {
+                    if (props[i].ID == prop.ID)
+                    {
+                        props[i] = prop;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                props.Add(prop);
+            }
+        }
     }
 }

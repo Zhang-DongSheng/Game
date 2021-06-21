@@ -6,8 +6,6 @@ namespace Data
 {
     public class DataPSD : ScriptableObject
     {
-        public string ID;
-
         public List<PSDInformation> list = new List<PSDInformation>();
 
         public PSDInformation First

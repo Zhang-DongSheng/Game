@@ -7,9 +7,11 @@ namespace Game.UI
 {
     public class ItemProp : ItemBase
     {
-        public void Refresh(PropInformation prop)
-        { 
-            
+        public void Refresh(Prop prop)
+        {
+            DataProp data = DataManager.Instance.Load<DataProp>("Prop", "Data/Prop");
+
+
         }
     }
 }

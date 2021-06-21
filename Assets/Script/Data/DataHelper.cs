@@ -1,10 +1,10 @@
-using System.Collections;
+using Data;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
 {
-    public class ShopLogic : Singleton<ShopLogic>
+    public class DataHelper
     {
         
     }

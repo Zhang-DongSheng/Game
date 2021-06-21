@@ -35,14 +35,13 @@ namespace Game.UI
             UIManager.Instance.Open(UIPanel.UINotice);
         }
 
-        public static void OpenUIReward(string title, List<PropInformation> props)
+        public static void OpenUIReward(RewardInformation reward)
         {
             if (UIManager.Instance.GetCtrl(UIPanel.UIReward) is CtrlBase ctrl)
             {
                 Paramter paramter = new Paramter()
                 {
-                    ["title"] = title,
-                    ["props"] = props,
+                    ["reward"] = reward,
                 };
                 ctrl.Paramter(paramter);
             }
