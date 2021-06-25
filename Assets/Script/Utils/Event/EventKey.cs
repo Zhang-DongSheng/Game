@@ -4,7 +4,7 @@
 
     EffectStatus,
 
-    RedDot,
+    Reddot,
 
     Login,
 

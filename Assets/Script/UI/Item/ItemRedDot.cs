@@ -3,19 +3,19 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class UIRedDot : MonoBehaviour
+    public class ItemReddot : MonoBehaviour
     {
         [SerializeField] private GameObject target;
 
-        [SerializeField] private RedKey main;
+        [SerializeField] private ReddotKey main;
 
-        [SerializeField] private List<RedKey> list;
+        [SerializeField] private List<ReddotKey> list;
 
         private bool active;
 
         private void Awake()
         {
-            EventManager.Register(EventKey.RedDot, Refresh);
+            EventManager.Register(EventKey.Reddot, Refresh);
         }
 
         private void Start()
@@ -25,7 +25,7 @@ namespace Game.UI
 
         private void OnDestroy()
         {
-            EventManager.Unregister(EventKey.RedDot, Refresh);
+            EventManager.Unregister(EventKey.Reddot, Refresh);
         }
 
         private void Refresh(EventMessageArgs args)
@@ -40,9 +40,9 @@ namespace Game.UI
             SetActive(active);
         }
 
-        public void UpdeteRedDotKey(params RedKey[] keys)
+        public void UpdeteRedDotKey(params ReddotKey[] keys)
         {
-            main = RedKey.None; list.Clear();
+            main = ReddotKey.None; list.Clear();
 
             switch (keys.Length)
             {

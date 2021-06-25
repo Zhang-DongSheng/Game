@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace Data
             return props.Find(x => x.key == key);
         }
     }
-    [System.Serializable]
+    [Serializable]
     public class PropInformation
     {
         public string key;

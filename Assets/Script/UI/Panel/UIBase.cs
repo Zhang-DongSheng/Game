@@ -23,6 +23,14 @@ namespace Game.UI
             transform.name = name;
         }
 
+        public void SetParent(Transform parent)
+        {
+            if (transform.parent != parent)
+            {
+                transform.SetParent(parent);
+            }
+        }
+
         public void SetActive(bool active)
         {
             if (gameObject.activeSelf != active)
@@ -36,14 +44,6 @@ namespace Game.UI
             if (component != null && component.gameObject.activeSelf != active)
             {
                 component.gameObject.SetActive(active);
-            }
-        }
-
-        public void SetParent(Transform parent)
-        {
-            if (transform.parent != parent)
-            {
-                transform.SetParent(parent);
             }
         }
     }

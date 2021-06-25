@@ -6,23 +6,11 @@ namespace UnityEngine
 {
     public static class TimeUtils
     {
+        private static readonly DateTime Source = new DateTime(621355968000000000);
+
+        private static TimeSpan span;
+
         private static readonly StringBuilder builder = new StringBuilder();
-
-        public static DateTime Now
-        {
-            get
-            {
-                return DateTime.Now;
-            }
-        }
-
-        public static DateTime UtcNow
-        {
-            get
-            {
-                return DateTime.UtcNow;
-            }
-        }
 
         public static DateTime LocalToUtc(DateTime time)
         {
@@ -36,7 +24,7 @@ namespace UnityEngine
 
         public static DateTime ToDateTime(long ticket)
         {
-            return new DateTime(ticket);
+            return Source.AddMilliseconds(ticket);
         }
 
         public static DateTime ToDateTime(string time)

@@ -80,15 +80,7 @@ namespace Game.UI
         {
             SetPosition(position);
 
-            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
-        }
-
-        public void Destroy()
-        {
-            if (gameObject != null)
-            {
-                GameObject.Destroy(gameObject);
-            }
+            SetSize(rect, width);
         }
 
         enum NoticeStatus

@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class ItemProp : ItemBase
+    public class ItemStatus : ItemBase
     {
-        public void Refresh(Prop prop)
-        {
-
+        public void Refresh(TaskStatus status)
+        { 
+            
         }
     }
 }

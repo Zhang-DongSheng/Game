@@ -2,31 +2,60 @@
 
 namespace Game.UI
 {
-    public class ItemBase : MonoBehaviour
+    public abstract class ItemBase : MonoBehaviour
     {
-        private Transform _self;
-        public Transform Self
+        protected virtual void SetPosition(Vector3 position)
         {
-            get
+            if (transform is RectTransform rect)
             {
-                if (_self == null)
-                {
-                    _self = transform;
-                }
-                return _self;
+                rect.anchoredPosition = position;
+            }
+            else
+            {
+                transform.localPosition = position;
             }
         }
 
-        public virtual void SetPosition(Vector3 position)
+        protected virtual void SetSize(RectTransform rect, float width = -1f, float height = -1f)
         {
-            Self.localPosition = position;
+            if (rect == null) return;
+
+            if (width != -1f)
+            {
+                rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+            }
+            if (height != -1f)
+            {
+                rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+            }
         }
 
-        public virtual void SetActive(bool active)
+        protected virtual void SetOrder(int index)
         {
-            if (Self != null && Self.gameObject.activeSelf != active)
+            transform.SetSiblingIndex(index);
+        }
+
+        protected virtual void SetActive(bool active)
+        {
+            if (gameObject != null && gameObject.gameObject.activeSelf != active)
             {
-                Self.gameObject.SetActive(active);
+                gameObject.gameObject.SetActive(active);
+            }
+        }
+
+        protected virtual void SetActive(Component component, bool active)
+        {
+            if (component != null && component.gameObject.activeSelf != active)
+            {
+                component.gameObject.SetActive(active);
+            }
+        }
+
+        public void Destroy()
+        {
+            if (gameObject != null)
+            {
+                GameObject.Destroy(gameObject);
             }
         }
     }

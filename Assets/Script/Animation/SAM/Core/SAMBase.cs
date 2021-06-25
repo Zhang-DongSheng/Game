@@ -112,9 +112,17 @@ namespace UnityEngine.SAM
 
         protected virtual void SetActive(bool active)
         {
-            if (gameObject != null && gameObject.activeSelf != active)
+            if (target != null && target.gameObject.activeSelf != active)
             {
-                gameObject.SetActive(active);
+                target.gameObject.SetActive(active);
+            }
+        }
+
+        protected virtual void SetActive(Component component, bool active)
+        {
+            if (component != null && component.gameObject.activeSelf != active)
+            {
+                component.gameObject.SetActive(active);
             }
         }
 

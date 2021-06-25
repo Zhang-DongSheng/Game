@@ -6,20 +6,20 @@ namespace Game
 {
     public class ReddotLogic : Singleton<ReddotLogic>
     {
-        private readonly Dictionary<RedKey, Reddot> _reddots = new Dictionary<RedKey, Reddot>();
+        private readonly Dictionary<ReddotKey, Reddot> _reddots = new Dictionary<ReddotKey, Reddot>();
 
         public void Init()
         {
 
         }
 
-        public bool Trigger(params RedKey[] keys)
+        public bool Trigger(params ReddotKey[] keys)
         {
             bool active = false;
 
             for (int i = 0; i < keys.Length; i++)
             {
-                if (keys[i] == RedKey.None) continue;
+                if (keys[i] == ReddotKey.None) continue;
 
                 if (_reddots.ContainsKey(keys[i]) && _reddots[keys[i]].active)
                 {
@@ -30,7 +30,7 @@ namespace Game
             return active;
         }
 
-        public void Update(RedKey key, bool value)
+        public void Update(ReddotKey key, bool value)
         {
             if (_reddots.ContainsKey(key))
             {
@@ -40,10 +40,10 @@ namespace Game
             {
                 _reddots.Add(key, new Reddot() { active = value });
             }
-            EventManager.Post(EventKey.RedDot, new EventMessageArgs());
+            EventManager.Post(EventKey.Reddot, new EventMessageArgs());
         }
 
-        public void Today(RedKey key)
+        public void Today(ReddotKey key)
         {
             string index = string.Format("red_{0}", key);
 
@@ -61,7 +61,7 @@ namespace Game
         public bool active;
     }
 
-    public enum RedKey
+    public enum ReddotKey
     {
         None,
         Test,

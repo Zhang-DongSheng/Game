@@ -93,4 +93,14 @@ public static partial class Extension
     {
         scroll.normalizedPosition = new Vector2(0, 0);
     }
+
+    public static void ToLeft(this ScrollRect scroll)
+    {
+        scroll.normalizedPosition = new Vector2(1, 0);
+    }
+
+    public static void ToRight(this ScrollRect scroll)
+    {
+        scroll.normalizedPosition = new Vector2(0, 0);
+    }
 }
