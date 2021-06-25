@@ -33,17 +33,22 @@ namespace Game.UI
 
         public void SetActive(bool active)
         {
-            if (gameObject.activeSelf != active)
-            {
-                gameObject.SetActive(active);
-            }
+            SetActive(gameObject, active);
         }
 
         public void SetActive(Component component, bool active)
         {
-            if (component != null && component.gameObject.activeSelf != active)
+            if (component != null)
             {
-                component.gameObject.SetActive(active);
+                SetActive(component.gameObject, active);
+            }
+        }
+
+        public void SetActive(GameObject go, bool active)
+        {
+            if (go != null && go.activeSelf != active)
+            {
+                go.SetActive(active);
             }
         }
     }
