@@ -3,11 +3,13 @@ using System.Collections.Generic;
 
 namespace Game
 {
-    public class BagLogic : Singleton<BagLogic>
+    public class BagLogic : Singleton<BagLogic>, ILogic
     {
         private readonly List<Currency> currencies = new List<Currency>();
 
         private readonly List<Prop> props = new List<Prop>();
+
+        public void Init() { }
 
         public void RenovateCurrency(CurrencyType currency, int number)
         {

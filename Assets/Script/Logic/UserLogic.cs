@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class UserLogic : Singleton<UserLogic>
+    public class UserLogic : Singleton<UserLogic>, ILogic
     {
         public void Init()
         { 

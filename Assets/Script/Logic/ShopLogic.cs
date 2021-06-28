@@ -4,8 +4,11 @@ using UnityEngine;
 
 namespace Game
 {
-    public class ShopLogic : Singleton<ShopLogic>
+    public class ShopLogic : Singleton<ShopLogic>, ILogic
     {
-        
+        public void Init()
+        { 
+            
+        }
     }
 }

@@ -11,7 +11,17 @@ namespace Game
 
         private void Awake()
         {
+            ScheduleLogic.Instance.Init();
 
+            UserLogic.Instance.Init();
+
+            BagLogic.Instance.Init();
+
+            ShopLogic.Instance.Init();
+
+            ActivityLogic.Instance.Init();
+
+            ReddotLogic.Instance.Init();
         }
 
         private void Start()

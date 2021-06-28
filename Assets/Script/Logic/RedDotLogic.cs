@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class ReddotLogic : Singleton<ReddotLogic>
+    public class ReddotLogic : Singleton<ReddotLogic>, ILogic
     {
         private readonly Dictionary<ReddotKey, Reddot> _reddots = new Dictionary<ReddotKey, Reddot>();
 

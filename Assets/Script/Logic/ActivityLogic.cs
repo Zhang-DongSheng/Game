@@ -2,9 +2,11 @@ using System.Collections.Generic;
 
 namespace Game
 {
-    public class ActivityLogic : Singleton<ActivityLogic>
+    public class ActivityLogic : Singleton<ActivityLogic>, ILogic
     {
         private readonly List<string> opened = new List<string>();
+
+        public void Init() { }
 
         public void Popup()
         {
