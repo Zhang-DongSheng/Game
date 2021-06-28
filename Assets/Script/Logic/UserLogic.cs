@@ -24,6 +24,8 @@ namespace Game
             args.AddOrReplace("message", "");
 
             EventManager.Post(EventKey.Login, args);
+
+            ScheduleLogic.Instance.Enter();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace UnityEngine.Audio
     [DisallowMultipleComponent]
     public class AudioHelper : MonoBehaviour
     {
-        [SerializeField] private SoundTrigger trigger = SoundTrigger.None;
+        [SerializeField] private AudioTrigger trigger = AudioTrigger.None;
 
         [SerializeField] private string sound;
 
@@ -13,17 +13,17 @@ namespace UnityEngine.Audio
         {
             switch (trigger)
             {
-                case SoundTrigger.Button:
+                case AudioTrigger.Button:
                     {
-                        if (GetComponent<Button>() is Button button)
+                        if (TryGetComponent(out Button button))
                         {
                             button.onClick.AddListener(Play);
                         }
                     }
                     break;
-                case SoundTrigger.Toggle:
+                case AudioTrigger.Toggle:
                     {
-                        if (GetComponent<Toggle>() is Toggle toggle)
+                        if (TryGetComponent(out Toggle toggle))
                         {
                             toggle.onValueChanged.AddListener((isOn) =>
                             {
@@ -41,7 +41,7 @@ namespace UnityEngine.Audio
 
         private void OnEnable()
         {
-            if (trigger == SoundTrigger.Active)
+            if (trigger == AudioTrigger.Active)
             {
                 Play();
             }
@@ -52,7 +52,7 @@ namespace UnityEngine.Audio
             AudioManager.Instance.PlayEffect(sound);
         }
 
-        enum SoundTrigger
+        enum AudioTrigger
         {
             None,
             Active,
