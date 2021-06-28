@@ -33,6 +33,10 @@ namespace UnityEditor.Window
         {
             applications.Clear();
 
+            //Windows
+            AddOrReplaceWindowsApplication("mspaint", "»­Í¼");
+            AddOrReplaceWindowsApplication("notepad", "¼ÇÊÂ±¾");
+
             string value = UnityEngine.PlayerPrefs.GetString(KEY);
 
             if (!string.IsNullOrEmpty(value))
@@ -41,12 +45,7 @@ namespace UnityEditor.Window
 
                 for (int i = 0; i < list.Length; i++)
                 {
-                    applications.Add(new ExApplication()
-                    {
-                        name = Path.GetFileNameWithoutExtension(list[i]),
-                        path = list[i],
-                        status = ExStatus.Off,
-                    });
+                    AddOrReplaceApplication(list[i]);
                 }
             }
         }
@@ -71,16 +70,9 @@ namespace UnityEditor.Window
                 {
                     if (string.IsNullOrEmpty(path)) return;
 
-                    if (!applications.Exists(x => x.path == path))
-                    {
-                        applications.Add(new ExApplication()
-                        {
-                            name = Path.GetFileNameWithoutExtension(path),
-                            path = path,
-                            status = ExStatus.Off,
-                        });
-                        Save();
-                    }
+                    AddOrReplaceApplication(path);
+
+                    Save();
                 }
             }
             GUILayout.EndHorizontal();
@@ -184,6 +176,35 @@ namespace UnityEditor.Window
                 GUILayout.Label(value.ToString());
             }
             GUILayout.EndHorizontal();
+        }
+
+        private void AddOrReplaceWindowsApplication(string application, string name)
+        {
+            string path = string.Format("C:/Windows/System32/{0}.exe", application);
+
+            AddOrReplaceApplication(path, name);
+        }
+
+        private void AddOrReplaceApplication(string path, string name = null)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                name = Path.GetFileNameWithoutExtension(path);
+            }
+
+            if (applications.Exists(x => x.name == name))
+            {
+
+            }
+            else
+            {
+                applications.Add(new ExApplication()
+                {
+                    name = name,
+                    path = path,
+                    status = ExStatus.Off,
+                });
+            }
         }
 
         private void Save()
