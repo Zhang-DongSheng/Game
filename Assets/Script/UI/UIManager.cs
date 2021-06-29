@@ -6,13 +6,17 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class UIManager : MonoSingleton<UIManager>
+    public sealed class UIManager : MonoSingleton<UIManager>
     {
+        private readonly List<Transform> _parents = new List<Transform>();
+
+        private readonly Dictionary<UIPanel, CtrlBase> _panels = new Dictionary<UIPanel, CtrlBase>();
+
+        private readonly List<CtrlBase> list = new List<CtrlBase>();
+
         private Canvas canvas;
 
-        private readonly List<Transform> parents = new List<Transform>();
-
-        private readonly Dictionary<UIPanel, CtrlBase> panels = new Dictionary<UIPanel, CtrlBase>();
+        private int index;
 
         private void Awake()
         {
@@ -56,7 +60,7 @@ namespace Game.UI
 
                     parent.AddComponent<GraphicRaycaster>();
 
-                    parents.Add(rect);
+                    _parents.Add(rect);
                 }
             }
             else
@@ -67,19 +71,48 @@ namespace Game.UI
 
         private void Register()
         {
-            panels.Add(UIPanel.UIConfirm, new CtrlBase());
+            _panels.Add(UIPanel.UIConfirm, new CtrlBase());
         }
 
-        public void Open(UIPanel key, UILayer layer = UILayer.None)
+        private void Push(UIPanel panel, CtrlBase ctrl)
+        {
+            if (panel == UIPanel.UILogin ||
+                panel == UIPanel.UITest)
+            {
+                if (list.Contains(ctrl))
+                {
+                    Debug.LogWarningFormat("The {0} page is opened repeatedly!", panel);
+                }
+                else
+                {
+                    list.Add(ctrl);
+                }
+            }
+        }
+
+        private void Remove(UIPanel panel)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].panel == panel)
+                {
+                    list.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+
+        public void Open(UIPanel panel, UILayer layer = UILayer.None)
         {
             try
             {
-                if (panels.ContainsKey(key)) { }
-                else
+                if (_panels.ContainsKey(panel) == false)
                 {
-                    panels.Add(key, new CtrlBase());
+                    _panels.Add(panel, new CtrlBase());
                 }
-                panels[key].Open(key, layer);
+                _panels[panel].Open(panel, layer);
+
+                Push(panel, _panels[panel]);
             }
             catch (Exception e)
             {
@@ -87,36 +120,71 @@ namespace Game.UI
             }
         }
 
-        public void Close(UIPanel key, bool destroy = false)
+        public void Back()
         {
-            if (panels.ContainsKey(key))
+            if (list.Count > 0)
             {
-                panels[key].Close(destroy);
+                index = list.Count - 1;
+
+                list[index].Close(false);
+
+                list.RemoveAt(index);
+
+                index = list.Count - 1;
+
+                if (index > -1 && !list[index].active)
+                {
+                    list[index].Open();
+                }
+            }
+            else
+            {
+                Debug.LogWarning("this is last panel!");
+            }
+        }
+
+        public void Close(UIPanel panel, bool destroy = false)
+        {
+            if (_panels.ContainsKey(panel))
+            {
+                _panels[panel].Close(destroy);
+
+                Remove(panel);
             }
         }
 
         public void CloseAll(bool destroy = false)
         {
-            foreach (var panel in panels.Values)
+            foreach (var panel in _panels.Values)
             {
                 panel.Close(destroy);
             }
+            list.Clear();
+        }
+
+        public void Main()
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                list[i].Close(false);
+            }
+            list.Clear();
         }
 
         public CtrlBase GetCtrl(UIPanel key)
         {
-            if (panels.ContainsKey(key) == false)
+            if (_panels.ContainsKey(key) == false)
             {
-                panels.Add(key, new CtrlBase());
+                _panels.Add(key, new CtrlBase());
             }
-            return panels[key];
+            return _panels[key];
         }
 
         public Transform GetParent(UILayer layer)
         {
             try
             {
-                return parents[(int)layer - 1];
+                return _parents[(int)layer - 1];
             }
             catch (Exception e)
             {
@@ -176,21 +244,6 @@ namespace Game.UI
             {
                 return RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, point, null, out position);
             }
-        }
-
-        public Canvas Canvas(UIBase view)
-        {
-            Transform root = view.transform;
-
-            while (root != null)
-            {
-                if (root.TryGetComponent(out Canvas canvas))
-                {
-                    return canvas;
-                }
-                root = root.parent;
-            }
-            return null;
         }
     }
 

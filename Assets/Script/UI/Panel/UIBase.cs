@@ -11,10 +11,7 @@ namespace Game.UI
 
         public virtual void Init() { }
 
-        public virtual void Reopen()
-        {
-            SetActive(true);
-        }
+        public virtual void Reopen() { }
 
         public virtual void Refresh(Paramter paramter) { }
 

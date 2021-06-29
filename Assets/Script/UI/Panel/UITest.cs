@@ -10,15 +10,19 @@ namespace Game.UI
     {
         public RawImage image;
 
+        public ToggleGroupHelper toggle;
+
         public Button btn_next;
 
-        public ToggleGroupHelper toggle;
+        public Button btn_back;
 
         private int index;
 
         private void Awake()
         {
             btn_next.onClick.AddListener(OnClick);
+
+            btn_back.onClick.AddListener(OnCilckBack);
 
             toggle.onClick.AddListener(OnClickToggle);
         }
@@ -56,6 +60,11 @@ namespace Game.UI
             {
                 UIManager.Instance.Open(UIPanel.UILotteryDraw);
             }
+        }
+
+        private void OnCilckBack()
+        {
+            UIManager.Instance.Back();
         }
 
         private void OnClick()

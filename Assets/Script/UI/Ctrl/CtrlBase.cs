@@ -10,26 +10,34 @@ namespace Game.UI
 
         protected Paramter paramter;
 
-        protected int number;
-
-        protected bool active;
-
         private Status status = Status.None;
 
-        public void Open(UIPanel key, UILayer layer)
+        public void Open(UIPanel panel, UILayer layer)
+        {
+            this.panel = panel;
+
+            this.layer = layer;
+
+            Open();
+        }
+
+        public void Open()
         {
             active = true; number++;
 
             switch (status)
             {
                 case Status.None:
-                    Load(key, layer);
+                    Load(panel, layer);
                     break;
                 case Status.Loading:
-                    Debug.LogWarningFormat("The paenl of [{0}] is loading...", key);
+                    Debug.LogWarningFormat("The paenl of [{0}] is loading...", panel);
                     break;
                 case Status.Display:
-                    Show();
+                    if (view != null)
+                    {
+                        view.Reopen(); Show();
+                    }
                     break;
             }
         }
@@ -54,24 +62,6 @@ namespace Game.UI
             else
             {
                 Hide();
-            }
-        }
-
-        protected virtual void Show()
-        {
-            if (view != null)
-            {
-                view.Reopen(); view.Refresh(paramter);
-
-                UIManager.Instance.SortDisplay(view.layer, view.transform);
-            }
-        }
-
-        protected virtual void Hide()
-        {
-            if (view != null)
-            {
-                view.SetActive(false);
             }
         }
 
@@ -108,18 +98,38 @@ namespace Game.UI
 
             rect.Reset(); rect.Full();
 
-            view.Init();
-
-            view.Refresh(paramter);
-
-            view.SetActive(active);
-
-            UIManager.Instance.SortDisplay(view.layer, go.transform);
+            view.Init(); Show();
 
             status = Status.Display;
         }
 
-        public int Number { get { return number; } }
+        protected virtual void Show()
+        {
+            if (view != null)
+            {
+                view.Refresh(paramter);
+
+                view.SetActive(active);
+
+                UIManager.Instance.SortDisplay(view.layer, view.transform);
+            }
+        }
+
+        protected virtual void Hide()
+        {
+            if (view != null)
+            {
+                view.SetActive(false);
+            }
+        }
+
+        public UIPanel panel { get; protected set; }
+
+        public UILayer layer { get; protected set; }
+
+        public bool active { get; protected set; }
+
+        public int number { get; protected set; }
 
         enum Status
         {
