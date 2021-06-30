@@ -1,4 +1,5 @@
-﻿using Game.Network;
+﻿using Game;
+using Game.Network;
 using UnityEngine;
 using UnityEngine.UI;
 

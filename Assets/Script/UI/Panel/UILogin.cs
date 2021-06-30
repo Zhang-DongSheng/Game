@@ -97,11 +97,7 @@ namespace Game.UI
 
         private void OnClickLogin()
         {
-            UserLogic.Instance.RequestLogin(new JsonData()
-            {
-                ["account"] = account,
-                ["password"] = password,
-            });
+            UserLogic.Instance.RequestInformation();
         }
     }
 }
