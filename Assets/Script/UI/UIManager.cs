@@ -12,7 +12,7 @@ namespace Game.UI
 
         private readonly Dictionary<UIPanel, CtrlBase> _panels = new Dictionary<UIPanel, CtrlBase>();
 
-        private readonly List<CtrlBase> list = new List<CtrlBase>();
+        private readonly List<CtrlBase> _records = new List<CtrlBase>();
 
         private Canvas canvas;
 
@@ -79,30 +79,30 @@ namespace Game.UI
             if (panel == UIPanel.UILogin ||
                 panel == UIPanel.UITest)
             {
-                if (list.Contains(ctrl))
+                if (_records.Contains(ctrl))
                 {
                     Debug.LogWarningFormat("The {0} page is opened repeatedly!", panel);
                 }
                 else
                 {
-                    list.Add(ctrl);
+                    _records.Add(ctrl);
                 }
             }
         }
 
         private void Remove(UIPanel panel)
         {
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < _records.Count; i++)
             {
-                if (list[i].panel == panel)
+                if (_records[i].panel == panel)
                 {
-                    list.RemoveAt(i);
+                    _records.RemoveAt(i);
                     break;
                 }
             }
         }
 
-        public void Open(UIPanel panel, UILayer layer = UILayer.None)
+        public void Open(UIPanel panel, UILayer layer = UILayer.None, bool record = false)
         {
             try
             {
@@ -112,7 +112,10 @@ namespace Game.UI
                 }
                 _panels[panel].Open(panel, layer);
 
-                Push(panel, _panels[panel]);
+                if (record)
+                {
+                    Push(panel, _panels[panel]);
+                }
             }
             catch (Exception e)
             {
@@ -122,19 +125,19 @@ namespace Game.UI
 
         public void Back()
         {
-            if (list.Count > 0)
+            if (_records.Count > 0)
             {
-                index = list.Count - 1;
+                index = _records.Count - 1;
 
-                list[index].Close(false);
+                _records[index].Close(false);
 
-                list.RemoveAt(index);
+                _records.RemoveAt(index);
 
-                index = list.Count - 1;
+                index = _records.Count - 1;
 
-                if (index > -1 && !list[index].active)
+                if (index > -1 && !_records[index].active)
                 {
-                    list[index].Open();
+                    _records[index].Open();
                 }
             }
             else
@@ -148,9 +151,8 @@ namespace Game.UI
             if (_panels.ContainsKey(panel))
             {
                 _panels[panel].Close(destroy);
-
-                Remove(panel);
             }
+            Remove(panel);
         }
 
         public void CloseAll(bool destroy = false)
@@ -159,16 +161,7 @@ namespace Game.UI
             {
                 panel.Close(destroy);
             }
-            list.Clear();
-        }
-
-        public void Main()
-        {
-            for (int i = 0; i < list.Count; i++)
-            {
-                list[i].Close(false);
-            }
-            list.Clear();
+            _records.Clear();
         }
 
         public CtrlBase GetCtrl(UIPanel key)

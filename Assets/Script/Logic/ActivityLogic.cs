@@ -4,47 +4,88 @@ namespace Game
 {
     public class ActivityLogic : Singleton<ActivityLogic>, ILogic
     {
-        private readonly List<string> opened = new List<string>();
+        private readonly List<PopupPanel> panels = new List<PopupPanel>();
 
-        public void Init() { }
+        public void Init()
+        {
+            NetworkEventManager.Register(NetworkEventKey.Activity, OnReceivedInformation);
+        }
 
+        #region Function
         public void Popup()
         {
-            if (Popup("1"))
+            foreach (var panel in panels)
             {
-
-            }
-            else if (Popup("2"))
-            {
-
-            }
-            else if (Popup("3"))
-            {
-
+                if (Popup(panel))
+                {
+                    break;
+                }
             }
         }
 
-        private bool Popup(string key)
+        public bool Popup(PopupPanel panel)
         {
-            if (opened.Contains(key))
+            if (panels.Contains(panel))
             {
                 return false;
             }
             else
             {
-                opened.Add(key);
+                panels.Add(panel);
 
-                switch (key)
+                switch (panel)
                 {
-                    case "":
-
+                    case PopupPanel.SignIn:
+                        {
+                            if (true)
+                            {
+                                return true;
+                            }
+                        }
+                        break;
+                    case PopupPanel.MonthCard:
+                        {
+                            if (true)
+                            {
+                                return true;
+                            }
+                        }
+                        break;
+                    case PopupPanel.DailyTask:
+                        {
+                            if (true)
+                            {
+                                return true;
+                            }
+                        }
                         break;
                     default:
-
                         break;
                 }
-                return true;
+                return false;
             }
         }
+        #endregion
+
+        #region Request
+        public void RequestInformation()
+        {
+
+        }
+        #endregion
+
+        #region Receive
+        private void OnReceivedInformation(NetworkEventHandle handle)
+        {
+
+        }
+        #endregion
+    }
+
+    public enum PopupPanel
+    { 
+        SignIn,
+        MonthCard,
+        DailyTask,
     }
 }

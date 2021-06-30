@@ -1,4 +1,3 @@
-using LitJson;
 using UnityEngine;
 
 namespace Game
@@ -6,16 +5,19 @@ namespace Game
     public class UserLogic : Singleton<UserLogic>, ILogic
     {
         public void Init()
-        { 
-            
-        }
-
-        public void RequestLogin(JsonData json)
         {
-            OnReceivedLogin();
+            NetworkEventManager.Register(NetworkEventKey.User, OnReceivedInformation);
         }
 
-        private void OnReceivedLogin()
+        #region Request
+        public void RequestInformation()
+        {
+
+        }
+        #endregion
+
+        #region Receive
+        private void OnReceivedInformation(NetworkEventHandle handle)
         {
             EventMessageArgs args = new EventMessageArgs();
 
@@ -27,5 +29,6 @@ namespace Game
 
             ScheduleLogic.Instance.Enter();
         }
+        #endregion
     }
 }

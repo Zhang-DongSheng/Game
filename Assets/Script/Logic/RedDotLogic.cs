@@ -10,9 +10,10 @@ namespace Game
 
         public void Init()
         {
-
+            NetworkEventManager.Register(NetworkEventKey.Reddot, OnReceivedInformation);
         }
 
+        #region Function
         public bool Trigger(params ReddotKey[] keys)
         {
             bool active = false;
@@ -54,6 +55,21 @@ namespace Game
                 Update(key, true);
             }
         }
+        #endregion
+
+        #region Request
+        public void RequestInformation()
+        {
+
+        }
+        #endregion
+
+        #region Receive
+        private void OnReceivedInformation(NetworkEventHandle handle)
+        {
+
+        }
+        #endregion
     }
 
     public class Reddot

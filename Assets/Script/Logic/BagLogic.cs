@@ -9,8 +9,12 @@ namespace Game
 
         private readonly List<Prop> props = new List<Prop>();
 
-        public void Init() { }
+        public void Init()
+        {
+            NetworkEventManager.Register(NetworkEventKey.Bag, OnReceivedInformation);
+        }
 
+        #region Function
         public void RenovateCurrency(CurrencyType currency, int number)
         {
             if (currencies.Exists(x => x.currency == currency))
@@ -48,5 +52,20 @@ namespace Game
                 props.Add(prop);
             }
         }
+        #endregion
+
+        #region Request
+        public void RequestInformation()
+        {
+
+        }
+        #endregion
+
+        #region Receive
+        private void OnReceivedInformation(NetworkEventHandle handle)
+        {
+
+        }
+        #endregion
     }
 }
