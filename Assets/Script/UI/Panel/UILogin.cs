@@ -97,7 +97,11 @@ namespace Game.UI
 
         private void OnClickLogin()
         {
-            UserLogic.Instance.RequestInformation();
+            //UserLogic.Instance.RequestInformation();
+
+            UIManager.Instance.Close(UIPanel.UILogin);
+
+            UIManager.Instance.Open(UIPanel.UIMain);
         }
     }
 }

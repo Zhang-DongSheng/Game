@@ -1,43 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public static partial class Extension
+namespace Game
 {
-    public static V IndexOf<K, V>(this Dictionary<K, V> pairs, int index)
+    public static partial class Extension
     {
-        if (index > -1 && pairs.Count > index)
+        public static TValue IndexOf<TKey, TValue>(this Dictionary<TKey, TValue> pairs, int index)
         {
-            foreach (KeyValuePair<K, V> pair in pairs)
+            if (index > -1 && pairs.Count > index)
             {
-                if (index-- == 0)
+                foreach (KeyValuePair<TKey, TValue> pair in pairs)
+                {
+                    if (index-- == 0)
+                    {
+                        return pair.Value;
+                    }
+                }
+            }
+            return default;
+        }
+
+        public static TValue Find<TKey, TValue>(this Dictionary<TKey, TValue> pairs, Predicate<TValue> match)
+        {
+            foreach (KeyValuePair<TKey, TValue> pair in pairs)
+            {
+                if (match(pair.Value))
                 {
                     return pair.Value;
                 }
             }
+            return default;
         }
-        return default;
-    }
 
-    public static V Find<K, V>(this Dictionary<K, V> pairs, Predicate<V> match)
-    {
-        foreach (KeyValuePair<K, V> pair in pairs)
+        public static List<TValue> ToList<TKey, TValue>(this Dictionary<TKey, TValue> pairs)
         {
-            if (match(pair.Value))
+            List<TValue> list = new List<TValue>();
+
+            foreach (KeyValuePair<TKey, TValue> pair in pairs)
             {
-                return pair.Value;
+                list.Add(pair.Value);
             }
+            return list;
         }
-        return default;
-    }
-
-    public static List<V> ToList<K, V>(this Dictionary<K, V> pairs)
-    {
-        List<V> list = new List<V>();
-
-        foreach (KeyValuePair<K, V> pair in pairs)
-        {
-            list.Add(pair.Value);
-        }
-        return list;
     }
 }

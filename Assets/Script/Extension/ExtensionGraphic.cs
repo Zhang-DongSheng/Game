@@ -1,50 +1,60 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public static partial class Extension
+namespace Game
 {
-    public static Material CloneMaterial(this Graphic graphic)
+    public static partial class Extension
     {
-        if (graphic != null && graphic.material != null)
+        /// <summary>
+        /// 生成新材质球
+        /// </summary>
+        public static Material CloneMaterial(this Graphic graphic)
         {
-            Material source = graphic.material;
+            if (graphic != null && graphic.material != null)
+            {
+                Material source = graphic.material;
 
-            Material clone = GameObject.Instantiate(source);
+                Material clone = GameObject.Instantiate(source);
 
-            graphic.material = clone;
+                graphic.material = clone;
 
-            return clone;
+                return clone;
+            }
+            return null;
         }
-        return null;
-    }
+        /// <summary>
+        /// 生成Sprite
+        /// </summary>
+        public static Sprite Sprite(this Texture2D texture)
+        {
+            return UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+        }
+        /// <summary>
+        /// 生成Texture2D
+        /// </summary>
+        public static Texture2D Texture2D(this Texture texture)
+        {
+            int width = texture.width, height = texture.height;
 
-    public static Sprite Sprite(this Texture2D texture)
-    {
-        return UnityEngine.Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
-    }
+            Texture2D texture2D = new Texture2D(width, height, TextureFormat.RGBA32, false);
 
-    public static Texture2D Texture2D(this Texture texture)
-    {
-        int width = texture.width, height = texture.height;
+            RenderTexture active = RenderTexture.active;
 
-        Texture2D texture2D = new Texture2D(width, height, TextureFormat.RGBA32, false);
+            RenderTexture render = RenderTexture.GetTemporary(width, height, 32);
 
-        RenderTexture active = RenderTexture.active;
+            Graphics.Blit(texture, render);
 
-        RenderTexture render = RenderTexture.GetTemporary(width, height, 32);
+            RenderTexture.active = render;
 
-        Graphics.Blit(texture, render);
+            texture2D.ReadPixels(new Rect(0, 0, width, height), 0, 0);
 
-        RenderTexture.active = render;
+            texture2D.Apply();
 
-        texture2D.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+            RenderTexture.active = active;
 
-        texture2D.Apply();
+            RenderTexture.ReleaseTemporary(render);
 
-        RenderTexture.active = active;
-
-        RenderTexture.ReleaseTemporary(render);
-
-        return texture2D;
+            return texture2D;
+        }
     }
 }
