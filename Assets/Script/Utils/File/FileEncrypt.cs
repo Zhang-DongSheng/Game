@@ -17,6 +17,8 @@ namespace UnityEngine.Encrypt
 
         private const string RSAKEY = "abcdefgh";
 
+        private const string BASE64KEY = "test";
+
         public static string Encrypt(string value, EncryptType encrypt = EncryptType.AES)
         {
             if (string.IsNullOrEmpty(value)) return null;
@@ -29,6 +31,8 @@ namespace UnityEngine.Encrypt
                     return DESEncrypt(value);
                 case EncryptType.RSA:
                     return RSAEncrypt(value);
+                case EncryptType.Base64:
+                    return Base64Encrypt(value);
                 default:
                     return value;
             }
@@ -46,14 +50,12 @@ namespace UnityEngine.Encrypt
                     return DESDecrypt(value);
                 case EncryptType.RSA:
                     return RSADecrypt(value);
+                case EncryptType.Base64:
+                    return Base64Decrypt(value);
                 default:
                     return value;
             }
         }
-
-        private static byte[] AESKEY { get { return Encoding.Default.GetBytes(AESKEY32); } }
-
-        private static byte[] AESIV { get { return Encoding.Default.GetBytes(AESIV16); } }
 
         private static string AESEncrypt(string value)
         {
@@ -78,10 +80,6 @@ namespace UnityEngine.Encrypt
             }
             return value;
         }
-
-        private static byte[] DESKEY { get { return Encoding.Default.GetBytes(DESKEY8); } }
-
-        private static byte[] DESIV { get { return Encoding.Default.GetBytes(DESIV8); } }
 
         private static string DESEncrypt(string value)
         {
@@ -148,6 +146,37 @@ namespace UnityEngine.Encrypt
             }
             return Encoding.Default.GetString(buffer);
         }
+
+        private static string Base64Encrypt(string value)
+        {
+            if (value.StartsWith(BASE64KEY))
+            {
+                value = value.Remove(0, BASE64KEY.Length);
+
+                byte[] buffer = Convert.FromBase64String(value);
+
+                return Encoding.Default.GetString(buffer);
+            }
+            else
+            {
+                return value;
+            }
+        }
+
+        private static string Base64Decrypt(string value)
+        {
+            value = Convert.ToBase64String(Encoding.Default.GetBytes(value));
+
+            return string.Format("{0}{1}", BASE64KEY, value);
+        }
+
+        private static byte[] AESKEY { get { return Encoding.Default.GetBytes(AESKEY32); } }
+
+        private static byte[] AESIV { get { return Encoding.Default.GetBytes(AESIV16); } }
+
+        private static byte[] DESKEY { get { return Encoding.Default.GetBytes(DESKEY8); } }
+
+        private static byte[] DESIV { get { return Encoding.Default.GetBytes(DESIV8); } }
     }
 
     public enum EncryptType
@@ -155,5 +184,6 @@ namespace UnityEngine.Encrypt
         AES,
         DES,
         RSA,
+        Base64,
     }
 }

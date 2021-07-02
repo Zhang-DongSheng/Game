@@ -41,7 +41,15 @@ namespace TEST
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            
+            string test = "Assets/like/test.meta";
+
+            string a = FileUtils.UnityToSystem(test);
+
+            string b = FileUtils.SystemToUnity(a);
+
+            Debug.LogError(a);
+
+            Debug.LogError(b);
         }
     }
 }

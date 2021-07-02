@@ -26,4 +26,10 @@
         Vertical,
         Slant,
     }
+
+    public enum Axis
+    {
+        Horizontal,
+        Vertical,
+    }
 }
