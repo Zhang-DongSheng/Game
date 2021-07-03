@@ -46,6 +46,7 @@ Shader "Blur/Radial"
             v2f vert (appdata v)
             {
                 v2f o;
+
                 o.vertex = UnityObjectToClipPos(v.vertex);
 
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
