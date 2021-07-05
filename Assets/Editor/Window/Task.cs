@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +10,13 @@ namespace UnityEditor.Window
 
         private const int WIDTH = 45;
 
-        private TaskInformation create;
-
         private TaskData task;
 
-        protected override string Title { get { return "»ŒŒÒ÷––ƒ"; } }
+        private TaskInformation create;
+
+        private bool active = false;
+
+        protected override string Title { get { return "‰ªªÂä°‰∏≠ÂøÉ"; } }
         [MenuItem("Window/Task")]
         protected static void Open()
         {
@@ -61,11 +63,18 @@ namespace UnityEditor.Window
             }
             GUILayout.EndVertical();
 
-            GUILayout.BeginHorizontal(GUILayout.Height(60));
+            if (GUILayout.Button(active ? "‚ñº" : "‚ñ∂", GUILayout.Width(25)))
             {
-                RefreshTask(create);
+                active = !active;
             }
-            GUILayout.EndHorizontal();
+            if (active)
+            {
+                GUILayout.BeginHorizontal(GUILayout.Height(60));
+                {
+                    RefreshTask(create);
+                }
+                GUILayout.EndHorizontal();
+            }
         }
 
         private void RefreshTask(TaskInformation task)
@@ -76,7 +85,7 @@ namespace UnityEditor.Window
                     {
                         RefreshWrite(task);
 
-                        if (GUILayout.Button("–¬º”", GUILayout.Width(100), GUILayout.ExpandHeight(true)))
+                        if (GUILayout.Button("Êñ∞Âä†", GUILayout.Width(100), GUILayout.ExpandHeight(true)))
                         {
                             task.status = Status.None;
 
@@ -95,11 +104,11 @@ namespace UnityEditor.Window
 
                         GUILayout.BeginVertical(GUILayout.Width(100));
                         {
-                            if (GUILayout.Button("±£¥Ê"))
+                            if (GUILayout.Button("‰øùÂ≠ò"))
                             {
                                 task.status = Status.None; Save();
                             }
-                            if (GUILayout.Button("…æ≥˝"))
+                            if (GUILayout.Button("Âà†Èô§"))
                             {
                                 this.task.Remove(task.name); Save();
                             }
@@ -111,7 +120,7 @@ namespace UnityEditor.Window
                     {
                         RefreshRead(task);
 
-                        if (GUILayout.Button("–ﬁ∏ƒ"))
+                        if (GUILayout.Button("‰øÆÊîπ"))
                         {
                             task.status = Status.Editor;
                         }
@@ -126,11 +135,11 @@ namespace UnityEditor.Window
             {
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Button("√˚≥∆:", GUILayout.Width(WIDTH));
+                    GUILayout.Button("ÂêçÁß∞:", GUILayout.Width(WIDTH));
 
                     GUILayout.Label(task.name, GUILayout.Width(150));
 
-                    GUILayout.Button("Ω¯∂»:", GUILayout.Width(WIDTH));
+                    GUILayout.Button("ËøõÂ∫¶:", GUILayout.Width(WIDTH));
 
                     GUILayout.Label(string.Format("{0}%", task.progress));
                 }
@@ -138,7 +147,7 @@ namespace UnityEditor.Window
 
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Button("√Ë ˆ:", GUILayout.Width(WIDTH));
+                    GUILayout.Button("ÊèèËø∞:", GUILayout.Width(WIDTH));
 
                     GUILayout.Label(task.description, GUILayout.ExpandHeight(true));
                 }
@@ -153,7 +162,7 @@ namespace UnityEditor.Window
             {
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Button("√˚≥∆:", GUILayout.Width(WIDTH));
+                    GUILayout.Button("ÂêçÁß∞:", GUILayout.Width(WIDTH));
 
                     task.name = GUILayout.TextField(task.name);
 
@@ -161,7 +170,7 @@ namespace UnityEditor.Window
                     {
                         case Status.Editor:
                             {
-                                GUILayout.Button("Ω¯∂»:", GUILayout.Width(WIDTH));
+                                GUILayout.Button("ËøõÂ∫¶:", GUILayout.Width(WIDTH));
 
                                 GUILayout.Label(string.Format("{0}%", task.progress), GUILayout.Width(100));
 
@@ -174,7 +183,7 @@ namespace UnityEditor.Window
 
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Button("√Ë ˆ:", GUILayout.Width(WIDTH));
+                    GUILayout.Button("ÊèèËø∞:", GUILayout.Width(WIDTH));
 
                     task.description = GUILayout.TextField(task.description, GUILayout.ExpandHeight(true));
                 }
