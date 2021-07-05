@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using UnityEditor.Window;
 using UnityEngine;
 
 namespace UnityEditor
 {
-    public class ExcelTools : EditorWindow
+	public class ExcelTools : CustomWindow
 	{
 		private const string Extension = ".xlsx";
 
@@ -56,8 +57,6 @@ namespace UnityEditor
 
 		private string input_outputFolder;
 
-		private Vector2 scroll;
-
 		private Encoding encoding;
 
 		private int search;
@@ -68,17 +67,14 @@ namespace UnityEditor
 
 		private readonly List<ItemFile> source = new List<ItemFile>();
 
+		protected override string Title { get { return "Excel"; } }
 		[MenuItem("Art/Excel")]
 		protected static void Open()
 		{
-			ExcelTools window = EditorWindow.GetWindow<ExcelTools>();
-			window.titleContent = new GUIContent("Excel Tools");
-			window.minSize = new Vector2(500, 200);
-			window.Init();
-			window.Show();
+			Open<ExcelTools>();
 		}
 
-		public void Init()
+		protected override void Init()
 		{
 			input_inputFolder = Path.Combine(Application.dataPath.Remove(Application.dataPath.Length - 6, 6), InputPath);
 
@@ -93,12 +89,7 @@ namespace UnityEditor
 			Load();
 		}
 
-		private void OnSelectionChange()
-		{
-			Show(); Load(); Repaint();
-		}
-
-		private void OnGUI()
+		protected override void Refresh()
 		{
 			index_view = GUILayout.Toolbar(index_view, text_view);
 
@@ -312,6 +303,11 @@ namespace UnityEditor
 			{
 				Application.OpenURL("https://www.baidu.com");
 			}
+		}
+
+		private void OnSelectionChange()
+		{
+			Show(); Load(); Repaint();
 		}
 
 		private void Load()

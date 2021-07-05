@@ -1,5 +1,6 @@
 ﻿using Data;
 using System.Collections.Generic;
+using UnityEditor.Window;
 using UnityEngine;
 using Utils;
 
@@ -214,7 +215,7 @@ namespace UnityEditor
                     {
                         key = file.name,
                         capacity = -1,
-                        secret = MD5Tools.ComputeFile(file.path),
+                        secret = Md5Tools.ComputeFile(file.path),
                         prefab = AssetDatabase.LoadAssetAtPath(Format(file.path), typeof(Object)),
                         description = file.path,
                     });

@@ -6,12 +6,9 @@ namespace UnityEditor.Window
 {
     class Debuger : CustomWindow
     {
-        protected override string Title { get { return "调试工具"; } }
-
-        protected Vector2 scroll;
-
         private readonly List<string> parameter = new List<string>();
 
+        protected override string Title { get { return "调试工具"; } }
         [MenuItem("Script/Debuger")]
         protected static void Open()
         {

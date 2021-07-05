@@ -7,24 +7,20 @@ namespace UnityEditor.Window
 {
     class AutomationCode : CustomWindow
     {
-        protected override string Title { get { return "代码生成"; } }
-
         private string code;
 
         private int index;
 
         private readonly List<PropertyParameter> parameters = new List<PropertyParameter>();
 
+        protected override string Title { get { return "代码生成"; } }
         [MenuItem("Script/Editor")]
         protected static void Open()
         {
             Open<AutomationCode>();
         }
 
-        protected override void Init()
-        {
-
-        }
+        protected override void Init() { }
 
         protected override void Refresh()
         {

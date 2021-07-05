@@ -1,10 +1,12 @@
 using UnityEngine;
 
-namespace UnityEditor
+namespace UnityEditor.Window
 {
     public abstract class CustomWindow : EditorWindow
     {
         protected abstract string Title { get; }
+
+        protected Vector2 scroll;
 
         protected static void Open<T>() where T : CustomWindow, new()
         {
@@ -13,11 +15,6 @@ namespace UnityEditor
             window.maxSize = new Vector2(2048, 2048);
             window.titleContent = new GUIContent(window.Title);
             window.Init(); window.Show();
-        }
-
-        private void Awake()
-        {
-
         }
 
         private void OnGUI()

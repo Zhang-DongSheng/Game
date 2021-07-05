@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Test
-  m_Shader: {fileID: 4800000, guid: e0157b1c89dbf714694a35645863415b, type: 3}
+  m_Shader: {fileID: 4800000, guid: e840eb79b1a485849b9e23768aadba54, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ee9484baf923d964eb45c717554b4a79, type: 3}
+        m_Texture: {fileID: 2800000, guid: e54e15e3c6e0b134385a5cf3f62db16d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -55,23 +55,29 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _OffsetMap:
+        m_Texture: {fileID: 2800000, guid: 1c1bef4b40e990c42aed6432ebd324ef, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - PixelSnap: 0
-    - _BumpScale: 0.13
+    - _Amount: 0.03
+    - _BumpScale: 2.84
     - _ColorMask: 15
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _Enum: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.07
+    - _Glossiness: 0.526
     - _GlossyReflections: 1
+    - _Height: 128
     - _LightMode: 2
-    - _Metallic: 0
+    - _Metallic: 0.338
     - _Mode: 0
     - _MoveSpeed: 55.03
     - _OcclusionStrength: 1
@@ -85,6 +91,10 @@ Material:
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
     - _UVSec: 0
+    - _VerticalBillboarding: 1
+    - _Width: 128
+    - _X: 128
+    - _Y: 128
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

@@ -5,29 +5,24 @@ using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
 
-namespace UnityEditor
+namespace UnityEditor.Window
 {
-    public class MD5Tools : EditorWindow
+    public class Md5Tools : CustomWindow
     {
         private string input_string, input_file;
 
         private string result;
 
+        protected override string Title { get { return "Md5"; } }
         [MenuItem("Tools/File/MD5")]
         protected static void Open()
         {
-            MD5Tools window = EditorWindow.GetWindow<MD5Tools>();
-            window.titleContent = new GUIContent("MD5");
-            window.minSize = new Vector2(500, 100);
-            window.Show();
+            Open<Md5Tools>();
         }
 
-        private void OnGUI()
-        {
-            Refresh();
-        }
+        protected override void Init() { }
 
-        private void Refresh()
+        protected override void Refresh()
         {
             GUILayout.BeginArea(new Rect(10, 10, Screen.width - 20, Screen.height - 20));
             {
