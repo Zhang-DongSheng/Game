@@ -3,9 +3,9 @@ Shader "UI/Mask"
 {
     Properties 
     {
-        [PerRendererData]_MainTex ("MainTex", 2D) = "white" {}
+        [PerRendererData] _MainTex ("MainTex", 2D) = "white" {}
         _MaskTex ("MaskTex", 2D) = "white" {}
-        [HideInInspector]_Cutoff ("Alpha cutoff", Range(0,1)) = 0.5
+        [HideInInspector] _Cutoff ("Alpha cutoff", Range(0,1)) = 0.5
 
         //MASK SUPPORT ADD
         _StencilComp ("Stencil Comparison", Float) = 8
