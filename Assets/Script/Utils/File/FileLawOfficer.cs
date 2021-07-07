@@ -11,10 +11,10 @@ namespace UnityEngine
 
         private void Awake()
         {
-            StartCoroutine(Download());
+            StartCoroutine(Download(url));
         }
 
-        IEnumerator Download()
+        IEnumerator Download(string url)
         {
             UnityWebRequest request = UnityWebRequest.Get(url);
 
@@ -62,7 +62,7 @@ namespace UnityEngine
                 value = value.Replace("%0", "ios");
 #endif
             }
-            string.Format("{0}/{1}", Application.persistentDataPath, value);
+            value = string.Format("{0}/{1}", Application.persistentDataPath, value);
 
             Delete(value);
         }
