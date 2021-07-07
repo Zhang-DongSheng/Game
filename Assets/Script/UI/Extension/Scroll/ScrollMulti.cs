@@ -5,7 +5,7 @@ namespace UnityEngine.UI
     /// <summary>
     /// 叠加滑动列表
     /// </summary>
-    public class ScrollMulti : ScrollRect, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class ScrollMulti : ScrollRect
     {
         [SerializeField] private ScrollRect scroll;
 

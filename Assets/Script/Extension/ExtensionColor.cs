@@ -73,5 +73,53 @@ namespace Game
         {
             return (color.r + color.g + color.b) / 3f;
         }
+        /// <summary>
+        /// ²ÊºçÉ«
+        /// </summary>
+        public static Color Rainbow(this Color color, float progress)
+        {
+            progress = Mathf.Clamp01(progress);
+
+            int index = (int)(progress * 6);
+
+            float value = progress * 6.0f - index;
+
+            float invert = 1 - value;
+
+            switch (index % 6)
+            {
+                case 0:
+                    color.r = 1;
+                    color.g = value;
+                    color.b = 0;
+                    break;
+                case 1:
+                    color.r = invert;
+                    color.g = 1;
+                    color.b = 0;
+                    break;
+                case 2:
+                    color.r = 0;
+                    color.g = 1;
+                    color.b = value;
+                    break;
+                case 3:
+                    color.r = 0;
+                    color.g = invert;
+                    color.b = 1;
+                    break;
+                case 4:
+                    color.r = value;
+                    color.g = 0;
+                    color.b = 1;
+                    break;
+                case 5:
+                    color.r = 1;
+                    color.g = 0;
+                    color.b = invert;
+                    break;
+            }
+            return color;
+        }
     }
 }

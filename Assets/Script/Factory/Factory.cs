@@ -1,7 +1,7 @@
 ﻿using Data;
 using System.Collections.Generic;
 
-namespace UnityEngine.Factory
+namespace UnityEngine
 {
     public class Factory : MonoSingleton<Factory>
     {

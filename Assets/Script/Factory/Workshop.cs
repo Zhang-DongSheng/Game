@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace UnityEngine.Factory
+namespace UnityEngine
 {
     public sealed class Workshop : IDisposable
     {
