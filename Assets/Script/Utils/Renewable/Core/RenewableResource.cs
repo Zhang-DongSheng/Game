@@ -63,9 +63,9 @@ namespace UnityEngine.Renewable
             }
             else
             {
-                url = Url + request.key;
+                url = string.Format("{0}{1}", GameConfig.ResourceServerURL, request.key);
 
-                path = Path + request.key;
+                path = string.Format("{0}/{1}", Application.persistentDataPath, request.key);
 
                 m_task.Add(request.key, new Task(request, url, path)
                 {
@@ -332,16 +332,6 @@ namespace UnityEngine.Renewable
 
             return audioType;
         }
-
-        private string Url
-        {
-            get
-            {
-                return "https://branchapptest-1302051570.cos.ap-beijing.myqcloud.com/";
-            }
-        }
-
-        private string Path { get { return Application.persistentDataPath + "/"; } }
 
         private int Count { get { return DownloadLimit; } }
 
