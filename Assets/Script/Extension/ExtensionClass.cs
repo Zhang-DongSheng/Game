@@ -28,9 +28,8 @@ namespace Game
             }
         }
         /// <summary>
-        /// 获取
+        /// 获取字段
         /// </summary>
-        /// <param name="key"></param>
         public static object GetField<T>(this T script, string key) where T : class
         {
             try
@@ -39,27 +38,17 @@ namespace Game
 
                 FieldInfo field = type.GetField(key, Flags);
 
-                object value = field.GetValue(script);
-
-                if (Convert.IsDBNull(value))
-                {
-                    return null;
-                }
-                else
-                {
-                    return value;
-                }
+                return field.GetValue(script);
             }
-            catch
+            catch (Exception e)
             {
-                return null;
+                UnityEngine.Debug.LogException(e);
             }
+            return null;
         }
         /// <summary>
-        /// 修改
+        /// 修改字段
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
         public static bool SetField<T>(this T script, string key, object value) where T : class
         {
             try
@@ -74,10 +63,30 @@ namespace Game
 
                 return true;
             }
-            catch
+            catch (Exception e)
             {
-                return false;
+                UnityEngine.Debug.LogException(e);
             }
+            return false;
+        }
+        /// <summary>
+        /// 调用方法
+        /// </summary>
+        public static object Call<T>(this T script, string function, params object[] parameters)
+        {
+            try
+            {
+                Type type = script.GetType();
+
+                MethodInfo method = type.GetMethod(function, Flags);
+
+                return method.Invoke(script, parameters);
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.LogException(e);
+            }
+            return null;
         }
     }
 }
