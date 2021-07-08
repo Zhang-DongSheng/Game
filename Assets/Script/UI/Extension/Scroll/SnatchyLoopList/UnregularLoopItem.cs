@@ -1,8 +1,8 @@
 namespace UnityEngine.UI
 {
-    public abstract class InfiniteItem : MonoBehaviour
+    public abstract class UnregularLoopItem : MonoBehaviour
     {
-        protected RectTransform self;
+        protected RectTransform target;
 
         public int Index { get; private set; }
 
@@ -10,13 +10,14 @@ namespace UnityEngine.UI
 
         public void Init()
         {
-            self = GetComponent<RectTransform>();
+            if (TryGetComponent(out target))
+            {
+                target.anchorMin = new Vector2(0.5f, 1);
 
-            self.anchorMin = new Vector2(0.5f, 1);
+                target.anchorMax = new Vector2(0.5f, 1);
 
-            self.anchorMax = new Vector2(0.5f, 1);
-
-            self.pivot = new Vector2(0.5f, 1);
+                target.pivot = new Vector2(0.5f, 1);
+            }
         }
 
         public void Refresh(int index, object source)
@@ -32,20 +33,18 @@ namespace UnityEngine.UI
         {
             Vector2 value = new Vector2(500, Index % 2 == 0 ? 100 : 200);
 
-            self.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, value.x);
-
-            self.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, value.y);
+            Size = value;
         }
 
         public Vector2 Position 
         {
             get
             {
-                return self.anchoredPosition;
+                return target.anchoredPosition;
             }
             set
             {
-                self.anchoredPosition = value;
+                target.anchoredPosition = value;
             }
         }
 
@@ -53,7 +52,13 @@ namespace UnityEngine.UI
         {
             get
             {
-                return new Vector2(self.rect.width, self.rect.height);
+                return new Vector2(target.rect.width, target.rect.height);
+            }
+            set
+            {
+                target.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, value.x);
+
+                target.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, value.y);
             }
         }
 

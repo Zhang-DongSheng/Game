@@ -3,6 +3,7 @@
     /// <summary>
     /// 无限滚动循环列表-格子基类
     /// </summary>
+    [RequireComponent(typeof(RectTransform))]
     public abstract class InfiniteLoopItem : MonoBehaviour
     {
         protected RectTransform target;

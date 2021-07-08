@@ -8,7 +8,8 @@ namespace UnityEngine.UI
     /// <summary>
     /// 无限滚动循环列表
     /// </summary>
-    public class InfiniteLoopScrollList : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    [DisallowMultipleComponent]
+    public class InfiniteLoopScrollList : UIBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         enum Direction
         {
@@ -73,7 +74,7 @@ namespace UnityEngine.UI
 
         public Action<int, object> onValueChanged;
 
-        private void Awake()
+        protected override void Awake()
         {
             Initialize();
         }

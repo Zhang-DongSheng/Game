@@ -5,9 +5,9 @@ using UnityEngine.EventSystems;
 namespace UnityEngine.UI
 {
     /// <summary>
-    /// 循环列表
+    /// 不规则循环列表
     /// </summary>
-    public class InfiniteScrollList : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class UnregularLoopScrollList : UIBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         enum Direction
         {
@@ -18,13 +18,13 @@ namespace UnityEngine.UI
 
         [SerializeField] private Direction direction;
 
-        [SerializeField] private InfiniteLayout content;
+        [SerializeField] private UnregularLoopLayout content;
 
         [SerializeField] private GameObject prefab;
 
         [SerializeField] private ScrollRect scroll;
 
-        [SerializeField] private Vector2 front, back;
+        [SerializeField] private ScrollAlign align;
 
         [SerializeField] private float distance;
 
@@ -36,6 +36,8 @@ namespace UnityEngine.UI
 
         private Vector2 position, vector;
 
+        private Vector2 front, back;
+
         private Vector2 space;
 
         private bool overflow;
@@ -46,43 +48,25 @@ namespace UnityEngine.UI
 
         private DragStatus status;
 
-        #region Align
-        private Vector2 alignPosition;
-
-        private Vector2 alighTarget;
-
-        private Vector2 alignNext;
-
-        private Vector2 alignVector;
-
-        private float alignRatio = 1f;
-
-        private float alignStep;
-        #endregion
-
         private readonly IList source = new List<object>() { 1, 2, 3 };
 
-        private readonly List<InfiniteItem> items = new List<InfiniteItem>();
+        private readonly List<UnregularLoopItem> items = new List<UnregularLoopItem>();
+
+        protected override void Awake()
+        {
+            align.onValueChanged = (vector) =>
+            {
+                Shift(vector, true);
+            };
+            align.onCompleted = () =>
+            {
+                status = DragStatus.Idle;
+            };
+        }
 
         private void Update()
         {
-            if (status == DragStatus.Align)
-            {
-                alignStep += Time.deltaTime * alignRatio;
-
-                alignNext = Vector2.Lerp(alignPosition, alighTarget, alignStep);
-
-                alignVector = alignNext - alignPosition;
-
-                alignPosition = alignNext;
-
-                Shift(alignVector, true);
-
-                if (alignStep > 1)
-                {
-                    status = DragStatus.Idle;
-                }
-            }
+            align.Update();
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -153,11 +137,7 @@ namespace UnityEngine.UI
             {
                 if (items.Count > 0)
                 {
-                    alignPosition = items[0].Position;
-
-                    alighTarget = front;
-
-                    alignStep = 0;
+                    align.StartUp(items[0].Position, front);
 
                     status = DragStatus.Align;
                 }
@@ -168,21 +148,13 @@ namespace UnityEngine.UI
             }
             else if (OverflowFront(new Vector2(1, -1)))
             {
-                alignPosition = items[0].Position;
-
-                alighTarget = front;
-
-                alignStep = 0;
+                align.StartUp(items[0].Position, front);
 
                 status = DragStatus.Align;
             }
             else if (OverflowBack(new Vector2(-1, 1)))
             {
-                alignPosition = items[last].Position;
-
-                alighTarget = back;
-
-                alignStep = 0;
+                align.StartUp(items[last].Position - new Vector2(0, items[last].Size.y), back);
 
                 status = DragStatus.Align;
             }
@@ -198,13 +170,19 @@ namespace UnityEngine.UI
 
             first = 0; last = count - 1;
 
+            front = new Vector2(0, 0);
+
+            if (TryGetComponent(out RectTransform target))
+            {
+                back = new Vector2(target.rect.width, target.rect.height * -1);
+            }
             items.Clear(); content.Clear();
 
             for (int i = 0; i < count; i++)
             {
                 if (i >= items.Count)
                 {
-                    InfiniteItem item = GameObject.Instantiate(prefab, content.transform).GetComponent<InfiniteItem>();
+                    UnregularLoopItem item = GameObject.Instantiate(prefab, content.transform).GetComponent<UnregularLoopItem>();
                     item.Init();
                     items.Add(item);
                 }
@@ -272,9 +250,9 @@ namespace UnityEngine.UI
                             }
                             else if (vector.y < 0 && items[i].Position.y < space.y)
                             {
-                                if (items[0].Index > 0)
+                                if (items[first].Index > 0)
                                 {
-                                    ToBack(items[0].Index - 1);
+                                    ToBack(items[first].Index - 1);
                                 }
                             }
                         }
@@ -285,7 +263,7 @@ namespace UnityEngine.UI
 
         private void ToFront(int index)
         {
-            InfiniteItem item = items[first];
+            UnregularLoopItem item = items[first];
 
             items.RemoveAt(first);
 
@@ -300,7 +278,7 @@ namespace UnityEngine.UI
 
         private void ToBack(int index)
         {
-            InfiniteItem item = items[last];
+            UnregularLoopItem item = items[last];
 
             items.RemoveAt(last);
 
@@ -359,7 +337,7 @@ namespace UnityEngine.UI
 
         private bool OverflowFront(Vector2 vector, float distance = 0)
         {
-            if (items[first].Index == 0)
+            if (items.Count > first && items[first].Index == 0)
             {
                 switch (direction)
                 {
@@ -374,20 +352,20 @@ namespace UnityEngine.UI
 
         private bool OverflowBack(Vector2 vector, float distance = 0)
         {
-            if (items[last].Index == source.Count - 1)
+            if (items.Count > last && items[last].Index == source.Count - 1)
             {
                 switch (direction)
                 {
                     case Direction.Horizontal:
                         return vector.x < 0 && items[last].Position.x + distance < back.x;
                     case Direction.Vertical:
-                        return vector.y > 0 && items[last].Position.y - distance > back.y;
+                        return vector.y > 0 && items[last].Position.y - items[last].Size.y - distance > back.y;
                 }
             }
             return false;
         }
 
-        private Vector2 Next(InfiniteItem item, bool forward)
+        private Vector2 Next(UnregularLoopItem item, bool forward)
         {
             Vector2 position;
 

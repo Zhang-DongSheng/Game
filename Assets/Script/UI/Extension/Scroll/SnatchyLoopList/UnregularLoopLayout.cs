@@ -1,6 +1,6 @@
 namespace UnityEngine.UI
 {
-    public class InfiniteLayout : MonoBehaviour
+    public class UnregularLoopLayout : MonoBehaviour
     {
         public Vector2 space = Vector2.zero;
 
