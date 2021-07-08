@@ -28,6 +28,23 @@ namespace UnityEngine.SAM
         }
     }
     /// <summary>
+    /// 整型区间
+    /// </summary>
+    public struct IntInterval
+    {
+        public int origination, destination;
+
+        public int Lerp(float value)
+        {
+            return Convert.ToInt32(Mathf.Lerp(origination, destination, value));
+        }
+
+        public int Rndom()
+        {
+            return Convert.ToInt32(Mathf.Lerp(origination, destination, Random.Range(0, 1f)));
+        }
+    }
+    /// <summary>
     /// 浮点区间
     /// </summary>
     [Serializable]
