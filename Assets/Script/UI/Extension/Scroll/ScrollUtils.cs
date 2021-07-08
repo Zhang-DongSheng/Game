@@ -2,9 +2,9 @@ namespace UnityEngine.UI
 {
     public static class ScrollUtils
     {
-        private static readonly float Min = 45f;
+        private const float Min = 45f;
 
-        private static readonly float Max = 135f;
+        private const float Max = 135f;
 
         private static float angle;
 

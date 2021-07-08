@@ -5,6 +5,10 @@ namespace Game
 {
     public static partial class Extension
     {
+        private const float ANGLEMIN = 45f;
+
+        private const float ANGLEMAX = 135f;
+
         private static double value;
 
         public static bool Inside(this Vector2 origin, Vector2 destination, float distance)
@@ -35,42 +39,18 @@ namespace Game
             return (float)value;
         }
 
-        public static Rect Scale(this Rect rect, float scale)
+        public static bool IsHorizontal(this Vector2 vector)
         {
-            return rect.Scale(scale, rect.center);
+            value = Vector2.Angle(vector, Vector2.up);
+
+            return value > ANGLEMIN && value < ANGLEMAX;
         }
 
-        public static Rect Scale(this Rect rect, float scale, Vector2 pivot)
+        public static bool IsVertical(this Vector2 vector)
         {
-            Rect result = rect;
-            result.x -= pivot.x;
-            result.y -= pivot.y;
-            result.xMin *= scale;
-            result.xMax *= scale;
-            result.yMin *= scale;
-            result.yMax *= scale;
-            result.x += pivot.x;
-            result.y += pivot.y;
-            return result;
-        }
+            value = Vector2.Angle(vector, Vector2.up);
 
-        public static Rect Scale(this Rect rect, Vector2 scale)
-        {
-            return rect.Scale(scale, rect.center);
-        }
-
-        public static Rect Scale(this Rect rect, Vector2 scale, Vector2 pivot)
-        {
-            Rect result = rect;
-            result.x -= pivot.x;
-            result.y -= pivot.y;
-            result.xMin *= scale.x;
-            result.xMax *= scale.x;
-            result.yMin *= scale.y;
-            result.yMax *= scale.y;
-            result.x += pivot.x;
-            result.y += pivot.y;
-            return result;
+            return value < ANGLEMIN || value > ANGLEMAX;
         }
     }
 }
