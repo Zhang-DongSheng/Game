@@ -27,7 +27,7 @@ namespace UnityEngine.UI
 
         public void Play(float target)
         {
-            interval.origin = value;
+            interval.origination = value;
 
             interval.destination = target;
 

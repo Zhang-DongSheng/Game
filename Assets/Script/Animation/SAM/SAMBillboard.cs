@@ -29,17 +29,17 @@
 
             Vector2 view = new Vector2(target.rect.width / 2f, target.rect.height / 2f);
 
-            position.origin = view - space;
+            position.origination = view - space;
 
             position.destination = space - view;
 
             switch (axis)
             {
                 case Axis.Horizontal:
-                    position.origin.y = position.destination.y = target.anchoredPosition.y;
+                    position.origination.y = position.destination.y = target.anchoredPosition.y;
                     break;
                 case Axis.Vertical:
-                    position.origin.x = position.destination.x = target.anchoredPosition.x;
+                    position.origination.x = position.destination.x = target.anchoredPosition.x;
                     break;
                 default:
                     break;

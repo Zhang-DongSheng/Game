@@ -20,11 +20,11 @@
                     {
                         if (around)
                         {
-                            target.RotateAround(rotation.destination, rotation.origin, Time.deltaTime * speed);
+                            target.RotateAround(rotation.destination, rotation.origination, Time.deltaTime * speed);
                         }
                         else
                         {
-                            target.Rotate(rotation.origin * Time.deltaTime * speed);
+                            target.Rotate(rotation.origination * Time.deltaTime * speed);
                         }
                     }
                     break;

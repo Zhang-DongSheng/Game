@@ -18,7 +18,7 @@ namespace UnityEngine.SAM
             {
                 case Circle.Always:
                     {
-                        target.Translate(position.origin * Time.deltaTime * speed);
+                        target.Translate(position.origination * Time.deltaTime * speed);
                     }
                     break;
                 default:

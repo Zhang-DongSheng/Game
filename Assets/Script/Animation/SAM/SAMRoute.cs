@@ -80,7 +80,7 @@ namespace UnityEngine.SAM
         {
             if (forward)
             {
-                position.origin = route[index];
+                position.origination = route[index];
 
                 next = count > ++index ? index : index % count;
 
@@ -92,7 +92,7 @@ namespace UnityEngine.SAM
 
                 next = --index < 0 ? index + count : index;
 
-                position.origin = route[next];
+                position.origination = route[next];
             }
         }
 
