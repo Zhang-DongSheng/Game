@@ -23,13 +23,6 @@
             base.OnDestroy();
         }
 
-        protected override void OnValidate()
-        {
-            Refresh(null);
-
-            base.OnValidate();
-        }
-
         private void Refresh(EventMessageArgs args)
         {
             if (language)

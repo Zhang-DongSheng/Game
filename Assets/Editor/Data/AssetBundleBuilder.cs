@@ -42,7 +42,7 @@ namespace UnityEditor.Window
         private readonly List<ItemFile> items = new List<ItemFile>();
 
         [MenuItem("Data/AssetBundle")]
-        protected static void Open()  
+        protected static void Open()
         {
             AssetBundleBuilder window = EditorWindow.GetWindow<AssetBundleBuilder>();
             window.titleContent = new GUIContent("Asset");
@@ -337,24 +337,14 @@ namespace UnityEditor.Window
                             }
                         }
 
-                        if (GUILayout.Button("打开MD5"))
+                        if (GUILayout.Button("预览Md5"))
                         {
                             OpenFileMd5();
                         }
 
-                        if (GUILayout.Button("更新MD5"))
+                        if (GUILayout.Button("更新Md5"))
                         {
                             UploadMd5();
-                        }
-
-                        if (GUILayout.Button("删除MD5"))
-                        {
-                            string path = HistoryPath;
-
-                            if (File.Exists(path))
-                            {
-                                File.Delete(path);
-                            }
                         }
                     }
                     GUILayout.EndVertical();
@@ -467,7 +457,7 @@ namespace UnityEditor.Window
                 {
                     if (!IgnoreExtensionList.Contains(file.Extension))
                     {
-                        if (!string.IsNullOrEmpty(type) && type.EndsWith(file.Name)){ }
+                        if (!string.IsNullOrEmpty(type) && type.EndsWith(file.Name)) { }
                         else
                         {
                             files.Add(new ItemFile()
@@ -498,10 +488,9 @@ namespace UnityEditor.Window
                     BuildAssetBundle(items[i]);
                 }
             }
-
             UpdateAssetBundleFolder();
 
-            ShowNotification(new GUIContent("Build AssetBundle Success!"));
+            EditorUtility.DisplayDialog("Tips", "Build AssetBundle Success!", "Next");
         }
 
         private void BuildAssetBundle(ItemFile file)
@@ -524,7 +513,10 @@ namespace UnityEditor.Window
 
         private void Upload()
         {
-            ShowNotification(new GUIContent("Upload Done!"));
+            if (EditorUtility.DisplayDialog("Tips", "Upload Assets Success!", "更新Md5", "完成"))
+            {
+                UploadMd5();
+            }
         }
 
         private void UploadMd5()
@@ -534,10 +526,8 @@ namespace UnityEditor.Window
             if (File.Exists(path))
             {
                 Md5Tools.Recompilation(path);
-            }
-            else
-            { 
-                
+
+                ShowNotification(new GUIContent("Upload Md5 Success!"));
             }
         }
 
@@ -547,7 +537,7 @@ namespace UnityEditor.Window
 
             if (File.Exists(path))
             {
-                System.Diagnostics.Process.Start("notepad.exe", path);
+                EditorUtility.OpenWithDefaultApp(path);
             }
         }
 

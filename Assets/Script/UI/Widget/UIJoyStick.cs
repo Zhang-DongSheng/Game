@@ -135,7 +135,7 @@ namespace UnityEngine.UI
                         case TouchPhase.Began:
                             if (!EventSystem.current.IsPointerOverGameObject(touch.fingerId))
                             {
-                                if (touch.position.x <= UIConfig.ScreenHalfWidth)
+                                if (touch.position.x <= Config.ScreenHalfWidth)
                                 {
                                     touch_ID = touch.fingerId;
                                     onEnter?.Invoke();
