@@ -138,13 +138,16 @@ namespace UnityEditor.Window
 
                 if (GUILayout.Button("-", GUILayout.Width(50)))
                 {
-                    int index = applications.FindIndex(x => x.path == app.path);
-
-                    if (index > -1)
+                    if (EditorUtility.DisplayDialog("确认删除", string.Format("确认删除{0}应用", app.name), "删除"))
                     {
-                        applications.RemoveAt(index);
+                        int index = applications.FindIndex(x => x.path == app.path);
+
+                        if (index > -1)
+                        {
+                            applications.RemoveAt(index);
+                        }
+                        Save();
                     }
-                    Save();
                 }
             }
             GUILayout.EndHorizontal();
@@ -159,12 +162,6 @@ namespace UnityEditor.Window
             RefreshLine("路径：", application.path);
 
             RefreshLine("状态：", application.status);
-
-            if (application.process == null) return;
-
-            RefreshLine("进程名称：", application.process.ProcessName);
-
-            RefreshLine("进程ID：", application.process.Id);
         }
 
         private void RefreshLine(string key, object value)
@@ -230,9 +227,11 @@ namespace UnityEditor.Window
 
         public string path;
 
-        public Process process;
-
         public ExStatus status;
+
+        private Process process;
+
+        private int processID;
 
         public void Startup()
         {
@@ -248,6 +247,7 @@ namespace UnityEditor.Window
                 {
                     process = Process.Start(path);
                 }
+                processID = process.Id;
 
                 if (process != null)
                 {
@@ -265,17 +265,41 @@ namespace UnityEditor.Window
 
         public void Close()
         {
-            if (process != null)
+            try
             {
-                process.Close();
+                if (process != null)
+                {
+                    process.Close();
+                }
+            }
+            catch
+            {
+                process = Process.GetProcessById(processID);
+
+                if (process != null)
+                {
+                    process.Close();
+                }
             }
         }
 
         public void Kill()
         {
-            if (process != null)
+            try
             {
-                process.Kill(); process = null;
+                if (process != null)
+                {
+                    process.Kill(); process = null;
+                }
+            }
+            catch
+            {
+                process = Process.GetProcessById(processID);
+
+                if (process != null)
+                {
+                    process.Kill(); process = null;
+                }
             }
         }
 
@@ -286,7 +310,7 @@ namespace UnityEditor.Window
     }
 
     public enum ExStatus
-    { 
+    {
         On,
         Off,
     }
