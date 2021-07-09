@@ -62,6 +62,8 @@ namespace UnityEngine.SAM
             return Mathf.Lerp(origination, destination, Random.Range(0, 1f));
         }
 
+        public static FloatInterval Default { get { return new FloatInterval { origination = 0, destination = 1 }; } }
+
         public static FloatInterval Zero { get { return new FloatInterval { origination = 1, destination = 1 }; } }
 
         public static FloatInterval One { get { return new FloatInterval { origination = 0, destination = 0 }; } }

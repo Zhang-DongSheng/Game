@@ -1,5 +1,6 @@
 ﻿using Game;
 using Game.Network;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,9 @@ namespace TEST
 {
     public class Test : MonoBehaviour
     {
-        public RectTransform rect;
+        public ImageFade fade;
+
+        public List<Sprite> sprites;
 
         private string value;
 
@@ -28,12 +31,17 @@ namespace TEST
 
         private void Start()
         {
-            rect.Full();
+            
         }
 
         private void Update()
         {
-            
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                int index = Random.Range(0, sprites.Count);
+
+                fade.Fade(sprites[index]);
+            }
         }
         /// <summary>
         /// 测试模块
@@ -41,36 +49,7 @@ namespace TEST
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            P p = new P();
-
-            p.SetField("a", "我是a");
-
-            p.SetField("b", "xx");
-
-            p.SetField("c", 2);
-
-            p.Call("D");
-
-            p.Call("E", 1);
-        }
-    }
-
-    public class P
-    {
-        private string a;
-
-        private int b;
-
-        private float c;
-
-        private void D()
-        {
-            Debug.LogError(a);
-        }
-
-        private void E( int value)
-        {
-            Debug.LogError(b + value);
+            
         }
     }
 }
