@@ -17,15 +17,24 @@ namespace UnityEngine.SAM
 
         protected override void Init()
         {
-            interval = new IntInterval()
+            if (image == null && !target.TryGetComponent(out image))
             {
-                origination = 0,
-                destination = sprites.Count
-            };
+                Debug.LogError("请添加关联图片引用");
+            }
+            else
+            {
+                interval = new IntInterval()
+                {
+                    origination = 0,
+                    destination = sprites.Count
+                };
+            }
         }
 
         protected override void Transition(float step)
         {
+            if (image == null) return;
+
             progress = curve.Evaluate(step);
 
             index = interval.Lerp(progress);
