@@ -9,11 +9,13 @@ namespace UnityEngine.SAM
 
         [SerializeField] private Image image;
 
+        [SerializeField] private bool native;
+
         [SerializeField] private List<Sprite> sprites;
 
         private IntInterval interval;
 
-        private int index;
+        private int index, current = -1;
 
         protected override void Init()
         {
@@ -33,15 +35,22 @@ namespace UnityEngine.SAM
 
         protected override void Transition(float step)
         {
-            if (image == null) return;
-
             progress = curve.Evaluate(step);
 
             index = interval.Lerp(progress);
 
-            if (sprites.Count > index)
+            if (sprites.Count > index && current != index)
             {
-                image.sprite = sprites[index];
+                current = index;
+
+                if (image == null) return;
+
+                image.sprite = sprites[current];
+
+                if (native)
+                {
+                    image.SetNativeSize();
+                }
             }
         }
 
