@@ -86,13 +86,13 @@ namespace UnityEngine.UI
 
         private void OnValueChanged(float value)
         {
-            color.a = value;
-
-            background.color = color;
-
             color.a = 1f - value;
 
             image.color = color;
+
+            color.a = value;
+
+            background.color = color;
         }
 
         private void OnCompleted()
