@@ -7,10 +7,7 @@ namespace UnityEngine.SAM
 
         private float interval;
 
-        protected override void Init()
-        {
-
-        }
+        protected override void Init() { }
 
         protected override void Renovate()
         {
