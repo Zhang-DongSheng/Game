@@ -9,11 +9,16 @@ namespace TEST
 {
     public class Test : MonoBehaviour
     {
-        [FormerlySerializedAs("position")]
+        [Interval(1, 10)]
         public Vector2 position;
-
+        [Line(AttributeColor.Green)]
         [Interval(1, 10)]
         public float tt;
+
+        public GameObject test;
+
+        [Curve(AttributeColor.Gray)]
+        public AnimationCurve curve;
 
         public ImageFade fade;
 

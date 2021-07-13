@@ -55,12 +55,12 @@ namespace UnityEditor
         {
             OpenFile(Application.consoleLogPath);
         }
-        [MenuItem("GameObject/Retract", priority = 49)]
+        [MenuItem("GameObject/Shrink/Retract", priority = 49)]
         protected static void Retract()
         {
             Shrink(false);
         }
-        [MenuItem("GameObject/Spread", priority = 49)]
+        [MenuItem("GameObject/Shrink/Spread", priority = 49)]
         protected static void Spread()
         {
             Shrink(true);

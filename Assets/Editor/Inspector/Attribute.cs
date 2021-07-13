@@ -19,19 +19,19 @@ namespace UnityEditor.Inspector
         {
             //UnityEngine.Assertions.Assert.IsTrue(property.propertyType == SerializedPropertyType.Vector2, "Devi usare un vector2 per MinMax");
 
+            IntervalAttribute interval = attribute as IntervalAttribute;
+
+            position = EditorGUI.PrefixLabel(position, label);
+
             switch (property.propertyType)
             {
                 case SerializedPropertyType.Vector2:
                     {
-                        IntervalAttribute interval = attribute as IntervalAttribute;
+                        Rect left = new Rect(position.x, position.y, 50, position.height);
 
-                        Rect total = EditorGUI.PrefixLabel(position, label);
+                        Rect value = new Rect(left.xMax, position.y, position.width - left.width * 2 - 4, position.height);
 
-                        Rect left = new Rect(total.x, total.y, 50, total.height);
-
-                        Rect value = new Rect(left.xMax, total.y, total.width - left.width * 2 - 4, total.height);
-
-                        Rect right = new Rect(total.xMax - left.width - 2, total.y, left.width, total.height);
+                        Rect right = new Rect(position.xMax - left.width - 2, position.y, left.width, position.height);
 
                         float min = property.vector2Value.x;
 
@@ -48,10 +48,6 @@ namespace UnityEditor.Inspector
                     break;
                 case SerializedPropertyType.Float:
                     {
-                        IntervalAttribute interval = attribute as IntervalAttribute;
-
-                        position = EditorGUI.PrefixLabel(position, label);
-
                         float value = property.floatValue;
 
                         value = EditorGUI.Slider(position, value, interval.min, interval.max);
@@ -61,10 +57,48 @@ namespace UnityEditor.Inspector
                     break;
                 default:
                     {
-                        GUI.Label(position, "You can use MinMax only on a Vector2!");
+                        GUI.Label(position, "You can use Interval only on a Vector2!");
                     }
                     break;
             }
+        }
+    }
+    [CustomPropertyDrawer(typeof(CurveAttribute))]
+    class CurveDrawer : PropertyDrawer
+    {
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            CurveAttribute curve = attribute as CurveAttribute;
+
+            switch (property.propertyType)
+            {
+                case SerializedPropertyType.AnimationCurve:
+                    {
+                        EditorGUI.CurveField(position, property, curve.color, curve.ranges, label);
+                    }
+                    break;
+                default:
+                    {
+                        GUI.Label(position, "You can use Curve only on a AnimationCurve!");
+                    }
+                    break;
+            }
+        }
+    }
+    [CustomPropertyDrawer(typeof(LineAttribute))]
+    class LineDrawer : PropertyDrawer
+    {
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            LineAttribute line = attribute as LineAttribute;
+
+            position = EditorGUI.IndentedRect(position);
+
+            position.y += (EditorGUIUtility.singleLineHeight - line.height) / 2.0f;
+
+            position.height = line.height;
+
+            EditorGUI.DrawRect(position, line.color);
         }
     }
 }
