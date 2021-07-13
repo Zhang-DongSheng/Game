@@ -23,7 +23,6 @@ namespace UnityEditor
             }
             EditorApplication.isPlaying = true;
         }
-
         [MenuItem("Tools/Screenshot &X")]
         protected static void Screenshot()
         {
@@ -31,35 +30,61 @@ namespace UnityEditor
             ScreenCapture.CaptureScreenshot(pic_name);
             AssetDatabase.Refresh();
         }
-
         [MenuItem("Tools/Folder/Data")]
         protected static void OpenDataFolder()
         {
             OpenFolder(Application.dataPath);
         }
-
         [MenuItem("Tools/Folder/StreamingAssets")]
         protected static void OpenStreamingAssetsFolder()
         {
             OpenFolder(Application.streamingAssetsPath);
         }
-
         [MenuItem("Tools/Folder/PersistentData")]
         protected static void OpenPersistentDataFolder()
         {
             OpenFolder(Application.persistentDataPath);
         }
-
         [MenuItem("Tools/Folder/TemporaryCache")]
         protected static void OpenTemporaryCacheFolder()
         {
             OpenFolder(Application.temporaryCachePath);
         }
-
         [MenuItem("Tools/File/Log")]
         protected static void OpenConsoleFile()
         {
             OpenFile(Application.consoleLogPath);
+        }
+        [MenuItem("GameObject/Retract", priority = 49)]
+        protected static void Retract()
+        {
+            Shrink(false);
+        }
+        [MenuItem("GameObject/Spread", priority = 49)]
+        protected static void Spread()
+        {
+            Shrink(true);
+        }
+
+        protected static void Shrink(bool expand)
+        {
+            EditorApplication.ExecuteMenuItem("Window/General/Hierarchy");
+
+            EditorWindow window = EditorWindow.focusedWindow;
+
+            var method = window.GetType().GetMethod("SetExpandedRecursive");
+
+            if (Selection.activeGameObject != null)
+            {
+                method.Invoke(window, new object[] { Selection.activeGameObject.GetInstanceID(), expand });
+            }
+            else
+            {
+                foreach (GameObject root in SceneManager.GetActiveScene().GetRootGameObjects())
+                {
+                    method.Invoke(window, new object[] { root.GetInstanceID(), expand });
+                }
+            }
         }
 
         protected static void OpenFolder(string path)

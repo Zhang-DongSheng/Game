@@ -1,11 +1,12 @@
-using UnityEngine;
-
-public class ReadonlyAttribute : PropertyAttribute
+namespace UnityEngine
 {
-    public bool editor;
-
-    public ReadonlyAttribute(bool editor)
+    public class ReadonlyAttribute : PropertyAttribute
     {
-        this.editor = editor;
+        public bool editor;
+
+        public ReadonlyAttribute(bool editor)
+        {
+            this.editor = editor;
+        }
     }
 }

@@ -3,14 +3,21 @@ using Game.Network;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Serialization;
 
 namespace TEST
 {
     public class Test : MonoBehaviour
     {
+        [FormerlySerializedAs("position")]
+        public Vector2 position;
+
+        [Interval(1, 10)]
+        public float tt;
+
         public ImageFade fade;
 
-        public List<Sprite> sprites;
+        public List<int> sprites;
 
         private string value;
 
@@ -40,7 +47,7 @@ namespace TEST
             {
                 int index = Random.Range(0, sprites.Count);
 
-                fade.Fade(sprites[index]);
+                //fade.Fade(sprites[index]);
             }
         }
         /// <summary>
