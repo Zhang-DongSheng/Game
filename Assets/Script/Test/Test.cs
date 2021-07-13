@@ -61,7 +61,35 @@ namespace TEST
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            
+            T2 t2 = new T2();
+
+            t2.SetMember("name", "test");
+
+            t2.SetMember("XX", "ddddd");
+
+            t2.Call("Do");
+
+
+            string x1 = t2.GetMember("name") as string;
+
+            string x2 = t2.GetMember("XX") as string;
+
+            Debug.LogError(x1 + "[ 2 ]" + x2);
+        }
+    }
+
+    public class T2
+    {
+        public string name;
+
+        public string XX
+        {
+            get;set;
+        }
+
+        public void Do()
+        {
+            Debug.LogError(name + "[  ]" + XX);
         }
     }
 }
