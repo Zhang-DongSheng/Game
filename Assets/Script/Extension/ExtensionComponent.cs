@@ -17,6 +17,17 @@ namespace Game
             return null;
         }
 
+        public static void RemoveComponent<T>(this Component self) where T : Component
+        {
+            if (self != null && self.gameObject is GameObject go)
+            {
+                if (go.TryGetComponent(out T compontent))
+                {
+                    Object.Destroy(compontent);
+                }
+            }
+        }
+
         public static T FindComponentInParent<T>(this Component self) where T : Component
         {
             T component = null; Transform root = self.transform;
@@ -30,17 +41,6 @@ namespace Game
                 root = root.parent;
             }
             return component;
-        }
-
-        public static void RemoveComponent<T>(this Component self) where T : Component
-        {
-            if (self != null && self.gameObject is GameObject go)
-            {
-                if (go.TryGetComponent(out T compontent))
-                {
-                    Object.Destroy(compontent);
-                }
-            }
         }
 
         public static void SetActive(this Component component, bool active)
