@@ -187,7 +187,7 @@ namespace UnityEngine.Renewable
                 {
                     for (int i = 0; i < _temp.Count; i++)
                     {
-                        m_cache.Add(_temp[i].name, _temp[i]);
+                        m_cache.Add(_temp[i].key, _temp[i]);
                     }
                     _temp.Clear();
                 }
@@ -226,7 +226,7 @@ namespace UnityEngine.Renewable
 
     public class RPValue
     {
-        public string name;
+        public string key;
 
         public string secret;
 
@@ -236,9 +236,9 @@ namespace UnityEngine.Renewable
 
         public Object source;
 
-        public RPValue(string name, string secret, bool recent, Object source)
+        public RPValue(string key, string secret, bool recent, Object source)
         {
-            this.name = name;
+            this.key = key;
 
             this.secret = secret;
 
@@ -253,7 +253,7 @@ namespace UnityEngine.Renewable
         {
             Release();
 
-            Debug.LogError("替换成功:" + name);
+            Debug.LogError("替换成功:" + key);
 
             this.secret = secret;
 
@@ -274,6 +274,7 @@ namespace UnityEngine.Renewable
                 {
                     Debug.LogError("Release Asset Fail : " + e.Message);
                 }
+                Resources.UnloadUnusedAssets();
             }
         }
     }

@@ -8,12 +8,11 @@
 
         protected override void Awake()
         {
-            base.Awake();
-
             if (parent == null)
             {
                 parent = transform;
             }
+            base.Awake();
         }
 
         public override void Refresh(Object source)

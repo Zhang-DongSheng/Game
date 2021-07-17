@@ -26,6 +26,19 @@ namespace TEST
 
         public RenewableAsset asset;
 
+        private readonly List<string> list = new List<string>()
+        {
+            "ceo",
+            "cts",
+            "deep",
+            "deeplove",
+            "dest",
+            "dream",
+            "hust",
+            "las",
+            "pd"
+        };
+
         private void Awake()
         {
 
@@ -66,7 +79,9 @@ namespace TEST
         /// </summary>
         public void OnClick()
         {
-            string key = "ceo";
+            int index = UnityEngine.Random.Range(0, list.Count);
+
+            string key = list[index];
 
             asset.CreateAsset(string.Format("android/picture/dynamic/dynamic_{0}", key), key);
         }

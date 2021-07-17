@@ -36,6 +36,8 @@ namespace UnityEngine.Renewable
 
         IEnumerator LoadAssetBundleAsync(string key, byte[] buffer, string name)
         {
+            if (buffer == null) yield break;
+
             AssetBundle check = null;
 
             IEnumerator<AssetBundle> list = AssetBundle.GetAllLoadedAssetBundles().GetEnumerator();
@@ -56,23 +58,34 @@ namespace UnityEngine.Renewable
                     }
                 }
             }
-
             if (check != null)
             {
                 check.Unload(false);
             }
 
-            AssetBundleCreateRequest reqAB = AssetBundle.LoadFromMemoryAsync(buffer);
+            AssetBundleCreateRequest create = AssetBundle.LoadFromMemoryAsync(buffer);
 
-            AssetBundleRequest request = reqAB.assetBundle.LoadAssetAsync<Object>(name);
+            yield return create;
 
-            if (downloading.ContainsKey(key))
+            if (create.assetBundle == null) yield break;
+
+            if (create.assetBundle.Contains(name))
             {
-                downloading[key]?.Invoke(request.asset);
-                downloading.Remove(key);
-            }
-            reqAB.assetBundle.Unload(false);
+                AssetBundleRequest request = create.assetBundle.LoadAssetAsync<Object>(name);
 
+                yield return request;
+
+                if (downloading.ContainsKey(key))
+                {
+                    downloading[key]?.Invoke(request.asset);
+                    downloading.Remove(key);
+                }
+                create.assetBundle.Unload(false);
+            }
+            else
+            {
+                create.assetBundle.Unload(true);
+            }
             yield return null;
         }
     }
