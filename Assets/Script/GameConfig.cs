@@ -10,7 +10,7 @@ public class GameConfig
 
     public const string GameServerURL = "https://www.baidu.com/";
 
-    public const string ResourceServerURL = "https://www.baidu.com/";
+    public const string ResourceServerURL = "https://branchapptest-1302051570.cos.ap-beijing.myqcloud.com/";
 
     public const string AssetBundlePath = "AssetBundle";
 

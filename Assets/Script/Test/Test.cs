@@ -1,9 +1,7 @@
-﻿using Game;
-using Game.Network;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Serialization;
 
 namespace TEST
 {
@@ -26,6 +24,8 @@ namespace TEST
 
         private string value;
 
+        public RenewableAsset asset;
+
         private void Awake()
         {
 
@@ -33,26 +33,24 @@ namespace TEST
 
         private void OnEnable()
         {
-            
+
         }
 
         private void OnDisable()
         {
-            
+
         }
 
         private void Start()
         {
-            
+
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                int index = Random.Range(0, sprites.Count);
-
-                //fade.Fade(sprites[index]);
+                OnClick();
             }
         }
         /// <summary>
@@ -61,20 +59,16 @@ namespace TEST
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            T2 t2 = new T2();
 
-            t2.SetMember("name", "test");
+        }
+        /// <summary>
+        /// 点击测试
+        /// </summary>
+        public void OnClick()
+        {
+            string key = "ceo";
 
-            t2.SetMember("XX", "ddddd");
-
-            t2.Call("Do");
-
-
-            string x1 = t2.GetMember("name") as string;
-
-            string x2 = t2.GetMember("XX") as string;
-
-            Debug.LogError(x1 + "[ 2 ]" + x2);
+            asset.CreateAsset(string.Format("android/picture/dynamic/dynamic_{0}", key), key);
         }
     }
 
@@ -84,7 +78,7 @@ namespace TEST
 
         public string XX
         {
-            get;set;
+            get; set;
         }
 
         public void Do()

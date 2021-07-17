@@ -6,12 +6,22 @@
 
         private GameObject model;
 
+        protected override void Awake()
+        {
+            base.Awake();
+
+            if (parent == null)
+            {
+                parent = transform;
+            }
+        }
+
         public override void Refresh(Object source)
         {
             Create(source as GameObject);
         }
 
-        public void Create(GameObject prefab)
+        private void Create(GameObject prefab)
         {
             if (model != null)
             {
