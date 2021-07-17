@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game;
+using System;
 using System.Collections.Generic;
 
 namespace UnityEngine.Renewable
@@ -253,7 +254,7 @@ namespace UnityEngine.Renewable
         {
             Release();
 
-            Debug.LogError("替换成功:" + key);
+            Debug.LogWarning("替换成功:" + key);
 
             this.secret = secret;
 
@@ -268,13 +269,15 @@ namespace UnityEngine.Renewable
             {
                 try
                 {
+                    Destroy.Release(source);
+
                     Object.DestroyImmediate(source, true);
                 }
                 catch (Exception e)
                 {
                     Debug.LogError("Release Asset Fail : " + e.Message);
                 }
-                Resources.UnloadUnusedAssets();
+                //Resources.UnloadUnusedAssets();
             }
         }
     }
