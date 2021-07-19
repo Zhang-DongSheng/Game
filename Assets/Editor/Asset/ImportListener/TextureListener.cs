@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace UnityEditor.PostListener
+namespace UnityEditor.Listener
 {
     public static class TextureListener
     {

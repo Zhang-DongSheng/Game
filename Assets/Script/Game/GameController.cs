@@ -26,11 +26,20 @@ namespace Game
 
         private void Start()
         {
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
+            Application.runInBackground = true;
+
+            Application.targetFrameRate = 60;
+
             if (Application.isPlaying)
             {
-                model.Hide();
-
                 UIManager.Instance.Open(UIPanel.UILogin);
+            }
+
+            if (model != null)
+            {
+                model.Hide();
             }
         }
 

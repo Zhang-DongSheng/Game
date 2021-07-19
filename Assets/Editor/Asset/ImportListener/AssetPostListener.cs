@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UnityEditor.PostListener
+namespace UnityEditor.Listener
 {
     class AssetPostListener : AssetPostprocessor
     {
