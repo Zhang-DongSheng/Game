@@ -4,7 +4,7 @@ using UnityEngine.UI;
 namespace UnityEditor
 {
     [CustomEditor(typeof(LanguageText))]
-    public class InspectorLanguageText : UnityEditor.UI.TextEditor
+    public class InspectorLanguageText : UI.TextEditor
     {
         private SerializedProperty language;
 
