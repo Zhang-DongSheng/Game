@@ -269,15 +269,13 @@ namespace UnityEngine.Renewable
             {
                 try
                 {
-                    Destroy.Release(source);
-
                     Object.DestroyImmediate(source, true);
                 }
                 catch (Exception e)
                 {
                     Debug.LogError("Release Asset Fail : " + e.Message);
                 }
-                //Resources.UnloadUnusedAssets();
+                Resources.UnloadUnusedAssets();
             }
         }
     }
