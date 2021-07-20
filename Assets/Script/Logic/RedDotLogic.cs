@@ -48,9 +48,9 @@ namespace Game
         {
             string index = string.Format("red_{0}", key);
 
-            if (Local.GetInt(index) != DateTime.UtcNow.DayOfYear)
+            if (Local.GetValue<int>(index) != DateTime.UtcNow.DayOfYear)
             {
-                Local.SetInt(index, DateTime.UtcNow.DayOfYear);
+                Local.SetValue(index, DateTime.UtcNow.DayOfYear);
 
                 Update(key, true);
             }

@@ -34,7 +34,10 @@ namespace Game
 
             foreach (var str in strs)
             {
-                list.Add((T)Convert.ChangeType(str, typeof(T)));
+                if (str.TryParse(out T item))
+                {
+                    list.Add(item);
+                }
             }
             return list;
         }
@@ -132,39 +135,96 @@ namespace Game
             return Regex.IsMatch(self, @"^\d{17}[\d|X]|\d{15}$");
         }
         /// <summary>
+        /// 转换为泛型
+        /// </summary>
+        public static bool TryParse<T>(this string self, out T value)
+        {
+            bool result = false;
+
+            try
+            {
+                value = (T)Convert.ChangeType(self, typeof(T));
+
+                if (!Convert.IsDBNull(value))
+                {
+                    result = true;
+                }
+            }
+            catch
+            {
+                value = default;
+            }
+            return result;
+        }
+        /// <summary>
         /// 转换为布尔型
         /// </summary>
-        public static bool TryParseBool(this string self, out bool value)
+        public static bool TryParseBool(this string self, out bool value, bool define = false)
         {
-            return bool.TryParse(self, out value);
+            if (bool.TryParse(self, out value))
+            {
+                return true;
+            }
+            else
+            {
+                value = define; return false;
+            }
         }
         /// <summary>
         /// 转换为整型
         /// </summary>
-        public static bool TryParseInt(this string self, out int value)
+        public static bool TryParseInt(this string self, out int value, int define = 0)
         {
-            return int.TryParse(self, out value);
+            if (int.TryParse(self, out value))
+            {
+                return true;
+            }
+            else
+            {
+                value = define; return false;
+            }
         }
         /// <summary>
         /// 转换为浮点型
         /// </summary>
-        public static bool TryParseFloat(this string self, out float value)
+        public static bool TryParseFloat(this string self, out float value, float define = 0)
         {
-            return float.TryParse(self, out value);
+            if (float.TryParse(self, out value))
+            {
+                return true;
+            }
+            else
+            {
+                value = define; return false;
+            }
         }
         /// <summary>
         /// 转换为高精度浮点型
         /// </summary>
-        public static bool TryParseDouble(this string self, out double value)
+        public static bool TryParseDouble(this string self, out double value, double define = 0)
         {
-            return double.TryParse(self, out value);
+            if (double.TryParse(self, out value))
+            {
+                return true;
+            }
+            else
+            {
+                value = define; return false;
+            }
         }
         /// <summary>
         /// 转换为长类型
         /// </summary>
-        public static bool TryParseLong(this string self, out long value)
+        public static bool TryParseLong(this string self, out long value, long define = 0)
         {
-            return long.TryParse(self, out value);
+            if (long.TryParse(self, out value))
+            {
+                return true;
+            }
+            else
+            {
+                value = define; return false;
+            }
         }
         /// <summary>
         /// 转换为二维向量
@@ -240,6 +300,12 @@ namespace Game
         /// </summary>
         public static bool TryParseColor(this string self, out Color color)
         {
+            if (string.IsNullOrEmpty(self))
+            {
+                color = Color.clear; return false;
+            }
+            if (!self.StartsWith("#")) self = string.Format("#{0}", self);
+
             return ColorUtility.TryParseHtmlString(self, out color);
         }
     }

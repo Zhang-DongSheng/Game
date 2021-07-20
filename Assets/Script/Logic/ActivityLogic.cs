@@ -37,26 +37,17 @@ namespace Game
                 {
                     case PopupPanel.SignIn:
                         {
-                            if (true)
-                            {
-                                return true;
-                            }
+                            
                         }
                         break;
                     case PopupPanel.MonthCard:
                         {
-                            if (true)
-                            {
-                                return true;
-                            }
+                            
                         }
                         break;
                     case PopupPanel.DailyTask:
                         {
-                            if (true)
-                            {
-                                return true;
-                            }
+                            
                         }
                         break;
                     default:

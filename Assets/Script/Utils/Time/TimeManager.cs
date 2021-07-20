@@ -20,7 +20,7 @@ namespace UnityEngine
 
         private void Awake()
         {
-            Duration = Local.GetLong(KEY) + (long)Time.time;
+            Duration = Local.GetValue<long>(KEY) + (long)Time.time;
         }
 
         private void Update()
@@ -62,7 +62,7 @@ namespace UnityEngine
 
         private void OnDestroy()
         {
-            Local.SetLong(KEY, Duration);
+            Local.SetValue(KEY, Duration);
         }
 
         public void Register(string key, TimeEvent value)

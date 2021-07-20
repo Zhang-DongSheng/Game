@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -72,7 +73,15 @@ namespace TEST
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
+            string[] content = new string[3];
 
+            content[0] = "123";
+
+            content[1] = "12345";
+
+            content[2] = "12345678";
+
+            Local.WriteAppend(Application.persistentDataPath + "/test.txt", content);
         }
         /// <summary>
         /// 点击测试
