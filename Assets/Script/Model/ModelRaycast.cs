@@ -14,8 +14,6 @@ namespace Game
 
         [Space(5)] public UnityEvent<RaycastHit> onClick;
 
-        private int layerMask;
-
         private Ray ray;
 
         private RaycastHit hit;
@@ -26,7 +24,6 @@ namespace Game
             {
                 camera = Camera.main;
             }
-            layerMask = LayerMask.GetMask(layer.ToString());
         }
 
         private void Update()
@@ -37,7 +34,7 @@ namespace Game
                 {
                     ray = camera.ScreenPointToRay(Input.mousePosition);
 
-                    if (Physics.Raycast(ray, out hit, distance, layerMask))
+                    if (Physics.Raycast(ray, out hit, distance, layer))
                     {
                         onClick?.Invoke(hit);
                     }
