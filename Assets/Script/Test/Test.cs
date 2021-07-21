@@ -94,6 +94,11 @@ namespace TEST
 
             asset.CreateAsset(string.Format("android/picture/dynamic/dynamic_{0}", key), key);
         }
+
+        public void OnRaycast(RaycastHit hit)
+        {
+            Debug.LogError(hit.transform.name);
+        }
     }
 
     public class T2

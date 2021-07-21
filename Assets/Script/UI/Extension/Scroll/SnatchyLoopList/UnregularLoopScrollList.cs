@@ -66,7 +66,14 @@ namespace UnityEngine.UI
 
         private void Update()
         {
-            align.Update();
+            switch (status)
+            {
+                case DragStatus.Align:
+                    {
+                        align.Update();
+                    }
+                    break;
+            }
         }
 
         public void OnBeginDrag(PointerEventData eventData)
