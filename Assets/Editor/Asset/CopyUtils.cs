@@ -33,7 +33,7 @@ namespace UnityEditor.Window
 			}
 			else
 			{
-				focusedWindow.ShowNotification(new GUIContent("需选中.Prefab文件!"));
+				focusedWindow.ShowNotification(new GUIContent("需选中.Prefab文件！"));
 			}
 		}
 
