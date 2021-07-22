@@ -1,6 +1,5 @@
 using System.IO;
 using System.Text;
-using UnityEngine;
 using Utils;
 
 namespace UnityEditor.Listener
@@ -22,7 +21,6 @@ namespace UnityEditor.Listener
                     ScriptEncoding(path);
                     break;
                 default:
-                    Debug.LogError(extension);
                     break;
             }
         }
