@@ -10,11 +10,15 @@ namespace UnityEditor.Window
 
 		private readonly float MENU = 60f;
 
-		private string input, output = "copy";
+		private string _input, input, output = "copy";
 
 		private string source, target;
 
+		private int _index, index;
+
 		private readonly List<Meta> list = new List<Meta>();
+
+		private readonly List<string> children = new List<string>();
 
 		[MenuItem("Assets/Copy", priority = 18)]
 		protected static void Open()
@@ -37,7 +41,11 @@ namespace UnityEditor.Window
 		{
 			source = AssetDatabase.GetAssetPath(Selection.activeGameObject);
 
-			input = "Assets/";
+			input = _input = "Assets/";
+
+			index = _index = 0;
+
+			Children(input);
 		}
 
 		#region Event
@@ -77,27 +85,55 @@ namespace UnityEditor.Window
 					GUILayout.Label("[资源路径]", GUILayout.Width(MENU));
 
 					GUILayout.TextField(source);
-				}
-				GUILayout.EndHorizontal();
 
-				GUILayout.BeginHorizontal(GUILayout.Height(LINE));
-				{
-					GUILayout.Label("[资源路径]", GUILayout.Width(MENU));
+					GUILayout.Space(5);
 
-					input = GUILayout.TextField(input);
-
-					if (output.EndsWith("/"))
+					if (GUILayout.Button("帮助", GUILayout.Width(100)))
 					{
-						output = output.Substring(0, output.Length - 1);
+						Help();
 					}
 				}
 				GUILayout.EndHorizontal();
 
 				GUILayout.BeginHorizontal(GUILayout.Height(LINE));
 				{
-					GUILayout.Label("[文件夹名]", GUILayout.Width(MENU));
+					GUILayout.Label("[输出路径]", GUILayout.Width(MENU));
+
+					_input = GUILayout.TextField(_input);
+
+					if (!string.IsNullOrEmpty(_input) && _input.EndsWith("/"))
+					{
+						_input = _input.Substring(0, _input.Length - 1);
+					}
+					if (input != _input)
+					{
+						input = _input; Children(input);
+
+						index = _index = 0;
+					}
+				}
+				GUILayout.EndHorizontal();
+
+				GUILayout.BeginHorizontal(GUILayout.Height(LINE));
+				{
+					GUILayout.Label("[输出目标]", GUILayout.Width(MENU));
 
 					output = GUILayout.TextField(output);
+
+					if (children.Count > 0)
+					{
+						_index = EditorGUILayout.Popup(_index, children.ToArray(), GUILayout.Width(100));
+
+						if (_index != 0)
+						{
+							if (index != _index)
+							{
+								index = _index;
+
+								output = children[index];
+							}
+						}
+					}
 				}
 				GUILayout.EndHorizontal();
 
@@ -196,6 +232,34 @@ namespace UnityEditor.Window
 			path = string.Format("{0}/{1}/{2}", input, output, path);
 
 			return path;
+		}
+
+		private void Children(string path)
+		{
+			children.Clear();
+
+			children.Add("Custom");
+
+			path = string.Format("{0}{1}", Application.dataPath, path.Remove(0, 6));
+
+			if (Directory.Exists(path))
+			{
+				foreach (var folder in Directory.GetDirectories(path))
+				{
+					children.Add(Path.GetFileNameWithoutExtension(folder));
+				}
+			}
+		}
+		#endregion
+
+		#region Help
+		private void Help()
+		{
+			EditorUtility.DisplayDialog("帮助", @"
+1.资源路径不可编辑，当改变选中目标后自动更新
+2.输出路径为目标的根路径[Asset/...]
+3.输出目标是文件夹，替换选中目标及其关联文件的第一个文件夹。
+4.新文件 = Asset/.../输出目标/目标文件", "已阅");
 		}
 		#endregion
 	}
