@@ -26,14 +26,14 @@ namespace UnityEditor.Window
 			if (Selection.activeGameObject != null)
 			{
 				CopyUtils window = GetWindow<CopyUtils>();
-				window.titleContent = new GUIContent("Éî²ã¿½±´");
+				window.titleContent = new GUIContent("æ·±å±‚æ‹·è´");
 				window.minSize = new Vector2(600, 200);
 				window.maxSize = new Vector2(900, 300);
 				window.Init(); window.Show();
 			}
 			else
 			{
-				EditorUtility.DisplayDialog("×ÊÔ´¿½±´", "Î´Ñ¡ÖĞÕıÈ·Ä¿±ê", "¹Ø±Õ");
+				EditorUtility.DisplayDialog("èµ„æºæ‹·è´", "æœªé€‰ä¸­æ­£ç¡®ç›®æ ‡", "å…³é—­");
 			}
 		}
 
@@ -82,11 +82,11 @@ namespace UnityEditor.Window
 			{
 				GUILayout.BeginHorizontal(GUILayout.Height(LINE));
 				{
-					GUILayout.Label("[×ÊÔ´Â·¾¶]", GUILayout.Width(MENU));
+					GUILayout.Label("[èµ„æºè·¯å¾„]", GUILayout.Width(MENU));
 
 					GUILayout.TextField(source);
 
-					if (GUILayout.Button("°ïÖú", GUILayout.Width(100)))
+					if (GUILayout.Button("å¸®åŠ©", GUILayout.Width(100)))
 					{
 						Help();
 					}
@@ -95,7 +95,7 @@ namespace UnityEditor.Window
 
 				GUILayout.BeginHorizontal(GUILayout.Height(LINE));
 				{
-					GUILayout.Label("[Êä³öÂ·¾¶]", GUILayout.Width(MENU));
+					GUILayout.Label("[è¾“å‡ºè·¯å¾„]", GUILayout.Width(MENU));
 
 					_input = GUILayout.TextField(_input);
 
@@ -114,7 +114,7 @@ namespace UnityEditor.Window
 
 				GUILayout.BeginHorizontal(GUILayout.Height(LINE));
 				{
-					GUILayout.Label("[Êä³öÄ¿±ê]", GUILayout.Width(MENU));
+					GUILayout.Label("[è¾“å‡ºç›®æ ‡]", GUILayout.Width(MENU));
 
 					output = GUILayout.TextField(output);
 
@@ -267,11 +267,11 @@ namespace UnityEditor.Window
 		#region Help
 		private void Help()
 		{
-			EditorUtility.DisplayDialog("°ïÖú", @"
-1.×ÊÔ´Â·¾¶²»¿É±à¼­£¬µ±¸Ä±äÑ¡ÖĞÄ¿±êºó×Ô¶¯¸üĞÂ
-2.Êä³öÂ·¾¶ÎªÄ¿±êµÄ¸ùÂ·¾¶[Asset/...]
-3.Êä³öÄ¿±êÊÇÎÄ¼ş¼Ğ£¬Ìæ»»Ñ¡ÖĞÄ¿±ê¼°Æä¹ØÁªÎÄ¼şµÄµÚÒ»¸öÎÄ¼ş¼Ğ¡£
-4.ĞÂÎÄ¼ş = Asset/.../Êä³öÄ¿±ê/Ä¿±êÎÄ¼ş", "ÒÑÔÄ");
+			EditorUtility.DisplayDialog("å¸®åŠ©", @"
+1.èµ„æºè·¯å¾„ä¸å¯ç¼–è¾‘ï¼Œå½“æ”¹å˜é€‰ä¸­ç›®æ ‡åè‡ªåŠ¨æ›´æ–°
+2.è¾“å‡ºè·¯å¾„ä¸ºç›®æ ‡çš„æ ¹è·¯å¾„[Asset/...]
+3.è¾“å‡ºç›®æ ‡æ˜¯æ–‡ä»¶å¤¹ï¼Œæ›¿æ¢é€‰ä¸­ç›®æ ‡åŠå…¶å…³è”æ–‡ä»¶çš„ç¬¬ä¸€ä¸ªæ–‡ä»¶å¤¹ã€‚
+4.æ–°æ–‡ä»¶ = Asset/.../è¾“å‡ºç›®æ ‡/ç›®æ ‡æ–‡ä»¶", "å·²é˜…");
 		}
 		#endregion
 	}
