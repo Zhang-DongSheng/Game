@@ -33,7 +33,7 @@ namespace UnityEditor.Window
 			}
 			else
 			{
-				EditorUtility.DisplayDialog("资源拷贝", "未选中正确目标", "关闭");
+				EditorUtility.DisplayDialog("资源拷贝", "需选中[Prefab]文件！", "关闭");
 			}
 		}
 
