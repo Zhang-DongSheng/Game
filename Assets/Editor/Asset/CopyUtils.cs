@@ -26,14 +26,14 @@ namespace UnityEditor.Window
 			if (Selection.activeGameObject != null)
 			{
 				CopyUtils window = GetWindow<CopyUtils>();
-				window.titleContent = new GUIContent("资源复制");
-				window.minSize = new Vector2(500, 200);
-				window.maxSize = new Vector2(500, 200);
+				window.titleContent = new GUIContent("深层拷贝");
+				window.minSize = new Vector2(600, 200);
+				window.maxSize = new Vector2(900, 300);
 				window.Init(); window.Show();
 			}
 			else
 			{
-				EditorUtility.DisplayDialog("资源复制", "未选中资源", "关闭");
+				EditorUtility.DisplayDialog("资源拷贝", "未选中正确目标", "关闭");
 			}
 		}
 
@@ -85,8 +85,6 @@ namespace UnityEditor.Window
 					GUILayout.Label("[资源路径]", GUILayout.Width(MENU));
 
 					GUILayout.TextField(source);
-
-					GUILayout.Space(5);
 
 					if (GUILayout.Button("帮助", GUILayout.Width(100)))
 					{
@@ -165,6 +163,8 @@ namespace UnityEditor.Window
 
 				for (int i = 0; i < assets.Length; i++)
 				{
+					if (assets[i] == source) continue;
+
 					extension = Path.GetExtension(assets[i]);
 
 					if (string.IsNullOrEmpty(extension) ||
@@ -223,14 +223,26 @@ namespace UnityEditor.Window
 				path = path.Remove(0, input.Length + 1);
 			}
 
-			int index = path.IndexOf("/");
+			int first = path.IndexOf("/");
 
-			if (index > -1)
+			if (first > -1)
 			{
-				path = path.Remove(0, index);
+				path = path.Remove(0, first);
 			}
 			path = string.Format("{0}/{1}/{2}", input, output, path);
 
+			string folder = Path.GetDirectoryName(path);
+
+			string file = Path.GetFileNameWithoutExtension(path);
+
+			string extension = Path.GetExtension(path);
+
+			int index = 0;
+
+			while (File.Exists(path))
+			{
+				path = string.Format("{0}/{1}_{2}{3}", folder, file, index++, extension);
+			}
 			return path;
 		}
 
