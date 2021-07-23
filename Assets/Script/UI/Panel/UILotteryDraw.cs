@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// ³é½±´ó×ªÅÌ
+    /// </summary>
     public class UILotteryDraw : UIBase
     {
         [SerializeField] private Transform target;

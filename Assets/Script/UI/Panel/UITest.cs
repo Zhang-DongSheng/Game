@@ -46,7 +46,7 @@ namespace Game.UI
             {
                 index++;
 
-                UIQuickEntry.OpenUINotice(string.Format("当前测试第{0}条消息！", index));
+                UIQuickEntry.OpenUIHorseLamp(string.Format("当前测试第{0}条消息！", index));
             }
             else if (Input.GetKeyDown(KeyCode.C))
             {
@@ -58,6 +58,10 @@ namespace Game.UI
             else if (Input.GetKeyDown(KeyCode.D))
             {
                 UIManager.Instance.Open(UIPanel.UILotteryDraw);
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                UIQuickEntry.OpenUITips("test");
             }
         }
 

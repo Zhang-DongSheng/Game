@@ -164,13 +164,29 @@ namespace Game.UI
             _records.Clear();
         }
 
+        public void Paramter(UIPanel key, Paramter paramter)
+        {
+            if (_panels.ContainsKey(key))
+            {
+                _panels[key].Paramter(paramter);
+            }
+            else
+            {
+                CtrlBase ctrl = new CtrlBase();
+
+                ctrl.Paramter(paramter);
+
+                _panels.Add(key, ctrl);
+            }
+        }
+
         public CtrlBase GetCtrl(UIPanel key)
         {
-            if (_panels.ContainsKey(key) == false)
+            if (_panels.ContainsKey(key))
             {
-                _panels.Add(key, new CtrlBase());
+                return _panels[key];
             }
-            return _panels[key];
+            return null;
         }
 
         public Transform GetParent(UILayer layer)
@@ -259,10 +275,11 @@ namespace Game.UI
         UILoading,
         UIWaiting,
         UIConfirm,
-        UINotice,
+        UIHorseLamp,
         UIReward,
         UILotteryDraw,
         UITest,
+        UITips,
         Count,
     }
 }

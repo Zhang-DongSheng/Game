@@ -1,6 +1,5 @@
 using Data;
 using System;
-using System.Collections.Generic;
 
 namespace Game.UI
 {
@@ -8,43 +7,40 @@ namespace Game.UI
     {
         public static void OpenUIConfirm(string title, string message, Action confirm, Action cancel = null)
         {
-            if (UIManager.Instance.GetCtrl(UIPanel.UIConfirm) is CtrlBase ctrl)
+            UIManager.Instance.Paramter(UIPanel.UIConfirm, new Paramter()
             {
-                Paramter paramter = new Paramter()
-                {
-                    ["title"] = title,
-                    ["message"] = message,
-                    ["confirm"] = confirm,
-                    ["cancel"] = cancel,
-                };
-                ctrl.Paramter(paramter);
-            }
+                ["title"] = title,
+                ["message"] = message,
+                ["confirm"] = confirm,
+                ["cancel"] = cancel,
+            });
             UIManager.Instance.Open(UIPanel.UIConfirm);
         }
 
-        public static void OpenUINotice(string message, float time = -1)
+        public static void OpenUITips(string tips)
         {
-            if (UIManager.Instance.GetCtrl(UIPanel.UINotice) is CtrlBase ctrl)
+            UIManager.Instance.Paramter(UIPanel.UITips, new Paramter()
             {
-                Paramter paramter = new Paramter()
-                {
-                    ["message"] = message,
-                };
-                ctrl.Paramter(paramter);
-            }
-            UIManager.Instance.Open(UIPanel.UINotice);
+                ["tips"] = tips,
+            });
+            UIManager.Instance.Open(UIPanel.UITips);
+        }
+
+        public static void OpenUIHorseLamp(string message, float time = -1)
+        {
+            UIManager.Instance.Paramter(UIPanel.UIHorseLamp, new Paramter()
+            {
+                ["message"] = message,
+            });
+            UIManager.Instance.Open(UIPanel.UIHorseLamp);
         }
 
         public static void OpenUIReward(RewardInformation reward)
         {
-            if (UIManager.Instance.GetCtrl(UIPanel.UIReward) is CtrlBase ctrl)
+            UIManager.Instance.Paramter(UIPanel.UIReward, new Paramter()
             {
-                Paramter paramter = new Paramter()
-                {
-                    ["reward"] = reward,
-                };
-                ctrl.Paramter(paramter);
-            }
+                ["reward"] = reward,
+            });
             UIManager.Instance.Open(UIPanel.UIReward);
         }
     }

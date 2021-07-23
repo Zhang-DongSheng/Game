@@ -4,11 +4,12 @@ using UnityEngine.SAM;
 
 namespace Game.UI
 {
-    public class UINotice : UIBase
+    /// <summary>
+    /// ≈‹¬Ìµ∆
+    /// </summary>
+    public class UIHorseLamp : UIBase
     {
         [SerializeField] private ParentAndPrefab prefab;
-
-        [SerializeField] private float space;
 
         [SerializeField] private SAMSize animator;
 
@@ -111,7 +112,7 @@ namespace Game.UI
 
             animator.onCompleted.AddListener(() =>
             {
-                UIManager.Instance.Close(UIPanel.UINotice);
+                UIManager.Instance.Close(UIPanel.UIHorseLamp);
             });
             animator.Begin(false);
         }

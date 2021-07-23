@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// »∑»œµØ¥∞
+    /// </summary>
     public class UIConfirm : UIBase
     {
         [SerializeField] private RectTransform content;
@@ -33,13 +36,19 @@ namespace Game.UI
         {
             if (paramter == null) return;
 
+            confirm = paramter.Get<Action>("confirm");
+
+            cancel = paramter.Get<Action>("cancel");
+
             txt_title.text = paramter.Get<string>("title");
 
             txt_message.text = paramter.Get<string>("message");
 
-            confirm = paramter.Get<Action>("confirm");
+            float height = 320f;
 
-            cancel = paramter.Get<Action>("cancel");
+            height += txt_message.preferredHeight;
+
+            content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
         }
 
         private void OnClickConfirm()

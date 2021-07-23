@@ -67,7 +67,7 @@ namespace Game.UI
             {
                 string error = args.Get<string>("message");
 
-                UIQuickEntry.OpenUINotice(error);
+                UIQuickEntry.OpenUIHorseLamp(error);
             }
         }
 

@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// ½±Àø
+    /// </summary>
     public class UIReward : UIBase
     {
         [SerializeField] private ParentAndPrefab prefab;
@@ -30,6 +33,8 @@ namespace Game.UI
             RewardInformation reward = paramter.Get<RewardInformation>("reward");
 
             title.text = reward.title;
+
+            SetActive(true);
 
             coroutine = StartCoroutine(Refresh(reward.props));
         }
