@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class ItemNotice : ItemBase
+    public class ItemHorseLamp : ItemBase
     {
         public Action next;
 

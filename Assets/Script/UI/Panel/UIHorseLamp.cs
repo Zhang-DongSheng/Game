@@ -19,7 +19,7 @@ namespace Game.UI
 
         private readonly List<string> message = new List<string>();
 
-        private readonly List<ItemNotice> items = new List<ItemNotice>();
+        private readonly List<ItemHorseLamp> items = new List<ItemHorseLamp>();
 
         private void OnEnable()
         {
@@ -59,7 +59,7 @@ namespace Game.UI
         {
             if (message.Count > 0)
             {
-                ItemNotice item = prefab.Create<ItemNotice>();
+                ItemHorseLamp item = prefab.Create<ItemHorseLamp>();
 
                 item.ID = NextID;
 
