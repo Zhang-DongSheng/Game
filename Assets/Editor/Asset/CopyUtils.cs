@@ -10,7 +10,7 @@ namespace UnityEditor.Window
 
 		private readonly float MENU = 60f;
 
-		private string _input, input, output = "copy";
+		private string _input, input, output;
 
 		private string source, target;
 
@@ -26,14 +26,14 @@ namespace UnityEditor.Window
 			if (Selection.activeGameObject != null)
 			{
 				CopyUtils window = GetWindow<CopyUtils>();
-				window.titleContent = new GUIContent("深层拷贝");
+				window.titleContent = new GUIContent("深度拷贝");
 				window.minSize = new Vector2(600, 200);
 				window.maxSize = new Vector2(900, 300);
 				window.Init(); window.Show();
 			}
 			else
 			{
-				focusedWindow.ShowNotification(new GUIContent("需选中.Prefab文件！"));
+				focusedWindow.ShowNotification(new GUIContent("深度拷贝需选中.Prefab文件！"));
 			}
 		}
 
@@ -41,9 +41,11 @@ namespace UnityEditor.Window
 		{
 			source = AssetDatabase.GetAssetPath(Selection.activeGameObject);
 
-			input = _input = "Assets/";
+			input = _input = Path.GetDirectoryName(source).Replace('\\', '/');
 
 			index = _index = 0;
+
+			output = "copy";
 
 			Children(input);
 		}
@@ -135,7 +137,7 @@ namespace UnityEditor.Window
 				}
 				GUILayout.EndHorizontal();
 
-				if (GUILayout.Button("Copy", GUILayout.ExpandHeight(true)))
+				if (GUILayout.Button("Deep Copy", GUILayout.ExpandHeight(true)))
 				{
 					Copy();
 				}
