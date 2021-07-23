@@ -1,5 +1,4 @@
 ﻿using Excel;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -40,13 +39,13 @@ public class ExcelUtility
 		}
 	}
 
-    #region Convert
-    /// <summary>
-    /// 转换为Json
-    /// </summary>
-    /// <param name="path">Json文件路径</param>
-    /// <param name="Header">表头行数</param>
-    public void ConvertToJson(string path, Encoding encoding)
+	#region Convert
+	/// <summary>
+	/// 转换为Json
+	/// </summary>
+	/// <param name="path">Json文件路径</param>
+	/// <param name="Header">表头行数</param>
+	public void ConvertToJson(string path, Encoding encoding)
 	{
 		//判断Excel文件中是否存在数据表
 		if (m_tableCount < 1)
@@ -83,13 +82,48 @@ public class ExcelUtility
 			table.Add(row);
 		}
 
-		//生成Json字符串
-		string json = JsonConvert.SerializeObject(table, Newtonsoft.Json.Formatting.Indented);
+		builder.Clear();
 
-		/*絮大王添加代码：去掉所有的反斜杠+支持数组*/
-		json = JsonSupportArray(json);
+		builder.Append("{\r\n");
 
-		Write(path, json, encoding);
+		builder.Append(Format("data"));
+
+		builder.Append(":");
+
+		builder.Append(Format(Path.GetFileNameWithoutExtension(path)));
+
+		builder.Append(",\r\n");
+
+		builder.Append(Format("list"));
+
+		builder.Append(":");
+
+		builder.Append("[\r\n");
+
+		for (int i = 0; i < table.Count; i++)
+		{
+			if (table[i] != null)
+			{
+				builder.Append("{\r\n");
+
+				foreach (var value in table[i])
+				{
+					builder.Append(Format(value.Key));
+
+					builder.Append(":");
+
+					builder.Append(Format(value.Value));
+
+					builder.Append(",\r\n");
+				}
+				builder.Append("},\r\n");
+			}
+		}
+		builder.Append("]\r\n");
+
+		builder.Append("}");
+
+		Write(path, builder.ToString(), encoding);
 	}
 
 	/// <summary>
@@ -248,55 +282,23 @@ public class ExcelUtility
 		}
 	}
 
-	/// <summary>
-	/// 写入文本
-	/// </summary>
-	/// <param name="path">文件路径</param>
-	/// <param name="content">文本内容</param>
-	/// <param name="encoding">编码格式</param>
 	private void Write(string path, string content, Encoding encoding)
 	{
-		FileStream stream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
-		{
-			TextWriter writer = new StreamWriter(stream, encoding);
-			writer.Write(content);
-			writer.Dispose();
-		}
-		stream.Dispose();
+		File.WriteAllText(path, content, encoding);
 	}
 
-    #region 絮大王添加的代码
-    /// <summary>
-    /// 让Json支持数组
-    /// ————————————————————————————————————————————————————
-    /// (这个方法是絮大王自己添加的)
-    /// 此方法是为了让Excel在转化成Json的时候，支持数组  (格式为["元素1","元素2"])
-    /// 
-    /// * 为什么要这样做？
-    ///   在源代码中，转化后的Json字符串是不支持数组的  (转化后，会变成这样：   "[\"元素1\",\"元素2\"]")
-    /// 
-    /// * 此方法的做了什么？
-    ///   把Json字符串传递过来，就会返回一个支持数组的Json字符串  (格式为["元素1","元素2"])
-    /// ——————————————————————————————————————————————————————
-    /// </summary>
-    /// <param name="jsonContent">json的文本内容</param>
-    /// <returns></returns>
-    private string JsonSupportArray(string jsonContent)
-    {
-        //去掉所有的反斜杠  （把"\"替换成""）
-        jsonContent = jsonContent.Replace("\\", string.Empty);
+	private string Format(object value)
+	{
+		format.Clear();
 
-        //为了能够支持数组，所以：
-        //把所有的"[替换成[   
-        //并且把所有的]"替换成]
-        jsonContent = jsonContent.Replace("\"[", "[");
-        jsonContent = jsonContent.Replace("]\"", "]");
+		format.Append('"');
 
-        //把所有的".0" 替换成 ""
-        //不然的话，"1"会显示为"1.0"
-        jsonContent = jsonContent.Replace(".0,", ",");
+		format.Append(value);
 
-        return jsonContent;
-    }
-    #endregion
+		format.Append('"');
+
+		return format.ToString();
+	}
+
+	private readonly StringBuilder format = new StringBuilder();
 }
