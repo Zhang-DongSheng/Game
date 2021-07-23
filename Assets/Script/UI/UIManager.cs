@@ -274,12 +274,13 @@ namespace Game.UI
         UILogin,
         UILoading,
         UIWaiting,
+        UITips,
+        UINotice,
         UIConfirm,
         UIHorseLamp,
         UIReward,
         UILotteryDraw,
         UITest,
-        UITips,
         Count,
     }
 }

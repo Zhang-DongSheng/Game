@@ -21,12 +21,12 @@ MonoBehaviour:
   - key: UIConfirm
     capacity: -1
     prefab: {fileID: 6978918614400995659, guid: 2ddb396cbb585ea458b481d12087cc4d, type: 3}
-    secret: 79e05e39b0fbccb66fc34c173555f24
+    secret: 9a8ad967265e3c9dc0c2c0ec8785f672
     description: E:\Study\Game\Assets\Resources\Prefab\Panel\UIConfirm.prefab
   - key: UIHorseLamp
     capacity: -1
     prefab: {fileID: 3603872268513932690, guid: a0349686e89cec44a8fcdf1c60c19799, type: 3}
-    secret: aae8adc6a680b5122e9c6cb677597f9
+    secret: 69f678e3faaf468824335abd3d3b13b9
     description: E:\Study\Game\Assets\Resources\Prefab\Panel\UIHorseLamp.prefab
   - key: UILoading
     capacity: -1
@@ -48,6 +48,11 @@ MonoBehaviour:
     prefab: {fileID: 3475235642826711133, guid: ee4e3e5da72d7124e89f1022c3161fbb, type: 3}
     secret: a3a1da5ed0eb66a43f75748af56a155
     description: E:\Study\Game\Assets\Resources\Prefab\Panel\UIMain.prefab
+  - key: UINotice
+    capacity: -1
+    prefab: {fileID: 6180908441421270953, guid: 6a5e9dd23339fbd4ab53ddfdd03e0a63, type: 3}
+    secret: a42fc3486a494d7079e5e1a63744d6bc
+    description: E:\Study\Game\Assets\Resources\Prefab\Panel\UINotice.prefab
   - key: UIReward
     capacity: -1
     prefab: {fileID: 3675214102293789820, guid: e25b43b6d62c1e74a980f0eb45da8263, type: 3}

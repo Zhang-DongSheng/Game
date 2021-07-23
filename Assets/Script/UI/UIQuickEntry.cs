@@ -17,6 +17,15 @@ namespace Game.UI
             UIManager.Instance.Open(UIPanel.UIConfirm);
         }
 
+        public static void OpenUINotice(string notice)
+        {
+            UIManager.Instance.Paramter(UIPanel.UINotice, new Paramter()
+            {
+                ["notice"] = notice,
+            });
+            UIManager.Instance.Open(UIPanel.UINotice);
+        }
+
         public static void OpenUITips(string tips)
         {
             UIManager.Instance.Paramter(UIPanel.UITips, new Paramter()

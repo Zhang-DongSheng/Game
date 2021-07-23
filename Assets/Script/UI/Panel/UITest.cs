@@ -63,6 +63,10 @@ namespace Game.UI
             {
                 UIQuickEntry.OpenUITips("test");
             }
+            else if (Input.GetKeyDown(KeyCode.F))
+            {
+                UIQuickEntry.OpenUINotice("test");
+            }
         }
 
         private void OnCilckBack()
