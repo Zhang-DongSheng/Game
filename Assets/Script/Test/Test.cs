@@ -8,6 +8,10 @@ namespace TEST
 {
     public class Test : MonoBehaviour
     {
+        public Transform test;
+
+        public List<Transform> listT;
+
         [SerializeField] private RectTransform target;
 
         private readonly List<string> list = new List<string>()
@@ -71,11 +75,7 @@ namespace TEST
         [ContextMenu("Test")]
         public void OnClickContextMenu()
         {
-            //space 获取目标四边【x:左, y:右, z:下, w:上】
-            Vector4 space = RectTransformUtils.Space(target);
-
-            //指定区域缩放，修改大下，位置，宽高
-            RectTransformUtils.Scale(target, space, new Vector2(200, 200));
+            this.Relevance();
         }
     }
 
