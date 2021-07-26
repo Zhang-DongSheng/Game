@@ -73,19 +73,7 @@ namespace TEST
         {
             Vector4 space = RectTransformUtils.Space(target);
 
-            Vector2 position = Vector2.zero;
-
-            position.x = space.x + space.y;
-
-            position.y = space.z + space.w;
-
-            position *= -0.5f;
-
-            target.anchoredPosition = position;
-
-            target.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, space.y - space.x);
-
-            target.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, space.w - space.z);
+            RectTransformUtils.Scale(target, space, new Vector2(200, 200));
         }
     }
 

@@ -2,6 +2,28 @@ namespace UnityEngine.UI
 {
     public static class RectTransformUtils
     {
+        public static void Scale(RectTransform rect, Vector4 space, Vector2 area)
+        {
+            float width = area.x / (space.y - space.x);
+
+            float heigh = area.y / (space.w - space.z);
+
+            float scale = width > heigh ? heigh : width;
+
+            Vector2 position = new Vector2()
+            {
+                x = space.x + space.y,
+                y = space.z + space.w,
+            };
+            rect.anchoredPosition = position * scale * -0.5f;
+
+            rect.localScale = new Vector3(scale, scale, 1);
+
+            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, space.y - space.x);
+
+            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, space.w - space.z);
+        }
+
         public static Vector4 Space(RectTransform root)
         {
             Vector4 space = new Vector4();
