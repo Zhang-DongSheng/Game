@@ -8,24 +8,7 @@ namespace TEST
 {
     public class Test : MonoBehaviour
     {
-        [Interval(1, 10)]
-        public Vector2 position;
-        [Line(AttributeColor.Green)]
-        [Interval(1, 10)]
-        public float tt;
-
-        public GameObject test;
-
-        [Curve(AttributeColor.Gray)]
-        public AnimationCurve curve;
-
-        public ImageFade fade;
-
-        public List<int> sprites;
-
-        private string value;
-
-        public RenewableAsset asset;
+        [SerializeField] private RectTransform target;
 
         private readonly List<string> list = new List<string>()
         {
@@ -73,31 +56,36 @@ namespace TEST
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            string[] content = new string[3];
 
-            content[0] = "123";
-
-            content[1] = "12345";
-
-            content[2] = "12345678";
-
-            Local.WriteAppend(Application.persistentDataPath + "/test.txt", content);
         }
         /// <summary>
         /// 点击测试
         /// </summary>
         public void OnClick()
         {
-            int index = UnityEngine.Random.Range(0, list.Count);
 
-            string key = list[index];
-
-            asset.CreateAsset(string.Format("android/picture/dynamic/dynamic_{0}", key), key);
         }
-
-        public void OnRaycast(RaycastHit hit)
+        /// <summary>
+        /// 菜单栏测试
+        /// </summary>
+        [ContextMenu("Test")]
+        public void OnClickContextMenu()
         {
-            Debug.LogError(hit.transform.name);
+            Vector4 space = RectTransformUtils.Space(target);
+
+            Vector2 position = Vector2.zero;
+
+            position.x = space.x + space.y;
+
+            position.y = space.z + space.w;
+
+            position *= -0.5f;
+
+            target.anchoredPosition = position;
+
+            target.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, space.y - space.x);
+
+            target.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, space.w - space.z);
         }
     }
 
