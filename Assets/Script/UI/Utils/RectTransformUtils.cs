@@ -4,15 +4,24 @@ namespace UnityEngine.UI
     {
         public static void Scale(RectTransform rect, Vector4 space, Vector2 area)
         {
+            float _width = space.y - space.x;
+
+            float _height = space.w - space.z;
+
+            float width = _width != 0 ? area.x / _width : 0;
+
+            float height = _height != 0 ? area.y / _height : 0;
+
+            float scale = width > height ? height : width;
+
+            Scale(rect, space, scale);
+        }
+
+        public static void Scale(RectTransform rect, Vector4 space, float scale = 1f)
+        {
             float width = space.y - space.x;
 
             float height = space.w - space.z;
-
-            float _width = width != 0 ? area.x / width : 0;
-
-            float _height = height != 0 ? area.y / height : 0;
-
-            float scale = _width > _height ? _height : _width;
 
             Vector2 position = new Vector2()
             {
