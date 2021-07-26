@@ -4,11 +4,15 @@ namespace UnityEngine.UI
     {
         public static void Scale(RectTransform rect, Vector4 space, Vector2 area)
         {
-            float width = area.x / (space.y - space.x);
+            float width = space.y - space.x;
 
-            float heigh = area.y / (space.w - space.z);
+            float height = space.w - space.z;
 
-            float scale = width > heigh ? heigh : width;
+            float _width = width != 0 ? area.x / width : 0;
+
+            float _height = height != 0 ? area.y / height : 0;
+
+            float scale = _width > _height ? _height : _width;
 
             Vector2 position = new Vector2()
             {
@@ -19,9 +23,9 @@ namespace UnityEngine.UI
 
             rect.localScale = new Vector3(scale, scale, 1);
 
-            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, space.y - space.x);
+            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
 
-            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, space.w - space.z);
+            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
         }
 
         public static Vector4 Space(RectTransform root)
@@ -40,9 +44,9 @@ namespace UnityEngine.UI
 
         private static Vector4 Child(RectTransform child, Vector2 position)
         {
-            child.anchorMin = child.anchorMax = Vector2.one * 0.5f;
-
             Vector2 size = new Vector2(child.rect.width, child.rect.height);
+
+            child.anchorMin = child.anchorMax = Vector2.one * 0.5f;
 
             Vector4 space = new Vector4()
             {
