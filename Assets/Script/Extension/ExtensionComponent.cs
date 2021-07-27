@@ -1,27 +1,12 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game
 {
     public static partial class Extension
     {
-        private static readonly List<Type> components = new List<Type>()
-        {
-            typeof(GameObject),
-            typeof(Transform),
-            typeof(Button),
-            typeof(Image),
-            typeof(Text),
-            typeof(Toggle),
-            typeof(Scrollbar),
-            typeof(ScrollRect),
-            typeof(RectTransform),
-        };
-
         public static T AddOrReplaceComponent<T>(this Component self) where T : Component
         {
             if (self != null && self.gameObject is GameObject go)
