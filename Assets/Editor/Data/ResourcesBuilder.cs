@@ -1,57 +1,30 @@
 ﻿using Data;
 using System.Collections.Generic;
-using UnityEditor.Window;
 using UnityEngine;
 using Utils;
 
-namespace UnityEditor
+namespace UnityEditor.Window
 {
-    public class ResourcesBuilder : EditorWindow
+    public class ResourcesBuilder : CustomWindow
     {
         private List<Node> nodes;
 
         private DataResource data;
 
-        private Vector2 scroll;
-
-        private readonly GUIStyle style_folder = new GUIStyle();
-
-        private readonly GUIStyle style_file = new GUIStyle();
-
         [MenuItem("Data/Resources")]
         protected static void Open()
         {
-            ResourcesBuilder window = EditorWindow.GetWindow<ResourcesBuilder>();
-            window.titleContent = new GUIContent("Resources Builder");
-            window.minSize = new Vector2(500, 300);
-            window.Init();
-            window.Show();
+            Open<ResourcesBuilder>("Resources工具");
         }
 
-        private void Init()
+        private void UpdateAsset()
         {
-            Load();
-
-            if (data == null)
-            {
-                DataBuilder.Create_Resource();
-                Load();
-            }
-
             nodes = Finder.Find(Application.dataPath + "/Resources");
 
             for (int i = 0; i < nodes.Count; i++)
             {
                 Select(nodes[i]);
             }
-
-            style_folder.normal.textColor = Color.blue;
-
-            style_folder.fontStyle = FontStyle.Bold;
-
-            style_folder.fontSize = 20;
-
-            style_file.normal.textColor = Color.red;
         }
 
         private void Load()
@@ -78,12 +51,34 @@ namespace UnityEditor
             }
         }
 
-        private void OnGUI()
+        protected override void Init()
         {
-            RefreshUI();
+            style.Clear();
+
+            style.Add(new GUIStyle()
+            {
+                fontStyle = FontStyle.Bold,
+                fontSize = 20,
+            });
+            style[0].normal.textColor = Color.blue;
+
+            style.Add(new GUIStyle()
+            {
+
+            });
+            style[1].normal.textColor = Color.red;
+
+            Load();
+
+            if (data == null)
+            {
+                DataBuilder.Create_Resource(); Load();
+            }
+
+            UpdateAsset();
         }
 
-        private void RefreshUI()
+        protected override void Refresh()
         {
             GUILayout.BeginHorizontal();
             {
@@ -116,10 +111,10 @@ namespace UnityEditor
 
                     if (GUILayout.Button("刷新", GUILayout.Height(30)))
                     {
-                        Init();
+                        UpdateAsset();
                     }
 
-                    if (GUILayout.Button("生成XML", GUILayout.Height(20)))
+                    if (GUILayout.Button("生成Asset", GUILayout.Height(20)))
                     {
                         Build();
                     }
@@ -154,7 +149,7 @@ namespace UnityEditor
                 {
                     node.status = !node.status;
                 }
-                GUILayout.Label(string.Format("{0} >", Format(node.name)), style_folder);
+                GUILayout.Label(string.Format("{0} >", Format(node.name)), style[0]);
             }
             GUILayout.EndHorizontal();
 
@@ -175,7 +170,7 @@ namespace UnityEditor
                 {
                     GUILayout.Space(20);
                 }
-                GUILayout.Label(Format(node.path), style_file);
+                GUILayout.Label(Format(node.path), style[1]);
 
                 node.name = GUILayout.TextField(node.name, GUILayout.Width(100));
 
@@ -193,6 +188,7 @@ namespace UnityEditor
                 Builder(nodes[i]);
             }
             EditorUtility.SetDirty(data);
+
             AssetDatabase.Refresh();
         }
 

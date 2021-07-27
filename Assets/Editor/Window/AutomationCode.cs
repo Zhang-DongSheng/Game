@@ -7,17 +7,16 @@ namespace UnityEditor.Window
 {
     class AutomationCode : CustomWindow
     {
-        private string code;
-
         private int index;
+
+        private string code;
 
         private readonly List<PropertyParameter> parameters = new List<PropertyParameter>();
 
-        protected override string Title { get { return "代码生成"; } }
         [MenuItem("Script/Editor")]
         protected static void Open()
         {
-            Open<AutomationCode>();
+            Open<AutomationCode>("代码生成工具");
         }
 
         protected override void Init() { }
@@ -205,7 +204,7 @@ namespace UnityEditor.Window
 
             switch (parameter.property)
             {
-                case PropertyType.Variable:
+                case PropertyType.Field:
                     content = string.Format("\t\tpublic {0} {1};", parameter.Returned, parameter.name);
                     writer.WriteLine(content);
                     break;
@@ -297,7 +296,7 @@ namespace UnityEditor.Window
         {
             switch (property)
             {
-                case PropertyType.Variable:
+                case PropertyType.Field:
                     return Color.green;
                 case PropertyType.Property:
                     return Color.yellow;
@@ -307,8 +306,6 @@ namespace UnityEditor.Window
                     return Color.white;
             }
         }
-
-
     }
 
     public class PropertyParameter
@@ -381,7 +378,7 @@ namespace UnityEditor.Window
 
     public enum PropertyType
     {
-        Variable,           //变量
+        Field,              //字段
         Property,           //属性
         Method,             //方法
     }

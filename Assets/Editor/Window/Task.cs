@@ -16,11 +16,10 @@ namespace UnityEditor.Window
 
         private bool active = false;
 
-        protected override string Title { get { return "任务中心"; } }
         [MenuItem("Window/Task")]
         protected static void Open()
         {
-            Open<Task>();
+            Open<Task>("任务中心");
         }
 
         protected override void Init()
@@ -225,6 +224,7 @@ namespace UnityEditor.Window
                 list.Clear();
             }
         }
+
         [Serializable]
         class TaskInformation
         {
@@ -236,6 +236,7 @@ namespace UnityEditor.Window
 
             public Status status;
         }
+
         enum Status
         {
             None,

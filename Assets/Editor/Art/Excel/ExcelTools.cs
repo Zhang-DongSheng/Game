@@ -67,11 +67,10 @@ namespace UnityEditor
 
 		private readonly List<ItemFile> source = new List<ItemFile>();
 
-		protected override string Title { get { return "Excel"; } }
 		[MenuItem("Art/Excel")]
 		protected static void Open()
 		{
-			Open<ExcelTools>();
+			Open<ExcelTools>("表格工具");
 		}
 
 		protected override void Init()

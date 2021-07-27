@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityEditor.Window
 {
-	public class CopyUtils : EditorWindow
+	public class CopyUtils : CustomWindow
 	{
 		private readonly float LINE = 30f;
 
@@ -25,11 +25,7 @@ namespace UnityEditor.Window
 		{
 			if (Selection.activeGameObject != null)
 			{
-				CopyUtils window = GetWindow<CopyUtils>();
-				window.titleContent = new GUIContent("深度拷贝");
-				window.minSize = new Vector2(600, 200);
-				window.maxSize = new Vector2(900, 300);
-				window.Init(); window.Show();
+				Open<CopyUtils>("拷贝");
 			}
 			else
 			{
@@ -37,7 +33,7 @@ namespace UnityEditor.Window
 			}
 		}
 
-		private void Init()
+		protected override void Init()
 		{
 			source = AssetDatabase.GetAssetPath(Selection.activeGameObject);
 
@@ -71,12 +67,7 @@ namespace UnityEditor.Window
 		#endregion
 
 		#region UI
-		private void OnGUI()
-		{
-			Refresh();
-		}
-
-		private void Refresh()
+		protected override void Refresh()
 		{
 			GUILayout.Space(15);
 

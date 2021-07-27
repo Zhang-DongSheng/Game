@@ -8,11 +8,10 @@ namespace UnityEditor.Window
     {
         private readonly List<string> parameter = new List<string>();
 
-        protected override string Title { get { return "调试工具"; } }
         [MenuItem("Script/Debuger")]
         protected static void Open()
         {
-            Open<Debuger>();
+            Open<Debuger>("调试工具");
         }
 
         protected override void Init() { }

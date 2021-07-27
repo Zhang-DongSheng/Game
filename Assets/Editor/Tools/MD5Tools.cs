@@ -13,11 +13,10 @@ namespace UnityEditor.Window
 
         private string result;
 
-        protected override string Title { get { return "Md5"; } }
         [MenuItem("Tools/File/MD5")]
         protected static void Open()
         {
-            Open<Md5Tools>();
+            Open<Md5Tools>("Md5");
         }
 
         protected override void Init() { }

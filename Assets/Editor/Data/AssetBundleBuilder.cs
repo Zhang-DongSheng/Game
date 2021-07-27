@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UnityEditor.Window
 {
-    class AssetBundleBuilder : EditorWindow
+    class AssetBundleBuilder : CustomWindow
     {
         private readonly List<string> IgnoreExtensionList = new List<string>() { ".meta", ".manifest" };
 
@@ -21,8 +21,6 @@ namespace UnityEditor.Window
         private string input_source;
 
         private string input_assetbundle;
-
-        private Vector2 scroll;
         #endregion
 
         private int currentViewIndex = -1;
@@ -44,14 +42,10 @@ namespace UnityEditor.Window
         [MenuItem("Data/AssetBundle")]
         protected static void Open()
         {
-            AssetBundleBuilder window = EditorWindow.GetWindow<AssetBundleBuilder>();
-            window.titleContent = new GUIContent("Asset");
-            window.minSize = new Vector2(500, 300);
-            window.Init();
-            window.Show();
+            Open<AssetBundleBuilder>("AssetBundle工具");
         }
 
-        private void Init()
+        protected override void Init()
         {
             UpdateAssetFolder();
 
@@ -132,7 +126,7 @@ namespace UnityEditor.Window
             }
         }
 
-        private void OnGUI()
+        protected override void Refresh()
         {
             index_view = GUILayout.Toolbar(index_view, text_view);
 

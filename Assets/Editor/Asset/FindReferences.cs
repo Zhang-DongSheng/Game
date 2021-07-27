@@ -177,9 +177,13 @@ namespace UnityEditor
             return assets.Count > 0;
         }
 
-        public static string ToAssetPath(string path)
+        protected static string ToAssetPath(string path)
         {
-            return "Assets/" + path.Replace(Application.dataPath, string.Empty).Replace('\\', '/');
+            int length = Application.dataPath.Length;
+
+            path = string.Format("Assets/{0}", path.Remove(0, length));
+
+            return path.Replace('\\', '/');
         }
     }
 }
