@@ -10,7 +10,9 @@ namespace TEST
     {
         public Transform test;
 
-        public List<Transform> listT;
+        [SerializeField] private List<Transform> listT;
+
+        public List<string> AA;
 
         [SerializeField] private RectTransform target;
 

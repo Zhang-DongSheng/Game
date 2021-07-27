@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
@@ -64,25 +65,67 @@ namespace Game
         {
             FieldInfo[] fields = self.GetType().GetFields(Flags);
 
+            string name;
+
             foreach (var field in fields)
             {
+                name = field.Name.ToLower();
+
                 if (field.FieldType.IsGenericType)
                 {
-                    
+                    Type element = field.FieldType.GetGenericArguments()[0];
+
+                    if (typeof(IList).IsAssignableFrom(field.FieldType) &&
+                        typeof(Component).IsAssignableFrom(element))
+                    {
+                        if (field.GetValue(self) is IList list)
+                        {
+                            if (list.Count == 0)
+                            {
+                                Transform parent = null;
+
+                                foreach (var child in self.GetComponentsInChildren<Transform>())
+                                {
+                                    if (child.name.ToLower().Contains(name))
+                                    {
+                                        parent = child;
+                                        break;
+                                    }
+                                }
+
+                                if (parent == null) continue;
+
+                                Component[] components = parent.GetComponentsInChildren(element);
+
+                                for (int i = 0; i < components.Length; i++)
+                                {
+                                    if (components[i] != parent)
+                                    {
+                                        list.Add(components[i]);
+                                    }
+                                }
+                                field.SetValue(self, list);
+                            }
+                            else
+                            {
+                                Debug.LogFormat("<color=green>[{0}]</color>已赋值", field.Name);
+                            }
+                        }
+                    }
                 }
                 else
                 {
-                    if (components.Contains(field.FieldType))
+                    if (typeof(Component).IsAssignableFrom(field.FieldType))
                     {
                         object value = field.GetValue(self);
 
-                        if (value.ToString() == "null")
+                        if (Convert.IsDBNull(value) || value.ToString() == "null")
                         {
                             Component[] components = self.GetComponentsInChildren(field.FieldType);
 
                             for (int i = 0; i < components.Length; i++)
                             {
-                                if (components[i].name.Contains(field.Name))
+                                if (components[i].name.ToLower().Contains(name))
                                 {
                                     field.SetValue(self, components[i]);
                                     break;
@@ -91,7 +134,7 @@ namespace Game
                         }
                         else
                         {
-                            Debug.LogError(field.Name + "已赋值");
+                            Debug.LogFormat("<color=green>[{0}]</color>已赋值", field.Name);
                         }
                     }
                 }
