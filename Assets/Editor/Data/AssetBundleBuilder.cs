@@ -369,7 +369,7 @@ namespace UnityEditor.Window
                             items[i].select = GUILayout.Toggle(items[i].select, string.Empty, GUILayout.Width(20));
                             GUILayout.Label(items[i].name, GUILayout.Width(120));
                             GUILayout.Label(items[i].path);
-                            GUILayout.Label(items[i].length.ToSize(), GUILayout.Width(100));
+                            GUILayout.Label(items[i].size.ToSize(), GUILayout.Width(100));
                         }
                         GUILayout.EndHorizontal();
                     }
@@ -409,7 +409,7 @@ namespace UnityEditor.Window
                                 name = file.Name,
                                 path = asset ? AssetPath(file.FullName) : file.FullName,
                                 folder = folder,
-                                length = file.Length,
+                                size = file.Length,
                                 select = true,
                             });
                         }
@@ -459,7 +459,7 @@ namespace UnityEditor.Window
                                 name = file.Name,
                                 path = asset ? AssetPath(file.FullName) : file.FullName,
                                 folder = type,
-                                length = file.Length,
+                                size = file.Length,
                                 select = true,
                             });
                         }

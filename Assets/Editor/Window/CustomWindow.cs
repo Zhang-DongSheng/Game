@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 namespace UnityEditor.Window
@@ -9,8 +8,6 @@ namespace UnityEditor.Window
         protected Vector2 scroll;
 
         protected List<GUIStyle> style = new List<GUIStyle>();
-
-        private readonly List<ItemFile> items = new List<ItemFile>();
 
         protected static void Open<T>(string title) where T : CustomWindow, new()
         {
@@ -35,29 +32,22 @@ namespace UnityEditor.Window
             ShowNotification(new GUIContent(message));
         }
 
-        protected List<ItemFile> LoadFiles(string path, string pattern = "*.*")
+        protected string ToAssetPath(string path)
         {
-            DirectoryInfo directory = Directory.CreateDirectory(path);
+            int length = Application.dataPath.Length;
 
-            FileInfo[] _files = directory.GetFiles(pattern, SearchOption.AllDirectories);
+            path = string.Format("Assets{0}", path.Remove(0, length));
 
-            items.Clear();
+            return path.Replace('\\', '/');
+        }
 
-            items.Add(new ItemFile()
+        protected string ToAbsolutePath(string path)
+        {
+            if (path.StartsWith("Assets/"))
             {
-                name = "All",
-            });
-
-            foreach (var file in _files)
-            {
-                items.Add(new ItemFile()
-                {
-                    name = Path.GetFileNameWithoutExtension(file.Name),
-                    path = file.FullName,
-                    length = file.Length,
-                });
+                path = path.Remove(0, 6);
             }
-            return items;
+            return string.Format("{0}{1}", Application.dataPath, path);
         }
 
         protected float Width
@@ -74,24 +64,6 @@ namespace UnityEditor.Window
             {
                 return base.position.height;
             }
-        }
-
-        public static string ToAssetPath(string path)
-        {
-            int length = Application.dataPath.Length;
-
-            path = string.Format("Assets{0}", path.Remove(0, length));
-
-            return path.Replace('\\', '/');
-        }
-
-        public static string ToAbsolutePath(string path)
-        {
-            if (path.StartsWith("Assets/"))
-            {
-                path = path.Remove(0, 6);
-            }
-            return string.Format("{0}{1}", Application.dataPath, path);
         }
     }
 }

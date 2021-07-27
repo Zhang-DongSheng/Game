@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using UnityEngine;
 
 namespace UnityEditor.Window
 {
@@ -27,8 +28,8 @@ namespace UnityEditor.Window
                         ItemFolder folder = new ItemFolder()
                         {
                             name = Path.GetFileName(dir),
+                            asset = ToAssetPath(dir),
                             path = dir,
-                            asset = CustomWindow.ToAssetPath(dir),
                             order = order,
                         };
                         Find(dir, folder.order + 1, ref folder.items); nodes.Add(folder);
@@ -44,13 +45,50 @@ namespace UnityEditor.Window
                         nodes.Add(new ItemFile()
                         {
                             name = Path.GetFileNameWithoutExtension(file.Name),
-                            order = order,
+                            asset = ToAssetPath(file.FullName),
                             path = file.FullName,
-                            asset = CustomWindow.ToAssetPath(file.FullName),
+                            size = file.Length,
+                            order = order,
                         });
                     }
                 }
             }
+        }
+
+        public static List<ItemFile> LoadFiles(string path, string pattern = "*.*")
+        {
+            List<ItemFile> items = new List<ItemFile>();
+
+            DirectoryInfo directory = Directory.CreateDirectory(path);
+
+            FileInfo[] _files = directory.GetFiles(pattern, SearchOption.AllDirectories);
+
+            items.Add(new ItemFile()
+            {
+                name = "All",
+            });
+
+            foreach (var file in _files)
+            {
+                items.Add(new ItemFile()
+                {
+                    name = Path.GetFileNameWithoutExtension(file.Name),
+                    asset = ToAssetPath(file.FullName),
+                    path = file.FullName,
+                    size = file.Length,
+                    order = 0,
+                });
+            }
+            return items;
+        }
+
+        public static string ToAssetPath(string path)
+        {
+            int length = Application.dataPath.Length;
+
+            path = string.Format("Assets{0}", path.Remove(0, length));
+
+            return path.Replace('\\', '/');
         }
     }
 
@@ -75,7 +113,7 @@ namespace UnityEditor.Window
 
         public string folder;
 
-        public long length;
+        public long size;
     }
 
     public class ItemFolder : ItemBase

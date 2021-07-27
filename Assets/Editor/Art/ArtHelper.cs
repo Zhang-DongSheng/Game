@@ -24,7 +24,7 @@ namespace UnityEditor.Window
 
 		protected override void Init()
 		{
-			list = LoadFiles(Application.dataPath, "*.prefab");
+			list = Finder.LoadFiles(Application.dataPath, "*.prefab");
 
 			_list = new string[list.Count];
 
