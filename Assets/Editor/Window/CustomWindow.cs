@@ -10,7 +10,7 @@ namespace UnityEditor.Window
 
         protected List<GUIStyle> style = new List<GUIStyle>();
 
-        private readonly List<ItemFile> files = new List<ItemFile>();
+        private readonly List<ItemFile> items = new List<ItemFile>();
 
         protected static void Open<T>(string title) where T : CustomWindow, new()
         {
@@ -41,41 +41,23 @@ namespace UnityEditor.Window
 
             FileInfo[] _files = directory.GetFiles(pattern, SearchOption.AllDirectories);
 
-            files.Clear();
+            items.Clear();
 
-            files.Add(new ItemFile()
+            items.Add(new ItemFile()
             {
                 name = "All",
             });
 
             foreach (var file in _files)
             {
-                files.Add(new ItemFile()
+                items.Add(new ItemFile()
                 {
                     name = Path.GetFileNameWithoutExtension(file.Name),
                     path = file.FullName,
                     length = file.Length,
                 });
             }
-            return files;
-        }
-
-        protected string ToAssetPath(string path)
-        {
-            int length = Application.dataPath.Length;
-
-            path = string.Format("Assets/{0}", path.Remove(0, length));
-
-            return path.Replace('\\', '/');
-        }
-
-        protected string ToAbsolutePath(string path)
-        {
-            if (path.StartsWith("Assets/"))
-            {
-                path = path.Remove(0, 6);
-            }
-            return string.Format("{0}{1}", Application.dataPath, path);
+            return items;
         }
 
         protected float Width
@@ -94,27 +76,22 @@ namespace UnityEditor.Window
             }
         }
 
-        protected virtual string Title { get { return this.name; } }
-    }
+        public static string ToAssetPath(string path)
+        {
+            int length = Application.dataPath.Length;
 
-    public class ItemBase
-    {
-        public string name;
+            path = string.Format("Assets{0}", path.Remove(0, length));
 
-        public string path;
+            return path.Replace('\\', '/');
+        }
 
-        public bool select;
-    }
-
-    public class ItemFile : ItemBase
-    {
-        public string root;
-
-        public long length;
-    }
-
-    public class ItemFolder : ItemBase
-    {
-
+        public static string ToAbsolutePath(string path)
+        {
+            if (path.StartsWith("Assets/"))
+            {
+                path = path.Remove(0, 6);
+            }
+            return string.Format("{0}{1}", Application.dataPath, path);
+        }
     }
 }

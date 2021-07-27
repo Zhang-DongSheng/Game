@@ -1,54 +1,19 @@
 ﻿using Data;
 using System.Collections.Generic;
 using UnityEngine;
-using Utils;
 
 namespace UnityEditor.Window
 {
     public class ResourcesBuilder : CustomWindow
     {
-        private List<Node> nodes;
-
         private DataResource data;
+
+        private List<ItemBase> items;
 
         [MenuItem("Data/Resources")]
         protected static void Open()
         {
             Open<ResourcesBuilder>("Resources工具");
-        }
-
-        private void UpdateAsset()
-        {
-            nodes = Finder.Find(Application.dataPath + "/Resources");
-
-            for (int i = 0; i < nodes.Count; i++)
-            {
-                Select(nodes[i]);
-            }
-        }
-
-        private void Load()
-        {
-            data = DataManager.Instance.Load<DataResource>("Resource", "Data/Resource");
-        }
-
-        private void Select(Node node)
-        {
-            if (node.type == NodeType.Folder)
-            {
-                NodeFolder folder = node as NodeFolder;
-
-                for (int i = 0; i < folder.nodes.Count; i++)
-                {
-                    Select(folder.nodes[i]);
-                }
-            }
-            else
-            {
-                NodeFile file = node as NodeFile;
-
-                file.select = data.Exist(node.name);
-            }
         }
 
         protected override void Init()
@@ -68,14 +33,16 @@ namespace UnityEditor.Window
             });
             style[1].normal.textColor = Color.red;
 
-            Load();
+            data = DataManager.Instance.Load<DataResource>("Resource", "Data/Resource");
 
             if (data == null)
             {
-                DataBuilder.Create_Resource(); Load();
+                DataBuilder.Create_Resource();
+
+                data = DataManager.Instance.Load<DataResource>("Resource", "Data/Resource");
             }
 
-            UpdateAsset();
+            UpdateResources();
         }
 
         protected override void Refresh()
@@ -94,9 +61,9 @@ namespace UnityEditor.Window
 
                     scroll = GUILayout.BeginScrollView(scroll);
                     {
-                        for (int i = 0; i < nodes.Count; i++)
+                        for (int i = 0; i < items.Count; i++)
                         {
-                            RefreshNode(nodes[i]);
+                            RefreshNode(items[i]);
                         }
                     }
                     GUILayout.EndScrollView();
@@ -111,7 +78,7 @@ namespace UnityEditor.Window
 
                     if (GUILayout.Button("刷新", GUILayout.Height(30)))
                     {
-                        UpdateAsset();
+                        UpdateResources();
                     }
 
                     if (GUILayout.Button("生成Asset", GUILayout.Height(20)))
@@ -124,104 +91,126 @@ namespace UnityEditor.Window
             GUILayout.EndHorizontal();
         }
 
-        private void RefreshNode(Node node)
+        private void RefreshNode(ItemBase item)
         {
-            switch (node.type)
+            switch (item.type)
             {
-                case NodeType.Folder:
-                    RefreshFolder(node as NodeFolder);
+                case ItemType.Folder:
+                    RefreshFolder(item as ItemFolder);
                     break;
-                case NodeType.File:
-                    RefreshFile(node as NodeFile);
+                case ItemType.File:
+                    RefreshFile(item as ItemFile);
                     break;
             }
         }
 
-        private void RefreshFolder(NodeFolder node)
+        private void RefreshFolder(ItemFolder folder)
         {
             GUILayout.BeginHorizontal(GUILayout.Width(20));
             {
-                for (int i = 0; i < node.order; i++)
+                for (int i = 0; i < folder.order; i++)
                 {
                     GUILayout.Space(20);
                 }
-                if (GUILayout.Button(node.status ? "▲" : "▼", GUILayout.Width(30)))
+                if (GUILayout.Button(folder.select ? "▲" : "▼", GUILayout.Width(30)))
                 {
-                    node.status = !node.status;
+                    folder.select = !folder.select;
                 }
-                GUILayout.Label(string.Format("{0} >", Format(node.name)), style[0]);
+                GUILayout.Label(string.Format("{0} >", folder.name), style[0]);
             }
             GUILayout.EndHorizontal();
 
-            if (node.status)
+            if (folder.select)
             {
-                for (int i = 0; i < node.nodes.Count; i++)
+                for (int i = 0; i < folder.items.Count; i++)
                 {
-                    RefreshNode(node.nodes[i]);
+                    RefreshNode(folder.items[i]);
                 }
             }
         }
 
-        private void RefreshFile(NodeFile node)
+        private void RefreshFile(ItemFile file)
         {
             GUILayout.BeginHorizontal();
             {
-                for (int i = 0; i < node.order; i++)
+                for (int i = 0; i < file.order; i++)
                 {
                     GUILayout.Space(20);
                 }
-                GUILayout.Label(Format(node.path), style[1]);
+                GUILayout.Label(file.name, style[1]);
 
-                node.name = GUILayout.TextField(node.name, GUILayout.Width(100));
+                file.name = GUILayout.TextField(file.name, GUILayout.Width(100));
 
-                node.select = GUILayout.Toggle(node.select, "", GUILayout.Width(20));
+                file.select = GUILayout.Toggle(file.select, "", GUILayout.Width(20));
             }
             GUILayout.EndHorizontal();
+        }
+
+        private void UpdateResources()
+        {
+            items = Finder.Find(Application.dataPath + "/Resources");
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                Select(items[i]);
+            }
+        }
+
+        private void Select(ItemBase item)
+        {
+            if (item.type == ItemType.Folder)
+            {
+                ItemFolder folder = item as ItemFolder;
+
+                for (int i = 0; i < folder.items.Count; i++)
+                {
+                    Select(folder.items[i]);
+                }
+            }
+            else
+            {
+                item.select = data.Exist(item.name);
+            }
         }
 
         private void Build()
         {
             data.resources.Clear();
 
-            for (int i = 0; i < nodes.Count; i++)
+            for (int i = 0; i < items.Count; i++)
             {
-                Builder(nodes[i]);
+                Builder(items[i]);
             }
             EditorUtility.SetDirty(data);
 
             AssetDatabase.Refresh();
         }
 
-        private void Builder(Node node)
+        private void Builder(ItemBase item)
         {
-            if (node.type == NodeType.Folder)
+            if (item.type == ItemType.Folder)
             {
-                NodeFolder folder = node as NodeFolder;
+                ItemFolder folder = item as ItemFolder;
 
-                for (int i = 0; i < folder.nodes.Count; i++)
+                for (int i = 0; i < folder.items.Count; i++)
                 {
-                    Builder(folder.nodes[i]);
+                    Builder(folder.items[i]);
                 }
             }
             else
             {
-                if (node is NodeFile file && file.select)
+                if (item is ItemFile file && file.select)
                 {
                     data.resources.Add(new ResourceInformation()
                     {
                         key = file.name,
                         capacity = -1,
                         secret = Md5Tools.ComputeFile(file.path),
-                        prefab = AssetDatabase.LoadAssetAtPath(Format(file.path), typeof(Object)),
-                        description = file.path,
+                        prefab = AssetDatabase.LoadAssetAtPath(file.asset, typeof(Object)),
+                        description = file.asset,
                     });
                 }
             }
-        }
-
-        private string Format(string path)
-        {
-            return path.Remove(0, Application.dataPath.Length - 6).Replace("\\", "/");
         }
     }
 }

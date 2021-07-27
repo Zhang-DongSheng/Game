@@ -1,88 +1,93 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace Utils
+namespace UnityEditor.Window
 {
-	public class Finder
-	{
-		public static List<Node> Find(string path)
-		{
-			List<Node> nodes = new List<Node>();
+    public static class Finder
+    {
+        public static List<ItemBase> Find(string path)
+        {
+            List<ItemBase> items = new List<ItemBase>();
 
-			Find(path, 0, ref nodes);
+            Find(path, 0, ref items);
 
-			return nodes;
-		}
+            return items;
+        }
 
-		private static void Find(string path, int order, ref List<Node> nodes)
-		{
-			if (Directory.Exists(path))
-			{
-				string[] dirs = Directory.GetDirectories(path);
+        private static void Find(string path, int order, ref List<ItemBase> nodes)
+        {
+            if (Directory.Exists(path))
+            {
+                string[] dirs = Directory.GetDirectories(path);
 
-				if (dirs.Length > 0)
-				{
-					foreach (string dir in dirs)
-					{
-						NodeFolder folder = new NodeFolder()
-						{
-							name = dir,
-							path = dir,
-							order = order,
-							type = NodeType.Folder,
-						};
-						Find(dir, folder.order + 1, ref folder.nodes); nodes.Add(folder);
-					}
-				}
+                if (dirs.Length > 0)
+                {
+                    foreach (string dir in dirs)
+                    {
+                        ItemFolder folder = new ItemFolder()
+                        {
+                            name = Path.GetFileName(dir),
+                            path = dir,
+                            asset = CustomWindow.ToAssetPath(dir),
+                            order = order,
+                        };
+                        Find(dir, folder.order + 1, ref folder.items); nodes.Add(folder);
+                    }
+                }
 
-				DirectoryInfo root = new DirectoryInfo(path);
+                DirectoryInfo root = new DirectoryInfo(path);
 
-				foreach (FileInfo file in root.GetFiles())
-				{
-					if (file.Extension != ".meta")
-					{
-						nodes.Add(new NodeFile()
-						{
-							name = Path.GetFileNameWithoutExtension(file.Name),
-							order = order,
-							type = NodeType.File,
-							path = file.FullName,
-							extension = file.Extension,
-						});
-					}
-				}
-			}
-		}
-	}
+                foreach (FileInfo file in root.GetFiles())
+                {
+                    if (file.Extension != ".meta")
+                    {
+                        nodes.Add(new ItemFile()
+                        {
+                            name = Path.GetFileNameWithoutExtension(file.Name),
+                            order = order,
+                            path = file.FullName,
+                            asset = CustomWindow.ToAssetPath(file.FullName),
+                        });
+                    }
+                }
+            }
+        }
+    }
 
-	public abstract class Node
-	{
-		public string name;
+    public abstract class ItemBase
+    {
+        public abstract ItemType type { get; }
 
-		public NodeType type;
+        public string name;
 
-		public int order;
+        public string asset;
 
-		public string path;
+        public string path;
 
-		public string extension;
-	}
+        public int order;
 
-	public class NodeFolder : Node
-	{
-		public bool status;
+        public bool select;
+    }
 
-		public List<Node> nodes = new List<Node>();
-	}
+    public class ItemFile : ItemBase
+    {
+        public override ItemType type { get { return ItemType.File; } }
 
-	public class NodeFile : Node
-	{
-		public bool select;
-	}
+        public string folder;
 
-	public enum NodeType
-	{
-		Folder,
-		File,
-	}
+        public long length;
+    }
+
+    public class ItemFolder : ItemBase
+    {
+        public override ItemType type { get { return ItemType.Folder; } }
+
+        public List<ItemBase> items = new List<ItemBase>();
+    }
+
+    public enum ItemType
+    {
+        Folder,
+        File,
+    }
 }

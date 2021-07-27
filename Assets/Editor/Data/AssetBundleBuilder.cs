@@ -408,7 +408,7 @@ namespace UnityEditor.Window
                             {
                                 name = file.Name,
                                 path = asset ? AssetPath(file.FullName) : file.FullName,
-                                root = folder,
+                                folder = folder,
                                 length = file.Length,
                                 select = true,
                             });
@@ -458,7 +458,7 @@ namespace UnityEditor.Window
                             {
                                 name = file.Name,
                                 path = asset ? AssetPath(file.FullName) : file.FullName,
-                                root = type,
+                                folder = type,
                                 length = file.Length,
                                 select = true,
                             });
@@ -489,7 +489,7 @@ namespace UnityEditor.Window
 
         private void BuildAssetBundle(ItemFile file)
         {
-            string path = string.Format("{0}/{1}", AssetBundlePath, file.root);
+            string path = string.Format("{0}/{1}", AssetBundlePath, file.folder);
 
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
