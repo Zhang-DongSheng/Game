@@ -11,7 +11,7 @@ namespace UnityEditor.Window
 
         private string code;
 
-        private readonly List<PropertyParameter> parameters = new List<PropertyParameter>();
+        private readonly List<Member> parameters = new List<Member>();
 
         [MenuItem("Script/Editor")]
         protected static void Open()
@@ -27,17 +27,17 @@ namespace UnityEditor.Window
             {
                 GUILayout.BeginVertical(GUILayout.Width(50));
                 {
-                    foreach (var value in Enum.GetValues(typeof(PropertyType)))
+                    foreach (var value in Enum.GetValues(typeof(MemberType)))
                     {
-                        PropertyType property = (PropertyType)value;
+                        MemberType property = (MemberType)value;
 
                         GUI.color = GetColor(property);
 
                         if (GUILayout.Button(property.ToString()))
                         {
-                            parameters.Add(new PropertyParameter()
+                            parameters.Add(new Member()
                             {
-                                property = property,
+                                type = property,
                                 order = parameters.Count,
                                 old = parameters.Count,
                                 name = string.Format("{0}{1}", property, index),
@@ -86,11 +86,11 @@ namespace UnityEditor.Window
             GUILayout.EndHorizontal();
         }
 
-        private void RefreshParameter(PropertyParameter parameter)
+        private void RefreshParameter(Member parameter)
         {
             GUILayout.BeginHorizontal();
             {
-                GUI.color = GetColor(parameter.property);
+                GUI.color = GetColor(parameter.type);
 
                 parameter.old = EditorGUILayout.IntField(parameter.old, GUILayout.Width(30));
 
@@ -129,7 +129,7 @@ namespace UnityEditor.Window
             GUILayout.EndHorizontal();
         }
 
-        private void CreateScript(string code, params PropertyParameter[] parameters)
+        private void CreateScript(string code, params Member[] parameters)
         {
             string[] path = NewScript(code);
 
@@ -187,7 +187,7 @@ namespace UnityEditor.Window
 
         /// <param name="writer"></param>
         /// <param name="parameter"></param>
-        private void Write(ref StreamWriter writer, PropertyParameter parameter)
+        private void Write(ref StreamWriter writer, Member parameter)
         {
             string content;
 
@@ -202,13 +202,13 @@ namespace UnityEditor.Window
                 writer.WriteLine(string.Empty);
             }
 
-            switch (parameter.property)
+            switch (parameter.type)
             {
-                case PropertyType.Field:
+                case MemberType.Field:
                     content = string.Format("\t\tpublic {0} {1};", parameter.Returned, parameter.name);
                     writer.WriteLine(content);
                     break;
-                case PropertyType.Property:
+                case MemberType.Property:
                     string value = parameter.name.ToLowerInvariant();
                     content = string.Format("\t\tpublic {0} {1};", parameter.Returned, parameter.name.ToLowerInvariant());
                     writer.WriteLine(content);
@@ -225,7 +225,7 @@ namespace UnityEditor.Window
                     writer.WriteLine("\t\t\t}");
                     writer.WriteLine("\t\t}");
                     break;
-                case PropertyType.Method:
+                case MemberType.Method:
                     content = string.Format("\t\tpublic {0} {1}()", parameter.Returned, parameter.name);
                     writer.WriteLine(content);
                     writer.WriteLine("\t\t{");
@@ -292,15 +292,15 @@ namespace UnityEditor.Window
             return new string[2] { path, file };
         }
 
-        private Color GetColor(PropertyType property)
+        private Color GetColor(MemberType property)
         {
             switch (property)
             {
-                case PropertyType.Field:
+                case MemberType.Field:
                     return Color.green;
-                case PropertyType.Property:
+                case MemberType.Property:
                     return Color.yellow;
-                case PropertyType.Method:
+                case MemberType.Method:
                     return Color.grey;
                 default:
                     return Color.white;
@@ -308,7 +308,7 @@ namespace UnityEditor.Window
         }
     }
 
-    public class PropertyParameter
+    public class Member
     {
         public string name;
 
@@ -318,7 +318,7 @@ namespace UnityEditor.Window
 
         public int order;
 
-        public PropertyType property;
+        public MemberType type;
 
         public VariableType variable;
 
@@ -333,15 +333,17 @@ namespace UnityEditor.Window
                 switch (variable)
                 {
                     case VariableType.None:
-                        return property switch
+                        return type switch
                         {
-                            PropertyType.Method => "void",
+                            MemberType.Method => "void",
                             _ => "string",
                         };
                     case VariableType.Array:
                         return string.Format("{0}[]", Variable(assistant));
                     case VariableType.List:
                         return string.Format("List<{0}>", Variable(assistant));
+                    case VariableType.Stack:
+                        return string.Format("Stack<{0}>", Variable(assistant));
                     case VariableType.Dictionary:
                         return string.Format("Dictionary<int, {0}>", Variable(assistant));
                     default:
@@ -376,7 +378,7 @@ namespace UnityEditor.Window
         }
     }
 
-    public enum PropertyType
+    public enum MemberType
     {
         Field,              //字段
         Property,           //属性
@@ -392,9 +394,11 @@ namespace UnityEditor.Window
         Int,
         Float,
         Double,
+        Long,
         String,
         Array,
         List,
+        Stack,
         Dictionary,
     }
 }
