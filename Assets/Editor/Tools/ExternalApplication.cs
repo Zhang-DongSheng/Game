@@ -6,36 +6,29 @@ using UnityEngine;
 
 namespace UnityEditor.Window
 {
-    class ExternalApplication : EditorWindow
+    class ExternalApplication : CustomWindow
     {
         const string KEY = "ExternalApplication";
-
-        private readonly List<ExApplication> applications = new List<ExApplication>();
-
-        private Vector2 scroll;
 
         private string path;
 
         private ExApplication application;
 
+        private readonly List<ExApplication> applications = new List<ExApplication>();
+
         [MenuItem("Application/Extra")]
         protected static void Open()
         {
-            ExternalApplication window = GetWindow<ExternalApplication>();
-            window.titleContent = new GUIContent("Application");
-            window.minSize = Vector2.one * 300;
-            window.maxSize = Vector2.one * 1000;
-            window.Load();
-            window.Show();
+            Open<ExternalApplication>("Á¨¨‰∏âÊñπÂ∫îÁî®");
         }
 
-        private void Load()
+        protected override void Init()
         {
             applications.Clear();
 
             //Windows
-            AddOrReplaceWindowsApplication("mspaint", "ª≠Õº");
-            AddOrReplaceWindowsApplication("notepad", "º« ¬±æ");
+            AddOrReplaceWindowsApplication("mspaint", "ÁîªÂõæ");
+            AddOrReplaceWindowsApplication("notepad", "ËÆ∞‰∫ãÊú¨");
 
             string value = UnityEngine.PlayerPrefs.GetString(KEY);
 
@@ -50,16 +43,11 @@ namespace UnityEditor.Window
             }
         }
 
-        private void OnGUI()
-        {
-            Refresh();
-        }
-
-        private void Refresh()
+        protected override void Refresh()
         {
             GUILayout.BeginHorizontal();
             {
-                GUILayout.Label("ÃÌº”–¬”¶”√£∫", GUILayout.Width(70));
+                GUILayout.Label("Ê∑ªÂä†Êñ∞Â∫îÁî®Ôºö", GUILayout.Width(70));
 
                 if (GUILayout.Button(path))
                 {
@@ -109,36 +97,29 @@ namespace UnityEditor.Window
             {
                 GUILayout.Label(app.name, GUILayout.Width(100));
 
-                switch (app.status)
+                if (app.active)
                 {
-                    case ExStatus.On:
-                        {
-                            if (GUILayout.Button("πÿ±’"))
-                            {
-                                app.Close();
-                            }
+                    if (GUILayout.Button("ÂÖ≥Èó≠"))
+                    {
+                        app.Close();
+                    }
 
-                            if (GUILayout.Button("ÕÀ≥ˆ"))
-                            {
-                                app.Kill();
-                            }
-                        }
-                        break;
-                    case ExStatus.Off:
-                        {
-                            if (GUILayout.Button("¥Úø™"))
-                            {
-                                app.Startup();
-
-                                application = app;
-                            }
-                        }
-                        break;
+                    if (GUILayout.Button("ÈÄÄÂá∫"))
+                    {
+                        app.Kill();
+                    }
+                }
+                else
+                {
+                    if (GUILayout.Button("ÊâìÂºÄ"))
+                    {
+                        app.Startup(); application = app;
+                    }
                 }
 
                 if (GUILayout.Button("-", GUILayout.Width(50)))
                 {
-                    if (EditorUtility.DisplayDialog("»∑»œ…æ≥˝", string.Format("»∑»œ…æ≥˝{0}”¶”√", app.name), "…æ≥˝"))
+                    if (EditorUtility.DisplayDialog("Á°ÆËÆ§Âà†Èô§", string.Format("Á°ÆËÆ§Âà†Èô§{0}Â∫îÁî®", app.name), "Âà†Èô§"))
                     {
                         int index = applications.FindIndex(x => x.path == app.path);
 
@@ -157,11 +138,11 @@ namespace UnityEditor.Window
         {
             if (application == null) return;
 
-            RefreshLine("”¶”√√˚≥∆£∫", application.name);
+            RefreshLine("Â∫îÁî®ÂêçÁß∞Ôºö", application.name);
 
-            RefreshLine("¬∑æ∂£∫", application.path);
+            RefreshLine("Ë∑ØÂæÑÔºö", application.path);
 
-            RefreshLine("◊¥Ã¨£∫", application.status);
+            RefreshLine("Áä∂ÊÄÅÔºö", application.active);
         }
 
         private void RefreshLine(string key, object value)
@@ -199,7 +180,7 @@ namespace UnityEditor.Window
                 {
                     name = name,
                     path = path,
-                    status = ExStatus.Off,
+                    active = false,
                 });
             }
         }
@@ -227,7 +208,7 @@ namespace UnityEditor.Window
 
         public string path;
 
-        public ExStatus status;
+        public bool active;
 
         private Process process;
 
@@ -255,7 +236,7 @@ namespace UnityEditor.Window
 
                     process.Exited += OnExited;
                 }
-                status = ExStatus.On;
+                active = true;
             }
             catch (Exception e)
             {
@@ -305,13 +286,7 @@ namespace UnityEditor.Window
 
         private void OnExited(object sender, EventArgs e)
         {
-            status = ExStatus.Off;
+            active = false;
         }
-    }
-
-    public enum ExStatus
-    {
-        On,
-        Off,
     }
 }

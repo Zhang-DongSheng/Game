@@ -7,19 +7,20 @@ namespace UnityEditor
 {
     public class Game
     {
-        private static readonly string sceneName = "Main";
-
         private static int pictureIndex;
 
         [MenuItem("Tools/OpenMainScene &Q")]
         protected static void OpenMainScene()
         {
-            string path_scene = sceneName;
-            Scene scene_cur = EditorSceneManager.GetActiveScene();
-            if (scene_cur.name != path_scene)
+            string[] scenes = EditorBuildSettingsScene.GetActiveSceneList(EditorBuildSettings.scenes);
+
+            string main = scenes.Length > 0 ? scenes[0] : string.Empty;
+
+            Scene current = EditorSceneManager.GetActiveScene();
+
+            if (!string.IsNullOrEmpty(main) && current.path != main)
             {
-                path_scene = string.Format("Assets/Scene/{0}.unity", path_scene);
-                EditorSceneManager.OpenScene(path_scene);
+                EditorSceneManager.OpenScene(main);
             }
             EditorApplication.isPlaying = true;
         }
@@ -93,7 +94,7 @@ namespace UnityEditor
 
             if (Directory.Exists(path))
             {
-                System.Diagnostics.Process.Start("explorer.exe", path.Replace('/', '\\'));
+                EditorUtility.RevealInFinder(path);
             }
             else
             {

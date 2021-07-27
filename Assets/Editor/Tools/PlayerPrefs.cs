@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-namespace UnityEditor
+namespace UnityEditor.Window
 {
-    public class PlayerPrefs : EditorWindow
+	public class PlayerPrefs : CustomWindow
 	{
 		private readonly string label_key = "键：";
 
@@ -15,22 +15,18 @@ namespace UnityEditor
 
 		private PlayerPrefPair[] m_data;
 
-		private Vector2 scroll;
-
 		[MenuItem("Edit/PlayerPrefs")]
 		protected static void Open()
 		{
-			EditorWindow window = EditorWindow.GetWindow<PlayerPrefs>();
-			window.minSize = Vector2.one * 300;
-			window.titleContent = new GUIContent("PlayerPrefs");
+			Open<PlayerPrefs>("本地化数据");
 		}
 
-		private void Awake()
+		protected override void Init()
 		{
 			m_data = PlayerPrefsExtension.GetAll();
 		}
 
-		private void OnGUI()
+		protected override void Refresh()
 		{
 			scroll = EditorGUILayout.BeginScrollView(scroll);
 			{
