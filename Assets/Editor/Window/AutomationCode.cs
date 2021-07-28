@@ -7,7 +7,7 @@ namespace UnityEditor.Window
 {
     class AutomationCode : CustomWindow
     {
-        private int index;
+        private new int index;
 
         private string code;
 

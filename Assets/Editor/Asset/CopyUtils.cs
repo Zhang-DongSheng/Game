@@ -10,11 +10,9 @@ namespace UnityEditor.Window
 
 		private readonly float MENU = 60f;
 
-		private string _input, input, output;
+		private string output;
 
 		private string source, target;
-
-		private int _index, index;
 
 		private readonly List<Meta> list = new List<Meta>();
 
@@ -37,13 +35,22 @@ namespace UnityEditor.Window
 		{
 			source = AssetDatabase.GetAssetPath(Selection.activeGameObject);
 
-			input = _input = Path.GetDirectoryName(source).Replace('\\', '/');
+			index.index = 0;
 
-			index = _index = 0;
+			index.action = (index) =>
+			{
+				output = children[index];
+			};
 
+			input.value = Path.GetDirectoryName(source).Replace('\\', '/');
+
+			input.action = (input) =>
+			{
+				Children(input); index.index = 0;
+			};
 			output = "copy";
 
-			Children(input);
+			Children(input.value);
 		}
 
 		#region Event
@@ -90,17 +97,11 @@ namespace UnityEditor.Window
 				{
 					GUILayout.Label("[输出路径]", GUILayout.Width(MENU));
 
-					_input = GUILayout.TextField(_input);
+					input.value = GUILayout.TextField(input.value);
 
-					if (!string.IsNullOrEmpty(_input) && _input.EndsWith("/"))
+					if (!string.IsNullOrEmpty(input.value) && input.value.EndsWith("/"))
 					{
-						_input = _input.Substring(0, _input.Length - 1);
-					}
-					if (input != _input)
-					{
-						input = _input; Children(input);
-
-						index = _index = 0;
+						input.value = input.value.Substring(0, input.value.Length - 1);
 					}
 				}
 				GUILayout.EndHorizontal();
@@ -113,17 +114,7 @@ namespace UnityEditor.Window
 
 					if (children.Count > 0)
 					{
-						_index = EditorGUILayout.Popup(_index, children.ToArray(), GUILayout.Width(100));
-
-						if (_index != 0)
-						{
-							if (index != _index)
-							{
-								index = _index;
-
-								output = children[index];
-							}
-						}
+						index.index = EditorGUILayout.Popup(index.index, children.ToArray(), GUILayout.Width(100));
 					}
 				}
 				GUILayout.EndHorizontal();
@@ -211,9 +202,9 @@ namespace UnityEditor.Window
 		#region Function
 		private string Format(string path)
 		{
-			if (path.StartsWith(input))
+			if (path.StartsWith(input.value))
 			{
-				path = path.Remove(0, input.Length + 1);
+				path = path.Remove(0, input.value.Length + 1);
 			}
 
 			int first = path.IndexOf("/");
@@ -222,7 +213,7 @@ namespace UnityEditor.Window
 			{
 				path = path.Remove(0, first);
 			}
-			path = string.Format("{0}/{1}/{2}", input, output, path);
+			path = string.Format("{0}/{1}/{2}", input.value, output, path);
 
 			string folder = Path.GetDirectoryName(path);
 
