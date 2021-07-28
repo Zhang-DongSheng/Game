@@ -1,10 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace UnityEditor.Window
 {
     public abstract class CustomWindow : EditorWindow
     {
+        protected readonly Index index = new Index();
+
+        protected readonly Input input = new Input();
+
         protected Vector2 scroll;
 
         protected List<GUIStyle> style = new List<GUIStyle>();
@@ -27,9 +32,31 @@ namespace UnityEditor.Window
 
         protected abstract void Refresh();
 
-        protected void ShowNotification(string message)
+        protected virtual void Horizontal(UnityAction action)
         {
-            ShowNotification(new GUIContent(message));
+            GUILayout.BeginHorizontal();
+            {
+                action?.Invoke();
+            }
+            GUILayout.EndHorizontal();
+        }
+
+        protected virtual void Vertical(UnityAction action)
+        {
+            GUILayout.BeginVertical();
+            {
+                action?.Invoke();
+            }
+            GUILayout.EndVertical();
+        }
+
+        protected virtual void Scroll(UnityAction action)
+        {
+            scroll = GUILayout.BeginScrollView(scroll);
+            {
+                action?.Invoke();
+            }
+            GUILayout.EndScrollView();
         }
 
         protected string ToAssetPath(string path)
@@ -50,6 +77,11 @@ namespace UnityEditor.Window
             return string.Format("{0}{1}", Application.dataPath, path);
         }
 
+        protected void ShowNotification(string message)
+        {
+            ShowNotification(new GUIContent(message));
+        }
+
         protected float Width
         {
             get
@@ -63,6 +95,52 @@ namespace UnityEditor.Window
             get
             {
                 return base.position.height;
+            }
+        }
+    }
+    [System.Serializable]
+    public class Index
+    {
+        public UnityAction<int> action;
+
+        private int _index = 0;
+        public int index
+        {
+            get
+            {
+                return _index;
+            }
+            set
+            {
+                if (_index != value)
+                {
+                    _index = value;
+
+                    action?.Invoke(_index);
+                }
+            }
+        }
+    }
+    [System.Serializable]
+    public class Input
+    {
+        public UnityAction<string> action;
+
+        private string _value = string.Empty;
+        public string value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                if (_value != value)
+                {
+                    _value = value;
+
+                    action?.Invoke(_value);
+                }
             }
         }
     }

@@ -17,54 +17,54 @@ MonoBehaviour:
     capacity: -1
     prefab: {fileID: 8869145237575657179, guid: f8563b77fae56cd498df5179d9ab89ef, type: 3}
     secret: c72b9a1d8f7db878aa2e3fddf643e
-    description: E:\Study\Game\Assets\Resources\Prefab\Item\ItemCell.prefab
+    description: Assets/Resources/Prefab/Item/ItemCell.prefab
   - key: UIConfirm
     capacity: -1
     prefab: {fileID: 6978918614400995659, guid: 2ddb396cbb585ea458b481d12087cc4d, type: 3}
     secret: 9a8ad967265e3c9dc0c2c0ec8785f672
-    description: E:\Study\Game\Assets\Resources\Prefab\Panel\UIConfirm.prefab
+    description: Assets/Resources/Prefab/Panel/UIConfirm.prefab
   - key: UIHorseLamp
     capacity: -1
     prefab: {fileID: 3603872268513932690, guid: a0349686e89cec44a8fcdf1c60c19799, type: 3}
-    secret: 69f678e3faaf468824335abd3d3b13b9
-    description: E:\Study\Game\Assets\Resources\Prefab\Panel\UIHorseLamp.prefab
+    secret: dc96c66185f6385d2f681df9469f47b6
+    description: Assets/Resources/Prefab/Panel/UIHorseLamp.prefab
   - key: UILoading
     capacity: -1
     prefab: {fileID: 1234978127019798347, guid: 427876e5cdbdcb24baad5e3c9c45bb26, type: 3}
     secret: a714e83843ecd91d937dae188a9ae546
-    description: E:\Study\Game\Assets\Resources\Prefab\Panel\UILoading.prefab
+    description: Assets/Resources/Prefab/Panel/UILoading.prefab
   - key: UILogin
     capacity: -1
     prefab: {fileID: 3659033623829297182, guid: a5a2a6e07ef1b624585317f90dabcd96, type: 3}
     secret: 1aee9ab82622c6deb6bc2b6c914e3b
-    description: E:\Study\Game\Assets\Resources\Prefab\Panel\UILogin.prefab
+    description: Assets/Resources/Prefab/Panel/UILogin.prefab
   - key: UILotteryDraw
     capacity: -1
     prefab: {fileID: 2934783889249999787, guid: 3c10f4de8fa6a5e42bc19d79f9685deb, type: 3}
     secret: 10be5d12db8be6543a835f1462c3fa98
-    description: E:\Study\Game\Assets\Resources\Prefab\Panel\UILotteryDraw.prefab
+    description: Assets/Resources/Prefab/Panel/UILotteryDraw.prefab
   - key: UIMain
     capacity: -1
     prefab: {fileID: 3475235642826711133, guid: ee4e3e5da72d7124e89f1022c3161fbb, type: 3}
     secret: a3a1da5ed0eb66a43f75748af56a155
-    description: E:\Study\Game\Assets\Resources\Prefab\Panel\UIMain.prefab
+    description: Assets/Resources/Prefab/Panel/UIMain.prefab
   - key: UINotice
     capacity: -1
     prefab: {fileID: 6180908441421270953, guid: 6a5e9dd23339fbd4ab53ddfdd03e0a63, type: 3}
-    secret: a42fc3486a494d7079e5e1a63744d6bc
-    description: E:\Study\Game\Assets\Resources\Prefab\Panel\UINotice.prefab
+    secret: c54c455e3e21d812cb979d3a51af5a4
+    description: Assets/Resources/Prefab/Panel/UINotice.prefab
   - key: UIReward
     capacity: -1
     prefab: {fileID: 3675214102293789820, guid: e25b43b6d62c1e74a980f0eb45da8263, type: 3}
     secret: ae2bfdce40a196b4bf0984529f3fef
-    description: E:\Study\Game\Assets\Resources\Prefab\Panel\UIReward.prefab
+    description: Assets/Resources/Prefab/Panel/UIReward.prefab
   - key: UITest
     capacity: -1
     prefab: {fileID: 836184374315916967, guid: c298abb5761b16b4ba305bf449d8be21, type: 3}
     secret: e4e4cd42944bba9be32d18af7067bd54
-    description: E:\Study\Game\Assets\Resources\Prefab\Panel\UITest.prefab
+    description: Assets/Resources/Prefab/Panel/UITest.prefab
   - key: UITips
     capacity: -1
     prefab: {fileID: 700211347781550380, guid: 8ad8c508ecfc03a4d9684f5a110c0ed6, type: 3}
     secret: 6e623c2392e2397f465c0ec98845d8
-    description: E:\Study\Game\Assets\Resources\Prefab\Panel\UITips.prefab
+    description: Assets/Resources/Prefab/Panel/UITips.prefab
