@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,8 @@ namespace UnityEditor.Window
 		private readonly Index idxPrefab = new Index();
 
 		private readonly Index idxSrc = new Index(), idxDst = new Index();
+
+		private string[] types;
 
 		private List<ItemFile> list;
 
@@ -52,6 +55,8 @@ namespace UnityEditor.Window
 					prefab = AssetDatabase.LoadAssetAtPath<GameObject>(file.asset);
 				}
 			};
+
+			types = TypeDefine.ToArrayString();
 		}
 
 		protected override void Refresh()
@@ -154,14 +159,14 @@ namespace UnityEditor.Window
 					{
 						GUILayout.Label("Src");
 
-						idxSrc.index = EditorGUILayout.Popup(idxSrc.index, menu);
+						idxSrc.index = EditorGUILayout.Popup(idxSrc.index, types);
 					});
 
 					Horizontal(() =>
 					{
 						GUILayout.Label("Dst");
 
-						idxDst.index = EditorGUILayout.Popup(idxDst.index, menu);
+						idxDst.index = EditorGUILayout.Popup(idxDst.index, types);
 					});
 
 					if (GUILayout.Button("替换"))
@@ -247,7 +252,47 @@ namespace UnityEditor.Window
 
 		private void ModifyComponent(string path, int src, int dst)
 		{
+			GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
 
+			Type old = TypeDefine.GetType(src), now = TypeDefine.GetType(dst);
+
+			if (old == null && now == null) { }
+			else if (old == null && now != null)
+			{
+				if (prefab.TryGetComponent(now, out _)) { }
+				else
+				{
+					prefab.AddComponent(now);
+				}
+			}
+			else if (old != null && now != null)
+			{
+				Component[] components = prefab.GetComponentsInChildren(old);
+
+				GameObject child;
+
+				for (int i = 0; i < components.Length; i++)
+				{
+					child = components[i].gameObject;
+
+					DestroyImmediate(components[i], true);
+
+					if (child.TryGetComponent(now, out _)) { }
+					else
+					{
+						child.AddComponent(now);
+					}
+				}
+			}
+			else if (old != null && now == null)
+			{
+				Component[] components = prefab.GetComponentsInChildren(old);
+
+				for (int i = 0; i < components.Length; i++)
+				{
+					DestroyImmediate(components[i], true);
+				}
+			}
 		}
 	}
 }
