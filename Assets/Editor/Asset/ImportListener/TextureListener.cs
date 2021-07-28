@@ -15,7 +15,8 @@ namespace UnityEditor.Listener
             {
                 TextureKind.Image, new List<string>()
                 {
-                    "Assets/Resources/"
+                    "Assets/Resources/",
+                    "Assets/Art/UI/",
                 }
             },
         };
