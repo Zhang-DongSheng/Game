@@ -185,10 +185,9 @@ namespace UnityEditor.Window
 			{
 				FindReferences.Empty("t:Sprite", "Assets/Resources");
 			}
-
 			if (GUILayout.Button("检查图片大小"))
 			{
-
+				FindReferences.Overflow("t:Texture2D", "Assets");
 			}
 		}
 

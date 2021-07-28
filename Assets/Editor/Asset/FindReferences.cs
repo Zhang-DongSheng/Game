@@ -80,6 +80,43 @@ namespace UnityEditor
             });
         }
 
+        public static void Overflow(string filter, params string[] folders)
+        {
+            if (folders == null || folders.Length == 0) return;
+
+            string[] guids = AssetDatabase.FindAssets(filter, folders);
+
+            if (guids.Length == 0) return;
+
+            string path; Object asset;
+
+            foreach (var guid in guids)
+            {
+                path = AssetDatabase.GUIDToAssetPath(guid);
+
+                asset = AssetDatabase.LoadAssetAtPath<Object>(path);
+
+                if (asset == null) continue;
+
+                if (asset is Texture2D texture)
+                {
+                    if (texture.width > 1024 ||
+                    texture.height > 1024)
+                    {
+                        Debug.LogWarning(string.Format("{0} ³ß´ç¹ý´ó£¡", path), asset);
+                    }
+                    else if (texture.format != TextureFormat.ASTC_4x4)
+                    {
+                        Debug.LogError(string.Format("{0} Î´Ñ¹Ëõ£¡", path), asset);
+                    }
+                }
+                else
+                {
+
+                }
+            }
+        }
+
         public static bool Missing(GameObject go)
         {
             bool missing = false;
