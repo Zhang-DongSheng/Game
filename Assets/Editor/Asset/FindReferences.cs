@@ -80,43 +80,6 @@ namespace UnityEditor
             });
         }
 
-        public static void Overflow(string filter, params string[] folders)
-        {
-            if (folders == null || folders.Length == 0) return;
-
-            string[] guids = AssetDatabase.FindAssets(filter, folders);
-
-            if (guids.Length == 0) return;
-
-            string path; Object asset;
-
-            foreach (var guid in guids)
-            {
-                path = AssetDatabase.GUIDToAssetPath(guid);
-
-                asset = AssetDatabase.LoadAssetAtPath<Object>(path);
-
-                if (asset == null) continue;
-
-                if (asset is Texture2D texture)
-                {
-                    if (texture.width > 1024 ||
-                    texture.height > 1024)
-                    {
-                        Debug.LogWarning(string.Format("{0} ³ß´ç¹ý´ó£¡", path), asset);
-                    }
-                    else if (texture.format != TextureFormat.ASTC_4x4)
-                    {
-                        Debug.LogError(string.Format("{0} Î´Ñ¹Ëõ£¡", path), asset);
-                    }
-                }
-                else
-                {
-
-                }
-            }
-        }
-
         public static bool Missing(GameObject go)
         {
             bool missing = false;
@@ -147,6 +110,84 @@ namespace UnityEditor
                 }
             }
             return missing;
+        }
+
+        public static void Overflow(string filter, params string[] folders)
+        {
+            if (folders == null || folders.Length == 0) return;
+
+            string[] guids = AssetDatabase.FindAssets(filter, folders);
+
+            if (guids.Length == 0) return;
+
+            string path; Object asset;
+
+            foreach (var guid in guids)
+            {
+                path = AssetDatabase.GUIDToAssetPath(guid);
+
+                asset = AssetDatabase.LoadAssetAtPath<Object>(path);
+
+                if (asset == null)
+                {
+                    continue;
+                }
+                else if (asset is Texture2D texture)
+                {
+                    OverflowTexture(path, texture);
+                }
+                else if (asset is Material material)
+                {
+                    OverflowMaterial(path, material);
+                }
+                else if (asset is TextAsset text)
+                {
+                    OverflowTextAsset(path, text);
+                }
+            }
+        }
+
+        protected static void OverflowTexture(string name, Texture2D texture)
+        {
+            if (texture.width > 2048 || texture.height > 2048)
+            {
+                Debug.LogError(string.Format("{0} ³ß´ç³¬³ö2048£¡", name), texture);
+            }
+            else if (texture.width > 1024 || texture.height > 1024)
+            {
+                Debug.LogWarning(string.Format("{0} ³ß´ç´óÓÚ1024£¡", name), texture);
+            }
+            else if (texture.format != TextureFormat.ASTC_4x4)
+            {
+#if UNITY_ANDROID
+                if (texture.format == TextureFormat.ETC2_RGB ||
+                   texture.format == TextureFormat.ETC2_RGBA8Crunched)
+#elif UNITY_IOS
+                if(texture.format == TextureFormat.PVRTC_RGB4 ||
+                   texture.format == TextureFormat.PVRTC_RGBA4)
+#endif
+                { }
+                else
+                {
+                    Debug.LogError(string.Format("{0} Î´Ñ¹Ëõ£¡", name), texture);
+                }
+            }
+        }
+
+        protected static void OverflowMaterial(string name, Material material)
+        {
+            if (material.passCount > 2)
+            {
+                Debug.LogError(string.Format("{0} äÖÈ¾´ÎÊý¹ý¶à£¡", name), material);
+            }
+        }
+
+        protected static void OverflowTextAsset(string name, TextAsset textAsset)
+        {
+            if (textAsset.bytes.Length > 1024 * 1024 * 1)
+            {
+                Debug.LogError(string.Format("{0} ´úÂë³¬³¤£¡", name), textAsset);
+            }
         }
 
         protected static void Match(string[] guids, int index, List<string> assets, System.Action complete = null)

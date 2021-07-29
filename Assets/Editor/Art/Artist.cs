@@ -9,7 +9,9 @@ namespace UnityEditor.Window
 	{
 		private readonly string[] menu = new string[4] { "Main", "Prefab", "Texture", "Other" };
 
-		private readonly Index idxPrefab = new Index();
+		private readonly string[] assets = new string[5] { "None", "Sprite", "Texture", "Material", "TextAsset" };
+
+		private readonly Index idxPrefab = new Index(), idxAsset = new Index();
 
 		private readonly Index idxSrc = new Index(), idxDst = new Index();
 
@@ -181,14 +183,30 @@ namespace UnityEditor.Window
 
 		private void RefreshTexture()
 		{
-			if (GUILayout.Button("检查引用次数为空的图片"))
+			GUILayout.BeginHorizontal();
 			{
-				FindReferences.Empty("t:Sprite", "Assets/Resources");
+				GUILayout.BeginVertical();
+				{
+					idxAsset.index = EditorGUILayout.Popup(idxAsset.index, assets);
+				}
+				GUILayout.EndVertical();
+
+				GUILayout.Box(string.Empty, GUILayout.Width(3), GUILayout.ExpandHeight(true));
+
+				GUILayout.BeginVertical(GUILayout.Width(200));
+				{
+					if (GUILayout.Button("资源引用检测"))
+					{
+						FindReferences.Empty(string.Format("t:{0}", assets[idxAsset.index]), "Assets");
+					}
+					if (GUILayout.Button("资源大小检测"))
+					{
+						FindReferences.Overflow(string.Format("t:{0}", assets[idxAsset.index]), "Assets");
+					}
+				}
+				GUILayout.EndVertical();
 			}
-			if (GUILayout.Button("检查图片大小"))
-			{
-				FindReferences.Overflow("t:Texture2D", "Assets");
-			}
+			GUILayout.EndHorizontal();
 		}
 
 		private void RefreshOther()
