@@ -3,16 +3,16 @@ using UnityEngine.UI;
 
 namespace UnityEditor.Inspector
 {
-    [CustomEditor(typeof(UIEffectHelper))]
-    class InspectorUIEffectHelper : Editor
+    [CustomEditor(typeof(UIEffectLayout))]
+    class InspectorUIEffectLayout : Editor
     {
-        private UIEffectHelper helper;
+        private UIEffectLayout layout;
 
         private bool custom;
 
         private void Awake()
         {
-            helper = this.target as UIEffectHelper;
+            layout = this.target as UIEffectLayout;
         }
 
         public override void OnInspectorGUI()

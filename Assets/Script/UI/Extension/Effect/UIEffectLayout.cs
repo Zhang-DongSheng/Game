@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 namespace UnityEngine.UI
 {
     [RequireComponent(typeof(Transform))]
-    public class UIEffectHelper : MonoBehaviour
+    public class UIEffectLayout : MonoBehaviour
     {
         [SerializeField] private bool auto = true;
 

@@ -7,9 +7,9 @@ namespace UnityEngine.UI
     /// 常用在Scroll Rect下，拖动到指定区域才显示
     /// 需要在Shader中指定显示区域，例如：UIEffect.shader
     /// </summary>
-    public class UIEffectClip : MonoBehaviour
+    public class UIEffectMask : MonoBehaviour
     {
-        [SerializeField] private RectTransform m_rect;                      //遮挡容器，即ScrollView
+        [SerializeField] private RectTransform m_rect;
 
         [SerializeField] private Vector2 offset;
 
