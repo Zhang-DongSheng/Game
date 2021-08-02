@@ -2,7 +2,7 @@ Shader "Project/GUITexture"
 {
     Properties
     {
-        [PerRendererData]_MainTex ("Texture", 2D) = "white" {}
+        [PerRendererData] _MainTex ("Texture", 2D) = "white" {}
         _X ("Screen Pos X", Float) = 0
         _Y ("Screen Pos Y", Float) = 0
         _Width ("Width", Float) = 128
