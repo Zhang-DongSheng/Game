@@ -1,11 +1,13 @@
-// ±ßÔµ¼ì²â
-Shader "Model/EdgeDetection"
+// ±ßÔµ¼ì²â[Sobel]
+Shader "Model/EdgeDetection/Sobel"
 {
     Properties
     {
-        [PerRendererData] _MainTex ("Texture", 2D) = "white" {}
-        _Color ("Color", Color) = (0, 0, 0, 1)
-        _Range ("Range", Range(0.1, 3)) = 1
+        _MainTex ("Texture", 2D) = "white" {}
+        _Color ("Color", Color) = (1, 1, 1, 1)
+        _EdgeColor("Edge Color", Color) = (0, 0, 0, 1)
+        _Contrast ("Contrast Ratio", Range(0, 1)) = 1
+        _Range ("Range", Float) = 1
         _Edge ("Edge Only", Range(0, 1)) = 1
     }
     SubShader
@@ -41,6 +43,8 @@ Shader "Model/EdgeDetection"
             sampler2D _MainTex;
             float4 _MainTex_TexelSize;
             fixed4 _Color;
+            fixed4 _EdgeColor;
+            float _Contrast;
             float _Range;
             float _Edge;
 
@@ -97,13 +101,15 @@ Shader "Model/EdgeDetection"
             {
                 float edge = Sobel(i);
 
-                fixed4 main = tex2D(_MainTex, i.uv[4]);
+                fixed4 color = tex2D(_MainTex, i.uv[4]);
 
-                fixed4 color = lerp(_Color, main, edge);
+                color = lerp(_Color, color, _Contrast);
 
-                color = lerp(main, color, _Edge);
+                fixed4 final = lerp(_EdgeColor, color, edge);
 
-                return color;
+                final = lerp(color, final, _Edge);
+
+                return final;
             }
             ENDCG
         }
