@@ -1,6 +1,6 @@
 namespace UnityEngine
 {
-    public class DontDestroyGameObject : MonoBehaviour
+    sealed class DontDestroyGameObject : MonoBehaviour
     {
         private void Awake()
         {

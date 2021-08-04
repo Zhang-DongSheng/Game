@@ -1,29 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityEngine
+namespace Game
 {
     [RequireComponent(typeof(Animator))]
     public class Player : MonoBehaviour
     {
-        [SerializeField] protected Transform target;
-
         [SerializeField] protected Animator animator;
 
-        [SerializeField] protected float speed;
-
-        protected virtual void Awake()
+        protected void Awake()
         {
-            if (target == null)
-                target = transform;
             if (animator == null)
                 animator = GetComponent<Animator>();
-        }
-
-        public virtual void Move(Vector2 vector)
-        {
-
         }
 
         public virtual void Play(string clip)

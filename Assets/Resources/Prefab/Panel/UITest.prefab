@@ -187,7 +187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -34, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6158534913649446640
@@ -613,7 +613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -683,7 +683,7 @@ MonoBehaviour:
   target: {fileID: 8168682523216551749}
   graphic: {fileID: 8716431176962468373}
   color:
-    origin: {r: 0, g: 0, b: 0, a: 1}
+    origination: {r: 0, g: 0, b: 0, a: 0}
     destination: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1961763042964904886
 GameObject:
@@ -1132,7 +1132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1202,7 +1202,7 @@ MonoBehaviour:
   target: {fileID: 4058580790968371194}
   graphic: {fileID: 3526845882834949463}
   color:
-    origin: {r: 0, g: 0, b: 0, a: 1}
+    origination: {r: 0, g: 0, b: 0, a: 0}
     destination: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &3071678901387925202
 GameObject:
@@ -1734,7 +1734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1804,7 +1804,7 @@ MonoBehaviour:
   target: {fileID: 5939458214933260226}
   graphic: {fileID: 370393591720894739}
   color:
-    origin: {r: 0, g: 0, b: 0, a: 1}
+    origination: {r: 0, g: 0, b: 0, a: 0}
     destination: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &4816055783772749851
 GameObject:
@@ -2681,7 +2681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2751,7 +2751,7 @@ MonoBehaviour:
   target: {fileID: 2601927074256587682}
   graphic: {fileID: 882484672042629404}
   color:
-    origin: {r: 0, g: 0, b: 0, a: 1}
+    origination: {r: 0, g: 0, b: 0, a: 0}
     destination: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &6365315056778408021
 GameObject:
@@ -2888,7 +2888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2958,7 +2958,7 @@ MonoBehaviour:
   target: {fileID: 6555675820105741271}
   graphic: {fileID: 7405510567558882340}
   color:
-    origin: {r: 0, g: 0, b: 0, a: 1}
+    origination: {r: 0, g: 0, b: 0, a: 0}
     destination: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &7479549206695498820
 GameObject:
@@ -3019,7 +3019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3089,7 +3089,7 @@ MonoBehaviour:
   target: {fileID: 2126718547664520333}
   graphic: {fileID: 5112767116906325477}
   color:
-    origin: {r: 0, g: 0, b: 0, a: 1}
+    origination: {r: 0, g: 0, b: 0, a: 0}
     destination: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &7712954513564787211
 GameObject:

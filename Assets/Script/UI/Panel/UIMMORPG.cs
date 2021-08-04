@@ -1,0 +1,65 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Game.UI
+{
+    public class UIMMORPG : UIBase
+    {
+        [SerializeField] private UIJoyStick stick;
+
+        [SerializeField] private Button jump;
+
+        [SerializeField] private Button crouch;
+
+        [SerializeField] private Button attack;
+
+        [SerializeField] private List<Button> skills;
+
+        private void Awake()
+        {
+            stick.onMove.AddListener(OnMove);
+
+            jump.onClick.AddListener(OnClickJump);
+
+            crouch.onClick.AddListener(OnClickCrouch);
+
+            attack.onClick.AddListener(OnClickAttack);
+
+            for (int i = 0; i < skills.Count; i++)
+            {
+                int index = i;
+
+                if (skills[i] != null)
+                {
+                    skills[i].onClick.AddListener(() => OnClickSkill(index));
+                }
+            }
+        }
+
+        private void OnMove(Vector2 vector)
+        {
+
+        }
+
+        private void OnClickJump()
+        {
+            
+        }
+
+        private void OnClickCrouch()
+        {
+
+        }
+
+        private void OnClickAttack()
+        {
+
+        }
+
+        private void OnClickSkill(int index)
+        {
+            
+        }
+    }
+}

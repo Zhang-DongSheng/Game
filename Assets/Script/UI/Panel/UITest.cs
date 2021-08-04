@@ -85,7 +85,7 @@ namespace Game.UI
 
         private void OnClickToggle(int index)
         {
-            Debug.LogError(index);
+            
         }
     }
 }
