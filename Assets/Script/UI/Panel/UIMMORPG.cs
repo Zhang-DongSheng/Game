@@ -39,27 +39,27 @@ namespace Game.UI
 
         private void OnMove(Vector2 vector)
         {
-
+            PlayerController.Instance.Move(vector);
         }
 
         private void OnClickJump()
         {
-            
+            PlayerController.Instance.Jump();
         }
 
         private void OnClickCrouch()
         {
-
+            PlayerController.Instance.Crouch();
         }
 
         private void OnClickAttack()
         {
-
+            PlayerController.Instance.Attack();
         }
 
         private void OnClickSkill(int index)
         {
-            
+            PlayerController.Instance.ReleaseSkill(index);
         }
     }
 }

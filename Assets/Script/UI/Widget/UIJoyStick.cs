@@ -16,6 +16,8 @@ namespace UnityEngine.UI
             OnLeave,
         }
 
+        [SerializeField] private Canvas canvas;
+
         [SerializeField] private RectTransform parent;
 
         [SerializeField] private Transform m_background;
@@ -72,6 +74,10 @@ namespace UnityEngine.UI
 
         private void Awake()
         {
+            if (canvas == null)
+            {
+                canvas = FindObjectOfType<Canvas>();
+            }
             SetActive(false, Vector3.zero);
         }
 
@@ -104,8 +110,8 @@ namespace UnityEngine.UI
                 else if (status == Status.OnStay)
                 {
                     point_now = Input.mousePosition;
-                    Vector2 vector = Get_Postion(point_now, point_pre);
-                    Vector3 rotation = Get_Rotation(vector);
+                    Vector2 vector = GetPostion(point_now, point_pre);
+                    Vector3 rotation = GetRotation(vector);
                     m_foreground.localEulerAngles = rotation;
                     m_arrow.localPosition = vector;
 
@@ -157,8 +163,8 @@ namespace UnityEngine.UI
                                 else if (status == Status.OnStay)
                                 {
                                     point_now = touch.position;
-                                    Vector2 vector = Get_Postion(point_now, point_pre);
-                                    Vector3 rotation = Get_Rotation(vector);
+                                    Vector2 vector = GetPostion(point_now, point_pre);
+                                    Vector3 rotation = GetRotation(vector);
                                     m_foreground.localEulerAngles = rotation;
                                     m_arrow.localPosition = vector;
 
@@ -209,7 +215,7 @@ namespace UnityEngine.UI
         {
             if (state)
             {
-                if (Game.UI.UIManager.Instance.ScreentPointToUGUIPosition(parent, point, out Vector2 position))
+                if (ScreentPointToUGUIPosition(parent, point, out Vector2 position))
                 {
                     m_background.localPosition = position;
                 }
@@ -220,7 +226,7 @@ namespace UnityEngine.UI
             }
         }
 
-        private Vector2 Get_Postion(Vector2 point_now, Vector2 point_pre)
+        private Vector2 GetPostion(Vector2 point_now, Vector2 point_pre)
         {
             Vector2 vector = point_now - point_pre;
 
@@ -235,13 +241,29 @@ namespace UnityEngine.UI
             return vector * ratio;
         }
 
-        private Vector3 Get_Rotation(Vector2 position)
+        private Vector3 GetRotation(Vector2 position)
         {
             Vector3 dir = new Vector3(position.x, 0, position.y);
 
             Vector3 angle = Quaternion.LookRotation(dir, Vector3.up).eulerAngles;
 
             return Vector3.forward * angle.y * -1f;
+        }
+
+        private bool ScreentPointToUGUIPosition(RectTransform parent, Vector2 point, out Vector2 position)
+        {
+            if (canvas == null)
+            {
+                position = Vector2.zero; return false;
+            }
+            if (canvas.renderMode == RenderMode.ScreenSpaceCamera && canvas.worldCamera != null)
+            {
+                return RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, point, canvas.worldCamera, out position);
+            }
+            else
+            {
+                return RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, point, null, out position);
+            }
         }
     }
 }

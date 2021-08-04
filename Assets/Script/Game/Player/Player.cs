@@ -3,37 +3,55 @@ using UnityEngine;
 namespace Game
 {
     [RequireComponent(typeof(Animator))]
-    public class Player : MonoBehaviour
+    public abstract class Player : MonoBehaviour
     {
         [SerializeField] protected Animator animator;
 
-        protected void Awake()
+        public abstract void Born();
+
+        public abstract void Die();
+
+        public abstract void Idle();
+
+        public abstract void Walk();
+
+        public abstract void Run();
+
+        public abstract void Jump();
+
+        public abstract void Attack();
+
+        public abstract void Damage();
+
+        public abstract void ReleaseSkill(int index);
+
+        protected virtual void Awake()
         {
             if (animator == null)
                 animator = GetComponent<Animator>();
         }
 
-        public virtual void Play(string clip)
+        protected virtual void Play(string clip)
         {
             animator.Play(clip);
         }
 
-        public void Trigger(string name)
+        protected virtual void Trigger(string name)
         {
             animator.SetTrigger(name);
         }
 
-        public void SetParameter(string name, bool value)
+        protected virtual void SetParameter(string name, bool value)
         {
             animator.SetBool(name, value);
         }
 
-        public void SetParameter(string name, int value)
+        protected virtual void SetParameter(string name, int value)
         {
             animator.SetInteger(name, value);
         }
 
-        public void SetParameter(string name, float value)
+        protected virtual void SetParameter(string name, float value)
         {
             animator.SetFloat(name, value);
         }
