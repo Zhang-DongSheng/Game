@@ -12,7 +12,9 @@ namespace UnityEngine.UI
 
         [SerializeField] private List<Vector2> points;
 
-        private Vector2 space;
+        private Vector3 space;
+
+        private Vector2 origination;
 
         private Vector2 destination;
 
@@ -24,18 +26,26 @@ namespace UnityEngine.UI
 
         private float step;
 
-        public UnityEvent<int> onValueChanged;
+        public UnityEvent<float> onValueChanged;
+
+        public UnityEvent<int> onComplete;
 
         private void Awake()
         {
             space.x = points[0].x;
 
             space.y = points[points.Count - 1].x;
+
+            space.z = space.y - space.x;
+
+            origination.x = points[0].x;
+
+            origination.y = points[0].y;
         }
 
         private void Update()
         {
-            if (status == Status.Update)
+            if (status == Status.Align)
             {
                 step += Time.deltaTime * speed;
 
@@ -52,6 +62,8 @@ namespace UnityEngine.UI
 
         public void OnDrag(PointerEventData eventData)
         {
+            status = Status.Drag;
+
             shift += eventData.delta;
 
             position += eventData.delta;
@@ -90,7 +102,7 @@ namespace UnityEngine.UI
                     }
                 }
             }
-            Complete(index);
+            Finish(index);
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -104,10 +116,23 @@ namespace UnityEngine.UI
         {
             if (shift != Vector2.zero) return;
 
-            Complete(index);
+            Finish(index);
         }
 
-        private void Complete(int index)
+        public void FixedPosition(float value)
+        {
+            if (status == Status.Drag) return;
+
+            position.x = value * space.z;
+
+            position.x += space.y;
+
+            position.y = origination.y;
+
+            target.anchoredPosition = position;
+        }
+
+        private void Finish(int index)
         {
             destination = points[index];
 
@@ -117,7 +142,7 @@ namespace UnityEngine.UI
 
             step = 0;
 
-            status = Status.Update;
+            status = Status.Align;
         }
 
         private void SetPosition(Vector2 position)
@@ -130,15 +155,20 @@ namespace UnityEngine.UI
             {
                 position.x = space.y;
             }
-            position.y = 0;
+            position.y = origination.y;
 
             target.anchoredPosition = position;
+
+            float current = space.x - position.x;
+
+            onValueChanged?.Invoke(current / space.z);
         }
 
         enum Status
         {
             None,
-            Update,
+            Drag,
+            Align,
         }
     }
 }

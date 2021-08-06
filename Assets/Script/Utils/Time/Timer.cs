@@ -5,7 +5,7 @@ namespace UnityEngine
 {
     public sealed class Timer : MonoBehaviour
     {
-        [SerializeField] private TimerMode mode;
+        [SerializeField] private ClockMode mode;
 
         [SerializeField] private float interval = 1;
 
@@ -19,7 +19,7 @@ namespace UnityEngine
 
         private float terminalTime;
 
-        private readonly TimerInformation timer = new TimerInformation();
+        private readonly Clock timer = new Clock();
 
         private void Awake()
         {
@@ -34,7 +34,7 @@ namespace UnityEngine
 
             switch (mode)
             {
-                case TimerMode.Countdown:
+                case ClockMode.Countdown:
                     {
                         if (Time.time > terminalTime)
                         {
@@ -51,7 +51,7 @@ namespace UnityEngine
         {
             switch (mode)
             {
-                case TimerMode.Countdown:
+                case ClockMode.Countdown:
                     {
                         onValueChanged?.Invoke(terminalTime - Time.time);
                     }
@@ -90,40 +90,5 @@ namespace UnityEngine
         {
             active = false;
         }
-    }
-
-    public class TimerInformation
-    {
-        public Action action;
-
-        public float timer = 0;
-
-        public float interval = 1;
-
-        public float speed = 1;
-
-        public bool active = true;
-
-        public void Update()
-        {
-            if (active)
-            {
-                timer += Time.deltaTime * speed;
-
-                if (timer > interval)
-                {
-                    timer = 0;
-
-                    action?.Invoke();
-                }
-            }
-        }
-    }
-
-    public enum TimerMode
-    {
-        None,
-        Loop,
-        Countdown,
     }
 }
