@@ -29,11 +29,4 @@ namespace UnityEngine
             }
         }
     }
-
-    public enum ClockMode
-    {
-        None,
-        Loop,
-        Countdown,
-    }
 }

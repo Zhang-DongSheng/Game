@@ -1,11 +1,10 @@
-using System;
 using UnityEngine.Events;
 
 namespace UnityEngine
 {
     public sealed class Timer : MonoBehaviour
     {
-        [SerializeField] private ClockMode mode;
+        [SerializeField] private Mode mode;
 
         [SerializeField] private float interval = 1;
 
@@ -34,7 +33,7 @@ namespace UnityEngine
 
             switch (mode)
             {
-                case ClockMode.Countdown:
+                case Mode.Countdown:
                     {
                         if (Time.time > terminalTime)
                         {
@@ -51,7 +50,7 @@ namespace UnityEngine
         {
             switch (mode)
             {
-                case ClockMode.Countdown:
+                case Mode.Countdown:
                     {
                         onValueChanged?.Invoke(terminalTime - Time.time);
                     }
@@ -89,6 +88,13 @@ namespace UnityEngine
         public void Stop()
         {
             active = false;
+        }
+
+        enum Mode
+        {
+            None,
+            Loop,
+            Countdown,
         }
     }
 }
