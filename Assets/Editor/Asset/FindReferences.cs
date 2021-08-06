@@ -112,7 +112,7 @@ namespace UnityEditor
             return missing;
         }
 
-        public static void Powof2(params string[] folders)
+        public static void Powerof2(params string[] folders)
         {
             string[] guids = AssetDatabase.FindAssets("t:Texture2D", folders);
 
@@ -126,7 +126,7 @@ namespace UnityEditor
 
                 if (texture.width % 4 != 0 || texture.height % 4 != 0)
                 {
-                    Debug.LogWarning(string.Format("{0} : Not pow of 2!", path), texture);
+                    Debug.LogWarning(string.Format("{0}: Not power of 2!", path), texture);
                 }
             }
 
@@ -140,7 +140,7 @@ namespace UnityEditor
 
                 if (sprite.texture.width % 4 != 0 || sprite.texture.height % 4 != 0)
                 {
-                    Debug.LogWarning(string.Format("{0} : Not pow of 2!", path), sprite);
+                    Debug.LogWarning(string.Format("{0}: Not power of 2!", path), sprite);
                 }
             }
         }

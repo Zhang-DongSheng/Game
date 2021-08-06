@@ -9,6 +9,12 @@ namespace UnityEditor.Listener
         private static readonly Dictionary<TextureKind, List<string>> dictionary = new Dictionary<TextureKind, List<string>>()
         {
             {
+                TextureKind.TexturePowerof2, new List<string>()
+                {
+                    "Assets/Art/Texture/Noise",
+                }
+            },
+            {
                 TextureKind.Texture, new List<string>()
                 {
                    "Assets/Art/Texture/",
@@ -35,18 +41,23 @@ namespace UnityEditor.Listener
             switch (kind)
             {
                 case TextureKind.Texture:
+                case TextureKind.TexturePowerof2:
                     texture.textureType = TextureImporterType.Default;
                     texture.textureShape = TextureImporterShape.Texture2D;
                     break;
                 case TextureKind.Image:
                     texture.textureType = TextureImporterType.Sprite;
                     break;
+                case TextureKind.NormalMap:
+                    texture.textureType = TextureImporterType.NormalMap;
+                    texture.textureShape = TextureImporterShape.Texture2D;
+                    break;
             }
             texture.sRGBTexture = true;
             bool alpha = texture.DoesSourceTextureHaveAlpha();
             texture.alphaSource = alpha ? TextureImporterAlphaSource.FromInput : TextureImporterAlphaSource.None;
             texture.alphaIsTransparency = alpha;
-            texture.npotScale = TextureImporterNPOTScale.None;
+            texture.npotScale = kind == TextureKind.TexturePowerof2 ? TextureImporterNPOTScale.ToNearest : TextureImporterNPOTScale.None;
             texture.isReadable = false;
             texture.mipmapEnabled = false;
             texture.crunchedCompression = true;
@@ -98,8 +109,10 @@ namespace UnityEditor.Listener
         enum TextureKind
         {
             None,
-            Texture,
             Image,
+            Texture,
+            TexturePowerof2,
+            NormalMap,
         }
     }
 }

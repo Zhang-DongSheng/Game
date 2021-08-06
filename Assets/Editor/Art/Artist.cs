@@ -235,7 +235,7 @@ namespace UnityEditor.Window
 					}
 					if (GUILayout.Button("检查图片资源是否为4的倍数"))
 					{
-						FindReferences.Powof2("Assets");
+						FindReferences.Powerof2("Assets");
 					}
 				}
 				GUILayout.EndVertical();

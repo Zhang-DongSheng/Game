@@ -113,7 +113,13 @@ namespace UnityEditor.Listener
         /// <summary>
         /// 将此函数添加到一个子类中，以在纹理刚完成导入之前获取通知
         /// </summary>
-        public void OnPostprocessTexture(Texture2D texture) { }
+        public void OnPostprocessTexture(Texture2D texture)
+        {
+            if (texture.width % 4 != 0 || texture.height % 4 != 0)
+            {
+                Debug.LogWarning("The Texture2D not power of 2!");
+            }
+        }
         /// <summary>
         /// 将此函数添加到一个子类中，以在导入模型（.fbx、.mb 文件等）中的动画之前获取通知
         /// </summary>
