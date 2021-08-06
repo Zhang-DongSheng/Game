@@ -49,6 +49,7 @@ namespace UnityEditor.Listener
             texture.npotScale = TextureImporterNPOTScale.None;
             texture.isReadable = false;
             texture.mipmapEnabled = false;
+            texture.crunchedCompression = true;
             PlatformSettings(texture, "ios");
             PlatformSettings(texture, "android");
         }
