@@ -5,7 +5,7 @@ namespace UnityEngine
 {
     public class TimeSynchronization : MonoSingleton<TimeSynchronization>
     {
-        private const string URL = "https://www.baidu.com";
+        private const string URL = "http://ws.u2mg.com:9081/hello";
 
         [SerializeField] private float interval = 60 * 30;
 
@@ -41,6 +41,11 @@ namespace UnityEngine
             }
         }
 
+        private void OnApplicationPause(bool pause)
+        {
+            Synchronization();
+        }
+
         public DateTime Now
         {
             get
@@ -55,15 +60,14 @@ namespace UnityEngine
 
             if (string.IsNullOrEmpty(value))
             {
-                time = DateTime.Now;
+                time = DateTime.UtcNow;
             }
             else
             {
-                time = Convert.ToDateTime(value);
+                time = Convert.ToDateTime(value).ToUniversalTime();
             }
             second = 0;
         }
-
 
         public string SynchronizationServer()
         {
