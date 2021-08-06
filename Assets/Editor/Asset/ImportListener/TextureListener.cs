@@ -59,8 +59,19 @@ namespace UnityEditor.Listener
             settings.overridden = true;
             if (settings.maxTextureSize > MAXSIZE)
                 settings.maxTextureSize = texture.maxTextureSize > MAXSIZE ? MAXSIZE : texture.maxTextureSize;
+            switch (platform)
+            {
+                case "ios":
+                    settings.format = texture.alphaIsTransparency ? TextureImporterFormat.ASTC_4x4 : TextureImporterFormat.PVRTC_RGB4;
+                    break;
+                case "android":
+                    settings.format = texture.alphaIsTransparency ? TextureImporterFormat.ASTC_4x4 : TextureImporterFormat.ETC2_RGB4;
+                    break;
+                default:
+                    settings.format = texture.alphaIsTransparency ? TextureImporterFormat.ASTC_4x4 : TextureImporterFormat.ETC2_RGB4;
+                    break;
+            }
             settings.compressionQuality = (int)TextureCompressionQuality.Normal;
-            settings.format = TextureImporterFormat.ASTC_4x4;
             texture.SetPlatformTextureSettings(settings);
         }
 
