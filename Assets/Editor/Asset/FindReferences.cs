@@ -112,6 +112,39 @@ namespace UnityEditor
             return missing;
         }
 
+        public static void Powof2(params string[] folders)
+        {
+            string[] guids = AssetDatabase.FindAssets("t:Texture2D", folders);
+
+            string path;
+
+            foreach (var guid in guids)
+            {
+                path = AssetDatabase.GUIDToAssetPath(guid);
+
+                Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+
+                if (texture.width % 4 != 0 || texture.height % 4 != 0)
+                {
+                    Debug.LogWarning(string.Format("{0} : Not pow of 2!", path), texture);
+                }
+            }
+
+            guids = AssetDatabase.FindAssets("t:Sprite", folders);
+
+            foreach (var guid in guids)
+            {
+                path = AssetDatabase.GUIDToAssetPath(guid);
+
+                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+
+                if (sprite.texture.width % 4 != 0 || sprite.texture.height % 4 != 0)
+                {
+                    Debug.LogWarning(string.Format("{0} : Not pow of 2!", path), sprite);
+                }
+            }
+        }
+
         public static void Overflow(string filter, params string[] folders)
         {
             if (folders == null || folders.Length == 0) return;
@@ -161,12 +194,16 @@ namespace UnityEditor
             {
 #if UNITY_ANDROID
                 if (texture.format == TextureFormat.ETC2_RGB ||
-                   texture.format == TextureFormat.ETC2_RGBA8Crunched)
+                    texture.format == TextureFormat.ETC2_RGBA8Crunched ||
+                    texture.format == TextureFormat.ASTC_4x4)
 #elif UNITY_IOS
-                if(texture.format == TextureFormat.PVRTC_RGB4 ||
-                   texture.format == TextureFormat.PVRTC_RGBA4)
+                if (texture.format == TextureFormat.PVRTC_RGB4 ||
+                    texture.format == TextureFormat.PVRTC_RGBA4 ||
+                    texture.format == TextureFormat.ASTC_4x4)
 #endif
-                { }
+                {
+
+                }
                 else
                 {
                     Debug.LogError(string.Format("{0} Î´Ñ¹Ëõ£¡", name), texture);

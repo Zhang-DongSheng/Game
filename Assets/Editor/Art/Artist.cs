@@ -225,13 +225,17 @@ namespace UnityEditor.Window
 
 				GUILayout.BeginVertical(GUILayout.Width(200));
 				{
-					if (GUILayout.Button("资源引用检测"))
+					if (GUILayout.Button("检查资源引用"))
 					{
 						FindReferences.Empty(string.Format("t:{0}", assets[idxAsset.index]), "Assets");
 					}
-					if (GUILayout.Button("资源大小检测"))
+					if (GUILayout.Button("检查资源大小"))
 					{
 						FindReferences.Overflow(string.Format("t:{0}", assets[idxAsset.index]), "Assets");
+					}
+					if (GUILayout.Button("检查图片资源是否为4的倍数"))
+					{
+						FindReferences.Powof2("Assets");
 					}
 				}
 				GUILayout.EndVertical();
