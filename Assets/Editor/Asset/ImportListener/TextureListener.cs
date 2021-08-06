@@ -4,12 +4,15 @@ namespace UnityEditor.Listener
 {
     public static class TextureListener
     {
+        private const int MAXSIZE = 2048;
+
         private static readonly Dictionary<TextureKind, List<string>> dictionary = new Dictionary<TextureKind, List<string>>()
         {
             {
                 TextureKind.Texture, new List<string>()
                 {
-                   "Assets/Art/Texture/"
+                   "Assets/Art/Texture/",
+                   "Assets/Art/Model/",
                 }
             },
             {
@@ -54,7 +57,9 @@ namespace UnityEditor.Listener
         {
             TextureImporterPlatformSettings settings = texture.GetPlatformTextureSettings(platform);
             settings.overridden = true;
-            settings.maxTextureSize = texture.maxTextureSize;
+            if (settings.maxTextureSize > MAXSIZE)
+                settings.maxTextureSize = texture.maxTextureSize > MAXSIZE ? MAXSIZE : texture.maxTextureSize;
+            settings.compressionQuality = (int)TextureCompressionQuality.Normal;
             settings.format = TextureImporterFormat.ASTC_4x4;
             texture.SetPlatformTextureSettings(settings);
         }
