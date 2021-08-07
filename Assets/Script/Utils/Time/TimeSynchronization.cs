@@ -5,7 +5,9 @@ namespace UnityEngine
 {
     public class TimeSynchronization : MonoSingleton<TimeSynchronization>
     {
-        private const string URL = "http://ws.u2mg.com:9081/hello";
+        private const string URL = "http://www.baidu.com";
+
+        private readonly DateTime Base = new DateTime(621355968000000000);
 
         [SerializeField] private float interval = 60 * 30;
 
@@ -15,7 +17,9 @@ namespace UnityEngine
 
         private WebRequest request;
 
-        private DateTime time;
+        private DateTime time = DateTime.UtcNow;
+
+        private TimeSpan span;
 
         private string value;
 
@@ -46,15 +50,7 @@ namespace UnityEngine
             Synchronization();
         }
 
-        public DateTime Now
-        {
-            get
-            {
-                return time.AddSeconds(second);
-            }
-        }
-
-        public void Synchronization()
+        private void Synchronization()
         {
             string value = SynchronizationServer();
 
@@ -69,7 +65,7 @@ namespace UnityEngine
             second = 0;
         }
 
-        public string SynchronizationServer()
+        private string SynchronizationServer()
         {
             try
             {
@@ -98,6 +94,21 @@ namespace UnityEngine
                 if (response != null) { response.Close(); }
                 if (collection != null) { collection.Clear(); }
             }
+        }
+
+        public DateTime Now
+        {
+            get
+            {
+                return time.AddSeconds(second);
+            }
+        }
+
+        public float Remaining(long ticks)
+        {
+            span = Base.AddMilliseconds(ticks) - Now;
+
+            return (float)span.TotalSeconds;
         }
     }
 }

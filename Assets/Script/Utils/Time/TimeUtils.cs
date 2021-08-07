@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Globalization;
-using System.Text;
 
 namespace UnityEngine
 {
     public static class TimeUtils
     {
-        private static readonly DateTime Source = new DateTime(621355968000000000);
+        private static readonly DateTime Base = new DateTime(621355968000000000);
 
         private static TimeSpan span;
-
-        private static readonly StringBuilder builder = new StringBuilder();
 
         public static DateTime LocalToUtc(DateTime time)
         {
@@ -24,7 +21,7 @@ namespace UnityEngine
 
         public static DateTime ToDateTime(long ticket)
         {
-            return Source.AddMilliseconds(ticket);
+            return Base.AddMilliseconds(ticket);
         }
 
         public static DateTime ToDateTime(string time)
@@ -49,6 +46,13 @@ namespace UnityEngine
         public static double TotalSeconds(DateTime begin, DateTime end)
         {
             return begin.Subtract(end).TotalSeconds;
+        }
+
+        public static float Remaining(long ticks)
+        {
+            span = Base.AddMilliseconds(ticks) - DateTime.UtcNow;
+
+            return (float)span.TotalSeconds;
         }
 
         public static string ToString(DateTime time)
