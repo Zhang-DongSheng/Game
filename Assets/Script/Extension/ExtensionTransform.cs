@@ -1,12 +1,20 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Game
 {
     public static partial class Extension
     {
-        public static void SetPosition(this Transform target, Axis axis, float value, bool local = true)
+        static private Vector3 position;
+
+        static private Vector3 rotation;
+
+        static private Vector3 scale;
+        /// <summary>
+        /// 设置位置
+        /// </summary>
+        public static void SetPosition(this Transform transform, Axis axis, float value, bool local = true)
         {
-            Vector3 position = local ? target.localPosition : target.position;
+            position = local ? transform.localPosition : transform.position;
 
             switch (axis)
             {
@@ -23,44 +31,48 @@ namespace Game
 
             if (local)
             {
-                target.localPosition = position;
+                transform.localPosition = position;
             }
             else
             {
-                target.position = position;
+                transform.position = position;
             }
         }
-
-        public static void SetRotation(this Transform target, Axis axis, float value, bool local = true)
+        /// <summary>
+        /// 设置方向
+        /// </summary>
+        public static void SetRotation(this Transform transform, Axis axis, float value, bool local = true)
         {
-            Vector3 eulerAngles = local ? target.localEulerAngles : target.eulerAngles;
+            rotation = local ? transform.localEulerAngles : transform.eulerAngles;
 
             switch (axis)
             {
                 case Axis.X:
-                    eulerAngles.x = value;
+                    rotation.x = value;
                     break;
                 case Axis.Y:
-                    eulerAngles.y = value;
+                    rotation.y = value;
                     break;
                 case Axis.Z:
-                    eulerAngles.z = value;
+                    rotation.z = value;
                     break;
             }
 
             if (local)
             {
-                target.localEulerAngles = eulerAngles;
+                transform.localEulerAngles = rotation;
             }
             else
             {
-                target.eulerAngles = eulerAngles;
+                transform.eulerAngles = rotation;
             }
         }
-
-        public static void SetScale(this Transform target, Axis axis, float value)
+        /// <summary>
+        /// 设置大小
+        /// </summary>
+        public static void SetScale(this Transform transform, Axis axis, float value)
         {
-            Vector3 scale = target.localScale;
+            scale = transform.localScale;
 
             switch (axis)
             {
@@ -74,16 +86,18 @@ namespace Game
                     scale.z = value;
                     break;
             }
-            target.localScale = scale;
+            transform.localScale = scale;
         }
-
-        public static void Clear(this Transform target)
+        /// <summary>
+        /// 清除子节点
+        /// </summary>
+        public static void Clear(this Transform transform)
         {
-            if (target != null && target.childCount > 0)
+            if (transform != null && transform.childCount > 0)
             {
-                for (int i = target.childCount - 1; i > -1; i--)
+                for (int i = transform.childCount - 1; i > -1; i--)
                 {
-                    GameObject.Destroy(target.GetChild(i).gameObject);
+                    GameObject.Destroy(transform.GetChild(i).gameObject);
                 }
             }
         }

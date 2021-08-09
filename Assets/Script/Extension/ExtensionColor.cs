@@ -4,35 +4,34 @@ namespace Game
 {
     public static partial class Extension
     {
-        private const float LIGHT_OFFSET = 0.0625f;
         /// <summary>
-        /// ±äÁÁ
+        /// å˜äº®
         /// </summary>
         public static Color Lighter(this Color color)
         {
             return new Color()
             {
-                r = color.r + LIGHT_OFFSET,
-                g = color.g + LIGHT_OFFSET,
-                b = color.b + LIGHT_OFFSET,
+                r = color.r + LIGHT,
+                g = color.g + LIGHT,
+                b = color.b + LIGHT,
                 a = color.a
             };
         }
         /// <summary>
-        /// ±ä°µ
+        /// å˜æš—
         /// </summary>
         public static Color Darker(this Color color)
         {
             return new Color()
             {
-                r = color.r - LIGHT_OFFSET,
-                g = color.g - LIGHT_OFFSET,
-                b = color.b - LIGHT_OFFSET,
+                r = color.r - LIGHT,
+                g = color.g - LIGHT,
+                b = color.b - LIGHT,
                 a = color.a
             };
         }
         /// <summary>
-        /// ·´×ª
+        /// åè½¬
         /// </summary>
         public static Color Invert(this Color color)
         {
@@ -45,7 +44,7 @@ namespace Game
             };
         }
         /// <summary>
-        /// ĞŞ¸ÄÍ¸Ã÷¶È
+        /// ä¿®æ”¹é€æ˜åº¦
         /// </summary>
         public static Color Alpha(this Color color, float alpha)
         {
@@ -53,28 +52,28 @@ namespace Game
             return color;
         }
         /// <summary>
-        /// ½üËÆºÚÉ«
+        /// è¿‘ä¼¼é»‘è‰²
         /// </summary>
         public static bool ApproximatelyBlack(this Color color)
         {
             return color.r + color.g + color.b <= Mathf.Epsilon;
         }
         /// <summary>
-        /// ½üËÆ°×É«
+        /// è¿‘ä¼¼ç™½è‰²
         /// </summary>
         public static bool ApproximatelyWhite(this Color color)
         {
             return color.r + color.g + color.b >= 1 - Mathf.Epsilon;
         }
         /// <summary>
-        /// Æ½¾ùÖµ
+        /// å¹³å‡å€¼
         /// </summary>
         public static float Brightness(this Color color)
         {
             return (color.r + color.g + color.b) / 3f;
         }
         /// <summary>
-        /// ²ÊºçÉ«
+        /// å½©è™¹è‰²
         /// </summary>
         public static Color Rainbow(this Color color, float progress)
         {

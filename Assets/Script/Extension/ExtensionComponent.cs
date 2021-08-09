@@ -7,48 +7,59 @@ namespace Game
 {
     public static partial class Extension
     {
-        public static T AddOrReplaceComponent<T>(this Component self) where T : Component
+        /// <summary>
+        /// 添加组件
+        /// </summary>
+        public static T AddOrReplaceComponent<T>(this Component component) where T : Component
         {
-            if (self != null && self.gameObject is GameObject go)
+            if (component != null && component.gameObject is GameObject go)
             {
-                if (!go.TryGetComponent(out T component))
+                if (!go.TryGetComponent(out T _component))
                 {
-                    component = go.AddComponent<T>();
+                    _component = go.AddComponent<T>();
                 }
-                return component;
+                return _component;
             }
             return null;
         }
-
-        public static void RemoveComponent<T>(this Component self) where T : Component
+        /// <summary>
+        /// 移除组件
+        /// </summary>
+        public static void RemoveComponent<T>(this Component component) where T : Component
         {
-            if (self != null && self.gameObject is GameObject go)
+            if (component != null && component.gameObject is GameObject go)
             {
-                if (go.TryGetComponent(out T component))
+                if (go.TryGetComponent(out T _component))
                 {
-                    UnityEngine.Object.Destroy(component);
+                    UnityEngine.Object.Destroy(_component);
                 }
             }
         }
-
-        public static T FindComponentInParent<T>(this Component self) where T : Component
+        /// <summary>
+        /// 向上查找组件
+        /// </summary>
+        public static T FindComponentInParent<T>(this Component component) where T : Component
         {
-            T component = null; Transform root = self.transform;
+            T result = null;
+
+            Transform root = component.transform;
 
             while (root != null)
             {
-                if (root.TryGetComponent(out component))
+                if (root.TryGetComponent(out result))
                 {
                     break;
                 }
                 root = root.parent;
             }
-            return component;
+            return result;
         }
-
-        public static void Relevance(this Component self)
+        /// <summary>
+        /// 自动关联Prefab
+        /// </summary>
+        public static void Relevance(this Component component)
         {
-            FieldInfo[] fields = self.GetType().GetFields(Flags);
+            FieldInfo[] fields = component.GetType().GetFields(Flags);
 
             string name;
 
@@ -63,13 +74,13 @@ namespace Game
                     if (typeof(IList).IsAssignableFrom(field.FieldType) &&
                         typeof(Component).IsAssignableFrom(element))
                     {
-                        if (field.GetValue(self) is IList list)
+                        if (field.GetValue(component) is IList list)
                         {
                             if (list.Count == 0)
                             {
                                 Transform parent = null;
 
-                                foreach (var child in self.GetComponentsInChildren<Transform>())
+                                foreach (var child in component.GetComponentsInChildren<Transform>())
                                 {
                                     if (child.name.ToLower().Contains(name))
                                     {
@@ -89,11 +100,11 @@ namespace Game
                                         list.Add(components[i]);
                                     }
                                 }
-                                field.SetValue(self, list);
+                                field.SetValue(component, list);
                             }
                             else
                             {
-                                Debug.LogFormat("<color=green>[{0}]</color>�Ѹ�ֵ", field.Name);
+                                Debug.LogFormat("<color=green>[{0}]</color>已赋值", field.Name);
                             }
                         }
                     }
@@ -102,30 +113,32 @@ namespace Game
                 {
                     if (typeof(Component).IsAssignableFrom(field.FieldType))
                     {
-                        object value = field.GetValue(self);
+                        object value = field.GetValue(component);
 
                         if (Convert.IsDBNull(value) || value.ToString() == "null")
                         {
-                            Component[] components = self.GetComponentsInChildren(field.FieldType);
+                            Component[] components = component.GetComponentsInChildren(field.FieldType);
 
                             for (int i = 0; i < components.Length; i++)
                             {
                                 if (components[i].name.ToLower().Contains(name))
                                 {
-                                    field.SetValue(self, components[i]);
+                                    field.SetValue(component, components[i]);
                                     break;
                                 }
                             }
                         }
                         else
                         {
-                            Debug.LogFormat("<color=green>[{0}]</color>�Ѹ�ֵ", field.Name);
+                            Debug.LogFormat("<color=green>[{0}]</color>已赋值", field.Name);
                         }
                     }
                 }
             }
         }
-
+        /// <summary>
+        /// 显示隐藏
+        /// </summary>
         public static void SetActive(this Component component, bool active)
         {
             if (component != null && component.gameObject is GameObject go)

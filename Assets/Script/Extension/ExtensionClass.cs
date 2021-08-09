@@ -10,7 +10,7 @@ namespace Game
     {
         private const BindingFlags Flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
         /// <summary>
-        /// ¿ËÂ¡£¬±ØĞë[System.Serializable]
+        /// å…‹éš†ï¼Œå¿…é¡»[System.Serializable]
         /// </summary>
         public static T Clone<T>(this T script) where T : class
         {
@@ -28,7 +28,7 @@ namespace Game
             }
         }
         /// <summary>
-        /// »ñÈ¡×Ö¶Î
+        /// è·å–å­—æ®µ
         /// </summary>
         public static object GetField<T>(this T script, string key) where T : class
         {
@@ -47,7 +47,7 @@ namespace Game
             return null;
         }
         /// <summary>
-        /// ĞŞ¸Ä×Ö¶Î
+        /// ä¿®æ”¹å­—æ®µ
         /// </summary>
         public static bool SetField<T>(this T script, string key, object value) where T : class
         {
@@ -70,7 +70,7 @@ namespace Game
             return false;
         }
         /// <summary>
-        /// »ñÈ¡ÊôĞÔ
+        /// è·å–å±æ€§
         /// </summary>
         public static object GetProperty<T>(this T script, string key) where T : class
         {
@@ -89,7 +89,7 @@ namespace Game
             return null;
         }
         /// <summary>
-        /// ĞŞ¸ÄÊôĞÔ
+        /// ä¿®æ”¹å±æ€§
         /// </summary>
         public static bool SetProperty<T>(this T script, string key, object value) where T : class
         {
@@ -112,7 +112,7 @@ namespace Game
             return false;
         }
         /// <summary>
-        /// »ñÈ¡³ÉÔ±
+        /// è·å–æˆå‘˜
         /// </summary>
         public static object GetMember<T>(this T script, string key) where T : class
         {
@@ -148,7 +148,7 @@ namespace Game
             return null;
         }
         /// <summary>
-        /// ĞŞ¸Ä³ÉÔ±
+        /// ä¿®æ”¹æˆå‘˜
         /// </summary>
         public static bool SetMember<T>(this T script, string key, object value) where T : class
         {
@@ -193,7 +193,7 @@ namespace Game
             return false;
         }
         /// <summary>
-        /// µ÷ÓÃ·½·¨
+        /// è°ƒç”¨æ–¹æ³•
         /// </summary>
         public static object Call<T>(this T script, string function, params object[] parameters)
         {

@@ -16,11 +16,11 @@ namespace Game
 
         private static readonly Regex specialRegex = new Regex(string.Format(@"X{0}", special), RegexOptions.Singleline);
         /// <summary>
-        /// ÉèÖÃ´øÍ¼Æ¬ÎÄ±¾
+        /// è®¾ç½®å¸¦å›¾ç‰‡æ–‡æœ¬
         /// </summary>
-        public static void SetTextWithEmoji(this Text compontent, string content)
+        public static void SetTextWithEmoji(this Text component, string content)
         {
-            compontent.transform.Clear();
+            component.transform.Clear();
 
             if (emojiRegex.IsMatch(content))
             {
@@ -37,7 +37,7 @@ namespace Game
                         emojis.Add(new EmojiInformation()
                         {
                             index = i,
-                            size = Vector2.one * compontent.fontSize,
+                            size = Vector2.one * component.fontSize,
                         });
                     }
                 }
@@ -49,9 +49,9 @@ namespace Game
 
                 TextGenerator generator = new TextGenerator();
 
-                RectTransform rectTransform = compontent.GetComponent<RectTransform>();
+                RectTransform rectTransform = component.GetComponent<RectTransform>();
 
-                TextGenerationSettings settings = compontent.GetGenerationSettings(rectTransform.rect.size);
+                TextGenerationSettings settings = component.GetGenerationSettings(rectTransform.rect.size);
 
                 generator.Populate(value, settings);
 
@@ -61,78 +61,78 @@ namespace Game
                     {
                         emojis[i].position = generator.characters[emojis[i].index].cursorPos;
 
-                        CreateImageEmoji(emojis[i], compontent.transform);
+                        CreateImageEmoji(emojis[i], component.transform);
                     }
                 }
 
-                compontent.text = specialRegex.Replace(value, string.Format("<color=#FFFFFF00>X{0}</color>", special));
+                component.text = specialRegex.Replace(value, string.Format("<color=#FFFFFF00>X{0}</color>", special));
             }
             else
             {
-                compontent.text = content;
+                component.text = content;
             }
         }
         /// <summary>
-        /// ÉèÖÃ´øÊ¡ÂÔºÅÎÄ±¾...
+        /// è®¾ç½®å¸¦çœç•¥å·æ–‡æœ¬...
         /// </summary>
-        public static void SetTextWithEllipsis(this Text compontent, string content)
+        public static void SetTextWithEllipsis(this Text component, string content)
         {
             TextGenerator generator = new TextGenerator();
 
-            RectTransform rectTransform = compontent.GetComponent<RectTransform>();
+            RectTransform rectTransform = component.GetComponent<RectTransform>();
 
-            TextGenerationSettings settings = compontent.GetGenerationSettings(rectTransform.rect.size);
+            TextGenerationSettings settings = component.GetGenerationSettings(rectTransform.rect.size);
 
             generator.Populate(content, settings);
 
             int count = generator.characterCountVisible;
 
-            var text = content;
+            string value = content;
 
             if (content.Length > count)
             {
-                text = content.Substring(0, count - 3) + "...";
+                value = content.Substring(0, count - 3) + "...";
             }
 
-            compontent.text = text;
+            component.text = value;
         }
         /// <summary>
-        /// ÉèÖÃ´øÊ¡ÂÔºÅÎÄ±¾...
+        /// è®¾ç½®å¸¦çœç•¥å·æ–‡æœ¬...
         /// </summary>
-        public static void SetTextWithEllipsis(this TextMeshProUGUI compontent, string content)
+        public static void SetTextWithEllipsis(this TextMeshProUGUI component, string content)
         {
             if (string.IsNullOrEmpty(content))
             {
-                compontent.text = string.Empty;
+                component.text = string.Empty;
             }
             else
             {
-                compontent.text = content;
+                component.text = content;
 
-                compontent.ForceMeshUpdate();
+                component.ForceMeshUpdate();
 
-                string text = compontent.GetParsedText();
+                string value = component.GetParsedText();
 
-                if (string.IsNullOrEmpty(text)) return;
+                if (string.IsNullOrEmpty(value)) return;
 
-                if (text.Length < 3) return;
+                if (value.Length < 3) return;
 
-                if (text.Length < content.Length)
+                if (value.Length < content.Length)
                 {
-                    text = content.Substring(0, text.Length - 3) + "...";
+                    value = content.Substring(0, value.Length - 3) + "...";
                 }
 
-                compontent.text = text;
+                component.text = value;
             }
         }
         /// <summary>
-        /// ÉèÖÃÎÄ±¾ºáÏòÏÔÊ¾ÇøÓò
+        /// è®¾ç½®æ–‡æœ¬æ¨ªå‘æ˜¾ç¤ºåŒºåŸŸ
         /// </summary>
-        public static float SetTextWithWidth(this Text compontent, string content, float space = 0, float min = -1, float max = -1)
+        public static float SetTextWithWidth(this Text component, string content, float space = 0, float min = -1, float max = -1)
         {
-            compontent.text = content;
+            component.text = content;
 
-            float width = compontent.preferredWidth;
+            float width = component.preferredWidth;
 
             width += space;
 
@@ -143,13 +143,13 @@ namespace Game
             return width;
         }
         /// <summary>
-        /// ÉèÖÃÎÄ±¾×İÏòÏÔÊ¾ÇøÓò
+        /// è®¾ç½®æ–‡æœ¬çºµå‘æ˜¾ç¤ºåŒºåŸŸ
         /// </summary>
-        public static float SetTextWithHeight(this Text compontent, string content, float space = 0, float min = -1, float max = -1)
+        public static float SetTextWithHeight(this Text component, string content, float space = 0, float min = -1, float max = -1)
         {
-            compontent.text = content;
+            component.text = content;
 
-            float height = compontent.preferredHeight;
+            float height = component.preferredHeight;
 
             height += space;
 
@@ -160,7 +160,7 @@ namespace Game
             return height;
         }
         /// <summary>
-        /// ´´½¨±íÇé
+        /// åˆ›å»ºè¡¨æƒ…
         /// </summary>
         private static void CreateImageEmoji(EmojiInformation emoji, Transform parent)
         {

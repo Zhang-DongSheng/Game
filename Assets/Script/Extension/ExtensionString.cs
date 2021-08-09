@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -8,12 +8,13 @@ namespace Game
 {
     public static partial class Extension
     {
+        static private readonly StringBuilder builder = new StringBuilder();
         /// <summary>
         /// 追加
         /// </summary>
-        public static string Append(this string self, params string[] values)
+        public static string Append(this string str, params string[] values)
         {
-            StringBuilder builder = new StringBuilder(self);
+            StringBuilder builder = new StringBuilder(str);
 
             for (int i = 0; i < values.Length; i++)
             {
@@ -24,17 +25,17 @@ namespace Game
         /// <summary>
         /// 分割字符串
         /// </summary>
-        public static List<T> SplitToList<T>(this string self, char separator)
+        public static List<T> SplitToList<T>(this string str, char separator)
         {
-            if (string.IsNullOrEmpty(self)) return null;
+            if (string.IsNullOrEmpty(str)) return null;
 
             var list = new List<T>();
 
-            var strs = self.Split(separator);
+            var strs = str.Split(separator);
 
-            foreach (var str in strs)
+            foreach (var _str in strs)
             {
-                if (str.TryParse(out T item))
+                if (_str.TryParse(out T item))
                 {
                     list.Add(item);
                 }
@@ -44,28 +45,31 @@ namespace Game
         /// <summary>
         /// 首字母大写
         /// </summary>
-        public static string FirstToUpper(this string text)
+        public static string FirstToUpper(this string str)
         {
-            if (text.Length > 0)
-            {
-                string first = text.Substring(0, 1);
+            /* * [97-122] -> [65-90] * */ 
 
-                if (!string.IsNullOrEmpty(first))
+            if (str.Length > 0)
+            {
+                char first = str[0];
+
+                if (first > 96 && first < 123)
                 {
-                    first = first.ToUpperInvariant();
+                    first = Convert.ToChar(first - 32);
+
+                    str = string.Format("{0}{1}", first, str.Remove(0, 1));
                 }
-                text = first.Append(text.Remove(0, 1));
             }
-            return text;
+            return str;
         }
         /// <summary>
         /// 判断是否存在双键数值
         /// </summary>
-        public static bool RegexContains(this string source, string start, string end = null)
+        public static bool RegexContains(this string str, string start, string end = null)
         {
             try
             {
-                return new Regex(string.Format(@"{0}(.+?){1}", start, end)).IsMatch(source);
+                return new Regex(string.Format(@"{0}(.+?){1}", start, end)).IsMatch(str);
             }
             catch (Exception e)
             {
@@ -76,17 +80,17 @@ namespace Game
         /// <summary>
         /// 获取双键数值
         /// </summary>
-        public static List<string> RegexList(this string source, string start, string end)
+        public static List<string> RegexList(this string str, string start, string end)
         {
             try
             {
                 Regex regex = new Regex(string.Format(@"{0}(.+?){1}", start, end));
 
-                if (regex.IsMatch(source))
+                if (regex.IsMatch(str))
                 {
                     List<string> list = new List<string>();
 
-                    foreach (Match match in regex.Matches(source))
+                    foreach (Match match in regex.Matches(str))
                     {
                         list.Add(match.Groups[1].Value);
                     }
@@ -102,48 +106,48 @@ namespace Game
         /// <summary>
         /// 判断字符串是否是数值型
         /// </summary>
-        public static bool IsNumber(this string self)
+        public static bool IsNumber(this string str)
         {
-            return new Regex(@"^([0-9])[0-9]*(\.\w*)?$").IsMatch(self);
+            return new Regex(@"^([0-9])[0-9]*(\.\w*)?$").IsMatch(str);
         }
         /// <summary>
         /// 判断字符串是否符合email格式
         /// </summary>
-        public static bool IsEmail(this string self)
+        public static bool IsEmail(this string str)
         {
-            return Regex.IsMatch(self, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
+            return Regex.IsMatch(str, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
         }
         /// <summary>
         /// 判断字符串是否符合url格式
         /// </summary>
-        public static bool IsURL(this string self)
+        public static bool IsURL(this string str)
         {
-            return Regex.IsMatch(self, @"^http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?$");
+            return Regex.IsMatch(str, @"^http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?$");
         }
         /// <summary>
         /// 判断字符串是否符合电话格式
         /// </summary>
-        public static bool IsPhoneNumber(this string self)
+        public static bool IsPhoneNumber(this string str)
         {
-            return Regex.IsMatch(self, @"^(\(\d{3}\)|\d{3}-)?\d{7,8}$");
+            return Regex.IsMatch(str, @"^(\(\d{3}\)|\d{3}-)?\d{7,8}$");
         }
         /// <summary>
         /// 判断字符串是否符合身份证号码格式
         /// </summary>
-        public static bool IsIdentityNumber(this string self)
+        public static bool IsIdentityNumber(this string str)
         {
-            return Regex.IsMatch(self, @"^\d{17}[\d|X]|\d{15}$");
+            return Regex.IsMatch(str, @"^\d{17}[\d|X]|\d{15}$");
         }
         /// <summary>
         /// 转换为泛型
         /// </summary>
-        public static bool TryParse<T>(this string self, out T value)
+        public static bool TryParse<T>(this string str, out T value)
         {
             bool result = false;
 
             try
             {
-                value = (T)Convert.ChangeType(self, typeof(T));
+                value = (T)Convert.ChangeType(str, typeof(T));
 
                 if (!Convert.IsDBNull(value))
                 {
@@ -159,9 +163,9 @@ namespace Game
         /// <summary>
         /// 转换为布尔型
         /// </summary>
-        public static bool TryParseBool(this string self, out bool value, bool define = false)
+        public static bool TryParseBool(this string str, out bool value, bool define = false)
         {
-            if (bool.TryParse(self, out value))
+            if (bool.TryParse(str, out value))
             {
                 return true;
             }
@@ -173,9 +177,9 @@ namespace Game
         /// <summary>
         /// 转换为整型
         /// </summary>
-        public static bool TryParseInt(this string self, out int value, int define = 0)
+        public static bool TryParseInt(this string str, out int value, int define = 0)
         {
-            if (int.TryParse(self, out value))
+            if (int.TryParse(str, out value))
             {
                 return true;
             }
@@ -187,9 +191,9 @@ namespace Game
         /// <summary>
         /// 转换为浮点型
         /// </summary>
-        public static bool TryParseFloat(this string self, out float value, float define = 0)
+        public static bool TryParseFloat(this string str, out float value, float define = 0)
         {
-            if (float.TryParse(self, out value))
+            if (float.TryParse(str, out value))
             {
                 return true;
             }
@@ -201,9 +205,9 @@ namespace Game
         /// <summary>
         /// 转换为高精度浮点型
         /// </summary>
-        public static bool TryParseDouble(this string self, out double value, double define = 0)
+        public static bool TryParseDouble(this string str, out double value, double define = 0)
         {
-            if (double.TryParse(self, out value))
+            if (double.TryParse(str, out value))
             {
                 return true;
             }
@@ -215,9 +219,9 @@ namespace Game
         /// <summary>
         /// 转换为长类型
         /// </summary>
-        public static bool TryParseLong(this string self, out long value, long define = 0)
+        public static bool TryParseLong(this string str, out long value, long define = 0)
         {
-            if (long.TryParse(self, out value))
+            if (long.TryParse(str, out value))
             {
                 return true;
             }
@@ -229,11 +233,11 @@ namespace Game
         /// <summary>
         /// 转换为二维向量
         /// </summary>
-        public static bool TryParseVector2(this string self, out Vector2 vector)
+        public static bool TryParseVector2(this string str, out Vector2 vector)
         {
             vector = new Vector2();
 
-            string[] paramter = self.Split(',');
+            string[] paramter = str.Split(',');
 
             if (paramter.Length == 2)
             {
@@ -245,11 +249,11 @@ namespace Game
         /// <summary>
         /// 转换为三维向量
         /// </summary>
-        public static bool TryParseVector3(this string self, out Vector3 vector)
+        public static bool TryParseVector3(this string str, out Vector3 vector)
         {
             vector = new Vector3();
 
-            string[] paramter = self.Split(',');
+            string[] paramter = str.Split(',');
 
             if (paramter.Length == 3)
             {
@@ -262,11 +266,11 @@ namespace Game
         /// <summary>
         /// 转换为四维向量
         /// </summary>
-        public static bool TryParseVector4(this string self, out Vector4 vector)
+        public static bool TryParseVector4(this string str, out Vector4 vector)
         {
             vector = new Vector4();
 
-            string[] paramter = self.Split(',');
+            string[] paramter = str.Split(',');
 
             if (paramter.Length == 4)
             {
@@ -280,11 +284,11 @@ namespace Game
         /// <summary>
         /// 转换为四元数
         /// </summary>
-        public static bool TryParseQuaternion(this string self, Quaternion quaternion)
+        public static bool TryParseQuaternion(this string str, Quaternion quaternion)
         {
             quaternion = new Quaternion();
 
-            string[] paramter = self.Split(',');
+            string[] paramter = str.Split(',');
 
             if (paramter.Length == 4)
             {
@@ -298,15 +302,15 @@ namespace Game
         /// <summary>
         /// 转换为颜色值
         /// </summary>
-        public static bool TryParseColor(this string self, out Color color)
+        public static bool TryParseColor(this string str, out Color color)
         {
-            if (string.IsNullOrEmpty(self))
+            if (string.IsNullOrEmpty(str))
             {
                 color = Color.clear; return false;
             }
-            if (!self.StartsWith("#")) self = string.Format("#{0}", self);
+            if (!str.StartsWith("#")) str = string.Format("#{0}", str);
 
-            return ColorUtility.TryParseHtmlString(self, out color);
+            return ColorUtility.TryParseHtmlString(str, out color);
         }
     }
 }
