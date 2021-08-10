@@ -28,18 +28,31 @@ namespace UnityEditor
         }
         #endregion
 
-        protected static void Create<T>(string name) where T : ScriptableObject
+        protected static void Create<T>(string file) where T : ScriptableObject
         {
             ScriptableObject script = ScriptableObject.CreateInstance<T>();
-            string path = Application.dataPath + "/Resources/Data";
+            string path = string.Format("{0}/Resources/Data", Application.dataPath);
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
-            path = string.Format("Assets/Resources/Data/{0}.asset", name);
+            path = string.Format("Assets/Resources/Data/{0}.asset", file);
             AssetDatabase.CreateAsset(script, path);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
+        }
+
+        public static void Load<T>(string path, out T asset) where T : ScriptableObject
+        {
+            asset = AssetDatabase.LoadAssetAtPath<T>(path);
+
+            if (asset == null)
+            {
+                asset = ScriptableObject.CreateInstance<T>();
+                AssetDatabase.CreateAsset(asset, path);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+            }
         }
     }
 }

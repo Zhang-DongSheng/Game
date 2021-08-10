@@ -201,8 +201,6 @@ namespace UnityEditor
 
 					GUILayout.BeginVertical(GUILayout.Width(100));
 					{
-						assetbundle = GUILayout.Toggle(assetbundle, "AssetBundle");
-
 						if (GUILayout.Button("转换", GUILayout.Height(40)))
 						{
 							Convert();

@@ -26,6 +26,7 @@ namespace UnityEditor.Listener
                 {
                     "Assets/Resources/",
                     "Assets/Art/UI/",
+                    "Assets/Art/PSD/",
                 }
             },
         };

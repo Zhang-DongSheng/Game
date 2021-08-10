@@ -149,7 +149,6 @@ namespace Pfi
 					}
 				}
 			}
-
 			ImportAsset(output, doc);
 		}
 
@@ -157,21 +156,12 @@ namespace Pfi
 		{
 			path = path.Replace(Application.dataPath, "Assets");
 
-			DataPSD asset = AssetDatabase.LoadAssetAtPath<DataPSD>(string.Format("{0}/{1}.asset", path, assetName));
-
-			if (asset == null)
-			{
-				asset = ScriptableObject.CreateInstance<DataPSD>();
-				AssetDatabase.CreateAsset(asset, string.Format("{0}/{1}.asset", path, assetName));
-				AssetDatabase.SaveAssets();
-				AssetDatabase.Refresh();
-			}
+			DataBuilder.Load(string.Format("{0}/{1}.asset", path, assetName), out DataPSD asset);
 
 			PSDInformation psd = new PSDInformation()
 			{
 				name = path.Remove(0, path.LastIndexOf('/') + 1),
 			};
-
 			if (doc != null && doc.root.layers.Count > 0)
 			{
 				PfiLayer layer;
@@ -185,7 +175,7 @@ namespace Pfi
 						psd.sprites.Add(new SpriteInformation()
 						{
 							name = layer.name,
-							texture = AssetDatabase.LoadAssetAtPath<Texture2D>(string.Format("{0}/{1}.png", path, layer.name)),
+							sprite = AssetDatabase.LoadAssetAtPath<Sprite>(string.Format("{0}/{1}.png", path, layer.name)),
 							position = layer.position,
 							size = new Vector2(layer.texture.width, layer.texture.height),
 							order = i,
