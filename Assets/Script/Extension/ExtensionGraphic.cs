@@ -8,7 +8,7 @@ namespace Game
         /// <summary>
         /// 生成新材质球
         /// </summary>
-        public static Material CloneMaterial(this Graphic graphic)
+        public static Material MaterialClone(this Graphic graphic)
         {
             if (graphic != null && graphic.material != null)
             {

@@ -4,60 +4,60 @@ namespace UnityEngine
 {
     public sealed class Timer : MonoBehaviour
     {
-        [SerializeField] private Mode mode;
+        private const int COUNT = 2;
 
-        [SerializeField] private float interval = 1;
+        public float interval = 1;
 
         public UnityEvent<float> onValueChanged;
 
         public UnityEvent onCompleted;
 
-        private bool active = true;
+        private float[] timer = new float[COUNT + 2] { 0, 0, 0, 0 };
 
-        private int index;
-
-        private float terminalTime;
-
-        private readonly Clock timer = new Clock();
-
-        private void Awake()
-        {
-            timer.action = OnValueChanged;
-        }
+        private Status status;
 
         private void Update()
         {
-            if (!active) return;
+            if (status == Status.Idle) return;
 
-            timer.Update();
-
-            switch (mode)
+            for (int i = 0; i < COUNT; i++)
             {
-                case Mode.Countdown:
+                timer[i] += Time.deltaTime;
+            }
+            if (timer[0] > interval)
+            {
+                timer[0] = 0; OnValueChanged();
+            }
+            switch (status)
+            {
+                case Status.Remaining:
                     {
-                        if (Time.time > terminalTime)
+                        if (Time.time > timer[COUNT])
                         {
                             OnCompleted();
                         }
                     }
-                    break;
-                default:
                     break;
             }
         }
 
         private void OnValueChanged()
         {
-            switch (mode)
+            switch (status)
             {
-                case Mode.Countdown:
+                case Status.Remaining:
                     {
-                        onValueChanged?.Invoke(terminalTime - Time.time);
+                        onValueChanged?.Invoke(timer[COUNT] - Time.time);
                     }
                     break;
-                default:
+                case Status.CycleTime:
                     {
-                        onValueChanged?.Invoke(index++);
+                        onValueChanged?.Invoke(timer[1]);
+                    }
+                    break;
+                case Status.CycleNumber:
+                    {
+                        onValueChanged?.Invoke(timer[COUNT + 1]++);
                     }
                     break;
             }
@@ -67,34 +67,50 @@ namespace UnityEngine
         {
             onCompleted?.Invoke();
 
-            active = false;
+            status = Status.Idle;
         }
 
-        public void Startup(float interval = -1, float duration = -1)
+        public void Remaining(float duration, float interval = -1)
         {
             if (interval != -1)
             {
                 this.interval = interval;
             }
-            timer.interval = this.interval;
+            for (int i = 0; i < COUNT; i++)
+            {
+                timer[i] = 0;
+            }
+            timer[COUNT] = Time.time + duration;
 
-            timer.timer = 0;
+            status = Status.Remaining;
+        }
 
-            terminalTime = Time.time + duration;
+        public void Cycle(float interval = -1, bool number = true)
+        {
+            if (interval != -1)
+            {
+                this.interval = interval;
+            }
+            for (int i = 0; i < COUNT; i++)
+            {
+                timer[i] = 0;
+            }
+            timer[COUNT + 1] = 0;
 
-            index = 0; active = true;
+            status = number ? Status.CycleNumber : Status.CycleTime;
         }
 
         public void Stop()
         {
-            active = false;
+            status = Status.Idle;
         }
 
-        enum Mode
+        enum Status
         {
-            None,
-            Loop,
-            Countdown,
+            Idle,
+            Remaining,
+            CycleTime,
+            CycleNumber,
         }
     }
 }

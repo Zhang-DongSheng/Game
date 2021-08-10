@@ -14,7 +14,7 @@ namespace Game
         /// </summary>
         public static string Append(this string str, params string[] values)
         {
-            StringBuilder builder = new StringBuilder(str);
+            builder.Clear(); builder.Append(str);
 
             for (int i = 0; i < values.Length; i++)
             {
@@ -43,24 +43,52 @@ namespace Game
             return list;
         }
         /// <summary>
-        /// 首字母大写
+        /// 部分大写[65-90]
         /// </summary>
-        public static string FirstToUpper(this string str)
+        public static string SubToUpper(this string str, int index = 0, int count = 1)
         {
-            /* * [97-122] -> [65-90] * */ 
+            builder.Clear();
 
-            if (str.Length > 0)
+            char value;
+
+            for (int i = 0; i < str.Length; i++)
             {
-                char first = str[0];
+                value = str[i];
 
-                if (first > 96 && first < 123)
+                if (i >= index && count-- > 0)
                 {
-                    first = Convert.ToChar(first - 32);
-
-                    str = string.Format("{0}{1}", first, str.Remove(0, 1));
+                    if (value > 96 && value < 123)
+                    {
+                        value = Convert.ToChar(value - 32);
+                    }
                 }
+                builder.Append(value);
             }
-            return str;
+            return builder.ToString();
+        }
+        /// <summary>
+        /// 部分小写[97-122]
+        /// </summary>
+        public static string SubToLower(this string str, int index = 0, int count = 1)
+        {
+            builder.Clear();
+
+            char value;
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                value = str[i];
+
+                if (i >= index && count-- > 0)
+                {
+                    if (value > 64 && value < 91)
+                    {
+                        value = Convert.ToChar(value + 32);
+                    }
+                }
+                builder.Append(value);
+            }
+            return builder.ToString();
         }
         /// <summary>
         /// 判断是否存在双键数值

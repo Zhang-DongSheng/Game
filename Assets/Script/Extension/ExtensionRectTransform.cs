@@ -9,7 +9,6 @@ namespace Game
         static private Vector2 anchorMax;
 
         static private Vector2 delta;
-
         /// <summary>
         /// 全屏
         /// </summary>

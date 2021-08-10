@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace UnityEngine
 {
-    public static class TimeUtils
+    public static class TimeHandler
     {
         private static readonly DateTime Base = new DateTime(621355968000000000);
 
