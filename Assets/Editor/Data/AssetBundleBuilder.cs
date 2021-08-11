@@ -310,9 +310,8 @@ namespace UnityEditor.Window
                     {
                         if (GUILayout.Button("上传", GUILayout.Height(60)))
                         {
-                            Upload();
-
                             Md5Tools.Record(HistoryPath, string.Empty, items);
+                            Upload();
                         }
 
                         if (GUILayout.Button("全选"))
