@@ -174,7 +174,7 @@ namespace UnityEditor.Window
         {
             if (!File.Exists(path)) return;
 
-            Dictionary<string, string> md5 = new Dictionary<string, string>();
+            Dictionary<string, string> history = new Dictionary<string, string>();
 
             List<string> lines = new List<string>();
 
@@ -192,22 +192,26 @@ namespace UnityEditor.Window
 
                     if (param.Length == 2)
                     {
-                        if (md5.ContainsKey(param[0]))
+                        if (history.ContainsKey(param[0]))
                         {
-                            md5[param[0]] = param[1];
+                            history[param[0]] = param[1];
                         }
                         else
                         {
-                            md5.Add(param[0], param[1]);
+                            history.Add(param[0], param[1]);
                         }
                     }
                     line = reader.ReadLine();
                 }
             }
-            foreach (var line in md5)
+            foreach (var line in history)
             {
                 lines.Add(string.Join("|", line.Key, line.Value));
             }
+            lines.Sort((a, b) =>
+            {
+                return a.CompareTo(b);
+            });
             File.WriteAllLines(path, lines);
         }
     }
