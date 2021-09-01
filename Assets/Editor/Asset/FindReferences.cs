@@ -200,6 +200,8 @@ namespace UnityEditor
                 if (texture.format == TextureFormat.PVRTC_RGB4 ||
                     texture.format == TextureFormat.PVRTC_RGBA4 ||
                     texture.format == TextureFormat.ASTC_4x4)
+#else
+                if (texture.format != TextureFormat.RGBA32)
 #endif
                 {
 
