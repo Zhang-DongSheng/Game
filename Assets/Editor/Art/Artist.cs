@@ -7,13 +7,19 @@ namespace UnityEditor.Window
 {
 	public class Artist : CustomWindow
 	{
-		private readonly string[] menu = new string[4] { "Main", "Prefab", "Texture", "Other" };
+		private readonly string[] menu = new string[4] { "Main", "Asset", "Prefab", "Config" };
 
-		private readonly string[] assets = new string[5] { "None", "Sprite", "Texture", "Material", "TextAsset" };
+		private readonly string[] assets = new string[6] { "None", "Sprite", "Texture", "Material", "TextAsset", "Shader" };
 
+		private readonly string[] shaders = new string[2] { "Relevance", "Special" };
+		
 		private readonly Index idxPrefab = new Index(), idxAsset = new Index();
 
 		private readonly Index idxSrc = new Index(), idxDst = new Index();
+
+		private readonly Index idxShader = new Index();
+
+		private readonly Input iptShader = new Input();
 
 		private string[] types;
 
@@ -95,10 +101,10 @@ namespace UnityEditor.Window
 						RefreshMain();
 						break;
 					case 1:
-						RefreshPrefab();
+						RefreshAsset();
 						break;
 					case 2:
-						RefreshTexture();
+						RefreshPrefab();
 						break;
 					default:
 						RefreshOther();
@@ -111,6 +117,79 @@ namespace UnityEditor.Window
 		private void RefreshMain()
 		{
 
+		}
+
+		private void RefreshAsset()
+		{
+			GUILayout.BeginHorizontal();
+			{
+				GUILayout.BeginVertical();
+				{
+					idxAsset.index = EditorGUILayout.Popup(idxAsset.index, assets);
+				}
+				GUILayout.EndVertical();
+
+				GUILayout.Box(string.Empty, GUILayout.Width(3), GUILayout.ExpandHeight(true));
+
+				GUILayout.BeginVertical(GUILayout.Width(200));
+				{
+					switch (idxAsset.index)
+					{
+						case 0:
+							break;
+						case 1:
+						case 2:
+							{
+								if (GUILayout.Button("检查图片资源是否为4的倍数"))
+								{
+									FindReferences.Powerof2("Assets");
+								}
+								goto default;
+							}
+						case 5:
+							{
+								idxShader.index = EditorGUILayout.Popup(idxShader.index, shaders);
+
+								switch (idxShader.index)
+								{
+									case 0:
+										{
+											if (GUILayout.Button("查找所有未引用的Shader"))
+											{
+												FindReferences.Shader();
+											}
+										}
+										break;
+									case 1:
+										{
+											iptShader.value = GUILayout.TextField(iptShader.value);
+
+											if (GUILayout.Button("查找引用该资源的所有Material"))
+											{
+												FindReferences.Shader(iptShader.value);
+											}
+										}
+										break;
+								}
+							}
+							break;
+						default:
+							{
+								if (GUILayout.Button("检查资源引用"))
+								{
+									FindReferences.Empty(string.Format("t:{0}", assets[idxAsset.index]), "Assets");
+								}
+								if (GUILayout.Button("检查资源大小"))
+								{
+									FindReferences.Overflow(string.Format("t:{0}", assets[idxAsset.index]), "Assets");
+								}
+							}
+							break;
+					}
+				}
+				GUILayout.EndVertical();
+			}
+			GUILayout.EndHorizontal();
 		}
 
 		private void RefreshPrefab()
@@ -139,10 +218,7 @@ namespace UnityEditor.Window
 				{
 					if (GUILayout.Button("检查"))
 					{
-						if (idxPrefab.index == 0)
-						{
-
-						}
+						if (idxPrefab.index == 0) { }
 						else
 						{
 							Missing(file.asset);
@@ -204,38 +280,6 @@ namespace UnityEditor.Window
 					if (GUILayout.Button(command))
 					{
 						ModifyComponent(file.asset, idxSrc.index, idxDst.index);
-					}
-				}
-				GUILayout.EndVertical();
-			}
-			GUILayout.EndHorizontal();
-		}
-
-		private void RefreshTexture()
-		{
-			GUILayout.BeginHorizontal();
-			{
-				GUILayout.BeginVertical();
-				{
-					idxAsset.index = EditorGUILayout.Popup(idxAsset.index, assets);
-				}
-				GUILayout.EndVertical();
-
-				GUILayout.Box(string.Empty, GUILayout.Width(3), GUILayout.ExpandHeight(true));
-
-				GUILayout.BeginVertical(GUILayout.Width(200));
-				{
-					if (GUILayout.Button("检查资源引用"))
-					{
-						FindReferences.Empty(string.Format("t:{0}", assets[idxAsset.index]), "Assets");
-					}
-					if (GUILayout.Button("检查资源大小"))
-					{
-						FindReferences.Overflow(string.Format("t:{0}", assets[idxAsset.index]), "Assets");
-					}
-					if (GUILayout.Button("检查图片资源是否为4的倍数"))
-					{
-						FindReferences.Powerof2("Assets");
 					}
 				}
 				GUILayout.EndVertical();

@@ -112,6 +112,35 @@ namespace UnityEditor
             return missing;
         }
 
+        public static void Shader()
+        {
+
+        }
+
+        public static void Shader(string shader)
+        {
+            string[] guids = AssetDatabase.FindAssets("t:Material", new string[] { "Assets" });
+
+            string path;
+
+            foreach (var guid in guids)
+            {
+                path = AssetDatabase.GUIDToAssetPath(guid);
+
+                Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+
+                if (material.shader != null)
+                {
+                    string key = material.shader.name.ToLower();
+
+                    if (key.Contains(shader.ToLower()))
+                    {
+                        Debug.LogWarning(string.Format("{0}: Material Shader is {1}!", path, shader), material);
+                    }
+                }
+            }
+        }
+
         public static void Powerof2(params string[] folders)
         {
             string[] guids = AssetDatabase.FindAssets("t:Texture2D", folders);
