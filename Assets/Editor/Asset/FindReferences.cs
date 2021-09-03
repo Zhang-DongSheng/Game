@@ -19,6 +19,8 @@ namespace UnityEditor
             ".asset"
         };
 
+        private static readonly string[] folders = new string[] { "Assets" };
+
         [MenuItem("Assets/Find References", false, 24)]
         protected static void Find()
         {
@@ -112,14 +114,104 @@ namespace UnityEditor
             return missing;
         }
 
-        public static void Shader()
+        public static void FindUnreferencedShader()
         {
+            List<string> shaders = new List<string>();
 
+            string path, shader;
+
+            int index, count;
+
+            string[] guids = AssetDatabase.FindAssets("t:Shader", folders);
+
+            foreach (var guid in guids)
+            {
+                path = AssetDatabase.GUIDToAssetPath(guid);
+
+                shader = AssetDatabase.LoadAssetAtPath<Shader>(path).name;
+
+                if (shaders.Contains(shader))
+                {
+                    Debug.LogErrorFormat("The shader name is the same, {0}", shader);
+                }
+                else
+                {
+                    shaders.Add(shader);
+                }
+            }
+
+            guids = AssetDatabase.FindAssets("t:Material", folders);
+
+            foreach (var guid in guids)
+            {
+                path = AssetDatabase.GUIDToAssetPath(guid);
+
+                Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+
+                if (material.shader != null)
+                {
+                    shader = material.shader.name;
+
+                    index = shaders.FindIndex(x => shader.Equals(x));
+
+                    if (index > -1)
+                    {
+                        shaders.RemoveAt(index);
+                    }
+                }
+            }
+
+            count = shaders.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (!string.IsNullOrEmpty(shaders[i]))
+                {
+                    Debug.LogWarning(string.Format("<color=red>{0}</color> is not Reference", shaders[i]), UnityEngine.Shader.Find(shaders[i]));
+                }
+            }
         }
 
-        public static void Shader(string shader)
+        public static void FindReferenceShader()
         {
-            string[] guids = AssetDatabase.FindAssets("t:Material", new string[] { "Assets" });
+            List<string> shaders = new List<string>();
+
+            string path, shader;
+
+            string[] guids = AssetDatabase.FindAssets("t:Material", folders);
+
+            foreach (var guid in guids)
+            {
+                path = AssetDatabase.GUIDToAssetPath(guid);
+
+                Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+
+                if (material.shader != null)
+                {
+                    shader = material.shader.name;
+
+                    if (shaders.Contains(shader)) { }
+                    else
+                    {
+                        shaders.Add(shader);
+                    }
+                }
+            }
+
+            int count = shaders.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (!string.IsNullOrEmpty(shaders[i]))
+                {
+                    Debug.LogWarning(string.Format("<color=red>{0}</color> is Referenced", shaders[i]), UnityEngine.Shader.Find(shaders[i]));
+                }
+            }
+        }
+
+        public static void FindMaterialOfReferenceShader(string shader)
+        {
+            string[] guids = AssetDatabase.FindAssets("t:Material", folders);
 
             string path;
 

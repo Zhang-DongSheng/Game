@@ -11,8 +11,8 @@ namespace UnityEditor.Window
 
 		private readonly string[] assets = new string[6] { "None", "Sprite", "Texture", "Material", "TextAsset", "Shader" };
 
-		private readonly string[] shaders = new string[2] { "Relevance", "Special" };
-		
+		private readonly string[] shaders = new string[2] { "Reference", "Special" };
+
 		private readonly Index idxPrefab = new Index(), idxAsset = new Index();
 
 		private readonly Index idxSrc = new Index(), idxDst = new Index();
@@ -154,9 +154,13 @@ namespace UnityEditor.Window
 								{
 									case 0:
 										{
-											if (GUILayout.Button("查找所有未引用的Shader"))
+											if (GUILayout.Button("查找所有未被引用的Shader"))
 											{
-												FindReferences.Shader();
+												FindReferences.FindUnreferencedShader();
+											}
+											if (GUILayout.Button("查找所有被引用的Shader"))
+											{
+												FindReferences.FindReferenceShader();
 											}
 										}
 										break;
@@ -166,7 +170,7 @@ namespace UnityEditor.Window
 
 											if (GUILayout.Button("查找引用该资源的所有Material"))
 											{
-												FindReferences.Shader(iptShader.value);
+												FindReferences.FindMaterialOfReferenceShader(iptShader.value);
 											}
 										}
 										break;
