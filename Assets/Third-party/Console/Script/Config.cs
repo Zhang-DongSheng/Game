@@ -1,12 +1,14 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Console
+namespace Game.Console
 {
-    public class GameConfig
+    public static class Config
     {
         public static readonly string Path_Log = string.Format("{0}/log_{1}.txt", Application.persistentDataPath, DateTime.Now.ToString("yyyyMMddhhmmss"));
+
         public static readonly string Path_Profiler = string.Format("{0}/profiler_{1}.log", Application.persistentDataPath, DateTime.Now.ToString("yyyyMMddhhmmss"));
+
         public static readonly string Path_ScreenCapture = string.Format("{0}/capture_{1}.png", Application.persistentDataPath, DateTime.Now.ToString("yyyyMMddhhmmss"));
 
         public static readonly string[] Title = new string[5] { "控制台", "日志", "游戏信息", "设置", "设备信息" };
@@ -64,16 +66,19 @@ namespace Console
     public class LogData
     {
         public LogType type;
-        public DateTime time;
-        public string message;
-        public string source;
 
-        public LogData(LogType type, string message, string source)
+        public DateTime time;
+
+        public string message;
+
+        public string content;
+
+        public LogData(LogType type, string message, string content)
         {
             this.type = type;
             this.time = DateTime.Now;
             this.message = message;
-            this.source = source;
+            this.content = content;
         }
 
         public string Message

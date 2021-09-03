@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
-namespace Console
+namespace Game.Console
 {
-    [RequireComponent(typeof(GameConsole))]
-    public class GameConsoleView : MonoSingleton<GameConsoleView>
+    [RequireComponent(typeof(Console))]
+    public class ConsoleWindow : MonoSingleton<ConsoleWindow>
     {
-        private GameConsole m_console;
+        private Console m_console;
 
         private readonly bool[] l_toggle_state = new bool[3] { false, false, false };
 
@@ -23,7 +23,7 @@ namespace Console
 
         private void Awake()
         {
-            m_console = GetComponent<GameConsole>();
+            m_console = GetComponent<Console>();
         }
 
         private void OnGUI()
@@ -32,7 +32,7 @@ namespace Console
 
             GUILayout.BeginArea(new Rect(0, 0, Screen.width, 60));
             {
-                view_index = GUILayout.Toolbar(view_index, GameConfig.Title, GUILayout.ExpandHeight(true));
+                view_index = GUILayout.Toolbar(view_index, Config.Title, GUILayout.ExpandHeight(true));
             }
             GUILayout.EndArea();
 
@@ -64,9 +64,9 @@ namespace Console
             {
                 c_scroll_position = GUILayout.BeginScrollView(c_scroll_position);
                 {
-                    for (int i = 0; i < GameConfig.Command.Length; i++)
+                    for (int i = 0; i < Config.Command.Length; i++)
                     {
-                        GUILayout.Label(GameConfig.Command[i]);
+                        GUILayout.Label(Config.Command[i]);
                     }
                 }
                 GUILayout.EndArea();
@@ -102,7 +102,7 @@ namespace Console
                 {
                     if (GUILayout.Button("联系我们", GUILayout.ExpandHeight(true)))
                     {
-                        Application.OpenURL(GameConfig.Email);
+                        Application.OpenURL(Config.Email);
                     }
                     if (GUILayout.Button("关闭窗口", GUILayout.ExpandHeight(true)))
                     {
@@ -149,7 +149,7 @@ namespace Console
                             }
                             if (GUILayout.Button(m_console.LogData[i].Message, GUILayout.Height(30)))
                             {
-                                l_input_value[1] = m_console.LogData[i].source;
+                                l_input_value[1] = m_console.LogData[i].content;
                             }
                         }
                     }
@@ -328,9 +328,9 @@ namespace Console
             {
                 i_scroll_position = GUILayout.BeginScrollView(i_scroll_position);
                 {
-                    for (int i = 0; i < GameConfig.Infomation.Length; i++)
+                    for (int i = 0; i < Config.Infomation.Length; i++)
                     {
-                        GUILayout.Label(GameConfig.Infomation[i]);
+                        GUILayout.Label(Config.Infomation[i]);
                     }
                 }
                 GUILayout.EndArea();

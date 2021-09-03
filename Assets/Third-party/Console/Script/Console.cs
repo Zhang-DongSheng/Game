@@ -4,9 +4,9 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Profiling;
 
-namespace Console
+namespace Game.Console
 {
-    public class GameConsole : MonoBehaviour
+    public class Console : MonoBehaviour
     {
         private readonly List<LogData> log_data = new List<LogData>();
 
@@ -58,7 +58,7 @@ namespace Console
 
         private IEnumerator Save__Log(LogType ignore)
         {
-            using (FileStream fs = new FileStream(GameConfig.Path_Log, FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(Config.Path_Log, FileMode.OpenOrCreate))
             {
                 StreamWriter sw = new StreamWriter(fs);
 
@@ -67,7 +67,7 @@ namespace Console
                     if (log_data[i].type >= ignore)
                     {
                         sw.WriteLine(log_data[i].message);
-                        sw.WriteLine(log_data[i].source);
+                        sw.WriteLine(log_data[i].content);
                     }
                 }
 
@@ -79,7 +79,7 @@ namespace Console
 
         private IEnumerator Save__Profiler(int second)
         {
-            Profiler.logFile = GameConfig.Path_Profiler;
+            Profiler.logFile = Config.Path_Profiler;
             Profiler.enabled = true;
             Profiler.enableBinaryLog = true;
 
@@ -111,7 +111,7 @@ namespace Console
 
         public void Save_ScreenCapture()
         {
-            ScreenCapture.CaptureScreenshot(GameConfig.Path_ScreenCapture, 0);
+            ScreenCapture.CaptureScreenshot(Config.Path_ScreenCapture, 0);
         }
 
         public void ExecuteCommand(string command)
