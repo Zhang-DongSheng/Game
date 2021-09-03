@@ -9,9 +9,9 @@ namespace UnityEditor.Window
 	{
 		private readonly string[] menu = new string[4] { "Main", "Asset", "Prefab", "Config" };
 
-		private readonly string[] assets = new string[6] { "None", "Sprite", "Texture", "Material", "TextAsset", "Shader" };
+		private readonly string[] assets = new string[6] { "None", "TextAsset", "Texture", "Sprite", "Shader", "Material" };
 
-		private readonly string[] shaders = new string[2] { "Reference", "Special" };
+		private readonly string[] shaders = new string[2] { "Reference", "Find" };
 
 		private readonly Index idxPrefab = new Index(), idxAsset = new Index();
 
@@ -136,9 +136,12 @@ namespace UnityEditor.Window
 					switch (idxAsset.index)
 					{
 						case 0:
+							{
+								GUILayout.Label(string.Empty);
+							}
 							break;
-						case 1:
 						case 2:
+						case 3:
 							{
 								if (GUILayout.Button("检查图片资源是否为4的倍数"))
 								{
@@ -146,7 +149,7 @@ namespace UnityEditor.Window
 								}
 								goto default;
 							}
-						case 5:
+						case 4:
 							{
 								idxShader.index = EditorGUILayout.Popup(idxShader.index, shaders);
 
