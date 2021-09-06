@@ -22,6 +22,9 @@ namespace Game
             ActivityLogic.Instance.Init();
 
             ReddotLogic.Instance.Init();
+#if DEBUG
+            ILRuntimeLogic.Instance.Init();
+#endif
         }
 
         private void Start()
