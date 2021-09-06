@@ -11,6 +11,7 @@ namespace TEST
             Bezier,
             Spline,
             Spline2,
+            Simple,
         }
 
         [SerializeField] private CurvesTpye type;
@@ -37,6 +38,9 @@ namespace TEST
                     break;
                 case CurvesTpye.Spline2:
                     nodes.AddRange(SplineCurves2.FetchCurves(ratio, points.ToArray()));
+                    break;
+                case CurvesTpye.Simple:
+                    nodes.AddRange(SimpleCurves.FetchCurves(points[0], points[points.Count - 1], points[1].y, ratio));
                     break;
             }
         }
