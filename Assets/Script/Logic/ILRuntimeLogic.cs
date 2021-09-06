@@ -12,7 +12,10 @@ namespace Game
 
         public void Init()
         {
-            StartCoroutine(LoadILRuntime());
+            if (Application.isPlaying)
+            {
+                StartCoroutine(LoadILRuntime());
+            }
         }
 
         private IEnumerator LoadILRuntime()

@@ -50,17 +50,17 @@ namespace Game.UI
 
                     rect.Reset(); rect.Full();
 
+                    _parents.Add(rect);
+
                     Canvas _canvas = parent.AddComponent<Canvas>();
+
+                    parent.AddComponent<GraphicRaycaster>();
 
                     _canvas.pixelPerfect = true;
 
                     _canvas.overrideSorting = true;
 
                     _canvas.sortingOrder = (int)layer * 10;
-
-                    parent.AddComponent<GraphicRaycaster>();
-
-                    _parents.Add(rect);
                 }
             }
             else
