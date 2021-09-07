@@ -6,11 +6,13 @@ namespace Game
     public class AloneCurves : MonoBehaviour
     {
         [Tooltip("µ¥Î»s/m")]
-        [SerializeField, Range(1, 100)] private float speed = 10;
+        [SerializeField, Range(1, 1000)] private float speed = 10;
+
+        [SerializeField, Range(1, 100)] private int ratio = 10;
 
         [SerializeField] private Transform target;
 
-        private int count;
+        private int index, count;
 
         private float step;
 
@@ -22,6 +24,8 @@ namespace Game
 
         private readonly List<CurvesPoint> curves = new List<CurvesPoint>();
 
+        private readonly SimpleCurves simple = new SimpleCurves();
+
         private void Update()
         {
             switch (status)
@@ -30,13 +34,9 @@ namespace Game
                     {
                         if (Input.GetMouseButtonDown(0))
                         {
-                            vectors[2] = Random.insideUnitCircle * Random.Range(1, 50f);
+                            vectors[2] = new Vector3(Random.Range(-50, 50f), 0, 0);
 
                             vectors[2].y = 0;
-
-                            vectors[1] = Vector3.Lerp(vectors[0], vectors[2], 0.5f);
-
-                            vectors[1].y += Vector3.Distance(vectors[0], vectors[2]) * 0.3f;
 
                             status = Status.Ready;
                         }
@@ -46,8 +46,13 @@ namespace Game
                     {
                         curves.Clear();
 
-                        List<Vector3> points = SplineCurves2.FetchCurves(10, vectors);
+                        List<Vector3> points = simple.FetchCurves(vectors[0], vectors[2], speed, ratio);
 
+                        if (points == null || points.Count == 0)
+                        {
+                            status = Status.Idle;
+                            return;
+                        }
                         count = points.Count;
 
                         for (int i = 1; i < count; i++)
@@ -63,6 +68,8 @@ namespace Game
                             curves[i - 1].max = curves[i - 1].min + curves[i - 1].length;
                         }
 
+                        index = 0;
+
                         count = curves.Count;
 
                         step = 0;
@@ -74,18 +81,19 @@ namespace Game
                     {
                         step += speed * Time.deltaTime;
 
-                        for (int i = 0; i < count; i++)
+                        for (int i = index; i < count; i++)
                         {
                             if (curves[i].Exist(step))
                             {
                                 position = curves[i].Position(step);
+                                index = i;
                                 break;
                             }
                         }
 
                         Translation();
 
-                        if (step > curves[count - 1].max)
+                        if (step >= curves[count - 1].max)
                         {
                             status = Status.Complete;
                         }
