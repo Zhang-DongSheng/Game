@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace Game
 {
-    public class ModelRaycast : MonoBehaviour
+    public class RaycastClick : MonoBehaviour
     {
         [SerializeField] private LayerMask layer;
 
