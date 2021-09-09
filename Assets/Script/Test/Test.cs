@@ -3,35 +3,24 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace TEST
 {
     public class Test : MonoBehaviour
     {
         public Transform test;
-        
-        [SerializeField] private List<Transform> listT;
 
-        public List<string> AA;
+        public Route route;
 
-        [SerializeField] private RectTransform target;
-
-        private readonly List<string> list = new List<string>()
-        {
-            "ceo",
-            "cts",
-            "deep",
-            "deeplove",
-            "dest",
-            "dream",
-            "hust",
-            "las",
-            "pd"
-        };
+        private readonly ParaCurves curves = new ParaCurves();
 
         private void Awake()
         {
-
+            route.onComplete.AddListener(() =>
+            {
+                Debug.LogError("完成！");
+            });
         }
 
         private void OnEnable()
@@ -69,7 +58,11 @@ namespace TEST
         /// </summary>
         public void OnClick()
         {
+            Vector3 position = new Vector3(Random.Range(-50, 50), 0, Random.Range(-5, 5));
 
+            List<Vector3> routes = curves.FetchCurves(Vector3.zero, position, 36, 10);
+
+            route.Startup(test, routes, 36);
         }
         /// <summary>
         /// 菜单栏测试

@@ -3,15 +3,18 @@ using UnityEngine;
 
 namespace Game
 {
-    public class SimpleCurves
+    /// <summary>
+    /// Å×ÎïÏß
+    /// </summary>
+    public class ParaCurves
     {
         private readonly float G = 9.8f;
 
-        private readonly Dictionary<int, float> mapping = new Dictionary<int, float>();
-
         private readonly List<Vector3> curves = new List<Vector3>();
 
-        public List<Vector3> FetchCurves(Vector2 start, Vector2 end, float speed, int step = 3, bool cast = false)
+        private readonly Dictionary<int, float> mapping = new Dictionary<int, float>();
+
+        public List<Vector3> FetchCurves(Vector3 start, Vector3 end, float speed, int step = 3, bool cast = false)
         {
             float distance = Vector3.Distance(start, end);
 
@@ -96,6 +99,11 @@ namespace Game
             float height = sin * time - 0.5f * G * Mathf.Pow(time, 2);
 
             return height;
+        }
+
+        public void Clear()
+        {
+            mapping.Clear();
         }
     }
 }

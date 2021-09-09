@@ -21,6 +21,8 @@ namespace TEST
 
         private readonly List<Vector3> nodes = new List<Vector3>();
 
+        private readonly SplineCurves2 spline = new SplineCurves2();
+
         private void OnValidate()
         {
             if (points == null || points.Count < 3) return;
@@ -36,7 +38,7 @@ namespace TEST
                     nodes.AddRange(SplineCurves.FetchCurves(ratio, points.ToArray()));
                     break;
                 case CurvesTpye.Spline2:
-                    nodes.AddRange(SplineCurves2.FetchCurves(ratio, points.ToArray()));
+                    nodes.AddRange(spline.FetchCurves(ratio, points.ToArray()));
                     break;
             }
         }

@@ -4,11 +4,14 @@ using UnityEngine;
 
 namespace Game
 {
+    /// <summary>
+    /// BÑùÌõÇúÏß2
+    /// </summary>
     public class SplineCurves2
     {
-        private static Vector3 a, b, c, d;
+        private Vector3 a, b, c, d;
 
-        public static List<Vector3> FetchCurves(int ratio, params Vector3[] points)
+        public List<Vector3> FetchCurves(int ratio, params Vector3[] points)
         {
             List<Vector3> curves = new List<Vector3>();
 
@@ -34,7 +37,7 @@ namespace Game
             return curves;
         }
 
-        private static Vector3[] Generator(params Vector3[] points)
+        private Vector3[] Generator(params Vector3[] points)
         {
             int length = points.Length + 2;
 
@@ -63,7 +66,7 @@ namespace Game
             return nodes;
         }
 
-        private static Vector3 Lerp(Vector3[] points, int end, float t)
+        private Vector3 Lerp(Vector3[] points, int end, float t)
         {
             int index = Mathf.Min(Mathf.FloorToInt(t * (float)end), end - 1);
 

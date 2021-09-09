@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Game
 {
+    /// <summary>
+    /// BÑùÌõÇúÏß
+    /// </summary>
     public class SplineCurves
     {
         private readonly float coefficient = 0;
