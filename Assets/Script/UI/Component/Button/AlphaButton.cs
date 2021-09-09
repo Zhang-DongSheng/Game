@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 namespace UnityEngine.UI
 {
     /// <summary>
-    /// Í¸Ã÷°´Å¥
+    /// é€æ˜æŒ‰é’®
     /// </summary>
     public class AlphaButton : Image, IPointerClickHandler
     {

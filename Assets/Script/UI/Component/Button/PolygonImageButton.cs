@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 namespace UnityEngine.UI
 {
     /// <summary>
-    /// ¶à±ßÐÎ°´Å¥
+    /// å¤šè¾¹å½¢æŒ‰é’®
     /// </summary>
     [RequireComponent(typeof(PolygonCollider2D))]
     public class PolygonImageButton : Image, IPointerClickHandler

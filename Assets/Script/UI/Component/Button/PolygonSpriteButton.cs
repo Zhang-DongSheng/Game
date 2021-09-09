@@ -3,7 +3,7 @@ using UnityEngine.Events;
 namespace UnityEngine
 {
     /// <summary>
-    /// ¶à±ßĞÎ¾«Áé°´Å¥
+    /// å¤šè¾¹å½¢ç²¾çµæŒ‰é’®
     /// </summary>
     [RequireComponent(typeof(SpriteRenderer), typeof(PolygonCollider2D))]
     public class PolygonSpriteButton : MonoBehaviour

@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 namespace UnityEngine.UI
 {
     /// <summary>
-    /// ¿Õ°´Å¥£¬²»äÖÈ¾
+    /// ç©ºæŒ‰é’®ï¼Œä¸æ¸²æŸ“
     /// </summary>
     [RequireComponent(typeof(CanvasRenderer))]
     public class EmptyButton : Graphic, IPointerClickHandler
