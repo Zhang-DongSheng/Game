@@ -8,6 +8,8 @@ namespace Game
 {
     public class ILRuntimeLogic : MonoSingleton<ILRuntimeLogic>, ILogic
     {
+        private readonly string key = "HotFix/Hotfix";
+
         private ILRuntime.Runtime.Enviorment.AppDomain appdomain;
 
         public void Init()
@@ -25,7 +27,7 @@ namespace Game
             byte[] _dll = null, _pdb = null;
 
             #region DLL
-            string url = Application.streamingAssetsPath + "/HotFix/HotFix_Project.dll";
+            string url = string.Format("{0}/{1}.dll", Application.streamingAssetsPath, key);
 
             UnityWebRequest request = UnityWebRequest.Get(url);
 
@@ -49,7 +51,7 @@ namespace Game
             #endregion
 
             #region PDB
-            url = Application.streamingAssetsPath + "/HotFix/HotFix_Project.pdb";
+            url = string.Format("{0}/{1}.pdb", Application.streamingAssetsPath, key);
 
             request = UnityWebRequest.Get(url);
 
@@ -90,7 +92,9 @@ namespace Game
 
         private void OnILRuntimeInitialized()
         {
-            appdomain.Invoke("HotFix_Project.InstanceClass", "StaticFunTest", null, null);
+            object result = appdomain.Invoke("Hotfix.Script.Utils.Helper", "Add", null, 1f, 2f);
+
+            Debug.LogError(result);
         }
     }
 }
