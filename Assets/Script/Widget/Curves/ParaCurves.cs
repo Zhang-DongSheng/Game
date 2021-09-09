@@ -8,6 +8,8 @@ namespace Game
     /// </summary>
     public class ParaCurves
     {
+        private float angle;
+
         private readonly float G = 9.8f;
 
         private readonly List<Vector3> curves = new List<Vector3>();
@@ -18,7 +20,7 @@ namespace Game
         {
             float distance = Vector3.Distance(start, end);
 
-            if (mapping.TryGetValue((int)distance, out float angle))
+            if (mapping.TryGetValue((int)distance, out angle))
             {
                 angle = cast ? 90 - angle : angle;
             }
@@ -100,6 +102,8 @@ namespace Game
 
             return height;
         }
+
+        public float VerticalAngle { get { return angle; } }
 
         public void Clear()
         {
