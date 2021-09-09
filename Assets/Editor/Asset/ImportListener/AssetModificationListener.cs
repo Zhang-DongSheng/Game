@@ -29,11 +29,12 @@ namespace UnityEditor.Listener
         {
             Encoding encoding = FileEncoding.Get(path);
 
-            if (encoding != Encoding.UTF8)
+            Encoding UTF8 = new UTF8Encoding(false);
+
+            if (encoding != UTF8)
             {
-                File.WriteAllText(path, File.ReadAllText(path), Encoding.UTF8);
+                File.WriteAllText(path, File.ReadAllText(path), UTF8);
             }
-            UnityEngine.Debug.LogFormat("{0}, 脚本格式校正完成!", path);
         }
     }
 }
