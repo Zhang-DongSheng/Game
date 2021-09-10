@@ -8,9 +8,9 @@ using UnityEngine;
 
 namespace ILRuntime
 {
-    public class ILRuntimeHelper
+    public static class ILRuntimeHelper
     {
-
+        
     }
 
     public static class ILRuntimeCLR

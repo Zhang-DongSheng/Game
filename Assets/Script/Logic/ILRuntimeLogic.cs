@@ -102,7 +102,44 @@ namespace Game
 
             CLRRedirection();
 
-            appdomain.Invoke("Hotfix.Script.Program", "Initialize", null);
+            string KEY = "委托调用";
+
+            switch (KEY)
+            {
+                case "静态调用":
+                    {
+                        appdomain.Invoke("ILRuntime.Program", "Initialize", null);
+                    }
+                    break;
+                case "实例调用":
+                    {
+                        object script = appdomain.Instantiate("ILRuntime.Main");
+
+                        appdomain.Invoke("ILRuntime.Main", "Test", script);
+                    }
+                    break;
+                case "反射调用":
+                    {
+                        var script = appdomain.LoadedTypes["ILRuntime.Main"];
+
+                        var type = script.ReflectionType;
+
+                        var ctor = type.GetConstructor(new System.Type[0]);
+
+                        var obj = ctor.Invoke(null);
+
+                        var field = type.GetField("index", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+                        field.SetValue(obj, 123456);
+
+                        var value = field.GetValue(obj);
+
+                        Debug.Log("ID = " + value);
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         unsafe void CLRRedirection()

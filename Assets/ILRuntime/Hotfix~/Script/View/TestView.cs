@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ILRuntime.View
 {
-    public class TestView : ILRuntimeMonoBehaviour
+    public class TestView : MonoBehaviour
     {
         public void Start()
         {
