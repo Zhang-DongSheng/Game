@@ -12,8 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a229ad47b5c5e6d44acbc01461b93b60, type: 3}
   m_Name: Prop
   m_EditorClassIdentifier: 
-  props:
-  - key: 
-    icon: 
-    price: 0
-    description: 
+  props: []
