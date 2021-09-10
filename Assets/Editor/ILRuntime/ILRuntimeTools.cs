@@ -5,23 +5,24 @@ using UnityEngine;
 
 namespace UnityEditor
 {
-    public class ILRuntimeHelper
+    public class ILRuntimeTools
     {
         private static readonly string PATH = string.Format("{0}/{1}", Application.dataPath, "ILRuntime");
 
         private static string path;
 
-        [MenuItem("ILRuntime/´ò¿ªÏîÄ¿")]
-        static void OpenProject()
+        [MenuItem("ILRuntime/æ‰“å¼€é¡¹ç›®")]
+        protected static void OpenProject()
         {
             path = string.Format("{0}/Hotfix~/Hotfix.sln", PATH);
 
             EditorUtility.OpenWithDefaultApp(path);
         }
 
-        [MenuItem("ILRuntime/Éú³É¿çÓò¼Ì³ĞÊÊÅäÆ÷")]
-        static void GenerateCrossbindAdapter()
+        [MenuItem("ILRuntime/ç”Ÿæˆè·¨åŸŸç»§æ‰¿é€‚é…å™¨")]
+        protected static void GenerateCrossbindAdapter()
         {
+            //æ·»åŠ éœ€è¦ç”Ÿæˆé€‚é…å™¨çš„ç±»
             GenerateCrossbindAdapter<MonoBehaviour>();
 
             GenerateCrossbindAdapter<Transform>();
@@ -29,7 +30,7 @@ namespace UnityEditor
             AssetDatabase.Refresh();
         }
 
-        static void GenerateCrossbindAdapter<T>()
+        protected static void GenerateCrossbindAdapter<T>()
         {
             path = string.Format("{0}/Adapter/{1}Adapter.cs", PATH, typeof(T).Name);
 
@@ -39,10 +40,10 @@ namespace UnityEditor
             }
         }
 
-        [MenuItem("ILRuntime/Generate CLR Binding Code by Analysis")]
-        static void GenerateCLRBindingByAnalysis()
+        [MenuItem("ILRuntime/é€šè¿‡åˆ†æç”ŸæˆCLRç»‘å®šä»£ç  ")]
+        protected static void GenerateCLRBindingByAnalysis()
         {
-            //ÓÃĞÂµÄ·ÖÎöÈÈ¸üdllµ÷ÓÃÒıÓÃÀ´Éú³É°ó¶¨´úÂë
+            //ç”¨æ–°çš„åˆ†æçƒ­æ›´dllè°ƒç”¨å¼•ç”¨æ¥ç”Ÿæˆç»‘å®šä»£ç 
             ILRuntime.Runtime.Enviorment.AppDomain domain = new ILRuntime.Runtime.Enviorment.AppDomain();
 
             string path = string.Format("{0}/{1}.dll", Application.streamingAssetsPath, ILRuntimeLogic.KEY);
@@ -61,7 +62,7 @@ namespace UnityEditor
 
         static void InitILRuntime(ILRuntime.Runtime.Enviorment.AppDomain domain)
         {
-            //ÕâÀïĞèÒª×¢²áËùÓĞÈÈ¸üDLLÖĞÓÃµ½µÄ¿çÓò¼Ì³ĞAdapter£¬·ñÔòÎŞ·¨ÕıÈ·×¥È¡ÒıÓÃ
+            //è¿™é‡Œéœ€è¦æ³¨å†Œæ‰€æœ‰çƒ­æ›´DLLä¸­ç”¨åˆ°çš„è·¨åŸŸç»§æ‰¿Adapterï¼Œå¦åˆ™æ— æ³•æ­£ç¡®æŠ“å–å¼•ç”¨
             domain.RegisterCrossBindingAdaptor(new MonoBehaviourAdapter());
         }
     }

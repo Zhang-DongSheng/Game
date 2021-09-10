@@ -103,58 +103,54 @@ namespace Game
 #if UNITY_EDITOR || UNITY_ANDROID || UNITY_IPHONE
             appdomain.UnityMainThreadID = Thread.CurrentThread.ManagedThreadId;
 #endif
-
             appdomain.RegisterCrossBindingAdaptor(new MonoBehaviourAdapter());
-            //appdomain.RegisterValueTypeBinder(typeof(Vector3), new Vector3Binder());
 
-            SetupCLRRedirection();
-
-            SetupCLRRedirection2();
+            CLRRedirection();
 
             appdomain.Invoke("Hotfix.Script.Program", "Initialize", null);
         }
 
-        unsafe void SetupCLRRedirection()
+        unsafe void CLRRedirection()
         {
-            //这里面的通常应该写在InitializeILRuntime，这里为了演示写这里
             var arr = typeof(GameObject).GetMethods();
-            foreach (var i in arr)
+
+            foreach (var method in arr)
             {
-                if (i.Name == "AddComponent" && i.GetGenericArguments().Length == 1)
+                if (method.GetGenericArguments().Length == 1)
                 {
-                    appdomain.RegisterCLRMethodRedirection(i, AddComponent);
+                    switch (method.Name)
+                    {
+                        case "AddComponent":
+                            {
+                                appdomain.RegisterCLRMethodRedirection(method, ILRuntimeCLR.AddComponent);
+                            }
+                            break;
+                        case "GetComponent":
+                            {
+                                appdomain.RegisterCLRMethodRedirection(method, ILRuntimeCLR.GetComponent);
+                            }
+                            break;
+                    }
                 }
             }
         }
 
-        unsafe void SetupCLRRedirection2()
+        private void OnDestroy()
         {
-            //这里面的通常应该写在InitializeILRuntime，这里为了演示写这里
-            var arr = typeof(GameObject).GetMethods();
-            foreach (var i in arr)
+            for (int i = 0; i < stream.Length; i++)
             {
-                if (i.Name == "GetComponent" && i.GetGenericArguments().Length == 1)
+                if (stream[i] != null)
                 {
-                    appdomain.RegisterCLRMethodRedirection(i, GetComponent);
+                    stream[i].Dispose();
                 }
+                stream[i] = null;
             }
         }
+    }
 
-        MonoBehaviourAdapter.Adaptor GetComponent(ILType type)
-        {
-            var arr = GetComponents<MonoBehaviourAdapter.Adaptor>();
-            for (int i = 0; i < arr.Length; i++)
-            {
-                var instance = arr[i];
-                if (instance.ILInstance != null && instance.ILInstance.Type == type)
-                {
-                    return instance;
-                }
-            }
-            return null;
-        }
-
-        unsafe static StackObject* AddComponent(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+    public static class ILRuntimeCLR
+    {
+        public static unsafe StackObject* AddComponent(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             //CLR重定向的说明请看相关文档和教程，这里不多做解释
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
@@ -180,12 +176,12 @@ namespace Game
                 else
                 {
                     //热更DLL内的类型比较麻烦。首先我们得自己手动创建实例
-                    var ilInstance = new ILTypeInstance(type as ILType, false);//手动创建实例是因为默认方式会new MonoBehaviour，这在Unity里不允许
-                                                                               //接下来创建Adapter实例
-                    var clrInstance = instance.AddComponent<MonoBehaviourAdapter.Adaptor>();
+                    var ilInstance = new ILTypeInstance(type as ILType, false);
+                    //手动创建实例是因为默认方式会new MonoBehaviour，这在Unity里不允许
+                    //接下来创建Adapter实例
+                    var clrInstance = instance.AddComponent<MonoBehaviourAdapter.Adapter>();
                     //unity创建的实例并没有热更DLL里面的实例，所以需要手动赋值
-                    clrInstance.ILInstance = ilInstance;
-                    clrInstance.AppDomain = __domain;
+                    clrInstance.Init(__domain, ilInstance);
                     //这个实例默认创建的CLRInstance不是通过AddComponent出来的有效实例，所以得手动替换
                     ilInstance.CLRInstance = clrInstance;
 
@@ -200,7 +196,7 @@ namespace Game
             return __esp;
         }
 
-        unsafe static StackObject* GetComponent(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        public static unsafe StackObject* GetComponent(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             //CLR重定向的说明请看相关文档和教程，这里不多做解释
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
@@ -226,7 +222,7 @@ namespace Game
                 else
                 {
                     //因为所有DLL里面的MonoBehaviour实际都是这个Component，所以我们只能全取出来遍历查找
-                    var clrInstances = instance.GetComponents<MonoBehaviourAdapter.Adaptor>();
+                    var clrInstances = instance.GetComponents<MonoBehaviourAdapter.Adapter>();
                     for (int i = 0; i < clrInstances.Length; i++)
                     {
                         var clrInstance = clrInstances[i];
@@ -245,22 +241,6 @@ namespace Game
             }
 
             return __esp;
-        }
-
-
-
-
-
-        private void OnDestroy()
-        {
-            for (int i = 0; i < stream.Length; i++)
-            {
-                if (stream[i] != null)
-                {
-                    stream[i].Dispose();
-                }
-                stream[i] = null;
-            }
         }
     }
 }
