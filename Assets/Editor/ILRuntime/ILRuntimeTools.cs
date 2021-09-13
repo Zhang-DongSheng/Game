@@ -40,30 +40,34 @@ namespace UnityEditor
             }
         }
 
-        [MenuItem("ILRuntime/通过分析生成CLR绑定代码 ")]
+        [MenuItem("ILRuntime/通过自动分析热更DLL生成CLR绑定")]
         protected static void GenerateCLRBindingByAnalysis()
         {
-            //用新的分析热更dll调用引用来生成绑定代码
             ILRuntime.Runtime.Enviorment.AppDomain domain = new ILRuntime.Runtime.Enviorment.AppDomain();
 
             string path = string.Format("{0}/{1}.dll", Application.streamingAssetsPath, ILRuntimeLogic.KEY);
 
-            using (System.IO.FileStream stream = new System.IO.FileStream(path, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+            using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 domain.LoadAssembly(stream);
 
-                //Crossbind Adapter is needed to generate the correct binding code
                 InitILRuntime(domain);
+
                 ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(domain, "Assets/ILRuntime/Generated");
             }
-
             AssetDatabase.Refresh();
         }
 
-        static void InitILRuntime(ILRuntime.Runtime.Enviorment.AppDomain domain)
+        protected static void InitILRuntime(ILRuntime.Runtime.Enviorment.AppDomain domain)
         {
             //这里需要注册所有热更DLL中用到的跨域继承Adapter，否则无法正确抓取引用
             domain.RegisterCrossBindingAdaptor(new MonoBehaviourAdapter());
+        }
+
+        [MenuItem("ILRuntime/打开ILRuntime中文文档")]
+        protected static void OpenDocumentation()
+        {
+            Application.OpenURL("https://ourpalm.github.io/ILRuntime/");
         }
     }
 }

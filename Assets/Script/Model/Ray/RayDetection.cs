@@ -5,7 +5,7 @@ namespace Game.Model
 {
     public static class RayDetection
     {
-        public static bool Detection(List<Vector3> vectors)
+        public static bool Detection(List<Vector3> vectors, LayerMask layer)
         {
             bool pass = true;
 
@@ -13,7 +13,7 @@ namespace Game.Model
 
             for (int i = 1; i < count; i++)
             {
-                if (Physics.Raycast(vectors[i - 1], vectors[i] - vectors[i - 1], Vector3.Distance(vectors[i], vectors[i - 1])))
+                if (Physics.Raycast(vectors[i - 1], vectors[i] - vectors[i - 1], Vector3.Distance(vectors[i], vectors[i - 1]), layer))
                 {
                     pass = false;
                     break;
