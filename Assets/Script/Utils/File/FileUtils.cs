@@ -4,146 +4,168 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Encrypt;
 
-public static class FileUtils
+namespace Game.Utils
 {
-    public static void FolderCreate(string path)
+    public static class FileUtils
     {
-        try
-        {
-            if (Directory.Exists(path))
-            {
-                Directory.Delete(path);
-            }
-            Directory.CreateDirectory(path);
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-    }
-
-    public static void FolderDelete(string path, bool recursive = true)
-    {
-        if (Directory.Exists(path))
+        public static void FolderCreate(string path)
         {
             try
             {
-                Directory.Delete(path, recursive);
+                if (Directory.Exists(path))
+                {
+                    Directory.Delete(path);
+                }
+                Directory.CreateDirectory(path);
             }
             catch (Exception e)
             {
                 throw e;
             }
         }
-    }
 
-    public static float FolderSize(string path)
-    {
-        float size = 0;
-
-        if (Directory.Exists(path))
+        public static void FolderDelete(string path, bool recursive = true)
         {
-            DirectoryInfo dir = new DirectoryInfo(path);
-
-            foreach (FileInfo file in dir.GetFiles())
+            if (Directory.Exists(path))
             {
-                size += file.Length;
+                try
+                {
+                    Directory.Delete(path, recursive);
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
             }
         }
-        return size;
-    }
 
-    public static string Read(string path)
-    {
-        string content = string.Empty;
-
-        if (File.Exists(path))
+        public static float FolderSize(string path)
         {
-            content = File.ReadAllText(path);
-        }
-        return content;
-    }
+            float size = 0;
 
-    public static string ReadEncrypt(string path)
-    {
-        string content = string.Empty;
-
-        if (File.Exists(path))
-        {
-            byte[] buffer = File.ReadAllBytes(path);
-
-            content = FileEncrypt.Encrypt(Encoding.Default.GetString(buffer));
-        }
-        return content;
-    }
-
-    public static void Copy(string from, string to)
-    {
-        if (File.Exists(from))
-        {
-            string folder = Path.GetDirectoryName(to);
-
-            if (Directory.Exists(folder) == false)
+            if (Directory.Exists(path))
             {
-                Directory.CreateDirectory(folder);
+                DirectoryInfo dir = new DirectoryInfo(path);
+
+                foreach (FileInfo file in dir.GetFiles())
+                {
+                    size += file.Length;
+                }
             }
-            File.Copy(from, to, true);
+            return size;
         }
-    }
 
-    public static void Write(string path, string content)
-    {
-        string folder = Path.GetDirectoryName(path);
-
-        try
+        public static string Read(string path)
         {
-            if (Directory.Exists(folder) == false)
+            string content = string.Empty;
+
+            if (File.Exists(path))
             {
-                Directory.CreateDirectory(folder);
+                content = File.ReadAllText(path);
             }
-            File.WriteAllText(path, content);
+            return content;
         }
-        catch (Exception e)
+
+        public static string ReadEncrypt(string path)
         {
-            Debug.LogError(e.Message);
-        }
-    }
+            string content = string.Empty;
 
-    public static void WriteEncrypt(string path, string content)
-    {
-        string folder = Path.GetDirectoryName(path);
-
-        try
-        {
-            byte[] buffer = Encoding.Default.GetBytes(FileEncrypt.Decrypt(content));
-
-            if (Directory.Exists(folder) == false)
+            if (File.Exists(path))
             {
-                Directory.CreateDirectory(folder);
+                byte[] buffer = File.ReadAllBytes(path);
+
+                content = FileEncrypt.Encrypt(Encoding.Default.GetString(buffer));
             }
-            File.WriteAllBytes(path, buffer);
+            return content;
         }
-        catch (Exception e)
+
+        public static void Copy(string from, string to)
         {
-            Debug.LogError(e.Message);
-        }
-    }
+            if (File.Exists(from))
+            {
+                string folder = Path.GetDirectoryName(to);
 
-    public static string UnityToSystem(string path)
-    {
-        if (path.StartsWith("Assets/"))
+                if (Directory.Exists(folder) == false)
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                File.Copy(from, to, true);
+            }
+        }
+
+        public static void Write(string path, string content)
         {
-            return string.Format("{0}{1}", Application.dataPath, path.Remove(0, 6));
+            string folder = Path.GetDirectoryName(path);
+
+            try
+            {
+                if (Directory.Exists(folder) == false)
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                File.WriteAllText(path, content);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
         }
-        return path;
-    }
 
-    public static string SystemToUnity(string path)
-    {
-        path = string.Format("Assets{0}", path.Remove(0, Application.dataPath.Length));
+        public static void WriteEncrypt(string path, string content)
+        {
+            string folder = Path.GetDirectoryName(path);
 
-        path = path.Replace('\\', '/');
+            try
+            {
+                byte[] buffer = Encoding.Default.GetBytes(FileEncrypt.Decrypt(content));
 
-        return path;
+                if (Directory.Exists(folder) == false)
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                File.WriteAllBytes(path, buffer);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+        }
+
+        public static string UnityToSystem(string path)
+        {
+            if (path.StartsWith("Assets/"))
+            {
+                return string.Format("{0}{1}", Application.dataPath, path.Remove(0, 6));
+            }
+            return path;
+        }
+
+        public static string SystemToUnity(string path)
+        {
+            path = string.Format("Assets{0}", path.Remove(0, Application.dataPath.Length));
+
+            path = path.Replace('\\', '/');
+
+            return path;
+        }
+
+        public static string New(string path)
+        {
+            string directory = Path.GetDirectoryName(path);
+
+            string file = Path.GetFileNameWithoutExtension(path);
+
+            string extension = Path.GetExtension(path);
+
+            int index = 0;
+
+            path = string.Format("{0}/{1}_{2}{3}", directory, file, index++, extension);
+
+            while (File.Exists(path))
+            {
+                path = string.Format("{0}/{1}_{2}{3}", directory, file, index++, extension);
+            }
+            return path;
+        }
     }
 }
