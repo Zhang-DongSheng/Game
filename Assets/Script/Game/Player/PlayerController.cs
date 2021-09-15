@@ -10,14 +10,39 @@ namespace Game
 
         [SerializeField] private Transform m_target;
 
+        [SerializeField] private Player m_player;
+
+        private Vector2 vector = new Vector2();
+
         private void Start()
         {
-            InitPlayer();
+            if (m_player != null)
+            {
+
+            }
+            else
+            {
+                InitPlayer();
+            }
+        }
+
+        private void Update()
+        {
+            vector.x = Input.GetAxis("Horizontal") * 10f;
+
+            vector.y = Input.GetAxis("Vertical") * 10f;
+
+            if (vector != Vector2.zero)
+            {
+                Move(vector);
+            }
         }
 
         private void LateUpdate()
         {
             m_camera.position = Vector3.Lerp(m_camera.position, m_follow.position, Time.deltaTime * PlayerConfig.Follow);
+
+            m_camera.LookAt(m_target);
         }
 
         public void InitPlayer()
@@ -28,7 +53,7 @@ namespace Game
 
             role.transform.localPosition = Vector3.zero;
 
-            player = role.GetComponent<Player>();
+            Player = role.GetComponent<Player>();
         }
 
         public void Move(Vector2 vector)
@@ -38,27 +63,27 @@ namespace Game
 
             float speed = Vector3.Distance(Vector2.zero, vector);
 
-            Vector3 dir = new Vector3(vector.x, 0, vector.y);
+            Vector3 dir = vector.Vector2To3();
 
             Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
 
-            m_target.rotation = Quaternion.Lerp(m_target.rotation, rotation, Time.fixedDeltaTime * PlayerConfig.Rotate);
+            m_target.rotation = Quaternion.Lerp(m_target.rotation, rotation, Time.deltaTime * PlayerConfig.Rotate);
 
             m_target.Translate(Vector3.forward * Time.deltaTime * speed);
 
             if (speed > 10)
             {
-                player.Run();
+                Player.Run();
             }
             else
             {
-                player.Walk();
+                Player.Walk();
             }
         }
 
         public void Jump()
         {
-            player.Jump();
+            Player.Jump();
         }
 
         public void Crouch()
@@ -68,14 +93,24 @@ namespace Game
 
         public void Attack()
         {
-            player.Attack();
+            Player.Attack();
         }
 
         public void ReleaseSkill(int index)
         {
-            player.ReleaseSkill(index);
+            Player.ReleaseSkill(index);
         }
 
-        public Player player { get; set; }
+        public Player Player
+        {
+            get
+            {
+                return m_player;
+            }
+            set
+            {
+                m_player = value;
+            }
+        }
     }
 }

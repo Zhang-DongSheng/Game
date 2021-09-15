@@ -6,6 +6,29 @@ namespace Game
     public static partial class Extension
     {
         /// <summary>
+        /// 三维向量转二维
+        /// </summary>
+        public static Vector2 Vector3To2(this Vector3 vector)
+        {
+            return new Vector2()
+            {
+                x = vector.x,
+                y = vector.z,
+            };
+        }
+        /// <summary>
+        /// 二维向量转三维
+        /// </summary>
+        public static Vector3 Vector2To3(this Vector2 vector, float height = 0)
+        {
+            return new Vector3()
+            {
+                x = vector.x,
+                y = height,
+                z = vector.y,
+            };
+        }
+        /// <summary>
         /// 在...区间内
         /// </summary>
         public static bool Inside(this Vector2 origin, Vector2 destination, float distance)

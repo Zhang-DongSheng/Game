@@ -6,10 +6,10 @@ namespace Game
 {
     public static class PlayerConfig
     {
-        public static float Rotate = 30;
+        public const float Rotate = 30;
 
-        public static float Speed = 1;
+        public const float Speed = 1;
 
-        public static float Follow = 5;
+        public const float Follow = 5;
     }
 }
