@@ -10,34 +10,57 @@ namespace Game
 
         [SerializeField] private Vector3 offset;
 
-        [SerializeField, Range(0.1f, 50)] private float speed;
+        [SerializeField, Range(0.1f, 10)] private float speed = 1f;
 
-        private Vector3 current, position;
+        [SerializeField, Range(0, 90)] private float angle = 45f;
 
-        private Vector3 velocity = Vector3.zero;
+        private Quaternion _rotation, rotation;
 
-        private void Awake()
+        private Vector3 _position, position;
+
+        private Vector3 _offset;
+
+        private Vector3 eulerAngles;
+
+        private void Start()
         {
-            if (camera == null)
-                camera = transform;
-        }
-
-        public void Target(Transform target)
-        {
-            this.target = target;
+            if (target != null)
+            {
+                _position = target.position;
+                _rotation = target.rotation;
+            }
         }
 
         private void LateUpdate()
         {
-            if (camera == null || target == null) return;
+            position = target.position + Offset(target.localEulerAngles.y);
 
-            position = target.localPosition + offset;
+            _position = Vector3.Lerp(_position, position, Time.deltaTime * speed);
 
-            if (current.Distance(position) < 0.1f) return;
+            rotation = target.rotation;
 
-            current = Vector3.SmoothDamp(current, position, ref velocity, Time.deltaTime * speed);
+            eulerAngles = rotation.eulerAngles;
 
-            camera.localPosition = current;
+            eulerAngles.x = this.angle;
+
+            rotation.eulerAngles = eulerAngles;
+
+            _rotation = Quaternion.LerpUnclamped(_rotation, rotation, Time.deltaTime * speed);
+
+            camera.position = _position;
+
+            camera.rotation = _rotation;
+        }
+
+        private Vector3 Offset(float angle)
+        {
+            _offset.x = offset.z * Mathf.Sin(angle * Mathf.Deg2Rad);
+
+            _offset.y = offset.y;
+
+            _offset.z = offset.z * Mathf.Cos(angle * Mathf.Deg2Rad);
+
+            return _offset;
         }
     }
 }

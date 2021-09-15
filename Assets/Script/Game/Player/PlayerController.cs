@@ -4,10 +4,6 @@ namespace Game
 {
     public class PlayerController : MonoSingleton<PlayerController>
     {
-        [SerializeField] private Transform m_camera;
-
-        [SerializeField] private Transform m_follow;
-
         [SerializeField] private Transform m_target;
 
         [SerializeField] private Player m_player;
@@ -16,11 +12,7 @@ namespace Game
 
         private void Start()
         {
-            if (m_player != null)
-            {
-
-            }
-            else
+            if (m_player == null)
             {
                 InitPlayer();
             }
@@ -36,13 +28,6 @@ namespace Game
             {
                 Move(vector);
             }
-        }
-
-        private void LateUpdate()
-        {
-            m_camera.position = Vector3.Lerp(m_camera.position, m_follow.position, Time.deltaTime * PlayerConfig.Follow);
-
-            m_camera.LookAt(m_target);
         }
 
         public void InitPlayer()
