@@ -28,7 +28,7 @@ Shader "Model/BillBoard 1"
             {
                 v2f o;
 
-                float4 ori = mul(UNITY_MATRIX_MV, float4(0,0,0,1));
+                float4 ori = mul(UNITY_MATRIX_MV, float4(0, 0, 0, 1));
 
                 float4 vertex = v.vertex;
 
@@ -40,7 +40,9 @@ Shader "Model/BillBoard 1"
 
                 o.pos = mul(UNITY_MATRIX_P, vertex);
 
-				o.uv = v.texcoord;
+				o.uv.x = v.texcoord.x;
+
+                o.uv.y = 1 - v.texcoord.y;
 
 				return o;
             }
