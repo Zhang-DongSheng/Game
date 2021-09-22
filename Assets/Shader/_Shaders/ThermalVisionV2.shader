@@ -50,8 +50,13 @@ Shader "Hidden/Aubergine/ThermalVisionV2" {
 					float radiation = 2.2f; //Start with default gamma
 					if(length(normal.xyz) > 0.1f)
 						radiation += length(dot(normalize(eyeDir), normalize(normal)));
+
 					float3 result = 0;
-					result.xyz = (tex2D(_ThermalTex, float2(scene.r * saturate(radiation))) + tex2D(_NoiseTex, _NoiseAmount * (i.uv + sin(_Time.y * 50.0))).xyz );
+
+					float v = scene.r * saturate(radiation);
+
+					result.xyz = tex2D(_ThermalTex, float2(v, v) + tex2D(_NoiseTex, _NoiseAmount * (i.uv + sin(_Time.y * 50.0))).xyz);
+					
 					return float4(result, 1);
 				}
 			ENDCG

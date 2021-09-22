@@ -19,9 +19,9 @@ Shader "Hidden/Aubergine/StereoAnaglyph_GreenMagenta" {
 				#include "UnityCG.cginc"
 
 				uniform sampler2D _MainTex;
-				uniform float _TexSizeX = 800f;
-				uniform float _TexSizeY = 600f;
-				uniform float _Distance = 0.1f;
+				uniform float _TexSizeX = 800;
+				uniform float _TexSizeY = 600;
+				uniform float _Distance = 0.1;
 				
 				struct v2f {
 					float4 pos : SV_POSITION;
@@ -31,7 +31,7 @@ Shader "Hidden/Aubergine/StereoAnaglyph_GreenMagenta" {
 				v2f vert( appdata_img v ) {
 					v2f o;
 					o.pos = UnityObjectToClipPos (v.vertex);
-					float2 alignment = (0.5/_TexSizeX,0.5/_TexSizeY);
+					float2 alignment = float2(0.5/_TexSizeX, 0.5/_TexSizeY);
 					o.uv = MultiplyUV( UNITY_MATRIX_TEXTURE0, v.texcoord + alignment);
 					return o;
 				}

@@ -31,8 +31,11 @@ Shader "Hidden/Aubergine/StereoAnaglyph_AmberBlue" {
 				v2f vert( appdata_img v ) {
 					v2f o;
 					o.pos = UnityObjectToClipPos (v.vertex);
-					float2 alignment = (0.5/_TexSizeX,0.5/_TexSizeY);
+
+					float2 alignment = float2(0.5/_TexSizeX, 0.5/_TexSizeY);
+
 					o.uv = MultiplyUV( UNITY_MATRIX_TEXTURE0, v.texcoord + alignment);
+
 					return o;
 				}
 

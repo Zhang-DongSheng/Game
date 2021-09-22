@@ -31,7 +31,11 @@ Shader "Hidden/Aubergine/Scanlines" {
 					sincos(i.uv.y * _Count, sc.x, sc.y);
 					res += col.rgb  * _Intense1;
 					res = lerp (col, res, saturate(_Intense2));
-					res.rgb = float3((res.r+res.g+res.b)/3.0);
+
+					float v = (res.r+res.g+res.b) / 3.0;
+
+					res.rgb = float3(v, v, v);
+
 					return float4(res, col.a);
 				}
 			ENDCG

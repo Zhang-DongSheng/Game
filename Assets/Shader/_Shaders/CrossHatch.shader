@@ -20,25 +20,26 @@ Shader "Hidden/Aubergine/CrossHatch" {
 				
 				float4 frag (v2f_img i) : COLOR {
 					float4 col = tex2D(_MainTex, i.uv);
+
 					fixed lum = Luminance(col.rgb);
 					
 					fixed3 res = _LineColor.rgb;
 					
 					if (lum < 1.00) {
-						if (fmod(i.uv.x + i.uv.y, _LineWidth * 2) < _LineWidth) { res = float3(0.0); }
+						if (fmod(i.uv.x + i.uv.y, _LineWidth * 2) < _LineWidth) { res = float3(0, 0, 0); }
 					}
 					if (lum < 0.75) {
-						if (fmod(i.uv.x + i.uv.y, _LineWidth * 2) < _LineWidth) { res = float3(0.0); }
+						if (fmod(i.uv.x + i.uv.y, _LineWidth * 2) < _LineWidth) { res = float3(0, 0, 0); }
 					}
 					if (lum < 0.50) {
-						if (fmod(i.uv.x + i.uv.y - _LineWidth, _LineWidth) < _LineWidth) { res = float3(0.0); }
+						if (fmod(i.uv.x + i.uv.y - _LineWidth, _LineWidth) < _LineWidth) { res = float3(0, 0, 0); }
 					}
 					if (lum < 0.30) {
-						if (fmod(i.uv.x + i.uv.y - _LineWidth, _LineWidth) < _LineWidth) { res = float3(0.0); }
+						if (fmod(i.uv.x + i.uv.y - _LineWidth, _LineWidth) < _LineWidth) { res = float3(0, 0, 0); }
 					}
 					float4 fCol = float4(res, col.w);
+
 					return fCol;
-					//return col * fCol;
 				}
 			ENDCG
 		}

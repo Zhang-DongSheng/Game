@@ -25,7 +25,7 @@ Shader "Hidden/Aubergine/Pencil" {
 					//Noise
 					float2 nCoord;
 					nCoord.x = 0.4 * sin(_Time.y * 50.0);
-					nCoord.x = 0.4 * cos(_Time.y * 50.0);
+					nCoord.y = 0.4 * cos(_Time.y * 50.0);
 					
 					half4 col = tex2D(_MainTex, i.uv) * _Brightness;
 					half4 pen0 = tex2D(_PencilTex, (i.uv * _Amount) + nCoord);
