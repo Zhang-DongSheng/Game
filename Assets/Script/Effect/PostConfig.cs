@@ -34,6 +34,8 @@ namespace Game.Effect
 
         public void Procession(ref Material material)
         {
+            if (string.IsNullOrEmpty(key)) return;
+
             switch (type)
             {
                 case PostPropertyType.Float:
