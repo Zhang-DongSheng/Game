@@ -14,7 +14,13 @@ namespace UnityEngine
 
         public T Create<T>() where T : Component
         {
-            return GameObject.Instantiate(prefab, parent).GetComponent<T>();
+            GameObject go = GameObject.Instantiate(prefab, parent);
+
+            if (go.TryGetComponent(out T component))
+            {
+                component = go.AddComponent<T>();
+            }
+            return component;
         }
     }
 }

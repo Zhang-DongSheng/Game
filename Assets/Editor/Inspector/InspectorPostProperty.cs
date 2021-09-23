@@ -57,15 +57,15 @@ namespace UnityEditor.Inspector
                             break;
                         case PostPropertyType.Float:
                             sp_value.floatValue =
-                       EditorGUI.FloatField(rects[2], this.label, sp_value.floatValue);
+                        EditorGUI.FloatField(rects[2], this.label, sp_value.floatValue);
                             break;
                         case PostPropertyType.Color:
                             sp_color.colorValue =
-                       EditorGUI.ColorField(rects[2], this.label, sp_color.colorValue);
+                        EditorGUI.ColorField(rects[2], this.label, sp_color.colorValue);
                             break;
                         case PostPropertyType.Vector:
                             sp_vector.vector4Value =
-                       EditorGUI.Vector4Field(rects[2], this.label, sp_vector.vector4Value);
+                        EditorGUI.Vector4Field(rects[2], this.label, sp_vector.vector4Value);
                             break;
                         case PostPropertyType.Texture:
                             sp_texture.objectReferenceValue =

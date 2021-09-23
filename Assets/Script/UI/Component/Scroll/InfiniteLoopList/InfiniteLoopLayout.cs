@@ -29,6 +29,8 @@ namespace UnityEngine.UI
 
         [SerializeField] private RectTransform anchor;
 
+        [SerializeField] private RectOffset offset;
+
         [SerializeField] private Vector2 size = new Vector2(100, 100);
 
         [SerializeField] private Vector2 spacing = Vector2.zero;
