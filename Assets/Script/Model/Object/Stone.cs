@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.Model.Object
+namespace Game.Model
 {
-    public class Stone : MonoBehaviour
+    public class Stone : ObjectBase
     {
         
     }

@@ -1,86 +1,43 @@
 using UnityEngine;
 
-namespace Game.Model.Object
+namespace Game.Model
 {
     [RequireComponent(typeof(BoxCollider))]
-    public class Tree : MonoBehaviour
+    public class Tree : ObjectBase
     {
-        [SerializeField] private Transform root;
-
         [SerializeField] private HitType type;
 
-        [SerializeField, Range(0.1f, 10f)] private float speed = 1f;
+        [SerializeField] private Transform tree;
 
-        [SerializeField] private bool trigger;
+        [SerializeField] private Transform root;
 
-        private Vector3 vector;
+        [SerializeField] private Transform body;
 
-        private Vector3 angle;
+        private Vector3 vector, angle;
 
-        private float step;
+        private Vector3 origination, destination;
 
-        private Status status;
+        private Quaternion rotation;
 
         private void Awake()
         {
-            if (TryGetComponent(out BoxCollider collider))
-            {
-                collider.isTrigger = trigger;
-            }
-            status = Status.Alive;
+            origination = tree.localEulerAngles;
+
+            rotation = root.rotation;
         }
 
-        private void Update()
+        protected override void OnTrigger(Collider collider)
         {
-            switch (status)
-            {
-                case Status.Hit:
-                    {
-                        root.localEulerAngles = angle;
-
-                        transform.localEulerAngles = -angle;
-
-                        status = Status.Fall;
-                    }
-                    break;
-                case Status.Fall:
-                    {
-                        step += Time.deltaTime * speed;
-
-                        angle.x = Mathf.Lerp(0, -90, step);
-
-                        root.localEulerAngles = angle;
-
-                        if (step > 1)
-                        {
-                            status = Status.Die;
-                        }
-                    }
-                    break;
-                case Status.Die:
-                    {
-                        status = Status.Death;
-                    }
-                    break;
-            }
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (status != Status.Alive) return;
-
-            status = Status.Hit;
-
             switch (type)
             {
                 case HitType.Transform:
                     {
-                        vector = other.transform.position - transform.position;
+                        vector = collider.transform.position - transform.position;
                     }
                     break;
                 case HitType.Rigidbody:
                     {
-                        Rigidbody rigidbody = other.attachedRigidbody;
+                        Rigidbody rigidbody = collider.attachedRigidbody;
 
                         if (rigidbody != null)
                         {
@@ -94,15 +51,15 @@ namespace Game.Model.Object
                     break;
                 case HitType.RigidbodyWithTransform:
                     {
-                        Rigidbody rigidbody = other.attachedRigidbody;
+                        Rigidbody rigidbody = collider.attachedRigidbody;
 
                         if (rigidbody != null)
                         {
                             Vector3 v1 = rigidbody.velocity;
 
-                            Vector3 v2 = other.transform.position - transform.position;
+                            Vector3 v2 = collider.transform.position - transform.position;
 
-                            vector = (v1.normalized + v2.normalized) * 0.5f;
+                            vector = v1.normalized + v2.normalized;
                         }
                         else
                         {
@@ -119,31 +76,46 @@ namespace Game.Model.Object
                     break;
             }
 
-            angle.y = Vector3.Angle(vector.Vector3To2(), Vector2.up);
+            angle.x = origination.x;
 
-            status = Status.Hit;
+            angle.y = Vector2.SignedAngle(vector.Vector3To2(), Vector2.up);
         }
 
-        private void OnCollisionEnter(Collision collision)
+        protected override void OnHit()
         {
-            OnTriggerEnter(collision.collider);
+            destination = origination;
+
+            destination.y = angle.y;
+
+            tree.localEulerAngles = destination;
+
+            destination.y = origination.y - angle.y;
+
+            root.localEulerAngles = destination;
+
+            body.localEulerAngles = destination;
         }
 
-        enum HitType
+        protected override void OnFall(float progress)
+        {
+            angle.x = Mathf.LerpAngle(angle.x, -90f, progress);
+
+            tree.localEulerAngles = angle;
+
+            root.rotation = rotation;
+        }
+
+        protected override void OnDie()
+        {
+            
+        }
+
+        protected enum HitType
         {
             Transform,
             Rigidbody,
             RigidbodyWithTransform,
             Special,
-        }
-
-        enum Status
-        {
-            Alive,
-            Hit,
-            Fall,
-            Die,
-            Death,
         }
     }
 }
