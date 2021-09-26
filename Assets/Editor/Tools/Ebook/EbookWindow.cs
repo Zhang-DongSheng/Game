@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEditor.Ebook;
@@ -16,6 +15,8 @@ namespace UnityEditor.Window
         private readonly TextComposition composition = new TextComposition();
 
         private readonly ConvertFormat convert = new ConvertFormat();
+
+        private readonly Downloader downloader = new Downloader();
 
         private readonly List<Book> books = new List<Book>();
 
@@ -168,7 +169,10 @@ namespace UnityEditor.Window
 
         private void RefreshDownload()
         {
-
+            if (GUILayout.Button("下载"))
+            {
+                downloader.Download("https://www.baidu.com");
+            }
         }
 
         private void RefreshSetting()
@@ -203,7 +207,7 @@ namespace UnityEditor.Window
                 {
                     if (book.filter)
                     {
-                        convert.Format(book.path);
+                        convert.Format(book.path, encoding);
                     }
                 }
                 Redirect();

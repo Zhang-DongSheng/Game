@@ -10,23 +10,21 @@ namespace Game.Model
 
         [SerializeField] private Transform tree;
 
-        [SerializeField] private Transform root;
-
         [SerializeField] private Transform body;
 
+        [SerializeField] private Transform model;
+
         [SerializeField, Range(0, 20)] private float time = 1;
+
+        [SerializeField] private bool destroy;
 
         private Vector3 vector, angle;
 
         private Vector3 origination, destination;
 
-        private Quaternion rotation;
-
         private void Awake()
         {
             origination = tree.localEulerAngles;
-
-            rotation = root.rotation;
         }
 
         protected override void OnTrigger(Collider collider)
@@ -86,17 +84,13 @@ namespace Game.Model
 
         protected override void OnHit()
         {
-            destination = origination;
+            angle.y = angle.y - origination.y;
 
-            destination.y = angle.y;
+            body.localEulerAngles = angle;
 
-            tree.localEulerAngles = destination;
+            destination.y = angle.y * -1f;
 
-            destination.y = origination.y - angle.y;
-
-            root.localEulerAngles = destination;
-
-            body.localEulerAngles = destination;
+            model.localEulerAngles = destination;
 
             StartCoroutine(DelayExecution());
         }
@@ -105,14 +99,15 @@ namespace Game.Model
         {
             angle.x = Mathf.LerpAngle(angle.x, -90f, progress);
 
-            tree.localEulerAngles = angle;
-
-            root.rotation = rotation;
+            body.localEulerAngles = angle;
         }
 
         protected override void OnDie()
         {
-            GameObject.Destroy(gameObject);
+            if (destroy)
+            {
+                GameObject.Destroy(gameObject);
+            }
         }
 
         protected override IEnumerator DelayExecution()

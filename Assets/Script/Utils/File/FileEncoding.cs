@@ -44,13 +44,13 @@ namespace Utils
             return ASCII;
         }
 
-        public static void Convert(string path, Encoding source, Encoding target)
+        public static void Convert(string path, Encoding src, Encoding dst)
         {
             if (!File.Exists(path)) return;
 
             try
             {
-                File.WriteAllText(path, File.ReadAllText(path, source), target);
+                File.WriteAllText(path, File.ReadAllText(path, src), dst);
             }
             catch (Exception e)
             {

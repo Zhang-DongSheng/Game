@@ -15,36 +15,39 @@ namespace UnityEditor.Ebook
 
         private const int MAXNUMBER = 500;
 
-        private readonly List<string> keyword_begin = new List<string> { "(", "[", "{", "<", "£®", "°æ", "°∂", "°Æ", "°∞", "\'", "\"", "°∏", "µ⁄" };
+        private readonly List<string> keyword_begin = new List<string> { "(", "[", "{", "<", "Ôºà", "„Äê", "„Ää", "‚Äò", "‚Äú", "\'", "\"", "„Äå", "Á¨¨" };
 
-        private readonly List<string> keyword_among = new List<string> { "°∂", "°∑", "’¬", "Ω⁄", "∆™" };
+        private readonly List<string> keyword_among = new List<string> { "„Ää", "„Äã", "Á´†", "ËäÇ", "ÁØá" };
 
-        private readonly List<string> keyword_ending = new List<string> { ".", "°£", "!", "£°", "?", "£ø", "\'", "\"", "°±", "°Ø", ")", "]", "}", ">", "£©", "°ø", "°∑", "°π", "°≠" };
+        private readonly List<string> keyword_ending = new List<string> { ".", "„ÄÇ", "!", "ÔºÅ", "?", "Ôºü", "\'", "\"", "‚Äù", "‚Äô", ")", "]", "}", ">", "Ôºâ", "„Äë", "„Äã", "„Äç", "‚Ä¶" };
 
-        public void Convert(string source, Encoding encoding)
+        private readonly List<string> keyword_character = new List<string>() { "/n", "/r", "/t", "\\n", "\\r", "\\t" };
+
+        public void Convert(string input, Encoding encoding)
         {
-            if (string.IsNullOrEmpty(source)) return;
+            if (string.IsNullOrEmpty(input)) return;
 
-            if (!File.Exists(source)) return;
+            if (!File.Exists(input)) return;
 
-            string document = FileUtils.New(source);
+            string output = FileUtils.New(input);
 
-            if (File.Exists(document)) File.Delete(document);
+            if (File.Exists(output)) File.Delete(output);
 
             try
             {
-                FileStream stream = new FileStream(document, FileMode.CreateNew);
+                FileStream src = new FileStream(output, FileMode.CreateNew);
 
-                using (FileStream fs = new FileStream(source, FileMode.Open))
+                using (FileStream dst = new FileStream(input, FileMode.Open))
                 {
-                    StreamWriter sw = new StreamWriter(stream, encoding);
-                    StreamReader sr = new StreamReader(fs, encoding);
+                    StreamWriter writer = new StreamWriter(src, encoding);
+
+                    StreamReader reader = new StreamReader(dst, encoding);
 
                     string content = string.Empty, _temp = string.Empty;
 
-                    while (!sr.EndOfStream)
+                    while (!reader.EndOfStream)
                     {
-                        _temp = Format(sr.ReadLine());
+                        _temp = Format(reader.ReadLine());
 
                         if (string.IsNullOrEmpty(_temp))
                         {
@@ -55,8 +58,8 @@ namespace UnityEditor.Ebook
                         {
                             if (!string.IsNullOrEmpty(content))
                             {
-                                sw.WriteLine(content);
-                                sw.Flush();
+                                writer.WriteLine(content);
+                                writer.Flush();
                             }
                             content = string.Empty;
                         }
@@ -67,19 +70,19 @@ namespace UnityEditor.Ebook
                         {
                             if (!string.IsNullOrEmpty(content))
                             {
-                                sw.WriteLine(content);
-                                sw.Flush();
+                                writer.WriteLine(content);
+                                writer.Flush();
                             }
                             content = string.Empty;
                         }
                     }
                     if (!string.IsNullOrEmpty(content))
                     {
-                        sw.WriteLine(content);
-                        sw.Flush();
+                        writer.WriteLine(content);
+                        writer.Flush();
                     }
                 }
-                stream.Dispose();
+                src.Dispose();
             }
             catch (Exception e)
             {
@@ -145,9 +148,10 @@ namespace UnityEditor.Ebook
 
         private string Format(string content)
         {
-            content = content.Replace("/n", "");
-            content = content.Replace("/r", "");
-            content = content.Replace("/t", "");
+            for (int i = 0; i < keyword_character.Count; i++)
+            {
+                content = content.Replace(keyword_character[i], null);
+            }
             content = content.Trim();
 
             return content;
