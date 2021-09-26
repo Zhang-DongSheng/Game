@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Game.Model
@@ -12,6 +13,8 @@ namespace Game.Model
         [SerializeField] private Transform root;
 
         [SerializeField] private Transform body;
+
+        [SerializeField, Range(0, 20)] private float time = 1;
 
         private Vector3 vector, angle;
 
@@ -94,6 +97,8 @@ namespace Game.Model
             root.localEulerAngles = destination;
 
             body.localEulerAngles = destination;
+
+            StartCoroutine(DelayExecution());
         }
 
         protected override void OnFall(float progress)
@@ -107,7 +112,17 @@ namespace Game.Model
 
         protected override void OnDie()
         {
-            
+            GameObject.Destroy(gameObject);
+        }
+
+        protected override IEnumerator DelayExecution()
+        {
+            yield return new WaitForSeconds(Time.deltaTime * time);
+
+            if (TryGetComponent(out BoxCollider collider))
+            {
+                collider.isTrigger = true;
+            }
         }
 
         protected enum HitType

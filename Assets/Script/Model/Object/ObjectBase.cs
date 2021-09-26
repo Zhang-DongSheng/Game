@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Game.Model
@@ -87,7 +88,12 @@ namespace Game.Model
 
         protected virtual void OnDie()
         {
-            
+
+        }
+
+        protected virtual IEnumerator DelayExecution()
+        {
+            yield return null;
         }
 
         enum Status
