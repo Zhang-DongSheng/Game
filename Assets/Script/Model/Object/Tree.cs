@@ -16,6 +16,8 @@ namespace Game.Model
 
         [SerializeField, Range(0, 20)] private float time = 1;
 
+        [SerializeField, Range(0, 200)] private int shake = 100;
+
         [SerializeField] private bool destroy;
 
         private Vector3 vector, angle;
@@ -97,9 +99,22 @@ namespace Game.Model
 
         protected override void OnFall(float progress)
         {
-            angle.x = Mathf.LerpAngle(angle.x, -90f, progress);
+            if (progress < 0.1f)
+            {
+                body.localEulerAngles = angle;
 
-            body.localEulerAngles = angle;
+                body.localEulerAngles += Vector3.one * Random.Range(-shake, shake) * Time.deltaTime;
+            }
+            else if (progress > 0.9f)
+            {
+                tree.localPosition += Vector3.down * Time.deltaTime;
+            }
+            else
+            {
+                angle.x = Mathf.LerpAngle(angle.x, -90f, (progress - 0.1f) / 0.8f);
+
+                body.localEulerAngles = angle;
+            }
         }
 
         protected override void OnDie()
