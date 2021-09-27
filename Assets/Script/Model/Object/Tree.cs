@@ -14,6 +14,8 @@ namespace Game.Model
 
         [SerializeField] private Transform model;
 
+        [SerializeField] private Vector2 subsection = new Vector2(0.1f, 0.9f);
+
         [SerializeField, Range(0, 20)] private float time = 1;
 
         [SerializeField, Range(0, 200)] private int shake = 100;
@@ -81,7 +83,7 @@ namespace Game.Model
 
             angle.x = origination.x;
 
-            angle.y = Vector2.SignedAngle(vector.Vector3To2(), Vector2.up);
+            angle.y = Vector2.SignedAngle(new Vector2(vector.x, vector.z), Vector2.up);
         }
 
         protected override void OnHit()
@@ -99,19 +101,19 @@ namespace Game.Model
 
         protected override void OnFall(float progress)
         {
-            if (progress < 0.1f)
+            if (progress < subsection.x)
             {
                 body.localEulerAngles = angle;
 
                 body.localEulerAngles += Vector3.one * Random.Range(-shake, shake) * Time.deltaTime;
             }
-            else if (progress > 0.9f)
+            else if (progress > subsection.y)
             {
                 tree.localPosition += Vector3.down * Time.deltaTime;
             }
             else
             {
-                angle.x = Mathf.LerpAngle(angle.x, -90f, (progress - 0.1f) / 0.8f);
+                angle.x = Mathf.LerpAngle(angle.x, -90f, (progress - subsection.x) / (subsection.y - subsection.x));
 
                 body.localEulerAngles = angle;
             }
@@ -127,9 +129,11 @@ namespace Game.Model
 
         protected override IEnumerator DelayExecution()
         {
-            yield return new WaitForSeconds(Time.deltaTime * time);
+            yield return new WaitForSeconds(subsection.x);
 
-            if (TryGetComponent(out BoxCollider collider))
+            BoxCollider collider = GetComponent<BoxCollider>();
+
+            if (collider != null)
             {
                 collider.isTrigger = true;
             }

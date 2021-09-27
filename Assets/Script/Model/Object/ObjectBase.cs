@@ -17,7 +17,9 @@ namespace Game.Model
 
         private void Awake()
         {
-            if (TryGetComponent(out BoxCollider collider))
+            BoxCollider collider = GetComponent<BoxCollider>();
+
+            if (collider != null)
             {
                 collider.isTrigger = trigger;
             }
