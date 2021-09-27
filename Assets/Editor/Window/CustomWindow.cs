@@ -14,6 +14,8 @@ namespace UnityEditor.Window
 
         protected List<GUIStyle> style = new List<GUIStyle>();
 
+        protected readonly Dictionary<string, bool> enables = new Dictionary<string, bool>();
+
         protected static void Open<T>(string title) where T : CustomWindow, new()
         {
             CustomWindow window = GetWindow<T>();
@@ -80,6 +82,27 @@ namespace UnityEditor.Window
         protected void ShowNotification(string message)
         {
             ShowNotification(new GUIContent(message));
+        }
+
+        protected bool Enable(string key)
+        {
+            if (enables.ContainsKey(key))
+            {
+                return enables[key];
+            }
+            return true;
+        }
+
+        protected void Enable(string key, bool active)
+        {
+            if (enables.ContainsKey(key))
+            {
+                enables[key] = active;
+            }
+            else
+            {
+                enables.Add(key, active);
+            }
         }
 
         protected float Width

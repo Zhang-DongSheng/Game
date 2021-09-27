@@ -40,4 +40,41 @@ namespace UnityEditor.Ebook
             }
         }
     }
+
+    public class Book
+    {
+        public string name;
+
+        public string path;
+
+        public string directory;
+
+        public bool filter;
+    }
+
+    public class BookInformation
+    {
+        public string key;
+
+        public string path;
+
+        public string url;
+
+        public int start, end;
+
+        public long size;
+
+        public long time;
+    }
+
+    public class ChapterInformation
+    {
+        public string key;
+
+        public string url;
+
+        public string content;
+
+        public bool download;
+    }
 }

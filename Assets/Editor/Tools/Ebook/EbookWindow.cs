@@ -40,6 +40,12 @@ namespace UnityEditor.Window
             {
                 ShowNotification("书籍转换失败！" + error);
             };
+            downloader.complete = (key) =>
+            {
+                Enable("Download", true);
+
+                ShowNotification(string.Format("《{0}》下载完成", key));
+            };
 
             input.action = (value) =>
             {
@@ -169,10 +175,23 @@ namespace UnityEditor.Window
 
         private void RefreshDownload()
         {
+            GUI.enabled = Enable("Download");
+
             if (GUILayout.Button("下载"))
             {
-                downloader.Download("https://www.baidu.com");
+                Enable("Download", false);
+
+                BookInformation book = new BookInformation()
+                {
+                    key = "JinRiYiPianAi",
+                    path = input.value,
+                    url = "https://www.soxscc.cc/{0}/{1}.html",
+                    start = 2238221,
+                    end = 2238228,
+                };
+                downloader.Startup(book);
             }
+            GUI.enabled = true;
         }
 
         private void RefreshSetting()
@@ -269,17 +288,6 @@ namespace UnityEditor.Window
             {
                 Debug.LogError("No Directory: " + path);
             }
-        }
-
-        class Book
-        {
-            public string name;
-
-            public string path;
-
-            public string directory;
-
-            public bool filter;
         }
     }
 }
