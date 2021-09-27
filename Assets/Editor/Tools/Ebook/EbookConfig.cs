@@ -4,67 +4,29 @@ namespace UnityEditor.Ebook
 {
     public class EbookConfig
     {
-        private const string key_path = "ebook_path";
+        public const string PATH = "Source/Ebook";
 
-        private const string key_number = "ebook_number";
-
-        public static string Path
-        {
-            get
-            {
-                if (PlayerPrefs.HasKey(key_path))
-                {
-                    return PlayerPrefs.GetString(key_path);
-                }
-                return string.Format("{0}/{1}", Application.dataPath.Substring(0, Application.dataPath.Length - 6), "Source/Ebook");
-            }
-            set
-            {
-                PlayerPrefs.SetString(key_path, value);
-            }
-        }
-
-        public static int Number
-        {
-            get
-            {
-                if (PlayerPrefs.HasKey(key_number))
-                {
-                    return PlayerPrefs.GetInt(key_number);
-                }
-                return 1000;
-            }
-            set
-            {
-                PlayerPrefs.SetInt(key_number, value);
-            }
-        }
+        public const int NUMBER = 5000;
     }
 
-    public class Book
+    public class BookInformation
     {
         public string name;
 
         public string path;
 
-        public string directory;
+        public long size;
+
+        public long time;
 
         public bool filter;
     }
 
-    public class BookInformation
+    public class BookDownloadInformation : BookInformation
     {
-        public string key;
-
-        public string path;
-
         public string url;
 
         public int start, end;
-
-        public long size;
-
-        public long time;
     }
 
     public class ChapterInformation

@@ -10,7 +10,7 @@ namespace UnityEditor.Ebook
     {
         public Action<string> complete;
 
-        private BookInformation book;
+        private BookDownloadInformation book;
 
         private readonly HttpClient client = new HttpClient();
 
@@ -34,7 +34,7 @@ namespace UnityEditor.Ebook
 
             Merge();
 
-            complete?.Invoke(book.key);
+            complete?.Invoke(book.name);
         }
 
         private async void Download(ChapterInformation chapter)
@@ -63,7 +63,7 @@ namespace UnityEditor.Ebook
 
         private void Merge()
         {
-            string path = string.Format("{0}/{1}.txt", book.path, book.key);
+            string path = string.Format("{0}/{1}.txt", book.path, book.name);
 
             if (File.Exists(path)) File.Delete(path);
 
@@ -90,7 +90,7 @@ namespace UnityEditor.Ebook
             return content.Substring(start, end - start);
         }
 
-        public void Startup(BookInformation book)
+        public void Startup(BookDownloadInformation book)
         {
             this.book = book;
 
@@ -101,7 +101,7 @@ namespace UnityEditor.Ebook
                 chapters.Add(new ChapterInformation()
                 {
                     key = string.Format("chapter of {0}", i),
-                    url = string.Format(book.url, book.key, i),
+                    url = string.Format(book.url, book.name, i),
                     download = true,
                 });
             }

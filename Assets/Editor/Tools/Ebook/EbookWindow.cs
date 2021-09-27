@@ -18,7 +18,7 @@ namespace UnityEditor.Window
 
         private readonly Downloader downloader = new Downloader();
 
-        private readonly List<Book> books = new List<Book>();
+        private readonly List<BookInformation> books = new List<BookInformation>();
 
         private readonly Index number = new Index();
 
@@ -49,15 +49,15 @@ namespace UnityEditor.Window
 
             input.action = (value) =>
             {
-                EbookConfig.Path = value; Redirect();
+                Redirect();
             };
-            input.value = EbookConfig.Path;
+            input.value = string.Format("{0}/{1}", Application.dataPath.Substring(0, Application.dataPath.Length - 6), EbookConfig.PATH);
 
             number.action = (value) =>
             {
-                EbookConfig.Number = value;
+
             };
-            number.index = EbookConfig.Number;
+            number.index = EbookConfig.NUMBER;
         }
 
         protected override void Refresh()
@@ -181,9 +181,9 @@ namespace UnityEditor.Window
             {
                 Enable("Download", false);
 
-                BookInformation book = new BookInformation()
+                BookDownloadInformation book = new BookDownloadInformation()
                 {
-                    key = "JinRiYiPianAi",
+                    name = "JinRiYiPianAi",
                     path = input.value,
                     url = "https://www.soxscc.cc/{0}/{1}.html",
                     start = 2238221,
@@ -203,7 +203,7 @@ namespace UnityEditor.Window
         {
             if (Directory.Exists(input.value))
             {
-                foreach (Book book in books)
+                foreach (BookInformation book in books)
                 {
                     if (book.filter)
                     {
@@ -222,7 +222,7 @@ namespace UnityEditor.Window
         {
             if (Directory.Exists(input.value))
             {
-                foreach (Book book in books)
+                foreach (BookInformation book in books)
                 {
                     if (book.filter)
                     {
@@ -249,13 +249,11 @@ namespace UnityEditor.Window
 
                 foreach (FileInfo file in root.GetFiles("*.txt", SearchOption.AllDirectories))
                 {
-                    Book book = new Book()
+                    BookInformation book = new BookInformation()
                     {
                         name = file.Name,
 
                         path = file.FullName,
-
-                        directory = file.DirectoryName,
 
                         filter = false,
                     };
