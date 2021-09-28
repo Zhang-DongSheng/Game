@@ -16,19 +16,23 @@ namespace Game
 
         [SerializeField, Range(0.1f, 10)] private float speed = 1f;
 
-        private float distance;
-
-        private Vector2 shift = new Vector2();
-
-        private Vector3 offset;
-
         private Quaternion _rotation, rotation;
 
         private Vector3 _position, position;
 
+        private Vector3 offset;
+
+        private Vector2 shift;
+
+        private float distance;
+
+        private RaycastHit hit;
+
         private void Awake()
         {
             distance = radius;
+
+            shift = new Vector2(180, 0);
         }
 
         private void LateUpdate()
@@ -37,17 +41,24 @@ namespace Game
 
             Handle(Time.deltaTime);
 
-            _position = target.position + Offset(shift);
-
-            position = Vector3.Lerp(position, _position, Time.deltaTime * speed);
-
-            follower.position = position;
-
             _rotation = Quaternion.Euler(shift.y, shift.x + 180, 0);
 
             rotation = Quaternion.LerpUnclamped(rotation, _rotation, Time.deltaTime * speed);
 
             follower.rotation = rotation;
+
+            _position = target.position + Offset(shift);
+
+            position = Vector3.Lerp(position, _position, Time.deltaTime * speed);
+
+            if (Physics.Linecast(position, target.position, out hit))
+            {
+                if (hit.transform.tag == "Wall")
+                {
+                    position = hit.point + hit.normal * 0.1f;
+                }
+            }
+            follower.position = position;
         }
 
         private void Handle(float delta)
