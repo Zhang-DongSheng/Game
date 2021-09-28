@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.Model
+namespace Game
 {
-    public class Glass : ObjectBase
+    public class EditorHelper : MonoBehaviour
     {
         
     }
