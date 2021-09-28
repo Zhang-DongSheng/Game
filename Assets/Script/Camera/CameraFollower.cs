@@ -1,0 +1,81 @@
+using UnityEngine;
+
+namespace Game
+{
+    public class CameraFollower : MonoBehaviour
+    {
+        [SerializeField] private Transform follower;
+
+        [SerializeField] private Transform target;
+
+        [SerializeField] private float radius = 5;
+
+        [SerializeField] private Vector2 visibility = new Vector2(2.2f, 6);
+
+        [SerializeField] private Vector2 field = new Vector2(-15, 90);
+
+        [SerializeField, Range(0.1f, 10)] private float speed = 1f;
+
+        private float distance;
+
+        private Vector2 shift = new Vector2();
+
+        private Vector3 offset;
+
+        private Quaternion _rotation, rotation;
+
+        private Vector3 _position, position;
+
+        private void Awake()
+        {
+            distance = radius;
+        }
+
+        private void LateUpdate()
+        {
+            if (target == null) return;
+
+            Handle(Time.deltaTime);
+
+            _position = target.position + Offset(shift);
+
+            position = Vector3.Lerp(position, _position, Time.deltaTime * speed);
+
+            follower.position = position;
+
+            _rotation = Quaternion.Euler(shift.y, shift.x + 180, 0);
+
+            rotation = Quaternion.LerpUnclamped(rotation, _rotation, Time.deltaTime * speed);
+
+            follower.rotation = rotation;
+        }
+
+        private void Handle(float delta)
+        {
+#if UNITY_EDITOR
+            shift.x += Input.GetAxis("Mouse X") * delta * 100f;
+            shift.y -= Input.GetAxis("Mouse Y") * delta * 20f;
+
+            distance -= Input.GetAxis("Mouse ScrollWheel") * delta * Mathf.Abs(distance) * 80;
+#else
+            //...
+#endif
+            shift.y = Mathf.Clamp(shift.y.Angle(), field.x, field.y);
+
+            distance = Mathf.Clamp(distance, visibility.x, visibility.y);
+        }
+
+        private Vector3 Offset(Vector2 angle)
+        {
+            offset.y = Mathf.Cos(angle.y * Mathf.Deg2Rad);
+
+            offset.x = distance * Mathf.Sin(angle.x * Mathf.Deg2Rad) * offset.y;
+
+            offset.z = distance * Mathf.Cos(angle.x * Mathf.Deg2Rad) * offset.y;
+
+            offset.y = distance * Mathf.Sin(angle.y * Mathf.Deg2Rad);
+
+            return offset;
+        }
+    }
+}

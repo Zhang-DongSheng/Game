@@ -83,6 +83,27 @@ namespace Game
             return Math.Abs(number - compare);
         }
         /// <summary>
+        /// 转化为角度区间
+        /// </summary>
+        public static float Angle(this float number)
+        {
+            if (number > 360)
+            {
+                while (number > 360)
+                {
+                    number -= 360;
+                }
+            }
+            else if (number < -360)
+            {
+                while (number < -360)
+                {
+                    number += 360;
+                }
+            }
+            return number;
+        }
+        /// <summary>
         /// 显示数量
         /// </summary>
         public static string ToNumber(this int number, int digit)
