@@ -12,28 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32aab119162d262499cfd1a770b3ed0b, type: 3}
   m_Name: Language
   m_EditorClassIdentifier: 
-  m_data:
-  - language: 0
-    icon: {fileID: 0}
-    font: {fileID: 0}
-    words:
-    - key: 101
-      value: a
-    - key: 102
-      value: b
-    - key: 103
-      value: c
-    - key: 104
-      value: d
-  - language: 1
-    icon: {fileID: 0}
-    font: {fileID: 0}
-    words:
-    - key: 101
-      value: 111
-    - key: 102
-      value: 222
-    - key: 103
-      value: 333
-    - key: 104
-      value: 44
+  dictionaries: []

@@ -36,11 +36,11 @@ namespace Game
 
         public void RenovateProp(Prop prop)
         {
-            if (props.Exists(x => x.ID == prop.ID))
+            if (props.Exists(x => x.identification == prop.identification))
             {
                 for (int i = 0; i < props.Count; i++)
                 {
-                    if (props[i].ID == prop.ID)
+                    if (props[i].identification == prop.identification)
                     {
                         props[i] = prop;
                         break;

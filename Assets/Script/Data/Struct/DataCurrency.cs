@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Data
 {
-    public class DataCurrency : ScriptableObject
+    public class DataCurrency : DataBase
     {
         public List<CurrencyInformation> currencies = new List<CurrencyInformation>();
 
@@ -13,7 +12,7 @@ namespace Data
         }
     }
     [System.Serializable]
-    public class CurrencyInformation
+    public class CurrencyInformation : InformationBase
     {
         public CurrencyType currency;
 
@@ -22,26 +21,5 @@ namespace Data
         public string icon;
 
         public string description;
-    }
-
-    public class Currency
-    {
-        public CurrencyType currency;
-
-        public int number;
-
-        public Currency(CurrencyType currency, int number)
-        {
-            this.currency = currency;
-
-            this.number = number;
-        }
-    }
-
-    public enum CurrencyType
-    {
-        Gold,
-        Diamond,
-        Coin,
     }
 }

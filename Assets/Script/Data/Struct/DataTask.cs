@@ -1,42 +1,36 @@
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Data
 {
-    public class DataTask : ScriptableObject
+    public class DataTask : DataBase
     {
         public List<TaskInformation> tasks = new List<TaskInformation>();
-    }
-    [Serializable]
-    public class TaskInformation
-    {
-        public int ID;
 
+        public TaskInformation Get(int identification, bool quick = false)
+        {
+            if (quick)
+            {
+                return QuickLook(tasks, identification);
+            }
+            else
+            {
+                return tasks.Find(x => x.identification == identification);
+            }
+        }
+    }
+
+    public class TaskInformation : InformationBase
+    {
         public string name;
 
         public string icon;
+
+        public int next;
 
         public int count;
 
         public string description;
 
-        public List<Prop> props;
-    }
-
-    public class Task
-    {
-        public int ID;
-
-        public int step;
-
-        public TaskStatus status;
-    }
-
-    public enum TaskStatus
-    {
-        Undone,             //未完成
-        Available,          //可领取
-        Received,           //已领取
+        public Reward reward;
     }
 }

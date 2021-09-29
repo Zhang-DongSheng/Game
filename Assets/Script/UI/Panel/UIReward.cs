@@ -30,7 +30,7 @@ namespace Game.UI
 
         public override void Refresh(Paramter paramter)
         {
-            RewardInformation reward = paramter.Get<RewardInformation>("reward");
+            Reward reward = paramter.Get<Reward>("reward");
 
             title.text = reward.title;
 

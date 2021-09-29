@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Data
 {
-    public class DataPSD : ScriptableObject
+    public class DataPSD : DataBase
     {
         public List<PSDInformation> list = new List<PSDInformation>();
 

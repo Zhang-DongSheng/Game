@@ -3,14 +3,9 @@ using UnityEngine;
 
 namespace Data
 {
-    public class DataResource : ScriptableObject
+    public class DataResource : DataBase
     {
         public List<ResourceInformation> resources = new List<ResourceInformation>();
-
-        public ResourceInformation Get(string key)
-        {
-            return null;
-        }
 
         public bool Exist(string key)
         {
@@ -18,7 +13,7 @@ namespace Data
         }
     }
     [System.Serializable]
-    public class ResourceInformation
+    public class ResourceInformation : InformationBase
     {
         public string key;
 

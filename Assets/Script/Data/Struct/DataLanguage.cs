@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Data
 {
-    public class DataLanguage : ScriptableObject
+    public class DataLanguage : DataBase
     {
         public List<Dictionary> dictionaries = new List<Dictionary>();
 

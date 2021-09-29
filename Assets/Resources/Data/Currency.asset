@@ -13,7 +13,18 @@ MonoBehaviour:
   m_Name: Currency
   m_EditorClassIdentifier: 
   currencies:
-  - currency: 0
-    name: 
+  - identification: 0
+    currency: 0
+    name: "\u91D1\u5E01"
+    icon: 
+    description: 
+  - identification: 0
+    currency: 1
+    name: "\u94BB\u77F3"
+    icon: 
+    description: 
+  - identification: 0
+    currency: 2
+    name: "\u4EE3\u5E01"
     icon: 
     description: 

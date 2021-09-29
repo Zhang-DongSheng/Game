@@ -203,6 +203,7 @@ namespace UnityEditor.Window
                 {
                     data.resources.Add(new ResourceInformation()
                     {
+                        identification = AssetDatabase.LoadAssetAtPath(file.asset, typeof(Object)).GetInstanceID(),
                         key = file.name,
                         capacity = -1,
                         secret = Md5Tools.ComputeFile(file.path),

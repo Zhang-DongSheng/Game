@@ -6,10 +6,10 @@ namespace Data
 {
     public class DataManager : Singleton<DataManager>
     {
-        private readonly Dictionary<string, ScriptableObject> m_data = new Dictionary<string, ScriptableObject>();
+        private readonly Dictionary<string, DataBase> m_data = new Dictionary<string, DataBase>();
 
         #region Load
-        public T Load<T>(string key, string path) where T : ScriptableObject
+        public T Load<T>(string key, string path) where T : DataBase
         {
             if (m_data.ContainsKey(key))
             {
@@ -22,7 +22,7 @@ namespace Data
             }
         }
 
-        private T Load<T>(string path) where T : ScriptableObject
+        private T Load<T>(string path) where T : DataBase
         {
             T _data = default;
 

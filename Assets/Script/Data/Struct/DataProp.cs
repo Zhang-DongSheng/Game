@@ -1,36 +1,34 @@
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Data
 {
-    public class DataProp : ScriptableObject
+    public class DataProp : DataBase
     {
         public List<PropInformation> props = new List<PropInformation>();
 
-        public PropInformation Get(string key)
+        public PropInformation Get(int identification, bool quick = false)
         {
-            return props.Find(x => x.key == key);
+            if (quick)
+            {
+                return QuickLook(props, identification);
+            }
+            else
+            {
+                return props.Find(x => x.identification == identification);
+            }
         }
     }
-    [Serializable]
-    public class PropInformation
+    [System.Serializable]
+    public class PropInformation : InformationBase
     {
-        public string key;
+        public string name;
 
         public string icon;
+
+        public int source;
 
         public float price;
 
         public string description;
-    }
-
-    public class Prop
-    {
-        public int ID;
-
-        public int number;
-
-        public string key;
     }
 }

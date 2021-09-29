@@ -50,7 +50,7 @@ namespace Game.UI
             }
             else if (Input.GetKeyDown(KeyCode.C))
             {
-                UIQuickEntry.OpenUIReward(new Data.RewardInformation()
+                UIQuickEntry.OpenUIReward(new Data.Reward()
                 {
                     title = "XXX",
                 });

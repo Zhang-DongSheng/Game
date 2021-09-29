@@ -12,4 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a229ad47b5c5e6d44acbc01461b93b60, type: 3}
   m_Name: Prop
   m_EditorClassIdentifier: 
-  props: []
+  props:
+  - identification: 0
+    name: Prop_A
+    icon: 
+    source: 0
+    price: 1
+    description: Prop_A ...
+  - identification: 0
+    name: Prop_B
+    icon: 
+    source: 0
+    price: 1
+    description: Prop_B ...

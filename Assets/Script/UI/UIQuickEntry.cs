@@ -44,7 +44,7 @@ namespace Game.UI
             UIManager.Instance.Open(UIPanel.UIHorseLamp);
         }
 
-        public static void OpenUIReward(RewardInformation reward)
+        public static void OpenUIReward(Reward reward)
         {
             UIManager.Instance.Paramter(UIPanel.UIReward, new Paramter()
             {
