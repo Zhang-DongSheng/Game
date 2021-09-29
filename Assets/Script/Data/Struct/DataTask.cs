@@ -33,12 +33,12 @@ namespace Data
 
         public string icon;
 
-        public int next;
-
-        public int count;
-
-        public string description;
+        public ActionInformation action;
 
         public Reward reward;
+
+        public int next;
+
+        public string description;
     }
 }

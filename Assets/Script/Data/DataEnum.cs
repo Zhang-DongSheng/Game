@@ -3,15 +3,15 @@ namespace Data
     public enum TaskStatus
     {
         /// <summary>
-        /// Î´Íê³É
+        /// æœªå®Œæˆ
         /// </summary>
         Undone,
         /// <summary>
-        /// ¿ÉÁìÈ¡
+        /// å¯é¢†å–
         /// </summary>
         Available,
         /// <summary>
-        /// ÒÑÁìÈ¡
+        /// å·²é¢†å–
         /// </summary>
         Received,
     }
@@ -21,5 +21,14 @@ namespace Data
         Gold,
         Diamond,
         Coin,
+    }
+
+    public enum ActionType
+    {
+        None,
+        Cost,
+        Kill,
+        Talk,
+        Time,
     }
 }

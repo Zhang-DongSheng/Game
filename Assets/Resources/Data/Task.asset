@@ -16,30 +16,40 @@ MonoBehaviour:
   - identification: 0
     name: 
     icon: 
+    action:
+      type: 1
+      count: 10
     next: 0
-    count: 0
     description: 
   - identification: 0
     name: 
     icon: 
+    action:
+      type: 0
+      count: 0
     next: 0
-    count: 0
     description: 
   - identification: 110
     name: 
     icon: 
+    action:
+      type: 0
+      count: 0
     next: 0
-    count: 0
     description: 
   - identification: 123
     name: 
     icon: 
+    action:
+      type: 0
+      count: 0
     next: 0
-    count: 0
     description: 
   - identification: 150
     name: 
     icon: 
+    action:
+      type: 0
+      count: 0
     next: 0
-    count: 0
     description: 
