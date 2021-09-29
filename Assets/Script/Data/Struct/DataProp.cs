@@ -17,6 +17,14 @@ namespace Data
                 return props.Find(x => x.identification == identification);
             }
         }
+
+        protected override void Editor()
+        {
+            props.Sort((a, b) =>
+            {
+                return a.identification > b.identification ? 1 : -1;
+            });
+        }
     }
     [System.Serializable]
     public class PropInformation : InformationBase

@@ -17,6 +17,14 @@ namespace Data
                 return tasks.Find(x => x.identification == identification);
             }
         }
+
+        protected override void Editor()
+        {
+            tasks.Sort((a, b) =>
+            {
+                return a.identification > b.identification ? 1 : -1;
+            });
+        }
     }
     [System.Serializable]
     public class TaskInformation : InformationBase

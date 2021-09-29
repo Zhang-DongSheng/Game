@@ -13,13 +13,25 @@ MonoBehaviour:
   m_Name: Prop
   m_EditorClassIdentifier: 
   props:
-  - identification: 0
+  - identification: 10000
     name: Prop_A
     icon: 
     source: 0
     price: 1
     description: Prop_A ...
-  - identification: 0
+  - identification: 10001
+    name: Prop_B
+    icon: 
+    source: 0
+    price: 1
+    description: Prop_B ...
+  - identification: 10003
+    name: Prop_B
+    icon: 
+    source: 0
+    price: 1
+    description: Prop_B ...
+  - identification: 10005
     name: Prop_B
     icon: 
     source: 0
