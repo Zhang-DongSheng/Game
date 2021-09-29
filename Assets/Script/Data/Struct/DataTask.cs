@@ -37,6 +37,8 @@ namespace Data
 
         public Reward reward;
 
+        public bool main;
+
         public int next;
 
         public string description;

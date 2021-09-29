@@ -36,9 +36,13 @@ namespace Data
 
     public class Task
     {
-        public int ID;
+        public int identification;
 
-        public Dictionary<ActionType, int> progress = new Dictionary<ActionType, int>();
+        public ActionType action;
+
+        public float progress;
+
+        public bool main;
 
         public TaskStatus status;
     }

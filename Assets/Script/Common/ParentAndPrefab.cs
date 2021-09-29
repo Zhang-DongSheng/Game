@@ -16,7 +16,7 @@ namespace UnityEngine
         {
             GameObject go = GameObject.Instantiate(prefab, parent);
 
-            if (go.TryGetComponent(out T component))
+            if (!go.TryGetComponent(out T component))
             {
                 component = go.AddComponent<T>();
             }

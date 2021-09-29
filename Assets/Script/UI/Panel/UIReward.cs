@@ -36,23 +36,37 @@ namespace Game.UI
 
             SetActive(true);
 
-            coroutine = StartCoroutine(Refresh(reward.props));
+            coroutine = StartCoroutine(Refresh(reward));
         }
 
-        IEnumerator Refresh(List<Prop> props)
+        IEnumerator Refresh(Reward reward)
         {
-            if (props != null && props.Count > 0)
-            {
-                for (int i = 0; i < props.Count; i++)
-                {
-                    if (i >= items.Count)
-                    {
-                        items.Add(prefab.Create<ItemProp>());
-                    }
-                    items[i].Refresh(props[i]);
+            int count = reward.currencies != null ? reward.currencies.Count : 0;
 
-                    yield return wait;
+            int index = 0;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (index >= items.Count)
+                {
+                    items.Add(prefab.Create<ItemProp>());
                 }
+                items[index++].Refresh(reward.currencies[i]);
+
+                yield return wait;
+            }
+
+            count = reward.props != null ? reward.props.Count : 0;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (index >= items.Count)
+                {
+                    items.Add(prefab.Create<ItemProp>());
+                }
+                items[index++].Refresh(reward.props[i]);
+
+                yield return wait;
             }
             yield return null;
         }
@@ -65,6 +79,10 @@ namespace Game.UI
             }
             coroutine = null;
 
+            for (int i = 0; i < items.Count; i++)
+            {
+                items[i].SetActive(false);
+            }
             UIManager.Instance.Close(UIPanel.UIReward);
         }
     }
