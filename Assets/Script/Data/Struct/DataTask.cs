@@ -18,7 +18,7 @@ namespace Data
             }
         }
     }
-
+    [System.Serializable]
     public class TaskInformation : InformationBase
     {
         public string name;

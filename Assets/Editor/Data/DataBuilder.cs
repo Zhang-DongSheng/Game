@@ -26,12 +26,21 @@ namespace UnityEditor
         {
             Create<DataProp>("Prop");
         }
+        [MenuItem("Data/Create/Task")]
+        protected static void Create_Task()
+        {
+            Create<DataTask>("Task");
+        }
         #endregion
 
         protected static void Create<T>(string file) where T : ScriptableObject
         {
+            string path = string.Format("Assets/Resources/Data/{0}.asset", file);
+
+            if (AssetDatabase.LoadAssetAtPath(path, typeof(Object))) return;
+
             ScriptableObject script = ScriptableObject.CreateInstance<T>();
-            string path = string.Format("{0}/Resources/Data", Application.dataPath);
+            path = string.Format("{0}/Resources/Data", Application.dataPath);
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
