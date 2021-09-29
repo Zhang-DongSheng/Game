@@ -24,7 +24,7 @@ namespace Data
             }
             else
             {
-                for (int i = segment.from; i < segment.to; i++)
+                for (int i = segment.begin; i < segment.end; i++)
                 {
                     if (list[i].identification == identification)
                     {
@@ -47,20 +47,20 @@ namespace Data
 
             interval = Mathf.CeilToInt(count / (float)step);
 
-            int _from, _to;
+            int _begin, _end;
 
             for (int i = 0; i < step; i++)
             {
-                _from = i * interval;
+                _begin = i * interval;
 
-                _to = Mathf.Min(i * interval + interval - 1, count - 1);
+                _end = Mathf.Min(i * interval + interval - 1, count - 1);
 
                 segments.Add(new Segment()
                 {
-                    from = _from,
-                    to = _to,
-                    begin = list[_from].identification,
-                    end = list[_to].identification,
+                    begin = _begin,
+                    end = _end,
+                    from = list[_begin].identification,
+                    to = list[_end].identification,
                 });
             }
         }
@@ -70,7 +70,7 @@ namespace Data
 
         }
         [ContextMenu("Editor")]
-        protected void EditorMenu()
+        protected void MenuEditor()
         {
             Editor();
         }
@@ -83,13 +83,13 @@ namespace Data
 
     public class Segment
     {
-        public int from, to;
-
         public int begin, end;
+
+        public int from, to;
 
         public bool Exist(int value)
         {
-            return value >= begin && value <= end;
+            return value >= from && value <= to;
         }
     }
 }

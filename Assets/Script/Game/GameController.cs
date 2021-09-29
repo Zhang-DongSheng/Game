@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Game
 {
-    [ExecuteInEditMode]
     public class GameController : MonoSingleton<GameController>
     {
         public ModelDisplay model;
@@ -19,10 +18,12 @@ namespace Game
 
             ShopLogic.Instance.Init();
 
+            TaskLogic.Instance.Init();
+
             ActivityLogic.Instance.Init();
 
             ReddotLogic.Instance.Init();
-#if DEBUG
+#if HOTFIX
             ILRuntimeLogic.Instance.Init();
 #endif
         }
@@ -48,7 +49,7 @@ namespace Game
 
         private void Update()
         {
-            
+
         }
     }
 }

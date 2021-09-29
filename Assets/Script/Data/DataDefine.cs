@@ -38,8 +38,8 @@ namespace Data
     {
         public int ID;
 
-        public TaskStatus status;
-
         public Dictionary<ActionType, int> progress = new Dictionary<ActionType, int>();
+
+        public TaskStatus status;
     }
 }
