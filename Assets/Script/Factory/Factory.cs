@@ -10,7 +10,8 @@ namespace UnityEngine
         [RuntimeInitializeOnLoadMethod]
         private static void Init()
         {
-            DataResource data = DataManager.Instance.Load<DataResource>("Resource", "Data/Resource");
+#if UNITY_EDITOR
+            DataResource data = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Package/Data/Resource.asset", typeof(Object)) as DataResource;
 
             if (data != null)
             {
@@ -24,6 +25,7 @@ namespace UnityEngine
                     }
                 }
             }
+#endif
         }
 
         public Object Pop(string key)

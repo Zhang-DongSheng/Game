@@ -6,7 +6,11 @@ namespace UnityEditor.Window
 {
     public class ResourcesBuilder : CustomWindow
     {
-        private DataResource data;
+        private const string PATH = "Assets/Package/Data/Resource.asset";
+
+        private const string Folder = "Package";
+
+        private DataResource resource;
 
         private List<ItemBase> items;
 
@@ -33,15 +37,14 @@ namespace UnityEditor.Window
             });
             style[1].normal.textColor = Color.red;
 
-            data = DataManager.Instance.Load<DataResource>("Resource", "Data/Resource");
+            resource = AssetDatabase.LoadAssetAtPath(PATH, typeof(Object)) as DataResource;
 
-            if (data == null)
+            if (resource == null)
             {
                 DataBuilder.Create_Resource();
 
-                data = DataManager.Instance.Load<DataResource>("Resource", "Data/Resource");
+                resource = AssetDatabase.LoadAssetAtPath(PATH, typeof(Object)) as DataResource;
             }
-
             UpdateResources();
         }
 
@@ -53,7 +56,7 @@ namespace UnityEditor.Window
                 {
                     GUILayout.BeginHorizontal();
                     {
-                        GUILayout.Label("Assets > Resources");
+                        GUILayout.Label(string.Format("Assets > {0}", Folder));
                     }
                     GUILayout.EndHorizontal();
 
@@ -148,7 +151,7 @@ namespace UnityEditor.Window
 
         private void UpdateResources()
         {
-            items = Finder.Find(Application.dataPath + "/Resources");
+            items = Finder.Find(string.Format("{0}/{1}", Application.dataPath, Folder));
 
             for (int i = 0; i < items.Count; i++)
             {
@@ -169,19 +172,19 @@ namespace UnityEditor.Window
             }
             else
             {
-                item.select = data.Exist(item.name);
+                item.select = resource.Exist(item.name);
             }
         }
 
         private void Build()
         {
-            data.resources.Clear();
+            resource.resources.Clear();
 
             for (int i = 0; i < items.Count; i++)
             {
                 Builder(items[i]);
             }
-            EditorUtility.SetDirty(data);
+            EditorUtility.SetDirty(resource);
 
             AssetDatabase.Refresh();
         }
@@ -201,7 +204,7 @@ namespace UnityEditor.Window
             {
                 if (item is ItemFile file && file.select)
                 {
-                    data.resources.Add(new ResourceInformation()
+                    resource.resources.Add(new ResourceInformation()
                     {
                         identification = AssetDatabase.LoadAssetAtPath(file.asset, typeof(Object)).GetInstanceID(),
                         key = file.name,

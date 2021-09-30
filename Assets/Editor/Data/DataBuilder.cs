@@ -35,17 +35,17 @@ namespace UnityEditor
 
         protected static void Create<T>(string file) where T : ScriptableObject
         {
-            string path = string.Format("Assets/Resources/Data/{0}.asset", file);
+            string path = string.Format("Assets/Package/Data/{0}.asset", file);
 
             if (AssetDatabase.LoadAssetAtPath(path, typeof(Object))) return;
 
             ScriptableObject script = ScriptableObject.CreateInstance<T>();
-            path = string.Format("{0}/Resources/Data", Application.dataPath);
+            path = string.Format("{0}/Package/Data", Application.dataPath);
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
-            path = string.Format("Assets/Resources/Data/{0}.asset", file);
+            path = string.Format("Assets/Package/Data/{0}.asset", file);
             AssetDatabase.CreateAsset(script, path);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
