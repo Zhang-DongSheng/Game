@@ -10,16 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22dc9417e6fa5a749b56ce3b84e91cdf, type: 3}
-  m_Name: resource
+  m_Name: Resource
   m_EditorClassIdentifier: 
   resources:
-  - identification: 30820
-    key: emoji
+  - identification: 36100
+    key: atlas_emoji
     capacity: -1
-    type: 2
-    asset: {fileID: 4343727234628468602, guid: 3d394daaf9de6d84eaa8e0b45e460dfb, type: 2}
-    secret: 494176fea583137d33975a978fa5c78d
-    description: Assets/Package/Atlas/emoji.spriteatlas
+    type: 0
+    asset: {fileID: 100100200, guid: f5bc29f47f710484493ee0b7058bfd5e, type: 3}
+    secret: 6a9f15687a3bcdd68c857d9f12bf1331
+    description: Assets/Package/Atlas/atlas_emoji.spriteatlasv2
+  - identification: 36102
+    key: atlas_prop
+    capacity: -1
+    type: 0
+    asset: {fileID: 100100200, guid: 59e3f4832290d724398e951e15e07b33, type: 3}
+    secret: 34364bcc9b725be4411b299e527393
+    description: Assets/Package/Atlas/atlas_prop.spriteatlasv2
   - identification: 28074
     key: Currency
     capacity: -1

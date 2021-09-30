@@ -17,18 +17,18 @@ namespace Data
             }
             else
             {
-                m_data.Add(key, Load<T>(path));
+                m_data.Add(key, Load<T>(key));
                 return (T)m_data[key];
             }
         }
 
-        private T Load<T>(string path) where T : DataBase
+        private T Load<T>(string key) where T : DataBase
         {
             T _data = default;
 
             try
             {
-                //_data = Factory.Instance.GetComponent;
+                _data = Factory.Instance.Pop(key) as T;
             }
             catch (Exception e)
             {

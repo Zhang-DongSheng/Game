@@ -16,15 +16,15 @@ MonoBehaviour:
   - identification: 0
     currency: 0
     name: "\u91D1\u5E01"
-    icon: 
+    icon: gold
     description: 
   - identification: 0
     currency: 1
     name: "\u94BB\u77F3"
-    icon: 
+    icon: diamond
     description: 
   - identification: 0
     currency: 2
     name: "\u4EE3\u5E01"
-    icon: 
+    icon: coin
     description: 

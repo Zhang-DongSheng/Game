@@ -18,7 +18,7 @@ namespace Game.UI
         {
             CurrencyInformation info = DataHelper.Currency.Get(currency.currency);
 
-            //_icon.sprite = info.icon;
+            imgQuality.sprite = Factory.Instance.Pop("atlas_currency", info.icon) as Sprite;
 
             txtName.text = string.Format("{0}", info.name);
 
@@ -31,7 +31,7 @@ namespace Game.UI
         {
             PropInformation info = DataHelper.Prop.Get(prop.parallelism);
 
-            //_icon.sprite = info.icon;
+            imgQuality.sprite = Factory.Instance.Pop("atlas_prop", info.icon) as Sprite;
 
             txtName.text = string.Format("{0}", info.name);
 

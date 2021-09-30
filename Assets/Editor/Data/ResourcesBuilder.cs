@@ -36,12 +36,12 @@ namespace UnityEditor.Window
             });
             style[1].normal.textColor = Color.red;
 
-            resource = Resources.Load<DataResource>("resource");
+            resource = Resources.Load<DataResource>("Resource");
 
             if (resource == null)
             {
                 resource = ScriptableObject.CreateInstance<DataResource>();
-                AssetDatabase.CreateAsset(resource, "Assets/Resources/resource.asset");
+                AssetDatabase.CreateAsset(resource, "Assets/Resources/Resource.asset");
                 AssetDatabase.SaveAssets();
             }
             UpdateResources();
@@ -232,6 +232,7 @@ namespace UnityEditor.Window
                     type = ResourceType.Asset;
                     break;
                 case ".spriteatlas":
+                case ".spriteatlasv2":
                     type = ResourceType.Atlas;
                     break;
                 case ".mp3":

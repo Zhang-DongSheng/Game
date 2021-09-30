@@ -5,13 +5,13 @@ namespace UnityEngine
 {
     public class Factory : MonoSingleton<Factory>
     {
-        private readonly Dictionary<string, Workshop> shops = new Dictionary<string, Workshop>();
+        private readonly Dictionary<string, Operator> operators = new Dictionary<string, Operator>();
 
         [RuntimeInitializeOnLoadMethod]
         private static void Init()
         {
 #if UNITY_EDITOR
-            DataResource data = Resources.Load<DataResource>("resource");
+            DataResource data = Resources.Load<DataResource>("Resource");
 
             if (data != null)
             {
@@ -19,29 +19,43 @@ namespace UnityEngine
                 {
                     ResourceInformation res = data.resources[i];
 
-                    if (true)
+                    switch (res.type)
                     {
-                        Instance.shops.Add(res.key, new Workshop(res));
+                        case ResourceType.GameObject:
+                            Instance.operators.Add(res.key, new GameObjectOperator(res));
+                            break;
+                        case ResourceType.Asset:
+                            Instance.operators.Add(res.key, new AssetOperator(res));
+                            break;
+                        case ResourceType.Atlas:
+                            Instance.operators.Add(res.key, new AtlasOperator(res));
+                            break;
+                        case ResourceType.Audio:
+                            Instance.operators.Add(res.key, new AudioOperator(res));
+                            break;
+                        case ResourceType.Texture:
+                            Instance.operators.Add(res.key, new TextureOperator(res));
+                            break;
                     }
                 }
             }
 #endif
         }
 
-        public Object Pop(string key)
+        public Object Pop(string key, string value = null)
         {
-            if (shops.ContainsKey(key))
+            if (operators.ContainsKey(key))
             {
-                return shops[key].Pop();
+                return operators[key].Pop(value);
             }
             return null;
         }
 
         public void Push(string key, Object asset)
         {
-            if (shops.ContainsKey(key))
+            if (operators.ContainsKey(key))
             {
-                shops[key].Push(asset);
+                operators[key].Push(asset);
             }
             else
             {
