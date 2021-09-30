@@ -6,25 +6,25 @@ namespace UnityEngine
 {
     public sealed class Workshop : IDisposable
     {
-        private readonly string ID;
+        private readonly string identification;
 
         private readonly int capacity = -1;
 
         private readonly string secret;
 
-        private readonly Object prefab;
+        private readonly Object asset;
 
         private readonly Stack<Object> memory = new Stack<Object>();
 
-        public Workshop(ResourceInformation prefab)
+        public Workshop(ResourceInformation resource)
         {
-            ID = prefab.key;
+            identification = resource.key;
 
-            secret = prefab.secret;
+            secret = resource.secret;
 
-            capacity = prefab.capacity;
+            capacity = resource.capacity;
 
-            this.prefab = prefab.prefab;
+            this.asset = resource.asset;
         }
 
         public void Push(Object asset)
@@ -47,7 +47,7 @@ namespace UnityEngine
             }
             else
             {
-                return GameObject.Instantiate(prefab);
+                return GameObject.Instantiate(asset);
             }
         }
 

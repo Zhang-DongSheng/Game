@@ -1,13 +1,12 @@
 ﻿using Data;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace UnityEditor.Window
 {
     public class ResourcesBuilder : CustomWindow
     {
-        private const string PATH = "Assets/Package/Data/Resource.asset";
-
         private const string Folder = "Package";
 
         private DataResource resource;
@@ -37,13 +36,13 @@ namespace UnityEditor.Window
             });
             style[1].normal.textColor = Color.red;
 
-            resource = AssetDatabase.LoadAssetAtPath(PATH, typeof(Object)) as DataResource;
+            resource = Resources.Load<DataResource>("resource");
 
             if (resource == null)
             {
-                DataBuilder.Create_Resource();
-
-                resource = AssetDatabase.LoadAssetAtPath(PATH, typeof(Object)) as DataResource;
+                resource = ScriptableObject.CreateInstance<DataResource>();
+                AssetDatabase.CreateAsset(resource, "Assets/Resources/resource.asset");
+                AssetDatabase.SaveAssets();
             }
             UpdateResources();
         }
@@ -210,11 +209,49 @@ namespace UnityEditor.Window
                         key = file.name,
                         capacity = -1,
                         secret = Md5Tools.ComputeFile(file.path),
-                        prefab = AssetDatabase.LoadAssetAtPath(file.asset, typeof(Object)),
+                        type = DetermineType(file.asset),
+                        asset = AssetDatabase.LoadAssetAtPath(file.asset, typeof(Object)),
                         description = file.asset,
                     });
                 }
             }
+        }
+
+        private ResourceType DetermineType(string path)
+        {
+            string extension = Path.GetExtension(path).ToLower();
+
+            ResourceType type;
+
+            switch (extension)
+            {
+                case ".prefab":
+                    type = ResourceType.GameObject;
+                    break;
+                case ".asset":
+                    type = ResourceType.Asset;
+                    break;
+                case ".spriteatlas":
+                    type = ResourceType.Atlas;
+                    break;
+                case ".mp3":
+                    type = ResourceType.Audio;
+                    break;
+                case ".jpg":
+                case ".jpeg":
+                case ".png":
+                case ".tga":
+                    type = ResourceType.Texture;
+                    break;
+                case ".txt":
+                case ".byte":
+                    type = ResourceType.Text;
+                    break;
+                default:
+                    type = ResourceType.GameObject;
+                    break;
+            }
+            return type;
         }
     }
 }

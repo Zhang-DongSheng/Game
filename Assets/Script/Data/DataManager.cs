@@ -28,13 +28,12 @@ namespace Data
 
             try
             {
-                _data = Resources.Load(path) as T;
+                //_data = Factory.Instance.GetComponent;
             }
             catch (Exception e)
             {
                 Debug.LogError(e.Message);
             }
-
             return _data;
         }
         #endregion

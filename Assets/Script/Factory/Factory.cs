@@ -11,7 +11,7 @@ namespace UnityEngine
         private static void Init()
         {
 #if UNITY_EDITOR
-            DataResource data = UnityEditor.AssetDatabase.LoadAssetAtPath("Assets/Package/Data/Resource.asset", typeof(Object)) as DataResource;
+            DataResource data = Resources.Load<DataResource>("resource");
 
             if (data != null)
             {

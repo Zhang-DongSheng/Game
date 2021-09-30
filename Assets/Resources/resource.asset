@@ -10,126 +10,146 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22dc9417e6fa5a749b56ce3b84e91cdf, type: 3}
-  m_Name: Resource
+  m_Name: resource
   m_EditorClassIdentifier: 
   resources:
-  - identification: 28332
+  - identification: 30820
+    key: emoji
+    capacity: -1
+    type: 2
+    asset: {fileID: 4343727234628468602, guid: 3d394daaf9de6d84eaa8e0b45e460dfb, type: 2}
+    secret: 494176fea583137d33975a978fa5c78d
+    description: Assets/Package/Atlas/emoji.spriteatlas
+  - identification: 28074
     key: Currency
     capacity: -1
-    prefab: {fileID: 11400000, guid: 0b663b6d60fc904499826ec6f1225329, type: 2}
+    type: 1
+    asset: {fileID: 11400000, guid: 0b663b6d60fc904499826ec6f1225329, type: 2}
     secret: 45d04ff1c9c78cf1f668cdd265af771
     description: Assets/Package/Data/Currency.asset
-  - identification: 28334
+  - identification: 28076
     key: Language
     capacity: -1
-    prefab: {fileID: 11400000, guid: 95054ac073bd3c945b69623d765a9822, type: 2}
+    type: 1
+    asset: {fileID: 11400000, guid: 95054ac073bd3c945b69623d765a9822, type: 2}
     secret: c3d093f9428e5dd9ae1325faf2bb1df4
     description: Assets/Package/Data/Language.asset
-  - identification: 28336
+  - identification: 28078
     key: Prop
     capacity: -1
-    prefab: {fileID: 11400000, guid: 9df56e08cd20ebf478b22acb0ddd2dc2, type: 2}
+    type: 1
+    asset: {fileID: 11400000, guid: 9df56e08cd20ebf478b22acb0ddd2dc2, type: 2}
     secret: 0319c9cc52b2e55bdd5af97ebef690
     description: Assets/Package/Data/Prop.asset
-  - identification: -3048
-    key: Resource
-    capacity: -1
-    prefab: {fileID: 11400000}
-    secret: 9e01161f21a095be2853d319d6d63c
-    description: Assets/Package/Data/Resource.asset
-  - identification: 28340
+  - identification: 28082
     key: Task
     capacity: -1
-    prefab: {fileID: 11400000, guid: 5809dd95b6807de418970a06ce69dd01, type: 2}
+    type: 1
+    asset: {fileID: 11400000, guid: 5809dd95b6807de418970a06ce69dd01, type: 2}
     secret: 396ffb987c1ddaf7b72e40d8dba1d4f1
     description: Assets/Package/Data/Task.asset
-  - identification: 28342
+  - identification: 28318
     key: MODEL ANIMATION
     capacity: -1
-    prefab: {fileID: 102536, guid: 8a251074019479247b76862c9f7c0ba7, type: 3}
+    type: 0
+    asset: {fileID: 102536, guid: 8a251074019479247b76862c9f7c0ba7, type: 3}
     secret: 1eba3b5f8fd4b08aa2f18f3f3aab8
     description: Assets/Package/Prefab/Model/Role/MODEL ANIMATION.prefab
-  - identification: 28344
+  - identification: 28950
     key: MODEL_MECANIM
     capacity: -1
-    prefab: {fileID: 128724, guid: 29fecc7b4e368ca409bdceaf6d1eacac, type: 3}
+    type: 0
+    asset: {fileID: 128724, guid: 29fecc7b4e368ca409bdceaf6d1eacac, type: 3}
     secret: ff3ef2438343e495e23578534364d64e
     description: Assets/Package/Prefab/Model/Role/MODEL_MECANIM.prefab
-  - identification: 28346
+  - identification: 29564
     key: WEAPON
     capacity: -1
-    prefab: {fileID: 160986, guid: 98e3f23ed65dab148b8b38714c90aef7, type: 3}
+    type: 0
+    asset: {fileID: 160986, guid: 98e3f23ed65dab148b8b38714c90aef7, type: 3}
     secret: c91414dbadf4d34920b2869c81e6ba10
     description: Assets/Package/Prefab/Model/Weapon/WEAPON.prefab
-  - identification: 28348
+  - identification: 29574
     key: ItemCell
     capacity: -1
-    prefab: {fileID: 8869145237575657179, guid: f8563b77fae56cd498df5179d9ab89ef, type: 3}
+    type: 0
+    asset: {fileID: 8869145237575657179, guid: f8563b77fae56cd498df5179d9ab89ef, type: 3}
     secret: 25943cefbe873782cb918fe669f398c
     description: Assets/Package/Prefab/UI/Item/ItemCell.prefab
-  - identification: 28350
+  - identification: 29600
     key: UIConfirm
     capacity: -1
-    prefab: {fileID: 6978918614400995659, guid: 2ddb396cbb585ea458b481d12087cc4d, type: 3}
+    type: 0
+    asset: {fileID: 6978918614400995659, guid: 2ddb396cbb585ea458b481d12087cc4d, type: 3}
     secret: b357894947f382f49788298935523a
     description: Assets/Package/Prefab/UI/Panel/UIConfirm.prefab
-  - identification: 28352
+  - identification: 29696
     key: UIHorseLamp
     capacity: -1
-    prefab: {fileID: 3603872268513932690, guid: a0349686e89cec44a8fcdf1c60c19799, type: 3}
+    type: 0
+    asset: {fileID: 3603872268513932690, guid: a0349686e89cec44a8fcdf1c60c19799, type: 3}
     secret: 4fa7d3fccb3a97e84cd13949fd6b5f8
     description: Assets/Package/Prefab/UI/Panel/UIHorseLamp.prefab
-  - identification: 28354
+  - identification: 29742
     key: UILoading
     capacity: -1
-    prefab: {fileID: 1234978127019798347, guid: 427876e5cdbdcb24baad5e3c9c45bb26, type: 3}
+    type: 0
+    asset: {fileID: 1234978127019798347, guid: 427876e5cdbdcb24baad5e3c9c45bb26, type: 3}
     secret: 9f73f381336448b4903aac604c1ee
     description: Assets/Package/Prefab/UI/Panel/UILoading.prefab
-  - identification: 28356
+  - identification: 29804
     key: UILogin
     capacity: -1
-    prefab: {fileID: 3659033623829297182, guid: a5a2a6e07ef1b624585317f90dabcd96, type: 3}
+    type: 0
+    asset: {fileID: 3659033623829297182, guid: a5a2a6e07ef1b624585317f90dabcd96, type: 3}
     secret: 78ec423195a2624bd88f559dc961b0a5
     description: Assets/Package/Prefab/UI/Panel/UILogin.prefab
-  - identification: 28358
+  - identification: 29936
     key: UILotteryDraw
     capacity: -1
-    prefab: {fileID: 2934783889249999787, guid: 3c10f4de8fa6a5e42bc19d79f9685deb, type: 3}
+    type: 0
+    asset: {fileID: 2934783889249999787, guid: 3c10f4de8fa6a5e42bc19d79f9685deb, type: 3}
     secret: 577c90c951bfa5d41d516de6757da6f7
     description: Assets/Package/Prefab/UI/Panel/UILotteryDraw.prefab
-  - identification: 28360
+  - identification: 30002
     key: UIMain
     capacity: -1
-    prefab: {fileID: 3475235642826711133, guid: ee4e3e5da72d7124e89f1022c3161fbb, type: 3}
+    type: 0
+    asset: {fileID: 3475235642826711133, guid: ee4e3e5da72d7124e89f1022c3161fbb, type: 3}
     secret: 1b19d9e08a4e4b2796aff897e782e69
     description: Assets/Package/Prefab/UI/Panel/UIMain.prefab
-  - identification: 28362
+  - identification: 30040
     key: UIMMORPG
     capacity: -1
-    prefab: {fileID: 1077189491567945563, guid: 55aad2d69188ea541bb113fc070178d0, type: 3}
+    type: 0
+    asset: {fileID: 1077189491567945563, guid: 55aad2d69188ea541bb113fc070178d0, type: 3}
     secret: 6468d61dd0f8875191985b993a59e7f
     description: Assets/Package/Prefab/UI/Panel/UIMMORPG.prefab
-  - identification: 28364
+  - identification: 30302
     key: UINotice
     capacity: -1
-    prefab: {fileID: 6180908441421270953, guid: 6a5e9dd23339fbd4ab53ddfdd03e0a63, type: 3}
+    type: 0
+    asset: {fileID: 6180908441421270953, guid: 6a5e9dd23339fbd4ab53ddfdd03e0a63, type: 3}
     secret: c487757b7871dba96b9b8731ba93
     description: Assets/Package/Prefab/UI/Panel/UINotice.prefab
-  - identification: 28366
+  - identification: 30332
     key: UIReward
     capacity: -1
-    prefab: {fileID: 3675214102293789820, guid: e25b43b6d62c1e74a980f0eb45da8263, type: 3}
+    type: 0
+    asset: {fileID: 3675214102293789820, guid: e25b43b6d62c1e74a980f0eb45da8263, type: 3}
     secret: b861b9dba3d2c3d935c70d21912
     description: Assets/Package/Prefab/UI/Panel/UIReward.prefab
-  - identification: 28368
+  - identification: 30422
     key: UITest
     capacity: -1
-    prefab: {fileID: 836184374315916967, guid: c298abb5761b16b4ba305bf449d8be21, type: 3}
+    type: 0
+    asset: {fileID: 836184374315916967, guid: c298abb5761b16b4ba305bf449d8be21, type: 3}
     secret: 4bf74655e11d8911ce9dc967bb3c34ac
     description: Assets/Package/Prefab/UI/Panel/UITest.prefab
-  - identification: 28370
+  - identification: 30742
     key: UITips
     capacity: -1
-    prefab: {fileID: 700211347781550380, guid: 8ad8c508ecfc03a4d9684f5a110c0ed6, type: 3}
+    type: 0
+    asset: {fileID: 700211347781550380, guid: 8ad8c508ecfc03a4d9684f5a110c0ed6, type: 3}
     secret: fc25a3ddce83e73ce1af6f7a7e7dc9b
     description: Assets/Package/Prefab/UI/Panel/UITips.prefab

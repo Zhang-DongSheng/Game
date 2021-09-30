@@ -7,10 +7,6 @@ namespace UnityEditor
     class DataBuilder
     {
         #region Create
-        public static void Create_Resource()
-        {
-            Create<DataResource>("Resource");
-        }
         [MenuItem("Data/Create/Language")]
         protected static void Create_DataLanguage()
         {

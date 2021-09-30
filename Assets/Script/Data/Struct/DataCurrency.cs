@@ -22,4 +22,11 @@ namespace Data
 
         public string description;
     }
+
+    public enum CurrencyType
+    {
+        Gold,
+        Diamond,
+        Coin,
+    }
 }

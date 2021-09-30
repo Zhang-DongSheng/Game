@@ -7,4 +7,13 @@ namespace Data
 
         public int count;
     }
+
+    public enum ActionType
+    {
+        None,
+        Cost,
+        Kill,
+        Talk,
+        Time,
+    }
 }

@@ -43,4 +43,20 @@ namespace Data
 
         public string description;
     }
+
+    public enum TaskStatus
+    {
+        /// <summary>
+        /// 未完成
+        /// </summary>
+        Undone,
+        /// <summary>
+        /// 可领取
+        /// </summary>
+        Available,
+        /// <summary>
+        /// 已领取
+        /// </summary>
+        Received,
+    }
 }

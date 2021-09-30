@@ -19,10 +19,23 @@ namespace Data
 
         public int capacity = -1;
 
-        public Object prefab;
+        public ResourceType type;
+
+        public Object asset;
 
         public string secret;
 
         public string description;
+    }
+
+    public enum ResourceType
+    {
+        GameObject,
+        Asset,
+        Atlas,
+        Audio,
+        Texture,
+        Text,
+        Movie,
     }
 }
