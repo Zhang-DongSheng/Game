@@ -72,38 +72,38 @@ namespace Utils
             return radian * Mathf.Rad2Deg;
         }
         /// <summary>
-        /// 已知两点求角度
+        /// 通过角度求位置
         /// </summary>
-        public static float VectorToAngle(Vector2 center, Vector2 target)
+        public static Vector3 AngleToPosition(Vector3 from, float angle, float distance)
         {
-            return Vector2.SignedAngle(target - center, Vector2.up);
-        }
-        /// <summary>
-        /// 已知角度和距离
-        /// </summary>
-        public static Vector2 AngleToVector(Vector2 center, float angle, float distance)
-        {
-            Vector2 position = new Vector2()
+            return new Vector3()
             {
-                x = center.x + distance * Mathf.Cos(angle * Mathf.Deg2Rad),
-                y = center.y + distance * Mathf.Sin(angle * Mathf.Deg2Rad)
+                x = from.x + distance * Mathf.Cos(angle * Mathf.Deg2Rad),
+                y = from.y,
+                z = from.z + distance * Mathf.Sin(angle * Mathf.Deg2Rad)
             };
-            return position;
         }
         /// <summary>
-        /// 距离
+        /// 通过位置求角度
         /// </summary>
-        public static float Distance(float num1, float num2)
+        public static float PositionToAngle(Vector3 from, Vector3 to)
         {
-            float temp;
+            Vector3 vector = to - from;
 
-            if (num1 < num2)
-            {
-                temp = num1;
-                num1 = num2;
-                num2 = temp;
-            }
-            return num1 - num2;
+            vector.y = vector.z;
+
+            return Vector2.SignedAngle(vector, Vector2.up);
+        }
+        /// <summary>
+        /// 通过位置求角度
+        /// </summary>
+        public static Quaternion PositionToRotation(Vector3 from, Vector3 to)
+        {
+            Vector3 vector = to - from;
+
+            vector.y = 0;
+
+            return vector == Vector3.zero ? Quaternion.identity : Quaternion.LookRotation(vector);
         }
     }
 }

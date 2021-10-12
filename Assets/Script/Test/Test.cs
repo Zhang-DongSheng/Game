@@ -3,24 +3,18 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 using Random = UnityEngine.Random;
 
 namespace TEST
 {
     public class Test : MonoBehaviour
     {
-        public Transform test;
-
-        public Route route;
-
-        private readonly ParaCurves curves = new ParaCurves();
+        public List<Transform> list;
 
         private void Awake()
         {
-            route.onComplete.AddListener(() =>
-            {
-                Debug.LogError("完成！");
-            });
+
         }
 
         private void OnEnable()
@@ -58,11 +52,11 @@ namespace TEST
         /// </summary>
         public void OnClick()
         {
-            Vector3 position = new Vector3(Random.Range(-50, 50), 0, Random.Range(-5, 5));
+            float angle = MathUtils.PositionToAngle(list[0].position, list[1].position);
 
-            List<Vector3> routes = curves.FetchCurves(Vector3.zero, position, 36, 10);
+            Quaternion rotation = MathUtils.PositionToRotation(list[0].position, list[1].position);
 
-            route.Startup(test, routes, 36);
+            Debug.Log(string.Format("角度1：{0}，角度2：{1}", angle, rotation.eulerAngles));
         }
         /// <summary>
         /// 菜单栏测试
@@ -74,7 +68,7 @@ namespace TEST
         }
     }
 
-    public class T2
+    public class TestClass
     {
         public string name;
 
