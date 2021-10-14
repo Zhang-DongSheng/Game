@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public static class Destroy
+    public static class DestroyUtils
     {
         public static void Release(Object target)
         {

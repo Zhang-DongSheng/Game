@@ -1,6 +1,7 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using UnityEngine;
 
 public static class DataConvert
 {
@@ -21,6 +22,20 @@ public static class DataConvert
             BinaryFormatter binary = new BinaryFormatter();
             return binary.Deserialize(stream) as T;
         }
+    }
+
+    public static string SerializeJson<T>(T target)
+    {
+        return JsonUtility.ToJson(target);
+    }
+
+    public static T DeserializeJson<T>(string json)
+    {
+        if (!string.IsNullOrEmpty(json))
+        {
+            return JsonUtility.FromJson<T>(json);
+        }
+        return default;
     }
 
     public static byte[] StringToByte(string value)

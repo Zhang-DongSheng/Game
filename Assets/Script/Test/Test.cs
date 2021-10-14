@@ -12,6 +12,10 @@ namespace TEST
     {
         public List<Transform> list;
 
+        public Vector3 position;
+
+        public Quaternion rotation;
+
         private void Awake()
         {
 

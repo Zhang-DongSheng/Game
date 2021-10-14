@@ -9,7 +9,7 @@ using UnityEngine.UI;
 namespace Utils
 {
     /// <summary>
-    /// ÆÁÄ»Í¼Ïñ
+    /// ÆÁÄ»Â¼ÖÆ
     /// </summary>
     public class CaptureScreen : MonoBehaviour
     {
