@@ -12,11 +12,10 @@ namespace TEST
     {
         public List<Transform> list;
 
-        public Vector3 position;
+        [Readonly] public Vector3 position;
 
-        public Quaternion rotation;
 
-        public BlendTreePosition tree;
+        [Readonly(false)] public Quaternion rotation;
 
         private void Awake()
         {
@@ -58,12 +57,7 @@ namespace TEST
         /// </summary>
         public void OnClick()
         {
-            BlendBase blend = tree.Blend();
-
-            if (blend is BlendPosition p)
-            {
-                Debug.LogError(p.position);
-            }
+            
         }
         /// <summary>
         /// 菜单栏测试
