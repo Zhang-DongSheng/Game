@@ -16,6 +16,8 @@ namespace TEST
 
         public Quaternion rotation;
 
+        public BlendTreePosition tree;
+
         private void Awake()
         {
 
@@ -56,11 +58,12 @@ namespace TEST
         /// </summary>
         public void OnClick()
         {
-            float angle = MathUtils.PositionToAngle(list[0].position, list[1].position);
+            BlendBase blend = tree.Blend();
 
-            Quaternion rotation = MathUtils.PositionToRotation(list[0].position, list[1].position);
-
-            Debug.Log(string.Format("角度1：{0}，角度2：{1}", angle, rotation.eulerAngles));
+            if (blend is BlendPosition p)
+            {
+                Debug.LogError(p.position);
+            }
         }
         /// <summary>
         /// 菜单栏测试

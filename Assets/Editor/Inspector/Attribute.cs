@@ -7,7 +7,9 @@ namespace UnityEditor.Inspector
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            GUI.enabled = false;
+            ReadonlyAttribute _attribute = attribute as ReadonlyAttribute;
+
+            GUI.enabled = _attribute.editor;
             EditorGUI.PropertyField(position, property, label, true);
             GUI.enabled = true;
         }
