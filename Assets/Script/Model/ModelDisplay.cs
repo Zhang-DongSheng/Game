@@ -25,7 +25,7 @@ namespace Game.Model
         {
             zoom += value;
 
-            zoom.Between(30, 100);
+            zoom = Mathf.Clamp(zoom, 30, 100);
 
             camera.Zoom(zoom);
         }
