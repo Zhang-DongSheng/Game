@@ -5,6 +5,10 @@ namespace Game
 {
     public static partial class Extension
     {
+        #region Dictionary
+        /// <summary>
+        /// 索引
+        /// </summary>
         public static TValue IndexOf<TKey, TValue>(this ICollection<KeyValuePair<TKey, TValue>> pairs, int index)
         {
             if (index > -1 && pairs.Count > index)
@@ -19,7 +23,9 @@ namespace Game
             }
             return default;
         }
-
+        /// <summary>
+        /// 查找
+        /// </summary>
         public static TValue Find<TKey, TValue>(this ICollection<KeyValuePair<TKey, TValue>> pairs, Predicate<TValue> match)
         {
             foreach (KeyValuePair<TKey, TValue> pair in pairs)
@@ -31,46 +37,84 @@ namespace Game
             }
             return default;
         }
-
+        /// <summary>
+        /// 转换为集合
+        /// </summary>
         public static List<TValue> ToList<TKey, TValue>(this ICollection<KeyValuePair<TKey, TValue>> pairs)
         {
-            List<TValue> list = new List<TValue>();
+            var list = new List<TValue>();
 
-            foreach (KeyValuePair<TKey, TValue> pair in pairs)
+            foreach (var pair in pairs)
             {
                 list.Add(pair.Value);
             }
             return list;
         }
+        #endregion
 
-        public static void Foreach<T>(this IList<T> list, Action<T> action)
+        #region IEnumerable
+        /// <summary>
+        /// 遍历
+        /// </summary>
+        public static void Foreach<T>(this IEnumerable<T> source, Action<T> action)
         {
             if (action == null) return;
 
-            foreach (T item in list)
-            {
-                action(item);
-            }
-        }
+            var enumerator = source.GetEnumerator();
 
-        public static T First<T>(this IList<T> list, T value = default)
+            while (enumerator.MoveNext())
+            {
+                action?.Invoke(enumerator.Current);
+            }
+            enumerator.Dispose();
+        }
+        /// <summary>
+        /// 转换为集合
+        /// </summary>
+        public static List<T> ToList<T>(this IEnumerable<T> source)
         {
-            if (list.Count > 0)
-            {
-                return list[0];
-            }
-            return value;
-        }
+            var list = new List<T>();
 
-        public static T Last<T>(this IList<T> list, T value = default)
+            var enumerator = source.GetEnumerator();
+
+            while (enumerator.MoveNext())
+            {
+                list.Add(enumerator.Current);
+            }
+            enumerator.Dispose();
+
+            return list;
+        }
+        /// <summary>
+        /// 转换为指定集合
+        /// </summary>
+        public static List<TResult> ToList<T, TResult>(this IEnumerable<T> source, Func<T, TResult> convert)
         {
-            int count = list.Count;
+            var list = new List<TResult>();
 
-            if (count > 0)
+            var enumerator = source.GetEnumerator();
+
+            while (enumerator.MoveNext())
             {
-                return list[count - 1];
+                list.Add(convert(enumerator.Current));
             }
-            return value;
+            enumerator.Dispose();
+
+            return list;
         }
+        /// <summary>
+        /// 非空
+        /// </summary>
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> source)
+        {
+            if (source == null) return false;
+
+            using (var enumerator = source.GetEnumerator())
+            {
+                if (enumerator.MoveNext()) return true;
+            }
+            return false;
+        }
+        #endregion
     }
 }

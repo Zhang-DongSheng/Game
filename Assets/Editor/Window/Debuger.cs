@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Game.Test;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,7 +44,7 @@ namespace UnityEditor.Window
 
             if (GUILayout.Button("测试", GUILayout.Height(36)))
             {
-                TEST.Test.Startover(parameter.ToArray());
+                Test.Startover(parameter.ToArray());
             }
         }
 

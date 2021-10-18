@@ -18,7 +18,7 @@ namespace UnityEditor
         private static List<string> DirList = new List<string>();
         private static bool isShowSize = true;
 
-        [MenuItem("EditorTools/FileSize &K")]
+        [MenuItem("Tools/FileSize &K")]
         private static void OpenPlaySize()
         {
             isShowSize = !isShowSize;

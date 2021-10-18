@@ -89,6 +89,15 @@ namespace Game
             transform.localScale = scale;
         }
         /// <summary>
+        /// 初始化
+        /// </summary>
+        public static void Default(this Transform transform)
+        {
+            transform.position = Vector3.zero;
+            transform.rotation = Quaternion.identity;
+            transform.localScale = Vector3.one;
+        }
+        /// <summary>
         /// 清除子节点
         /// </summary>
         public static void Clear(this Transform transform)
@@ -100,6 +109,24 @@ namespace Game
                     GameObject.Destroy(transform.GetChild(i).gameObject);
                 }
             }
+        }
+        /// <summary>
+        /// 查早对象
+        /// </summary>
+        public static Transform FindByName(this Transform transform, string name)
+        {
+            var children = transform.GetComponentsInChildren<Transform>();
+
+            int count = children.Length;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (children[i].name == name)
+                {
+                    return children[i];
+                }
+            }
+            return null;
         }
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using Utils;
 using Random = UnityEngine.Random;
 
-namespace TEST
+namespace Game.Test
 {
     public class Test : MonoBehaviour
     {
@@ -50,7 +50,31 @@ namespace TEST
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
+            Dictionary<string, TestClass> dic = new System.Collections.Generic.Dictionary<string, TestClass>();
 
+            List<TestClass> list = new List<TestClass>();
+
+            Stack<TestClass> stack = new Stack<TestClass>();
+
+            for (int i = 0; i < 10; i++)
+            {
+                TestClass item = new TestClass()
+                {
+                    name = string.Format("TC_{0}", i),
+                };
+                dic.Add(i.ToString(), item);
+
+                list.Add(item);
+
+                stack.Push(item);
+            }
+
+            var _strList = list.ToList<TestClass, string>((value) => { return value.name; });
+
+            for (int i = 0; i < _strList.Count; i++)
+            {
+                Debug.LogError(_strList[i]);
+            }
         }
         /// <summary>
         /// 点击测试
@@ -65,7 +89,7 @@ namespace TEST
         [ContextMenu("Test")]
         public void OnClickContextMenu()
         {
-            this.Relevance();
+            
         }
     }
 

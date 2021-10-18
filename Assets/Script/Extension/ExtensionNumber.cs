@@ -1,86 +1,127 @@
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game
 {
     public static partial class Extension
     {
-        static private string unit;
         /// <summary>
         /// 在...之间
         /// </summary>
-        public static int Between(this int number, int min, int max)
+        public static int Clamp(this int value, int min, int max)
         {
-            if (number < min)
-            {
-                number = min;
-            }
-            else if (number > max)
-            {
-                number = max;
-            }
-            return number;
+            value = Mathf.Clamp(value, min, max);
+
+            return value;
         }
         /// <summary>
         /// 在...之间
         /// </summary>
-        public static float Between(this float number, float min, float max)
+        public static float Clamp(this float value, float min, float max)
         {
-            if (number < min)
-            {
-                number = min;
-            }
-            else if (number > max)
-            {
-                number = max;
-            }
-            return number;
+            value = Mathf.Clamp(value, min, max);
+
+            return value;
         }
         /// <summary>
         /// 求和
         /// </summary>
-        public static int Sum(this int number, params int[] paramters)
+        public static int Sum(this int value, params int[] paramters)
         {
             for (int i = 0; i < paramters.Length; i++)
             {
-                number += paramters[i];
+                value += paramters[i];
             }
-            return number;
+            return value;
         }
         /// <summary>
         /// 求和
         /// </summary>
-        public static float Sum(this float number, params float[] paramters)
+        public static float Sum(this float value, params int[] paramters)
         {
             for (int i = 0; i < paramters.Length; i++)
             {
-                number += paramters[i];
+                value += paramters[i];
             }
-            return number;
-        }
-        /// <summary>
-        /// 求和
-        /// </summary>
-        public static long Sum(this long number, params long[] paramters)
-        {
-            for (int i = 0; i < paramters.Length; i++)
-            {
-                number += paramters[i];
-            }
-            return number;
+            return value;
         }
         /// <summary>
         /// 求差
         /// </summary>
-        public static int Difference(this int number, int compare)
+        public static int Difference(this int from, int to)
         {
-            return Math.Abs(number - compare);
+            return Math.Abs(from - to);
         }
         /// <summary>
         /// 求差
         /// </summary>
-        public static float Difference(this float number, float compare)
+        public static float Difference(this float from, float to)
         {
-            return Math.Abs(number - compare);
+            return Math.Abs(from - to);
+        }
+        /// <summary>
+        /// 数字处理
+        /// </summary>
+        public static float Command(IEnumerable<float> source, NumberCommand command)
+        {
+            float result = 0;
+
+            int index = 0;
+
+            var enumerator = source.GetEnumerator();
+
+            switch (command)
+            {
+                case NumberCommand.Sum:
+                    {
+                        while (enumerator.MoveNext())
+                        {
+                            result += enumerator.Current;
+                        }
+                    }
+                    break;
+                case NumberCommand.Min:
+                    {
+                        while (enumerator.MoveNext())
+                        {
+                            if (index++ == 0)
+                            {
+                                result = enumerator.Current;
+                            }
+                            else if (result > enumerator.Current)
+                            {
+                                result = enumerator.Current;
+                            }
+                        }
+                    }
+                    break;
+                case NumberCommand.Max:
+                    {
+                        while (enumerator.MoveNext())
+                        {
+                            if (index++ == 0)
+                            {
+                                result = enumerator.Current;
+                            }
+                            else if (result < enumerator.Current)
+                            {
+                                result = enumerator.Current;
+                            }
+                        }
+                    }
+                    break;
+            }
+            enumerator.Dispose();
+
+            return result;
+        }
+        /// <summary>
+        /// 保留指定小数位
+        /// </summary>
+        public static float Round(float value, int digit)
+        {
+            return (float)Math.Round(value, digit);
         }
         /// <summary>
         /// 转化为角度区间
@@ -103,72 +144,12 @@ namespace Game
             }
             return number;
         }
-        /// <summary>
-        /// 显示数量
-        /// </summary>
-        public static string ToNumber(this int number, int digit)
-        {
-            if (number < 1000)
-            {
-                value = number;
-            }
-            else if (number < 1000000)
-            {
-                value = number / 1000; unit = "k+";
-            }
-            else
-            {
-                value = number / 1000000; unit = "m+";
-            }
-            return string.Format("{0}{1}", Math.Round(value, digit), unit);
-        }
-        /// <summary>
-        /// 显示大小
-        /// </summary>
-        public static string ToSize(this long number)
-        {
-            if (number >= GB)
-            {
-                value = number / GB; unit = "G";
-            }
-            else if (number >= MB)
-            {
-                value = number / MB; unit = "M";
-            }
-            else if (number >= KB)
-            {
-                value = number / KB; unit = "K";
-            }
-            else
-            {
-                value = number; unit = "B";
-            }
-            return string.Format("{0}{1}", value, unit);
-        }
-        /// <summary>
-        /// 显示时间
-        /// </summary>
-        public static string ToTime(this int seconds)
-        {
-            TimeSpan span = TimeSpan.FromSeconds(seconds);
+    }
 
-            if (span.Days > 0)
-            {
-                value = span.Days; unit = "Day";
-            }
-            else if (span.Hours > 0)
-            {
-                value = span.Hours; unit = "h";
-            }
-            else if (span.Minutes > 0)
-            {
-                value = span.Minutes; unit = "m";
-            }
-            else
-            {
-                value = seconds; unit = "s";
-            }
-            return string.Format("{0}{1}", value, unit);
-        }
+    public enum NumberCommand
+    {
+        Sum,
+        Min,
+        Max,
     }
 }

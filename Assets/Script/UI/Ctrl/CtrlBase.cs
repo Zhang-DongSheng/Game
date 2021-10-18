@@ -95,7 +95,7 @@ namespace Game.UI
 
             view.SetName(key.ToString());
 
-            rect.Reset(); rect.Full();
+            rect.Reset(); rect.SetFull();
 
             view.Init(); Show();
 

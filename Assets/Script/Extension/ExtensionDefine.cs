@@ -12,16 +12,14 @@ namespace Game
 
         private const float ANGLE45 = 45f;
 
-        private const float ANGLE90 = 90f;
-
         private const float ANGLE135 = 135f;
 
         private const float HALF = 0.5f;
 
-        private const float ZERO = 0;
+        private static string unit;
 
-        internal static float value;
+        private static float value;
 
-        internal static double length;
+        private static double length;
     }
 }

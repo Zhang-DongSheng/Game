@@ -48,7 +48,7 @@ namespace Game.UI
 
                     RectTransform rect = parent.AddComponent<RectTransform>();
 
-                    rect.Reset(); rect.Full();
+                    rect.Reset(); rect.SetFull();
 
                     _parents.Add(rect);
 

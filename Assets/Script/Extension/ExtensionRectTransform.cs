@@ -4,67 +4,40 @@ namespace Game
 {
     public static partial class Extension
     {
-        static private Vector2 anchorMin;
+        private static Vector2 anchorMin;
 
-        static private Vector2 anchorMax;
+        private static Vector2 anchorMax;
 
-        static private Vector2 delta;
+        private static Vector2 delta, offset;
+
+        private static readonly Vector3[] corners = new Vector3[4];
         /// <summary>
-        /// 全屏
+        /// 获取大小
         /// </summary>
-        public static void Full(this RectTransform target, RectOffset offset = null)
+        public static Vector2 GetSize(this RectTransform transform)
         {
-            anchorMin = target.anchorMin;
-            anchorMax = target.anchorMax;
-
-            anchorMin.x = anchorMin.y = 0;
-            anchorMax.x = anchorMax.y = 1;
-
-            target.anchorMin = anchorMin;
-            target.anchorMax = anchorMax;
-
-            if (offset != null)
-            {
-                delta = new Vector2()
-                {
-                    x = offset.left + offset.right,
-                    y = offset.top + offset.bottom,
-                };
-                target.sizeDelta = delta * -1f;
-
-                position = new Vector2()
-                {
-                    x = offset.left - offset.right,
-                    y = offset.bottom - offset.top,
-                };
-                target.anchoredPosition = position * 0.5f;
-            }
-            else
-            {
-                target.sizeDelta = Vector2.zero;
-                target.anchoredPosition = Vector2.zero;
-            }
+            return transform.rect.size;
         }
         /// <summary>
-        /// 偏移
+        /// 获取偏移
         /// </summary>
-        public static Vector2 CanvasDelta(RectTransform target)
+        public static Vector2 GetOffset(RectTransform transform)
         {
-            delta = Vector2.zero;
+            offset = Vector2.zero;
 
-            while (target != null)
+            while (transform != null)
             {
-                if (target.TryGetComponent(out Canvas _))
+                if (transform.TryGetComponent(out Canvas _))
                 {
                     break;
                 }
                 else
                 {
-                    delta += (Vector2)target.localPosition;
+                    offset += (Vector2)transform.localPosition;
 
-                    if (target.parent is RectTransform parent)
+                    if (transform.parent is RectTransform parent)
                     {
-                        target = parent;
+                        transform = parent;
                     }
                     else
                     {
@@ -72,15 +45,38 @@ namespace Game
                     }
                 }
             }
-            return delta;
+            return offset;
+        }
+        /// <summary>
+        /// 获取顶点坐标数组
+        /// </summary>
+        public static Vector3[] GetCorners(this RectTransform transform, bool local = true)
+        {
+            if (local)
+            {
+                transform.GetLocalCorners(corners);
+            }
+            else
+            {
+                transform.GetWorldCorners(corners);
+            }
+            return corners;
+        }
+        /// <summary>
+        /// 设置大小
+        /// </summary>
+        public static void SetSize(this RectTransform transform, Vector2 size)
+        {
+            transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size.x);
+            transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size.y);
         }
         /// <summary>
         /// 设置锚点
         /// </summary>
-        public static void SetAnchors(this RectTransform target, TextAnchor anchor)
+        public static void SetAnchors(this RectTransform transform, TextAnchor anchor)
         {
-            anchorMin = target.anchorMin;
-            anchorMax = target.anchorMax;
+            anchorMin = transform.anchorMin;
+            anchorMax = transform.anchorMax;
 
             switch (anchor)
             {
@@ -121,25 +117,50 @@ namespace Game
                     anchorMin.y = anchorMax.y = 0;
                     break;
             }
-            target.anchorMin = anchorMin;
-            target.anchorMax = anchorMax;
+            transform.anchorMin = anchorMin;
+            transform.anchorMax = anchorMax;
         }
         /// <summary>
         /// 设置位置
         /// </summary>
-        public static void SetAnchoredPosition(this RectTransform target, Vector2 position)
+        public static void SetAnchoredPosition(this RectTransform transform, Vector2 position)
         {
-            target.anchoredPosition = position;
+            transform.anchoredPosition = position;
         }
         /// <summary>
-        /// 设置大小
+        /// 设置全屏
         /// </summary>
-        public static void SetSize(this RectTransform target, Vector2 size)
+        public static void SetFull(this RectTransform transform, RectOffset offset = null)
         {
-            if (target.TryGetComponent(out RectTransform rect))
+            anchorMin = transform.anchorMin;
+            anchorMax = transform.anchorMax;
+
+            anchorMin.x = anchorMin.y = 0;
+            anchorMax.x = anchorMax.y = 1;
+
+            transform.anchorMin = anchorMin;
+            transform.anchorMax = anchorMax;
+
+            if (offset != null)
             {
-                rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size.x);
-                rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size.y);
+                delta = new Vector2()
+                {
+                    x = offset.left + offset.right,
+                    y = offset.top + offset.bottom,
+                };
+                transform.sizeDelta = delta * -1f;
+
+                position = new Vector2()
+                {
+                    x = offset.left - offset.right,
+                    y = offset.bottom - offset.top,
+                };
+                transform.anchoredPosition = position * 0.5f;
+            }
+            else
+            {
+                transform.sizeDelta = Vector2.zero;
+                transform.anchoredPosition = Vector2.zero;
             }
         }
         /// <summary>
@@ -162,19 +183,19 @@ namespace Game
         /// <summary>
         /// 重置
         /// </summary>
-        public static void Reset(this RectTransform target)
+        public static void Reset(this RectTransform transform)
         {
-            target.anchorMin = Vector2.one * HALF;
+            transform.anchorMin = Vector2.one * HALF;
 
-            target.anchorMax = Vector2.one * HALF;
+            transform.anchorMax = Vector2.one * HALF;
 
-            target.pivot = Vector2.one * HALF;
+            transform.pivot = Vector2.one * HALF;
 
-            target.anchoredPosition = Vector3.zero;
+            transform.anchoredPosition = Vector3.zero;
 
-            target.localRotation = Quaternion.identity;
+            transform.localRotation = Quaternion.identity;
 
-            target.localScale = Vector3.one;
+            transform.localScale = Vector3.one;
         }
     }
 }

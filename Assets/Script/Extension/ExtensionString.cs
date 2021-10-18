@@ -8,7 +8,7 @@ namespace Game
 {
     public static partial class Extension
     {
-        static private readonly StringBuilder builder = new StringBuilder();
+        private static readonly StringBuilder builder = new StringBuilder();
         /// <summary>
         /// 追加
         /// </summary>
@@ -90,47 +90,8 @@ namespace Game
             }
             return builder.ToString();
         }
-        /// <summary>
-        /// 判断是否存在双键数值
-        /// </summary>
-        public static bool RegexContains(this string str, string start, string end = null)
-        {
-            try
-            {
-                return new Regex(string.Format(@"{0}(.+?){1}", start, end)).IsMatch(str);
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
-            return false;
-        }
-        /// <summary>
-        /// 获取双键数值
-        /// </summary>
-        public static List<string> RegexList(this string str, string start, string end)
-        {
-            try
-            {
-                Regex regex = new Regex(string.Format(@"{0}(.+?){1}", start, end));
 
-                if (regex.IsMatch(str))
-                {
-                    List<string> list = new List<string>();
-
-                    foreach (Match match in regex.Matches(str))
-                    {
-                        list.Add(match.Groups[1].Value);
-                    }
-                    return list;
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
-            return null;
-        }
+        #region Regex
         /// <summary>
         /// 判断字符串是否是数值型
         /// </summary>
@@ -166,6 +127,50 @@ namespace Game
         {
             return Regex.IsMatch(str, @"^\d{17}[\d|X]|\d{15}$");
         }
+        /// <summary>
+        /// 判断字符串是否存在双键数值
+        /// </summary>
+        public static bool IsContainsKey(this string str, string start, string end = null)
+        {
+            try
+            {
+                return new Regex(string.Format(@"{0}(.+?){1}", start, end)).IsMatch(str);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+            return false;
+        }
+        /// <summary>
+        /// 获取字符串中包含的参数
+        /// </summary>
+        public static List<string> GetParameters(this string str, string start, string end)
+        {
+            try
+            {
+                Regex regex = new Regex(string.Format(@"{0}(.+?){1}", start, end));
+
+                if (regex.IsMatch(str))
+                {
+                    List<string> list = new List<string>();
+
+                    foreach (Match match in regex.Matches(str))
+                    {
+                        list.Add(match.Groups[1].Value);
+                    }
+                    return list;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+            return null;
+        }
+        #endregion
+
+        #region Parse
         /// <summary>
         /// 转换为泛型
         /// </summary>
@@ -340,5 +345,76 @@ namespace Game
 
             return ColorUtility.TryParseHtmlString(str, out color);
         }
+        #endregion
+
+        #region ToString
+        /// <summary>
+        /// 显示数量
+        /// </summary>
+        public static string ToNumberString(this int number, int digit)
+        {
+            if (number < 1000)
+            {
+                value = number;
+            }
+            else if (number < 1000000)
+            {
+                value = number / 1000; unit = "k+";
+            }
+            else
+            {
+                value = number / 1000000; unit = "m+";
+            }
+            return string.Format("{0}{1}", Math.Round(value, digit), unit);
+        }
+        /// <summary>
+        /// 显示大小
+        /// </summary>
+        public static string ToSizeString(this long number)
+        {
+            if (number >= GB)
+            {
+                value = number / GB; unit = "G";
+            }
+            else if (number >= MB)
+            {
+                value = number / MB; unit = "M";
+            }
+            else if (number >= KB)
+            {
+                value = number / KB; unit = "K";
+            }
+            else
+            {
+                value = number; unit = "B";
+            }
+            return string.Format("{0}{1}", value, unit);
+        }
+        /// <summary>
+        /// 显示时间
+        /// </summary>
+        public static string ToCountdownString(this int seconds)
+        {
+            TimeSpan span = TimeSpan.FromSeconds(seconds);
+
+            if (span.Days > 0)
+            {
+                value = span.Days; unit = "Day";
+            }
+            else if (span.Hours > 0)
+            {
+                value = span.Hours; unit = "h";
+            }
+            else if (span.Minutes > 0)
+            {
+                value = span.Minutes; unit = "m";
+            }
+            else
+            {
+                value = seconds; unit = "s";
+            }
+            return string.Format("{0}{1}", value, unit);
+        }
+        #endregion
     }
 }

@@ -122,7 +122,7 @@ namespace UnityEngine.UI
 
                 rect.SetParent(transform);
 
-                rect.Full();
+                rect.SetFull();
 
                 background = go.AddComponent<Image>();
             }
