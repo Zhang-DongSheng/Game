@@ -12,14 +12,19 @@ namespace Game.Test
     {
         public List<Transform> list;
 
-        [Readonly] public Vector3 position;
-
-
-        [Readonly(false)] public Quaternion rotation;
+        public Vector3 position;
 
         private void Awake()
         {
+            UnregularScrollList scroll = GetComponent<UnregularScrollList>();
 
+            List<string> list = new List<string>();
+
+            for (int i = 0; i < 100; i++)
+            {
+                list.Add(i.ToString());
+            }
+            scroll.Refresh(list);
         }
 
         private void OnEnable()
@@ -50,31 +55,7 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            Dictionary<string, TestClass> dic = new System.Collections.Generic.Dictionary<string, TestClass>();
-
-            List<TestClass> list = new List<TestClass>();
-
-            Stack<TestClass> stack = new Stack<TestClass>();
-
-            for (int i = 0; i < 10; i++)
-            {
-                TestClass item = new TestClass()
-                {
-                    name = string.Format("TC_{0}", i),
-                };
-                dic.Add(i.ToString(), item);
-
-                list.Add(item);
-
-                stack.Push(item);
-            }
-
-            var _strList = list.ToList<TestClass, string>((value) => { return value.name; });
-
-            for (int i = 0; i < _strList.Count; i++)
-            {
-                Debug.LogError(_strList[i]);
-            }
+            
         }
         /// <summary>
         /// 点击测试

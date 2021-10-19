@@ -7,7 +7,7 @@ namespace Game.UI
 {
     public class UIMail : UIBase
     {
-        [SerializeField] UnregularLoopScrollList scroll;
+        [SerializeField] UnregularScrollList scroll;
 
         private readonly List<int> list = new List<int>();
 
