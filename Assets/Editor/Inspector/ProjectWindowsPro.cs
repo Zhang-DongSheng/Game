@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace UnityEditor
 {
-    public class FileCapacity
+    public class ProjectWindowsPro
     {
         private const string REMOVE_STR = "Assets";
         private const string FILESIZE = "FileSize";
@@ -18,7 +18,7 @@ namespace UnityEditor
         private static List<string> DirList = new List<string>();
         private static bool isShowSize = true;
 
-        [MenuItem("Tools/FileSize &K")]
+        [MenuItem("Window/FileSize &K")]
         private static void OpenPlaySize()
         {
             isShowSize = !isShowSize;

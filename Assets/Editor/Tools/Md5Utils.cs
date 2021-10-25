@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UnityEditor.Window
 {
-    public class Md5Tools : CustomWindow
+    public class Md5Utils : CustomWindow
     {
         private string input_string, input_file;
 
@@ -16,7 +16,7 @@ namespace UnityEditor.Window
         [MenuItem("Tools/File/MD5")]
         protected static void Open()
         {
-            Open<Md5Tools>("Md5");
+            Open<Md5Utils>("Md5");
         }
 
         protected override void Init() { }

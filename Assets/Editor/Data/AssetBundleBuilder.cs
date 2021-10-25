@@ -310,7 +310,7 @@ namespace UnityEditor.Window
                     {
                         if (GUILayout.Button("上传", GUILayout.Height(60)))
                         {
-                            Md5Tools.Record(HistoryPath, string.Empty, items);
+                            Md5Utils.Record(HistoryPath, string.Empty, items);
                             Upload();
                         }
 
@@ -518,7 +518,7 @@ namespace UnityEditor.Window
 
             if (File.Exists(path))
             {
-                Md5Tools.Recompilation(path);
+                Md5Utils.Recompilation(path);
 
                 ShowNotification(new GUIContent("Upload Md5 Success!"));
             }

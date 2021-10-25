@@ -15,8 +15,6 @@ namespace UnityEditor.Window
 
 		private readonly Index idxPrefab = new Index(), idxAsset = new Index();
 
-		private readonly Index idxSrc = new Index(), idxDst = new Index();
-
 		private readonly Index idxShader = new Index();
 
 		private readonly Input iptShader = new Input();
@@ -65,28 +63,6 @@ namespace UnityEditor.Window
 					prefab = AssetDatabase.LoadAssetAtPath<GameObject>(file.asset);
 				}
 			};
-
-			idxSrc.action = idxDst.action = (index) =>
-			{
-				if (idxSrc.index == 0 && idxDst.index == 0)
-				{
-					command = "Nothing";
-				}
-				else if (idxSrc.index == 0 && idxDst.index != 0)
-				{
-					command = "添加";
-				}
-				else if (idxSrc.index != 0 && idxDst.index != 0)
-				{
-					command = "替换";
-				}
-				else if (idxSrc.index != 0 && idxDst.index == 0)
-				{
-					command = "移除";
-				}
-			};
-
-			types = TypeDefine.ToArrayString();
 		}
 
 		protected override void Refresh()
@@ -223,12 +199,12 @@ namespace UnityEditor.Window
 
 				GUILayout.BeginVertical(GUILayout.Width(200));
 				{
-					if (GUILayout.Button("检查"))
+					if (GUILayout.Button("检查引用"))
 					{
 						if (idxPrefab.index == 0) { }
 						else
 						{
-							Missing(file.asset);
+							PrefabModify.Missing(file.asset);
 						}
 					}
 
@@ -238,7 +214,7 @@ namespace UnityEditor.Window
 
 						if (GUILayout.Button("图像"))
 						{
-							ModifyGraphicColor(file.asset, color[0]);
+							PrefabModify.ModifyGraphicColor(file.asset, color[0]);
 						}
 					});
 
@@ -248,7 +224,7 @@ namespace UnityEditor.Window
 
 						if (GUILayout.Button("文本"))
 						{
-							ModifyTextColor(file.asset, color[1]);
+							PrefabModify.ModifyTextColor(file.asset, color[1]);
 						}
 					});
 
@@ -258,7 +234,7 @@ namespace UnityEditor.Window
 
 						if (GUILayout.Button("阴影"))
 						{
-							ModifyShadowColor(file.asset, color[2]);
+							PrefabModify.ModifyShadowColor(file.asset, color[2]);
 						}
 					});
 
@@ -266,28 +242,9 @@ namespace UnityEditor.Window
 					{
 						if (GUILayout.Button("触发:false"))
 						{
-							ModifyGraphicRaycast(file.asset);
+							PrefabModify.ModifyGraphicRaycast(file.asset);
 						}
 					});
-
-					Horizontal(() =>
-					{
-						GUILayout.Label("Src");
-
-						idxSrc.index = EditorGUILayout.Popup(idxSrc.index, types);
-					});
-
-					Horizontal(() =>
-					{
-						GUILayout.Label("Dst");
-
-						idxDst.index = EditorGUILayout.Popup(idxDst.index, types);
-					});
-
-					if (GUILayout.Button(command))
-					{
-						ModifyComponent(file.asset, idxSrc.index, idxDst.index);
-					}
 				}
 				GUILayout.EndVertical();
 			}
@@ -297,120 +254,6 @@ namespace UnityEditor.Window
 		private void RefreshOther()
 		{
 
-		}
-
-		private void Missing(params string[] files)
-		{
-			foreach (var file in files)
-			{
-				GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(file);
-
-				if (FindReferences.Missing(prefab)) { }
-				else
-				{
-					Debug.LogFormat("<color=green>[{0}]</color> 无丢失引用", prefab.name);
-				}
-			}
-		}
-
-		private void ModifyGraphicColor(string path, Color color)
-		{
-			GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-
-			Graphic[] graphics = prefab.GetComponentsInChildren<Graphic>();
-
-			for (int i = 0; i < graphics.Length; i++)
-			{
-				graphics[i].color = color;
-			}
-			PrefabUtility.SavePrefabAsset(prefab);
-		}
-
-		private void ModifyTextColor(string path, Color color)
-		{
-			GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-
-			Text[] texts = prefab.GetComponentsInChildren<Text>();
-
-			for (int i = 0; i < texts.Length; i++)
-			{
-				texts[i].color = color;
-			}
-			PrefabUtility.SavePrefabAsset(prefab);
-		}
-
-		private void ModifyShadowColor(string path, Color color)
-		{
-			GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-
-			Shadow[] shadows = prefab.GetComponentsInChildren<Shadow>();
-
-			for (int i = 0; i < shadows.Length; i++)
-			{
-				shadows[i].effectColor = color;
-			}
-			PrefabUtility.SavePrefabAsset(prefab);
-		}
-
-		private void ModifyGraphicRaycast(string path)
-		{
-			GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-
-			Graphic[] graphics = prefab.GetComponentsInChildren<Graphic>();
-
-			for (int i = 0; i < graphics.Length; i++)
-			{
-				graphics[i].raycastTarget = false;
-			}
-			PrefabUtility.SavePrefabAsset(prefab);
-		}
-
-		private void ModifyComponent(string path, int src, int dst)
-		{
-			GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-
-			Type old = TypeDefine.GetType(src), now = TypeDefine.GetType(dst);
-
-			if (old == null && now == null)
-			{
-
-			}
-			else if (old == null && now != null)
-			{
-				if (prefab.TryGetComponent(now, out _)) { }
-				else
-				{
-					prefab.AddComponent(now);
-				}
-			}
-			else if (old != null && now != null)
-			{
-				Component[] components = prefab.GetComponentsInChildren(old);
-
-				GameObject child;
-
-				for (int i = 0; i < components.Length; i++)
-				{
-					child = components[i].gameObject;
-
-					DestroyImmediate(components[i], true);
-
-					if (child.TryGetComponent(now, out _)) { }
-					else
-					{
-						child.AddComponent(now);
-					}
-				}
-			}
-			else if (old != null && now == null)
-			{
-				Component[] components = prefab.GetComponentsInChildren(old);
-
-				for (int i = 0; i < components.Length; i++)
-				{
-					DestroyImmediate(components[i], true);
-				}
-			}
 		}
 	}
 }
