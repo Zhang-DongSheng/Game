@@ -55,7 +55,23 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            
+            List<TestClass> list = new List<TestClass>();
+
+            for (int i = 0; i < 100; i++)
+            {
+                list.Add(new TestClass()
+                {
+                    name = i.ToString(),
+                    weight = i,
+                });
+            }
+
+            for (int i = 0; i < 1000; i++)
+            {
+                int index = RandomWeighting.Range(list);
+
+                Debuger.LogError(Author.Owner, list[index].name);
+            }
         }
         /// <summary>
         /// 点击测试
@@ -74,14 +90,17 @@ namespace Game.Test
         }
     }
 
-    public class TestClass
+    public class TestClass : IWeight
     {
         public string name;
+
+        public float weight;
 
         public string XX
         {
             get; set;
         }
+        public float Weight { get { return weight; } }
 
         public void Do()
         {

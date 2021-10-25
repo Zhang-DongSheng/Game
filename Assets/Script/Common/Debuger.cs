@@ -99,23 +99,25 @@ namespace UnityEngine
 
         private static string Format(Author author, object message)
         {
-            builder.Clear();
+            //builder.Clear();
 
-            builder.Append("[");
+            //builder.Append("[");
 
-            builder.Append(author);
+            //builder.Append(author);
 
-            builder.Append(":");
+            //builder.Append(":");
 
-            builder.Append(Application.isPlaying ? Time.time : DateTime.Now.Millisecond);
+            //builder.Append(Application.isPlaying ? Time.time : DateTime.Now.Millisecond);
 
-            builder.Append("]");
+            //builder.Append("]");
 
-            builder.Append(" ");
+            //builder.Append(" ");
 
-            builder.Append(message);
+            //builder.Append(message);
 
-            return builder.ToString();
+            //return builder.ToString();
+
+            return message.ToString();
         }
     }
 }
