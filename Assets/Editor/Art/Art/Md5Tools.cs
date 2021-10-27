@@ -7,75 +7,8 @@ using UnityEngine;
 
 namespace UnityEditor.Window
 {
-    public class Md5Utils : CustomWindow
+    public class Md5Tools
     {
-        private string input_string, input_file;
-
-        private string result;
-
-        [MenuItem("Tools/File/MD5")]
-        protected static void Open()
-        {
-            Open<Md5Utils>("Md5");
-        }
-
-        protected override void Init() { }
-
-        protected override void Refresh()
-        {
-            GUILayout.BeginArea(new Rect(10, 10, Screen.width - 20, Screen.height - 20));
-            {
-                GUILayout.BeginHorizontal(GUILayout.Height(25));
-                {
-                    GUILayout.Label("字符串", GUILayout.Width(50));
-
-                    input_string = GUILayout.TextField(input_string);
-
-                    if (GUILayout.Button("确定", GUILayout.Width(60)))
-                    {
-                        if (string.IsNullOrEmpty(input_string))
-                        {
-                            ShowNotification(new GUIContent("Error: Empty!"));
-                        }
-                        else
-                        {
-                            result = ComputeContent(input_string);
-                        }
-                    }
-                }
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal(GUILayout.Height(25));
-                {
-                    GUILayout.Label("文件", GUILayout.Width(50));
-
-                    if (GUILayout.Button(input_file))
-                    {
-                        input_file = EditorUtility.OpenFilePanel("Md5", "", "");
-                    }
-                    if (GUILayout.Button("确定", GUILayout.Width(60)))
-                    {
-                        result = ComputeFile(input_file);
-                    }
-                }
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginHorizontal(GUILayout.Height(30));
-                {
-                    GUILayout.Label("MD5", GUILayout.Width(50));
-
-                    GUILayout.Label(result, new GUIStyle() { alignment = TextAnchor.MiddleCenter, fontSize = 20 });
-
-                    if (GUILayout.Button("复制", GUILayout.Width(60)))
-                    {
-                        GUIUtility.systemCopyBuffer = result;
-                    }
-                }
-                GUILayout.EndHorizontal();
-            }
-            GUILayout.EndArea();
-        }
-
         public static string ComputeContent(string value)
         {
             string result = string.Empty;

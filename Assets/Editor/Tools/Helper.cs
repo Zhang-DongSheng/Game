@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace UnityEditor
 {
-    public class GameUtils
+    public class Helper
     {
         private static int pictureIndex;
 

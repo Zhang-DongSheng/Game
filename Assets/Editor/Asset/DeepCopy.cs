@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityEditor.Window
 {
-	public class CopyUtils : CustomWindow
+	public class DeepCopy : CustomWindow
 	{
 		private readonly float LINE = 30f;
 
@@ -23,7 +23,7 @@ namespace UnityEditor.Window
 		{
 			if (Selection.activeGameObject != null)
 			{
-				Open<CopyUtils>("拷贝");
+				Open<DeepCopy>("拷贝");
 			}
 			else
 			{

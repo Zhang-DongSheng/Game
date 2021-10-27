@@ -13,19 +13,23 @@ namespace UnityEditor.Window
 
 		private readonly string[] shaders = new string[2] { "Reference", "Find" };
 
-		private readonly Index idxPrefab = new Index(), idxAsset = new Index();
+		private readonly Index indexAsset = new Index();
 
-		private readonly Index idxShader = new Index();
+		private readonly Index indexPrefab = new Index();
 
-		private readonly Input iptShader = new Input();
+		private readonly Index indexShader = new Index();
 
-		private string[] types;
+		private readonly Input inputShader = new Input();
+
+		private readonly Input inputFile = new Input();
+
+		private readonly Input inputString = new Input();
 
 		private List<ItemFile> list;
 
-		private string[] _list;
+		private string message;
 
-		private string command = "Nothing";
+		private string[] _list;
 
 		private ItemFile file;
 
@@ -50,7 +54,7 @@ namespace UnityEditor.Window
 				_list[i] = list[i].name;
 			}
 
-			idxPrefab.action = (index) =>
+			indexPrefab.action = (index) =>
 			{
 				file = list[index];
 
@@ -92,7 +96,57 @@ namespace UnityEditor.Window
 
 		private void RefreshMain()
 		{
+			GUILayout.BeginArea(new Rect(10, 10, Screen.width - 20, Screen.height - 20));
+			{
+				GUILayout.BeginHorizontal(GUILayout.Height(25));
+				{
+					GUILayout.Label("字符串", GUILayout.Width(50));
 
+					inputString.value = GUILayout.TextField(inputString.value);
+
+					if (GUILayout.Button("确定", GUILayout.Width(60)))
+					{
+						if (string.IsNullOrEmpty(inputString.value))
+						{
+							ShowNotification(new GUIContent("Error: Empty!"));
+						}
+						else
+						{
+							message = Md5Tools.ComputeContent(inputString.value);
+						}
+					}
+				}
+				GUILayout.EndHorizontal();
+
+				GUILayout.BeginHorizontal(GUILayout.Height(25));
+				{
+					GUILayout.Label("文件", GUILayout.Width(50));
+
+					if (GUILayout.Button(inputFile.value))
+					{
+						inputFile.value = EditorUtility.OpenFilePanel("Md5", "", "");
+					}
+					if (GUILayout.Button("确定", GUILayout.Width(60)))
+					{
+						message = Md5Tools.ComputeFile(inputFile.value);
+					}
+				}
+				GUILayout.EndHorizontal();
+
+				GUILayout.BeginHorizontal(GUILayout.Height(30));
+				{
+					GUILayout.Label("MD5", GUILayout.Width(50));
+
+					GUILayout.Label(message, new GUIStyle() { alignment = TextAnchor.MiddleCenter, fontSize = 20 });
+
+					if (GUILayout.Button("复制", GUILayout.Width(60)))
+					{
+						GUIUtility.systemCopyBuffer = message;
+					}
+				}
+				GUILayout.EndHorizontal();
+			}
+			GUILayout.EndArea();
 		}
 
 		private void RefreshAsset()
@@ -101,7 +155,7 @@ namespace UnityEditor.Window
 			{
 				GUILayout.BeginVertical();
 				{
-					idxAsset.index = EditorGUILayout.Popup(idxAsset.index, assets);
+					indexAsset.index = EditorGUILayout.Popup(indexAsset.index, assets);
 				}
 				GUILayout.EndVertical();
 
@@ -109,7 +163,7 @@ namespace UnityEditor.Window
 
 				GUILayout.BeginVertical(GUILayout.Width(200));
 				{
-					switch (idxAsset.index)
+					switch (indexAsset.index)
 					{
 						case 0:
 							{
@@ -127,9 +181,9 @@ namespace UnityEditor.Window
 							}
 						case 4:
 							{
-								idxShader.index = EditorGUILayout.Popup(idxShader.index, shaders);
+								indexShader.index = EditorGUILayout.Popup(indexShader.index, shaders);
 
-								switch (idxShader.index)
+								switch (indexShader.index)
 								{
 									case 0:
 										{
@@ -145,11 +199,11 @@ namespace UnityEditor.Window
 										break;
 									case 1:
 										{
-											iptShader.value = GUILayout.TextField(iptShader.value);
+											inputShader.value = GUILayout.TextField(inputShader.value);
 
 											if (GUILayout.Button("查找引用该资源的所有Material"))
 											{
-												FindReferences.FindMaterialOfReferenceShader(iptShader.value);
+												FindReferences.FindMaterialOfReferenceShader(inputShader.value);
 											}
 										}
 										break;
@@ -160,11 +214,11 @@ namespace UnityEditor.Window
 							{
 								if (GUILayout.Button("检查资源引用"))
 								{
-									FindReferences.Empty(string.Format("t:{0}", assets[idxAsset.index]), "Assets");
+									FindReferences.Empty(string.Format("t:{0}", assets[indexAsset.index]), "Assets");
 								}
 								if (GUILayout.Button("检查资源大小"))
 								{
-									FindReferences.Overflow(string.Format("t:{0}", assets[idxAsset.index]), "Assets");
+									FindReferences.Overflow(string.Format("t:{0}", assets[indexAsset.index]), "Assets");
 								}
 							}
 							break;
@@ -179,7 +233,7 @@ namespace UnityEditor.Window
 		{
 			GUILayout.BeginHorizontal();
 			{
-				idxPrefab.index = EditorGUILayout.Popup(idxPrefab.index, _list);
+				indexPrefab.index = EditorGUILayout.Popup(indexPrefab.index, _list);
 			}
 			GUILayout.EndHorizontal();
 
@@ -201,7 +255,7 @@ namespace UnityEditor.Window
 				{
 					if (GUILayout.Button("检查引用"))
 					{
-						if (idxPrefab.index == 0) { }
+						if (indexPrefab.index == 0) { }
 						else
 						{
 							PrefabModify.Missing(file.asset);

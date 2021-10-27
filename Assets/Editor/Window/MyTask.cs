@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityEditor.Window
 {
-    public class Task : CustomWindow
+    public class MyTask : CustomWindow
     {
         private const string KEY = "TASKINFORMATION";
 
@@ -19,7 +19,7 @@ namespace UnityEditor.Window
         [MenuItem("Window/Task")]
         protected static void Open()
         {
-            Open<Task>("任务中心");
+            Open<MyTask>("任务中心");
         }
 
         protected override void Init()

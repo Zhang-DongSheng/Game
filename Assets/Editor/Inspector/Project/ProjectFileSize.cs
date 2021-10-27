@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace UnityEditor
 {
-    public class ProjectWindowsPro
+    public class ProjectFileSize
     {
         private const string REMOVE_STR = "Assets";
         private const string FILESIZE = "FileSize";
