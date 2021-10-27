@@ -12,9 +12,9 @@ namespace UnityEngine
     }
     public static class Debuger
     {
-        private const bool DEBUG = true;
+        public static bool DEBUG = true;
 
-        private static readonly Dictionary<Author, LogType> authors = new Dictionary<Author, LogType>()
+        public static readonly Dictionary<Author, LogType> authors = new Dictionary<Author, LogType>()
         {
             { Author.None, LogType.Exception},
             { Author.Test, LogType.Log},
@@ -99,24 +99,6 @@ namespace UnityEngine
 
         private static string Format(Author author, object message)
         {
-            //builder.Clear();
-
-            //builder.Append("[");
-
-            //builder.Append(author);
-
-            //builder.Append(":");
-
-            //builder.Append(Application.isPlaying ? Time.time : DateTime.Now.Millisecond);
-
-            //builder.Append("]");
-
-            //builder.Append(" ");
-
-            //builder.Append(message);
-
-            //return builder.ToString();
-
             return message.ToString();
         }
     }
