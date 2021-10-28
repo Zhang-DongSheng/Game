@@ -10,20 +10,16 @@ namespace UnityEditor.Window
 
 		private readonly float MENU = 60f;
 
-		private string output;
-
 		private string source, target;
 
 		private readonly List<Meta> list = new List<Meta>();
 
-		private readonly List<string> children = new List<string>();
-
-		[MenuItem("Assets/Copy", priority = 18)]
+		[MenuItem("Assets/Deep Copy", priority = 18)]
 		protected static void Open()
 		{
 			if (Selection.activeGameObject != null)
 			{
-				Open<DeepCopy>("拷贝");
+				Open<DeepCopy>("深层拷贝");
 			}
 			else
 			{
@@ -35,22 +31,7 @@ namespace UnityEditor.Window
 		{
 			source = AssetDatabase.GetAssetPath(Selection.activeGameObject);
 
-			index.index = 0;
-
-			index.action = (index) =>
-			{
-				output = children[index];
-			};
-
-			input.value = Path.GetDirectoryName(source).Replace('\\', '/');
-
-			input.action = (input) =>
-			{
-				Children(input); index.index = 0;
-			};
-			output = "copy";
-
-			Children(input.value);
+			input.value = Default;
 		}
 
 		#region Event
@@ -69,6 +50,8 @@ namespace UnityEditor.Window
 			if (Selection.activeGameObject != null)
 			{
 				source = AssetDatabase.GetAssetPath(Selection.activeGameObject);
+
+				input.value = Default;
 			}
 		}
 		#endregion
@@ -76,60 +59,46 @@ namespace UnityEditor.Window
 		#region UI
 		protected override void Refresh()
 		{
-			GUILayout.Space(15);
-
-			GUILayout.BeginVertical();
+			GUILayout.BeginArea(new Rect(10, 10, Width - 20, Height - 20));
 			{
-				GUILayout.BeginHorizontal(GUILayout.Height(LINE));
+				GUILayout.BeginVertical();
 				{
-					GUILayout.Label("[资源路径]", GUILayout.Width(MENU));
-
-					GUILayout.TextField(source);
-
-					if (GUILayout.Button("帮助", GUILayout.Width(100)))
+					GUILayout.BeginHorizontal(GUILayout.Height(LINE));
 					{
-						Help();
+						GUILayout.Label("Asset:", GUILayout.Width(MENU));
+
+						GUILayout.Label(source);
+					}
+					GUILayout.EndHorizontal();
+
+					GUILayout.BeginHorizontal(GUILayout.Height(LINE));
+					{
+						GUILayout.Label("Clone:", GUILayout.Width(MENU));
+
+						if (GUILayout.Button(input.value))
+						{
+							input.value = EditorUtility.OpenFolderPanel("Clone", input.value, string.Empty);
+
+							if (string.IsNullOrEmpty(input.value))
+							{
+								input.value = Default;
+							}
+						}
+					}
+					GUILayout.EndHorizontal();
+
+					if (GUILayout.Button("Deep Copy", GUILayout.ExpandHeight(true)))
+					{
+						Copy();
 					}
 				}
-				GUILayout.EndHorizontal();
-
-				GUILayout.BeginHorizontal(GUILayout.Height(LINE));
-				{
-					GUILayout.Label("[输出路径]", GUILayout.Width(MENU));
-
-					input.value = GUILayout.TextField(input.value);
-
-					if (!string.IsNullOrEmpty(input.value) && input.value.EndsWith("/"))
-					{
-						input.value = input.value.Substring(0, input.value.Length - 1);
-					}
-				}
-				GUILayout.EndHorizontal();
-
-				GUILayout.BeginHorizontal(GUILayout.Height(LINE));
-				{
-					GUILayout.Label("[输出目标]", GUILayout.Width(MENU));
-
-					output = GUILayout.TextField(output);
-
-					if (children.Count > 0)
-					{
-						index.index = EditorGUILayout.Popup(index.index, children.ToArray(), GUILayout.Width(100));
-					}
-				}
-				GUILayout.EndHorizontal();
-
-				if (GUILayout.Button("Deep Copy", GUILayout.ExpandHeight(true)))
-				{
-					Copy();
-				}
+				GUILayout.EndVertical();
 			}
-			GUILayout.EndVertical();
+			GUILayout.EndArea();
 		}
 		#endregion
 
-		#region Core
-		protected void Copy()
+		private void Copy()
 		{
 			if (!string.IsNullOrEmpty(source))
 			{
@@ -189,17 +158,6 @@ namespace UnityEditor.Window
 			return AssetDatabase.CopyAsset(source, target);
 		}
 
-		class Meta
-		{
-			public string key;
-
-			public string srcID;
-
-			public string dstID;
-		}
-		#endregion
-
-		#region Function
 		private string Format(string path)
 		{
 			if (path.StartsWith(input.value))
@@ -213,7 +171,7 @@ namespace UnityEditor.Window
 			{
 				path = path.Remove(0, first);
 			}
-			path = string.Format("{0}/{1}/{2}", input.value, output, path);
+			path = string.Format("{0}/{1}", input.value, path);
 
 			string folder = Path.GetDirectoryName(path);
 
@@ -230,33 +188,26 @@ namespace UnityEditor.Window
 			return path;
 		}
 
-		private void Children(string path)
+		private string Default
 		{
-			children.Clear();
-
-			children.Add("Custom");
-
-			path = string.Format("{0}{1}", Application.dataPath, path.Remove(0, 6));
-
-			if (Directory.Exists(path))
+			get
 			{
-				foreach (var folder in Directory.GetDirectories(path))
+				if (!string.IsNullOrEmpty(source))
 				{
-					children.Add(Path.GetFileNameWithoutExtension(folder));
+					return Path.GetDirectoryName(source).Replace('\\', '/') + "/Clone";
 				}
+				return string.Empty;
+
 			}
 		}
-		#endregion
 
-		#region Help
-		private void Help()
+		class Meta
 		{
-			EditorUtility.DisplayDialog("帮助", @"
-1.资源路径不可编辑，当改变选中目标后自动更新
-2.输出路径为目标的根路径[Asset/...]
-3.输出目标是文件夹，替换选中目标及其关联文件的第一个文件夹。
-4.新文件 = Asset/.../输出目标/目标文件", "已阅");
+			public string key;
+
+			public string srcID;
+
+			public string dstID;
 		}
-		#endregion
 	}
 }
