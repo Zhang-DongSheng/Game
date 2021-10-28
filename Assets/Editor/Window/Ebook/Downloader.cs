@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace UnityEditor.Ebook
@@ -71,23 +72,28 @@ namespace UnityEditor.Ebook
             {
                 StreamWriter writer = new StreamWriter(stream);
 
+                writer.WriteLine(book.name);
+
                 for (int i = 0; i < chapters.Count; i++)
                 {
                     writer.WriteLine(chapters[i].key);
-                    writer.Write(Format(chapters[i].content));
+                    writer.Write(Format(chapters[i].content, book.regex));
+                    writer.WriteLine(string.Empty);
                     writer.Flush();
                 }
                 writer.Dispose();
             }
         }
 
-        private string Format(string content)
+        private string Format(string content, Regex regex, params string[] parameter)
         {
-            int start = content.LastIndexOf("content");
-
-            int end = content.LastIndexOf("</div>");
-
-            return content.Substring(start, end - start);
+            if (regex != null && regex.IsMatch(content))
+            {
+                content = regex.Match(content).Groups[0].ToString()
+                    .Replace("&nbsp;", null)
+                    .Replace("<br />", "\r\n");
+            }
+            return content;
         }
 
         public void Startup(BookDownloadInformation book)
@@ -101,7 +107,7 @@ namespace UnityEditor.Ebook
                 chapters.Add(new ChapterInformation()
                 {
                     key = string.Format("chapter of {0}", i),
-                    url = string.Format(book.url, book.name, i),
+                    url = string.Format(book.url, book.key, i),
                     download = true,
                 });
             }

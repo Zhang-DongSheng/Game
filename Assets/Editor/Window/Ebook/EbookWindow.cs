@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEditor.Ebook;
 using UnityEngine;
 
@@ -183,9 +184,11 @@ namespace UnityEditor.Window
 
                 BookDownloadInformation book = new BookDownloadInformation()
                 {
-                    name = "JinRiYiPianAi",
+                    name = "今日已偏爱",
+                    key = "JinRiYiPianAi",
                     path = input.value,
                     url = "https://www.soxscc.cc/{0}/{1}.html",
+                    regex = new Regex(@"<div class=""content"" id=(.|\n)*?</div>"),
                     start = 2238221,
                     end = 2238228,
                 };

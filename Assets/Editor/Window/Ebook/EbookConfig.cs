@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace UnityEditor.Ebook
@@ -24,7 +25,11 @@ namespace UnityEditor.Ebook
 
     public class BookDownloadInformation : BookInformation
     {
+        public string key;
+
         public string url;
+
+        public Regex regex;
 
         public int start, end;
     }
