@@ -106,7 +106,7 @@ namespace UnityEditor.Window
 
 				target = Format(source);
 
-				string prefab = string.Format("{0}{1}", Application.dataPath, target.Remove(0, 6));
+				string prefab = target;
 
 				Copy(source, target);
 
@@ -160,30 +160,19 @@ namespace UnityEditor.Window
 
 		private string Format(string path)
 		{
-			if (path.StartsWith(input.value))
-			{
-				path = path.Remove(0, input.value.Length + 1);
-			}
-
-			int first = path.IndexOf("/");
-
-			if (first > -1)
-			{
-				path = path.Remove(0, first);
-			}
-			path = string.Format("{0}/{1}", input.value, path);
-
-			string folder = Path.GetDirectoryName(path);
+			string folder = input.value;
 
 			string file = Path.GetFileNameWithoutExtension(path);
 
 			string extension = Path.GetExtension(path);
 
+			path = string.Format("{0}/{1}{2}", folder, file, extension);
+
 			int index = 0;
 
 			while (File.Exists(path))
 			{
-				path = string.Format("{0}/{1}_{2}{3}", folder, file, index++, extension);
+				path = string.Format("{0}/{1} Clone({2}){3}", folder, file, index++, extension);
 			}
 			return path;
 		}
