@@ -1,6 +1,8 @@
 ﻿using Game;
+using Job;
 using System;
 using System.Collections.Generic;
+using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
@@ -55,23 +57,13 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            List<TestClass> list = new List<TestClass>();
+            NumberJob job = new NumberJob(NumberJob.Command.Sum, 1, 2, 3, 4, 5);
 
-            for (int i = 0; i < 100; i++)
-            {
-                list.Add(new TestClass()
-                {
-                    name = i.ToString(),
-                    weight = i,
-                });
-            }
+            JobHandle handle = job.Schedule();
 
-            for (int i = 0; i < 1000; i++)
-            {
-                int index = RandomWeighting.Range(list);
+            handle.Complete();
 
-                Debuger.LogError(Author.Owner, list[index].name);
-            }
+            Debug.Log(job.result[0]);
         }
         /// <summary>
         /// 点击测试
