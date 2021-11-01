@@ -75,7 +75,7 @@ namespace Job
 
         public void Dispose()
         {
-            result.Dispose();
+            numbers.Dispose(); result.Dispose();
         }
 
         public enum Command

@@ -64,6 +64,8 @@ namespace Game.Test
             handle.Complete();
 
             Debug.Log(job.result[0]);
+
+            job.Dispose();
         }
         /// <summary>
         /// 点击测试
