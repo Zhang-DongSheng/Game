@@ -207,6 +207,7 @@ namespace UnityEditor.Window
                     {
                         identification = AssetDatabase.LoadAssetAtPath(file.asset, typeof(Object)).GetInstanceID(),
                         key = file.name,
+                        url = file.asset,
                         capacity = -1,
                         secret = Md5Tools.ComputeFile(file.path),
                         type = DetermineType(file.asset),
@@ -226,7 +227,7 @@ namespace UnityEditor.Window
             switch (extension)
             {
                 case ".prefab":
-                    type = ResourceType.GameObject;
+                    type = ResourceType.Prefab;
                     break;
                 case ".asset":
                     type = ResourceType.Asset;
@@ -249,7 +250,7 @@ namespace UnityEditor.Window
                     type = ResourceType.Text;
                     break;
                 default:
-                    type = ResourceType.GameObject;
+                    type = ResourceType.Prefab;
                     break;
             }
             return type;

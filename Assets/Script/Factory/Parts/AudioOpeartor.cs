@@ -12,28 +12,14 @@ namespace UnityEngine
 
         }
 
-        public override Object Pop(string value)
+        protected override Object Create()
         {
-            if (memory.Count > 0)
-            {
-                return memory.Pop();
-            }
-            else
-            {
-                return GameObject.Instantiate(asset);
-            }
+            return GameObject.Instantiate(asset);
         }
 
-        public override void Push(Object asset)
+        protected override void Destroy(Object asset)
         {
-            if (memory.Count < capacity || capacity == -1)
-            {
-                memory.Push(asset);
-            }
-            else
-            {
-                GameObject.Destroy(asset);
-            }
+            GameObject.Destroy(asset);
         }
     }
 }

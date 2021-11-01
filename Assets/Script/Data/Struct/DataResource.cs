@@ -17,6 +17,8 @@ namespace Data
     {
         public string key;
 
+        public string url;
+
         public int capacity = -1;
 
         public ResourceType type;
@@ -30,8 +32,8 @@ namespace Data
 
     public enum ResourceType
     {
-        GameObject,
         Asset,
+        Prefab,
         Atlas,
         Audio,
         Texture,

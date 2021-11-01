@@ -12,14 +12,14 @@ namespace UnityEngine
 
         }
 
-        public override Object Pop(string value)
+        protected override Object Create()
         {
-            return asset;
+            return GameObject.Instantiate(asset);
         }
 
-        public override void Push(Object asset)
+        protected override void Destroy(Object asset)
         {
-
+            GameObject.Destroy(asset);
         }
     }
 }

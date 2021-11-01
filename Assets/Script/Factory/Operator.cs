@@ -1,6 +1,8 @@
-﻿using Data;
-using System;
+﻿using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace UnityEngine
 {
@@ -10,37 +12,93 @@ namespace UnityEngine
 
         protected readonly int capacity = -1;
 
+        protected string url;
+
         protected string secret;
 
         protected Object asset;
 
-        protected Stack<Object> memory = new Stack<Object>();
+        protected readonly Stack<Object> memory = new Stack<Object>();
 
-        public Operator(ResourceInformation resource)
+        protected readonly Stack<Action<Object>> action = new Stack<Action<Object>>();
+
+        public Operator(Data.ResourceInformation resource)
         {
             identification = resource.key;
+
+            url = resource.url;
 
             secret = resource.secret;
 
             capacity = resource.capacity;
-
-            this.asset = resource.asset;
         }
 
-        public abstract Object Pop(string value);
-
-        public abstract void Push(Object asset);
-
-        public void Clear()
+        public void Pop(Action<Object> action)
         {
-            while (memory.Count > 0)
+            if (memory.Count > 0)
             {
-                GameObject.Destroy(memory.Pop());
+                action?.Invoke(memory.Pop());
             }
-            memory.Clear();
+            else
+            {
+                if (asset != null)
+                {
+                    action?.Invoke(Create());
+                }
+                else
+                {
+                    if (this.action != null)
+                    {
+                        this.action.Push(action);
+                    }
+                    var _ = Download();
+                }
+            }
         }
 
-        public void Dispose()
+        public void Push(Object asset)
+        {
+            if (memory.Count < capacity || capacity == -1)
+            {
+                memory.Push(asset);
+            }
+            else
+            {
+                Destroy(asset);
+            }
+        }
+
+        protected virtual async Task Download()
+        {
+            AsyncOperationHandle handle = Addressables.LoadAssetAsync<Object>(url);
+
+            await handle.Task;
+
+            switch (handle.Status)
+            {
+                case AsyncOperationStatus.Succeeded:
+                    {
+                        asset = handle.Result as Object;
+
+                        while (action.Count > 0)
+                        {
+                            Pop(action.Pop());
+                        }
+                    }
+                    break;
+                case AsyncOperationStatus.Failed:
+                    {
+                        //Factory.Instance.
+                    }
+                    break;
+            }
+        }
+
+        protected abstract Object Create();
+
+        protected abstract void Destroy(Object asset);
+
+        public virtual void Dispose()
         {
 
         }

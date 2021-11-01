@@ -1,4 +1,5 @@
 ﻿using Data;
+using System;
 using System.Collections.Generic;
 
 namespace UnityEngine
@@ -21,7 +22,7 @@ namespace UnityEngine
 
                     switch (res.type)
                     {
-                        case ResourceType.GameObject:
+                        case ResourceType.Prefab:
                             Instance.operators.Add(res.key, new GameObjectOperator(res));
                             break;
                         case ResourceType.Asset:
@@ -42,13 +43,16 @@ namespace UnityEngine
 #endif
         }
 
-        public Object Pop(string key, string value = null)
+        public void Pop(string key, Action<Object> action)
         {
             if (operators.ContainsKey(key))
             {
-                return operators[key].Pop(value);
+                operators[key].Pop(action);
             }
-            return null;
+            else
+            {
+                Debug.LogWarningFormat("can't have the asset {0}", key);
+            }
         }
 
         public void Push(string key, Object asset)
@@ -61,6 +65,15 @@ namespace UnityEngine
             {
                 GameObject.Destroy(asset);
             }
+        }
+
+        public void Remove(string key)
+        {
+            if (operators.ContainsKey(key))
+            {
+                operators.Remove(key);
+            }
+            Debug.LogErrorFormat("the asset is error", key);
         }
     }
 }

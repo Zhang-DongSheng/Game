@@ -1,5 +1,6 @@
 using Data;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 namespace Game.UI
@@ -18,7 +19,15 @@ namespace Game.UI
         {
             CurrencyInformation info = DataHelper.Currency.Get(currency.currency);
 
-            imgQuality.sprite = Factory.Instance.Pop("atlas_currency", info.icon) as Sprite;
+            Factory.Instance.Pop("atlas_prop", (value) =>
+            {
+                SpriteAtlas atlas = value as SpriteAtlas;
+
+                if (atlas && !string.IsNullOrEmpty(info.icon))
+                {
+                    imgQuality.sprite = atlas.GetSprite(info.icon);
+                }
+            });
 
             txtName.text = string.Format("{0}", info.name);
 
@@ -31,7 +40,15 @@ namespace Game.UI
         {
             PropInformation info = DataHelper.Prop.Get(prop.parallelism);
 
-            imgQuality.sprite = Factory.Instance.Pop("atlas_prop", info.icon) as Sprite;
+            Factory.Instance.Pop("atlas_prop", (value) =>
+            {
+                SpriteAtlas atlas = value as SpriteAtlas;
+
+                if (atlas && !string.IsNullOrEmpty(info.icon))
+                {
+                    imgQuality.sprite = atlas.GetSprite(info.icon);
+                }
+            });
 
             txtName.text = string.Format("{0}", info.name);
 

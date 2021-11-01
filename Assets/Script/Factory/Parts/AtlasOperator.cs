@@ -5,21 +5,19 @@ namespace UnityEngine
 {
     public class AtlasOperator : Operator
     {
-        private SpriteAtlas atlas;
-
         public AtlasOperator(ResourceInformation resource) : base(resource)
         {
-            atlas = asset as SpriteAtlas;
+
         }
 
-        public override Object Pop(string value)
+        protected override Object Create()
         {
-            return atlas.GetSprite(value);
+            return GameObject.Instantiate(asset);
         }
 
-        public override void Push(Object asset)
+        protected override void Destroy(Object asset)
         {
-
+            GameObject.Destroy(asset);
         }
     }
 }

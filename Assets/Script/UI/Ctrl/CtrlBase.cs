@@ -70,7 +70,10 @@ namespace Game.UI
 
             try
             {
-                Create(key, layer, Factory.Instance.Pop(key.ToString()) as GameObject);
+                Factory.Instance.Pop(key.ToString(), (value) =>
+                {
+                    Create(key, layer, value as GameObject);
+                });
             }
             catch (Exception e)
             {

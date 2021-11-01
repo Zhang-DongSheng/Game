@@ -28,7 +28,10 @@ namespace Data
 
             try
             {
-                _data = Factory.Instance.Pop(key) as T;
+                Factory.Instance.Pop(key, (value) =>
+                {
+                    _data = value as T;
+                });
             }
             catch (Exception e)
             {
