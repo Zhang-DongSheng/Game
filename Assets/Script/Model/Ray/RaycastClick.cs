@@ -46,16 +46,30 @@ namespace Game
         {
             get
             {
-                if (EventSystem.current == null) return true;
-#if UNITY_EDITOR
-                if (EventSystem.current.IsPointerOverGameObject())
-#else
-                if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-#endif
+                bool over = false;
+
+                if (EventSystem.current != null)
                 {
-                    return true;
+#if UNITY_EDITOR
+                    if (EventSystem.current.IsPointerOverGameObject())
+                    {
+                        over = true;
+                    }
+#else
+                    for (int i = 0; i < Input.touchCount; i++)
+                    {
+                        if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(i).fingerId))
+                        {
+                            over = true;
+                        }
+                        else
+                        {
+                            over = false; break;
+                        }
+                    }
+#endif
                 }
-                return false;
+                return over;
             }
         }
     }

@@ -6,13 +6,13 @@ namespace Job
 {
     public struct NumberJob : IJob, IDisposable
     {
-        public NativeArray<float> numbers;
+        [ReadOnly] public NativeArray<float> numbers;
+
+        [ReadOnly] public NativeArray<float> result;
 
         public Command command;
 
-        public NativeArray<float> result;
-
-        private int count;
+        private readonly int count;
 
         public NumberJob(Command command, params float[] parameters)
         {

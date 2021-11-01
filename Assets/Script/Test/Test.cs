@@ -2,8 +2,10 @@
 using Job;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.Jobs;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Utils;
 using Random = UnityEngine.Random;
@@ -18,15 +20,7 @@ namespace Game.Test
 
         private void Awake()
         {
-            UnregularScrollList scroll = GetComponent<UnregularScrollList>();
-
-            List<string> list = new List<string>();
-
-            for (int i = 0; i < 100; i++)
-            {
-                list.Add(i.ToString());
-            }
-            scroll.Refresh(list);
+            
         }
 
         private void OnEnable()
@@ -41,7 +35,7 @@ namespace Game.Test
 
         private void Start()
         {
-
+            var _ = StartAsync();
         }
 
         private void Update()
@@ -57,15 +51,7 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            NumberJob job = new NumberJob(NumberJob.Command.Sum, 1, 2, 3, 4, 5);
-
-            JobHandle handle = job.Schedule();
-
-            handle.Complete();
-
-            Debug.Log(job.result[0]);
-
-            job.Dispose();
+            
         }
         /// <summary>
         /// 点击测试
@@ -81,6 +67,20 @@ namespace Game.Test
         public void OnClickContextMenu()
         {
             
+        }
+
+        private async Task StartAsync()
+        {
+            string url = "Assets/Package/Prefab/UI/Panel/UIMMORPG.prefab";
+
+            var handle = Addressables.LoadAssetAsync<UnityEngine.Object>(url);
+
+            await handle.Task;
+
+            if (handle.IsDone)
+            {
+                Debug.LogError(handle.Result.name);
+            }
         }
     }
 
