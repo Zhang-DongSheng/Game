@@ -13,32 +13,45 @@ namespace Data
         {
             if (m_data.ContainsKey(key))
             {
-                return (T)m_data[key];
+                return m_data[key] as T;
             }
             else
             {
-                m_data.Add(key, Load<T>(key));
-                return (T)m_data[key];
+#if !DEBUG
+                LoadResources<T>(key, path);
+#else
+                LoadAsync<T>(key);
+#endif
+                return null;
             }
         }
 
-        private T Load<T>(string key) where T : DataBase
+        private void LoadAsync<T>(string key) where T : DataBase
         {
-            T _data = default;
-
             try
             {
                 Factory.Instance.Pop(key, (value) =>
                 {
-                    _data = value as T;
+                    m_data.Add(key, value as T);
                 });
             }
             catch (Exception e)
             {
                 Debug.LogError(e.Message);
             }
-            return _data;
         }
-        #endregion
+
+        private void LoadResources<T>(string key, string path) where T : DataBase
+        {
+            try
+            {
+                m_data.Add(key, Resources.Load<T>(path));
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+        }
+#endregion
     }
 }

@@ -1,14 +1,7 @@
-﻿using Game;
-using Job;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Jobs;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.UI;
-using Utils;
-using Random = UnityEngine.Random;
 
 namespace Game.Test
 {
@@ -18,9 +11,11 @@ namespace Game.Test
 
         public Vector3 position;
 
+        private readonly List<Vector3> points = new List<Vector3>();
+
         private void Awake()
         {
-            
+
         }
 
         private void OnEnable()
@@ -31,6 +26,24 @@ namespace Game.Test
         private void OnDisable()
         {
 
+        }
+
+        private void OnDrawGizmos()
+        {
+            int count = points.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (i == count - 1)
+                {
+                    Gizmos.DrawLine(points[i], points[0]);
+                }
+                else
+                {
+                    Gizmos.DrawLine(points[i], points[i + 1]);
+                }
+                Gizmos.DrawSphere(points[i], 1f);
+            }
         }
 
         private void Start()
@@ -58,7 +71,7 @@ namespace Game.Test
         /// </summary>
         public void OnClick()
         {
-            
+
         }
         /// <summary>
         /// 菜单栏测试
@@ -66,21 +79,12 @@ namespace Game.Test
         [ContextMenu("Test")]
         public void OnClickContextMenu()
         {
-            
+
         }
 
         private async Task StartAsync()
         {
-            string url = "Assets/Package/Prefab/UI/Panel/UIMMORPG.prefab";
 
-            var handle = Addressables.LoadAssetAsync<UnityEngine.Object>(url);
-
-            await handle.Task;
-
-            if (handle.IsDone)
-            {
-                Debug.LogError(handle.Result.name);
-            }
         }
     }
 
