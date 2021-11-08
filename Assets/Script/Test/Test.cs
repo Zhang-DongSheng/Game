@@ -15,7 +15,9 @@ namespace Game.Test
 
         private void Awake()
         {
+            var size = Camera.main.Size(-53f);
 
+            Debug.Log(size);
         }
 
         private void OnEnable()
