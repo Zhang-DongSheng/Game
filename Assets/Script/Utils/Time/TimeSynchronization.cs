@@ -25,6 +25,10 @@ namespace UnityEngine
 
         private float second;
 
+        private int day;
+
+        public Action action;
+
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
@@ -32,7 +36,7 @@ namespace UnityEngine
 
         private void Start()
         {
-            Synchronization();
+            Synchronization(); day = Now.DayOfYear;
         }
 
         private void Update()
@@ -42,6 +46,11 @@ namespace UnityEngine
             if (second > interval)
             {
                 Synchronization();
+            }
+
+            if (day != Now.DayOfYear)
+            {
+                day = Now.DayOfYear; RefreshAtZero();
             }
         }
 
@@ -94,6 +103,11 @@ namespace UnityEngine
                 if (response != null) { response.Close(); }
                 if (collection != null) { collection.Clear(); }
             }
+        }
+
+        private void RefreshAtZero()
+        {
+            action?.Invoke();
         }
 
         public DateTime Now

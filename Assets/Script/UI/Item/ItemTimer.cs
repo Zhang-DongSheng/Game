@@ -44,7 +44,7 @@ namespace Game.UI
 
         public void Startup(long ticks)
         {
-            time = TimeHandler.ToDateTime(ticks);
+            time = TimeUtils.ToDateTime(ticks);
 
             timer = 0;
 

@@ -6,17 +6,19 @@ namespace UnityEngine
 {
     public sealed class TimeManager : MonoSingleton<TimeManager>
     {
-        private const string KEY = "_duration";
+        private const string KEY = "game_total_time";
 
-        private readonly static Dictionary<string, Stopwatch> watch = new Dictionary<string, Stopwatch>();
+        private readonly Dictionary<string, Stopwatch> watch = new Dictionary<string, Stopwatch>();
 
-        private readonly Dictionary<string, TimeEvent> handler = new Dictionary<string, TimeEvent>();
+        private readonly Dictionary<string, TimeHandler> handlers = new Dictionary<string, TimeHandler>();
 
-        private readonly List<string> delete = new List<string>();
+        private readonly List<string> cache = new List<string>();
 
-        private Dictionary<string, TimeEvent>.Enumerator eunmer;
+        private Dictionary<string, TimeHandler>.Enumerator eunmer;
 
-        private TimeEvent current;
+        private TimeHandler handler;
+
+        private int count;
 
         private void Awake()
         {
@@ -25,39 +27,46 @@ namespace UnityEngine
 
         private void Update()
         {
-            eunmer = handler.GetEnumerator();
+            #region Handler
+            eunmer = handlers.GetEnumerator();
 
             while (eunmer.MoveNext())
             {
-                current = eunmer.Current.Value;
+                handler = eunmer.Current.Value;
 
-                if (Time.time >= current.timer)
+                if (Time.time >= handler.timer)
                 {
-                    current.Invoke();
+                    handler.Invoke();
 
-                    if (current.loop)
+                    if (handler.loop)
                     {
-                        current.timer = Time.time + current.interval;
+                        handler.timer = Time.time + handler.interval;
                     }
                     else
                     {
-                        delete.Add(eunmer.Current.Key);
+                        cache.Add(eunmer.Current.Key);
                     }
                 }
             }
 
-            if (delete.Count > 0)
+            count = cache.Count;
+
+            if (count > 0)
             {
-                for (int i = delete.Count - 1; i >= 0; i--)
+                for (int i = count - 1; i > -1; i--)
                 {
-                    if (handler.ContainsKey(delete[i]))
+                    if (handlers.ContainsKey(cache[i]))
                     {
-                        handler.Remove(delete[i]);
+                        handlers.Remove(cache[i]);
                     }
-                    delete.RemoveAt(i);
+                    cache.RemoveAt(i);
                 }
             }
+            #endregion
+
+            #region Duration
             Duration += (long)Time.deltaTime;
+            #endregion
         }
 
         private void OnDestroy()
@@ -65,27 +74,27 @@ namespace UnityEngine
             Local.SetValue(KEY, Duration);
         }
 
-        public void Register(string key, TimeEvent value)
+        public void Register(string key, TimeHandler value)
         {
-            if (handler.ContainsKey(key))
+            if (handlers.ContainsKey(key))
             {
-                handler[key].Register(value.action);
+                handlers[key].Register(value.action);
             }
             else
             {
-                handler.Add(key, value);
+                handlers.Add(key, value);
             }
         }
 
         public void Unregister(string key)
         {
-            if (handler.ContainsKey(key))
+            if (handlers.ContainsKey(key))
             {
-                delete.Add(key);
+                cache.Add(key);
             }
         }
 
-        public static void TimBegin(string key)
+        public void TimBegin(string key)
         {
             if (watch.ContainsKey(key))
             {
@@ -97,7 +106,7 @@ namespace UnityEngine
             }
         }
 
-        public static float TimEnd(string key)
+        public long TimEnd(string key)
         {
             long time = 0;
 
@@ -115,13 +124,13 @@ namespace UnityEngine
         public long Duration { get; private set; }
     }
 
-    public class TimeEvent
+    public class TimeHandler
     {
-        public bool loop;
+        public float interval;
 
         public float timer;
 
-        public float interval;
+        public bool loop;
 
         public Action action;
 
