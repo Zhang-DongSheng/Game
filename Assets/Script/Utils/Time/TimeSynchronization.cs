@@ -50,7 +50,7 @@ namespace UnityEngine
 
             if (day != Now.DayOfYear)
             {
-                day = Now.DayOfYear; RefreshAtZero();
+                day = Now.DayOfYear; Tomorrow();
             }
         }
 
@@ -105,7 +105,7 @@ namespace UnityEngine
             }
         }
 
-        private void RefreshAtZero()
+        private void Tomorrow()
         {
             action?.Invoke();
         }
