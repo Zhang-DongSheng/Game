@@ -27,11 +27,12 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
                 if (_instance == null)
                 {
-                    GameObject compon = new GameObject(typeof(T).Name);
-                    _instance = compon.AddComponent<T>();
+                    _instance = new GameObject(typeof(T).Name).AddComponent<T>();
                 }
+                _instance.GetComponent<MonoSingleton<T>>().Initialized();
             }
             return _instance;
         }
     }
+    protected virtual void Initialized() { }
 }
