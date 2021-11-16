@@ -113,20 +113,45 @@ namespace Game
         /// <summary>
         /// 查早对象
         /// </summary>
-        public static Transform FindByName(this Transform transform, string name)
+        public static Transform FindByName(this Transform transform, string name, bool ignore = true)
         {
-            var children = transform.GetComponentsInChildren<Transform>();
+            Transform result = null;
 
-            int count = children.Length;
-
-            for (int i = 0; i < count; i++)
+            if (ignore)
             {
-                if (children[i].name == name)
+                var children = transform.GetComponentsInChildren<Transform>();
+
+                int count = children.Length;
+
+                for (int i = 0; i < count; i++)
                 {
-                    return children[i];
+                    if (children[i].name == name)
+                    {
+                        result = children[i];
+                        break;
+                    }
                 }
             }
-            return null;
+            else
+            {
+                int count = transform.childCount;
+
+                for (int i = 0; i < count; i++)
+                {
+                    Transform child = transform.GetChild(i);
+
+                    if (child.name == name)
+                    {
+                        result = child;
+                    }
+                    else if (child.childCount > 0)
+                    {
+                        result = FindByName(child, name);
+                    }
+                    if (result != null) break;
+                }
+            }
+            return result;
         }
     }
 
