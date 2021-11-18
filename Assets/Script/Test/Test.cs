@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Study;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Jobs;
 using UnityEngine;
@@ -85,7 +86,17 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
+            int number1 = 13;
 
+            int number2 = 2;
+
+            int value = BitOperation.Heteror(number1, number2);
+
+            Debuger.Log(Author.Test, BitOperation.Convert(number1, 10) + "  " + number1);
+
+            Debuger.Log(Author.Test, BitOperation.Convert(number2, 10) + "  " + number2);
+
+            Debuger.Log(Author.Test, BitOperation.Convert(value, 10) + "  " + value);
         }
         /// <summary>
         /// 点击测试
@@ -100,21 +111,12 @@ namespace Game.Test
         [ContextMenu("Test")]
         public void OnClickContextMenu()
         {
-            Transform child = list[0].FindByName("Item (7)", false);
-
-            if (child != null)
-            {
-                Debuger.LogError(Author.Test, child.name);
-            }
-            else
-            {
-                Debuger.LogError(Author.Test, "没找到");
-            }
+            
         }
 
         private async Task StartAsync()
         {
-
+            
         }
     }
 

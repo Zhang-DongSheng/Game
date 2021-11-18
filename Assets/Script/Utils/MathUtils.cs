@@ -74,14 +74,27 @@ namespace Utils
         /// <summary>
         /// 通过角度求位置
         /// </summary>
-        public static Vector3 AngleToPosition(Vector3 from, float angle, float distance)
+        public static Vector3 AngleToPosition(float angle, float distance)
         {
             return new Vector3()
             {
-                x = from.x + distance * Mathf.Cos(angle * Mathf.Deg2Rad),
-                y = from.y,
-                z = from.z + distance * Mathf.Sin(angle * Mathf.Deg2Rad)
+                x = distance * Mathf.Cos(angle * Mathf.Deg2Rad),
+                y = 0,
+                z = distance * Mathf.Sin(angle * Mathf.Deg2Rad)
             };
+        }
+        /// <summary>
+        /// 通过角度求方向
+        /// </summary>
+        public static Quaternion AngleToRotation(float horizontal, float vertical)
+        {
+            Vector3 forward = new Vector3(horizontal, 0, vertical);
+
+            if (forward != Vector3.zero)
+            {
+                return Quaternion.LookRotation(forward, Vector3.up);
+            }
+            return Quaternion.identity;
         }
         /// <summary>
         /// 通过位置求角度

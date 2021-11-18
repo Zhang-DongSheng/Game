@@ -101,7 +101,17 @@ namespace UnityEngine
 
         private static string Format(Author author, object message)
         {
-            return message.ToString();
+            builder.Clear();
+
+            builder.Append("[");
+
+            builder.Append(author);
+
+            builder.Append("]:");
+
+            builder.Append(message);
+
+            return builder.ToString();
         }
     }
 }
