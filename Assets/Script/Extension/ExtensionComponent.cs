@@ -115,7 +115,7 @@ namespace Game
                     {
                         object value = field.GetValue(component);
 
-                        if (Convert.IsDBNull(value) || value.ToString() == "null")
+                        if (Convert.IsDBNull(value) || value == null || value.ToString() == "null")
                         {
                             Component[] components = component.GetComponentsInChildren(field.FieldType);
 

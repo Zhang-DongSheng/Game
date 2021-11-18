@@ -33,20 +33,22 @@ namespace Game.UI
             SetActive(gameObject, active);
         }
 
-        public void SetActive(Component component, bool active)
-        {
-            if (component != null)
-            {
-                SetActive(component.gameObject, active);
-            }
-        }
-
         public void SetActive(GameObject go, bool active)
         {
             if (go != null && go.activeSelf != active)
             {
                 go.SetActive(active);
             }
+        }
+
+        protected virtual void Relevance()
+        {
+            Extension.Relevance(this);
+        }
+        [ContextMenu("Relevance")]
+        protected void MenuRelevance()
+        {
+            Relevance();
         }
     }
 }

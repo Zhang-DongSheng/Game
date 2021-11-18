@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Game.Test
 {
-    public class Test : MonoBehaviour
+    public class Test : EditorHelper
     {
         enum Command
         {
@@ -108,7 +108,7 @@ namespace Game.Test
         /// <summary>
         /// 菜单栏测试
         /// </summary>
-        [ContextMenu("Test")]
+        [ContextMenu("OnClick")]
         public void OnClickContextMenu()
         {
             
