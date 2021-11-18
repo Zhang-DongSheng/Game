@@ -114,4 +114,49 @@ namespace UnityEngine
             return builder.ToString();
         }
     }
+
+    public struct LogInformation
+    {
+        public LogType type;
+
+        public DateTime time;
+
+        public string message;
+
+        public string content;
+
+        public LogInformation(LogType type, string message, string content)
+        {
+            this.type = type;
+
+            this.message = message;
+
+            this.content = content;
+
+            this.time = DateTime.Now;
+        }
+
+
+#if UNITY_EDITOR
+        public UnityEditor.MessageType MessageType
+        {
+            get
+            {
+                switch (type)
+                {
+                    case LogType.Log:
+                        return UnityEditor.MessageType.Info;
+                    case LogType.Warning:
+                        return UnityEditor.MessageType.Warning;
+                    case LogType.Error:
+                        return UnityEditor.MessageType.Error;
+                    case LogType.Exception:
+                        return UnityEditor.MessageType.Error;
+                    default:
+                        return UnityEditor.MessageType.None;
+                }
+            }
+        }
+#endif
+    }
 }

@@ -8,7 +8,7 @@ namespace Game.Console
 {
     public class Console : MonoBehaviour
     {
-        private readonly List<LogData> log_data = new List<LogData>();
+        private readonly List<LogInformation> log_data = new List<LogInformation>();
 
         private readonly List<int> fps_data = new List<int>();
 
@@ -26,7 +26,7 @@ namespace Game.Console
 
         private void LogMessageReceiver(string message, string source, LogType type)
         {
-            log_data.Add(new LogData(type, message, source));
+            log_data.Add(new LogInformation(type, message, source));
         }
 
         private void Update_FPS()
@@ -152,7 +152,7 @@ namespace Game.Console
         #endregion
 
         #region Param
-        public List<LogData> LogData
+        public List<LogInformation> LogData
         {
             get
             {

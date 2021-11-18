@@ -147,7 +147,7 @@ namespace Game.Console
                                     continue;
                                 }
                             }
-                            if (GUILayout.Button(m_console.LogData[i].Message, GUILayout.Height(30)))
+                            if (GUILayout.Button(m_console.LogData[i].message, GUILayout.Height(30)))
                             {
                                 l_input_value[1] = m_console.LogData[i].content;
                             }

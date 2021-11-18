@@ -7,7 +7,11 @@ namespace UnityEditor.Window
 {
     class Debuger : CustomWindow
     {
+        private Vector2 scrolllog = new Vector2(0, 0);
+
         private readonly List<string> parameter = new List<string>();
+
+        private readonly List<LogInformation> logs = new List<LogInformation>();
 
         [MenuItem("Script/Debuger")]
         protected static void Open()
@@ -15,11 +19,14 @@ namespace UnityEditor.Window
             Open<Debuger>("调试工具");
         }
 
-        protected override void Init() { }
+        protected override void Init()
+        {
+
+        }
 
         protected override void Refresh()
         {
-            GUILayout.BeginVertical(GUILayout.Height(Screen.height - 100));
+            GUILayout.BeginVertical(GUILayout.Height(Screen.height - 300));
             {
                 scroll = GUILayout.BeginScrollView(scroll);
                 {
@@ -29,8 +36,23 @@ namespace UnityEditor.Window
             }
             GUILayout.EndVertical();
 
-            GUILayout.BeginHorizontal();
+            GUILayout.BeginVertical();
             {
+                scrolllog = GUILayout.BeginScrollView(scrolllog);
+                {
+                    for (int i = 0; i < logs.Count; i++)
+                    {
+                        RefreshLog(logs[i]);
+                    }
+                }
+                GUILayout.EndScrollView();
+            }
+            GUILayout.EndVertical();
+
+            GUILayout.BeginHorizontal(GUILayout.Height(42));
+            {
+                GUILayout.Space(3);
+
                 if (GUILayout.Button("清除参数列表", GUILayout.ExpandHeight(true)))
                 {
                     parameter.Clear();
@@ -39,12 +61,19 @@ namespace UnityEditor.Window
                 {
                     EditorUtility.OpenWithDefaultApp(string.Format("{0}/Script/Test/Test.cs", Application.dataPath));
                 }
+                GUILayout.Space(3);
             }
             GUILayout.EndHorizontal();
 
             if (GUILayout.Button("测试", GUILayout.Height(36)))
             {
+                logs.Clear();
+
+                Application.logMessageReceived += LogMessageReceiver;
+
                 Test.Startover(parameter.ToArray());
+
+                Application.logMessageReceived -= LogMessageReceiver;
             }
         }
 
@@ -101,6 +130,20 @@ namespace UnityEditor.Window
                 }
                 GUILayout.EndHorizontal();
             }
+        }
+
+        private void RefreshLog(LogInformation log)
+        {
+            GUILayout.BeginHorizontal();
+            {
+                EditorGUILayout.HelpBox(log.message, log.MessageType);
+            }
+            GUILayout.EndHorizontal();
+        }
+
+        private void LogMessageReceiver(string message, string source, LogType type)
+        {
+            logs.Add(new LogInformation(type, message, source));
         }
     }
 }
