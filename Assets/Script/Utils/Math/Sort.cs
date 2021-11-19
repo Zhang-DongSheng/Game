@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Utils
+namespace Game.Operation
 {
-    public static class SortUtils
+    public static class Sort
     {
         #region Function
         public static List<T> MergeSort<T>(List<T> source) where T : IComparer
@@ -278,7 +278,7 @@ namespace Utils
         }
         #endregion
 
-        public class SortStruct : IComparer
+        class SortStruct : IComparer
         {
             public int ID;
 

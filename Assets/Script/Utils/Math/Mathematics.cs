@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Utils
+namespace Game.Operation
 {
-    public static class MathUtils
+    public static class Mathematics
     {
         /// <summary>
         /// 最大公约数
@@ -55,7 +55,7 @@ namespace Utils
         /// </summary>
         public static int Range(int min, int max)
         {
-            return Random.Range(min, max);
+            return UnityEngine.Random.Range(min, max);
         }
         /// <summary>
         /// 角度转弧度
