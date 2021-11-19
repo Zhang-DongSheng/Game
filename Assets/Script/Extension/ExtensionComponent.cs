@@ -61,7 +61,7 @@ namespace Game
         {
             FieldInfo[] fields = component.GetType().GetFields(Flags);
 
-            if (match == null) match = (arg1, arg2) => { return arg1.ToLower().Equals(arg2); };
+            if (match == null) match = (arg1, arg2) => { return arg1.Equals(arg2); };
 
             string name;
 
