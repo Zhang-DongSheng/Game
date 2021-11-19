@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.Operation
+namespace Game
 {
-    public static class Random
+    public interface IWeight
     {
-        
+        public float value { get; }
     }
 }

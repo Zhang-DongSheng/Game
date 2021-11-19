@@ -33,11 +33,7 @@ namespace Game.Test
 
         private void Awake()
         {
-            image.texture = Device.WebCamTextureDevice.Instance.Camera;
-
-            Device.WebCamTextureDevice.Instance.Begin();
-
-            //Device.MicrophoneDevice.Instance.Init();
+            
         }
 
         private void OnEnable()
@@ -86,24 +82,26 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            int number1 = 13;
+            //List<int> numbers = Game.Operation.Random.Shuffle(1, 2, 3, 4, 5, 6, 7);
 
-            int number2 = 2;
+            
 
-            int value = BitOperation.Heteror(number1, number2);
+            int number = Operation.Random.Next(0, 10);
 
-            Debuger.Log(Author.Test, BitOperation.Convert(number1, 10) + "  " + number1);
+            Debuger.Log(Author.Test, number);
 
-            Debuger.Log(Author.Test, BitOperation.Convert(number2, 10) + "  " + number2);
+            for (int i = 0; i < 10; i++)
+            {
+                Debuger.Log(Author.Test, Operation.Random.Next());
+            }
 
-            Debuger.Log(Author.Test, BitOperation.Convert(value, 10) + "  " + value);
         }
         /// <summary>
         /// 点击测试
         /// </summary>
         public void OnClick()
         {
-            
+
         }
         /// <summary>
         /// 菜单栏测试
@@ -111,12 +109,15 @@ namespace Game.Test
         [ContextMenu("OnClick")]
         public void OnClickContextMenu()
         {
-            
+
         }
 
         private async Task StartAsync()
         {
-            
+            await Task.Run(() =>
+            {
+                Debuger.Log(Author.Test, "I'm fine!");
+            });
         }
     }
 
@@ -130,7 +131,7 @@ namespace Game.Test
         {
             get; set;
         }
-        public float Weight { get { return weight; } }
+        public float value { get { return weight; } }
 
         public void Do()
         {
