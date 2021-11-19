@@ -71,52 +71,5 @@ namespace Game.Operation
         {
             return radian * Mathf.Rad2Deg;
         }
-        /// <summary>
-        /// 通过角度求位置
-        /// </summary>
-        public static Vector3 AngleToPosition(float angle, float distance)
-        {
-            return new Vector3()
-            {
-                x = distance * Mathf.Cos(angle * Mathf.Deg2Rad),
-                y = 0,
-                z = distance * Mathf.Sin(angle * Mathf.Deg2Rad)
-            };
-        }
-        /// <summary>
-        /// 通过角度求方向
-        /// </summary>
-        public static Quaternion AngleToRotation(float horizontal, float vertical)
-        {
-            Vector3 forward = new Vector3(horizontal, 0, vertical);
-
-            if (forward != Vector3.zero)
-            {
-                return Quaternion.LookRotation(forward, Vector3.up);
-            }
-            return Quaternion.identity;
-        }
-        /// <summary>
-        /// 通过位置求角度
-        /// </summary>
-        public static float PositionToAngle(Vector3 from, Vector3 to)
-        {
-            Vector3 vector = to - from;
-
-            vector.y = vector.z;
-
-            return Vector2.SignedAngle(vector, Vector2.up);
-        }
-        /// <summary>
-        /// 通过位置求角度
-        /// </summary>
-        public static Quaternion PositionToRotation(Vector3 from, Vector3 to)
-        {
-            Vector3 vector = to - from;
-
-            vector.y = 0;
-
-            return vector == Vector3.zero ? Quaternion.identity : Quaternion.LookRotation(vector);
-        }
     }
 }
