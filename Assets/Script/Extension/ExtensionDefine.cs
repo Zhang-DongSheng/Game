@@ -22,4 +22,6 @@ namespace Game
 
         private static double length;
     }
+
+    public delegate bool Match<T1, T2>(T1 arg1, T2 arg2);
 }

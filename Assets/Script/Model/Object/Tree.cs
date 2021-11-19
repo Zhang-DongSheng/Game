@@ -16,8 +16,6 @@ namespace Game.Model
 
         [SerializeField] private Vector2 subsection = new Vector2(0.1f, 0.9f);
 
-        [SerializeField, Range(0, 20)] private float time = 1;
-
         [SerializeField, Range(0, 200)] private int shake = 100;
 
         [SerializeField] private bool destroy;

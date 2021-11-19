@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Game.Test
 {
-    public class Test : EditorHelper
+    public class Test : UI.UIBase
     {
         enum Command
         {
@@ -82,19 +82,7 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            //List<int> numbers = Game.Operation.Random.Shuffle(1, 2, 3, 4, 5, 6, 7);
-
             
-
-            int number = Operation.Random.Next(0, 10);
-
-            Debuger.Log(Author.Test, number);
-
-            for (int i = 0; i < 10; i++)
-            {
-                Debuger.Log(Author.Test, Operation.Random.Next());
-            }
-
         }
         /// <summary>
         /// 点击测试

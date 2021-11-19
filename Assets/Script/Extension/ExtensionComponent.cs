@@ -57,9 +57,11 @@ namespace Game
         /// <summary>
         /// 自动关联Prefab
         /// </summary>
-        public static void Relevance(this Component component)
+        public static void Relevance(this Component component, Match<string, string> match = null)
         {
             FieldInfo[] fields = component.GetType().GetFields(Flags);
+
+            if (match == null) match = (arg1, arg2) => { return arg1.ToLower().Equals(arg2); };
 
             string name;
 
@@ -82,13 +84,12 @@ namespace Game
 
                                 foreach (var child in component.GetComponentsInChildren<Transform>())
                                 {
-                                    if (child.name.ToLower().Contains(name))
+                                    if (match(child.name, name))
                                     {
                                         parent = child;
                                         break;
                                     }
                                 }
-
                                 if (parent == null) continue;
 
                                 Component[] components = parent.GetComponentsInChildren(element);
@@ -121,7 +122,7 @@ namespace Game
 
                             for (int i = 0; i < components.Length; i++)
                             {
-                                if (components[i].name.ToLower().Contains(name))
+                                if (match(components[i].name, name))
                                 {
                                     field.SetValue(component, components[i]);
                                     break;
