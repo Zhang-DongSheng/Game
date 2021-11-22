@@ -27,13 +27,21 @@ namespace Game.Test
 
         [SerializeField] private List<Transform> list;
 
-        private readonly List<Vector3> points = new List<Vector3>();
+        public ButtonPro buttonPro;
 
-        public RawImage image;
+        private readonly List<Vector3> points = new List<Vector3>();
 
         private void Awake()
         {
-            
+            buttonPro.onEnter.AddListener(() =>
+            {
+                Debuger.Log(Author.Test, "按钮按下");
+            });
+
+            buttonPro.onLeave.AddListener(() =>
+            {
+                Debuger.Log(Author.Test, "按钮抬起");
+            });
         }
 
         private void OnEnable()

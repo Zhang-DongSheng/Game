@@ -13,11 +13,15 @@ namespace UnityEngine.UI
 
         [SerializeField, Range(1, 5)] private int multiple = 1;
 
+        public UnityEvent onEnter;
+
         public UnityEvent onClick;
 
         public UnityEvent onMultipleClick;
 
         public UnityEvent<int> onPress;
+
+        public UnityEvent onLeave;
 
         private int press_number;
 
@@ -83,17 +87,25 @@ namespace UnityEngine.UI
 
             press_timer = Time.time + interval;
 
+            onEnter?.Invoke();
+
             status = TouchStatus.Enter;
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            status = TouchStatus.Exit;
+            if (status != TouchStatus.Exit)
+            {
+                status = TouchStatus.Exit; onLeave?.Invoke();
+            }
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            status = TouchStatus.Exit;
+            if (status != TouchStatus.Exit)
+            {
+                status = TouchStatus.Exit; onLeave?.Invoke();
+            }
         }
 
         enum TouchStatus
