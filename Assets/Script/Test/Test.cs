@@ -1,7 +1,5 @@
-﻿using Study;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,20 +31,15 @@ namespace Game.Test
 
         private void Awake()
         {
-            buttonPro.onEnter.AddListener(() =>
-            {
-                Debuger.Log(Author.Test, "按钮按下");
-            });
-
-            buttonPro.onLeave.AddListener(() =>
-            {
-                Debuger.Log(Author.Test, "按钮抬起");
-            });
+            
         }
 
         private void OnEnable()
         {
+            Data.DataBone bone = UnityEditor.AssetDatabase.LoadAssetAtPath<Data.DataBone>("Assets/Package/Data/Bone.asset");
 
+
+            Debuger.LogError(Author.Test, bone.dic.Count);
         }
 
         private void OnDisable()
@@ -90,7 +83,20 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            
+
+            Data.SerializableDictionary<string, string> dic = new Data.SerializableDictionary<string, string>();
+
+            dic.Add("1", "101");
+
+            dic.Add("2", "102");
+
+            dic.serialize = true;
+
+            string json = JsonUtility.ToJson(dic);
+
+            Debuger.Log(Author.Test, json);
+
+
         }
         /// <summary>
         /// 点击测试

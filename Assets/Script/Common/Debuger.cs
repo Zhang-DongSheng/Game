@@ -10,6 +10,7 @@ namespace UnityEngine
         Test,
         Owner,
         Device,
+        Data,
     }
     public static class Debuger
     {
@@ -21,6 +22,7 @@ namespace UnityEngine
             { Author.Test, LogType.Error},
             { Author.Owner, LogType.Error},
             { Author.Device, LogType.Error},
+            { Author.Data, LogType.Error },
         };
 
         private static readonly StringBuilder builder = new StringBuilder();
