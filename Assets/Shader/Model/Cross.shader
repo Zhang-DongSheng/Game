@@ -19,8 +19,8 @@ Shader "Model/Cross"
         Pass
         {
             Blend SrcAlpha One
-            Zwrite Off
-            ZTest Greater
+            //ZWrite Off
+            //ZTest Greater
 
             CGPROGRAM
             #include "UnityCG.cginc"

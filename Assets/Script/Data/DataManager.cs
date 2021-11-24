@@ -8,7 +8,6 @@ namespace Data
     {
         private readonly Dictionary<string, DataBase> m_data = new Dictionary<string, DataBase>();
 
-        #region Load
         public T Load<T>(string key, string path) where T : DataBase
         {
             if (m_data.ContainsKey(key))
@@ -17,41 +16,40 @@ namespace Data
             }
             else
             {
-#if !DEBUG
-                LoadResources<T>(key, path);
+                T asset = null;
+#if UNITY_EDITOR
+                asset = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(string.Format("Assets/{0}.asset", path));
 #else
-                LoadAsync<T>(key);
+                asset = Resources.Load<T>(path);
 #endif
-                return null;
-            }
-        }
-
-        private void LoadAsync<T>(string key) where T : DataBase
-        {
-            try
-            {
-                Factory.Instance.Pop(key, (value) =>
+                if (asset != null)
                 {
-                    m_data.Add(key, value as T);
-                });
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e.Message);
+                    m_data.Add(key, asset);
+                }
+                return asset;
             }
         }
 
-        private void LoadResources<T>(string key, string path) where T : DataBase
+        public void LoadAsync<T>(string key, Action<T> action) where T : DataBase
         {
-            try
+            if (m_data.ContainsKey(key))
             {
-                m_data.Add(key, Resources.Load<T>(path));
+                action?.Invoke(m_data[key] as T);
             }
-            catch (Exception e)
+            else
             {
-                Debug.LogError(e.Message);
+                try
+                {
+                    Factory.Instance.Pop(key, (value) =>
+                    {
+                        m_data.Add(key, value as T); action?.Invoke(m_data[key] as T);
+                    });
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e.Message);
+                }
             }
         }
-#endregion
     }
 }

@@ -1,4 +1,4 @@
-namespace Study
+namespace Game.Operation
 {
     /// <summary>
     /// Î»ÔËËã

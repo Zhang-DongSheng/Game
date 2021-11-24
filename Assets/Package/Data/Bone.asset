@@ -14,36 +14,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bones:
   - name: 
-    position:
+    _position:
+    - 0
+    - 4.23
+    - 0
+    _rotation:
     - 0
     - 0
     - 0
-    rotation:
+    - 0
+    _scale:
     - 0
     - 0
     - 0
-    - 1
-    scale:
-    - 1
-    - 1
-    - 1
   - name: 
-    position:
+    _position:
     - 0
     - 0
     - 0
-    rotation:
+    _rotation:
     - 0
     - 0
     - 0
-    - 1
-    scale:
-    - 1
-    - 1
-    - 1
+    - 0
+    _scale:
+    - 0
+    - 0
+    - 0
+  - name: 
+    _position:
+    - 0
+    - 0
+    - 0
+    _rotation:
+    - 0
+    - 0
+    - 0
+    - 0
+    _scale:
+    - 0
+    - 0
+    - 0
   dic:
-    serialize: 0
     list:
+    - key: 
+      value: 0000000000000000
     - key: 
       value: 
     - key: 

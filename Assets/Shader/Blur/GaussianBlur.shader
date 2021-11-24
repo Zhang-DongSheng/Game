@@ -60,13 +60,11 @@ Shader "Blur/Gaussian"
                 float4 color    : COLOR;
                 float2 texcoord : TEXCOORD0;
             };
-    
             struct v2f
             {
                 float4 pos : SV_POSITION;
                 fixed4 color : COLOR;
                 float2 texcoord : TEXCOORD0;
-                fixed alpha : TEXCOORD1;
             };
             
             sampler2D _MainTex;
