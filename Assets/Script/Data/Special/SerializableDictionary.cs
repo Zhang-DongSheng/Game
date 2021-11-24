@@ -6,13 +6,13 @@ namespace Data
     [System.Serializable]
     public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
     {
-        public bool serialize;
-
         [SerializeField] protected List<SerializablePair<TKey, TValue>> list = new List<SerializablePair<TKey, TValue>>();
+
+        public bool Serialize { get; set; }
 
         public void OnBeforeSerialize()
         {
-            if (serialize)
+            if (Serialize)
             {
                 list.Clear();
 

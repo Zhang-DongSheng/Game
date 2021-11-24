@@ -83,20 +83,27 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
+            Vector3 position = new Vector3(1, 2, 3);
 
-            Data.SerializableDictionary<string, string> dic = new Data.SerializableDictionary<string, string>();
+            Quaternion rotation = Quaternion.Euler(30, 0, 0);
 
-            dic.Add("1", "101");
+            Vector3 scale = new Vector3(1, 1, 1);
 
-            dic.Add("2", "102");
+            var spaceConvertMatrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
 
-            dic.serialize = true;
+            var origMatrix = Matrix4x4.TRS(position, rotation, scale);
 
-            string json = JsonUtility.ToJson(dic);
+            var matrix = spaceConvertMatrix * origMatrix;
 
-            Debuger.Log(Author.Test, json);
+            position = matrix.GetRow(3);   new Vector3(matrix[0, 3], matrix[1, 3], matrix[2, 3]);
 
+            rotation = Quaternion.LookRotation(matrix.GetColumn(2), matrix.GetColumn(1));
 
+            Debuger.Log(Author.Test, matrix);
+
+            //Debuger.Log(Author.Test, rotation);
+
+            //Debuger.Log(Author.Test, scale);
         }
         /// <summary>
         /// 点击测试
