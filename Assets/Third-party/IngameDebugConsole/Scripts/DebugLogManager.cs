@@ -40,50 +40,50 @@ namespace IngameDebugConsole
 		public static DebugLogManager Instance { get; private set; }
 
 #pragma warning disable 0649
-		[Header( "Properties" )]
+		[Header("Properties")]
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "If enabled, console window will persist between scenes (i.e. not be destroyed when scene changes)" )]
+		[Tooltip("If enabled, console window will persist between scenes (i.e. not be destroyed when scene changes)")]
 		private bool singleton = true;
 
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "Minimum height of the console window" )]
+		[Tooltip("Minimum height of the console window")]
 		private float minimumHeight = 200f;
 
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "If enabled, console window can be resized horizontally, as well" )]
+		[Tooltip("If enabled, console window can be resized horizontally, as well")]
 		private bool enableHorizontalResizing = false;
 
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "If enabled, console window's resize button will be located at bottom-right corner. Otherwise, it will be located at bottom-left corner" )]
+		[Tooltip("If enabled, console window's resize button will be located at bottom-right corner. Otherwise, it will be located at bottom-left corner")]
 		private bool resizeFromRight = true;
 
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "Minimum width of the console window" )]
+		[Tooltip("Minimum width of the console window")]
 		private float minimumWidth = 240f;
 
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "If disabled, no popup will be shown when the console window is hidden" )]
+		[Tooltip("If disabled, no popup will be shown when the console window is hidden")]
 		private bool enablePopup = true;
 
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "If enabled, console will be initialized as a popup" )]
+		[Tooltip("If enabled, console will be initialized as a popup")]
 		private bool startInPopupMode = true;
 
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "If enabled, console window will initially be invisible" )]
+		[Tooltip("If enabled, console window will initially be invisible")]
 		private bool startMinimized = false;
 
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "If enabled, pressing the Toggle Key will show/hide (i.e. toggle) the console window at runtime" )]
+		[Tooltip("If enabled, pressing the Toggle Key will show/hide (i.e. toggle) the console window at runtime")]
 		private bool toggleWithKey = false;
 
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
@@ -98,42 +98,42 @@ namespace IngameDebugConsole
 
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "If enabled, the console window will have a searchbar" )]
+		[Tooltip("If enabled, the console window will have a searchbar")]
 		private bool enableSearchbar = true;
 
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "Width of the canvas determines whether the searchbar will be located inside the menu bar or underneath the menu bar. This way, the menu bar doesn't get too crowded on narrow screens. This value determines the minimum width of the canvas for the searchbar to appear inside the menu bar" )]
+		[Tooltip("Width of the canvas determines whether the searchbar will be located inside the menu bar or underneath the menu bar. This way, the menu bar doesn't get too crowded on narrow screens. This value determines the minimum width of the canvas for the searchbar to appear inside the menu bar")]
 		private float topSearchbarMinWidth = 360f;
 
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "If enabled, the arrival times of logs will be recorded and displayed when a log is expanded" )]
+		[Tooltip("If enabled, the arrival times of logs will be recorded and displayed when a log is expanded")]
 		private bool captureLogTimestamps = false;
 
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "If enabled, timestamps will be displayed for logs even if they aren't expanded" )]
+		[Tooltip("If enabled, timestamps will be displayed for logs even if they aren't expanded")]
 		internal bool alwaysDisplayTimestamps = false;
 
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "If enabled, the command input field at the bottom of the console window will automatically be cleared after entering a command" )]
+		[Tooltip("If enabled, the command input field at the bottom of the console window will automatically be cleared after entering a command")]
 		private bool clearCommandAfterExecution = true;
 
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "Console keeps track of the previously entered commands. This value determines the capacity of the command history (you can scroll through the history via up and down arrow keys while the command input field is focused)" )]
+		[Tooltip("Console keeps track of the previously entered commands. This value determines the capacity of the command history (you can scroll through the history via up and down arrow keys while the command input field is focused)")]
 		private int commandHistorySize = 15;
 
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "If enabled, while typing a command, all of the matching commands' signatures will be displayed in a popup" )]
+		[Tooltip("If enabled, while typing a command, all of the matching commands' signatures will be displayed in a popup")]
 		private bool showCommandSuggestions = true;
 
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "If enabled, on Android platform, logcat entries of the application will also be logged to the console with the prefix \"LOGCAT: \". This may come in handy especially if you want to access the native logs of your Android plugins (like Admob)" )]
+		[Tooltip("If enabled, on Android platform, logcat entries of the application will also be logged to the console with the prefix \"LOGCAT: \". This may come in handy especially if you want to access the native logs of your Android plugins (like Admob)")]
 		private bool receiveLogcatLogsInAndroid = false;
 
 #pragma warning disable 0414
@@ -142,7 +142,7 @@ namespace IngameDebugConsole
 #endif
 		[SerializeField]
 		[HideInInspector]
-		[Tooltip( "Native logs will be filtered using these arguments. If left blank, all native logs of the application will be logged to the console. But if you want to e.g. see Admob's logs only, you can enter \"-s Ads\" (without quotes) here" )]
+		[Tooltip("Native logs will be filtered using these arguments. If left blank, all native logs of the application will be logged to the console. But if you want to e.g. see Admob's logs only, you can enter \"-s Ads\" (without quotes) here")]
 		private string logcatArguments;
 #if UNITY_2018_3_OR_NEWER
 #pragma warning restore 0169
@@ -150,20 +150,20 @@ namespace IngameDebugConsole
 #pragma warning restore 0414
 
 		[SerializeField]
-		[Tooltip( "If enabled, on Android and iOS devices with notch screens, the console window will be repositioned so that the cutout(s) don't obscure it" )]
+		[Tooltip("If enabled, on Android and iOS devices with notch screens, the console window will be repositioned so that the cutout(s) don't obscure it")]
 		private bool avoidScreenCutout = true;
 
 		[SerializeField]
-		[Tooltip( "If a log is longer than this limit, it will be truncated. This helps avoid reaching Unity's 65000 vertex limit for UI canvases" )]
+		[Tooltip("If a log is longer than this limit, it will be truncated. This helps avoid reaching Unity's 65000 vertex limit for UI canvases")]
 		private int maxLogLength = 10000;
 
 #if UNITY_EDITOR || UNITY_STANDALONE
 		[SerializeField]
-		[Tooltip( "If enabled, on standalone platforms, command input field will automatically be focused (start receiving keyboard input) after opening the console window" )]
+		[Tooltip("If enabled, on standalone platforms, command input field will automatically be focused (start receiving keyboard input) after opening the console window")]
 		private bool autoFocusOnCommandInputField = true;
 #endif
 
-		[Header( "Visuals" )]
+		[Header("Visuals")]
 		[SerializeField]
 		private DebugLogItem logItemPrefab;
 
@@ -201,7 +201,7 @@ namespace IngameDebugConsole
 		[SerializeField]
 		private string commandSuggestionHighlightEnd = "</color>";
 
-		[Header( "Internal References" )]
+		[Header("Internal References")]
 		[SerializeField]
 		private RectTransform logWindowTR;
 
@@ -275,7 +275,7 @@ namespace IngameDebugConsole
 		public bool PopupEnabled
 		{
 			get { return popupManager.gameObject.activeSelf; }
-			set { popupManager.gameObject.SetActive( value ); }
+			set { popupManager.gameObject.SetActive(value); }
 		}
 
 		private bool screenDimensionsChanged = true;
@@ -374,35 +374,35 @@ namespace IngameDebugConsole
             Destroy( gameObject );
             return;
 #endif
-            // Only one instance of debug console is allowed
-            if ( !Instance )
+			// Only one instance of debug console is allowed
+			if (!Instance)
 			{
 				Instance = this;
 
 				// If it is a singleton object, don't destroy it between scene changes
-				if( singleton )
-					DontDestroyOnLoad( gameObject );
+				if (singleton)
+					DontDestroyOnLoad(gameObject);
 			}
-			else if( Instance != this )
+			else if (Instance != this)
 			{
-				Destroy( gameObject );
+				Destroy(gameObject);
 				return;
 			}
 
-			pooledLogEntries = new List<DebugLogEntry>( 16 );
-			pooledLogItems = new List<DebugLogItem>( 16 );
-			commandSuggestionInstances = new List<Text>( 8 );
-			matchingCommandSuggestions = new List<ConsoleMethodInfo>( 8 );
-			commandCaretIndexIncrements = new List<int>( 8 );
-			queuedLogEntries = new DynamicCircularBuffer<QueuedDebugLogEntry>( 16 );
-			commandHistory = new CircularBuffer<string>( commandHistorySize );
+			pooledLogEntries = new List<DebugLogEntry>(16);
+			pooledLogItems = new List<DebugLogItem>(16);
+			commandSuggestionInstances = new List<Text>(8);
+			matchingCommandSuggestions = new List<ConsoleMethodInfo>(8);
+			commandCaretIndexIncrements = new List<int>(8);
+			queuedLogEntries = new DynamicCircularBuffer<QueuedDebugLogEntry>(16);
+			commandHistory = new CircularBuffer<string>(commandHistorySize);
 
 			logEntriesLock = new object();
-			sharedStringBuilder = new StringBuilder( 1024 );
+			sharedStringBuilder = new StringBuilder(1024);
 
-			canvasTR = (RectTransform) transform;
-			logItemsScrollRectTR = (RectTransform) logItemsScrollRect.transform;
-			logItemsScrollRectOriginalSize = logItemsScrollRectTR.sizeDelta;
+			canvasTR = (RectTransform)transform;
+			logItemsScrollRectTR = (RectTransform)logItemsScrollRect.transform;
+			logItemsScrollRectOriginalSize = logItemsScrollRectTR.rect.size;
 
 			// Associate sprites with log types
 			logSpriteRepresentations = new Dictionary<LogType, Sprite>()
@@ -421,62 +421,62 @@ namespace IngameDebugConsole
 
 			resizeButton.sprite = enableHorizontalResizing ? resizeIconAllDirections : resizeIconVerticalOnly;
 
-			collapsedLogEntries = new List<DebugLogEntry>( 128 );
-			collapsedLogEntriesMap = new Dictionary<DebugLogEntry, int>( 128 );
+			collapsedLogEntries = new List<DebugLogEntry>(128);
+			collapsedLogEntriesMap = new Dictionary<DebugLogEntry, int>(128);
 			uncollapsedLogEntriesIndices = new DebugLogIndexList<int>();
 			indicesOfListEntriesToShow = new DebugLogIndexList<int>();
 
-			if( captureLogTimestamps )
+			if (captureLogTimestamps)
 			{
-				collapsedLogEntriesTimestamps = new List<DebugLogEntryTimestamp>( 128 );
+				collapsedLogEntriesTimestamps = new List<DebugLogEntryTimestamp>(128);
 				uncollapsedLogEntriesTimestamps = new DebugLogIndexList<DebugLogEntryTimestamp>();
 				timestampsOfListEntriesToShow = new DebugLogIndexList<DebugLogEntryTimestamp>();
 			}
 
-			recycledListView.Initialize( this, collapsedLogEntries, indicesOfListEntriesToShow, timestampsOfListEntriesToShow, logItemPrefab.Transform.sizeDelta.y );
-			recycledListView.UpdateItemsInTheList( true );
+			recycledListView.Initialize(this, collapsedLogEntries, indicesOfListEntriesToShow, timestampsOfListEntriesToShow, logItemPrefab.Transform.sizeDelta.y);
+			recycledListView.UpdateItemsInTheList(true);
 
-			if( minimumWidth < 100f )
+			if (minimumWidth < 100f)
 				minimumWidth = 100f;
-			if( minimumHeight < 200f )
+			if (minimumHeight < 200f)
 				minimumHeight = 200f;
 
-			if( !resizeFromRight )
+			if (!resizeFromRight)
 			{
-				RectTransform resizeButtonTR = (RectTransform) resizeButton.GetComponentInParent<DebugLogResizeListener>().transform;
-				resizeButtonTR.anchorMin = new Vector2( 0f, resizeButtonTR.anchorMin.y );
-				resizeButtonTR.anchorMax = new Vector2( 0f, resizeButtonTR.anchorMax.y );
-				resizeButtonTR.pivot = new Vector2( 0f, resizeButtonTR.pivot.y );
+				RectTransform resizeButtonTR = (RectTransform)resizeButton.GetComponentInParent<DebugLogResizeListener>().transform;
+				resizeButtonTR.anchorMin = new Vector2(0f, resizeButtonTR.anchorMin.y);
+				resizeButtonTR.anchorMax = new Vector2(0f, resizeButtonTR.anchorMax.y);
+				resizeButtonTR.pivot = new Vector2(0f, resizeButtonTR.pivot.y);
 
-				( (RectTransform) commandInputField.transform ).anchoredPosition += new Vector2( resizeButtonTR.sizeDelta.x, 0f );
+				((RectTransform)commandInputField.transform).anchoredPosition += new Vector2(resizeButtonTR.sizeDelta.x, 0f);
 			}
 
-			if( enableSearchbar )
-				searchbar.GetComponent<InputField>().onValueChanged.AddListener( SearchTermChanged );
+			if (enableSearchbar)
+				searchbar.GetComponent<InputField>().onValueChanged.AddListener(SearchTermChanged);
 			else
 			{
 				searchbar = null;
-				searchbarSlotTop.gameObject.SetActive( false );
-				searchbarSlotBottom.gameObject.SetActive( false );
+				searchbarSlotTop.gameObject.SetActive(false);
+				searchbarSlotBottom.gameObject.SetActive(false);
 			}
 
-			if( commandSuggestionsContainer.gameObject.activeSelf )
-				commandSuggestionsContainer.gameObject.SetActive( false );
+			if (commandSuggestionsContainer.gameObject.activeSelf)
+				commandSuggestionsContainer.gameObject.SetActive(false);
 
 			// Register to UI events
 			commandInputField.onValidateInput += OnValidateCommand;
-			commandInputField.onValueChanged.AddListener( RefreshCommandSuggestions );
-			commandInputField.onEndEdit.AddListener( OnEndEditCommand );
-			hideButton.onClick.AddListener( HideLogWindow );
-			clearButton.onClick.AddListener( ClearLogs );
-			collapseButton.GetComponent<Button>().onClick.AddListener( CollapseButtonPressed );
-			filterInfoButton.GetComponent<Button>().onClick.AddListener( FilterLogButtonPressed );
-			filterWarningButton.GetComponent<Button>().onClick.AddListener( FilterWarningButtonPressed );
-			filterErrorButton.GetComponent<Button>().onClick.AddListener( FilterErrorButtonPressed );
-			snapToBottomButton.GetComponent<Button>().onClick.AddListener( () => SetSnapToBottom( true ) );
+			commandInputField.onValueChanged.AddListener(RefreshCommandSuggestions);
+			commandInputField.onEndEdit.AddListener(OnEndEditCommand);
+			hideButton.onClick.AddListener(HideLogWindow);
+			clearButton.onClick.AddListener(ClearLogs);
+			collapseButton.GetComponent<Button>().onClick.AddListener(CollapseButtonPressed);
+			filterInfoButton.GetComponent<Button>().onClick.AddListener(FilterLogButtonPressed);
+			filterWarningButton.GetComponent<Button>().onClick.AddListener(FilterWarningButtonPressed);
+			filterErrorButton.GetComponent<Button>().onClick.AddListener(FilterErrorButtonPressed);
+			snapToBottomButton.GetComponent<Button>().onClick.AddListener(() => SetSnapToBottom(true));
 
 			localTimeUtcOffset = System.DateTime.Now - System.DateTime.UtcNow;
-			nullPointerEventData = new PointerEventData( null );
+			nullPointerEventData = new PointerEventData(null);
 
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
 			toggleBinding.performed += ( context ) =>
@@ -497,14 +497,14 @@ namespace IngameDebugConsole
 
 		private void OnEnable()
 		{
-			if( Instance != this )
+			if (Instance != this)
 				return;
 
 			// Intercept debug entries
 			Application.logMessageReceivedThreaded -= ReceivedLog;
 			Application.logMessageReceivedThreaded += ReceivedLog;
 
-			if( receiveLogcatLogsInAndroid )
+			if (receiveLogcatLogsInAndroid)
 			{
 #if !UNITY_EDITOR && UNITY_ANDROID
 				if( logcatListener == null )
@@ -514,8 +514,8 @@ namespace IngameDebugConsole
 #endif
 			}
 
-			DebugLogConsole.AddCommand( "logs.save", "Saves logs to persistentDataPath", SaveLogsToFile );
-			DebugLogConsole.AddCommand<string>( "logs.save", "Saves logs to the specified file", SaveLogsToFile );
+			DebugLogConsole.AddCommand("logs.save", "Saves logs to persistentDataPath", SaveLogsToFile);
+			DebugLogConsole.AddCommand<string>("logs.save", "Saves logs to the specified file", SaveLogsToFile);
 
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
 			if( toggleWithKey )
@@ -531,7 +531,7 @@ namespace IngameDebugConsole
 
 		private void OnDisable()
 		{
-			if( Instance != this )
+			if (Instance != this)
 				return;
 
 			// Stop receiving debug entries
@@ -542,7 +542,7 @@ namespace IngameDebugConsole
 				logcatListener.Stop();
 #endif
 
-			DebugLogConsole.RemoveCommand( "logs.save" );
+			DebugLogConsole.RemoveCommand("logs.save");
 
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
 			if( toggleBinding.enabled )
@@ -552,7 +552,7 @@ namespace IngameDebugConsole
 
 		private void Start()
 		{
-			if( ( enablePopup && startInPopupMode ) || ( !enablePopup && startMinimized ) )
+			if ((enablePopup && startInPopupMode) || (!enablePopup && startMinimized))
 				HideLogWindow();
 			else
 				ShowLogWindow();
@@ -563,7 +563,7 @@ namespace IngameDebugConsole
 #if UNITY_EDITOR
 		private void OnValidate()
 		{
-			if( UnityEditor.EditorApplication.isPlaying )
+			if (UnityEditor.EditorApplication.isPlaying)
 				resizeButton.sprite = enableHorizontalResizing ? resizeIconAllDirections : resizeIconVerticalOnly;
 		}
 
@@ -586,11 +586,11 @@ namespace IngameDebugConsole
 			// when we hide the console, we don't want the commandInputField to capture the toggleKey.
 			// InputField captures input in LateUpdate so deactivating it in Update ensures that
 			// no further input is captured
-			if( toggleWithKey )
+			if (toggleWithKey)
 			{
-				if( Input.GetKeyDown( toggleKey ) )
+				if (Input.GetKeyDown(toggleKey))
 				{
-					if( isLogWindowVisible )
+					if (isLogWindowVisible)
 						HideLogWindow();
 					else
 						ShowLogWindow();
@@ -602,49 +602,49 @@ namespace IngameDebugConsole
 		private void LateUpdate()
 		{
 #if UNITY_EDITOR
-			if( isQuittingApplication )
+			if (isQuittingApplication)
 				return;
 #endif
 
 			int queuedLogCount = queuedLogEntries.Count;
-			if( queuedLogCount > 0 )
+			if (queuedLogCount > 0)
 			{
-				for( int i = 0; i < queuedLogCount; i++ )
+				for (int i = 0; i < queuedLogCount; i++)
 				{
 					QueuedDebugLogEntry logEntry;
-					lock( logEntriesLock )
+					lock (logEntriesLock)
 					{
 						logEntry = queuedLogEntries.RemoveFirst();
 					}
 
-					ProcessLog( logEntry );
+					ProcessLog(logEntry);
 				}
 			}
 
 			// Update entry count texts in a single batch
-			if( newInfoEntryCount > 0 || newWarningEntryCount > 0 || newErrorEntryCount > 0 )
+			if (newInfoEntryCount > 0 || newWarningEntryCount > 0 || newErrorEntryCount > 0)
 			{
-				if( newInfoEntryCount > 0 )
+				if (newInfoEntryCount > 0)
 				{
 					infoEntryCount += newInfoEntryCount;
 					infoEntryCountText.text = infoEntryCount.ToString();
 				}
 
-				if( newWarningEntryCount > 0 )
+				if (newWarningEntryCount > 0)
 				{
 					warningEntryCount += newWarningEntryCount;
 					warningEntryCountText.text = warningEntryCount.ToString();
 				}
 
-				if( newErrorEntryCount > 0 )
+				if (newErrorEntryCount > 0)
 				{
 					errorEntryCount += newErrorEntryCount;
 					errorEntryCountText.text = errorEntryCount.ToString();
 				}
 
 				// If debug popup is visible, notify it of the new debug entries
-				if( !isLogWindowVisible )
-					popupManager.NewLogsArrived( newInfoEntryCount, newWarningEntryCount, newErrorEntryCount );
+				if (!isLogWindowVisible)
+					popupManager.NewLogsArrived(newInfoEntryCount, newWarningEntryCount, newErrorEntryCount);
 
 				newInfoEntryCount = 0;
 				newWarningEntryCount = 0;
@@ -652,31 +652,31 @@ namespace IngameDebugConsole
 			}
 
 			// Update visible logs if necessary
-			if( isLogWindowVisible && shouldUpdateRecycledListView )
+			if (isLogWindowVisible && shouldUpdateRecycledListView)
 			{
-				recycledListView.OnLogEntriesUpdated( false );
+				recycledListView.OnLogEntriesUpdated(false);
 				shouldUpdateRecycledListView = false;
 			}
 
 			// Automatically expand the target log (if any)
-			if( indexOfLogEntryToSelectAndFocus >= 0 )
+			if (indexOfLogEntryToSelectAndFocus >= 0)
 			{
-				if( indexOfLogEntryToSelectAndFocus < indicesOfListEntriesToShow.Count )
-					recycledListView.SelectAndFocusOnLogItemAtIndex( indexOfLogEntryToSelectAndFocus );
+				if (indexOfLogEntryToSelectAndFocus < indicesOfListEntriesToShow.Count)
+					recycledListView.SelectAndFocusOnLogItemAtIndex(indexOfLogEntryToSelectAndFocus);
 
 				indexOfLogEntryToSelectAndFocus = -1;
 			}
 
-			if( showCommandSuggestions && commandInputField.isFocused && commandInputField.caretPosition != commandInputFieldPrevCaretPos )
-				RefreshCommandSuggestions( commandInputField.text );
+			if (showCommandSuggestions && commandInputField.isFocused && commandInputField.caretPosition != commandInputFieldPrevCaretPos)
+				RefreshCommandSuggestions(commandInputField.text);
 
-			if( screenDimensionsChanged )
+			if (screenDimensionsChanged)
 			{
 				// Update the recycled list view
-				if( isLogWindowVisible )
+				if (isLogWindowVisible)
 					recycledListView.OnViewportHeightChanged();
 				else
-					popupManager.UpdatePosition( true );
+					popupManager.UpdatePosition(true);
 
 #if UNITY_EDITOR || UNITY_ANDROID || UNITY_IOS
 				CheckScreenCutout();
@@ -686,59 +686,52 @@ namespace IngameDebugConsole
 			}
 
 			float logWindowWidth = logWindowTR.rect.width;
-			if( !Mathf.Approximately( logWindowWidth, logWindowPreviousWidth ) )
+			if (!Mathf.Approximately(logWindowWidth, logWindowPreviousWidth))
 			{
 				logWindowPreviousWidth = logWindowWidth;
 
-				if( searchbar )
+				if (searchbar)
 				{
-					if( logWindowWidth >= topSearchbarMinWidth )
+					if (logWindowWidth >= topSearchbarMinWidth)
 					{
-						if( searchbar.parent == searchbarSlotBottom )
+						if (searchbar.parent == searchbarSlotBottom)
 						{
-							searchbarSlotTop.gameObject.SetActive( true );
-							searchbar.SetParent( searchbarSlotTop, false );
-							searchbarSlotBottom.gameObject.SetActive( false );
-
-							logItemsScrollRectTR.anchoredPosition = Vector2.zero;
-							logItemsScrollRectTR.sizeDelta = logItemsScrollRectOriginalSize;
+							searchbarSlotTop.gameObject.SetActive(true);
+							searchbar.SetParent(searchbarSlotTop, false);
+							searchbarSlotBottom.gameObject.SetActive(false);
 						}
 					}
 					else
 					{
-						if( searchbar.parent == searchbarSlotTop )
+						if (searchbar.parent == searchbarSlotTop)
 						{
-							searchbarSlotBottom.gameObject.SetActive( true );
-							searchbar.SetParent( searchbarSlotBottom, false );
-							searchbarSlotTop.gameObject.SetActive( false );
-
-							float searchbarHeight = searchbarSlotBottom.sizeDelta.y;
-							logItemsScrollRectTR.anchoredPosition = new Vector2( 0f, searchbarHeight * -0.5f );
-							logItemsScrollRectTR.sizeDelta = logItemsScrollRectOriginalSize - new Vector2( 0f, searchbarHeight );
+							searchbarSlotBottom.gameObject.SetActive(true);
+							searchbar.SetParent(searchbarSlotBottom, false);
+							searchbarSlotTop.gameObject.SetActive(false);
 						}
 					}
 				}
 
-				if( isLogWindowVisible )
+				if (isLogWindowVisible)
 					recycledListView.OnViewportWidthChanged();
 			}
 
 			// If snapToBottom is enabled, force the scrollbar to the bottom
-			if( snapToBottom )
+			if (snapToBottom)
 			{
 				logItemsScrollRect.verticalNormalizedPosition = 0f;
 
-				if( snapToBottomButton.activeSelf )
-					snapToBottomButton.SetActive( false );
+				if (snapToBottomButton.activeSelf)
+					snapToBottomButton.SetActive(false);
 			}
 			else
 			{
 				float scrollPos = logItemsScrollRect.verticalNormalizedPosition;
-				if( snapToBottomButton.activeSelf != ( scrollPos > 1E-6f && scrollPos < 0.9999f ) )
-					snapToBottomButton.SetActive( !snapToBottomButton.activeSelf );
+				if (snapToBottomButton.activeSelf != (scrollPos > 1E-6f && scrollPos < 0.9999f))
+					snapToBottomButton.SetActive(!snapToBottomButton.activeSelf);
 			}
 
-			if( isLogWindowVisible && commandInputField.isFocused && commandHistory.Count > 0 )
+			if (isLogWindowVisible && commandInputField.isFocused && commandHistory.Count > 0)
 			{
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
 				if( Keyboard.current != null )
@@ -747,15 +740,15 @@ namespace IngameDebugConsole
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
 					if( Keyboard.current[Key.UpArrow].wasPressedThisFrame )
 #else
-					if( Input.GetKeyDown( KeyCode.UpArrow ) )
+					if (Input.GetKeyDown(KeyCode.UpArrow))
 #endif
 					{
-						if( commandHistoryIndex == -1 )
+						if (commandHistoryIndex == -1)
 						{
 							commandHistoryIndex = commandHistory.Count - 1;
 							unfinishedCommand = commandInputField.text;
 						}
-						else if( --commandHistoryIndex < 0 )
+						else if (--commandHistoryIndex < 0)
 							commandHistoryIndex = 0;
 
 						commandInputField.text = commandHistory[commandHistoryIndex];
@@ -764,10 +757,10 @@ namespace IngameDebugConsole
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
 					else if( Keyboard.current[Key.DownArrow].wasPressedThisFrame && commandHistoryIndex != -1 )
 #else
-					else if( Input.GetKeyDown( KeyCode.DownArrow ) && commandHistoryIndex != -1 )
+					else if (Input.GetKeyDown(KeyCode.DownArrow) && commandHistoryIndex != -1)
 #endif
 					{
-						if( ++commandHistoryIndex < commandHistory.Count )
+						if (++commandHistoryIndex < commandHistory.Count)
 							commandInputField.text = commandHistory[commandHistoryIndex];
 						else
 						{
@@ -799,17 +792,17 @@ namespace IngameDebugConsole
 
 			// Update the recycled list view 
 			// (in case new entries were intercepted while log window was hidden)
-			recycledListView.OnLogEntriesUpdated( true );
+			recycledListView.OnLogEntriesUpdated(true);
 
 #if UNITY_EDITOR || UNITY_STANDALONE
 			// Focus on the command input field on standalone platforms when the console is opened
-			if( autoFocusOnCommandInputField )
-				StartCoroutine( ActivateCommandInputFieldCoroutine() );
+			if (autoFocusOnCommandInputField)
+				StartCoroutine(ActivateCommandInputFieldCoroutine());
 #endif
 
 			isLogWindowVisible = true;
 
-			if( OnLogWindowShown != null )
+			if (OnLogWindowShown != null)
 				OnLogWindowShown();
 		}
 
@@ -820,50 +813,50 @@ namespace IngameDebugConsole
 			logWindowCanvasGroup.blocksRaycasts = false;
 			logWindowCanvasGroup.alpha = 0f;
 
-			if( commandInputField.isFocused )
+			if (commandInputField.isFocused)
 				commandInputField.DeactivateInputField();
 
 			popupManager.Show();
 
 			isLogWindowVisible = false;
 
-			if( OnLogWindowHidden != null )
+			if (OnLogWindowHidden != null)
 				OnLogWindowHidden();
 		}
 
 		// Command field input is changed, check if command is submitted
-		private char OnValidateCommand( string text, int charIndex, char addedChar )
+		private char OnValidateCommand(string text, int charIndex, char addedChar)
 		{
-			if( addedChar == '\t' ) // Autocomplete attempt
+			if (addedChar == '\t') // Autocomplete attempt
 			{
-				if( !string.IsNullOrEmpty( text ) )
+				if (!string.IsNullOrEmpty(text))
 				{
-					string autoCompletedCommand = DebugLogConsole.GetAutoCompleteCommand( text );
-					if( !string.IsNullOrEmpty( autoCompletedCommand ) )
+					string autoCompletedCommand = DebugLogConsole.GetAutoCompleteCommand(text);
+					if (!string.IsNullOrEmpty(autoCompletedCommand))
 						commandInputField.text = autoCompletedCommand;
 				}
 
 				return '\0';
 			}
-			else if( addedChar == '\n' ) // Command is submitted
+			else if (addedChar == '\n') // Command is submitted
 			{
 				// Clear the command field
-				if( clearCommandAfterExecution )
+				if (clearCommandAfterExecution)
 					commandInputField.text = string.Empty;
 
-				if( text.Length > 0 )
+				if (text.Length > 0)
 				{
-					if( commandHistory.Count == 0 || commandHistory[commandHistory.Count - 1] != text )
-						commandHistory.Add( text );
+					if (commandHistory.Count == 0 || commandHistory[commandHistory.Count - 1] != text)
+						commandHistory.Add(text);
 
 					commandHistoryIndex = -1;
 					unfinishedCommand = null;
 
 					// Execute the command
-					DebugLogConsole.ExecuteCommand( text );
+					DebugLogConsole.ExecuteCommand(text);
 
 					// Snap to bottom and select the latest entry
-					SetSnapToBottom( true );
+					SetSnapToBottom(true);
 				}
 
 				return '\0';
@@ -873,159 +866,159 @@ namespace IngameDebugConsole
 		}
 
 		// A debug entry is received
-		public void ReceivedLog( string logString, string stackTrace, LogType logType )
+		public void ReceivedLog(string logString, string stackTrace, LogType logType)
 		{
 #if UNITY_EDITOR
-			if( isQuittingApplication )
+			if (isQuittingApplication)
 				return;
 #endif
 
 			// Truncate the log if it is longer than maxLogLength
 			int logLength = logString.Length;
-			if( stackTrace == null )
+			if (stackTrace == null)
 			{
-				if( logLength > maxLogLength )
-					logString = logString.Substring( 0, maxLogLength - 11 ) + "<truncated>";
+				if (logLength > maxLogLength)
+					logString = logString.Substring(0, maxLogLength - 11) + "<truncated>";
 			}
 			else
 			{
 				logLength += stackTrace.Length;
-				if( logLength > maxLogLength )
+				if (logLength > maxLogLength)
 				{
 					// Decide which log component(s) to truncate
 					int halfMaxLogLength = maxLogLength / 2;
-					if( logString.Length >= halfMaxLogLength )
+					if (logString.Length >= halfMaxLogLength)
 					{
-						if( stackTrace.Length >= halfMaxLogLength )
+						if (stackTrace.Length >= halfMaxLogLength)
 						{
 							// Truncate both logString and stackTrace
-							logString = logString.Substring( 0, halfMaxLogLength - 11 ) + "<truncated>";
+							logString = logString.Substring(0, halfMaxLogLength - 11) + "<truncated>";
 
 							// If stackTrace doesn't end with a blank line, its last line won't be visible in the console for some reason
-							stackTrace = stackTrace.Substring( 0, halfMaxLogLength - 12 ) + "<truncated>\n";
+							stackTrace = stackTrace.Substring(0, halfMaxLogLength - 12) + "<truncated>\n";
 						}
 						else
 						{
 							// Truncate logString
-							logString = logString.Substring( 0, maxLogLength - stackTrace.Length - 11 ) + "<truncated>";
+							logString = logString.Substring(0, maxLogLength - stackTrace.Length - 11) + "<truncated>";
 						}
 					}
 					else
 					{
 						// Truncate stackTrace
-						stackTrace = stackTrace.Substring( 0, maxLogLength - logString.Length - 12 ) + "<truncated>\n";
+						stackTrace = stackTrace.Substring(0, maxLogLength - logString.Length - 12) + "<truncated>\n";
 					}
 				}
 			}
 
-			QueuedDebugLogEntry queuedLogEntry = new QueuedDebugLogEntry( logString, stackTrace, logType );
+			QueuedDebugLogEntry queuedLogEntry = new QueuedDebugLogEntry(logString, stackTrace, logType);
 
-			lock( logEntriesLock )
+			lock (logEntriesLock)
 			{
-				queuedLogEntries.Add( queuedLogEntry );
+				queuedLogEntries.Add(queuedLogEntry);
 			}
 		}
 
 		// Present the log entry in the console
-		private void ProcessLog( QueuedDebugLogEntry queuedLogEntry )
+		private void ProcessLog(QueuedDebugLogEntry queuedLogEntry)
 		{
 			LogType logType = queuedLogEntry.logType;
 			DebugLogEntry logEntry;
-			if( pooledLogEntries.Count > 0 )
+			if (pooledLogEntries.Count > 0)
 			{
 				logEntry = pooledLogEntries[pooledLogEntries.Count - 1];
-				pooledLogEntries.RemoveAt( pooledLogEntries.Count - 1 );
+				pooledLogEntries.RemoveAt(pooledLogEntries.Count - 1);
 			}
 			else
 				logEntry = new DebugLogEntry();
 
-			logEntry.Initialize( queuedLogEntry.logString, queuedLogEntry.stackTrace );
+			logEntry.Initialize(queuedLogEntry.logString, queuedLogEntry.stackTrace);
 
 			// Check if this entry is a duplicate (i.e. has been received before)
 			int logEntryIndex;
-			bool isEntryInCollapsedEntryList = collapsedLogEntriesMap.TryGetValue( logEntry, out logEntryIndex );
-			if( !isEntryInCollapsedEntryList )
+			bool isEntryInCollapsedEntryList = collapsedLogEntriesMap.TryGetValue(logEntry, out logEntryIndex);
+			if (!isEntryInCollapsedEntryList)
 			{
 				// It is not a duplicate,
 				// add it to the list of unique debug entries
 				logEntry.logTypeSpriteRepresentation = logSpriteRepresentations[logType];
 
 				logEntryIndex = collapsedLogEntries.Count;
-				collapsedLogEntries.Add( logEntry );
+				collapsedLogEntries.Add(logEntry);
 				collapsedLogEntriesMap[logEntry] = logEntryIndex;
 
-				if( collapsedLogEntriesTimestamps != null )
-					collapsedLogEntriesTimestamps.Add( new DebugLogEntryTimestamp( localTimeUtcOffset ) );
+				if (collapsedLogEntriesTimestamps != null)
+					collapsedLogEntriesTimestamps.Add(new DebugLogEntryTimestamp(localTimeUtcOffset));
 			}
 			else
 			{
 				// It is a duplicate, pool the duplicate log entry and
 				// increment the original debug item's collapsed count
-				pooledLogEntries.Add( logEntry );
+				pooledLogEntries.Add(logEntry);
 
 				logEntry = collapsedLogEntries[logEntryIndex];
 				logEntry.count++;
 
-				if( collapsedLogEntriesTimestamps != null )
-					collapsedLogEntriesTimestamps[logEntryIndex] = new DebugLogEntryTimestamp( localTimeUtcOffset );
+				if (collapsedLogEntriesTimestamps != null)
+					collapsedLogEntriesTimestamps[logEntryIndex] = new DebugLogEntryTimestamp(localTimeUtcOffset);
 			}
 
 			// Add the index of the unique debug entry to the list
 			// that stores the order the debug entries are received
-			uncollapsedLogEntriesIndices.Add( logEntryIndex );
+			uncollapsedLogEntriesIndices.Add(logEntryIndex);
 
 			// Record log's timestamp if desired
-			if( uncollapsedLogEntriesTimestamps != null )
-				uncollapsedLogEntriesTimestamps.Add( collapsedLogEntriesTimestamps[logEntryIndex] );
+			if (uncollapsedLogEntriesTimestamps != null)
+				uncollapsedLogEntriesTimestamps.Add(collapsedLogEntriesTimestamps[logEntryIndex]);
 
 			// If this debug entry matches the current filters,
 			// add it to the list of debug entries to show
 			int logEntryIndexInEntriesToShow = -1;
 			Sprite logTypeSpriteRepresentation = logEntry.logTypeSpriteRepresentation;
-			if( isCollapseOn && isEntryInCollapsedEntryList )
+			if (isCollapseOn && isEntryInCollapsedEntryList)
 			{
-				if( isLogWindowVisible )
+				if (isLogWindowVisible)
 				{
-					if( !isInSearchMode && logFilter == DebugLogFilter.All )
+					if (!isInSearchMode && logFilter == DebugLogFilter.All)
 						logEntryIndexInEntriesToShow = logEntryIndex;
 					else
-						logEntryIndexInEntriesToShow = indicesOfListEntriesToShow.IndexOf( logEntryIndex );
+						logEntryIndexInEntriesToShow = indicesOfListEntriesToShow.IndexOf(logEntryIndex);
 
-					if( timestampsOfListEntriesToShow != null )
+					if (timestampsOfListEntriesToShow != null)
 						timestampsOfListEntriesToShow[logEntryIndexInEntriesToShow] = collapsedLogEntriesTimestamps[logEntryIndex];
 
-					recycledListView.OnCollapsedLogEntryAtIndexUpdated( logEntryIndexInEntriesToShow );
+					recycledListView.OnCollapsedLogEntryAtIndexUpdated(logEntryIndexInEntriesToShow);
 				}
 			}
-			else if( ( !isInSearchMode || queuedLogEntry.MatchesSearchTerm( searchTerm ) ) && ( logFilter == DebugLogFilter.All ||
-			   ( logTypeSpriteRepresentation == infoLog && ( ( logFilter & DebugLogFilter.Info ) == DebugLogFilter.Info ) ) ||
-			   ( logTypeSpriteRepresentation == warningLog && ( ( logFilter & DebugLogFilter.Warning ) == DebugLogFilter.Warning ) ) ||
-			   ( logTypeSpriteRepresentation == errorLog && ( ( logFilter & DebugLogFilter.Error ) == DebugLogFilter.Error ) ) ) )
+			else if ((!isInSearchMode || queuedLogEntry.MatchesSearchTerm(searchTerm)) && (logFilter == DebugLogFilter.All ||
+			   (logTypeSpriteRepresentation == infoLog && ((logFilter & DebugLogFilter.Info) == DebugLogFilter.Info)) ||
+			   (logTypeSpriteRepresentation == warningLog && ((logFilter & DebugLogFilter.Warning) == DebugLogFilter.Warning)) ||
+			   (logTypeSpriteRepresentation == errorLog && ((logFilter & DebugLogFilter.Error) == DebugLogFilter.Error))))
 			{
-				indicesOfListEntriesToShow.Add( logEntryIndex );
+				indicesOfListEntriesToShow.Add(logEntryIndex);
 				logEntryIndexInEntriesToShow = indicesOfListEntriesToShow.Count - 1;
 
-				if( timestampsOfListEntriesToShow != null )
-					timestampsOfListEntriesToShow.Add( collapsedLogEntriesTimestamps[logEntryIndex] );
+				if (timestampsOfListEntriesToShow != null)
+					timestampsOfListEntriesToShow.Add(collapsedLogEntriesTimestamps[logEntryIndex]);
 
-				if( isLogWindowVisible )
+				if (isLogWindowVisible)
 					shouldUpdateRecycledListView = true;
 			}
 
-			if( logType == LogType.Log )
+			if (logType == LogType.Log)
 				newInfoEntryCount++;
-			else if( logType == LogType.Warning )
+			else if (logType == LogType.Warning)
 				newWarningEntryCount++;
 			else
 				newErrorEntryCount++;
 
 			// Automatically expand this log if necessary
-			if( pendingLogToAutoExpand > 0 && --pendingLogToAutoExpand <= 0 && isLogWindowVisible && logEntryIndexInEntriesToShow >= 0 )
+			if (pendingLogToAutoExpand > 0 && --pendingLogToAutoExpand <= 0 && isLogWindowVisible && logEntryIndexInEntriesToShow >= 0)
 				indexOfLogEntryToSelectAndFocus = logEntryIndexInEntriesToShow;
 		}
 
 		// Value of snapToBottom is changed (user scrolled the list manually)
-		public void SetSnapToBottom( bool snapToBottom )
+		public void SetSnapToBottom(bool snapToBottom)
 		{
 			this.snapToBottom = snapToBottom;
 		}
@@ -1033,7 +1026,7 @@ namespace IngameDebugConsole
 		// Make sure the scroll bar of the scroll rect is adjusted properly
 		internal void ValidateScrollPosition()
 		{
-			logItemsScrollRect.OnScroll( nullPointerEventData );
+			logItemsScrollRect.OnScroll(nullPointerEventData);
 		}
 
 		// Automatically expand the latest log in queuedLogEntries
@@ -1046,7 +1039,7 @@ namespace IngameDebugConsole
 		public void StripStackTraceFromLatestPendingLog()
 		{
 			QueuedDebugLogEntry log = queuedLogEntries[queuedLogEntries.Count - 1];
-			queuedLogEntries[queuedLogEntries.Count - 1] = new QueuedDebugLogEntry( log.logString, string.Empty, log.logType );
+			queuedLogEntries[queuedLogEntries.Count - 1] = new QueuedDebugLogEntry(log.logString, string.Empty, log.logType);
 		}
 
 		// Clear all the logs
@@ -1067,7 +1060,7 @@ namespace IngameDebugConsole
 			uncollapsedLogEntriesIndices.Clear();
 			indicesOfListEntriesToShow.Clear();
 
-			if( collapsedLogEntriesTimestamps != null )
+			if (collapsedLogEntriesTimestamps != null)
 			{
 				collapsedLogEntriesTimestamps.Clear();
 				uncollapsedLogEntriesTimestamps.Clear();
@@ -1075,7 +1068,7 @@ namespace IngameDebugConsole
 			}
 
 			recycledListView.DeselectSelectedLogItem();
-			recycledListView.OnLogEntriesUpdated( true );
+			recycledListView.OnLogEntriesUpdated(true);
 		}
 
 		// Collapse button is clicked
@@ -1086,7 +1079,7 @@ namespace IngameDebugConsole
 
 			snapToBottom = true;
 			collapseButton.color = isCollapseOn ? collapseButtonSelectedColor : collapseButtonNormalColor;
-			recycledListView.SetCollapseMode( isCollapseOn );
+			recycledListView.SetCollapseMode(isCollapseOn);
 
 			// Determine the new list of debug entries to show
 			FilterLogs();
@@ -1097,7 +1090,7 @@ namespace IngameDebugConsole
 		{
 			logFilter = logFilter ^ DebugLogFilter.Info;
 
-			if( ( logFilter & DebugLogFilter.Info ) == DebugLogFilter.Info )
+			if ((logFilter & DebugLogFilter.Info) == DebugLogFilter.Info)
 				filterInfoButton.color = filterButtonsSelectedColor;
 			else
 				filterInfoButton.color = filterButtonsNormalColor;
@@ -1110,7 +1103,7 @@ namespace IngameDebugConsole
 		{
 			logFilter = logFilter ^ DebugLogFilter.Warning;
 
-			if( ( logFilter & DebugLogFilter.Warning ) == DebugLogFilter.Warning )
+			if ((logFilter & DebugLogFilter.Warning) == DebugLogFilter.Warning)
 				filterWarningButton.color = filterButtonsSelectedColor;
 			else
 				filterWarningButton.color = filterButtonsNormalColor;
@@ -1123,7 +1116,7 @@ namespace IngameDebugConsole
 		{
 			logFilter = logFilter ^ DebugLogFilter.Error;
 
-			if( ( logFilter & DebugLogFilter.Error ) == DebugLogFilter.Error )
+			if ((logFilter & DebugLogFilter.Error) == DebugLogFilter.Error)
 				filterErrorButton.color = filterButtonsSelectedColor;
 			else
 				filterErrorButton.color = filterButtonsNormalColor;
@@ -1132,14 +1125,14 @@ namespace IngameDebugConsole
 		}
 
 		// Search term has changed
-		private void SearchTermChanged( string searchTerm )
+		private void SearchTermChanged(string searchTerm)
 		{
-			if( searchTerm != null )
+			if (searchTerm != null)
 				searchTerm = searchTerm.Trim();
 
 			this.searchTerm = searchTerm;
-			bool isInSearchMode = !string.IsNullOrEmpty( searchTerm );
-			if( isInSearchMode || this.isInSearchMode )
+			bool isInSearchMode = !string.IsNullOrEmpty(searchTerm);
+			if (isInSearchMode || this.isInSearchMode)
 			{
 				this.isInSearchMode = isInSearchMode;
 				FilterLogs();
@@ -1147,9 +1140,9 @@ namespace IngameDebugConsole
 		}
 
 		// Show suggestions for the currently entered command
-		private void RefreshCommandSuggestions( string command )
+		private void RefreshCommandSuggestions(string command)
 		{
-			if( !showCommandSuggestions )
+			if (!showCommandSuggestions)
 				return;
 
 			commandInputFieldPrevCaretPos = commandInputField.caretPosition;
@@ -1157,7 +1150,7 @@ namespace IngameDebugConsole
 			// Don't recalculate the command suggestions if the input command hasn't changed (i.e. only caret's position has changed)
 			bool commandChanged = command != commandInputFieldPrevCommand;
 			bool commandNameOrParametersChanged = false;
-			if( commandChanged )
+			if (commandChanged)
 			{
 				commandInputFieldPrevCommand = command;
 
@@ -1166,8 +1159,8 @@ namespace IngameDebugConsole
 
 				string prevCommandName = commandInputFieldPrevCommandName;
 				int numberOfParameters;
-				DebugLogConsole.GetCommandSuggestions( command, matchingCommandSuggestions, commandCaretIndexIncrements, ref commandInputFieldPrevCommandName, out numberOfParameters );
-				if( prevCommandName != commandInputFieldPrevCommandName || numberOfParameters != commandInputFieldPrevParamCount )
+				DebugLogConsole.GetCommandSuggestions(command, matchingCommandSuggestions, commandCaretIndexIncrements, ref commandInputFieldPrevCommandName, out numberOfParameters);
+				if (prevCommandName != commandInputFieldPrevCommandName || numberOfParameters != commandInputFieldPrevParamCount)
 				{
 					commandInputFieldPrevParamCount = numberOfParameters;
 					commandNameOrParametersChanged = true;
@@ -1176,12 +1169,12 @@ namespace IngameDebugConsole
 
 			int caretArgumentIndex = 0;
 			int caretPos = commandInputField.caretPosition;
-			for( int i = 0; i < commandCaretIndexIncrements.Count && caretPos > commandCaretIndexIncrements[i]; i++ )
+			for (int i = 0; i < commandCaretIndexIncrements.Count && caretPos > commandCaretIndexIncrements[i]; i++)
 				caretArgumentIndex++;
 
-			if( caretArgumentIndex != commandInputFieldPrevCaretArgumentIndex )
+			if (caretArgumentIndex != commandInputFieldPrevCaretArgumentIndex)
 				commandInputFieldPrevCaretArgumentIndex = caretArgumentIndex;
-			else if( !commandChanged || !commandNameOrParametersChanged )
+			else if (!commandChanged || !commandNameOrParametersChanged)
 			{
 				// Command suggestions don't need to be updated if:
 				// a) neither the entered command nor the argument that the caret is hovering has changed
@@ -1190,125 +1183,97 @@ namespace IngameDebugConsole
 				return;
 			}
 
-			if( matchingCommandSuggestions.Count == 0 )
-				OnEndEditCommand( command );
+			if (matchingCommandSuggestions.Count == 0)
+				OnEndEditCommand(command);
 			else
 			{
-				if( !commandSuggestionsContainer.gameObject.activeSelf )
-					commandSuggestionsContainer.gameObject.SetActive( true );
+				if (!commandSuggestionsContainer.gameObject.activeSelf)
+					commandSuggestionsContainer.gameObject.SetActive(true);
 
 				int suggestionInstancesCount = commandSuggestionInstances.Count;
 				int suggestionsCount = matchingCommandSuggestions.Count;
 
-				for( int i = 0; i < suggestionsCount; i++ )
+				for (int i = 0; i < suggestionsCount; i++)
 				{
-					if( i >= visibleCommandSuggestionInstances )
+					if (i >= visibleCommandSuggestionInstances)
 					{
-						if( i >= suggestionInstancesCount )
-							commandSuggestionInstances.Add( (Text) Instantiate( commandSuggestionPrefab, commandSuggestionsContainer, false ) );
+						if (i >= suggestionInstancesCount)
+							commandSuggestionInstances.Add((Text)Instantiate(commandSuggestionPrefab, commandSuggestionsContainer, false));
 						else
-							commandSuggestionInstances[i].gameObject.SetActive( true );
+							commandSuggestionInstances[i].gameObject.SetActive(true);
 
 						visibleCommandSuggestionInstances++;
 					}
 
 					ConsoleMethodInfo suggestedCommand = matchingCommandSuggestions[i];
 					sharedStringBuilder.Length = 0;
-					if( caretArgumentIndex > 0 )
-						sharedStringBuilder.Append( suggestedCommand.command );
+					if (caretArgumentIndex > 0)
+						sharedStringBuilder.Append(suggestedCommand.command);
 					else
-						sharedStringBuilder.Append( commandSuggestionHighlightStart ).Append( matchingCommandSuggestions[i].command ).Append( commandSuggestionHighlightEnd );
+						sharedStringBuilder.Append(commandSuggestionHighlightStart).Append(matchingCommandSuggestions[i].command).Append(commandSuggestionHighlightEnd);
 
-					if( suggestedCommand.parameters.Length > 0 )
+					if (suggestedCommand.parameters.Length > 0)
 					{
-						sharedStringBuilder.Append( " " );
+						sharedStringBuilder.Append(" ");
 
 						// If the command name wasn't highlighted, a parameter must always be highlighted
 						int caretParameterIndex = caretArgumentIndex - 1;
-						if( caretParameterIndex >= suggestedCommand.parameters.Length )
+						if (caretParameterIndex >= suggestedCommand.parameters.Length)
 							caretParameterIndex = suggestedCommand.parameters.Length - 1;
 
-						for( int j = 0; j < suggestedCommand.parameters.Length; j++ )
+						for (int j = 0; j < suggestedCommand.parameters.Length; j++)
 						{
-							if( caretParameterIndex != j )
-								sharedStringBuilder.Append( suggestedCommand.parameters[j] );
+							if (caretParameterIndex != j)
+								sharedStringBuilder.Append(suggestedCommand.parameters[j]);
 							else
-								sharedStringBuilder.Append( commandSuggestionHighlightStart ).Append( suggestedCommand.parameters[j] ).Append( commandSuggestionHighlightEnd );
+								sharedStringBuilder.Append(commandSuggestionHighlightStart).Append(suggestedCommand.parameters[j]).Append(commandSuggestionHighlightEnd);
 						}
 					}
 
 					commandSuggestionInstances[i].text = sharedStringBuilder.ToString();
 				}
 
-				for( int i = visibleCommandSuggestionInstances - 1; i >= suggestionsCount; i-- )
-					commandSuggestionInstances[i].gameObject.SetActive( false );
+				for (int i = visibleCommandSuggestionInstances - 1; i >= suggestionsCount; i--)
+					commandSuggestionInstances[i].gameObject.SetActive(false);
 
 				visibleCommandSuggestionInstances = suggestionsCount;
 			}
 		}
 
 		// Command input field has lost focus
-		private void OnEndEditCommand( string command )
+		private void OnEndEditCommand(string command)
 		{
-			if( commandSuggestionsContainer.gameObject.activeSelf )
-				commandSuggestionsContainer.gameObject.SetActive( false );
+			if (commandSuggestionsContainer.gameObject.activeSelf)
+				commandSuggestionsContainer.gameObject.SetActive(false);
 		}
 
 		// Debug window is being resized,
 		// Set the sizeDelta property of the window accordingly while
 		// preventing window dimensions from going below the minimum dimensions
-		internal void Resize( PointerEventData eventData )
+		internal void Resize(PointerEventData eventData)
 		{
-			Vector2 localPoint;
-			if( !RectTransformUtility.ScreenPointToLocalPointInRectangle( canvasTR, eventData.position, eventData.pressEventCamera, out localPoint ) )
-				return;
-
-			// To be able to maximize the log window easily:
-			// - When enableHorizontalResizing is true and resizing horizontally, resize button will be grabbed from its left edge (if resizeFromRight is true) or its right edge
-			// - While resizing vertically, resize button will be grabbed from its top edge
-			const float resizeButtonWidth = 64f;
-			const float resizeButtonHeight = 36f;
-
-			Vector2 canvasPivot = canvasTR.pivot;
-			Vector2 canvasSize = canvasTR.rect.size;
-			Vector2 anchorMin = logWindowTR.anchorMin;
-
-			// Horizontal resizing
-			if( enableHorizontalResizing )
+			if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasTR, eventData.position, eventData.pressEventCamera, out Vector2 localPoint))
 			{
-				if( resizeFromRight )
-				{
-					localPoint.x += canvasPivot.x * canvasSize.x + resizeButtonWidth;
-					if( localPoint.x < minimumWidth )
-						localPoint.x = minimumWidth;
+				float width = logWindowTR.rect.width;
 
-					Vector2 anchorMax = logWindowTR.anchorMax;
-					anchorMax.x = Mathf.Clamp01( localPoint.x / canvasSize.x );
-					logWindowTR.anchorMax = anchorMax;
-				}
-				else
-				{
-					localPoint.x += canvasPivot.x * canvasSize.x - resizeButtonWidth;
-					if( localPoint.x > canvasSize.x - minimumWidth )
-						localPoint.x = canvasSize.x - minimumWidth;
+				float height = logWindowTR.rect.height;
 
-					anchorMin.x = Mathf.Clamp01( localPoint.x / canvasSize.x );
+				if (enableHorizontalResizing)
+				{
+					width += eventData.delta.x;
 				}
+				height -= eventData.delta.y;
+
+				width = Mathf.Clamp(width, minimumWidth, Screen.width);
+
+				height = Mathf.Clamp(height, minimumHeight, Screen.height);
+
+				logWindowTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+
+				logWindowTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+
+				recycledListView.OnViewportHeightChanged();
 			}
-
-			// Vertical resizing
-			float notchHeight = -logWindowTR.sizeDelta.y; // Size of notch screen cutouts at the top of the screen
-
-			localPoint.y += canvasPivot.y * canvasSize.y - resizeButtonHeight;
-			if( localPoint.y > canvasSize.y - minimumHeight - notchHeight )
-				localPoint.y = canvasSize.y - minimumHeight - notchHeight;
-
-			anchorMin.y = Mathf.Clamp01( localPoint.y / canvasSize.y );
-
-			logWindowTR.anchorMin = anchorMin;
-
-			// Update the recycled list view
-			recycledListView.OnViewportHeightChanged();
 		}
 
 		// Determine the filtered list of debug entries to show on screen
@@ -1316,64 +1281,64 @@ namespace IngameDebugConsole
 		{
 			indicesOfListEntriesToShow.Clear();
 
-			if( timestampsOfListEntriesToShow != null )
+			if (timestampsOfListEntriesToShow != null)
 				timestampsOfListEntriesToShow.Clear();
 
-			if( logFilter != DebugLogFilter.None )
+			if (logFilter != DebugLogFilter.None)
 			{
-				if( logFilter == DebugLogFilter.All )
+				if (logFilter == DebugLogFilter.All)
 				{
-					if( isCollapseOn )
+					if (isCollapseOn)
 					{
-						if( !isInSearchMode )
+						if (!isInSearchMode)
 						{
 							// All the unique debug entries will be listed just once.
 							// So, list of debug entries to show is the same as the
 							// order these unique debug entries are added to collapsedLogEntries
-							for( int i = 0, count = collapsedLogEntries.Count; i < count; i++ )
+							for (int i = 0, count = collapsedLogEntries.Count; i < count; i++)
 							{
-								indicesOfListEntriesToShow.Add( i );
+								indicesOfListEntriesToShow.Add(i);
 
-								if( timestampsOfListEntriesToShow != null )
-									timestampsOfListEntriesToShow.Add( collapsedLogEntriesTimestamps[i] );
+								if (timestampsOfListEntriesToShow != null)
+									timestampsOfListEntriesToShow.Add(collapsedLogEntriesTimestamps[i]);
 							}
 						}
 						else
 						{
-							for( int i = 0, count = collapsedLogEntries.Count; i < count; i++ )
+							for (int i = 0, count = collapsedLogEntries.Count; i < count; i++)
 							{
-								if( collapsedLogEntries[i].MatchesSearchTerm( searchTerm ) )
+								if (collapsedLogEntries[i].MatchesSearchTerm(searchTerm))
 								{
-									indicesOfListEntriesToShow.Add( i );
+									indicesOfListEntriesToShow.Add(i);
 
-									if( timestampsOfListEntriesToShow != null )
-										timestampsOfListEntriesToShow.Add( collapsedLogEntriesTimestamps[i] );
+									if (timestampsOfListEntriesToShow != null)
+										timestampsOfListEntriesToShow.Add(collapsedLogEntriesTimestamps[i]);
 								}
 							}
 						}
 					}
 					else
 					{
-						if( !isInSearchMode )
+						if (!isInSearchMode)
 						{
-							for( int i = 0, count = uncollapsedLogEntriesIndices.Count; i < count; i++ )
+							for (int i = 0, count = uncollapsedLogEntriesIndices.Count; i < count; i++)
 							{
-								indicesOfListEntriesToShow.Add( uncollapsedLogEntriesIndices[i] );
+								indicesOfListEntriesToShow.Add(uncollapsedLogEntriesIndices[i]);
 
-								if( timestampsOfListEntriesToShow != null )
-									timestampsOfListEntriesToShow.Add( uncollapsedLogEntriesTimestamps[i] );
+								if (timestampsOfListEntriesToShow != null)
+									timestampsOfListEntriesToShow.Add(uncollapsedLogEntriesTimestamps[i]);
 							}
 						}
 						else
 						{
-							for( int i = 0, count = uncollapsedLogEntriesIndices.Count; i < count; i++ )
+							for (int i = 0, count = uncollapsedLogEntriesIndices.Count; i < count; i++)
 							{
-								if( collapsedLogEntries[uncollapsedLogEntriesIndices[i]].MatchesSearchTerm( searchTerm ) )
+								if (collapsedLogEntries[uncollapsedLogEntriesIndices[i]].MatchesSearchTerm(searchTerm))
 								{
-									indicesOfListEntriesToShow.Add( uncollapsedLogEntriesIndices[i] );
+									indicesOfListEntriesToShow.Add(uncollapsedLogEntriesIndices[i]);
 
-									if( timestampsOfListEntriesToShow != null )
-										timestampsOfListEntriesToShow.Add( uncollapsedLogEntriesTimestamps[i] );
+									if (timestampsOfListEntriesToShow != null)
+										timestampsOfListEntriesToShow.Add(uncollapsedLogEntriesTimestamps[i]);
 								}
 							}
 						}
@@ -1382,71 +1347,71 @@ namespace IngameDebugConsole
 				else
 				{
 					// Show only the debug entries that match the current filter
-					bool isInfoEnabled = ( logFilter & DebugLogFilter.Info ) == DebugLogFilter.Info;
-					bool isWarningEnabled = ( logFilter & DebugLogFilter.Warning ) == DebugLogFilter.Warning;
-					bool isErrorEnabled = ( logFilter & DebugLogFilter.Error ) == DebugLogFilter.Error;
+					bool isInfoEnabled = (logFilter & DebugLogFilter.Info) == DebugLogFilter.Info;
+					bool isWarningEnabled = (logFilter & DebugLogFilter.Warning) == DebugLogFilter.Warning;
+					bool isErrorEnabled = (logFilter & DebugLogFilter.Error) == DebugLogFilter.Error;
 
-					if( isCollapseOn )
+					if (isCollapseOn)
 					{
-						for( int i = 0, count = collapsedLogEntries.Count; i < count; i++ )
+						for (int i = 0, count = collapsedLogEntries.Count; i < count; i++)
 						{
 							DebugLogEntry logEntry = collapsedLogEntries[i];
 
-							if( isInSearchMode && !logEntry.MatchesSearchTerm( searchTerm ) )
+							if (isInSearchMode && !logEntry.MatchesSearchTerm(searchTerm))
 								continue;
 
 							bool shouldShowLog = false;
-							if( logEntry.logTypeSpriteRepresentation == infoLog )
+							if (logEntry.logTypeSpriteRepresentation == infoLog)
 							{
-								if( isInfoEnabled )
+								if (isInfoEnabled)
 									shouldShowLog = true;
 							}
-							else if( logEntry.logTypeSpriteRepresentation == warningLog )
+							else if (logEntry.logTypeSpriteRepresentation == warningLog)
 							{
-								if( isWarningEnabled )
+								if (isWarningEnabled)
 									shouldShowLog = true;
 							}
-							else if( isErrorEnabled )
+							else if (isErrorEnabled)
 								shouldShowLog = true;
 
-							if( shouldShowLog )
+							if (shouldShowLog)
 							{
-								indicesOfListEntriesToShow.Add( i );
+								indicesOfListEntriesToShow.Add(i);
 
-								if( timestampsOfListEntriesToShow != null )
-									timestampsOfListEntriesToShow.Add( collapsedLogEntriesTimestamps[i] );
+								if (timestampsOfListEntriesToShow != null)
+									timestampsOfListEntriesToShow.Add(collapsedLogEntriesTimestamps[i]);
 							}
 						}
 					}
 					else
 					{
-						for( int i = 0, count = uncollapsedLogEntriesIndices.Count; i < count; i++ )
+						for (int i = 0, count = uncollapsedLogEntriesIndices.Count; i < count; i++)
 						{
 							DebugLogEntry logEntry = collapsedLogEntries[uncollapsedLogEntriesIndices[i]];
 
-							if( isInSearchMode && !logEntry.MatchesSearchTerm( searchTerm ) )
+							if (isInSearchMode && !logEntry.MatchesSearchTerm(searchTerm))
 								continue;
 
 							bool shouldShowLog = false;
-							if( logEntry.logTypeSpriteRepresentation == infoLog )
+							if (logEntry.logTypeSpriteRepresentation == infoLog)
 							{
-								if( isInfoEnabled )
+								if (isInfoEnabled)
 									shouldShowLog = true;
 							}
-							else if( logEntry.logTypeSpriteRepresentation == warningLog )
+							else if (logEntry.logTypeSpriteRepresentation == warningLog)
 							{
-								if( isWarningEnabled )
+								if (isWarningEnabled)
 									shouldShowLog = true;
 							}
-							else if( isErrorEnabled )
+							else if (isErrorEnabled)
 								shouldShowLog = true;
 
-							if( shouldShowLog )
+							if (shouldShowLog)
 							{
-								indicesOfListEntriesToShow.Add( uncollapsedLogEntriesIndices[i] );
+								indicesOfListEntriesToShow.Add(uncollapsedLogEntriesIndices[i]);
 
-								if( timestampsOfListEntriesToShow != null )
-									timestampsOfListEntriesToShow.Add( uncollapsedLogEntriesTimestamps[i] );
+								if (timestampsOfListEntriesToShow != null)
+									timestampsOfListEntriesToShow.Add(uncollapsedLogEntriesTimestamps[i]);
 							}
 						}
 					}
@@ -1455,7 +1420,7 @@ namespace IngameDebugConsole
 
 			// Update the recycled list view
 			recycledListView.DeselectSelectedLogItem();
-			recycledListView.OnLogEntriesUpdated( true );
+			recycledListView.OnLogEntriesUpdated(true);
 
 			ValidateScrollPosition();
 		}
@@ -1465,29 +1430,29 @@ namespace IngameDebugConsole
 			int count = uncollapsedLogEntriesIndices.Count;
 			int length = 0;
 			int newLineLength = System.Environment.NewLine.Length;
-			for( int i = 0; i < count; i++ )
+			for (int i = 0; i < count; i++)
 			{
 				DebugLogEntry entry = collapsedLogEntries[uncollapsedLogEntriesIndices[i]];
 				length += entry.logString.Length + entry.stackTrace.Length + newLineLength * 3;
 			}
 
-			if( uncollapsedLogEntriesTimestamps != null )
+			if (uncollapsedLogEntriesTimestamps != null)
 				length += count * 12; // Timestamp: "[HH:mm:ss]: "
 
 			length += 100; // Just in case...
 
-			StringBuilder sb = new StringBuilder( length );
-			for( int i = 0; i < count; i++ )
+			StringBuilder sb = new StringBuilder(length);
+			for (int i = 0; i < count; i++)
 			{
 				DebugLogEntry entry = collapsedLogEntries[uncollapsedLogEntriesIndices[i]];
 
-				if( uncollapsedLogEntriesTimestamps != null )
+				if (uncollapsedLogEntriesTimestamps != null)
 				{
-					uncollapsedLogEntriesTimestamps[i].AppendTime( sb );
-					sb.Append( ": " );
+					uncollapsedLogEntriesTimestamps[i].AppendTime(sb);
+					sb.Append(": ");
 				}
 
-				sb.AppendLine( entry.logString ).AppendLine( entry.stackTrace ).AppendLine();
+				sb.AppendLine(entry.logString).AppendLine(entry.stackTrace).AppendLine();
 			}
 
 			return sb.ToString();
@@ -1495,40 +1460,25 @@ namespace IngameDebugConsole
 
 		private void SaveLogsToFile()
 		{
-			SaveLogsToFile( Path.Combine( Application.persistentDataPath, System.DateTime.Now.ToString( "dd-MM-yyyy--HH-mm-ss" ) + ".txt" ) );
+			SaveLogsToFile(Path.Combine(Application.persistentDataPath, System.DateTime.Now.ToString("dd-MM-yyyy--HH-mm-ss") + ".txt"));
 		}
 
-		private void SaveLogsToFile( string filePath )
+		private void SaveLogsToFile(string filePath)
 		{
-			File.WriteAllText( filePath, GetAllLogs() );
-			Debug.Log( "Logs saved to: " + filePath );
+			File.WriteAllText(filePath, GetAllLogs());
+			Debug.Log("Logs saved to: " + filePath);
 		}
 
 		// If a cutout is intersecting with debug window on notch screens, shift the window downwards
 		private void CheckScreenCutout()
 		{
-			if( !avoidScreenCutout )
-				return;
+			if (!avoidScreenCutout) return;
 
-#if UNITY_2017_2_OR_NEWER && ( UNITY_EDITOR || UNITY_ANDROID || UNITY_IOS )
-			// Check if there is a cutout at the top of the screen
-			int screenHeight = Screen.height;
-			float safeYMax = Screen.safeArea.yMax;
-			if( safeYMax < screenHeight - 1 ) // 1: a small threshold
-			{
-				// There is a cutout, shift the log window downwards
-				float cutoutPercentage = ( screenHeight - safeYMax ) / Screen.height;
-				float cutoutLocalSize = cutoutPercentage * canvasTR.rect.height;
+			float height = logWindowTR.rect.height;
 
-				logWindowTR.anchoredPosition = new Vector2( 0f, -cutoutLocalSize );
-				logWindowTR.sizeDelta = new Vector2( 0f, -cutoutLocalSize );
-			}
-			else
-			{
-				logWindowTR.anchoredPosition = Vector2.zero;
-				logWindowTR.sizeDelta = Vector2.zero;
-			}
-#endif
+			height = Mathf.Clamp(height, minimumHeight, Mathf.Min(Screen.height, Screen.safeArea.yMax));
+
+			logWindowTR.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
 		}
 
 #if UNITY_EDITOR || UNITY_STANDALONE
@@ -1539,17 +1489,17 @@ namespace IngameDebugConsole
 			commandInputField.ActivateInputField();
 
 			yield return null;
-			commandInputField.MoveTextEnd( false );
+			commandInputField.MoveTextEnd(false);
 		}
 #endif
 
 		// Pool an unused log item
-		internal void PoolLogItem( DebugLogItem logItem )
+		internal void PoolLogItem(DebugLogItem logItem)
 		{
 			logItem.CanvasGroup.alpha = 0f;
 			logItem.CanvasGroup.blocksRaycasts = false;
 
-			pooledLogItems.Add( logItem );
+			pooledLogItems.Add(logItem);
 		}
 
 		// Fetch a log item from the pool
@@ -1559,18 +1509,18 @@ namespace IngameDebugConsole
 
 			// If pool is not empty, fetch a log item from the pool,
 			// create a new log item otherwise
-			if( pooledLogItems.Count > 0 )
+			if (pooledLogItems.Count > 0)
 			{
 				newLogItem = pooledLogItems[pooledLogItems.Count - 1];
-				pooledLogItems.RemoveAt( pooledLogItems.Count - 1 );
+				pooledLogItems.RemoveAt(pooledLogItems.Count - 1);
 
 				newLogItem.CanvasGroup.alpha = 1f;
 				newLogItem.CanvasGroup.blocksRaycasts = true;
 			}
 			else
 			{
-				newLogItem = (DebugLogItem) Instantiate( logItemPrefab, logItemsContainer, false );
-				newLogItem.Initialize( recycledListView );
+				newLogItem = (DebugLogItem)Instantiate(logItemPrefab, logItemsContainer, false);
+				newLogItem.Initialize(recycledListView);
 			}
 
 			return newLogItem;
