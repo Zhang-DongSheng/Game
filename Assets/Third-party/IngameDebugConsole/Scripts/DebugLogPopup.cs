@@ -49,6 +49,8 @@ namespace IngameDebugConsole
 		// Coroutines for simple code-based animations
 		private IEnumerator moveToPosCoroutine = null;
 
+		private readonly Vector2 offset = new Vector2(Screen.width, Screen.height) * 0.5f;
+
 		private void Awake()
 		{
 			popupTransform = (RectTransform) transform;
@@ -167,11 +169,11 @@ namespace IngameDebugConsole
 		}
 
 		// Reposition the popup
-		public void OnDrag( PointerEventData data )
+		public void OnDrag(PointerEventData data)
 		{
 			Vector2 localPoint;
-			if( RectTransformUtility.ScreenPointToLocalPointInRectangle( debugManager.canvasTR, data.position, data.pressEventCamera, out localPoint ) )
-				popupTransform.anchoredPosition = localPoint;
+			if (RectTransformUtility.ScreenPointToLocalPointInRectangle(debugManager.canvasTR, data.position, data.pressEventCamera, out localPoint))
+				popupTransform.anchoredPosition = localPoint - offset;
 		}
 
 		// Smoothly translate the popup to the nearest edge
