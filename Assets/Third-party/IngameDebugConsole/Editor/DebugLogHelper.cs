@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,12 +11,24 @@ namespace IngameDebugConsole
 
 		const string Prefab = "IngameDebugConsole";
 
-		[MenuItem("Reporter/Create")]
+		[MenuItem("Component/Loger")]
 		public static void CreateReporter()
 		{
+			DebugLogManager loger = GameObject.FindObjectOfType<DebugLogManager>();
+
+			if (loger != null)
+			{
+				EditorWindow.focusedWindow.ShowNotification(new GUIContent("Loger“—¥Ê‘⁄"));
+				return;
+			}
+
 			string[] guids = AssetDatabase.FindAssets(string.Format("t:prefab {0}", Prefab));
 
-			if (guids.Length == 0) Debug.LogErrorFormat("Can't find {0}", Prefab);
+			if (guids.Length == 0)
+			{
+				EditorWindow.focusedWindow.ShowNotification(new GUIContent(string.Format("Can't find the prefab : {0}", Prefab)));
+				return;
+			}
 
 			Transform parent = CreateRoot();
 
@@ -53,8 +62,6 @@ namespace IngameDebugConsole
 			{
 				GameObject go = new GameObject("Canvas");
 				canvas = go.AddComponent<Canvas>();
-				canvas.renderMode = RenderMode.ScreenSpaceCamera;
-				canvas.worldCamera = Camera.main;
 				go.AddComponent<CanvasScaler>();
 				go.AddComponent<GraphicRaycaster>();
 
