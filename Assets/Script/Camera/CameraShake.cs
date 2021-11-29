@@ -21,16 +21,15 @@ namespace Game
 
         private void OnDisable()
         {
-            if (coroutine != null)
-            {
-                coroutine = null;
-            }
+            coroutine = null;
         }
 
         public void Shake()
         {
-            if (coroutine != null) return;
-
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
             coroutine = StartCoroutine(ProcessShake());
         }
 
@@ -59,12 +58,24 @@ namespace Game
                         break;
                     case ShakePattern.TranslateAndRotate:
                         {
-                            goto case ShakePattern.Translate | ShakePattern.Rotate;
+                            transform.position = position + Random.insideUnitSphere * intensity;
+                            goto case ShakePattern.Rotate;
                         }
                 }
                 intensity -= decay * Time.deltaTime;
+
+                yield return null;
             }
-            yield return null;
+            OnCompleted();
+        }
+
+        private void OnCompleted()
+        {
+            transform.position = position;
+
+            transform.rotation = rotation;
+
+            coroutine = null;
         }
         [ContextMenu("Debug")]
         protected void Debug()
