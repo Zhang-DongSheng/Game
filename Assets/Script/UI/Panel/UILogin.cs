@@ -1,4 +1,4 @@
-using LitJson;
+using Data;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,9 +44,9 @@ namespace Game.UI
 
         private void Start()
         {
-            input_account.text = Local.GetValue<string>(ACCOUNT);
+            input_account.text = GlobalVariables.Get<string>(ACCOUNT);
 
-            input_password.text = Local.GetValue<string>(PASSWORD);
+            input_password.text = GlobalVariables.Get<string>(PASSWORD);
         }
 
         private void OnReceivedLogin(EventMessageArgs args)
@@ -55,9 +55,9 @@ namespace Game.UI
 
             if (status)
             {
-                Local.SetValue(ACCOUNT, account);
+                GlobalVariables.Set(ACCOUNT, account);
 
-                Local.SetValue(PASSWORD, password);
+                GlobalVariables.Set(PASSWORD, password);
 
                 UIManager.Instance.Open(UIPanel.UIMain);
 

@@ -8,13 +8,19 @@ namespace Data
     {
         private static readonly object lockObject = new object();
 
-        private static readonly Dictionary<string, object> variables = new Dictionary<string, object>();
+        private static readonly Dictionary<string, string> variables = new Dictionary<string, string>();
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        public static void RuntimeInitialized()
+        {
+            Debuger.Log(Author.Data, "RuntimeInitialized");
+        }
 
         public static T Get<T>(string key)
         {
             if (variables.ContainsKey(key))
             {
-                return (T)variables[key];
+                return Format<T>(variables[key]);
             }
             return default;
         }
@@ -27,23 +33,68 @@ namespace Data
                 {
                     if (variables.ContainsKey(key))
                     {
-                        variables[key] = value;
+                        variables[key] = Parse(value);
                     }
                     else
                     {
-                        variables.Add(key, value);
+                        variables.Add(key, Parse(value));
                     }
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError(e.Message);
+                    Debuger.LogError(Author.Data, e.Message);
                 }
             }
+        }
+
+        public static void Save()
+        {
+
         }
 
         public static void Dispose()
         {
             variables.Clear();
+        }
+
+        private static string Parse(object value)
+        {
+            if (Convert.IsDBNull(value))
+            {
+                return string.Empty;
+            }
+            else
+            {
+                try
+                {
+                    return JsonUtility.ToJson(value);
+                }
+                catch (Exception e)
+                {
+                    Debuger.LogError(Author.Data, e.Message);
+                }
+                return string.Empty;
+            }
+        }
+
+        private static T Format<T>(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return default;
+            }
+            else
+            {
+                try
+                {
+                    return JsonUtility.FromJson<T>(value);
+                }
+                catch (Exception e)
+                {
+                    Debuger.LogError(Author.Data, e.Message);
+                }
+                return default;
+            }
         }
     }
 }

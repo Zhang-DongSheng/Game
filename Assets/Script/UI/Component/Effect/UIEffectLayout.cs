@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Data;
+using System.Collections.Generic;
 using UnityEngine.Rendering;
 
 namespace UnityEngine.UI
@@ -54,7 +55,7 @@ namespace UnityEngine.UI
 
         private void Start()
         {
-            ctrlActive = ignore || Local.GetValue<bool>(LocalKey.EffectStatus);
+            ctrlActive = ignore || GlobalVariables.Get<bool>("EffectStatus");
 
             SetOrder();
 

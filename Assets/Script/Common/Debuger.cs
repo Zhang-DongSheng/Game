@@ -11,6 +11,7 @@ namespace UnityEngine
         Owner,
         Device,
         Data,
+        File,
     }
     public static class Debuger
     {

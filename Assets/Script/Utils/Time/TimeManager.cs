@@ -1,3 +1,4 @@
+using Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,7 +23,7 @@ namespace UnityEngine
 
         private void Awake()
         {
-            Duration = Local.GetValue<long>(KEY) + (long)Time.time;
+            Duration = GlobalVariables.Get<long>(KEY) + (long)Time.time;
         }
 
         private void Update()
@@ -69,9 +70,14 @@ namespace UnityEngine
             #endregion
         }
 
+        private void OnApplicationQuit()
+        {
+            GlobalVariables.Set(KEY, Duration);
+        }
+
         private void OnDestroy()
         {
-            Local.SetValue(KEY, Duration);
+            OnApplicationQuit();
         }
 
         public void Register(string key, TimeHandler value)

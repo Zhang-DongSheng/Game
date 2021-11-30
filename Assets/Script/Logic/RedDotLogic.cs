@@ -1,3 +1,4 @@
+using Data;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,9 +49,9 @@ namespace Game
         {
             string index = string.Format("red_{0}", key);
 
-            if (Local.GetValue<int>(index) != DateTime.UtcNow.DayOfYear)
+            if (GlobalVariables.Get<int>(index) != DateTime.UtcNow.DayOfYear)
             {
-                Local.SetValue(index, DateTime.UtcNow.DayOfYear);
+                GlobalVariables.Set(index, DateTime.UtcNow.DayOfYear);
 
                 Update(key, true);
             }

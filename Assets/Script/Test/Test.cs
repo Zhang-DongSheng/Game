@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using Data;
 
 namespace Game.Test
 {
@@ -31,7 +32,10 @@ namespace Game.Test
 
         private void Awake()
         {
-            
+            GlobalVariables.Set("www", @"http://www.baidu.com");
+
+
+            Debuger.Log(Author.Test, GlobalVariables.Get<string>("www"));
         }
 
         private void OnEnable()
@@ -98,9 +102,9 @@ namespace Game.Test
 
         }
 
-        private async Task StartAsync()
+        private async System.Threading.Tasks.Task StartAsync()
         {
-            await Task.Run(() =>
+            await System.Threading.Tasks.Task.Run(() =>
             {
                 Debuger.Log(Author.Test, "I'm fine!");
             });

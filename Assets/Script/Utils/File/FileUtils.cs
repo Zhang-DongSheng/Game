@@ -8,19 +8,25 @@ namespace Game.Utils
 {
     public static class FileUtils
     {
-        public static void FolderCreate(string path)
+        public static void FolderCreate(string path, bool delete = false)
         {
             try
             {
                 if (Directory.Exists(path))
                 {
-                    Directory.Delete(path);
+                    if (delete)
+                    {
+                        Directory.Delete(path); Directory.CreateDirectory(path);
+                    }
                 }
-                Directory.CreateDirectory(path);
+                else
+                {
+                    Directory.CreateDirectory(path);
+                }
             }
             catch (Exception e)
             {
-                throw e;
+                Debuger.LogError(Author.File, e.Message);
             }
         }
 
@@ -34,8 +40,32 @@ namespace Game.Utils
                 }
                 catch (Exception e)
                 {
-                    throw e;
+                    Debuger.LogError(Author.File, e.Message);
                 }
+            }
+        }
+
+        public static bool FolerExists(string path, out string folder)
+        {
+            if (string.IsNullOrEmpty(Path.GetExtension(path)))
+            {
+                folder = path;
+            }
+            else
+            {
+                folder = Path.GetDirectoryName(path);
+            }
+            if (Directory.Exists(folder))
+            {
+                return true;
+            }
+            else if (File.Exists(folder))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -57,49 +87,29 @@ namespace Game.Utils
 
         public static string Read(string path)
         {
-            string content = string.Empty;
-
             if (File.Exists(path))
             {
-                content = File.ReadAllText(path);
+                return File.ReadAllText(path);
             }
-            return content;
+            return string.Empty;
         }
 
-        public static string ReadEncrypt(string path)
+        public static string ReadEncrypt(string path, EncryptType encrypt = EncryptType.AES)
         {
-            string content = string.Empty;
-
             if (File.Exists(path))
             {
                 byte[] buffer = File.ReadAllBytes(path);
 
-                content = FileEncrypt.Encrypt(Encoding.Default.GetString(buffer));
+                return FileEncrypt.Encrypt(Encoding.Default.GetString(buffer), encrypt);
             }
-            return content;
-        }
-
-        public static void Copy(string from, string to)
-        {
-            if (File.Exists(from))
-            {
-                string folder = Path.GetDirectoryName(to);
-
-                if (Directory.Exists(folder) == false)
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                File.Copy(from, to, true);
-            }
+            return string.Empty;
         }
 
         public static void Write(string path, string content)
         {
-            string folder = Path.GetDirectoryName(path);
-
             try
             {
-                if (Directory.Exists(folder) == false)
+                if (!FolerExists(path, out string folder))
                 {
                     Directory.CreateDirectory(folder);
                 }
@@ -107,19 +117,42 @@ namespace Game.Utils
             }
             catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debuger.LogError(Author.File, e.Message);
             }
         }
 
-        public static void WriteEncrypt(string path, string content)
+        public static void WriteAppend(string path, params string[] content)
         {
-            string folder = Path.GetDirectoryName(path);
+            if (File.Exists(path))
+            {
+                File.AppendAllLines(path, content);
+            }
+            else
+            {
+                if (!FolerExists(path, out string folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
+                {
+                    StreamWriter writer = new StreamWriter(stream);
 
+                    for (int i = 0; i < content.Length; i++)
+                    {
+                        writer.WriteLine(content[i]);
+                    }
+                    writer.Flush(); writer.Dispose();
+                }
+            }
+        }
+
+        public static void WriteEncrypt(string path, string content, EncryptType encrypt = EncryptType.AES)
+        {
             try
             {
-                byte[] buffer = Encoding.Default.GetBytes(FileEncrypt.Decrypt(content));
+                byte[] buffer = Encoding.Default.GetBytes(FileEncrypt.Decrypt(content, encrypt));
 
-                if (Directory.Exists(folder) == false)
+                if (!FolerExists(path, out string folder))
                 {
                     Directory.CreateDirectory(folder);
                 }
@@ -127,7 +160,39 @@ namespace Game.Utils
             }
             catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debuger.LogError(Author.File, e.Message);
+            }
+        }
+
+        public static void Copy(string src, string dst)
+        {
+            if (File.Exists(src))
+            {
+                if (!FolerExists(dst, out string folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                File.Copy(src, dst, true);
+            }
+        }
+
+        public static void Move(string src, string dst)
+        {
+            if (File.Exists(src))
+            {
+                if (!FolerExists(dst, out string folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                File.Move(src, dst);
+            }
+        }
+
+        public static void Delete(string path)
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
             }
         }
 
