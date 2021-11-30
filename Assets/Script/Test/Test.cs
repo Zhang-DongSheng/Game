@@ -32,10 +32,27 @@ namespace Game.Test
 
         private void Awake()
         {
+            GlobalVariables.Set("www", 100);
+
+
+            Debuger.Log(Author.Test, GlobalVariables.Get<int>("www"));
+
             GlobalVariables.Set("www", @"http://www.baidu.com");
 
 
             Debuger.Log(Author.Test, GlobalVariables.Get<string>("www"));
+
+            GlobalVariables.Set("www", new TestClass()
+            { 
+                name = "trr",
+            });
+
+            TestClass test = GlobalVariables.Get<TestClass>("www");
+
+
+
+
+            Debuger.Log(Author.Test, test.name);
         }
 
         private void OnEnable()
@@ -111,6 +128,7 @@ namespace Game.Test
         }
     }
 
+    [System.Serializable]
     public class TestClass : IWeight
     {
         public string name;

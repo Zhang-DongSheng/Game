@@ -67,7 +67,18 @@ namespace Data
             {
                 try
                 {
-                    return JsonUtility.ToJson(value);
+                    if (value.GetType().IsValueType)
+                    {
+                        return value.ToString();
+                    }
+                    else if (value is String str)
+                    {
+                        return str;
+                    }
+                    else
+                    {
+                        return JsonUtility.ToJson(value);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -87,7 +98,18 @@ namespace Data
             {
                 try
                 {
-                    return JsonUtility.FromJson<T>(value);
+                    if (typeof(T).IsValueType)
+                    {
+                        return (T)Convert.ChangeType(value, typeof(T));
+                    }
+                    else if (typeof(T).Name == "String")
+                    {
+                        return (T)(object)value;
+                    }
+                    else
+                    {
+                        return JsonUtility.FromJson<T>(value);
+                    }
                 }
                 catch (Exception e)
                 {
