@@ -1,4 +1,3 @@
-using Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,7 +22,11 @@ namespace UnityEngine
 
         private void Awake()
         {
-            Duration = GlobalVariables.Get<long>(KEY) + (long)Time.time;
+            if (Int64.TryParse(PlayerPrefs.GetString(KEY), out long time))
+            {
+                Duration = time;
+            }
+            Duration += (long)Time.time;
         }
 
         private void Update()
@@ -72,7 +75,7 @@ namespace UnityEngine
 
         private void OnApplicationQuit()
         {
-            GlobalVariables.Set(KEY, Duration);
+            PlayerPrefs.SetString(KEY, Duration.ToString());
         }
 
         private void OnDestroy()
