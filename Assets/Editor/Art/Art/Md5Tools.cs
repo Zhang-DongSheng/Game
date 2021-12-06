@@ -1,65 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-using UnityEngine;
+using Utils;
 
 namespace UnityEditor.Window
 {
     public class Md5Tools
     {
-        public static string ComputeContent(string value)
-        {
-            string result = string.Empty;
-
-            try
-            {
-                byte[] buffer = Encoding.Default.GetBytes(value);
-
-                MD5 md5 = new MD5CryptoServiceProvider();
-
-                byte[] hash = md5.ComputeHash(buffer);
-
-                foreach (byte v in hash)
-                {
-                    result += Convert.ToString(v, 16);
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e.Message);
-            }
-            return result;
-        }
-
-        public static string ComputeFile(string path)
-        {
-            string result = string.Empty;
-
-            try
-            {
-                if (File.Exists(path))
-                {
-                    byte[] buffer = File.ReadAllBytes(path);
-
-                    MD5 md5 = new MD5CryptoServiceProvider();
-
-                    byte[] hash = md5.ComputeHash(buffer);
-
-                    foreach (byte v in hash)
-                    {
-                        result += Convert.ToString(v, 16);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e.Message);
-            }
-            return result;
-        }
-
         public static void Record(string path, string root, List<ItemFile> items)
         {
             string key, value;
@@ -74,7 +20,7 @@ namespace UnityEditor.Window
                     {
                         key = root + items[i].folder + "/" + items[i].name;
 
-                        value = ComputeFile(items[i].path);
+                        value = Md5Utils.ComputeFile(items[i].path);
 
                         writer.WriteLine(string.Format("{0}|{1}", key, value));
                     }
@@ -93,7 +39,7 @@ namespace UnityEditor.Window
                         {
                             key = root + items[i].folder + "/" + items[i].name;
 
-                            value = ComputeFile(items[i].path);
+                            value = Md5Utils.ComputeFile(items[i].path);
 
                             writer.WriteLine(string.Format("{0}|{1}", key, value));
                         }
