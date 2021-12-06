@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using Utils;
 
 namespace UnityEditor.Window
 {
-	public class Artist : CustomWindow
+    public class Artist : CustomWindow
 	{
 		private readonly string[] menu = new string[4] { "Main", "Asset", "Prefab", "Config" };
 
@@ -112,7 +111,7 @@ namespace UnityEditor.Window
 						}
 						else
 						{
-							message = Md5Tools.ComputeContent(inputString.value);
+							message = Md5Utils.ComputeContent(inputString.value);
 						}
 					}
 				}
@@ -128,7 +127,7 @@ namespace UnityEditor.Window
 					}
 					if (GUILayout.Button("确定", GUILayout.Width(60)))
 					{
-						message = Md5Tools.ComputeFile(inputFile.value);
+						message = Md5Utils.ComputeFile(inputFile.value);
 					}
 				}
 				GUILayout.EndHorizontal();

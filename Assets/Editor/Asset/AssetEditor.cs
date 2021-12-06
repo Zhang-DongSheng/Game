@@ -32,7 +32,7 @@ namespace UnityEditor
             }
         }
 
-        protected static void ShowNotification(string message)
+        public static void ShowNotification(string message)
         {
             EditorWindow.focusedWindow.ShowNotification(new GUIContent(message));
         }

@@ -147,6 +147,8 @@ namespace UnityEditor.Listener
         public void OnPreprocessModel()
         {
             ModelImporter importer = assetImporter as ModelImporter;
+
+            FBXListener.Start(importer);
         }
         /// <summary>
         /// 将此函数添加到一个子类中，以在导入 SpeedTree 资源（.spm 文件）之前获取通知
