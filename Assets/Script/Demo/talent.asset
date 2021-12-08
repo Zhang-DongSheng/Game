@@ -1,0 +1,236 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 394d6a909fb10664799f156e69310aa9, type: 3}
+  m_Name: talent
+  m_EditorClassIdentifier: 
+  trunk:
+    ID: 101
+    name: 
+    relevance: 0
+    position: {x: 0, y: 0}
+    root: 0
+    children:
+    - ID: 1010
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1011
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1012
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1013
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1014
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1015
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+  branches:
+  - ID: 102
+    name: 
+    relevance: 0
+    position: {x: -50, y: -100}
+    root: 0
+    children:
+    - ID: 1020
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1021
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1022
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1023
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1024
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1025
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+  - ID: 103
+    name: 
+    relevance: 0
+    position: {x: 50, y: -100}
+    root: 0
+    children:
+    - ID: 1030
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1031
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1032
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1033
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1034
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1035
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+  - ID: 104
+    name: 
+    relevance: 0
+    position: {x: -100, y: 0}
+    root: 0
+    children:
+    - ID: 1040
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1041
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1042
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1043
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1044
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+    - ID: 1045
+      name: 
+      relevance: 0
+      position: {x: 0, y: 0}
+      index: 0
+      front: 0
+      back: 0
+  links:
+  - ID: 201
+    name: 
+    relevance: 0
+    position: {x: -25, y: -50}
+    direction: 3
+    skills: {x: 101, y: 102}
+    angle: 240
+    src: 1012
+    dst: 1025
+  - ID: 202
+    name: 
+    relevance: 0
+    position: {x: 25, y: -50}
+    direction: 2
+    skills: {x: 101, y: 103}
+    angle: 300
+    src: 1011
+    dst: 1034
+  - ID: 203
+    name: 
+    relevance: 0
+    position: {x: -75, y: -50}
+    direction: 5
+    skills: {x: 102, y: 104}
+    angle: 120
+    src: 1024
+    dst: 1041

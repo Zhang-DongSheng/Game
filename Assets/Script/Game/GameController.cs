@@ -38,7 +38,7 @@ namespace Game
 
             if (Application.isPlaying)
             {
-                UIManager.Instance.Open(UIPanel.UILogin);
+                UIManager.Instance.Open(UI.UIPanel.UILogin);
             }
 
             if (model != null)
