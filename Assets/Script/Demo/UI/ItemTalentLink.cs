@@ -22,9 +22,9 @@ namespace Game
 
             item.Initialize(talent);
 
-            front.Initialize(talent.src, talent.ID);
+            front.Initialize(talent.neighbours.x, talent.ID);
 
-            back.Initialize(talent.ID, talent.dst);
+            back.Initialize(talent.ID, talent.neighbours.y);
 
             self.anchoredPosition = talent.position;
 

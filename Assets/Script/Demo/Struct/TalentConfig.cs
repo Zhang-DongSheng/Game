@@ -17,41 +17,33 @@ namespace Game
 
     public static class TalentUtils
     {
-        public static void Link(TalentDirection direction, ref int src, ref int dst)
+        public static int Index(TalentDirection direction, bool forward)
         {
             switch (direction)
             {
                 case TalentDirection.TopLeft:
-                    {
-                        src = 5; dst = 2;
-                    }
-                    break;
+                    return forward ? 5 : 2;
                 case TalentDirection.Left:
-                    {
-                        src = 0; dst = 3;
-                    }
-                    break;
+                    return forward ? 0 : 3;
                 case TalentDirection.BottomLeft:
-                    {
-                        src = 1; dst = 4;
-                    }
-                    break;
+                    return forward ? 1 : 4;
                 case TalentDirection.BottomRight:
-                    {
-                        src = 2; dst = 5;
-                    }
-                    break;
+                    return forward ? 2 : 5;
                 case TalentDirection.Right:
-                    {
-                        src = 3; dst = 0;
-                    }
-                    break;
+                    return forward ? 3 : 0;
                 case TalentDirection.TopRight:
-                    {
-                        src = 4; dst = 1;
-                    }
-                    break;
+                    return forward ? 4 : 1;
             }
+            return 0;
+        }
+
+        public static Vector3Int Neighbours(TalentDirection direction, TalentSkill src, TalentSkill dst)
+        {
+            int indexSrc = Index(direction, true);
+
+            int indexDst = Index(direction, false);
+
+            return new Vector3Int(src.children[indexSrc].ID, dst.children[indexDst].ID, 0);
         }
 
         public static float Rotation(TalentDirection direction)

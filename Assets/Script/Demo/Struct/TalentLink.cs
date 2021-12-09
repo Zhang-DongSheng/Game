@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
@@ -13,23 +11,17 @@ namespace Game
 
         [HideInInspector] public float angle;
 
-        [HideInInspector] public int src, dst;
-
-        public Vector2 Init(TalentSkill talent)
+        public void Init(TalentSkill src, TalentSkill dst)
         {
-            TalentUtils.Link(direction, ref src, ref dst);
+            neighbours = TalentUtils.Neighbours(direction, src, dst);
 
-            src += skills.x * 10;
+            Vector2 position = TalentUtils.Position(src.position, direction);
 
-            dst += skills.y * 10;
-
-            Vector2 position = TalentUtils.Position(talent.position, direction);
-
-            base.position = Vector2.Lerp(talent.position, position, 0.5f);
+            base.position = Vector2.Lerp(src.position, position, 0.5f);
 
             angle = TalentUtils.Rotation(direction);
 
-            return position;
+            dst.position = position;
         }
     }
 }
