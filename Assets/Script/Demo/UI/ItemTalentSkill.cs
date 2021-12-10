@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,11 +16,11 @@ namespace Game
 
         private TalentSkill talent;
 
-        public void Initialize(TalentSkill talent)
+        public void Initialize(TalentSkill talent, Action<int> callback)
         {
             this.talent = talent;
 
-            this.skill.Initialize(talent);
+            this.skill.Initialize(talent, OnClickSkill);
 
             int count = Mathf.Min(items.Count, talent.children.Count);
 
@@ -27,7 +28,7 @@ namespace Game
             {
                 if (items[i] != null)
                 {
-                    items[i].Initialize(talent.children[i]);
+                    items[i].Initialize(talent.children[i], callback);
                 }
             }
 
@@ -45,9 +46,9 @@ namespace Game
             self.anchoredPosition = talent.position;
         }
 
-        public void Refresh(List<int> list)
+        public void Refresh(List<int> list, List<int> preview)
         {
-            skill.Refresh(TalentUtils.Status(list, talent.ID));
+            skill.Refresh(TalentUtils.Status(list, preview, talent.ID));
 
             int count = Mathf.Min(items.Count, talent.children.Count);
 
@@ -55,7 +56,7 @@ namespace Game
             {
                 if (items[i] != null)
                 {
-                    items[i].Refresh(TalentUtils.Status(list, talent.children[i].ID));
+                    items[i].Refresh(TalentUtils.Status(list, preview, talent.children[i].ID));
                 }
             }
 
@@ -65,9 +66,14 @@ namespace Game
             {
                 if (lines[i] != null)
                 {
-                    lines[i].Refresh(list);
+                    lines[i].Refresh(list, preview);
                 }
             }
+        }
+
+        private void OnClickSkill(int skillID)
+        {
+            //Ãÿ ‚¥¶¿Ì
         }
     }
 }

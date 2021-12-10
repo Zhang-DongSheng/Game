@@ -23,9 +23,11 @@ namespace Game
             button.onClick.AddListener(OnClick);
         }
 
-        public void Initialize(Talent talent)
+        public void Initialize(Talent talent, Action<int> callback)
         {
             this.talent = talent;
+
+            this.callback = callback;
 
             label.text = string.Format("{0}", talent.ID);
         }

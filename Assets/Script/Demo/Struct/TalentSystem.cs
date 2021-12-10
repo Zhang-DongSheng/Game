@@ -85,6 +85,28 @@ namespace Game
                 }
             }
         }
+        [ContextMenu("筛查未使用技能")]
+        protected void MenuMissing()
+        {
+            bool missing;
+
+            for (int i = 0; i < branches.Count; i++)
+            {
+                missing = true;
+
+                for (int j = 0; j < branches[i].children.Count; j++)
+                {
+                    if (branches[i].children[j].neighbours.z != 0)
+                    {
+                        missing = false; break;
+                    }
+                }
+                if (missing)
+                {
+                    Debug.LogErrorFormat("The Skill {0} is ununited!", branches[i].ID);
+                }
+            }
+        }
         [ContextMenu("生成所有可能路径")]
         protected void MenuCreatePossibles()
         {

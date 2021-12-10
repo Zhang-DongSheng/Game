@@ -22,6 +22,8 @@ namespace Game
 
         private readonly List<ItemTalentLink> links = new List<ItemTalentLink>();
 
+        private readonly List<int> preview = new List<int>();
+
         private void Start()
         {
             Init(); Refresh();
@@ -33,15 +35,17 @@ namespace Game
             {
                 Refresh();
             }
-            else if (Input.GetKeyDown(KeyCode.F))
-            {
-                Find();
-            }
             else if (Input.GetKeyDown(KeyCode.C))
             {
                 server.list.Clear();
 
                 server.list = server.str.SplitToList<int>(',');
+            }
+            else if (Input.GetKeyDown(KeyCode.F1))
+            {
+                server.list.AddRange(preview);
+
+                Refresh();
             }
         }
 
@@ -72,20 +76,15 @@ namespace Game
 
             for (int i = 0; i < count; i++)
             {
-                skills[i].Refresh(server.list);
+                skills[i].Refresh(server.list, preview);
             }
 
             count = links.Count;
 
             for (int i = 0; i < count; i++)
             {
-                links[i].Refresh(server.list);
+                links[i].Refresh(server.list, preview);
             }
-        }
-
-        public void Find()
-        {
-            
         }
 
         private ItemTalentSkill CreateSkill(TalentSkill talent)
@@ -94,7 +93,7 @@ namespace Game
 
             ItemTalentSkill item = go.GetComponent<ItemTalentSkill>();
 
-            item.Initialize(talent);
+            item.Initialize(talent, OnClickTalent);
 
             return item;
         }
@@ -105,9 +104,34 @@ namespace Game
 
             ItemTalentLink item = go.GetComponent<ItemTalentLink>();
 
-            item.Initialize(talent);
+            item.Initialize(talent, OnClickTalent);
 
             return item;
+        }
+
+        private void OnClickTalent(int talentID)
+        {
+            List<int> activated = new List<int>();
+
+            activated.AddRange(server.list);
+
+            for (int i = 0; i < data.trunk.children.Count; i++)
+            {
+                int talent = data.trunk.children[i].ID;
+
+                if (!activated.Contains(talent))
+                {
+                    activated.Add(talent);
+                }
+            }
+
+            List<int> route = TalentUtils.Beeline(data, talentID, activated);
+
+            preview.Clear();
+
+            preview.AddRange(route);
+
+            Refresh();
         }
     }
 }

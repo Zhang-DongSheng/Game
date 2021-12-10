@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +16,8 @@ namespace Game
 
     public static class TalentUtils
     {
+        private static bool[] exists = new bool[4];
+
         public static int Index(TalentDirection direction, bool forward)
         {
             switch (direction)
@@ -118,19 +119,57 @@ namespace Game
             };
         }
 
-        public static TalentStatus Status(List<int> list, int src, int dst = -1)
+        public static TalentStatus Status(List<int> list, List<int> preview, int src, int dst = -1)
         {
-            bool exist;
-
             if (dst == -1)
             {
-                exist = list.Exists(x => x == src);
+                if (list.Exists(x => x == src))
+                {
+                    return TalentStatus.Light;
+                }
+                else if (preview.Exists(x => x == src))
+                {
+                    return TalentStatus.Preview;
+                }
+                else
+                {
+                    return TalentStatus.None;
+                }
             }
             else
             {
-                exist = list.Exists(x => x == src) && list.Exists(x => x == dst);
+                exists[0] = list.Exists(x => x == src);
+
+                exists[1] = list.Exists(x => x == dst);
+
+                if (exists[0] && exists[1])
+                {
+                    return TalentStatus.Light;
+                }
+                else
+                {
+                    exists[2] = preview.Exists(x => x == src);
+
+                    exists[3] = preview.Exists(x => x == dst);
+
+                    if (exists[0] && exists[3])
+                    {
+                        return TalentStatus.Preview;
+                    }
+                    else if (exists[1] && exists[2])
+                    {
+                        return TalentStatus.Preview;
+                    }
+                    else if (exists[2] && exists[3])
+                    {
+                        return TalentStatus.Preview;
+                    }
+                    else
+                    {
+                        return TalentStatus.None;
+                    }
+                }
             }
-            return exist ? TalentStatus.Light : TalentStatus.None;
         }
 
         public static List<int> Beeline(TalentSystem talent, int target, List<int> activated)
@@ -139,26 +178,28 @@ namespace Game
 
             if (queue == null) return null;
 
-            int min = -1, index = -1;
+            TalentPossible _possible, possible = null;
+
+            int min = -1;
 
             int count = activated.Count;
 
             for (int i = 0; i < activated.Count; i++)
             {
-                TalentPossible possible = queue.possibles.Find(x => x.final == activated[i]);
+                _possible = queue.possibles.Find(x => x.final == activated[i]);
 
-                if (possible != null)
+                if (_possible != null)
                 {
-                    if (min == -1 || min > possible.routes.Count)
+                    if (min == -1 || min > _possible.routes.Count)
                     {
-                        min = possible.routes.Count; index = i;
+                        min = _possible.routes.Count; possible = _possible;
                     }
                 }
             }
 
-            if (index != -1)
+            if (possible != null)
             {
-                return new List<int>(queue.possibles[index].routes);
+                return new List<int>(possible.routes);
             }
             return null;
         }

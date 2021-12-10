@@ -15,9 +15,9 @@ namespace Game
             nodes = new Vector2Int(from, to);
         }
 
-        public void Refresh(List<int> list)
+        public void Refresh(List<int> list, List<int> preview)
         {
-            this.status.Refresh(TalentUtils.Status(list, nodes.x, nodes.y));
+            this.status.Refresh(TalentUtils.Status(list, preview, nodes.x, nodes.y));
         }
     }
 }
