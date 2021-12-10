@@ -172,7 +172,7 @@ namespace Game
             }
         }
 
-        public static List<int> Beeline(TalentSystem talent, int target, List<int> activated)
+        public static List<int> Search(TalentSystem talent, int target, List<int> activated)
         {
             TalentQueue queue = talent.queues.Find(x => x.key == target);
 
@@ -202,6 +202,44 @@ namespace Game
                 return new List<int>(possible.routes);
             }
             return null;
+        }
+
+        public static List<int> Search(TalentSystem talent, TalentSkill skill, List<int> activated)
+        {
+            bool exist = false;
+
+            List<int> children = new List<int>();
+
+            for (int i = 0; i < skill.children.Count; i++)
+            {
+                if (activated.Exists(x => x == skill.children[i].ID))
+                {
+                    exist = true;
+                }
+                else
+                {
+                    children.Add(skill.children[i].ID);
+                }
+            }
+
+            if (exist) return children;
+
+            List<int> _route, route = null;
+
+            int min = -1;
+
+            for (int i = 0; i < children.Count; i++)
+            {
+                _route = Search(talent, children[i], activated);
+
+                if (min == -1 || min > _route.Count)
+                {
+                    min = _route.Count; route = _route;
+                }
+            }
+            route.AddRange(children);
+
+            return route;
         }
     }
 

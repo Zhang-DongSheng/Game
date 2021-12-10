@@ -16,6 +16,8 @@ namespace Game
 
         private TalentSkill talent;
 
+        public Action<TalentSkill> callback;
+
         public void Initialize(TalentSkill talent, Action<int> callback)
         {
             this.talent = talent;
@@ -73,7 +75,7 @@ namespace Game
 
         private void OnClickSkill(int skillID)
         {
-            //Ãÿ ‚¥¶¿Ì
+            callback?.Invoke(talent);
         }
     }
 }

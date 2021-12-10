@@ -95,6 +95,8 @@ namespace Game
 
             item.Initialize(talent, OnClickTalent);
 
+            item.callback = OnClickSkill;
+
             return item;
         }
 
@@ -111,26 +113,81 @@ namespace Game
 
         private void OnClickTalent(int talentID)
         {
-            List<int> activated = new List<int>();
-
-            activated.AddRange(server.list);
-
-            for (int i = 0; i < data.trunk.children.Count; i++)
+            if (data.trunk.children.Exists(x => x.ID == talentID))
             {
-                int talent = data.trunk.children[i].ID;
+                preview.Clear();
 
-                if (!activated.Contains(talent))
+                preview.Add(talentID);
+            }
+            else
+            {
+                List<int> activated = new List<int>();
+
+                activated.AddRange(server.list);
+
+                for (int i = 0; i < data.trunk.children.Count; i++)
                 {
-                    activated.Add(talent);
+                    int talent = data.trunk.children[i].ID;
+
+                    if (!activated.Contains(talent))
+                    {
+                        activated.Add(talent);
+                    }
+                }
+
+                List<int> route = TalentUtils.Search(data, talentID, activated);
+
+                preview.Clear();
+
+                if (route == null)
+                {
+                    return;
+                }
+                preview.AddRange(route);
+            }
+            Refresh();
+        }
+
+        private void OnClickSkill(TalentSkill skill)
+        {
+            if (skill.ID == data.trunk.ID)
+            {
+                preview.Clear();
+
+                for (int i = 0; i < skill.children.Count; i++)
+                {
+                    if (!server.list.Exists(x => x == skill.children[i].ID))
+                    {
+                        preview.Add(skill.children[i].ID);
+                    }
                 }
             }
+            else
+            {
+                List<int> activated = new List<int>();
 
-            List<int> route = TalentUtils.Beeline(data, talentID, activated);
+                activated.AddRange(server.list);
 
-            preview.Clear();
+                for (int i = 0; i < data.trunk.children.Count; i++)
+                {
+                    int talent = data.trunk.children[i].ID;
 
-            preview.AddRange(route);
+                    if (!activated.Contains(talent))
+                    {
+                        activated.Add(talent);
+                    }
+                }
 
+                List<int> route = TalentUtils.Search(data, skill, activated);
+
+                preview.Clear();
+
+                if (route == null)
+                {
+                    return;
+                }
+                preview.AddRange(route);
+            }
             Refresh();
         }
     }
