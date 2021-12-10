@@ -132,6 +132,36 @@ namespace Game
             }
             return exist ? TalentStatus.Light : TalentStatus.None;
         }
+
+        public static List<int> Beeline(TalentSystem talent, int target, List<int> activated)
+        {
+            TalentQueue queue = talent.queues.Find(x => x.key == target);
+
+            if (queue == null) return null;
+
+            int min = -1, index = -1;
+
+            int count = activated.Count;
+
+            for (int i = 0; i < activated.Count; i++)
+            {
+                TalentPossible possible = queue.possibles.Find(x => x.final == activated[i]);
+
+                if (possible != null)
+                {
+                    if (min == -1 || min > possible.routes.Count)
+                    {
+                        min = possible.routes.Count; index = i;
+                    }
+                }
+            }
+
+            if (index != -1)
+            {
+                return new List<int>(queue.possibles[index].routes);
+            }
+            return null;
+        }
     }
 
     public enum TalentStatus

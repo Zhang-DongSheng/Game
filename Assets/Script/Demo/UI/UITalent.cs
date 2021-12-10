@@ -37,6 +37,12 @@ namespace Game
             {
                 Find();
             }
+            else if (Input.GetKeyDown(KeyCode.C))
+            {
+                server.list.Clear();
+
+                server.list = server.str.SplitToList<int>(',');
+            }
         }
 
         private void Init()
@@ -79,36 +85,8 @@ namespace Game
 
         public void Find()
         {
-            if (target > 1000)
-            {
-                int index = Mathf.FloorToInt(target / 10);
-
-                TalentSkill skill = data.branches.Find(x => x.ID == index);
-
-                if (skill != null)
-                {
-                    TalentNode node = skill.children.Find(x => x.ID == target % 10);
-
-                    
-
-                    
-                }
-            }
-            else if (target > 200)
-            {
-
-            }
-            else if (target > 100)
-            {
-
-            }
-            else
-            {
-                return;   
-            }
+            
         }
-
-        
 
         private ItemTalentSkill CreateSkill(TalentSkill talent)
         {

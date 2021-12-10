@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace Game
@@ -16,8 +17,6 @@ namespace Game
 
         private readonly List<Talent> talents = new List<Talent>();
 
-        private readonly List<TalentPossible> possibles = new List<TalentPossible>();
-
         private void OnValidate()
         {
             for (int i = 0; i < branches.Count; i++)
@@ -28,7 +27,6 @@ namespace Game
                 }
             }
         }
-
         [ContextMenu("自动生成ID")]
         protected void MenuRebuildID()
         {
@@ -57,7 +55,6 @@ namespace Game
                 links[i].ID = 201 + i;
             }
         }
-
         [ContextMenu("关联定位")]
         protected void MenuUpdatePosition()
         {
@@ -88,11 +85,14 @@ namespace Game
                 }
             }
         }
-
         [ContextMenu("生成所有可能路径")]
         protected void MenuCreatePossibles()
         {
+            TalentFloyd floyd = new TalentFloyd();
+
             queues.Clear(); talents.Clear();
+
+            talents.AddRange(trunk.children);
 
             int count = branches.Count;
 
@@ -110,95 +110,28 @@ namespace Game
             {
                 talents.Add(links[i]);
             }
-
-            count = branches.Count;
-
-            for (int i = 0; i < count; i++)
-            {
-                for (int j = 0; j < branches[i].children.Count; j++)
-                {
-                    queues.Add(new TalentQueue()
-                    {
-                        key = branches[i].children[j].ID,
-                        possibles = Possibles(branches[i].children[j].ID)
-                    });
-                }
-            }
+            queues.AddRange(floyd.Init(talents));
         }
-
-        private List<TalentPossible> Possibles(int index)
+        [ContextMenu("写入本地")]
+        protected void Write()
         {
-            this.possibles.Clear();
+            string path = Path.Combine(Application.streamingAssetsPath, "queue.txt");
 
-            Possible(new List<int> { index });
-
-            List<TalentPossible> possibles = new List<TalentPossible>();
-
-            possibles.AddRange(this.possibles);
-
-            return possibles;
-        }
-
-        private void Possible(List<int> routes)
-        {
-            int last = routes[routes.Count - 1];
-
-            if (trunk.children.Exists(x => x.ID == last))
+            using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
             {
-                possibles.Add(new TalentPossible()
+                StreamWriter writer = new StreamWriter(stream);
+
+                for (int i = 0; i < queues.Count; i++)
                 {
-                    routes = routes,
-                });
-            }
+                    writer.WriteLine(string.Format("From: [{0}] +{1}", queues[i].key, queues[i].possibles.Count));
 
-            Talent talent = talents.Find(x => x.ID == last);
-
-            if (talent == null) return;
-
-            if (talent.neighbours.x != 0 && !routes.Contains(talent.neighbours.x))
-            {
-                if (talent.neighbours.y != 0 && !routes.Contains(talent.neighbours.y))
-                {
-                    if (talent.neighbours.z != 0 && !routes.Contains(talent.neighbours.z))
+                    for (int j = 0; j < queues[i].possibles.Count; j++)
                     {
-                        List<int> ZR = new List<int>(routes);
-
-                        ZR.Add(talent.neighbours.z);
-
-                        Possible(ZR);
+                        writer.WriteLine(string.Format("{0}-{1}: {2}", queues[i].key, queues[i].possibles[j].final,
+                            string.Join(",", queues[i].possibles[j].routes)));
                     }
-
-                    List<int> YR = new List<int>(routes);
-
-                    YR.Add(talent.neighbours.y);
-
-                    Possible(YR);
                 }
-                else if (talent.neighbours.z != 0 && !routes.Contains(talent.neighbours.z))
-                {
-                    List<int> ZR = new List<int>(routes);
-
-                    ZR.Add(talent.neighbours.z);
-
-                    Possible(ZR);
-                }
-                routes.Add(talent.neighbours.x); Possible(routes);
-            }
-            else if (talent.neighbours.y != 0 && !routes.Contains(talent.neighbours.y))
-            {
-                if (talent.neighbours.z != 0 && !routes.Contains(talent.neighbours.z))
-                {
-                    List<int> ZR = new List<int>(routes);
-
-                    ZR.Add(talent.neighbours.z);
-
-                    Possible(ZR);
-                }
-                routes.Add(talent.neighbours.y); Possible(routes);
-            }
-            else if (talent.neighbours.z != 0 && !routes.Contains(talent.neighbours.z))
-            {
-                routes.Add(talent.neighbours.z); Possible(routes);
+                writer.Flush(); writer.Close();
             }
         }
     }

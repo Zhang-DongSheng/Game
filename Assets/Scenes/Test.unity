@@ -174,6 +174,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 9d08ead3f1d185e4ca6d96f3706923bd, type: 2}
   server:
     list: 65000000f3030000f4030000f5030000fd030000ff03000006040000000000000000000000000000
+  target: 0
   parent: {fileID: 626647390}
   prefabSkill: {fileID: 7575744819113407757, guid: 2fda61c11dc013a41bd5b5a070782286, type: 3}
   prefabLink: {fileID: 1758283946355962144, guid: 58ac2c45a4b0aaa4b901d12c9f3df5e3, type: 3}
