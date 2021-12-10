@@ -125,6 +125,8 @@ namespace Game
 
         public float scale;
 
+        public float value;
+
         public Vector2 boundary;
 
         public Panel(RectTransform target, Vector2 boundary)
@@ -142,25 +144,45 @@ namespace Game
 
         public void Adapting()
         {
-            offset = Offset(position + size * scale);
+            offset = Vector2.zero;
 
-            offset += Offset(position - size * scale);
+            if (position.x < 0)
+            {
+                value = position.x + size.x * scale;
 
+                if (value < boundary.x)
+                {
+                    offset.x -= value - boundary.x;
+                }
+            }
+            else
+            {
+                value = position.x - size.x * scale;
+
+                if (value > -boundary.x)
+                {
+                    offset.x -= value + boundary.x;
+                }
+            }
+            if (position.y < 0)
+            {
+                value = position.y + size.y * scale;
+
+                if (value < boundary.y)
+                {
+                    offset.y -= value - boundary.y;
+                }
+            }
+            else
+            {
+                value = position.y - size.y * scale;
+
+                if (value > -boundary.y)
+                {
+                    offset.y -= value + boundary.y;
+                }
+            }
             position += offset;
-        }
-
-        private Vector2 Offset(Vector2 point)
-        {
-            return Boundary(point) - point;
-        }
-
-        private Vector2 Boundary(Vector2 point)
-        {
-            point.x = Mathf.Clamp(point.x, -boundary.x, boundary.x);
-
-            point.y = Mathf.Clamp(point.y, -boundary.y, boundary.y);
-
-            return point;
         }
     }
 
