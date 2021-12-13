@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class UIPanel : MonoBehaviour
+    public class UIDragWindow : MonoBehaviour
     {
         [SerializeField] private RectTransform target;
 
@@ -20,7 +20,7 @@ namespace Game
 
         private Vector2 vector;
 
-        private Panel panel;
+        private Window panel;
 
         private void Awake()
         {
@@ -28,7 +28,7 @@ namespace Game
             {
                 target = GetComponent<RectTransform>();
             }
-            panel = new Panel(target, boundary);
+            panel = new Window(target, boundary);
         }
 
         private void OnValidate()
@@ -115,7 +115,7 @@ namespace Game
         }
     }
 
-    class Panel
+    class Window
     {
         public Vector2 position;
 
@@ -129,7 +129,9 @@ namespace Game
 
         public Vector2 boundary;
 
-        public Panel(RectTransform target, Vector2 boundary)
+        public bool inside;
+
+        public Window(RectTransform target, Vector2 boundary)
         {
             position = target.anchoredPosition;
 
@@ -139,13 +141,70 @@ namespace Game
 
             size /= scale * 2f;
 
+            offset = new Vector2();
+
             this.boundary = boundary;
+
+            inside = boundary.x > size.x && boundary.y > size.y;
         }
 
         public void Adapting()
         {
-            offset = Vector2.zero;
+            offset.x = offset.y = 0;
 
+            if (inside)
+            {
+                Inside();
+            }
+            else
+            {
+                Outside();
+            }
+            position += offset;
+        }
+
+        private void Inside()
+        {
+            if (position.x < 0)
+            {
+                value = position.x - size.x * scale;
+
+                if (value < -boundary.x)
+                {
+                    offset.x -= value + boundary.x;
+                }
+            }
+            else
+            {
+                value = position.x + size.x * scale;
+
+                if (value > boundary.x)
+                {
+                    offset.x -= value - boundary.x;
+                }
+            }
+            if (position.y < 0)
+            {
+                value = position.y - size.y * scale;
+
+                if (value < -boundary.y)
+                {
+                    offset.y -= value + boundary.y;
+                }
+            }
+            else
+            {
+                value = position.y + size.y * scale;
+
+                if (value > boundary.y)
+                {
+                    offset.y -= value - boundary.y;
+                }
+            }
+        }
+
+        private void Outside()
+        {
             if (position.x < 0)
             {
                 value = position.x + size.x * scale;
@@ -182,15 +241,6 @@ namespace Game
                     offset.y -= value + boundary.y;
                 }
             }
-            position += offset;
         }
-    }
-
-    enum Status
-    {
-        None,
-        Drag,
-        Alignment,
-        Finish,
     }
 }
