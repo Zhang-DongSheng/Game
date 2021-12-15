@@ -107,6 +107,8 @@ namespace Game
 
             panel.scale = Mathf.Clamp(panel.scale, size.x, size.y);
 
+            panel.position = panel.center * panel.scale;
+
             panel.Adapting();
 
             target.anchoredPosition = panel.position;
@@ -118,6 +120,8 @@ namespace Game
     class Window
     {
         public Vector2 position;
+
+        public Vector2 center;
 
         public Vector2 offset;
 
@@ -160,7 +164,7 @@ namespace Game
             {
                 Outside();
             }
-            position += offset;
+            position += offset; center = position / scale;
         }
 
         private void Inside()
