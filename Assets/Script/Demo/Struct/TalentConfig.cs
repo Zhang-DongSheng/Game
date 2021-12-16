@@ -199,7 +199,9 @@ namespace Game
 
             if (possible != null)
             {
-                return new List<int>(possible.routes);
+                List<int> route = new List<int>(possible.routes);
+
+                route.Reverse(); return route;
             }
             return null;
         }
@@ -221,6 +223,7 @@ namespace Game
                     children.Add(skill.children[i].ID);
                 }
             }
+            children.Add(skill.ID);
 
             if (exist) return children;
 
@@ -232,12 +235,14 @@ namespace Game
             {
                 _route = Search(talent, children[i], activated);
 
+                if (_route == null) continue;
+
                 if (min == -1 || min > _route.Count)
                 {
                     min = _route.Count; route = _route;
                 }
             }
-            route.AddRange(children);
+            if (route != null) route.AddRange(children);
 
             return route;
         }

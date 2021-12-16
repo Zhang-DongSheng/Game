@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06597d2991b487541ac331ddeef645a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 9d08ead3f1d185e4ca6d96f3706923bd, type: 2}
+  system: {fileID: 11400000, guid: 9d08ead3f1d185e4ca6d96f3706923bd, type: 2}
   server:
     str: 1153,1152,1151,217,1164,1165,1160,218,1173,1172,1171,219,1184,1185,1180,221,1193,1192
     list: 65000000f3030000f4030000f5030000fd030000ff03000006040000000000000000000000000000
@@ -312,8 +312,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44d74e281d13054cbad5ffc4d74ee76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  area: {fileID: 0}
   target: {fileID: 626647390}
   speed: 36
+  full: 0
   size: {x: 1, y: 3}
   boundary: {x: 250, y: 150}
 --- !u!114 &626647392

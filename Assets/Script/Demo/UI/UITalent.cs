@@ -6,7 +6,7 @@ namespace Game
 {
     public class UITalent : MonoBehaviour
     {
-        [SerializeField] private TalentSystem data;
+        [SerializeField] private TalentSystem system;
 
         [SerializeField] private S2CTalent server;
 
@@ -51,22 +51,22 @@ namespace Game
 
         private void Init()
         {
-            ItemTalentSkill main = CreateSkill(data.trunk);
+            ItemTalentSkill main = CreateSkill(system.trunk);
 
             skills.Add(main);
 
-            int count = data.branches.Count;
+            int count = system.branches.Count;
 
             for (int i = 0; i < count; i++)
             {
-                skills.Add(CreateSkill(data.branches[i]));
+                skills.Add(CreateSkill(system.branches[i]));
             }
 
-            count = data.links.Count;
+            count = system.links.Count;
 
             for (int i = 0; i < count; i++)
             {
-                links.Add(CreateLink(data.links[i]));
+                links.Add(CreateLink(system.links[i]));
             }
         }
 
@@ -111,33 +111,35 @@ namespace Game
             return item;
         }
 
+        private List<int> Activated()
+        {
+            List<int> activated = new List<int>();
+
+            activated.AddRange(server.list);
+
+            for (int i = 0; i < system.trunk.children.Count; i++)
+            {
+                int talent = this.system.trunk.children[i].ID;
+
+                if (!activated.Contains(talent))
+                {
+                    activated.Add(talent);
+                }
+            }
+            return activated;
+        }
+
         private void OnClickTalent(int talentID)
         {
-            if (data.trunk.children.Exists(x => x.ID == talentID))
-            {
-                preview.Clear();
+            preview.Clear();
 
+            if (system.trunk.children.Exists(x => x.ID == talentID))
+            {
                 preview.Add(talentID);
             }
             else
             {
-                List<int> activated = new List<int>();
-
-                activated.AddRange(server.list);
-
-                for (int i = 0; i < data.trunk.children.Count; i++)
-                {
-                    int talent = data.trunk.children[i].ID;
-
-                    if (!activated.Contains(talent))
-                    {
-                        activated.Add(talent);
-                    }
-                }
-
-                List<int> route = TalentUtils.Search(data, talentID, activated);
-
-                preview.Clear();
+                List<int> route = TalentUtils.Search(system, talentID, Activated());
 
                 if (route == null)
                 {
@@ -150,37 +152,22 @@ namespace Game
 
         private void OnClickSkill(TalentSkill skill)
         {
-            if (skill.ID == data.trunk.ID)
-            {
-                preview.Clear();
+            preview.Clear();
 
+            if (skill.ID == system.trunk.ID)
+            {
                 for (int i = 0; i < skill.children.Count; i++)
                 {
-                    if (!server.list.Exists(x => x == skill.children[i].ID))
+                    if (!server.list.Contains(skill.children[i].ID))
                     {
                         preview.Add(skill.children[i].ID);
                     }
                 }
+                preview.Add(skill.ID);
             }
             else
             {
-                List<int> activated = new List<int>();
-
-                activated.AddRange(server.list);
-
-                for (int i = 0; i < data.trunk.children.Count; i++)
-                {
-                    int talent = data.trunk.children[i].ID;
-
-                    if (!activated.Contains(talent))
-                    {
-                        activated.Add(talent);
-                    }
-                }
-
-                List<int> route = TalentUtils.Search(data, skill, activated);
-
-                preview.Clear();
+                List<int> route = TalentUtils.Search(system, skill, Activated());
 
                 if (route == null)
                 {

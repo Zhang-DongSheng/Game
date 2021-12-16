@@ -10,6 +10,8 @@ namespace Game
 
         public string name;
 
+        public bool active;
+
         public int relevance;
 
         public Vector2 position;
