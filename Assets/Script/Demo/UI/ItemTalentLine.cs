@@ -10,6 +10,13 @@ namespace Game
 
         private Vector2Int nodes;
 
+        public void Initialize(Talent from, Talent to)
+        {
+            nodes = new Vector2Int(from.ID, to.ID);
+
+            this.SetActive(from.active && to.active);
+        }
+
         public void Initialize(int from, int to)
         {
             nodes = new Vector2Int(from, to);

@@ -50,21 +50,21 @@ namespace Game
 
                 Talent to = talents[j];
 
-                if (from.neighbours.x == to.ID ||
-                    from.neighbours.y == to.ID ||
-                    from.neighbours.z == to.ID)
+                if (from.active && to.active)
                 {
-                    return 1;
+                    if (from.neighbours.x == to.ID ||
+                        from.neighbours.y == to.ID ||
+                        from.neighbours.z == to.ID)
+                    {
+                        return 1;
+                    }
                 }
                 return INF;
             }
         }
 
-        private const int MaxSize = 6;
         private const int INF = 32767;    //INF表示∞
-        private int MAXV = 4;    //最大顶点个数
-        //结构体的成员定义里不能直接赋值，也就是等号后的应该移除，在你后面实例化整个结构体以后，
-        //再对Study_Data[n].input=new double[50] 其他成员类似。顺便说下其实用class简单得多。
+        private int MAXV;
 
         struct VertexType
         {

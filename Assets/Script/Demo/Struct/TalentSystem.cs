@@ -35,6 +35,7 @@ namespace Game
             for (int i = 0; i < trunk.children.Count; i++)
             {
                 trunk.children[i].ID = trunk.ID * 10 + i;
+                trunk.children[i].active = true;
             }
 
             for (int i = 0; i < branches.Count; i++)
@@ -42,10 +43,12 @@ namespace Game
                 if (branches[i] != null)
                 {
                     branches[i].ID = 102 + i;
+                    branches[i].active = true;
 
                     for (int j = 0; j < branches[i].children.Count; j++)
                     {
                         branches[i].children[j].ID = branches[i].ID * 10 + j;
+                        branches[i].children[j].active = true;
                     }
                 }
             }
@@ -53,6 +56,7 @@ namespace Game
             for (int i = 0; i < links.Count; i++)
             {
                 links[i].ID = 201 + i;
+                links[i].active = true;
             }
         }
         [ContextMenu("关联定位")]
@@ -133,6 +137,8 @@ namespace Game
                 talents.Add(links[i]);
             }
             queues.AddRange(floyd.Init(talents));
+
+            UnityEditor.EditorWindow.focusedWindow.ShowNotification(new GUIContent("完成了"));
         }
         [ContextMenu("写入本地")]
         protected void Write()

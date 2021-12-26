@@ -1,13 +1,12 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Game
 {
     public class UIDragWindow : MonoBehaviour
     {
-        public Func<bool> allow;
-
-        [SerializeField] private RectTransform area;
+        [SerializeField] public string dragTag;
 
         [SerializeField] private RectTransform target;
 
@@ -29,6 +28,8 @@ namespace Game
 
         private Window panel;
 
+        private bool drag;
+
         private void Awake()
         {
             if (full)
@@ -44,10 +45,15 @@ namespace Game
             if (Input.GetMouseButtonDown(0))
             {
                 position = Input.mousePosition;
+
+                if (IsPointerOverGameObject(position))
+                {
+                    drag = true;
+                }
             }
             else if (Input.GetMouseButton(0))
             {
-                if (!Allow) return;
+                if (!drag) return;
 
                 vector = (Vector2)Input.mousePosition - position;
 
@@ -59,10 +65,21 @@ namespace Game
             {
                 Scale(Input.mouseScrollDelta.y);
             }
-#else
-            if (Input.GetMouseButton(0))
+            else
             {
-                if (!Allow) return;
+                drag = false;
+            }
+#else
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (IsPointerOverGameObject(Input.mousePosition))
+                {
+                    drag = true;
+                }
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                if (!drag) return;
 
                 if (Input.touchCount == 1)
                 {
@@ -95,6 +112,10 @@ namespace Game
                     }
                 }
             }
+            else
+            {
+                drag = false;
+            }
 #endif
         }
 
@@ -122,16 +143,28 @@ namespace Game
             target.localScale = new Vector3(panel.scale, panel.scale, 1);
         }
 
-        protected bool Allow
+        private bool IsPointerOverGameObject(Vector2 mousePosition)
         {
-            get
+            PointerEventData eventData = new PointerEventData(EventSystem.current);
+
+            eventData.position = mousePosition;
+
+            List<RaycastResult> raycastResults = new List<RaycastResult>();
+
+            EventSystem.current.RaycastAll(eventData, raycastResults);
+
+            if (raycastResults.Count > 0)
             {
-                if (allow != null)
+                if (string.IsNullOrEmpty(dragTag))
                 {
-                    return allow.Invoke();
+                    return true;
                 }
-                return true;
+                else if (raycastResults[0].gameObject.CompareTag(dragTag))
+                {
+                    return true;
+                }
             }
+            return false;
         }
     }
 

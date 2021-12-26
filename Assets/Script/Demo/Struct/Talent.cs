@@ -10,7 +10,7 @@ namespace Game
 
         public string name;
 
-        public bool active;
+        public bool active = true;
 
         public int relevance;
 

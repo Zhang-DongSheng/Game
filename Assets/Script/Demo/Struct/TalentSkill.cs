@@ -6,8 +6,6 @@ namespace Game
     [System.Serializable]
     public class TalentSkill : Talent
     {
-        public bool root;
-
         public List<TalentNode> children;
 
         public TalentSkill()

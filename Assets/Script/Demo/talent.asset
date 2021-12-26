@@ -15,1163 +15,1038 @@ MonoBehaviour:
   trunk:
     ID: 101
     name: 
+    active: 1
     relevance: 0
     position: {x: 0, y: 0}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1010
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1015, y: 1011, z: 201}
       index: 0
-      front: 0
-      back: 0
     - ID: 1011
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1010, y: 1012, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1012
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1011, y: 1013, z: 210}
       index: 0
-      front: 0
-      back: 0
     - ID: 1013
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1012, y: 1014, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1014
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1013, y: 1015, z: 211}
       index: 0
-      front: 0
-      back: 0
     - ID: 1015
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1014, y: 1010, z: 203}
       index: 0
-      front: 0
-      back: 0
   branches:
   - ID: 102
     name: 
+    active: 1
     relevance: 0
     position: {x: 100, y: 0}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1020
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1025, y: 1021, z: 202}
       index: 0
-      front: 0
-      back: 0
     - ID: 1021
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1020, y: 1022, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1022
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1021, y: 1023, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1023
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1022, y: 1024, z: 201}
       index: 0
-      front: 0
-      back: 0
     - ID: 1024
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1023, y: 1025, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1025
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1024, y: 1020, z: 0}
       index: 0
-      front: 0
-      back: 0
   - ID: 103
     name: 
+    active: 1
     relevance: 0
     position: {x: 200, y: 0}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1030
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1035, y: 1031, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1031
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1030, y: 1032, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1032
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1031, y: 1033, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1033
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1032, y: 1034, z: 202}
       index: 0
-      front: 0
-      back: 0
     - ID: 1034
       name: 
+      active: 0
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1033, y: 1035, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1035
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1034, y: 1030, z: 0}
       index: 0
-      front: 0
-      back: 0
   - ID: 104
     name: 
+    active: 1
     relevance: 0
     position: {x: 50, y: 100}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1040
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1045, y: 1041, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1041
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1040, y: 1042, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1042
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1041, y: 1043, z: 203}
       index: 0
-      front: 0
-      back: 0
     - ID: 1043
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1042, y: 1044, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1044
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1043, y: 1045, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1045
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1044, y: 1040, z: 204}
       index: 0
-      front: 0
-      back: 0
   - ID: 105
     name: 
+    active: 1
     relevance: 0
     position: {x: 100, y: 200}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1050
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1055, y: 1051, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1051
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1050, y: 1052, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1052
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1051, y: 1053, z: 204}
       index: 0
-      front: 0
-      back: 0
     - ID: 1053
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1052, y: 1054, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1054
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1053, y: 1055, z: 205}
       index: 0
-      front: 0
-      back: 0
     - ID: 1055
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1054, y: 1050, z: 0}
       index: 0
-      front: 0
-      back: 0
   - ID: 106
     name: 
+    active: 1
     relevance: 0
     position: {x: 50, y: 300}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1060
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1065, y: 1061, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1061
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1060, y: 1062, z: 205}
       index: 0
-      front: 0
-      back: 0
     - ID: 1062
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1061, y: 1063, z: 206}
       index: 0
-      front: 0
-      back: 0
     - ID: 1063
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1062, y: 1064, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1064
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1063, y: 1065, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1065
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1064, y: 1060, z: 0}
       index: 0
-      front: 0
-      back: 0
   - ID: 107
     name: 
+    active: 1
     relevance: 0
     position: {x: -50, y: -100}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1070
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1075, y: 1071, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1071
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1070, y: 1072, z: 212}
       index: 0
-      front: 0
-      back: 0
     - ID: 1072
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1071, y: 1073, z: 216}
       index: 0
-      front: 0
-      back: 0
     - ID: 1073
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1072, y: 1074, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1074
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1073, y: 1075, z: 209}
       index: 0
-      front: 0
-      back: 0
     - ID: 1075
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1074, y: 1070, z: 210}
       index: 0
-      front: 0
-      back: 0
   - ID: 108
     name: 
+    active: 1
     relevance: 0
     position: {x: -100, y: 0}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1080
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1085, y: 1081, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1081
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1080, y: 1082, z: 209}
       index: 0
-      front: 0
-      back: 0
     - ID: 1082
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1081, y: 1083, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1083
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1082, y: 1084, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1084
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1083, y: 1085, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1085
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1084, y: 1080, z: 208}
       index: 0
-      front: 0
-      back: 0
   - ID: 109
     name: 
+    active: 1
     relevance: 0
     position: {x: -50, y: 100}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1090
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1095, y: 1091, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1091
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1090, y: 1092, z: 211}
       index: 0
-      front: 0
-      back: 0
     - ID: 1092
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1091, y: 1093, z: 208}
       index: 0
-      front: 0
-      back: 0
     - ID: 1093
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1092, y: 1094, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1094
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1093, y: 1095, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1095
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1094, y: 1090, z: 207}
       index: 0
-      front: 0
-      back: 0
   - ID: 110
     name: 
+    active: 1
     relevance: 0
     position: {x: 0, y: -200}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1100
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1105, y: 1101, z: 213}
       index: 0
-      front: 0
-      back: 0
     - ID: 1101
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1100, y: 1102, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1102
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1101, y: 1103, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1103
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1102, y: 1104, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1104
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1103, y: 1105, z: 212}
       index: 0
-      front: 0
-      back: 0
     - ID: 1105
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1104, y: 1100, z: 0}
       index: 0
-      front: 0
-      back: 0
   - ID: 111
     name: 
+    active: 1
     relevance: 0
     position: {x: 100, y: -200}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1110
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1115, y: 1111, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1111
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1110, y: 1112, z: 214}
       index: 0
-      front: 0
-      back: 0
     - ID: 1112
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1111, y: 1113, z: 215}
       index: 0
-      front: 0
-      back: 0
     - ID: 1113
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1112, y: 1114, z: 213}
       index: 0
-      front: 0
-      back: 0
     - ID: 1114
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1113, y: 1115, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1115
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1114, y: 1110, z: 0}
       index: 0
-      front: 0
-      back: 0
   - ID: 112
     name: 
+    active: 1
     relevance: 0
     position: {x: 150, y: -300}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1120
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1125, y: 1121, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1121
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1120, y: 1122, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1122
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1121, y: 1123, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1123
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1122, y: 1124, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1124
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1123, y: 1125, z: 214}
       index: 0
-      front: 0
-      back: 0
     - ID: 1125
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1124, y: 1120, z: 0}
       index: 0
-      front: 0
-      back: 0
   - ID: 113
     name: 
+    active: 1
     relevance: 0
     position: {x: 0, y: 200}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1130
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1135, y: 1131, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1131
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1130, y: 1132, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1132
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1131, y: 1133, z: 207}
       index: 0
-      front: 0
-      back: 0
     - ID: 1133
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1132, y: 1134, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1134
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1133, y: 1135, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1135
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1134, y: 1130, z: 206}
       index: 0
-      front: 0
-      back: 0
   - ID: 114
     name: 
+    active: 1
     relevance: 0
     position: {x: 0, y: 0}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1140
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1145, y: 1141, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1141
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1140, y: 1142, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1142
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1141, y: 1143, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1143
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1142, y: 1144, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1144
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1143, y: 1145, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1145
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1144, y: 1140, z: 0}
       index: 0
-      front: 0
-      back: 0
   - ID: 115
     name: 
+    active: 1
     relevance: 0
     position: {x: -100, y: -200}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1150
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1155, y: 1151, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1151
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1150, y: 1152, z: 217}
       index: 0
-      front: 0
-      back: 0
     - ID: 1152
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1151, y: 1153, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1153
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1152, y: 1154, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1154
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1153, y: 1155, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1155
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1154, y: 1150, z: 216}
       index: 0
-      front: 0
-      back: 0
   - ID: 116
     name: 
+    active: 1
     relevance: 0
     position: {x: -50, y: -300}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1160
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1165, y: 1161, z: 218}
       index: 0
-      front: 0
-      back: 0
     - ID: 1161
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1160, y: 1162, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1162
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1161, y: 1163, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1163
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1162, y: 1164, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1164
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1163, y: 1165, z: 217}
       index: 0
-      front: 0
-      back: 0
     - ID: 1165
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1164, y: 1160, z: 0}
       index: 0
-      front: 0
-      back: 0
   - ID: 117
     name: 
+    active: 1
     relevance: 0
     position: {x: 50, y: -300}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1170
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1175, y: 1171, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1171
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1170, y: 1172, z: 219}
       index: 0
-      front: 0
-      back: 0
     - ID: 1172
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1171, y: 1173, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1173
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1172, y: 1174, z: 218}
       index: 0
-      front: 0
-      back: 0
     - ID: 1174
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1173, y: 1175, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1175
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1174, y: 1170, z: 215}
       index: 0
-      front: 0
-      back: 0
   - ID: 118
     name: 
+    active: 1
     relevance: 0
     position: {x: 100, y: -400}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1180
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1185, y: 1181, z: 221}
       index: 0
-      front: 0
-      back: 0
     - ID: 1181
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1180, y: 1182, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1182
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1181, y: 1183, z: 220}
       index: 0
-      front: 0
-      back: 0
     - ID: 1183
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1182, y: 1184, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1184
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1183, y: 1185, z: 219}
       index: 0
-      front: 0
-      back: 0
     - ID: 1185
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1184, y: 1180, z: 0}
       index: 0
-      front: 0
-      back: 0
   - ID: 119
     name: 
+    active: 1
     relevance: 0
     position: {x: 200, y: -400}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1190
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1195, y: 1191, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1191
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1190, y: 1192, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1192
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1191, y: 1193, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1193
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1192, y: 1194, z: 221}
       index: 0
-      front: 0
-      back: 0
     - ID: 1194
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1193, y: 1195, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1195
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1194, y: 1190, z: 0}
       index: 0
-      front: 0
-      back: 0
   - ID: 120
     name: 
+    active: 1
     relevance: 0
     position: {x: 50, y: -500}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1200
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1205, y: 1201, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1201
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1200, y: 1202, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1202
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1201, y: 1203, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1203
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1202, y: 1204, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1204
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1203, y: 1205, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1205
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1204, y: 1200, z: 220}
       index: 0
-      front: 0
-      back: 0
   - ID: 121
     name: 
+    active: 1
     relevance: 0
     position: {x: 0, y: 0}
     neighbours: {x: 0, y: 0, z: 0}
-    root: 0
     children:
     - ID: 1210
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1215, y: 1211, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1211
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1210, y: 1212, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1212
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1211, y: 1213, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1213
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1212, y: 1214, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1214
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1213, y: 1215, z: 0}
       index: 0
-      front: 0
-      back: 0
     - ID: 1215
       name: 
+      active: 1
       relevance: 0
       position: {x: 0, y: 0}
       neighbours: {x: 1214, y: 1210, z: 0}
       index: 0
-      front: 0
-      back: 0
   links:
   - ID: 201
     name: 
+    active: 1
     relevance: 0
     position: {x: 50, y: 0}
     neighbours: {x: 1010, y: 1023, z: 0}
@@ -1180,6 +1055,7 @@ MonoBehaviour:
     angle: 0
   - ID: 202
     name: 
+    active: 1
     relevance: 0
     position: {x: 150, y: 0}
     neighbours: {x: 1020, y: 1033, z: 0}
@@ -1188,6 +1064,7 @@ MonoBehaviour:
     angle: 0
   - ID: 203
     name: 
+    active: 1
     relevance: 0
     position: {x: 25, y: 50}
     neighbours: {x: 1015, y: 1042, z: 0}
@@ -1196,6 +1073,7 @@ MonoBehaviour:
     angle: 60
   - ID: 204
     name: 
+    active: 1
     relevance: 0
     position: {x: 75, y: 150}
     neighbours: {x: 1045, y: 1052, z: 0}
@@ -1204,6 +1082,7 @@ MonoBehaviour:
     angle: 60
   - ID: 205
     name: 
+    active: 1
     relevance: 0
     position: {x: 75, y: 250}
     neighbours: {x: 1054, y: 1061, z: 0}
@@ -1212,6 +1091,7 @@ MonoBehaviour:
     angle: 120
   - ID: 206
     name: 
+    active: 1
     relevance: 0
     position: {x: 25, y: 250}
     neighbours: {x: 1062, y: 1135, z: 0}
@@ -1220,6 +1100,7 @@ MonoBehaviour:
     angle: 240
   - ID: 207
     name: 
+    active: 1
     relevance: 0
     position: {x: -25, y: 150}
     neighbours: {x: 1132, y: 1095, z: 0}
@@ -1228,6 +1109,7 @@ MonoBehaviour:
     angle: 240
   - ID: 208
     name: 
+    active: 1
     relevance: 0
     position: {x: -75, y: 50}
     neighbours: {x: 1092, y: 1085, z: 0}
@@ -1236,6 +1118,7 @@ MonoBehaviour:
     angle: 240
   - ID: 209
     name: 
+    active: 1
     relevance: 0
     position: {x: -75, y: -50}
     neighbours: {x: 1081, y: 1074, z: 0}
@@ -1244,6 +1127,7 @@ MonoBehaviour:
     angle: 300
   - ID: 210
     name: 
+    active: 1
     relevance: 0
     position: {x: -25, y: -50}
     neighbours: {x: 1012, y: 1075, z: 0}
@@ -1252,6 +1136,7 @@ MonoBehaviour:
     angle: 240
   - ID: 211
     name: 
+    active: 1
     relevance: 0
     position: {x: -25, y: 50}
     neighbours: {x: 1014, y: 1091, z: 0}
@@ -1260,6 +1145,7 @@ MonoBehaviour:
     angle: 120
   - ID: 212
     name: 
+    active: 1
     relevance: 0
     position: {x: -25, y: -150}
     neighbours: {x: 1071, y: 1104, z: 0}
@@ -1268,6 +1154,7 @@ MonoBehaviour:
     angle: 300
   - ID: 213
     name: 
+    active: 1
     relevance: 0
     position: {x: 50, y: -200}
     neighbours: {x: 1100, y: 1113, z: 0}
@@ -1276,6 +1163,7 @@ MonoBehaviour:
     angle: 0
   - ID: 214
     name: 
+    active: 1
     relevance: 0
     position: {x: 125, y: -250}
     neighbours: {x: 1111, y: 1124, z: 0}
@@ -1284,6 +1172,7 @@ MonoBehaviour:
     angle: 300
   - ID: 215
     name: 
+    active: 1
     relevance: 0
     position: {x: 75, y: -250}
     neighbours: {x: 1112, y: 1175, z: 0}
@@ -1292,6 +1181,7 @@ MonoBehaviour:
     angle: 240
   - ID: 216
     name: 
+    active: 1
     relevance: 0
     position: {x: -75, y: -150}
     neighbours: {x: 1072, y: 1155, z: 0}
@@ -1300,6 +1190,7 @@ MonoBehaviour:
     angle: 240
   - ID: 217
     name: 
+    active: 1
     relevance: 0
     position: {x: -75, y: -250}
     neighbours: {x: 1151, y: 1164, z: 0}
@@ -1308,6 +1199,7 @@ MonoBehaviour:
     angle: 300
   - ID: 218
     name: 
+    active: 1
     relevance: 0
     position: {x: 0, y: -300}
     neighbours: {x: 1160, y: 1173, z: 0}
@@ -1316,6 +1208,7 @@ MonoBehaviour:
     angle: 0
   - ID: 219
     name: 
+    active: 1
     relevance: 0
     position: {x: 75, y: -350}
     neighbours: {x: 1171, y: 1184, z: 0}
@@ -1324,6 +1217,7 @@ MonoBehaviour:
     angle: 300
   - ID: 220
     name: 
+    active: 1
     relevance: 0
     position: {x: 75, y: -450}
     neighbours: {x: 1182, y: 1205, z: 0}
@@ -1332,6 +1226,7 @@ MonoBehaviour:
     angle: 240
   - ID: 221
     name: 
+    active: 1
     relevance: 0
     position: {x: 150, y: -400}
     neighbours: {x: 1180, y: 1193, z: 0}
@@ -1373,10 +1268,8 @@ MonoBehaviour:
       routes: fc030000ca0000000904000008040000
     - final: 1033
       routes: fc030000ca00000009040000
-    - final: 1034
-      routes: fc030000ca000000090400000a040000
     - final: 1035
-      routes: fc030000ca000000090400000a0400000b040000
+      routes: fc030000ca000000090400000804000007040000060400000b040000
     - final: 201
       routes: fc030000fd030000fe030000ff030000c9000000
     - final: 202
@@ -1403,10 +1296,8 @@ MonoBehaviour:
       routes: fd030000fc030000ca0000000904000008040000
     - final: 1033
       routes: fd030000fc030000ca00000009040000
-    - final: 1034
-      routes: fd030000fc030000ca000000090400000a040000
     - final: 1035
-      routes: fd030000fc030000ca000000090400000a0400000b040000
+      routes: fd030000fc030000ca000000090400000804000007040000060400000b040000
     - final: 201
       routes: fd030000fe030000ff030000c9000000
     - final: 202
@@ -1433,10 +1324,8 @@ MonoBehaviour:
       routes: fe030000fd030000fc030000ca0000000904000008040000
     - final: 1033
       routes: fe030000fd030000fc030000ca00000009040000
-    - final: 1034
-      routes: fe030000fd030000fc030000ca000000090400000a040000
     - final: 1035
-      routes: fe030000fd030000fc030000ca000000090400000a0400000b040000
+      routes: fe030000fd030000fc030000ca000000090400000804000007040000060400000b040000
     - final: 201
       routes: fe030000ff030000c9000000
     - final: 202
@@ -1463,10 +1352,8 @@ MonoBehaviour:
       routes: ff030000fe030000fd030000fc030000ca0000000904000008040000
     - final: 1033
       routes: ff030000fe030000fd030000fc030000ca00000009040000
-    - final: 1034
-      routes: ff030000fe030000fd030000fc030000ca000000090400000a040000
     - final: 1035
-      routes: ff030000fe030000fd030000fc030000ca000000090400000a0400000b040000
+      routes: ff030000fe030000fd030000fc030000ca000000090400000804000007040000060400000b040000
     - final: 201
       routes: ff030000c9000000
     - final: 202
@@ -1493,10 +1380,8 @@ MonoBehaviour:
       routes: 0004000001040000fc030000ca0000000904000008040000
     - final: 1033
       routes: 0004000001040000fc030000ca00000009040000
-    - final: 1034
-      routes: 0004000001040000fc030000ca000000090400000a040000
     - final: 1035
-      routes: 0004000001040000fc030000ca000000090400000a0400000b040000
+      routes: 0004000001040000fc030000ca000000090400000804000007040000060400000b040000
     - final: 201
       routes: 00040000ff030000c9000000
     - final: 202
@@ -1523,10 +1408,8 @@ MonoBehaviour:
       routes: 01040000fc030000ca0000000904000008040000
     - final: 1033
       routes: 01040000fc030000ca00000009040000
-    - final: 1034
-      routes: 01040000fc030000ca000000090400000a040000
     - final: 1035
-      routes: 01040000fc030000ca000000090400000a0400000b040000
+      routes: 01040000fc030000ca000000090400000804000007040000060400000b040000
     - final: 201
       routes: 0104000000040000ff030000c9000000
     - final: 202
@@ -1553,8 +1436,6 @@ MonoBehaviour:
       routes: 060400000704000008040000
     - final: 1033
       routes: 06040000070400000804000009040000
-    - final: 1034
-      routes: 060400000b0400000a040000
     - final: 1035
       routes: 060400000b040000
     - final: 201
@@ -1583,8 +1464,6 @@ MonoBehaviour:
       routes: 0704000008040000
     - final: 1033
       routes: 070400000804000009040000
-    - final: 1034
-      routes: 0704000008040000090400000a040000
     - final: 1035
       routes: 07040000060400000b040000
     - final: 201
@@ -1613,8 +1492,6 @@ MonoBehaviour:
       routes: 0804000007040000
     - final: 1033
       routes: 0804000009040000
-    - final: 1034
-      routes: 08040000090400000a040000
     - final: 1035
       routes: 0804000007040000060400000b040000
     - final: 201
@@ -1643,60 +1520,30 @@ MonoBehaviour:
       routes: 090400000804000007040000
     - final: 1032
       routes: 0904000008040000
-    - final: 1034
-      routes: 090400000a040000
     - final: 1035
-      routes: 090400000a0400000b040000
+      routes: 090400000804000007040000060400000b040000
     - final: 201
       routes: 09040000ca000000fc030000fd030000fe030000ff030000c9000000
     - final: 202
       routes: 09040000ca000000
   - key: 1034
-    possibles:
-    - final: 1010
-      routes: 0a04000009040000ca000000fc030000fd030000fe030000ff030000c9000000f2030000
-    - final: 1020
-      routes: 0a04000009040000ca000000fc030000
-    - final: 1021
-      routes: 0a04000009040000ca000000fc030000fd030000
-    - final: 1022
-      routes: 0a04000009040000ca000000fc030000fd030000fe030000
-    - final: 1023
-      routes: 0a04000009040000ca000000fc030000fd030000fe030000ff030000
-    - final: 1024
-      routes: 0a04000009040000ca000000fc0300000104000000040000
-    - final: 1025
-      routes: 0a04000009040000ca000000fc03000001040000
-    - final: 1030
-      routes: 0a0400000b04000006040000
-    - final: 1031
-      routes: 0a040000090400000804000007040000
-    - final: 1032
-      routes: 0a0400000904000008040000
-    - final: 1033
-      routes: 0a04000009040000
-    - final: 1035
-      routes: 0a0400000b040000
-    - final: 201
-      routes: 0a04000009040000ca000000fc030000fd030000fe030000ff030000c9000000
-    - final: 202
-      routes: 0a04000009040000ca000000
+    possibles: []
   - key: 1035
     possibles:
     - final: 1010
-      routes: 0b0400000a04000009040000ca000000fc030000fd030000fe030000ff030000c9000000f2030000
+      routes: 0b04000006040000070400000804000009040000ca000000fc030000fd030000fe030000ff030000c9000000f2030000
     - final: 1020
-      routes: 0b0400000a04000009040000ca000000fc030000
+      routes: 0b04000006040000070400000804000009040000ca000000fc030000
     - final: 1021
-      routes: 0b0400000a04000009040000ca000000fc030000fd030000
+      routes: 0b04000006040000070400000804000009040000ca000000fc030000fd030000
     - final: 1022
-      routes: 0b0400000a04000009040000ca000000fc030000fd030000fe030000
+      routes: 0b04000006040000070400000804000009040000ca000000fc030000fd030000fe030000
     - final: 1023
-      routes: 0b0400000a04000009040000ca000000fc030000fd030000fe030000ff030000
+      routes: 0b04000006040000070400000804000009040000ca000000fc030000fd030000fe030000ff030000
     - final: 1024
-      routes: 0b0400000a04000009040000ca000000fc0300000104000000040000
+      routes: 0b04000006040000070400000804000009040000ca000000fc0300000104000000040000
     - final: 1025
-      routes: 0b0400000a04000009040000ca000000fc03000001040000
+      routes: 0b04000006040000070400000804000009040000ca000000fc03000001040000
     - final: 1030
       routes: 0b04000006040000
     - final: 1031
@@ -1704,13 +1551,11 @@ MonoBehaviour:
     - final: 1032
       routes: 0b040000060400000704000008040000
     - final: 1033
-      routes: 0b0400000a04000009040000
-    - final: 1034
-      routes: 0b0400000a040000
+      routes: 0b04000006040000070400000804000009040000
     - final: 201
-      routes: 0b0400000a04000009040000ca000000fc030000fd030000fe030000ff030000c9000000
+      routes: 0b04000006040000070400000804000009040000ca000000fc030000fd030000fe030000ff030000c9000000
     - final: 202
-      routes: 0b0400000a04000009040000ca000000
+      routes: 0b04000006040000070400000804000009040000ca000000
   - key: 1040
     possibles:
     - final: 1015
@@ -16791,10 +16636,8 @@ MonoBehaviour:
       routes: c9000000ff030000fe030000fd030000fc030000ca0000000904000008040000
     - final: 1033
       routes: c9000000ff030000fe030000fd030000fc030000ca00000009040000
-    - final: 1034
-      routes: c9000000ff030000fe030000fd030000fc030000ca000000090400000a040000
     - final: 1035
-      routes: c9000000ff030000fe030000fd030000fc030000ca000000090400000a0400000b040000
+      routes: c9000000ff030000fe030000fd030000fc030000ca000000090400000804000007040000060400000b040000
     - final: 202
       routes: c9000000ff030000fe030000fd030000fc030000ca000000
   - key: 202
@@ -16821,10 +16664,8 @@ MonoBehaviour:
       routes: ca0000000904000008040000
     - final: 1033
       routes: ca00000009040000
-    - final: 1034
-      routes: ca000000090400000a040000
     - final: 1035
-      routes: ca000000090400000a0400000b040000
+      routes: ca000000090400000804000007040000060400000b040000
     - final: 201
       routes: ca000000fc030000fd030000fe030000ff030000c9000000
   - key: 203

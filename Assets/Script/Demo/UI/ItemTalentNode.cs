@@ -30,6 +30,8 @@ namespace Game
             this.callback = callback;
 
             label.text = string.Format("{0}", talent.ID);
+
+            this.SetActive(talent.active);
         }
 
         public void Refresh(TalentStatus status)

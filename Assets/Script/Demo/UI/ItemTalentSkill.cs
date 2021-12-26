@@ -40,10 +40,10 @@ namespace Game
             {
                 if (lines[i] != null)
                 {
-                    lines[i].Initialize(talent.children[i].ID, talent.children[i + 1].ID);
+                    lines[i].Initialize(talent.children[i], talent.children[i + 1]);
                 }
             }
-            lines[count].Initialize(talent.children[count].ID, talent.children[0].ID);
+            lines[count].Initialize(talent.children[count], talent.children[0]);
 
             self.anchoredPosition = talent.position;
         }
