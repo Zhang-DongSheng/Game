@@ -14,7 +14,7 @@ namespace UnityEditor.Window
 
 		private readonly List<Meta> list = new List<Meta>();
 
-		[MenuItem("Assets/Deep Copy", priority = 18)]
+		[MenuItem("Assets/Copy Prefab", priority = 1)]
 		protected static void Open()
 		{
 			if (Selection.activeGameObject != null)
