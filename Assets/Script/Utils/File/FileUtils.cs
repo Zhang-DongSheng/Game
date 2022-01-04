@@ -4,7 +4,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Encrypt;
 
-namespace Game.Utils
+namespace Game
 {
     public static class FileUtils
     {

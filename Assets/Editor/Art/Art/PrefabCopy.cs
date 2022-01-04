@@ -1,10 +1,11 @@
+using Game;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 namespace UnityEditor.Window
 {
-	public class PrefabCopy : CustomWindow
+    public class PrefabCopy : CustomWindow
 	{
 		private readonly float LINE = 30f;
 
@@ -12,12 +13,14 @@ namespace UnityEditor.Window
 
 		private string source, target;
 
-		private readonly List<Meta> list = new List<Meta>();
+		private string extension;
+
+		private readonly List<Meta> dependencies = new List<Meta>();
 
 		[MenuItem("Assets/Copy Prefab", priority = 1)]
 		protected static void Open()
 		{
-			if (Selection.activeGameObject != null)
+			if (Selection.activeObject != null)
 			{
 				Open<PrefabCopy>("预制体拷贝");
 			}
@@ -29,7 +32,7 @@ namespace UnityEditor.Window
 
 		protected override void Init()
 		{
-			source = AssetDatabase.GetAssetPath(Selection.activeGameObject);
+			source = AssetDatabase.GetAssetPath(Selection.activeObject);
 
 			input.value = Default;
 		}
@@ -49,8 +52,34 @@ namespace UnityEditor.Window
 		{
 			if (Selection.activeGameObject != null)
 			{
-				source = AssetDatabase.GetAssetPath(Selection.activeGameObject);
+				source = AssetDatabase.GetAssetPath(Selection.activeObject);
 
+				dependencies.Clear();
+
+				string[] assets = AssetDatabase.GetDependencies(source);
+
+				for (int i = 0; i < assets.Length; i++)
+				{
+					if (assets[i] == source) continue;
+
+					extension = Path.GetExtension(assets[i]);
+
+					if (string.IsNullOrEmpty(extension) || extension == ".cs")
+					{
+						continue;
+					}
+					//不做筛选
+					if (true)
+					{
+						dependencies.Add(new Meta()
+						{
+							key = Path.GetFileNameWithoutExtension(assets[i]),
+							path = assets[i],
+							srcID = AssetDatabase.AssetPathToGUID(assets[i]),
+							ignore = false,
+						});
+					}
+				}
 				input.value = Default;
 			}
 		}
@@ -102,48 +131,35 @@ namespace UnityEditor.Window
 		{
 			if (!string.IsNullOrEmpty(source))
 			{
-				list.Clear();
-
-				target = Format(source);
+				target = FileUtils.New(source);
 
 				string prefab = target;
 
 				Copy(source, target);
 
-				string extension;
-
-				string[] assets = AssetDatabase.GetDependencies(source);
-
-				for (int i = 0; i < assets.Length; i++)
+				for (int i = 0; i < dependencies.Count; i++)
 				{
-					if (assets[i] == source) continue;
+					target = FileUtils.New(dependencies[i].path);
 
-					extension = Path.GetExtension(assets[i]);
-
-					if (string.IsNullOrEmpty(extension) ||
-						extension == ".cs")
+					if (dependencies[i].ignore)
 					{
-						continue;
+						dependencies[i].dstID = string.Empty;
 					}
-					target = Format(assets[i]);
-
-					if (Copy(assets[i], target))
+					else if (Copy(dependencies[i].path, target))
 					{
-						list.Add(new Meta()
-						{
-							key = assets[i],
-							srcID = AssetDatabase.AssetPathToGUID(assets[i]),
-							dstID = AssetDatabase.AssetPathToGUID(target),
-						});
+						dependencies[i].dstID = AssetDatabase.AssetPathToGUID(target);
 					}
 				}
 				AssetDatabase.Refresh();
 
 				string content = File.ReadAllText(prefab);
 
-				for (int i = 0; i < list.Count; i++)
+				for (int i = 0; i < dependencies.Count; i++)
 				{
-					content = content.Replace(list[i].srcID, list[i].dstID);
+					if (!string.IsNullOrEmpty(dependencies[i].dstID))
+					{
+						content = content.Replace(dependencies[i].srcID, dependencies[i].dstID);
+					}
 				}
 				File.WriteAllText(prefab, content);
 			}
@@ -156,25 +172,6 @@ namespace UnityEditor.Window
 			if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
 
 			return AssetDatabase.CopyAsset(source, target);
-		}
-
-		private string Format(string path)
-		{
-			string folder = input.value;
-
-			string file = Path.GetFileNameWithoutExtension(path);
-
-			string extension = Path.GetExtension(path);
-
-			path = string.Format("{0}/{1}{2}", folder, file, extension);
-
-			int index = 0;
-
-			while (File.Exists(path))
-			{
-				path = string.Format("{0}/{1} Clone({2}){3}", folder, file, index++, extension);
-			}
-			return path;
 		}
 
 		private string Default
@@ -192,7 +189,11 @@ namespace UnityEditor.Window
 
 		class Meta
 		{
+			public bool ignore;
+
 			public string key;
+
+			public string path;
 
 			public string srcID;
 
