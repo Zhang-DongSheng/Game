@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UnityEditor.Window
 {
-    public class PrefabCopy : CustomWindow
+	public class PrefabCopy : CustomWindow
 	{
 		private readonly float LINE = 30f;
 
@@ -14,6 +14,8 @@ namespace UnityEditor.Window
 		private string source, target;
 
 		private string extension;
+
+		private bool selectLock = false;
 
 		private readonly List<Meta> dependencies = new List<Meta>();
 
@@ -32,12 +34,9 @@ namespace UnityEditor.Window
 
 		protected override void Init()
 		{
-			source = AssetDatabase.GetAssetPath(Selection.activeObject);
-
-			input.value = Default;
+			OnValueChanged();
 		}
 
-		#region Event
 		private void Awake()
 		{
 			Selection.selectionChanged += OnValueChanged;
@@ -50,7 +49,7 @@ namespace UnityEditor.Window
 
 		private void OnValueChanged()
 		{
-			if (Selection.activeGameObject != null)
+			if (Selection.activeObject != null && !selectLock)
 			{
 				source = AssetDatabase.GetAssetPath(Selection.activeObject);
 
@@ -68,24 +67,19 @@ namespace UnityEditor.Window
 					{
 						continue;
 					}
-					//不做筛选
-					if (true)
+					dependencies.Add(new Meta()
 					{
-						dependencies.Add(new Meta()
-						{
-							key = Path.GetFileNameWithoutExtension(assets[i]),
-							path = assets[i],
-							srcID = AssetDatabase.AssetPathToGUID(assets[i]),
-							ignore = false,
-						});
-					}
+						key = Path.GetFileNameWithoutExtension(assets[i]),
+						path = assets[i],
+						src = AssetDatabase.AssetPathToGUID(assets[i]),
+						asset = AssetDatabase.LoadAssetAtPath<Object>(assets[i]),
+						ignore = false,
+					});
 				}
 				input.value = Default;
 			}
 		}
-		#endregion
 
-		#region UI
 		protected override void Refresh()
 		{
 			GUILayout.BeginArea(new Rect(10, 10, Width - 20, Height - 20));
@@ -97,6 +91,8 @@ namespace UnityEditor.Window
 						GUILayout.Label("Asset:", GUILayout.Width(MENU));
 
 						GUILayout.Label(source);
+
+						selectLock = GUILayout.Toggle(selectLock, "锁定", GUILayout.Width(50));
 					}
 					GUILayout.EndHorizontal();
 
@@ -116,22 +112,66 @@ namespace UnityEditor.Window
 					}
 					GUILayout.EndHorizontal();
 
-					if (GUILayout.Button("Deep Copy", GUILayout.ExpandHeight(true)))
+					GUILayout.BeginHorizontal();
 					{
-						Copy();
+						GUILayout.BeginVertical();
+						{
+							int count = dependencies.Count;
+
+							if (count > 0)
+							{
+								GUILayout.BeginHorizontal();
+								{
+									GUILayout.Label("名称", GUILayout.ExpandWidth(true));
+									GUILayout.Label("资源", GUILayout.Width(200));
+									GUILayout.Label("忽略", GUILayout.Width(30));
+								}
+								GUILayout.EndHorizontal();
+
+								scroll = GUILayout.BeginScrollView(scroll);
+								{
+									for (int i = 0; i < count; i++)
+									{
+										RefreshItem(dependencies[i]);
+									}
+								}
+								GUILayout.EndScrollView();
+							}
+						}
+						GUILayout.EndVertical();
+
+						GUILayout.Box(string.Empty, GUILayout.ExpandHeight(true), GUILayout.Width(3));
+
+						if (GUILayout.Button("复制", GUILayout.ExpandHeight(true), GUILayout.Width(150)))
+						{
+							Copy();
+						}
 					}
+					GUILayout.EndHorizontal();
 				}
 				GUILayout.EndVertical();
 			}
 			GUILayout.EndArea();
 		}
-		#endregion
+
+		private void RefreshItem(Meta meta)
+		{
+			GUILayout.BeginHorizontal();
+			{
+				GUILayout.Label(meta.key, GUILayout.ExpandWidth(true));
+				GUI.enabled = false;
+				EditorGUILayout.ObjectField(meta.asset, typeof(Object), false, GUILayout.Width(200));
+				GUI.enabled = true;
+				meta.ignore = GUILayout.Toggle(meta.ignore, string.Empty, GUILayout.Width(30));
+			}
+			GUILayout.EndHorizontal();
+		}
 
 		private void Copy()
 		{
 			if (!string.IsNullOrEmpty(source))
 			{
-				target = FileUtils.New(source);
+				target = FileUtils.New(string.Format("{0}/{1}", input.value, Path.GetFileName(source)));
 
 				string prefab = target;
 
@@ -143,11 +183,11 @@ namespace UnityEditor.Window
 
 					if (dependencies[i].ignore)
 					{
-						dependencies[i].dstID = string.Empty;
+						dependencies[i].dst = string.Empty;
 					}
 					else if (Copy(dependencies[i].path, target))
 					{
-						dependencies[i].dstID = AssetDatabase.AssetPathToGUID(target);
+						dependencies[i].dst = AssetDatabase.AssetPathToGUID(target);
 					}
 				}
 				AssetDatabase.Refresh();
@@ -156,9 +196,9 @@ namespace UnityEditor.Window
 
 				for (int i = 0; i < dependencies.Count; i++)
 				{
-					if (!string.IsNullOrEmpty(dependencies[i].dstID))
+					if (!string.IsNullOrEmpty(dependencies[i].dst))
 					{
-						content = content.Replace(dependencies[i].srcID, dependencies[i].dstID);
+						content = content.Replace(dependencies[i].src, dependencies[i].dst);
 					}
 				}
 				File.WriteAllText(prefab, content);
@@ -180,10 +220,9 @@ namespace UnityEditor.Window
 			{
 				if (!string.IsNullOrEmpty(source))
 				{
-					return Path.GetDirectoryName(source).Replace('\\', '/') + "/Clone";
+					return Path.GetDirectoryName(source).Replace('\\', '/');
 				}
 				return string.Empty;
-
 			}
 		}
 
@@ -195,9 +234,11 @@ namespace UnityEditor.Window
 
 			public string path;
 
-			public string srcID;
+			public string src;
 
-			public string dstID;
+			public string dst;
+
+			public Object asset;
 		}
 	}
 }
