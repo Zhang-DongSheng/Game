@@ -2,6 +2,7 @@ using Game;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.U2D;
 
 namespace UnityEditor.Window
 {
@@ -22,14 +23,29 @@ namespace UnityEditor.Window
 		[MenuItem("Assets/Copy Prefab", priority = 1)]
 		protected static void Open()
 		{
-			if (Selection.activeObject != null)
+			if (Selection.activeObject != null && AssetDetection(Selection.activeObject))
 			{
 				Open<PrefabCopy>("预制体拷贝");
 			}
 			else
 			{
-				focusedWindow.ShowNotification(new GUIContent("深度拷贝需选中.Prefab文件！"));
+				focusedWindow.ShowNotification(new GUIContent(string.Format("[{0}]类型的资源不可拷贝！", Selection.activeObject.GetType())));
 			}
+		}
+
+		private static bool AssetDetection(Object asset)
+		{
+			if (asset != null)
+			{
+				if (asset is GameObject ||
+					asset is Material ||
+					asset is ScriptableObject ||
+					asset is SpriteAtlas)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		protected override void Init()
@@ -49,7 +65,7 @@ namespace UnityEditor.Window
 
 		private void OnValueChanged()
 		{
-			if (Selection.activeObject != null && !selectLock)
+			if (Selection.activeObject != null && AssetDetection(Selection.activeObject) && !selectLock)
 			{
 				source = AssetDatabase.GetAssetPath(Selection.activeObject);
 
