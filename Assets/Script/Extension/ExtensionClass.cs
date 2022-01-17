@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
 
 namespace Game
 {
@@ -42,7 +43,7 @@ namespace Game
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.LogException(e);
+                Debuger.LogException(Author.None, e);
             }
             return null;
         }
@@ -65,7 +66,7 @@ namespace Game
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.LogException(e);
+                Debuger.LogException(Author.None, e);
             }
             return false;
         }
@@ -84,7 +85,7 @@ namespace Game
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.LogException(e);
+                Debuger.LogException(Author.None, e);
             }
             return null;
         }
@@ -107,7 +108,7 @@ namespace Game
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.LogException(e);
+                Debuger.LogException(Author.None, e);
             }
             return false;
         }
@@ -143,7 +144,7 @@ namespace Game
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.LogException(e);
+                Debuger.LogException(Author.None, e);
             }
             return null;
         }
@@ -188,7 +189,7 @@ namespace Game
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.LogException(e);
+                Debuger.LogException(Author.None, e);
             }
             return false;
         }
@@ -207,7 +208,7 @@ namespace Game
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.LogException(e);
+                Debuger.LogException(Author.None, e);
             }
             return null;
         }
