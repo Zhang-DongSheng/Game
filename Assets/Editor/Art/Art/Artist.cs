@@ -34,6 +34,8 @@ namespace UnityEditor.Window
 
 		private GameObject prefab;
 
+		private readonly List<Object> dependencies = new List<Object>();
+
 		private readonly Color[] color = new Color[3] { Color.white, Color.white, Color.white };
 
 		[MenuItem("Art/Artist")]
@@ -57,6 +59,8 @@ namespace UnityEditor.Window
 			{
 				file = list[index];
 
+				dependencies.Clear();
+
 				if (string.IsNullOrEmpty(file.asset))
 				{
 					prefab = null;
@@ -64,6 +68,15 @@ namespace UnityEditor.Window
 				else
 				{
 					prefab = AssetDatabase.LoadAssetAtPath<GameObject>(file.asset);
+
+					string[] _dependencies = AssetDatabase.GetDependencies(file.asset);
+
+					int count = _dependencies.Length;
+
+					for (int i = 0; i < count; i++)
+					{
+						dependencies.Add(AssetDatabase.LoadAssetAtPath<Object>(_dependencies[i]));
+					}
 				}
 			};
 		}
@@ -245,6 +258,23 @@ namespace UnityEditor.Window
 				GUILayout.BeginVertical();
 				{
 					EditorGUILayout.ObjectField(prefab, typeof(GameObject), false);
+
+					int count = dependencies.Count;
+
+					if (count > 0)
+					{
+						scroll = GUILayout.BeginScrollView(scroll);
+						{
+							GUI.enabled = false;
+
+							for (int i = 0; i < count; i++)
+							{
+								RefreshPrefabDependence(dependencies[i]);
+							}
+							GUI.enabled = true;
+						}
+						GUILayout.EndScrollView();
+					}
 				}
 				GUILayout.EndVertical();
 
@@ -260,7 +290,6 @@ namespace UnityEditor.Window
 							PrefabModify.Missing(file.asset);
 						}
 					}
-
 					Horizontal(() =>
 					{
 						color[0] = EditorGUILayout.ColorField(color[0]);
@@ -270,7 +299,6 @@ namespace UnityEditor.Window
 							PrefabModify.ModifyGraphicColor(file.asset, color[0]);
 						}
 					});
-
 					Horizontal(() =>
 					{
 						color[1] = EditorGUILayout.ColorField(color[1]);
@@ -280,7 +308,6 @@ namespace UnityEditor.Window
 							PrefabModify.ModifyTextColor(file.asset, color[1]);
 						}
 					});
-
 					Horizontal(() =>
 					{
 						color[2] = EditorGUILayout.ColorField(color[2]);
@@ -290,16 +317,28 @@ namespace UnityEditor.Window
 							PrefabModify.ModifyShadowColor(file.asset, color[2]);
 						}
 					});
-
-					Horizontal(() =>
+					if (GUILayout.Button("触发:false"))
 					{
-						if (GUILayout.Button("触发:false"))
-						{
-							PrefabModify.ModifyGraphicRaycast(file.asset);
-						}
-					});
+						PrefabModify.ModifyGraphicRaycast(file.asset);
+					}
+					if (GUILayout.Button("复制"))
+					{
+						Selection.activeObject = prefab;
+
+						Open<PrefabCopy>("拷贝文件");
+					}
 				}
 				GUILayout.EndVertical();
+			}
+			GUILayout.EndHorizontal();
+		}
+
+		private void RefreshPrefabDependence(Object meta)
+		{
+			GUILayout.BeginHorizontal();
+			{
+				GUILayout.Label(meta.name, GUILayout.Width(100));
+				EditorGUILayout.ObjectField(meta, typeof(Object), false);
 			}
 			GUILayout.EndHorizontal();
 		}

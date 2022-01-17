@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UnityEditor
 {
-	public class PrefabModify
+    public class PrefabModify
 	{
 		public static void Missing(params string[] files)
 		{
