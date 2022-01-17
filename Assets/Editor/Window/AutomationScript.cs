@@ -33,16 +33,27 @@ namespace UnityEditor.Window
                     {
                         MemberType member = (MemberType)value;
 
-                        if (GUILayout.Button(member.ToString()))
+                        switch (member)
                         {
-                            members.Add(new Member()
-                            {
-                                access = AccessModifiers.Public,
-                                member = member,
-                                name = string.Format("{0}{1}", member, index.value),
-                                order = members.Count,
-                                ID = index.value++
-                            });
+                            case MemberType.Constructor:
+                            case MemberType.Custom:
+                            case MemberType.TypeInfo:
+                            case MemberType.NestedType:
+                            case MemberType.All:
+                                break;
+                            default:
+                                if (GUILayout.Button(member.ToString()))
+                                {
+                                    members.Add(new Member()
+                                    {
+                                        access = AccessModifiers.Public,
+                                        member = member,
+                                        name = string.Format("{0}{1}", member, index.value),
+                                        order = members.Count,
+                                        ID = index.value++
+                                    });
+                                }
+                                break;
                         }
                     }
                 }
@@ -148,6 +159,9 @@ namespace UnityEditor.Window
                 {
                     switch (member.member)
                     {
+                        case MemberType.Event:
+                            RefreshMemberField(member);
+                            break;
                         case MemberType.Field:
                             RefreshMemberField(member);
                             break;
@@ -275,6 +289,23 @@ namespace UnityEditor.Window
 
                 switch (member)
                 {
+                    case MemberType.Event:
+                        {
+                            builder.Append("\t\t");
+                            builder.Append(CodeUtils.Modifiers(access));
+                            builder.Append(" ");
+                            builder.Append("Action");
+                            if (variable != VariableType.None)
+                            {
+                                builder.Append("<");
+                                builder.Append(CodeUtils.Variable(variable, assistant));
+                                builder.Append(">");
+                            }
+                            builder.Append(" ");
+                            builder.Append(name);
+                            builder.Append(";");
+                        }
+                        break;
                     case MemberType.Field:
                         {
                             builder.Append("\t\t");
@@ -303,7 +334,7 @@ namespace UnityEditor.Window
                             {
                                 if (variable != VariableType.None)
                                 {
-                                    builder.AppendLine("return null;");
+                                    builder.AppendLine("return default;");
                                 }
                                 else
                                 {
@@ -315,7 +346,7 @@ namespace UnityEditor.Window
                                 builder.AppendLine(content);
                             }
                             builder.Append("\t\t");
-                            builder.AppendLine("}");
+                            builder.Append("}");
                         }
                         break;
                     case MemberType.Property:
@@ -358,7 +389,7 @@ namespace UnityEditor.Window
                             builder.Append("\t\t\t\t");
                             builder.AppendLine("}");
                             builder.Append("\t\t");
-                            builder.AppendLine("}");
+                            builder.Append("}");
                         }
                         break;
                 }
