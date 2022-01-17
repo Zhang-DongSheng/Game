@@ -58,16 +58,16 @@ namespace UnityEditor.Window
             {
 
             };
-            number.index = EbookConfig.NUMBER;
+            number.value = EbookConfig.NUMBER;
         }
 
         protected override void Refresh()
         {
-            index.index = GUILayout.Toolbar(index.index, text_title);
+            index.value = GUILayout.Toolbar(index.value, text_title);
 
             GUILayout.BeginArea(new Rect(20, 30, Screen.width - 40, Screen.height - 50));
             {
-                switch (index.index)
+                switch (index.value)
                 {
                     case 0:
                         RefreshMain();
@@ -113,7 +113,7 @@ namespace UnityEditor.Window
             {
                 GUILayout.Label("字数:", GUILayout.Width(50));
 
-                number.index = EditorGUILayout.IntField(number.index);
+                number.value = EditorGUILayout.IntField(number.value);
             }
             GUILayout.EndHorizontal();
 

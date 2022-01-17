@@ -126,20 +126,20 @@ namespace UnityEditor.Window
     {
         public UnityAction<int> action;
 
-        private int _index = 0;
-        public int index
+        private int _value = 0;
+        public int value
         {
             get
             {
-                return _index;
+                return _value;
             }
             set
             {
-                if (_index != value)
+                if (_value != value)
                 {
-                    _index = value;
+                    _value = value;
 
-                    action?.Invoke(_index);
+                    action?.Invoke(_value);
                 }
             }
         }

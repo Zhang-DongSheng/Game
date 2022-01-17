@@ -70,11 +70,11 @@ namespace UnityEditor.Window
 
 		protected override void Refresh()
 		{
-			index.index = GUILayout.Toolbar(index.index, menu);
+			index.value = GUILayout.Toolbar(index.value, menu);
 
 			GUILayout.BeginArea(new Rect(5, 30, Screen.width - 10, Screen.height - 50));
 			{
-				switch (index.index)
+				switch (index.value)
 				{
 					case 0:
 						RefreshMain();
@@ -154,7 +154,7 @@ namespace UnityEditor.Window
 			{
 				GUILayout.BeginVertical();
 				{
-					indexAsset.index = EditorGUILayout.Popup(indexAsset.index, assets);
+					indexAsset.value = EditorGUILayout.Popup(indexAsset.value, assets);
 				}
 				GUILayout.EndVertical();
 
@@ -162,7 +162,7 @@ namespace UnityEditor.Window
 
 				GUILayout.BeginVertical(GUILayout.Width(200));
 				{
-					switch (indexAsset.index)
+					switch (indexAsset.value)
 					{
 						case 0:
 							{
@@ -180,9 +180,9 @@ namespace UnityEditor.Window
 							}
 						case 4:
 							{
-								indexShader.index = EditorGUILayout.Popup(indexShader.index, shaders);
+								indexShader.value = EditorGUILayout.Popup(indexShader.value, shaders);
 
-								switch (indexShader.index)
+								switch (indexShader.value)
 								{
 									case 0:
 										{
@@ -213,11 +213,11 @@ namespace UnityEditor.Window
 							{
 								if (GUILayout.Button("检查资源引用"))
 								{
-									FindReferences.Empty(string.Format("t:{0}", assets[indexAsset.index]), "Assets");
+									FindReferences.Empty(string.Format("t:{0}", assets[indexAsset.value]), "Assets");
 								}
 								if (GUILayout.Button("检查资源大小"))
 								{
-									FindReferences.Overflow(string.Format("t:{0}", assets[indexAsset.index]), "Assets");
+									FindReferences.Overflow(string.Format("t:{0}", assets[indexAsset.value]), "Assets");
 								}
 							}
 							break;
@@ -232,7 +232,7 @@ namespace UnityEditor.Window
 		{
 			GUILayout.BeginHorizontal();
 			{
-				indexPrefab.index = EditorGUILayout.Popup(indexPrefab.index, _list);
+				indexPrefab.value = EditorGUILayout.Popup(indexPrefab.value, _list);
 			}
 			GUILayout.EndHorizontal();
 
@@ -254,7 +254,7 @@ namespace UnityEditor.Window
 				{
 					if (GUILayout.Button("检查引用"))
 					{
-						if (indexPrefab.index == 0) { }
+						if (indexPrefab.value == 0) { }
 						else
 						{
 							PrefabModify.Missing(file.asset);
