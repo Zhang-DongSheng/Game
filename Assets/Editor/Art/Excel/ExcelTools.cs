@@ -17,13 +17,9 @@ namespace UnityEditor
 
 		private readonly string[] text_view = new string[] { "Excel", "Setting", "Other" };
 
-		private readonly string[] text_encoding = new string[] { "Default", "ASCII", "Unicode", "UTF-8", "UTF32", "GB2312" };
-
 		private readonly string[] text_format = new string[] { "JSON", "CSV", "XML", "TXT" };
 
 		private readonly string[] text_seacrch = new string[] { "Select", "Specify", "Auto" };
-
-		private readonly string label_encoding = "Encoding";
 
 		private readonly string label_format = "Format";
 
@@ -43,8 +39,6 @@ namespace UnityEditor
 
 		private int index_view;
 
-		private int index_encoding;
-
 		private int index_format;
 
 		private int index_search;
@@ -56,8 +50,6 @@ namespace UnityEditor
 		private string input_inputFolder;
 
 		private string input_outputFolder;
-
-		private Encoding encoding;
 
 		private int search;
 
@@ -82,8 +74,6 @@ namespace UnityEditor
 			input_outputFolder = Path.Combine(Application.dataPath, OutputPath);
 
 			outputFolder = input_outputFolder;
-
-			encoding = Encoding.Default;
 
 			Load();
 		}
@@ -236,42 +226,6 @@ namespace UnityEditor
 
 			GUILayout.BeginHorizontal();
 			{
-				GUILayout.Label(label_encoding, GUILayout.Width(100));
-
-				index_encoding = EditorGUILayout.Popup(index_encoding, text_encoding);
-
-				if (GUILayout.Button(label_save, GUILayout.Width(100)))
-				{
-					switch (index_encoding)
-					{
-						case 0:
-							encoding = Encoding.Default;
-							break;
-						case 1:
-							encoding = Encoding.ASCII;
-							break;
-						case 2:
-							encoding = Encoding.Unicode;
-							break;
-						case 3:
-							encoding = Encoding.UTF8;
-							break;
-						case 4:
-							encoding = Encoding.UTF32;
-							break;
-						case 5:
-							encoding = Encoding.GetEncoding("GB2312");
-							break;
-						default:
-							encoding = Encoding.Default;
-							break;
-					}
-				}
-			}
-			GUILayout.EndHorizontal();
-
-			GUILayout.BeginHorizontal();
-			{
 				GUILayout.Label(label_outputFolder, GUILayout.Width(100));
 
 				rect_outputFolder = EditorGUILayout.GetControlRect(GUILayout.Width(Screen.width - 247));
@@ -414,16 +368,16 @@ namespace UnityEditor
 						switch (index_format)
 						{
 							case 0:
-								excel.ConvertToJson(string.Format("{0}/{1}.json", outputFolder, source[i].name), encoding);
+								excel.ConvertToJson(string.Format("{0}/{1}.json", outputFolder, source[i].name));
 								break;
 							case 1:
-								excel.ConvertToCSV(string.Format("{0}/{1}.csv", outputFolder, source[i].name), encoding);
+								excel.ConvertToCSV(string.Format("{0}/{1}.csv", outputFolder, source[i].name));
 								break;
 							case 2:
 								excel.ConvertToXml(string.Format("{0}/{1}.xml", outputFolder, source[i].name));
 								break;
 							case 3:
-								excel.ConvertToJson(string.Format("{0}/{1}.txt", outputFolder, source[i].name), encoding);
+								excel.ConvertToJson(string.Format("{0}/{1}.txt", outputFolder, source[i].name));
 								break;
 							default:
 

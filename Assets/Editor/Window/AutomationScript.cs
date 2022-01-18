@@ -12,7 +12,7 @@ namespace UnityEditor.Window
         private string script;
 
         private readonly List<Member> members = new List<Member>();
-        [MenuItem("Script/Editor")]
+        [MenuItem("Assets/Create/Script", false, 81)]
         protected static void Open()
         {
             Open<AutomationScript>("简单脚本生成工具");

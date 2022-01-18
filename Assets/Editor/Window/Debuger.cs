@@ -13,10 +13,10 @@ namespace UnityEditor.Window
 
         private readonly List<LogInformation> logs = new List<LogInformation>();
 
-        [MenuItem("Script/Debuger")]
+        [MenuItem("Window/Analysis/Debuger #F4", false, -1)]
         protected static void Open()
         {
-            Open<Debuger>("调试工具");
+            Open<Debuger>("代码调试");
         }
 
         protected override void Init()

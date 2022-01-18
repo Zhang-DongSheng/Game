@@ -345,7 +345,7 @@ namespace UnityEditor.Window
 
 		private void RefreshOther()
 		{
-
+			
 		}
 	}
 }

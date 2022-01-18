@@ -5,6 +5,7 @@ using System.Data;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using Utils;
 
 public class ExcelUtility
 {
@@ -18,7 +19,7 @@ public class ExcelUtility
 
 	private int m_columnCount;
 
-	private readonly StringBuilder builder = new StringBuilder();
+	private readonly Encoding UTF8 = new UTF8Encoding(false);
 
 	public ExcelUtility (string path)
 	{
@@ -39,166 +40,26 @@ public class ExcelUtility
 		}
 	}
 
-	#region Convert
-	/// <summary>
-	/// 转换为Json
-	/// </summary>
-	/// <param name="path">Json文件路径</param>
-	/// <param name="Header">表头行数</param>
-	public void ConvertToJson(string path, Encoding encoding)
+	public void ConvertToJson(string path)
 	{
-		//判断Excel文件中是否存在数据表
-		if (m_tableCount < 1)
-			return;
+		string content = ExcelConvert.ToJson(m_dataSet.Tables[0]);
 
-		//默认读取第一个数据表
-		m_dataTable = m_dataSet.Tables[0];
-
-		//读取数据表行数和列数
-		m_rowCount = m_dataTable.Rows.Count;
-		m_columnCount = m_dataTable.Columns.Count;
-
-		//判断数据表内是否存在数据
-		if (m_rowCount < 1 || m_columnCount < 1)
-			return;
-
-		//准备一个列表存储整个表的数据
-		List<Dictionary<string, object>> table = new List<Dictionary<string, object>>();
-
-		//读取数据
-		for (int i = 1; i < m_rowCount; i++)
-		{
-			//准备一个字典存储每一行的数据
-			Dictionary<string, object> row = new Dictionary<string, object>();
-			for (int j = 0; j < m_columnCount; j++)
-			{
-				//读取第1行数据作为表头字段
-				string field = m_dataTable.Rows[0][j].ToString();
-				//Key-Value对应
-				row[field] = m_dataTable.Rows[i][j];
-			}
-
-			//添加到表数据中
-			table.Add(row);
-		}
-
-		builder.Clear();
-
-		builder.Append("{\r\n");
-
-		builder.Append(Format("data"));
-
-		builder.Append(":");
-
-		builder.Append(Format(Path.GetFileNameWithoutExtension(path)));
-
-		builder.Append(",\r\n");
-
-		builder.Append(Format("list"));
-
-		builder.Append(":");
-
-		builder.Append("[\r\n");
-
-		for (int i = 0; i < table.Count; i++)
-		{
-			if (table[i] != null)
-			{
-				builder.Append("{\r\n");
-
-				foreach (var value in table[i])
-				{
-					builder.Append(Format(value.Key));
-
-					builder.Append(":");
-
-					builder.Append(Format(value.Value));
-
-					builder.Append(",\r\n");
-				}
-				builder.Append("},\r\n");
-			}
-		}
-		builder.Append("]\r\n");
-
-		builder.Append("}");
-
-		Write(path, builder.ToString(), encoding);
+		File.WriteAllText(path, content, UTF8);
 	}
 
-	/// <summary>
-	/// 转换为CSV
-	/// </summary>
-	public void ConvertToCSV(string path, Encoding encoding)
+	public void ConvertToCSV(string path)
 	{
-		if (m_tableCount < 1)
-			return;
+		string content = ExcelConvert.ToCSV(m_dataSet.Tables[0]);
 
-		m_dataTable = m_dataSet.Tables[0];
-
-		m_rowCount = m_dataTable.Rows.Count;
-		m_columnCount = m_dataTable.Columns.Count;
-
-		if (m_rowCount < 1 || m_columnCount < 1)
-			return;
-
-		builder.Clear();
-
-		for (int i = 0; i < m_rowCount; i++)
-		{
-			for (int j = 0; j < m_columnCount; j++)
-			{
-				//使用","分割每一个数值
-				builder.Append(m_dataTable.Rows[i][j] + ",");
-			}
-			//使用换行符分割每一行
-			builder.Append("\r\n");
-		}
-
-		Write(path, builder.ToString(), encoding);
+		File.WriteAllText(path, content, UTF8);
 	}
 
-	/// <summary>
-	/// 转换为Xml
-	/// </summary>
 	public void ConvertToXml(string path)
 	{
-		if (m_tableCount < 1)
-			return;
+		string content = ExcelConvert.ToXML(m_dataSet.Tables[0]);
 
-		m_dataTable = m_dataSet.Tables[0];
-
-		m_rowCount = m_dataTable.Rows.Count;
-		m_columnCount = m_dataTable.Columns.Count;
-
-		if (m_rowCount < 1 || m_columnCount < 1)
-			return;
-
-		this.builder.Clear();
-
-		builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-		builder.Append("\r\n");
-		builder.Append("<Table>");
-		builder.Append("\r\n");
-		for (int i = 1; i < m_rowCount; i++)
-		{
-			builder.Append("  <Row>");
-			builder.Append("\r\n");
-			for (int j = 0; j < m_columnCount; j++)
-			{
-				builder.Append("   <" + m_dataTable.Rows[0][j].ToString() + ">");
-				builder.Append(m_dataTable.Rows[i][j].ToString());
-				builder.Append("</" + m_dataTable.Rows[0][j].ToString() + ">");
-				builder.Append("\r\n");
-			}
-			builder.Append("  </Row>");
-			builder.Append("\r\n");
-		}
-		builder.Append("</Table>");
-
-		Write(path, builder.ToString(), Encoding.UTF8);
+		File.WriteAllText(path, content, UTF8);
 	}
-	#endregion
 
 	/// <summary>
 	/// 创建实体类
@@ -264,9 +125,6 @@ public class ExcelUtility
 		return list;
 	}
 
-	/// <summary>
-	/// 设置目标实例的属性
-	/// </summary>
 	private void SetTargetProperty(object target, string propertyName, object propertyValue)
 	{
 		//获取类型
@@ -281,24 +139,4 @@ public class ExcelUtility
 			}
 		}
 	}
-
-	private void Write(string path, string content, Encoding encoding)
-	{
-		File.WriteAllText(path, content, encoding);
-	}
-
-	private string Format(object value)
-	{
-		format.Clear();
-
-		format.Append('"');
-
-		format.Append(value);
-
-		format.Append('"');
-
-		return format.ToString();
-	}
-
-	private readonly StringBuilder format = new StringBuilder();
 }

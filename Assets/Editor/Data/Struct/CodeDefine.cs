@@ -5,6 +5,11 @@ using System.Reflection;
 
 namespace UnityEditor.Define
 {
+    public static class CodeDefine
+    {
+
+    }
+
     public static class CodeUtils
     {
         public static string Modifiers(AccessModifiers access)
