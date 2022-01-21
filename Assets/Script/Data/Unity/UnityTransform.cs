@@ -4,10 +4,35 @@ namespace Data.Unity
 {
     public struct UnityTransform
     {
-        public Vector3 position;
+        public float[] position;
 
-        public Vector3 rotation;
+        public float[] rotation;
 
-        public Vector3 scale;
+        public float[] scale;
+
+        public static implicit operator UnityTransform(Transform transform)
+        {
+            return new UnityTransform()
+            {
+                position = new float[3]
+                {
+                    transform.position.x,
+                    transform.position.y,
+                    transform.position.z
+                },
+                rotation = new float[3]
+                {
+                    transform.eulerAngles.x,
+                    transform.eulerAngles.y,
+                    transform.eulerAngles.z
+                },
+                scale = new float[3]
+                {
+                    transform.localScale.x,
+                    transform.localScale.y,
+                    transform.localScale.z
+                },
+            };
+        }
     }
 }

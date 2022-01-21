@@ -20,11 +20,32 @@ namespace UnityEditor
 
 		public static bool CreateCSharp(DataTable table)
 		{
+			if (!Enter(table)) return true;
+
 			string path = string.Format("{0}/Script/Data/Struct/Data{1}.cs", Application.dataPath, table.TableName);
 
 			if (File.Exists(path))
 			{
+				Assembly assembly = typeof(DataBase).Assembly;
 
+				Type T = assembly.GetType(string.Format("Data.{0}Information", table.TableName));
+
+				ToList(table);
+
+				bool modify = false;
+
+				for (int i = 0; i < list.Count; i++)
+				{
+					if (T.GetField(list[i].name) == null) //|| T.GetField(list[i].name).FieldType != Type.GetType(list[i].type))
+					{
+						modify = true;
+						break;
+					}
+				}
+				if (modify)
+					CreateCSharp(table, true);
+				else
+					return false;
 			}
 			else
 			{
@@ -93,8 +114,11 @@ namespace UnityEditor
 		{
 			if (!Enter(table)) return;
 
-			if (!CreateCSharp(table)) return;
-
+			if (CreateCSharp(table))
+			{
+				Debug.LogError("Create Scripte! Please Try Again!!!");
+				return;
+			}
 			try
 			{
 				string script = string.Format("Data{0}", table.TableName);
