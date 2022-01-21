@@ -1,22 +1,146 @@
+using Data;
+using Game;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
+using System.Reflection;
 using System.Text;
+using UnityEngine;
 
-namespace Utils
+namespace UnityEditor
 {
     public class ExcelConvert
 	{
 		private static int row, column;
 
-		private static readonly List<ExcelItem> list = new List<ExcelItem>();
+		private static readonly List<ExcelColumn> list = new List<ExcelColumn>();
 
 		private static readonly StringBuilder builder = new StringBuilder();
 
-		public static void CreateCSharp(DataTable table)
+		public static bool CreateCSharp(DataTable table)
+		{
+			string path = string.Format("{0}/Script/Data/Struct/Data{1}.cs", Application.dataPath, table.TableName);
+
+			if (File.Exists(path))
+			{
+
+			}
+			else
+			{
+				CreateCSharp(table, true);
+			}
+			return true;
+		}
+
+		public static void CreateCSharp(DataTable table, bool horizontal)
 		{
 			if (!Enter(table)) return;
 
 			ToList(table);
+
+			builder.Clear();
+			builder.AppendLine("using UnityEngine;");
+			builder.AppendLine("using System.Collections.Generic;");
+			builder.AppendLine("using Game;");
+			builder.AppendLine();
+			builder.AppendLine("namespace Data");
+			builder.AppendLine("{");
+			builder.AppendLine(string.Format("\tpublic class Data{0} : DataBase", table.TableName));
+			builder.AppendLine("\t{");
+			builder.AppendLine(string.Format("\t\tpublic List<{0}Information> list;", table.TableName));
+			builder.AppendLine("\t}");
+			builder.AppendLine("\t[System.Serializable]");
+			builder.AppendLine(string.Format("\tpublic class {0}Information", table.TableName));
+			builder.AppendLine("\t{");
+			for (int i = 0; i < list.Count; i++)
+			{
+				if (i > 0) builder.AppendLine();
+				builder.Append("\t\tpublic");
+				builder.Append(" ");
+				if (string.IsNullOrEmpty(list[i].type))
+				{
+					builder.Append("object");
+				}
+				else
+				{
+					switch (list[i].type)
+					{
+						default:
+							builder.Append(list[i].type);
+							break;
+					}
+				}
+				builder.Append(" ");
+				builder.Append(list[i].name);
+				builder.AppendLine(";");
+			}
+			builder.AppendLine("\t}");
+			builder.AppendLine("}");
+
+			string path = string.Format("{0}/Script/Data/Struct/Data{1}.cs", Application.dataPath, table.TableName);
+
+			if (File.Exists(path))
+			{
+				File.Delete(path);
+			}
+			File.WriteAllText(path, builder.ToString(), new UTF8Encoding(false));
+
+			AssetDatabase.Refresh();
+		}
+
+		public static void CreateAsset(DataTable table)
+		{
+			if (!Enter(table)) return;
+
+			if (!CreateCSharp(table)) return;
+
+			try
+			{
+				string script = string.Format("Data{0}", table.TableName);
+
+				string path = string.Format("Assets/Package/Data/{0}.asset", script);
+
+				Assembly assembly = typeof(DataBase).Assembly;
+
+				Type TA = assembly.GetType(string.Format("Data.Data{0}", table.TableName));
+
+				if (File.Exists(path))
+				{
+					File.Delete(path);
+				}
+				ScriptableObject asset = ScriptableObject.CreateInstance(script);
+
+				asset.name = script;
+
+				Type TI = assembly.GetType(string.Format("Data.{0}Information", table.TableName));
+
+				object list = TI.GenerateCollection();
+
+				for (int i = 2; i < row; i++)
+				{
+					object target = Activator.CreateInstance(TI);
+
+					for (int j = 0; j < column; j++)
+					{
+						var field = TI.GetField(table.Rows[0][j].ToString(), BindingFlags.Instance | BindingFlags.Public);
+
+						object value = Convert.ChangeType(table.Rows[i][j], field.FieldType);
+
+						field.SetValue(target, value);
+					}
+					list.Call("Add", new object[] { target });
+				}
+				asset.SetMember("list", list);
+
+				AssetDatabase.CreateAsset(asset, path);
+
+				AssetDatabase.Refresh();
+			}
+			catch (Exception e)
+			{
+				Debuger.LogException(Author.Data, e);
+			}
 		}
 
 		public static string ToJson(DataTable table)
@@ -102,7 +226,7 @@ namespace Utils
 
 			for (int i = 0; i < column; i++)
 			{
-				ExcelItem item = new ExcelItem()
+				ExcelColumn item = new ExcelColumn()
 				{
 					name = table.Rows[0][i].ToString(),
 					type = table.Rows[1][i].ToString(),
@@ -127,7 +251,7 @@ namespace Utils
 			return row > 2 && column > 1;
 		}
 
-		struct ExcelItem
+		struct ExcelColumn
 		{
 			public string name;
 

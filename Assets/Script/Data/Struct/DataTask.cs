@@ -47,15 +47,15 @@ namespace Data
     public enum TaskStatus
     {
         /// <summary>
-        /// Î´Íê³É
+        /// Î´ï¿½ï¿½ï¿½
         /// </summary>
         Undone,
         /// <summary>
-        /// ¿ÉÁìÈ¡
+        /// ï¿½ï¿½ï¿½ï¿½È¡
         /// </summary>
         Available,
         /// <summary>
-        /// ÒÑÁìÈ¡
+        /// ï¿½ï¿½ï¿½ï¿½È¡
         /// </summary>
         Received,
     }

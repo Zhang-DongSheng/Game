@@ -178,19 +178,25 @@ namespace UnityEditor
 
 					GUILayout.Space(15);
 
-					GUILayout.BeginVertical(GUILayout.Width(100));
+					GUILayout.BeginVertical(GUILayout.Width(120));
 					{
 						GUILayout.Space(20);
 
-						if (GUILayout.Button(label_create))
+						if (GUILayout.Button("Create Asset"))
 						{
-							Create();
+							CreateAsset();
 						}
 
-						if (GUILayout.Button(label_convert))
+						GUILayout.BeginHorizontal();
 						{
-							Convert();
+							index_format = EditorGUILayout.Popup(index_format, text_format);
+
+							if (GUILayout.Button(label_convert))
+							{
+								Convert();
+							}
 						}
+						GUILayout.EndHorizontal();
 
 						if (GUILayout.Button(label_inputFolder))
 						{
@@ -216,14 +222,6 @@ namespace UnityEditor
 
 		private void RefreshUISetting()
 		{
-			GUILayout.BeginHorizontal();
-			{
-				GUILayout.Label(label_format, GUILayout.Width(100));
-
-				index_format = EditorGUILayout.Popup(index_format, text_format);
-			}
-			GUILayout.EndHorizontal();
-
 			GUILayout.BeginHorizontal();
 			{
 				GUILayout.Label(label_outputFolder, GUILayout.Width(100));
@@ -330,7 +328,7 @@ namespace UnityEditor
 			}
 		}
 
-		private void Create()
+		private void CreateAsset()
 		{
 			try
 			{
@@ -338,7 +336,7 @@ namespace UnityEditor
 				{
 					if (source[i].select)
 					{
-						new ExcelUtility(source[i].path).CreateScript();
+						new ExcelUtility(source[i].path).CreateAsset();
 					}
 				}
 			}

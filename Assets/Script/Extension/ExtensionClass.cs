@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -211,6 +212,17 @@ namespace Game
                 Debuger.LogException(Author.None, e);
             }
             return null;
+        }
+        /// <summary>
+        /// 生成集合
+        /// </summary>
+        public static object GenerateCollection(this Type T)
+        {
+            Type TL = typeof(List<>);
+
+            Type TS = TL.MakeGenericType(new Type[] { T });
+
+            return Activator.CreateInstance(TS, new object[] { });
         }
     }
 }
