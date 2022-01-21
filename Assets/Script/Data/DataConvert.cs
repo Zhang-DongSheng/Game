@@ -3,48 +3,51 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using UnityEngine;
 
-public static class DataConvert
+namespace Data
 {
-    public static byte[] Serialize<T>(T target) where T : class
+    public static class DataConvert
     {
-        using (MemoryStream stream = new MemoryStream())
+        public static byte[] Serialize<T>(T target) where T : class
         {
-            BinaryFormatter binary = new BinaryFormatter();
-            binary.Serialize(stream, target);
-            return stream.ToArray();
+            using (MemoryStream stream = new MemoryStream())
+            {
+                BinaryFormatter binary = new BinaryFormatter();
+                binary.Serialize(stream, target);
+                return stream.ToArray();
+            }
         }
-    }
 
-    public static T Deserialize<T>(byte[] buffer) where T : class
-    {
-        using (MemoryStream stream = new MemoryStream(buffer))
+        public static T Deserialize<T>(byte[] buffer) where T : class
         {
-            BinaryFormatter binary = new BinaryFormatter();
-            return binary.Deserialize(stream) as T;
+            using (MemoryStream stream = new MemoryStream(buffer))
+            {
+                BinaryFormatter binary = new BinaryFormatter();
+                return binary.Deserialize(stream) as T;
+            }
         }
-    }
 
-    public static string SerializeJson<T>(T target)
-    {
-        return JsonUtility.ToJson(target);
-    }
-
-    public static T DeserializeJson<T>(string json)
-    {
-        if (!string.IsNullOrEmpty(json))
+        public static string SerializeJson<T>(T target)
         {
-            return JsonUtility.FromJson<T>(json);
+            return JsonUtility.ToJson(target);
         }
-        return default;
-    }
 
-    public static byte[] StringToByte(string value)
-    {
-        return Encoding.Default.GetBytes(value);
-    }
+        public static T DeserializeJson<T>(string json)
+        {
+            if (!string.IsNullOrEmpty(json))
+            {
+                return JsonUtility.FromJson<T>(json);
+            }
+            return default;
+        }
 
-    public static string ByteToString(byte[] buffer)
-    {
-        return Encoding.Default.GetString(buffer);
+        public static byte[] StringToByte(string value)
+        {
+            return Encoding.Default.GetBytes(value);
+        }
+
+        public static string ByteToString(byte[] buffer)
+        {
+            return Encoding.Default.GetString(buffer);
+        }
     }
 }

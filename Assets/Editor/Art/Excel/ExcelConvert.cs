@@ -36,8 +36,9 @@ namespace UnityEditor
 
 				for (int i = 0; i < list.Count; i++)
 				{
-					if (T.GetField(list[i].name) == null) //|| T.GetField(list[i].name).FieldType != Type.GetType(list[i].type))
+					if (T.GetField(list[i].name) == null || T.GetField(list[i].name).FieldType.Name != CodeUtils.OfficialName(list[i].type))
 					{
+						Debuger.LogWarning(Author.Data, $"Type: {T.GetField(list[i].name).FieldType.Name} != {CodeUtils.OfficialName(list[i].type)}");
 						modify = true;
 						break;
 					}
@@ -149,8 +150,41 @@ namespace UnityEditor
 					{
 						var field = TI.GetField(table.Rows[0][j].ToString(), BindingFlags.Instance | BindingFlags.Public);
 
-						object value = Convert.ChangeType(table.Rows[i][j], field.FieldType);
+						object value;
 
+						switch (table.Rows[1][j].ToString())
+						{
+							case "int[]":
+								{
+									if (!table.Rows[i][j].ToString().TryParseArrayInt(out int[] array_int))
+									{
+
+									}
+									value = array_int;
+								}
+								break;
+							case "float[]":
+								{
+									if (!table.Rows[i][j].ToString().TryParseArrayFloat(out float[] array_float))
+									{
+
+									}
+									value = array_float;
+								}
+								break;
+							case "DateTime":
+								{
+									if (!table.Rows[i][j].ToString().TryParseDateTime(out DateTime time))
+									{
+
+									}
+									value = time;
+								}
+								break;
+							default:
+								value = Convert.ChangeType(table.Rows[i][j], field.FieldType);
+								break;
+						}
 						field.SetValue(target, value);
 					}
 					list.Call("Add", new object[] { target });

@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using System.Reflection;
 
-namespace UnityEditor.Define
+namespace UnityEditor
 {
-    public static class CodeDefine
+    public static class CodeConfig
     {
 
     }
@@ -80,6 +78,50 @@ namespace UnityEditor.Define
                 default:
                     goto case VariableType.None;
             }
+        }
+
+        public static string OfficialName(string type)
+        {
+            if (string.IsNullOrEmpty(type)) return string.Empty;
+
+            switch (type)
+            {
+                case "bool":
+                    return typeof(bool).Name;
+                case "byte":
+                    return typeof(byte).Name;
+                case "int":
+                    return typeof(int).Name;
+                case "float":
+                    return typeof(float).Name;
+                case "double":
+                    return typeof(double).Name;
+                case "long":
+                    return typeof(long).Name;
+                case "string":
+                    return typeof(string).Name;
+                case "DateTime":
+                    return typeof(DateTime).Name;
+                case "int[]":
+                    return string.Format("{0}[]", typeof(int).Name);
+                case "float[]":
+                    return string.Format("{0}[]", typeof(float).Name);
+                case "long[]":
+                    return string.Format("{0}[]", typeof(long).Name);
+                default:
+                    {
+                        try
+                        {
+                            return Type.GetType(type, true).Name;
+                        }
+                        catch (Exception e)
+                        {
+                            Debuger.LogException(Author.Data, e);
+                        }
+                    }
+                    break;
+            }
+            return type;
         }
     }
     /// <summary>

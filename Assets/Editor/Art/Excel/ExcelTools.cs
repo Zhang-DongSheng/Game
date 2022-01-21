@@ -21,22 +21,6 @@ namespace UnityEditor
 
 		private readonly string[] text_seacrch = new string[] { "Select", "Specify", "Auto" };
 
-		private readonly string label_format = "Format";
-
-		private readonly string label_inputFolder = "Input Folder";
-
-		private readonly string label_outputFolder = "Output Folder";
-
-		private readonly string label_search = "Search";
-
-		private readonly string label_create = "Create C#";
-
-		private readonly string label_convert = "Convert";
-
-		private readonly string label_revise = "Revise";
-
-		private readonly string label_save = "Save";
-
 		private int index_view;
 
 		private int index_format;
@@ -104,7 +88,7 @@ namespace UnityEditor
 		{
 			GUILayout.BeginHorizontal();
 			{
-				GUILayout.Label(label_search, GUILayout.Width(100));
+				GUILayout.Label("搜索", GUILayout.Width(100));
 
 				index_search = EditorGUILayout.Popup(index_search, text_seacrch);
 
@@ -121,7 +105,7 @@ namespace UnityEditor
 			{
 				if (search == 1)
 				{
-					GUILayout.Label(label_inputFolder, GUILayout.Width(100));
+					GUILayout.Label("输入", GUILayout.Width(100));
 
 					rect_inputFolder = EditorGUILayout.GetControlRect(GUILayout.Width(Screen.width - 250));
 
@@ -137,7 +121,7 @@ namespace UnityEditor
 						}
 					}
 
-					if (GUILayout.Button(label_revise, GUILayout.Width(100)))
+					if (GUILayout.Button("刷新", GUILayout.Width(100)))
 					{
 						inputFolder = input_inputFolder; Load();
 					}
@@ -182,28 +166,26 @@ namespace UnityEditor
 					{
 						GUILayout.Space(20);
 
-						if (GUILayout.Button("Create Asset"))
+						if (GUILayout.Button("生成资源"))
 						{
 							CreateAsset();
 						}
-
 						GUILayout.BeginHorizontal();
 						{
 							index_format = EditorGUILayout.Popup(index_format, text_format);
 
-							if (GUILayout.Button(label_convert))
+							if (GUILayout.Button("转换"))
 							{
 								Convert();
 							}
 						}
 						GUILayout.EndHorizontal();
 
-						if (GUILayout.Button(label_inputFolder))
+						if (GUILayout.Button("输入文件夹"))
 						{
 							OpenFolder(inputFolder);
 						}
-
-						if (GUILayout.Button(label_outputFolder))
+						if (GUILayout.Button("输出文件夹"))
 						{
 							OpenFolder(outputFolder);
 						}
@@ -224,7 +206,7 @@ namespace UnityEditor
 		{
 			GUILayout.BeginHorizontal();
 			{
-				GUILayout.Label(label_outputFolder, GUILayout.Width(100));
+				GUILayout.Label("输出", GUILayout.Width(100));
 
 				rect_outputFolder = EditorGUILayout.GetControlRect(GUILayout.Width(Screen.width - 247));
 
@@ -240,7 +222,7 @@ namespace UnityEditor
 					}
 				}
 
-				if (GUILayout.Button(label_save, GUILayout.Width(100)))
+				if (GUILayout.Button("保存", GUILayout.Width(100)))
 				{
 					outputFolder = input_outputFolder;
 				}

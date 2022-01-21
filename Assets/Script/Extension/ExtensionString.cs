@@ -264,6 +264,20 @@ namespace Game
             }
         }
         /// <summary>
+        /// 转换为时间
+        /// </summary>
+        public static bool TryParseDateTime(this string str, out DateTime time)
+        {
+            if (DateTime.TryParse(str, out time))
+            {
+                return true;
+            }
+            else
+            {
+                time = DateTime.Now; return false;
+            }
+        }
+        /// <summary>
         /// 转换为二维向量
         /// </summary>
         public static bool TryParseVector2(this string str, out Vector2 vector)
@@ -344,6 +358,72 @@ namespace Game
             if (!str.StartsWith("#")) str = string.Format("#{0}", str);
 
             return ColorUtility.TryParseHtmlString(str, out color);
+        }
+        /// <summary>
+        /// 转换为整型数组
+        /// </summary>
+        public static bool TryParseArrayInt(this string str, out int[] array)
+        {
+            bool result = true;
+
+            string[] paramter = str.Split(',');
+
+            int length = paramter.Length;
+
+            array = new int[length];
+
+            for (int i = 0; i < length; i++)
+            {
+                if (string.IsNullOrEmpty(paramter[i]) || !int.TryParse(paramter[i], out array[i]))
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
+        /// <summary>
+        /// 转换为浮点型数组
+        /// </summary>
+        public static bool TryParseArrayFloat(this string str, out float[] array)
+        {
+            bool result = true;
+
+            string[] paramter = str.Split(',');
+
+            int length = paramter.Length;
+
+            array = new float[length];
+
+            for (int i = 0; i < length; i++)
+            {
+                if (string.IsNullOrEmpty(paramter[i]) || !float.TryParse(paramter[i], out array[i]))
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
+        /// <summary>
+        /// 转换为长类型数组
+        /// </summary>
+        public static bool TryParseArrayLong(this string str, out long[] array)
+        {
+            bool result = true;
+
+            string[] paramter = str.Split(',');
+
+            int length = paramter.Length;
+
+            array = new long[length];
+
+            for (int i = 0; i < length; i++)
+            {
+                if (string.IsNullOrEmpty(paramter[i]) || !long.TryParse(paramter[i], out array[i]))
+                {
+                    result = false;
+                }
+            }
+            return result;
         }
         #endregion
 
