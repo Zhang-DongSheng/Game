@@ -427,6 +427,46 @@ namespace Game
         }
         #endregion
 
+        #region Rich Text
+        /// <summary>
+        /// 富文本文字风格
+        /// </summary>
+        public static string RichText(this string str, FontStyle style)
+        {
+            switch (style)
+            {
+                case FontStyle.Bold:
+                    return string.Format("<b>{0}</b>", str);
+                case FontStyle.Italic:
+                    return string.Format("<i>{0}</i>", str);
+                case FontStyle.BoldAndItalic:
+                    return string.Format("<b><i>{0}</i></b>", str);
+                default: return str;
+            }
+        }
+        /// <summary>
+        /// 富文本文字大小
+        /// </summary>
+        public static string RichTextSize(this string str, int size)
+        {
+            return string.Format("<size={0}>{1}</size>", size, str);
+        }
+        /// <summary>
+        /// 富文本文字颜色
+        /// </summary>
+        public static string RichTextColor(this string str, Color color)
+        {
+            return string.Format("<color=#{0}>{1}</color>", ColorUtility.ToHtmlStringRGB(color), str);
+        }
+        /// <summary>
+        /// 富文本换行
+        /// </summary>
+        public static string RichTextLine(this string str)
+        {
+            return string.Format("{0}\n", str);
+        }
+        #endregion
+
         #region ToString
         /// <summary>
         /// 显示数量
