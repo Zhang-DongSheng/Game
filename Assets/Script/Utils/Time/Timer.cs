@@ -1,9 +1,11 @@
+using System;
+
 namespace UnityEngine
 {
     [System.Serializable]
     public class Timer
     {
-        public System.Action action;
+        public Action action;
 
         public float interval;
 

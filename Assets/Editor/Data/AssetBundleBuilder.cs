@@ -565,7 +565,7 @@ namespace UnityEditor.Window
                     {
                         key = root + items[i].folder + "/" + items[i].name;
 
-                        value = Md5Utils.ComputeFile(items[i].path);
+                        value = Utility.MD5.ComputeFile(items[i].path);
 
                         writer.WriteLine(string.Format("{0}|{1}", key, value));
                     }
@@ -584,7 +584,7 @@ namespace UnityEditor.Window
                         {
                             key = root + items[i].folder + "/" + items[i].name;
 
-                            value = Md5Utils.ComputeFile(items[i].path);
+                            value = Utility.MD5.ComputeFile(items[i].path);
 
                             writer.WriteLine(string.Format("{0}|{1}", key, value));
                         }

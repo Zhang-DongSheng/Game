@@ -1,3 +1,4 @@
+using Game;
 using System.Collections.Generic;
 using UnityEngine;
 using Utils;
@@ -124,7 +125,7 @@ namespace UnityEditor.Window
 						}
 						else
 						{
-							message = Md5Utils.ComputeContent(inputString.value);
+							message = Utility.MD5.ComputeContent(inputString.value);
 						}
 					}
 				}
@@ -140,7 +141,7 @@ namespace UnityEditor.Window
 					}
 					if (GUILayout.Button("确定", GUILayout.Width(60)))
 					{
-						message = Md5Utils.ComputeFile(inputFile.value);
+						message = Utility.MD5.ComputeFile(inputFile.value);
 					}
 				}
 				GUILayout.EndHorizontal();

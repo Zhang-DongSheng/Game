@@ -1,3 +1,4 @@
+using Game;
 using System.IO;
 using System.Text;
 using Utils;
@@ -27,7 +28,7 @@ namespace UnityEditor.Listener
 
         private static void ScriptEncoding(string path)
         {
-            Encoding encoding = FileEncoding.Get(path);
+            Encoding encoding = Utility.Common.Encoding(path);
 
             Encoding UTF8 = new UTF8Encoding(false);
 

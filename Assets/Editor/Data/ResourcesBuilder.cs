@@ -1,4 +1,5 @@
 ﻿using Data;
+using Game;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -210,7 +211,7 @@ namespace UnityEditor.Window
                         key = file.name,
                         url = file.asset,
                         capacity = -1,
-                        secret = Md5Utils.ComputeFile(file.path),
+                        secret = Utility.MD5.ComputeFile(file.path),
                         type = DetermineType(file.asset),
                         asset = AssetDatabase.LoadAssetAtPath(file.asset, typeof(Object)),
                         description = file.asset,
