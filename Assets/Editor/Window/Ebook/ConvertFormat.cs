@@ -11,7 +11,7 @@ namespace UnityEditor.Ebook
         {
             try
             {
-                Encoding decoding = Utility.Common.Encoding(path);
+                Encoding decoding = Utility.Encode.FileEncoding(path);
 
                 string content = File.ReadAllText(path);
 

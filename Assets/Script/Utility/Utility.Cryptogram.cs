@@ -20,7 +20,9 @@ namespace Game
             private const string RSAKEY = "abcdefgh";
 
             private const string BASE64KEY = "test";
-
+            /// <summary>
+            /// º”√‹
+            /// </summary>
             public static string Encrypt(string value, EncryptType encrypt = EncryptType.AES)
             {
                 if (string.IsNullOrEmpty(value)) return null;
@@ -39,7 +41,9 @@ namespace Game
                         return value;
                 }
             }
-
+            /// <summary>
+            /// Ω‚√‹
+            /// </summary>
             public static string Decrypt(string value, EncryptType encrypt = EncryptType.AES)
             {
                 if (string.IsNullOrEmpty(value)) return null;
@@ -66,6 +70,7 @@ namespace Game
                 using (RijndaelManaged managed = new RijndaelManaged())
                 {
                     ICryptoTransform crypt = managed.CreateEncryptor(AESKEY, AESIV);
+
                     value = Convert.ToBase64String(crypt.TransformFinalBlock(buffer, 0, buffer.Length));
                 }
                 return value;
@@ -78,6 +83,7 @@ namespace Game
                 using (RijndaelManaged managed = new RijndaelManaged())
                 {
                     ICryptoTransform crypt = managed.CreateDecryptor(AESKEY, AESIV);
+
                     value = Encoding.Default.GetString(crypt.TransformFinalBlock(buffer, 0, buffer.Length));
                 }
                 return value;

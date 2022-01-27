@@ -116,5 +116,63 @@ namespace Game
             return false;
         }
         #endregion
+
+        #region Array
+        public static bool Exist(this int[] array, int value)
+        {
+            int count = array != null ? array.Length : 0;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (array[i].Equals(value))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool Exist(this float[] array, float value)
+        {
+            int count = array != null ? array.Length : 0;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (array[i].Equals(value))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool Exist(this string[] array, string value)
+        {
+            int count = array != null ? array.Length : 0;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (array[i].Equals(value))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool Exist<T>(this T[] array, T value)
+        {
+            int count = array != null ? array.Length : 0;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (array[i].Equals(value))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        #endregion
     }
 }

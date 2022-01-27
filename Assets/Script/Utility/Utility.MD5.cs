@@ -65,7 +65,7 @@ namespace Game
                 }
                 catch (Exception e)
                 {
-                    Debuger.LogError(Author.File, e.Message);
+                    Debuger.LogError(Author.Utility, e.Message);
                 }
                 return builder.ToString();
             }

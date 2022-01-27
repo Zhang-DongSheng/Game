@@ -6,6 +6,16 @@ namespace Game
     {
         public static class Vector
         {
+            public static Vector2 Vector3To2(Vector3 vector)
+            {
+                return new Vector2(vector.x, vector.z);
+            }
+
+            public static Vector3 Vector2To3(Vector2 vector, float height = 0)
+            {
+                return new Vector3(vector.x, height, vector.y);
+            }
+
             public static Vector3 AngleToPosition(float angle, float distance)
             {
                 return new Vector3()

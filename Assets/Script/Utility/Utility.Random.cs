@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Game
 {
@@ -10,31 +8,7 @@ namespace Game
         {
             private static readonly List<int> sequence = new List<int>();
 
-            public static int Next(int min, int max)
-            {
-                sequence.Clear();
-
-                for (int i = min; i < max; i++)
-                {
-                    sequence.Add(i);
-                }
-                return Next();
-            }
-
-            public static int Next()
-            {
-                if (sequence.Count > 0)
-                {
-                    int index = UnityEngine.Random.Range(0, sequence.Count);
-
-                    int result = sequence[index];
-
-                    sequence.RemoveAt(index);
-
-                    return result;
-                }
-                return -1;
-            }
+            private static int index;
 
             public static int Range<T>(List<T> list) where T : IWeight
             {
@@ -63,13 +37,35 @@ namespace Game
                 return -1;
             }
 
+            public static int Next(int min, int max)
+            {
+                return UnityEngine.Random.Range(min, max);
+            }
+
+            public static int Next(int min, int max, params int[] ignore)
+            {
+                sequence.Clear();
+
+                for (int i = min; i < max; i++)
+                {
+                    if (ignore != null && ignore.Length > 0 && ignore.Exist(i)) { }
+                    else
+                    {
+                        sequence.Add(i);
+                    }
+                }
+                index = UnityEngine.Random.Range(0, sequence.Count);
+
+                return sequence[index];
+            }
+
             public static List<int> Shuffle(params int[] list)
             {
                 sequence.Clear();
 
                 if (list != null && list.Length > 0)
                 {
-                    int index, count = list.Length;
+                    int count = list.Length;
 
                     List<int> indices = new List<int>(count);
 

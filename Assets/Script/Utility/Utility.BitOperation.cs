@@ -2,9 +2,6 @@ namespace Game
 {
     public static partial class Utility
     {
-        /// <summary>
-        /// Œª‘ÀÀ„
-        /// </summary>
         public static class BitOperation
         {
             /// <summary>

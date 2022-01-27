@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
-using UnityEngine;
 
 namespace Game
 {
@@ -14,12 +11,12 @@ namespace Game
 
             private static TimeSpan span;
 
-            public static DateTime LocalToUtc(DateTime time)
+            public static DateTime LocalToUTC(DateTime time)
             {
                 return time.ToUniversalTime();
             }
 
-            public static DateTime UtcToLocal(DateTime time)
+            public static DateTime UTCToLocal(DateTime time)
             {
                 return time + TimeZoneInfo.Local.BaseUtcOffset;
             }

@@ -7,83 +7,46 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class FilePro
+        public static class Document
         {
-            public static void FolderCreate(string path, bool delete = false)
+            public static void CreateDirectory(string path, bool delete = false)
             {
                 try
                 {
-                    if (Directory.Exists(path))
+                    if (File.Exists(path))
+                    {
+                        File.Delete(path);
+                    }
+                    else if (Directory.Exists(path))
                     {
                         if (delete)
                         {
-                            Directory.Delete(path); Directory.CreateDirectory(path);
+                            Directory.Delete(path);
+                        }
+                        else
+                        {
+                            return;
                         }
                     }
-                    else
-                    {
-                        Directory.CreateDirectory(path);
-                    }
+                    Directory.CreateDirectory(path);
                 }
                 catch (Exception e)
                 {
-                    Debuger.LogError(Author.File, e.Message);
+                    Debuger.LogException(Author.File, e);
                 }
             }
 
-            public static void FolderDelete(string path, bool recursive = true)
+            public static bool Exist(string path)
             {
                 if (Directory.Exists(path))
                 {
-                    try
-                    {
-                        Directory.Delete(path, recursive);
-                    }
-                    catch (Exception e)
-                    {
-                        Debuger.LogError(Author.File, e.Message);
-                    }
+                    return true;
                 }
-            }
-
-            public static bool FolerExists(string path, out string folder)
-            {
-                if (string.IsNullOrEmpty(Path.GetExtension(path)))
-                {
-                    folder = path;
-                }
-                else
-                {
-                    folder = Path.GetDirectoryName(path);
-                }
-                if (Directory.Exists(folder))
+                else if (File.Exists(path))
                 {
                     return true;
                 }
-                else if (File.Exists(folder))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
-            public static float FolderSize(string path)
-            {
-                float size = 0;
-
-                if (Directory.Exists(path))
-                {
-                    DirectoryInfo dir = new DirectoryInfo(path);
-
-                    foreach (FileInfo file in dir.GetFiles())
-                    {
-                        size += file.Length;
-                    }
-                }
-                return size;
+                return false;
             }
 
             public static string Read(string path)
@@ -110,15 +73,13 @@ namespace Game
             {
                 try
                 {
-                    if (!FolerExists(path, out string folder))
-                    {
-                        Directory.CreateDirectory(folder);
-                    }
+                    CreateDirectory(Path.GetDirectoryName(path));
+
                     File.WriteAllText(path, content);
                 }
                 catch (Exception e)
                 {
-                    Debuger.LogError(Author.File, e.Message);
+                    Debuger.LogException(Author.File, e);
                 }
             }
 
@@ -130,10 +91,8 @@ namespace Game
                 }
                 else
                 {
-                    if (!FolerExists(path, out string folder))
-                    {
-                        Directory.CreateDirectory(folder);
-                    }
+                    CreateDirectory(Path.GetDirectoryName(path));
+
                     using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
                     {
                         StreamWriter writer = new StreamWriter(stream);
@@ -153,51 +112,81 @@ namespace Game
                 {
                     byte[] buffer = Encoding.Default.GetBytes(Cryptogram.Decrypt(content, encrypt));
 
-                    if (!FolerExists(path, out string folder))
-                    {
-                        Directory.CreateDirectory(folder);
-                    }
+                    CreateDirectory(Path.GetDirectoryName(path));
+
                     File.WriteAllBytes(path, buffer);
                 }
                 catch (Exception e)
                 {
-                    Debuger.LogError(Author.File, e.Message);
+                    Debuger.LogException(Author.File, e);
                 }
             }
 
             public static void Copy(string src, string dst)
             {
-                if (File.Exists(src))
+                if (Directory.Exists(src))
                 {
-                    if (!FolerExists(dst, out string folder))
+                    DirectoryInfo directory = new DirectoryInfo(src);
+
+                    CreateDirectory(dst);
+
+                    DirectoryInfo[] directories = directory.GetDirectories(string.Empty, SearchOption.AllDirectories);
+
+                    for (int i = 0; i < directories.Length; i++)
                     {
-                        Directory.CreateDirectory(folder);
+                        CreateDirectory(Path.Replace(directories[i].FullName, src, dst));
                     }
+
+                    FileInfo[] files = directory.GetFiles(string.Empty, SearchOption.AllDirectories);
+
+                    for (int i = 0; i < directories.Length; i++)
+                    {
+                        File.Copy(files[i].FullName, Path.Replace(files[i].FullName, src, dst), true);
+                    }
+                }
+                else if (File.Exists(src))
+                {
+                    CreateDirectory(Path.GetDirectoryName(dst));
+
                     File.Copy(src, dst, true);
                 }
             }
 
             public static void Move(string src, string dst)
             {
-                if (File.Exists(src))
+                if (Directory.Exists(src))
                 {
-                    if (!FolerExists(dst, out string folder))
-                    {
-                        Directory.CreateDirectory(folder);
-                    }
+                    Directory.Move(src, dst);
+                }
+                else if (File.Exists(src))
+                {
+                    CreateDirectory(Path.GetDirectoryName(dst));
+
                     File.Move(src, dst);
                 }
             }
 
-            public static void Delete(string path)
+            public static float Size(string path)
             {
+                float size = 0;
+
                 if (File.Exists(path))
                 {
-                    File.Delete(path);
-                }
-            }
+                    FileInfo info = new FileInfo(path);
 
-            
+                    size = info.Length;
+                }
+                else if (Directory.Exists(path))
+                {
+                    DirectoryInfo dir = new DirectoryInfo(path);
+
+                    foreach (FileInfo file in dir.GetFiles())
+                    {
+                        size += file.Length;
+                    }
+                }
+                return size;
+            }
         }
     }
 }

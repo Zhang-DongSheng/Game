@@ -10,8 +10,6 @@ namespace Game
             /// <summary>
             /// 获取路径
             /// </summary>
-            /// <param name="path"></param>
-            /// <returns></returns>
             public static string GetDirectoryName(string path)
             {
                 return System.IO.Path.GetDirectoryName(path);
@@ -62,6 +60,17 @@ namespace Game
                 return path.Contains("://") ? path : ("file:///" + path).Replace("file:////", "file:///");
             }
 
+            public static string Replace(string path, string from, string to)
+            {
+                path = GetRegularPath(path);
+
+                if (path.StartsWith(from))
+                {
+                    path = path.Replace(from, to);
+                }
+                return path;
+            }
+
             public static string UnityToSystem(string path)
             {
                 if (path.StartsWith("Assets/"))
@@ -79,7 +88,9 @@ namespace Game
 
                 return path;
             }
-
+            /// <summary>
+            /// 创建新文件
+            /// </summary>
             public static string New(string path)
             {
                 string directory = Path.GetDirectoryName(path);

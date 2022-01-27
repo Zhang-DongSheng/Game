@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
@@ -53,6 +51,27 @@ namespace Game
                     num2 = temp;
                 }
                 return num3 / num1;
+            }
+            /// <summary>
+            /// 角度转弧度
+            /// </summary>
+            public static float AngleToRadian(float angle)
+            {
+                return angle * Mathf.Deg2Rad;
+            }
+            /// <summary>
+            /// 弧度转角度
+            /// </summary>
+            public static float RadianToAngle(float radian)
+            {
+                return radian * Mathf.Rad2Deg;
+            }
+            /// <summary>
+            /// 保留小数位
+            /// </summary>
+            public static float Round(float value, int digit)
+            {
+                return (float)System.Math.Round(value, digit);
             }
         }
     }
