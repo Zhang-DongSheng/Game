@@ -188,7 +188,7 @@ namespace UnityEditor.Window
 							{
 								if (GUILayout.Button("检查图片资源是否为4的倍数"))
 								{
-									FindReferences.Powerof2("Assets");
+									AssetDetection.Powerof2("Assets");
 								}
 								goto default;
 							}
@@ -202,11 +202,11 @@ namespace UnityEditor.Window
 										{
 											if (GUILayout.Button("查找所有未被引用的Shader"))
 											{
-												FindReferences.FindUnreferencedShader();
+												AssetDetection.FindUnreferencedShader();
 											}
 											if (GUILayout.Button("查找所有被引用的Shader"))
 											{
-												FindReferences.FindReferenceShader();
+												AssetDetection.FindReferenceShader();
 											}
 										}
 										break;
@@ -216,7 +216,7 @@ namespace UnityEditor.Window
 
 											if (GUILayout.Button("查找引用该资源的所有Material"))
 											{
-												FindReferences.FindMaterialOfReferenceShader(inputShader.value);
+												AssetDetection.FindMaterialOfReferenceShader(inputShader.value);
 											}
 										}
 										break;
@@ -231,7 +231,7 @@ namespace UnityEditor.Window
 								}
 								if (GUILayout.Button("检查资源大小"))
 								{
-									FindReferences.Overflow(string.Format("t:{0}", assets[indexAsset.value]), "Assets");
+									AssetDetection.Overflow(string.Format("t:{0}", assets[indexAsset.value]), "Assets");
 								}
 							}
 							break;

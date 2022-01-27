@@ -11,7 +11,7 @@ namespace UnityEditor
 			{
 				GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(file);
 
-				if (FindReferences.Missing(prefab)) { }
+				if (AssetDetection.Missing(prefab)) { }
 				else
 				{
 					Debug.LogFormat("<color=green>[{0}]</color> ÎÞ¶ªÊ§ÒýÓÃ", prefab.name);

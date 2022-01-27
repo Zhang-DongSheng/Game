@@ -20,7 +20,7 @@ namespace UnityEditor.Window
 
 		private readonly List<Meta> dependencies = new List<Meta>();
 
-		[MenuItem("Assets/Copy Prefab", priority = 1)]
+		[MenuItem("Assets/CopyPrefab", priority = 1)]
 		protected static void Open()
 		{
 			if (Selection.activeObject != null && AssetDetection(Selection.activeObject))
