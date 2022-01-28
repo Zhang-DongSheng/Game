@@ -2,11 +2,7 @@ namespace Game
 {
     public static partial class Extension
     {
-        private const int GB = 1024 * 1024 * 1024;
-
-        private const int MB = 1024 * 1024;
-
-        private const int KB = 1024;
+        private const int Kilobyte = 1024;
 
         private const float LIGHT = 0.0625f;
 
@@ -15,6 +11,8 @@ namespace Game
         private const float ANGLE135 = 135f;
 
         private const float HALF = 0.5f;
+
+        private static readonly string[] ByteUnit = new string[] { "Byte", "KB", "MB", "GB", "TB", "PB" };
 
         private static string unit;
 

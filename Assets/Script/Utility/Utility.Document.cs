@@ -130,14 +130,14 @@ namespace Game
 
                     CreateDirectory(dst);
 
-                    DirectoryInfo[] directories = directory.GetDirectories(string.Empty, SearchOption.AllDirectories);
+                    DirectoryInfo[] directories = directory.GetDirectories("*", SearchOption.AllDirectories);
 
                     for (int i = 0; i < directories.Length; i++)
                     {
                         CreateDirectory(Path.Replace(directories[i].FullName, src, dst));
                     }
 
-                    FileInfo[] files = directory.GetFiles(string.Empty, SearchOption.AllDirectories);
+                    FileInfo[] files = directory.GetFiles("*", SearchOption.AllDirectories);
 
                     for (int i = 0; i < directories.Length; i++)
                     {

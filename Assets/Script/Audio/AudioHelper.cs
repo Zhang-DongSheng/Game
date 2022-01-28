@@ -47,6 +47,11 @@ namespace UnityEngine.Audio
             }
         }
 
+        private void OnValidate()
+        {
+            
+        }
+
         public void Play()
         {
             AudioManager.Instance.PlayEffect(sound);

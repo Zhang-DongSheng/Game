@@ -492,23 +492,13 @@ namespace Game
         /// </summary>
         public static string ToSizeString(this long number)
         {
-            if (number >= GB)
+            if (number <= Kilobyte)
             {
-                value = number / GB; unit = "G";
+                return $"{number} {ByteUnit[0]}";
             }
-            else if (number >= MB)
-            {
-                value = number / MB; unit = "M";
-            }
-            else if (number >= KB)
-            {
-                value = number / KB; unit = "K";
-            }
-            else
-            {
-                value = number; unit = "B";
-            }
-            return string.Format("{0}{1}", value, unit);
+            int pow = Math.Min((int)Math.Floor(Math.Log(number, Kilobyte)), ByteUnit.Length - 1);
+
+            return $"{number / Math.Pow(Kilobyte, pow)} {ByteUnit[pow]}";
         }
         /// <summary>
         /// 显示时间
