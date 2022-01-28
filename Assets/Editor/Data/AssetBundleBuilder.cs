@@ -369,7 +369,7 @@ namespace UnityEditor.Window
                             items[i].select = GUILayout.Toggle(items[i].select, string.Empty, GUILayout.Width(20));
                             GUILayout.Label(items[i].name, GUILayout.Width(120));
                             GUILayout.Label(items[i].path);
-                            GUILayout.Label(items[i].size.ToSizeString(), GUILayout.Width(100));
+                            GUILayout.Label(items[i].size.ToStringSize(), GUILayout.Width(100));
                         }
                         GUILayout.EndHorizontal();
                     }

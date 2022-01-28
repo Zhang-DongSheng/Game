@@ -471,7 +471,7 @@ namespace Game
         /// <summary>
         /// 显示数量
         /// </summary>
-        public static string ToNumberString(this int number, int digit)
+        public static string ToStringNumber(this int number, int digit = 2)
         {
             if (number < 1000)
             {
@@ -479,49 +479,62 @@ namespace Game
             }
             else if (number < 1000000)
             {
-                value = number / 1000; unit = "k+";
+                value = number / 1000; unit = UnitQuantity[1];
             }
             else
             {
-                value = number / 1000000; unit = "m+";
+                value = number / 1000000; unit = UnitQuantity[2];
             }
             return string.Format("{0}{1}", Math.Round(value, digit), unit);
         }
         /// <summary>
         /// 显示大小
         /// </summary>
-        public static string ToSizeString(this long number)
+        public static string ToStringSize(this long number, int digit = 2)
         {
             if (number <= Kilobyte)
             {
-                return $"{number} {ByteUnit[0]}";
+                return $"{number} {UnitByte[0]}";
             }
-            int pow = Math.Min((int)Math.Floor(Math.Log(number, Kilobyte)), ByteUnit.Length - 1);
+            int pow = Math.Min((int)Math.Floor(Math.Log(number, Kilobyte)), UnitByte.Length - 1);
 
-            return $"{number / Math.Pow(Kilobyte, pow)} {ByteUnit[pow]}";
+            return $"{Math.Round(number / Math.Pow(Kilobyte, pow), digit)} {UnitByte[pow]}";
+        }
+        /// <summary>
+        /// 显示大小
+        /// </summary>
+        public static string ToStringSize(this int number, int digit = 2)
+        {
+            if (number <= Kilobyte)
+            {
+                return $"{number} {UnitByte[0]}";
+            }
+            int pow = Math.Min((int)Math.Floor(Math.Log(number, Kilobyte)), UnitByte.Length - 1);
+
+            return $"{Math.Round(number / Math.Pow(Kilobyte, pow), digit)} {UnitByte[pow]}";
         }
         /// <summary>
         /// 显示时间
         /// </summary>
-        public static string ToCountdownString(this int seconds)
+        public static string ToStringTime(this int seconds)
         {
             TimeSpan span = TimeSpan.FromSeconds(seconds);
 
             if (span.Days > 0)
             {
-                value = span.Days; unit = "Day";
+                value = span.Days; unit = UnitTime[3];
             }
             else if (span.Hours > 0)
             {
-                value = span.Hours; unit = "h";
+                value = span.Hours; unit = UnitTime[2];
             }
             else if (span.Minutes > 0)
             {
-                value = span.Minutes; unit = "m";
+                value = span.Minutes; unit = UnitTime[1];
             }
             else
             {
-                value = seconds; unit = "s";
+                value = seconds; unit = UnitTime[0];
             }
             return string.Format("{0}{1}", value, unit);
         }

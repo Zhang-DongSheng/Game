@@ -12,7 +12,11 @@ namespace Game
 
         private const float HALF = 0.5f;
 
-        private static readonly string[] ByteUnit = new string[] { "Byte", "KB", "MB", "GB", "TB", "PB" };
+        private static readonly string[] UnitQuantity = new string[] { "Hundred", "Thousand", "Million" };
+
+        private static readonly string[] UnitByte = new string[] { "Byte", "KB", "MB", "GB", "TB", "PB" };
+
+        private static readonly string[] UnitTime = new string[] { "Second", "Minute", "Hour", "Day", "Month", "Year" };
 
         private static string unit;
 

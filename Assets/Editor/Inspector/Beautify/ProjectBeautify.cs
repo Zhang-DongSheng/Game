@@ -1,3 +1,4 @@
+using Game;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -115,7 +116,7 @@ namespace UnityEditor
 
             public override string ToString()
             {
-                return string.Format("{0}", size);
+                return string.Format("{0}", size.ToStringSize());
             }
         }
     }
