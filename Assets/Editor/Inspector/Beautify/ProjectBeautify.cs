@@ -5,33 +5,29 @@ using UnityEngine;
 
 namespace UnityEditor
 {
-    public class ProjectBeautify
+    public class ProjectBeautify : Beautify<ProjectBeautify>
     {
-        private static Dictionary<string, Information> assets = new Dictionary<string, Information>();
+        private readonly string path = Application.dataPath.Substring(0, Application.dataPath.Length - 7);
 
-        private static string path = Application.dataPath.Substring(0, Application.dataPath.Length - 7);
+        private readonly Dictionary<string, Information> items = new Dictionary<string, Information>();
 
-        private static bool display = true;
-
-        private static int count;
+        private int count;
 
         [InitializeOnLoadMethod]
         protected static void Initialized()
         {
-            EditorApplication.projectChanged += OnValidate;
-            EditorApplication.projectWindowItemOnGUI += Refresh;
+            EditorApplication.projectChanged += Instance.OnValidate;
+            EditorApplication.projectWindowItemOnGUI += Instance.Refresh;
         }
         [Callbacks.DidReloadScripts]
         protected static void OnScriptsReloaded()
         {
-            OnValidate();
+            Instance.OnValidate();
         }
 
-        protected static void OnValidate()
+        protected void OnValidate()
         {
-            if (!display) return;
-
-            assets.Clear();
+            items.Clear();
 
             DirectoryInfo root = new DirectoryInfo(Application.dataPath);
 
@@ -51,7 +47,7 @@ namespace UnityEditor
                 {
                     information.size += info.Length;
                 }
-                assets.Add(directories[i].FullName.Replace("\\", "/"), information);
+                items.Add(directories[i].FullName.Replace("\\", "/"), information);
             }
 
             FileInfo[] files = root.GetFiles("*", SearchOption.AllDirectories);
@@ -70,12 +66,12 @@ namespace UnityEditor
                     {
                         size = files[i].Length,
                     };
-                    assets.Add(files[i].FullName.Replace("\\", "/"), information);
+                    items.Add(files[i].FullName.Replace("\\", "/"), information);
                 }
             }
         }
 
-        private static void Refresh(string guid, Rect rect)
+        private void Refresh(string guid, Rect rect)
         {
             if (!display) return;
 
@@ -84,13 +80,13 @@ namespace UnityEditor
             RefreshSize(key, rect);
         }
 
-        private static void RefreshSize(string key, Rect rect)
+        private void RefreshSize(string key, Rect rect)
         {
             if (rect.height > 16) return;   //>16为防止文件图标缩放时引起排版错乱
 
-            if (assets.ContainsKey(key))
+            if (items.ContainsKey(key))
             {
-                string text = assets[key].ToString();
+                string text = items[key].ToString();
 
                 var label = EditorStyles.label;
 

@@ -1,95 +1,119 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace UnityEditor
 {
-    public class HierarchyBeautify
+    public class HierarchyBeautify : Beautify<HierarchyBeautify>
     {
-        private static readonly List<Type> ignore = new List<Type>()
+        private readonly List<Type> ignore = new List<Type>()
         {
             typeof(Transform),
             typeof(ParticleSystemRenderer),
             typeof(CanvasRenderer),
         };
+        private readonly Vector2 cell = new Vector2(16, 1);
 
-        private static readonly Vector2 cell = new Vector2(16, 1);
-
-        private static bool display = true;
+        private readonly Dictionary<int, Information> items = new Dictionary<int, Information>();
 
         [InitializeOnLoadMethod]
         protected static void Initialized()
         {
-            EditorApplication.hierarchyChanged += OnValidate;
-            EditorApplication.hierarchyWindowItemOnGUI += Refresh;
+            EditorApplication.hierarchyChanged += Instance.OnValidate;
+            EditorApplication.hierarchyWindowItemOnGUI += Instance.Refresh;
         }
         [Callbacks.DidReloadScripts]
         protected static void OnScriptsReloaded()
         {
-            OnValidate();
+            Instance.OnValidate();
         }
 
-        protected static void OnValidate()
+        protected void OnValidate()
         {
-
+            items.Clear();
         }
 
-        private static void Refresh(int instanceID, Rect rect)
+        private void Refresh(int instanceID, Rect rect)
         {
             if (!display) return;
 
-            Object current = EditorUtility.InstanceIDToObject(instanceID);
-
-            if (current == null) return;
-
-            RefreshActive(current as GameObject, rect);
-
-            RefreshIcon(current as GameObject, rect);
-        }
-
-        private static void RefreshIcon(GameObject go, Rect rect)
-        {
-            rect.width += rect.x;
-
-            rect.x = 0;
-
-            Component[] components = go.GetComponents<Component>();
-
-            int count = components.Length;
-
-            for (int i = 0; i < count; i++)
+            if (items.ContainsKey(instanceID))
             {
-                if (components[i] == null)
+                RefreshActive(items[instanceID], rect);
+
+                RefreshIcon(items[instanceID], rect);
+            }
+            else
+            {
+                GameObject target = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
+
+                if (target == null) return;
+
+                items.Add(instanceID, new Information()
                 {
-                    continue;
-                }
-                else if (ignore.Exists(x => x.Equals(components[i].GetType()) || x.IsSubclassOf(components[i].GetType())))
+                    go = target,
+                    components = new List<Texture2D>(),
+                });
+                Component[] components = items[instanceID].go.GetComponents<Component>();
+
+                int count = components.Length;
+
+                for (int i = 0; i < count; i++)
                 {
-                    continue;
-                }
-                else
-                {
-                    if (AssetPreview.GetMiniThumbnail(components[i]) is Texture2D texture)
+                    if (components[i] == null)
                     {
-                        GUI.DrawTexture(new Rect(rect.width - (cell.x + 1) * (i + 1), rect.y + cell.y, cell.x, cell.x), texture);
+                        continue;
+                    }
+                    else if (ignore.Exists(x => x.Equals(components[i].GetType()) || x.IsSubclassOf(components[i].GetType())))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        if (AssetPreview.GetMiniThumbnail(components[i]) is Texture2D texture)
+                        {
+                            items[instanceID].components.Add(texture);
+                        }
                     }
                 }
             }
         }
 
-        private static void RefreshActive(GameObject go, Rect rect)
+        private void RefreshIcon(Information information, Rect rect)
         {
-            bool active = go.activeSelf;
+            rect.width += rect.x;
 
+            rect.x = 0;
+
+            int count = information.components.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                GUI.DrawTexture(new Rect(rect.width - (cell.x + 1) * (i + 1), rect.y + cell.y, cell.x, cell.x), information.components[i]);
+            }
+        }
+
+        private void RefreshActive(Information information, Rect rect)
+        {
             rect.width = 16f;
 
-            active = GUI.Toggle(rect, active, string.Empty);
+            information.active = information.go.activeSelf;
 
-            if (go.activeSelf != active)
+            information.active = GUI.Toggle(rect, information.active, string.Empty);
+
+            if (information.go.activeSelf != information.active)
             {
-                go.SetActive(active);
+                information.go.SetActive(information.active);
             }
+        }
+
+        struct Information
+        {
+            public GameObject go;
+
+            public List<Texture2D> components;
+
+            public bool active;
         }
     }
 }
