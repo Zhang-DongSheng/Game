@@ -31,7 +31,7 @@ namespace UnityEditor
 
         protected override void Init()
         {
-
+            
         }
 
         protected override void Refresh()

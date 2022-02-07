@@ -7,9 +7,17 @@ namespace UnityEngine.Audio
         public static float volum = 1f;
     }
 
-    public enum SourceEnum
+    public class AudioInformation
+    {
+        public string key;
+
+        public string path;
+    }
+
+    public enum AudioEnum
     {
         Music,
         Effect,
+        Special,
     }
 }

@@ -13,6 +13,7 @@ namespace UnityEngine
         Data,
         File,
         Utility,
+        Sound,
     }
     public static class Debuger
     {

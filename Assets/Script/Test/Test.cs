@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Data;
 using Data.Unity;
+using UnityEngine.Audio;
 
 namespace Game.Test
 {
@@ -91,7 +92,7 @@ namespace Game.Test
         /// </summary>
         public void OnClick()
         {
-
+            AudioManager.Instance.PlayMusic("xxxx.mp3", false);
         }
         /// <summary>
         /// 菜单栏测试
