@@ -37,7 +37,7 @@ namespace UnityEditor
         {
             if (!display) return;
 
-            if (items.ContainsKey(instanceID))
+            if (items.ContainsKey(instanceID) && items[instanceID].go != null)
             {
                 RefreshActive(items[instanceID], rect);
 

@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine.Renewable;
+using UnityEngine.SceneManagement;
 
 namespace UnityEngine.Audio
 {
     public sealed class AudioManager : MonoSingleton<AudioManager>
     {
-        private readonly Dictionary<string, AudioInformation> information = new Dictionary<string, AudioInformation>();
-
-        private readonly Dictionary<AudioEnum, AudioSource> audios = new Dictionary<AudioEnum, AudioSource>();
+        private readonly Dictionary<AudioEnum, AudioSourceInformation> audios = new Dictionary<AudioEnum, AudioSourceInformation>();
 
         private readonly Dictionary<string, AudioClip> clips = new Dictionary<string, AudioClip>();
 
@@ -22,7 +21,7 @@ namespace UnityEngine.Audio
 
             int index = 0;
 
-            foreach (var se in Enum.GetValues(typeof(AudioEnum)))
+            foreach (var ae in Enum.GetValues(typeof(AudioEnum)))
             {
                 if (sources.Length > index++)
                 {
@@ -30,19 +29,18 @@ namespace UnityEngine.Audio
                 }
                 else
                 {
-                    GameObject go = new GameObject(se.ToString());
+                    GameObject go = new GameObject(ae.ToString());
                     go.transform.SetParent(transform);
                     source = go.AddComponent<AudioSource>();
                 }
-                audios.Add((AudioEnum)se, source);
+                audios.Add((AudioEnum)ae, new AudioSourceInformation((AudioEnum)ae, source));
             }
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
 
-            listener = GameObject.FindObjectOfType<AudioListener>();
-
-            if (listener == null)
-            {
-                listener = gameObject.AddComponent<AudioListener>();
-            }
+        private void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
         public void PlayMusic(string sound, bool loop = false)
@@ -61,9 +59,9 @@ namespace UnityEngine.Audio
             {
                 Play(key, clips[sound], loop);
             }
-            else if (information.ContainsKey(sound))
+            else if (AudioConfig.list.ContainsKey(sound))
             {
-                AudioClip clip = Resources.Load<AudioClip>(information[sound].path);
+                AudioClip clip = Resources.Load<AudioClip>(AudioConfig.list[sound]);
                 Store(sound, clip); Play(key, clip, loop);
             }
             else
@@ -71,7 +69,7 @@ namespace UnityEngine.Audio
                 RenewableResource.Instance.Get(new RenewableRequest(sound), (handle) =>
                 {
                     AudioClip clip = handle.Get<AudioClip>();
-                    Store(sound, clip); Play(key, clip, loop);
+                    Store(sound, clip); Play(key, clips[sound], loop);
                 }, () =>
                 {
                     Debuger.LogWarning(Author.Sound, $"{ sound }∏√“Ù∆µŒ¥¬º»Îœ¬‘ÿ¡–±Ì!");
@@ -85,9 +83,9 @@ namespace UnityEngine.Audio
             {
                 PlayDelayed(key, clips[sound], delay);
             }
-            else if (information.ContainsKey(sound))
+            else if (AudioConfig.list.ContainsKey(sound))
             {
-                AudioClip clip = Resources.Load<AudioClip>(information[sound].path);
+                AudioClip clip = Resources.Load<AudioClip>(AudioConfig.list[sound]);
                 Store(sound, clip); PlayDelayed(key, clip, delay);
             }
             else
@@ -107,16 +105,16 @@ namespace UnityEngine.Audio
         {
             if (audios.ContainsKey(key))
             {
-                audios[key].Pause();
+                audios[key].source.Pause();
             }
         }
 
         public void Stop(AudioEnum key)
         {
-            if (audios.ContainsKey(key) && audios[key].isPlaying)
+            if (audios.ContainsKey(key) && audios[key].source.isPlaying)
             {
-                audios[key].Stop();
-                audios[key].clip = null;
+                audios[key].source.Stop();
+                audios[key].source.clip = null;
             }
         }
 
@@ -132,7 +130,7 @@ namespace UnityEngine.Audio
         {
             if (audios.ContainsKey(key))
             {
-                audios[key].volume = Mathf.Clamp01(volume);
+                audios[key].SetVolume(volume);
             }
         }
 
@@ -140,7 +138,17 @@ namespace UnityEngine.Audio
         {
             if (audios.ContainsKey(key))
             {
-                audios[key].mute = mute;
+                audios[key].SetMute(mute);
+            }
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            listener = GameObject.FindObjectOfType<AudioListener>();
+
+            if (listener == null)
+            {
+                Debuger.LogError(Author.Sound, "“Ù∆µº‡Ã˝∆˜Œ¥æÕ–˜£°");
             }
         }
 
@@ -153,11 +161,11 @@ namespace UnityEngine.Audio
         {
             if (audios.ContainsKey(key))
             {
-                audios[key].loop = loop;
+                audios[key].source.loop = loop;
 
-                audios[key].clip = clip;
+                audios[key].source.clip = clip;
 
-                audios[key].Play();
+                audios[key].source.Play();
             }
         }
 
@@ -165,11 +173,11 @@ namespace UnityEngine.Audio
         {
             if (audios.ContainsKey(key))
             {
-                audios[key].loop = false;
+                audios[key].source.loop = false;
 
-                audios[key].clip = clip;
+                audios[key].source.clip = clip;
 
-                audios[key].PlayDelayed(delay);
+                audios[key].source.PlayDelayed(delay);
             }
         }
     }
