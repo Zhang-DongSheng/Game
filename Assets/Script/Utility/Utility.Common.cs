@@ -52,6 +52,61 @@ namespace Game
 
                 GUIUtility.systemCopyBuffer = content;
             }
+            /// <summary>
+            /// 内存
+            /// </summary>
+            public static int MemoryLevel()
+            {
+                int size = SystemInfo.systemMemorySize;
+
+                if (size <= 1024 * 4)
+                {
+                    return 0;
+                }
+                else if (size >= 1024 * 8)
+                {
+                    return 2;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            /// <summary>
+            /// 是否支持GPUInstance
+            /// </summary>
+            /// https://docs.unity3d.com/ScriptReference/SystemInfo-graphicsShaderLevel.html
+            public static bool SupportGPUInstance()
+            {
+                return SystemInfo.graphicsShaderLevel >= 35;
+            }
+            /// <summary>
+            /// 屏幕常亮
+            /// </summary>
+            public static void Sleep(bool sleep = false)
+            {
+                if (sleep)
+                {
+                    Screen.sleepTimeout = SleepTimeout.SystemSetting;
+                }
+                else
+                {
+                    Screen.sleepTimeout = SleepTimeout.NeverSleep;
+                }
+            }
+            /// <summary>
+            /// 
+            /// </summary>
+            public static void Quality(int level)
+            {
+                RenderSettings.fog = level > 2;
+
+                QualitySettings.SetQualityLevel(level);
+#if UNITY_IPHONE
+                //抗锯齿过滤器可以设置为0, 2, 4, 8
+                QualitySettings.antiAliasing = 0;
+#endif
+            }
         }
     }
 }

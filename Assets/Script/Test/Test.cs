@@ -25,12 +25,8 @@ namespace Game.Test
         [SerializeField] private Vector3 position;
 
         [SerializeField, Range(0, 30f)] private float speed = 1;
-
-        [SerializeField] private List<Transform> list;
-
-        public ButtonPro buttonPro;
-
-        private readonly List<Vector3> points = new List<Vector3>();
+        
+        public string content;
 
         private void Awake()
         {
@@ -49,20 +45,7 @@ namespace Game.Test
 
         private void OnDrawGizmos()
         {
-            int count = points.Count;
-
-            for (int i = 0; i < count; i++)
-            {
-                if (i == count - 1)
-                {
-                    Gizmos.DrawLine(points[i], points[0]);
-                }
-                else
-                {
-                    Gizmos.DrawLine(points[i], points[i + 1]);
-                }
-                Gizmos.DrawSphere(points[i], 1f);
-            }
+            
         }
 
         private void Start()
@@ -99,6 +82,11 @@ namespace Game.Test
         /// </summary>
         [ContextMenu("OnClick")]
         public void OnClickContextMenu()
+        {
+
+        }
+
+        public void OnClickButton()
         {
 
         }
