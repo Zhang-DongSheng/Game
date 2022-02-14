@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.UI;
-using Data;
-using Data.Unity;
+﻿using UnityEngine;
 using UnityEngine.Audio;
 
 namespace Game.Test
@@ -67,15 +62,14 @@ namespace Game.Test
         public static void Startover(params string[] paramters)
         {
 
-            object result = Utility.Class.Create("Game.Test.Test");
-
-            Test test = result as Test;
-
-            test.content = "123";
-
-            Debuger.Log(Author.Test, test.content);
+            //UnityGameObject unity = new GameObject("XX");
 
 
+            GameObject unity = new GameObject("XX");
+
+            string json = JsonUtility.ToJson(unity.transform.position);
+
+            Debuger.Log(Author.Test, json);
         }
         /// <summary>
         /// 点击测试

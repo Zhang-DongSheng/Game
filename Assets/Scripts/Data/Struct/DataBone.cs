@@ -1,12 +1,11 @@
-using System.Collections;
+using Data.Serializable;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Data
 {
     public class DataBone : DataBase
     {
-        public List<SerializableBone> bones = new List<SerializableBone>();
+        public List<UnityTransform> bones = new List<UnityTransform>();
 
         protected override void Editor()
         {

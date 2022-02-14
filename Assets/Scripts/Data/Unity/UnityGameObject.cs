@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Data.Unity
+namespace Data.Serializable
 {
+    [System.Serializable]
     public struct UnityGameObject
     {
         public string name;

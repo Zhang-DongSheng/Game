@@ -1,37 +1,23 @@
 using UnityEngine;
 
-namespace Data.Unity
+namespace Data.Serializable
 {
+    [System.Serializable]
     public struct UnityTransform
     {
-        public float[] position;
+        public UnityVector3 position;
 
-        public float[] rotation;
+        public UnityVector4 rotation;
 
-        public float[] scale;
+        public UnityVector3 scale;
 
         public static implicit operator UnityTransform(Transform transform)
         {
             return new UnityTransform()
             {
-                position = new float[3]
-                {
-                    transform.position.x,
-                    transform.position.y,
-                    transform.position.z
-                },
-                rotation = new float[3]
-                {
-                    transform.eulerAngles.x,
-                    transform.eulerAngles.y,
-                    transform.eulerAngles.z
-                },
-                scale = new float[3]
-                {
-                    transform.localScale.x,
-                    transform.localScale.y,
-                    transform.localScale.z
-                },
+                position = transform.position,
+                rotation = transform.rotation,
+                scale = transform.localScale
             };
         }
     }
