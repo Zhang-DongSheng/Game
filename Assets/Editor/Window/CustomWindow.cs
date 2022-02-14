@@ -43,22 +43,15 @@ namespace UnityEditor.Window
             GUILayout.EndHorizontal();
         }
 
-        protected virtual void Vertical(UnityAction action)
+        protected virtual void TextField(string key, ref string value, int width = 50)
         {
-            GUILayout.BeginVertical();
+            GUILayout.BeginHorizontal();
             {
-                action?.Invoke();
-            }
-            GUILayout.EndVertical();
-        }
+                GUILayout.Label(key, GUILayout.Width(width));
 
-        protected virtual void Scroll(UnityAction action)
-        {
-            scroll = GUILayout.BeginScrollView(scroll);
-            {
-                action?.Invoke();
+                value = GUILayout.TextField(value);
             }
-            GUILayout.EndScrollView();
+            GUILayout.EndHorizontal();
         }
 
         protected string ToAssetPath(string path)

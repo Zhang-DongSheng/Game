@@ -66,9 +66,16 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            UnityTransform ut = new GameObject().transform;
 
-            Debug.LogError(ut);
+            object result = Utility.Class.Create("Game.Test.Test");
+
+            Test test = result as Test;
+
+            test.content = "123";
+
+            Debuger.Log(Author.Test, test.content);
+
+
         }
         /// <summary>
         /// 点击测试
