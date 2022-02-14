@@ -220,4 +220,51 @@ namespace UnityEditor
             }
         }
     }
+    [CustomPropertyDrawer(typeof(UnityParameter))]
+    public class InspectorUnityParameter : PropertyDrawer
+    {
+        private const int COUNT = 2;
+
+        private const int NAMELENGTH = 81;
+
+        private SerializedProperty[] properties = new SerializedProperty[COUNT];
+
+        private Rect[] rects = new Rect[COUNT];
+
+        private Vector2 cell;
+
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            using (new EditorGUI.PropertyScope(position, label, property))
+            {
+                EditorGUIUtility.labelWidth = NAMELENGTH;
+
+                EditorGUI.LabelField(position, property.displayName);
+
+                EditorGUIUtility.labelWidth = 40;
+
+                position.x += NAMELENGTH;
+
+                position.width -= NAMELENGTH;
+
+                position.height = EditorGUIUtility.singleLineHeight;
+
+                properties[0] = property.FindPropertyRelative("key");
+
+                properties[1] = property.FindPropertyRelative("value");
+
+                cell = new Vector2(position.width / COUNT, position.height);
+
+                for (int i = 0; i < COUNT; i++)
+                {
+                    rects[i] = new Rect(position)
+                    {
+                        x = position.x + cell.x * i,
+                        width = cell.x,
+                    };
+                    EditorGUI.TextField(rects[i], properties[i].displayName, properties[i].stringValue);
+                }
+            }
+        }
+    }
 }

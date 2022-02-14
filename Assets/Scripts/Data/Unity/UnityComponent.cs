@@ -10,7 +10,7 @@ namespace Data.Serializable
 
         public string type;
 
-        public Dictionary<string, object> parameters;
+        public List<UnityParameter> parameters;
 
         public static implicit operator UnityComponent(Component component)
         {
@@ -18,7 +18,7 @@ namespace Data.Serializable
             {
                 name = component.name,
                 type = component.GetType().Name,
-                parameters = new Dictionary<string, object>()
+                parameters = new List<UnityParameter>()
             };
             return unity;
         }
