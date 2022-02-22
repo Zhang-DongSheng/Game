@@ -147,26 +147,33 @@ namespace UnityEditor
 
                 for (int i = 0; i < COUNT; i++)
                 {
-                    if (i < 2)
+                    rects[i] = new Rect(position)
                     {
-                        rects[i] = new Rect(position)
-                        {
-                            x = i * cell.x + position.x,
-                            width = cell.x,
-                        };
-                    }
-                    else
-                    {
-                        rects[i] = new Rect(position)
-                        {
-                            x = position.x + cell.x * (i - 2),
-                            y = position.y + cell.y + LINESPACE,
-                            width = cell.x,
-                        };
-                    }
+                        x = position.x + Horizontal(i),
+                        y = position.y + Vertical(i),
+                        width = cell.x,
+                    };
                     EditorGUI.FloatField(rects[i], properties[i].displayName, properties[i].floatValue);
                 }
             }
+        }
+
+        private float Horizontal(int index)
+        {
+            if (index > 1)
+            {
+                index %= 2;
+            }
+            return cell.x * index;
+        }
+
+        private float Vertical(int index)
+        {
+            if (index > 1)
+            {
+                return cell.y + LINESPACE;
+            }
+            return 0;
         }
     }
     [CustomPropertyDrawer(typeof(UnityColor))]
@@ -255,13 +262,18 @@ namespace UnityEditor
 
                 cell = new Vector2(position.width / COUNT, position.height);
 
+                rects[0] = new Rect(position)
+                {
+                    x = position.x,
+                    width = cell.x - 10,
+                };
+                rects[1] = new Rect(position)
+                {
+                    x = position.x + cell.x,
+                    width = cell.x,
+                };
                 for (int i = 0; i < COUNT; i++)
                 {
-                    rects[i] = new Rect(position)
-                    {
-                        x = position.x + cell.x * i,
-                        width = cell.x,
-                    };
                     EditorGUI.TextField(rects[i], properties[i].displayName, properties[i].stringValue);
                 }
             }

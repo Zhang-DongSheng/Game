@@ -10,58 +10,85 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7760d9af00b6cdd45a34d4a05d1f72ed, type: 3}
-  m_Name: 
+  m_Name: Bone
   m_EditorClassIdentifier: 
+  unity:
+    name: 
+    tag: 
+    layer: 0
+    active: 0
+    transform:
+      position:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      scale:
+        x: 0
+        y: 0
+        z: 0
+    components:
+    - name: 
+      type: 
+      parameters:
+      - key: 
+        value: 
+      - key: 
+        value: 
   bones:
-  - name: 
-    _position:
-    - 0
-    - 4.23
-    - 0
-    _rotation:
-    - 0
-    - 0
-    - 0
-    - 0
-    _scale:
-    - 0
-    - 0
-    - 0
-  - name: 
-    _position:
-    - 0
-    - 0
-    - 0
-    _rotation:
-    - 0
-    - 0
-    - 0
-    - 0
-    _scale:
-    - 0
-    - 0
-    - 0
-  - name: 
-    _position:
-    - 0
-    - 0
-    - 0
-    _rotation:
-    - 0
-    - 0
-    - 0
-    - 0
-    _scale:
-    - 0
-    - 0
-    - 0
-  dic:
-    list:
-    - key: 
-      value: 0000000000000000
-    - key: 
-      value: 
-    - key: 
-      value: 
-    - key: 
-      value: 
+  - position:
+      x: 0
+      y: 0
+      z: 0
+    rotation:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    scale:
+      x: 0
+      y: 0
+      z: 0
+  - position:
+      x: 0
+      y: 0
+      z: 0
+    rotation:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    scale:
+      x: 0
+      y: 0
+      z: 0
+  - position:
+      x: 0
+      y: 0
+      z: 0
+    rotation:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    scale:
+      x: 0
+      y: 0
+      z: 0
+  - position:
+      x: 0
+      y: 0
+      z: 0
+    rotation:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    scale:
+      x: 0
+      y: 0
+      z: 0
