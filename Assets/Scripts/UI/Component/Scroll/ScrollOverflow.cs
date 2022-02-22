@@ -1,4 +1,5 @@
-﻿using UnityEngine.Events;
+﻿using System.Collections;
+using UnityEngine.Events;
 
 namespace UnityEngine.UI
 {
@@ -7,149 +8,115 @@ namespace UnityEngine.UI
     {
         [SerializeField] private ScrollRect scroll;
 
-        [SerializeField, Range(0, 1000f)] private float space;
+        [SerializeField, Range(0.1f, 1000f)] private float space = 1;
 
-        [SerializeField, Range(0, 5f)] private float duration;
+        [SerializeField, Range(0, 5f)] private float duration = 1;
 
-        [Space(10)]
+        public UnityEvent onForward, onBack;
 
-        public UnityEvent onTop, onBottom;
+        public UnityEvent<bool> onLayout;
 
-        private Vector2 resolution = new Vector2(1, 1);
+        private RectTransform viewport;
+
+        private RectTransform content;
+
+        private Overflow overflow;
 
         private float timer;
-
-        private ScrollStatus status;
 
         private void Awake()
         {
             if (scroll == null)
                 scroll = GetComponent<ScrollRect>();
             scroll.onValueChanged.AddListener(OnValueChanged);
-
-            Canvas canvas = GetComponentInParent<Canvas>();
-
-            if (canvas != null && canvas.TryGetComponent(out RectTransform rect))
-            {
-                resolution = new Vector2(rect.rect.width, rect.rect.height);
-            }
+            viewport = scroll.viewport;
+            content = scroll.content;
         }
 
         private void Update()
         {
-            if (status == ScrollStatus.Idle) return;
+            if (overflow == Overflow.None) return;
 
             timer += Time.deltaTime;
 
             if (timer > duration)
             {
-                switch (status)
-                {
-                    case ScrollStatus.Top:
-                    case ScrollStatus.Left:
-                        onTop?.Invoke();
-                        break;
-                    case ScrollStatus.Bottom:
-                    case ScrollStatus.Right:
-                        onBottom?.Invoke();
-                        break;
-                }
-
                 timer = 0;
 
-                status = ScrollStatus.Idle;
+                switch (overflow)
+                {
+                    case Overflow.Forward:
+                        onForward?.Invoke();
+                        break;
+                    case Overflow.Back:
+                        onBack?.Invoke();
+                        break;
+                }
             }
         }
 
-        private void OnValueChanged(Vector2 value)
+        public void Relayout()
         {
-            if (scroll.vertical)
+            StartCoroutine(Layout());
+        }
+
+        IEnumerator Layout()
+        {
+            yield return new WaitForEndOfFrame();
+
+            bool overfolow = scroll.content.rect.width > scroll.viewport.rect.width;
+
+            if (overfolow)
             {
-                if (value.y > 1 && OverTop)
+                scroll.movementType = ScrollRect.MovementType.Elastic;
+            }
+            else
+            {
+                scroll.horizontalNormalizedPosition = 0;
+                scroll.movementType = ScrollRect.MovementType.Clamped;
+            }
+            onLayout?.Invoke(overfolow);
+        }
+
+        private void OnValueChanged(Vector2 vector)
+        {
+            if (scroll.horizontal)
+            {
+                if (vector.x > 1 && -content.anchoredPosition.x + viewport.rect.width - space > content.rect.width)
                 {
-                    status = ScrollStatus.Top;
+                    overflow = Overflow.Forward;
                 }
-                else if (value.y < 0 && OverBottom)
+                else if (vector.x < 0 && -content.anchoredPosition.x + space < 0)
                 {
-                    status = ScrollStatus.Bottom;
+                    overflow = Overflow.Back;
                 }
                 else
                 {
-                    timer = 0; status = ScrollStatus.Idle;
+                    overflow = Overflow.None; timer = 0;
                 }
             }
             else
             {
-                if (value.x > 1 && OverLeft)
+                if (vector.y < 0 && content.anchoredPosition.y + viewport.rect.height - space > content.rect.height)
                 {
-                    status = ScrollStatus.Left;
+                    overflow = Overflow.Forward;
                 }
-                else if (value.x < 0 && OverRight)
+                else if (vector.y > 1 && content.anchoredPosition.y + space < 0)
                 {
-                    status = ScrollStatus.Right;
+                    overflow = Overflow.Back;
                 }
                 else
                 {
-                    timer = 0; status = ScrollStatus.Idle;
+                    overflow = Overflow.None; timer = 0;
                 }
             }
         }
 
-        private bool OverTop
+        enum Overflow : byte
         {
-            get
-            {
-                if (scroll.content.anchoredPosition.y < space * -1)
-                {
-                    return true;
-                }
-                return false;
-            }
-        }
-
-        private bool OverBottom
-        {
-            get
-            {
-                if (scroll.content.anchoredPosition.y > scroll.content.rect.height - resolution.y + space)
-                {
-                    return true;
-                }
-                return false;
-            }
-        }
-
-        private bool OverLeft
-        {
-            get
-            {
-                if (scroll.content.anchoredPosition.x < space * -1)
-                {
-                    return true;
-                }
-                return false;
-            }
-        }
-
-        private bool OverRight
-        {
-            get
-            {
-                if (scroll.content.anchoredPosition.x > scroll.content.rect.width - resolution.x + space)
-                {
-                    return true;
-                }
-                return false;
-            }
-        }
-
-        enum ScrollStatus
-        {
-            Idle,
-            Top,
-            Bottom,
-            Left,
-            Right,
+            None,
+            Forward,
+            Back,
         }
     }
 }
