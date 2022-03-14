@@ -5,55 +5,55 @@ namespace Game
         public static class BitOperation
         {
             /// <summary>
-            /// Óë£¨&£©
+            /// ä¸ï¼ˆ&ï¼‰
             /// </summary>
-            /// <returns>ÓëÖ»ÓĞÁ½¸öÎ»¶¼ÊÇ1£¬½á¹û²ÅÊÇ1</returns>
+            /// <returns>ä¸åªæœ‰ä¸¤ä¸ªä½éƒ½æ˜¯1ï¼Œç»“æœæ‰æ˜¯1</returns>
             public static int With(int a, int b)
             {
                 return a & b;
             }
             /// <summary>
-            /// »ò£¨|£©
+            /// æˆ–ï¼ˆ|ï¼‰
             /// </summary>
-            /// <returns>Ö»ÒªÁ½¸öÎ»ÓĞÒ»¸öÊÇ1£¬½á¹û¾ÍÊÇ1</returns>
+            /// <returns>åªè¦ä¸¤ä¸ªä½æœ‰ä¸€ä¸ªæ˜¯1ï¼Œç»“æœå°±æ˜¯1</returns>
             public static int Or(int a, int b)
             {
                 return a | b;
             }
             /// <summary>
-            /// ·Ç£¨~£©
+            /// éï¼ˆ~ï¼‰
             /// </summary>
-            /// <returns>Èç¹ûÎ»Îª0£¬½á¹ûÊÇ1£¬Èç¹ûÎ»Îª1£¬½á¹ûÊÇ0</returns>
+            /// <returns>å¦‚æœä½ä¸º0ï¼Œç»“æœæ˜¯1ï¼Œå¦‚æœä½ä¸º1ï¼Œç»“æœæ˜¯0</returns>
             public static int Non(int value)
             {
                 return ~value;
             }
             /// <summary>
-            /// Òì»ò£¨^£©
+            /// å¼‚æˆ–ï¼ˆ^ï¼‰
             /// </summary>
-            /// <returns>Á½¸ö²Ù×÷ÊıµÄÎ»ÖĞ£¬ÏàÍ¬Ôò½á¹ûÎª0£¬²»Í¬Ôò½á¹ûÎª1</returns>
+            /// <returns>ä¸¤ä¸ªæ“ä½œæ•°çš„ä½ä¸­ï¼Œç›¸åŒåˆ™ç»“æœä¸º0ï¼Œä¸åŒåˆ™ç»“æœä¸º1</returns>
             public static int Heteror(int a, int b)
             {
                 return a ^ b;
             }
             /// <summary>
-            /// ×óÒÆ£¨<<£©
+            /// å·¦ç§»ï¼ˆ<<ï¼‰
             /// </summary>
-            /// <returns>×óÒÆ±íÊ¾³ËÒÔ2£¬×óÒÆ¶àÉÙÎ»±íÊ¾³ËÒÔ2µÄ¼¸´ÎÃİ</returns>
+            /// <returns>å·¦ç§»è¡¨ç¤ºä¹˜ä»¥2ï¼Œå·¦ç§»å¤šå°‘ä½è¡¨ç¤ºä¹˜ä»¥2çš„å‡ æ¬¡å¹‚</returns>
             public static int Left(int value, int shift)
             {
                 return value << shift;
             }
             /// <summary>
-            /// ÓÒÒÆ£¨>>£©
+            /// å³ç§»ï¼ˆ>>ï¼‰
             /// </summary>
-            /// <returns>ÒÆ¶¯¶àÉÙÎ»±íÊ¾³ıÒÔ2µÄ¼¸´ÎÃİ</returns>
+            /// <returns>ç§»åŠ¨å¤šå°‘ä½è¡¨ç¤ºé™¤ä»¥2çš„å‡ æ¬¡å¹‚</returns>
             public static int Right(int value, int shift)
             {
                 return value >> shift;
             }
             /// <summary>
-            /// Ê®½øÖÆ×ª¶ş½øÖÆ
+            /// åè¿›åˆ¶è½¬äºŒè¿›åˆ¶
             /// </summary>
             public static string Convert(int value, int length = 0)
             {

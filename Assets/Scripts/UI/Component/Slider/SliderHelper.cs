@@ -1,37 +1,31 @@
-using UnityEngine.SAM;
+using Game.SAM;
 
 namespace UnityEngine.UI
 {
-    /// <summary>
-    /// »¬¶¯Ìõ
-    /// </summary>
-    [RequireComponent(typeof(SAMAction))]
-    public class SliderHelper : Slider
+    [RequireComponent(typeof(Slider), typeof(SAMImage))]
+    public class SliderHelper : MonoBehaviour
     {
-        private new SAMAction animation;
+        [SerializeField] protected Slider slider;
 
-        private FloatInterval interval = new FloatInterval();
+        [SerializeField] protected SAMImage sam;
 
-        protected override void Awake()
+        private float before;
+
+        public void SetValue(float value)
         {
-            if (TryGetComponent(out animation))
+            if (slider.value != value)
             {
-                animation.action = OnAnimation;
+                before = slider.value;
+
+                slider.value = value;
+
+                sam?.Begin(Progress(before), Progress(value));
             }
         }
 
-        private void OnAnimation(float value)
+        private float Progress(float value)
         {
-            this.value = interval.Lerp(value);
-        }
-
-        public void Play(float target)
-        {
-            interval.origination = value;
-
-            interval.destination = target;
-
-            animation.Begin(true);
+            return (value - slider.minValue) / (slider.maxValue - slider.minValue);
         }
     }
 }

@@ -3,9 +3,11 @@ using UnityEngine.UI;
 
 namespace Game.SAM
 {
-    public class SAMCooling : SAMBase
+    public class SAMImage : SAMBase
     {
         [SerializeField] private Image image;
+
+        [SerializeField] private FloatInterval interval;
 
         protected override void Init()
         {
@@ -13,17 +15,13 @@ namespace Game.SAM
             {
                 Debug.LogError("The Image is Missing!");
             }
-            else
-            {
-                SetImageFillAmount(0);
-            }
         }
 
         protected override void Transition(float step)
         {
-            progress = curve.Evaluate(Config.One - step);
+            progress = curve.Evaluate(step);
 
-            SetImageFillAmount(progress);
+            SetImageFillAmount(interval.Lerp(progress));
         }
 
         private void SetImageFillAmount(float value)
@@ -31,8 +29,15 @@ namespace Game.SAM
             if (image == null) return;
 
             image.fillAmount = value;
+        }
 
-            image.raycastTarget = value > 0;
+        public void Begin(float start, float end)
+        {
+            interval.origination = start;
+
+            interval.destination = end;
+
+            Begin(true);
         }
     }
 }

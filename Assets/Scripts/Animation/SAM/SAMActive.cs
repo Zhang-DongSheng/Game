@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace UnityEngine.SAM
+namespace Game.SAM
 {
     public class SAMActive : SAMBase
     {
-        [SerializeField] private List<GameObject> fore;
+        [SerializeField] private List<GameObject> selected;
 
-        [SerializeField] private List<GameObject> back;
+        [SerializeField] private List<GameObject> unselected;
 
         protected override void Init() { }
 
@@ -14,9 +15,9 @@ namespace UnityEngine.SAM
         {
             bool active = step > 0.5f;
 
-            SetActive(fore, active);
+            SetActive(selected, active);
 
-            SetActive(back, !active);
+            SetActive(unselected, !active);
         }
 
         private void SetActive(List<GameObject> list, bool active)

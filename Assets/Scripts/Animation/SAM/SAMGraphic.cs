@@ -1,6 +1,7 @@
-﻿using UnityEngine.UI;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
-namespace UnityEngine.SAM
+namespace Game.SAM
 {
     public class SAMGraphic : SAMBase
     {

@@ -1,4 +1,6 @@
-﻿namespace UnityEngine.SAM
+﻿using UnityEngine;
+
+namespace Game.SAM
 {
     public class SAMTransform : SAMBase
     {

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 
-namespace UnityEngine.SAM
+namespace Game.SAM
 {
     public class SAMController : MonoBehaviour
     {

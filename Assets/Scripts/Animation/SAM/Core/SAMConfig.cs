@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace UnityEngine.SAM
+﻿namespace Game.SAM
 {
     public static class Config
     {

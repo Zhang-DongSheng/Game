@@ -8,7 +8,7 @@ namespace UnityEngine.UI
     {
         [SerializeField] private int index = 0;
 
-        [SerializeField] private Transform cursor;
+        [SerializeField] private RectTransform cursor;
 
         [SerializeField, Range(1, 25f)] private float speed = 1f;
 

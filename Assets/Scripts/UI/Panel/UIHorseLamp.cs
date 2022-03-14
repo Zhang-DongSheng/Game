@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SAM;
+using Game.SAM;
 
 namespace Game.UI
 {

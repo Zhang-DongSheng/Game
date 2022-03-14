@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 namespace Game.Test
 {
@@ -63,21 +64,16 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-
-            List<int> list = ListPool<int>.Pop();
-
-            list.Add(1);
-            list.Add(2);
-            list.Add(3);
-
-            Debuger.Log(Author.Test, string.Join(",", list));
+            
         }
         /// <summary>
         /// 点击测试
         /// </summary>
         public void OnClick()
         {
-            AudioManager.Instance.PlayMusic("xxxx.mp3", false);
+            SliderHelper slider = GetComponent<SliderHelper>();
+
+            slider.SetValue(Random.Range(0, 1f));
         }
         /// <summary>
         /// 菜单栏测试

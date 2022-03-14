@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace UnityEngine.SAM
+namespace Game.SAM
 {
     public class SAMRoute : SAMBase
     {

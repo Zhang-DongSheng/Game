@@ -1,4 +1,6 @@
-namespace UnityEngine.SAM
+using UnityEngine;
+
+namespace Game.SAM
 {
     [RequireComponent(typeof(Animation))]
     public class SAMAnimation : SAMBase

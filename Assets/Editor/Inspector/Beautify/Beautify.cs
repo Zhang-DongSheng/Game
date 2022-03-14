@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UnityEditor
 {
-    public class Beautify<T> where T : class, new()
+    public abstract class Beautify<T> where T : class, new()
     {
         private static T _instance;
         public static T Instance
@@ -15,11 +15,14 @@ namespace UnityEditor
                 if (_instance == null)
                 {
                     _instance = new T();
+                    //{
+                    //    display = UnityEngine.PlayerPrefs.GetInt("Beautify_" + typeof(T).ToString());
+                    //}
                 }
                 return _instance;
             }
         }
-        public bool display = true;
+        public bool display;
     }
     public class BeautifyWindow : CustomWindow
     {

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace UnityEngine.SAM
+namespace Game.SAM
 {
     public class SAMAlpha : SAMBase
     {

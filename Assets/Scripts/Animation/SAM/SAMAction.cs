@@ -1,6 +1,6 @@
 using System;
 
-namespace UnityEngine.SAM
+namespace Game.SAM
 {
     public class SAMAction : SAMBase
     {

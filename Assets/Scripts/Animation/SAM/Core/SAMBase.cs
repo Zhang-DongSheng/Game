@@ -1,6 +1,7 @@
-﻿using UnityEngine.Events;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
-namespace UnityEngine.SAM
+namespace Game.SAM
 {
     [RequireComponent(typeof(RectTransform))]
     public abstract class SAMBase : MonoBehaviour

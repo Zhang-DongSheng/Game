@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using UnityEngine.SAM;
+using Game.SAM;
 
 namespace UnityEngine.UI
 {

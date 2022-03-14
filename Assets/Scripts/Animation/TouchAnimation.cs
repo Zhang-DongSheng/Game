@@ -1,6 +1,5 @@
 ﻿using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.SAM;
 
 namespace UnityEngine
 {
