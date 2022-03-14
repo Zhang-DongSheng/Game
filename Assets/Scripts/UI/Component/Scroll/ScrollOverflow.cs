@@ -41,8 +41,6 @@ namespace UnityEngine.UI
 
             if (timer > duration)
             {
-                timer = 0;
-
                 switch (overflow)
                 {
                     case Overflow.Forward:
@@ -52,6 +50,7 @@ namespace UnityEngine.UI
                         onBack?.Invoke();
                         break;
                 }
+                timer = 0;
             }
         }
 

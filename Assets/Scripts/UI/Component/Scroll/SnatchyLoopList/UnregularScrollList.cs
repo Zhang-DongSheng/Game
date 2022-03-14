@@ -1,3 +1,4 @@
+using Game;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
@@ -22,8 +23,6 @@ namespace UnityEngine.UI
 
         [SerializeField] private ScrollRect scroll;
 
-        [SerializeField] private ScrollAlign align;
-
         [SerializeField, Range(0.1f, 5)] private float ratio = 1;
 
         private Vector2 position, vector;
@@ -46,30 +45,6 @@ namespace UnityEngine.UI
 
         private readonly List<UnregularLoopInformation> cells = new List<UnregularLoopInformation>();
 
-        protected override void Awake()
-        {
-            align.onValueChanged = (vector) =>
-            {
-                Shift(vector, true);
-            };
-            align.onCompleted = () =>
-            {
-                status = DragStatus.Idle;
-            };
-        }
-
-        private void Update()
-        {
-            switch (status)
-            {
-                case DragStatus.Align:
-                    {
-                        align.Update();
-                    }
-                    break;
-            }
-        }
-
         public void OnBeginDrag(PointerEventData eventData)
         {
             drag = true;
@@ -79,10 +54,10 @@ namespace UnityEngine.UI
                 switch (direction)
                 {
                     case Direction.Horizontal:
-                        drag = ScrollUtils.Horizontal(eventData.delta);
+                        drag = Utility.Vector.Horizontal(eventData.delta);
                         break;
                     case Direction.Vertical:
-                        drag = ScrollUtils.Vertical(eventData.delta);
+                        drag = Utility.Vector.Vertical(eventData.delta);
                         break;
                 }
             }

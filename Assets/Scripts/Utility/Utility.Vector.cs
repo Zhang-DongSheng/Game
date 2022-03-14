@@ -6,6 +6,24 @@ namespace Game
     {
         public static class Vector
         {
+            private const float Min = 45f;
+
+            private const float Max = 135f;
+
+            public static bool Horizontal(Vector2 vector)
+            {
+                float angle = Vector2.Angle(vector, Vector2.up);
+
+                return angle > Min && angle < Max;
+            }
+
+            public static bool Vertical(Vector2 vector)
+            {
+                float angle = Vector2.Angle(vector, Vector2.up);
+
+                return angle < Min || angle > Max;
+            }
+
             public static Vector2 Vector3To2(Vector3 vector)
             {
                 return new Vector2(vector.x, vector.z);

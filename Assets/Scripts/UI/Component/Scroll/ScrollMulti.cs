@@ -1,4 +1,5 @@
-﻿using UnityEngine.EventSystems;
+﻿using Game;
+using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI
 {
@@ -29,11 +30,11 @@ namespace UnityEngine.UI
             {
                 if (horizontal)
                 {
-                    drag = ScrollUtils.Horizontal(eventData.delta);
+                    drag = Utility.Vector.Horizontal(eventData.delta);
                 }
                 else if (vertical)
                 {
-                    drag = ScrollUtils.Vertical(eventData.delta);
+                    drag = Utility.Vector.Vertical(eventData.delta);
                 }
             }
 

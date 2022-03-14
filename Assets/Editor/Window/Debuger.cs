@@ -59,7 +59,7 @@ namespace UnityEditor.Window
                 }
                 if (GUILayout.Button("打开测试代码", GUILayout.ExpandHeight(true)))
                 {
-                    EditorUtility.OpenWithDefaultApp(string.Format("{0}/Script/Test/Test.cs", Application.dataPath));
+                    EditorUtility.OpenWithDefaultApp(string.Format("{0}/Scripts/Test/Test.cs", Application.dataPath));
                 }
                 GUILayout.Space(3);
             }

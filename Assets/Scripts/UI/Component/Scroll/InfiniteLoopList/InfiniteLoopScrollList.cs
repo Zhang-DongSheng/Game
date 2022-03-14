@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
@@ -114,10 +115,10 @@ namespace UnityEngine.UI
                 switch (direction)
                 {
                     case Direction.Horizontal:
-                        drag = ScrollUtils.Horizontal(eventData.delta);
+                        drag = Utility.Vector.Horizontal(eventData.delta);
                         break;
                     case Direction.Vertical:
-                        drag = ScrollUtils.Vertical(eventData.delta);
+                        drag = Utility.Vector.Vertical(eventData.delta);
                         break;
                 }
             }

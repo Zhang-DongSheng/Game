@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI
 {
-    public class DragToggle : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerDownHandler
+    public class ToggleDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerDownHandler
     {
         [SerializeField] private RectTransform target;
 

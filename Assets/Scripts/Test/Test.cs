@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Game.Pool;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Audio;
 
 namespace Game.Test
@@ -62,14 +64,13 @@ namespace Game.Test
         public static void Startover(params string[] paramters)
         {
 
-            //UnityGameObject unity = new GameObject("XX");
+            List<int> list = ListPool<int>.Pop();
 
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
 
-            GameObject unity = new GameObject("XX");
-
-            string json = JsonUtility.ToJson(unity.transform.position);
-
-            Debuger.Log(Author.Test, json);
+            Debuger.Log(Author.Test, string.Join(",", list));
         }
         /// <summary>
         /// 点击测试
