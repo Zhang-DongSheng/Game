@@ -7,18 +7,48 @@ namespace Game.UI
 {
     public class UIMain : UIBase
     {
-        public Button btn_next;
+        [SerializeField] private Button btnWarehouse;
+
+        [SerializeField] private Button btnMail;
+
+        [SerializeField] private Button btnActivity;
+
+        [SerializeField] private Button btnLotteryDraw;
 
         private void Awake()
         {
-            btn_next.onClick.AddListener(OnClick);
+            btnWarehouse.onClick.AddListener(OnClickWarehouse);
+
+            btnMail.onClick.AddListener(OnClickMail);
+
+            btnActivity.onClick.AddListener(OnClickActivity);
+
+            btnLotteryDraw.onClick.AddListener(OnClickLotteryDraw);
         }
 
-        private void OnClick()
+        private void Start()
         {
-            UIManager.Instance.Open(UIPanel.UITest);
+            UIManager.Instance.Open(UIPanel.UITitle, record: false);
+        }
 
-            UIManager.Instance.Close(UIPanel.UIMain);
+        private void OnClickWarehouse()
+        {
+            UIManager.Instance.Open(UIPanel.UIWarehouse);
+        }
+
+        private void OnClickMail()
+        {
+            UIManager.Instance.Open(UIPanel.UIMail);
+        }
+
+        private void OnClickActivity()
+        {
+            UIManager.Instance.Open(UIPanel.UIActivity);
+        }
+
+        private void OnClickLotteryDraw()
+        {
+            UIManager.Instance.Open(UIPanel.UILotteryDraw);
         }
     }
 }

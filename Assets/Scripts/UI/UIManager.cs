@@ -78,7 +78,12 @@ namespace Game.UI
         private void Push(UIPanel panel, CtrlBase ctrl)
         {
             if (panel == UIPanel.UILogin ||
-                panel == UIPanel.UITest)
+                panel == UIPanel.UIMain ||
+                panel == UIPanel.UITitle)
+            {
+                Debuger.Log(Author.UI, string.Format("{0} is Ignore!", panel));
+            }
+            else
             {
                 if (_records.Contains(ctrl))
                 {
@@ -103,7 +108,7 @@ namespace Game.UI
             }
         }
 
-        public void Open(UIPanel panel, UILayer layer = UILayer.None, bool record = false)
+        public void Open(UIPanel panel, UILayer layer = UILayer.None, bool record = true)
         {
             try
             {
@@ -302,10 +307,15 @@ namespace Game.UI
         UILoading,
         UIWaiting,
         UITips,
+        UITitle,
         UINotice,
         UIConfirm,
         UIHorseLamp,
+        UIWarehouse,
+        UIMail,
+        UIShop,
         UIReward,
+        UIActivity,
         UILotteryDraw,
         UITest,
         Count,

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class ItemReddot : MonoBehaviour
+    public class ItemReddot : ItemBase
     {
         [SerializeField] private GameObject target;
 
@@ -37,7 +37,7 @@ namespace Game.UI
         {
             active = ReddotLogic.Instance.Trigger(main) || ReddotLogic.Instance.Trigger(list.ToArray());
 
-            SetActive(active);
+            SetActive(target, active);
         }
 
         public void UpdeteRedDotKey(params ReddotKey[] keys)
@@ -56,14 +56,6 @@ namespace Game.UI
                     break;
             }
             Refresh();
-        }
-
-        private void SetActive(bool active)
-        {
-            if (target != null && target.activeSelf != active)
-            {
-                target.SetActive(active);
-            }
         }
     }
 }

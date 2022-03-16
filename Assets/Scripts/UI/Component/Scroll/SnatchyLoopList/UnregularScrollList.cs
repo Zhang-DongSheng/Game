@@ -10,6 +10,24 @@ namespace UnityEngine.UI
     /// </summary>
     public class UnregularScrollList : UIBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         enum Direction
         {
             None,
@@ -158,7 +176,7 @@ namespace UnityEngine.UI
                 {
                     index = i,
                     position = position,
-                    size = new Vector2(100, Random.Range(80,150)),
+                    size = new Vector2(100, Random.Range(80, 150)),
                 });
 
                 switch (direction)
@@ -198,6 +216,8 @@ namespace UnityEngine.UI
 
             UpdateCells();
         }
+
+
 
         private void Shift(Vector2 delta, bool align = false)
         {
@@ -332,9 +352,9 @@ namespace UnityEngine.UI
         {
             public int index;
 
-            public Vector2 position;
-
             public Vector2 size;
+
+            public Vector2 position;
 
             public bool Exist(Vector2 position, Vector2 space)
             {

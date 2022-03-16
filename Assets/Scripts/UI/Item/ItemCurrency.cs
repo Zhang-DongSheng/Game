@@ -1,11 +1,13 @@
 using Data;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class ItemProp : ItemBase
+    public class ItemCurrency : ItemBase
     {
         [SerializeField] private Image imgIcon;
 
@@ -15,9 +17,9 @@ namespace Game.UI
 
         [SerializeField] private Text txtNumber;
 
-        public void Refresh(Prop prop)
+        public void Refresh(Currency currency)
         {
-            PropInformation info = DataHelper.Prop.Get(prop.parallelism);
+            CurrencyInformation info = DataHelper.Currency.Get(currency.currency);
 
             Factory.Instance.Pop("atlas_prop", (value) =>
             {
@@ -31,7 +33,7 @@ namespace Game.UI
 
             txtName.text = string.Format("{0}", info.name);
 
-            txtNumber.text = string.Format("{0}", prop.number);
+            txtNumber.text = string.Format("{0}", currency.number);
 
             SetActive(true);
         }

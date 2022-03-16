@@ -5,7 +5,9 @@ namespace UnityEngine.UI
     {
         public GameObject prefab;
 
-        public Vector2 space = Vector2.zero;
+        public RectOffset padding;
+
+        public Vector2 space;
 
         protected RectTransform rect;
 

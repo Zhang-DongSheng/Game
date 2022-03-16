@@ -901,6 +901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 1632196917}
+  space: {x: 0.1, y: 180}
   resolution: {x: 512, y: 512}
 --- !u!1 &1672683388
 GameObject:

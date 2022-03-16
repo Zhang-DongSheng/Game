@@ -21,7 +21,7 @@ namespace Game.UI
 
         private readonly WaitForSeconds wait = new WaitForSeconds(0.1f);
 
-        private readonly List<ItemProp> items = new List<ItemProp>();
+        private readonly List<ItemReward> items = new List<ItemReward>();
 
         private void Awake()
         {
@@ -49,7 +49,7 @@ namespace Game.UI
             {
                 if (index >= items.Count)
                 {
-                    items.Add(prefab.Create<ItemProp>());
+                    items.Add(prefab.Create<ItemReward>());
                 }
                 items[index++].Refresh(reward.currencies[i]);
 
@@ -62,7 +62,7 @@ namespace Game.UI
             {
                 if (index >= items.Count)
                 {
-                    items.Add(prefab.Create<ItemProp>());
+                    items.Add(prefab.Create<ItemReward>());
                 }
                 items[index++].Refresh(reward.props[i]);
 

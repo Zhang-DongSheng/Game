@@ -9,6 +9,7 @@ namespace UnityEngine
         None,
         Test,
         Owner,
+        UI,
         Device,
         Data,
         File,
@@ -23,6 +24,7 @@ namespace UnityEngine
         {
             { Author.None, LogType.Exception},
             { Author.Test, LogType.Error},
+            { Author.UI, LogType.Error},
             { Author.Owner, LogType.Error},
             { Author.Device, LogType.Error},
             { Author.Data, LogType.Error },

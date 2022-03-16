@@ -59,7 +59,7 @@ namespace Game.UI
 
                 GlobalVariables.Set(PASSWORD, password);
 
-                UIManager.Instance.Open(UIPanel.UIMain);
+                UIManager.Instance.Open(UIPanel.UIMain, record: false);
 
                 UIManager.Instance.Close(UIPanel.UILogin);
             }
