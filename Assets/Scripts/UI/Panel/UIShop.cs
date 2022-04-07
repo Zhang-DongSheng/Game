@@ -6,16 +6,16 @@ namespace Game.UI
 {
     public class UIShop : UIBase
     {
-        [SerializeField] private ItemTabGroup tab;
+        [SerializeField] private TabGroup tab;
 
         private void Awake()
         {
-            tab.callback = OnClickTab;
+            tab.Initialize(OnClickTab);
         }
 
         private void Start()
         {
-            tab.Initialize(3);
+            tab.Refresh(new int[5] { 1, 2, 3, 4, 5 });
         }
 
         public void Refresh()

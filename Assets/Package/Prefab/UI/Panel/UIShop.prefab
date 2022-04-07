@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 244573485880313961}
-  - component: {fileID: 7501086912748952357}
   m_Layer: 5
   m_Name: Top
   m_TagString: Untagged
@@ -37,21 +36,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -150}
   m_SizeDelta: {x: 0, y: 150}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &7501086912748952357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 925806865046255206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d444d18efe34924a8cfde3a1a8e16a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab:
-    parent: {fileID: 8451620941103269811}
-    prefab: {fileID: 7231345118288864390}
 --- !u!1 &1325477488799163665
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layer: 3
   order: 0
-  tab: {fileID: 7501086912748952357}
+  tab: {fileID: 1603234122814299049}
 --- !u!1 &1960686995569421191
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,6 +380,7 @@ GameObject:
   - component: {fileID: 6359783819765786609}
   - component: {fileID: 3609322163060160885}
   - component: {fileID: 8928784840519909333}
+  - component: {fileID: 1603234122814299049}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -491,6 +476,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1603234122814299049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6174193429331700513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e03a792f1213e14b98c6cfa65a87b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab:
+    parent: {fileID: 8451620941103269811}
+    prefab: {fileID: 7231345118288864390}
 --- !u!1 &6903642927143496282
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,7 +665,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5955305980869451096}
-  - component: {fileID: 1388468694886538330}
+  - component: {fileID: 393184238200293639}
   m_Layer: 5
   m_Name: ItemTab
   m_TagString: Untagged
@@ -693,7 +693,7 @@ RectTransform:
   m_AnchoredPosition: {x: -954.9999, y: 382.49994}
   m_SizeDelta: {x: 250, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1388468694886538330
+--- !u!114 &393184238200293639
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -702,7 +702,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7231345118288864390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3acd2f7e51500c941bebc1c2839823a8, type: 3}
+  m_Script: {fileID: 11500000, guid: b762813696d1a01488075dd186a64bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1769063478645201018}

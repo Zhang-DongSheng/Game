@@ -1,14 +1,15 @@
+using Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.UI
 {
-    public class ItemTab : Tab
+    public class UIWarehouseIntroduce : MonoBehaviour
     {
-        protected override void Switch(bool state)
+        public void Refresh(Prop prop)
         {
-            
+
         }
     }
 }

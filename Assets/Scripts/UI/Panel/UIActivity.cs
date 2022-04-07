@@ -6,16 +6,20 @@ namespace Game.UI
 {
     public class UIActivity : UIBase
     {
-        [SerializeField] private ItemTabGroup tab;
+        [SerializeField] private TabGroup tab;
+
+        [SerializeField] private UIActivitySign viewSign;
+
+        [SerializeField] private UIActivityCDKEY viewCDKEY;
 
         private void Awake()
         {
-            tab.callback = OnClickTab;
+            tab.Initialize(OnClickTab);
         }
 
         private void Start()
         {
-            tab.Initialize(10);
+            tab.Refresh(new int[5] { 1, 2, 3, 4, 5 });
         }
 
         public void Refresh()

@@ -88,7 +88,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2788503961176135519}
-  - component: {fileID: 5606718837630682131}
   m_Layer: 5
   m_Name: Left
   m_TagString: Untagged
@@ -116,21 +115,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 300, y: 0}
   m_Pivot: {x: 0, y: 0.5}
---- !u!114 &5606718837630682131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2958591926099470672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d444d18efe34924a8cfde3a1a8e16a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab:
-    parent: {fileID: 5808543636660082821}
-    prefab: {fileID: 4723363192734006192}
 --- !u!1 &4013601303588174375
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +169,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layer: 3
   order: 0
-  tab: {fileID: 5606718837630682131}
+  tab: {fileID: 3483136031149314118}
+  viewSign: {fileID: 0}
+  viewCDKEY: {fileID: 0}
 --- !u!1 &4531718198728914097
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,7 +302,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8607321042965742190}
-  - component: {fileID: 3932472837158863724}
+  - component: {fileID: 4690403661173606022}
   m_Layer: 5
   m_Name: ItemTab
   m_TagString: Untagged
@@ -344,7 +330,7 @@ RectTransform:
   m_AnchoredPosition: {x: -929.9999, y: 557.49994}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3932472837158863724
+--- !u!114 &4690403661173606022
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -353,7 +339,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4723363192734006192}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3acd2f7e51500c941bebc1c2839823a8, type: 3}
+  m_Script: {fileID: 11500000, guid: b762813696d1a01488075dd186a64bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 4421090085899847500}
@@ -515,6 +501,7 @@ GameObject:
   - component: {fileID: 9048956981911943367}
   - component: {fileID: 1711584171726038595}
   - component: {fileID: 6791231834737385699}
+  - component: {fileID: 3483136031149314118}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -610,6 +597,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3483136031149314118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8104513299633255447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e03a792f1213e14b98c6cfa65a87b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab:
+    parent: {fileID: 5808543636660082821}
+    prefab: {fileID: 4723363192734006192}
 --- !u!1 &8409741691923759907
 GameObject:
   m_ObjectHideFlags: 0

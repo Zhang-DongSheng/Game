@@ -1,4 +1,5 @@
 using Data;
+using System;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
@@ -7,6 +8,8 @@ namespace Game.UI
 {
     public class ItemProp : ItemBase
     {
+        public Action<Prop> callback;
+
         [SerializeField] private Image imgIcon;
 
         [SerializeField] private Image imgQuality;
@@ -15,8 +18,19 @@ namespace Game.UI
 
         [SerializeField] private Text txtNumber;
 
+        [SerializeField] private Button button;
+
+        protected Prop prop;
+
+        private void Awake()
+        {
+            button.onClick.AddListener(OnClick);
+        }
+
         public void Refresh(Prop prop)
         {
+            this.prop = prop;
+
             PropInformation info = DataHelper.Prop.Get(prop.parallelism);
 
             Factory.Instance.Pop("atlas_prop", (value) =>
@@ -34,6 +48,14 @@ namespace Game.UI
             txtNumber.text = string.Format("{0}", prop.number);
 
             SetActive(true);
+        }
+
+        private void OnClick()
+        {
+            if (prop != null)
+            {
+                callback?.Invoke(prop);
+            }
         }
     }
 }

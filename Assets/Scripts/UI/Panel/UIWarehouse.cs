@@ -1,31 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
+using Data;
 using UnityEngine;
 
 namespace Game.UI
 {
     public class UIWarehouse : UIBase
     {
-        [SerializeField] private ItemTabGroup tab;
+        [SerializeField] private TabGroup tab;
+
+        [SerializeField] private UIWarehouseContent content;
+
+        [SerializeField] private UIWarehouseIntroduce introduce;
 
         private void Awake()
         {
-            tab.callback = OnClickTab;
+            tab.Initialize(OnClickTab);
+
+            content.callback = OnClickProp;
         }
 
         private void Start()
         {
-            tab.Initialize(10);
-        }
-
-        public void Refresh()
-        {
-
+            tab.Refresh(new int[5] { 1, 2, 3, 4, 5 });
         }
 
         private void OnClickTab(int index)
         {
-            Debug.LogError(index);
+            content.Refresh(index);
+        }
+
+        private void OnClickProp(Prop prop)
+        {
+            introduce.Refresh(prop);
         }
     }
 }
