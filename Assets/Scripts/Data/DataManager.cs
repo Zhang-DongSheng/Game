@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Game.Resource;
 using UnityEngine;
+using ResourceRequest = Game.Resource.ResRequest;
 
 namespace Data
 {
@@ -44,9 +46,14 @@ namespace Data
             {
                 try
                 {
-                    Factory.Instance.Pop(key, (value) =>
+                    ResourceManager.Instance.Load(new ResourceRequest()
                     {
-                        m_data.Add(key, value as T); action?.Invoke(m_data[key] as T);
+                        key = key,
+                        url = string.Format("{0}/Package/Data/{1}.asset", "Assets", key),
+                        success = (value) =>
+                        {
+                            m_data.Add(key, value as T); action?.Invoke(m_data[key] as T);
+                        }
                     });
                 }
                 catch (Exception e)

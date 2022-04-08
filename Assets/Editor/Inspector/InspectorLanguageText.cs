@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace UnityEditor
 {
-    [CustomEditor(typeof(LanguageText))]
+    [CustomEditor(typeof(TextLanguage))]
     public class InspectorLanguageText : UI.TextEditor
     {
         private SerializedProperty language;

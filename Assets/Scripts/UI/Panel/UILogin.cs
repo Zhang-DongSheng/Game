@@ -102,8 +102,6 @@ namespace Game.UI
             UIManager.Instance.Close(UIPanel.UILogin);
 
             UIManager.Instance.Open(UIPanel.UIMain);
-
-            var dd = DataHelper.Prop;
         }
     }
 }

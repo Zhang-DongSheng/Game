@@ -18,16 +18,16 @@ namespace Game
         {
             if (tasks.Exists(x => x.identification == identification)) return;
 
-            task = DataHelper.Task.Get(identification);
+            //task = DataHelper.Task.Get(identification);
 
-            tasks.Add(new Task()
-            {
-                identification = identification,
-                action = task.action.type,
-                progress = 0,
-                main = task.main,
-                status = TaskStatus.Undone,
-            });
+            //tasks.Add(new Task()
+            //{
+            //    identification = identification,
+            //    action = task.action.type,
+            //    progress = 0,
+            //    main = task.main,
+            //    status = TaskStatus.Undone,
+            //});
         }
 
         public void RenovateTask(ActionType action, float value)
@@ -41,12 +41,12 @@ namespace Game
                 {
                     tasks[i].progress += value;
 
-                    task = DataHelper.Task.Get(tasks[i].identification);
+                    //task = DataHelper.Task.Get(tasks[i].identification);
 
-                    if (tasks[i].progress >= task.action.count)
-                    {
-                        tasks[i].status = TaskStatus.Available;
-                    }
+                    //if (tasks[i].progress >= task.action.count)
+                    //{
+                    //    tasks[i].status = TaskStatus.Available;
+                    //}
                 }
             }
         }

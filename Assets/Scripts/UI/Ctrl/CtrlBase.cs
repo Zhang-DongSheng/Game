@@ -1,3 +1,4 @@
+using Game.Resource;
 using System;
 using UnityEngine;
 
@@ -70,9 +71,14 @@ namespace Game.UI
 
             try
             {
-                Factory.Instance.Pop(key.ToString(), (value) =>
+                ResourceManager.Instance.Load(new Resource.ResRequest()
                 {
-                    Create(key, layer, value as GameObject);
+                    key = key.ToString(),
+                    url = string.Format("{0}/Package/Prefab/UI/Panel/{1}.prefab", "Assets", key.ToString()),
+                    success = (asset) =>
+                    {
+                        Create(key, layer, asset as GameObject);
+                    }
                 });
             }
             catch (Exception e)
@@ -86,11 +92,13 @@ namespace Game.UI
             status = Status.Loading;
         }
 
-        private void Create(UIPanel key, UILayer layer, GameObject go)
+        private void Create(UIPanel key, UILayer layer, GameObject prefab)
         {
-            RectTransform rect = go.GetComponent<RectTransform>();
+            GameObject entity = GameObject.Instantiate(prefab);
 
-            view = go.GetComponent<UIBase>();
+            RectTransform rect = entity.GetComponent<RectTransform>();
+
+            view = entity.GetComponent<UIBase>();
 
             view.layer = layer != UILayer.None ? layer : view.layer;
 

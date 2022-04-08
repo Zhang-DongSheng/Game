@@ -1,9 +1,11 @@
-﻿namespace UnityEngine.UI
+using Game;
+
+namespace UnityEngine.UI
 {
     /// <summary>
     /// 多语言文本
     /// </summary>
-    public class LanguageText : Text
+    public class TextLanguage : Text
     {
         [SerializeField] private string key;
 
@@ -27,7 +29,7 @@
         {
             if (language)
             {
-                text = LanguageHelper.Instance.Word(key);
+                //TextManager.Instance.SetString()
             }
         }
     }

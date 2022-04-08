@@ -32,16 +32,7 @@ namespace Game
 
         public void InitPlayer()
         {
-            Factory.Instance.Pop("MODEL ANIMATION", (value) =>
-            {
-                GameObject role = value as GameObject;
-
-                role.transform.SetParent(m_target);
-
-                role.transform.localPosition = Vector3.zero;
-
-                Player = role.GetComponent<Player>();
-            });
+            
         }
 
         public void Move(Vector2 vector)

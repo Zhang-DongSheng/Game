@@ -1,9 +1,8 @@
-using System.Collections;
+using Data;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
-using Data;
 
 namespace Game
 {

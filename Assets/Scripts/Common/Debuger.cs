@@ -15,6 +15,7 @@ namespace UnityEngine
         File,
         Utility,
         Sound,
+        Resource,
     }
     public static class Debuger
     {
@@ -30,6 +31,7 @@ namespace UnityEngine
             { Author.Data, LogType.Error },
             { Author.File, LogType.Error },
             { Author.Utility, LogType.Exception },
+            { Author.Resource, LogType.Exception },
         };
 
         private static readonly StringBuilder builder = new StringBuilder();
