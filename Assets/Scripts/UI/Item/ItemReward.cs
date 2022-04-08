@@ -9,14 +9,12 @@ namespace Game.UI
     {
         [SerializeField] private ItemProp prop;
 
-        [SerializeField] private ItemCurrency currency;
+        public void Refresh(Prop prop)
+        {
 
-        public void Refresh(Currency currency)
-        { 
-            
         }
 
-        public void Refresh(Prop prop)
+        public void Refresh(Currency currency)
         {
 
         }

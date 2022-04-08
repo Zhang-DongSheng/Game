@@ -15,7 +15,9 @@ namespace Game.UI
 
         public void Refresh(int index)
         {
-            int count = 10;
+            var column = WarehouseLogic.Instance.Column(index);
+
+            int count = column.Count;
 
             for (int i = 0; i < count; i++)
             {
@@ -25,12 +27,7 @@ namespace Game.UI
                     item.callback = OnClickProp;
                     items.Add(item);
                 }
-                items[i].Refresh(new Prop()
-                {
-                    identification = i,
-                    number = 999,
-                    parallelism = UnityEngine.Random.Range(0, 5),
-                });
+                items[i].Refresh(column[i]);
             }
             for (int i = count; i < items.Count; i++)
             {

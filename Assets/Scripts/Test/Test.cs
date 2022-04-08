@@ -23,6 +23,8 @@ namespace Game.Test
         [SerializeField] private Vector3 position;
 
         [SerializeField, Range(0, 30f)] private float speed = 1;
+
+        private int index;
         
         public string content;
 
@@ -71,9 +73,9 @@ namespace Game.Test
         /// </summary>
         public void OnClick()
         {
-            SliderHelper slider = GetComponent<SliderHelper>();
+            index++;
 
-            slider.SetValue(Random.Range(0, 1f));
+            GetComponent<ScrollDirection>().Direction(index);
         }
         /// <summary>
         /// 菜单栏测试

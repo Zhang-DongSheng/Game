@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-namespace Game.UI
+namespace UnityEngine.UI
 {
     public class TabGroup : MonoBehaviour
     {

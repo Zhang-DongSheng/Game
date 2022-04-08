@@ -1,7 +1,6 @@
 using Data;
 using System;
 using UnityEngine;
-using UnityEngine.U2D;
 using UnityEngine.UI;
 
 namespace Game.UI
@@ -10,43 +9,31 @@ namespace Game.UI
     {
         public Action<Prop> callback;
 
-        [SerializeField] private Image imgIcon;
+        [SerializeField] private UIPropBase m_prop;
 
-        [SerializeField] private Image imgQuality;
-
-        [SerializeField] private Text txtName;
-
-        [SerializeField] private Text txtNumber;
-
-        [SerializeField] private Button button;
+        [SerializeField] private Button m_button;
 
         protected Prop prop;
 
         private void Awake()
         {
-            button.onClick.AddListener(OnClick);
+            m_button.onClick.AddListener(OnClick);
         }
 
         public void Refresh(Prop prop)
         {
             this.prop = prop;
 
-            PropInformation info = DataHelper.Prop.Get(prop.parallelism);
+            PropInformation info = WarehouseLogic.PropInformation(prop.parallelism);
 
-            Factory.Instance.Pop("atlas_prop", (value) =>
+            if (info != null)
             {
-                SpriteAtlas atlas = value as SpriteAtlas;
+                SpriteManager.Instance.SetSprite(m_prop.imgQuality, info.icon);
 
-                if (atlas && !string.IsNullOrEmpty(info.icon))
-                {
-                    imgQuality.sprite = atlas.GetSprite(info.icon);
-                }
-            });
+                TextManager.Instance.SetString(m_prop.txtName, info.name);
 
-            txtName.text = string.Format("{0}", info.name);
-
-            txtNumber.text = string.Format("{0}", prop.number);
-
+                TextManager.Instance.SetString(m_prop.txtNumber, prop.number);
+            }
             SetActive(true);
         }
 
@@ -56,6 +43,17 @@ namespace Game.UI
             {
                 callback?.Invoke(prop);
             }
+        }
+        [System.Serializable]
+        class UIPropBase
+        {
+            public Text txtName;
+
+            public Text txtNumber;
+
+            public Image imgIcon;
+
+            public Image imgQuality;
         }
     }
 }

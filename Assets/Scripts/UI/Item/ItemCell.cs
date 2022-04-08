@@ -13,7 +13,7 @@ namespace UnityEngine.UI
 
         protected override void Refresh()
         {
-            background.color.Rainbow(Index / (float)100);
+            background.color.Rainbow(Index / 100f);
 
             label.text = Source.ToString();
         }

@@ -43,19 +43,35 @@ namespace Data
 
         public string description;
     }
+    [System.Serializable]
+    public class ActionInformation
+    {
+        public ActionType type;
+
+        public int count;
+    }
+
+    public enum ActionType
+    {
+        None,
+        Cost,
+        Kill,
+        Talk,
+        Time,
+    }
 
     public enum TaskStatus
     {
         /// <summary>
-        /// δ���
+        /// 未完成
         /// </summary>
         Undone,
         /// <summary>
-        /// ����ȡ
+        /// 可领取
         /// </summary>
         Available,
         /// <summary>
-        /// ����ȡ
+        /// 已领取
         /// </summary>
         Received,
     }

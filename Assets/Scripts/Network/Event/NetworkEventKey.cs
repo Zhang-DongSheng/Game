@@ -5,7 +5,7 @@ namespace Game
         None = 0,
         Test = 1,
         User,
-        Bag,
+        Warehouse,
         Shop,
         Activity,
         Reddot,

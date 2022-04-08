@@ -7,13 +7,13 @@ namespace UnityEngine.UI
     {
         [SerializeField] private Language language;
 
-        private DataLanguage m_data;
+        private DataText m_data;
 
         private Dictionary dictionary;
 
         private void Awake()
         {
-            m_data = DataManager.Instance.Load<DataLanguage>("Language", "Data/language");
+            m_data = DataManager.Instance.Load<DataText>("Data/language");
         }
 
         private void Start()

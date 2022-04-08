@@ -1,10 +1,8 @@
 using System;
-using UnityEngine;
-using UnityEngine.UI;
 
-namespace Game.UI
+namespace UnityEngine.UI
 {
-    public abstract class Tab : ItemBase
+    public abstract class Tab : MonoBehaviour
     {
         [SerializeField] protected Button button;
 
@@ -41,14 +39,27 @@ namespace Game.UI
             }
         }
 
-        protected virtual void Switch(bool state)
+        public void SetActive(bool active)
         {
-
+            SetActive(gameObject, active);
         }
 
         protected virtual void OnClick()
         {
             callback?.Invoke(index, value);
+        }
+
+        protected virtual void Switch(bool state)
+        {
+
+        }
+
+        protected virtual void SetActive(GameObject go, bool active)
+        {
+            if (go != null && go.activeSelf != active)
+            {
+                go.SetActive(active);
+            }
         }
     }
 }

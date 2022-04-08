@@ -12,7 +12,7 @@ namespace UnityEditor
         [MenuItem("Data/Create/Language")]
         protected static void Create_Language()
         {
-            Create<DataLanguage>("Language");
+            Create<DataText>("Language");
         }
         [MenuItem("Data/Create/Currency")]
         protected static void Create_Currency()

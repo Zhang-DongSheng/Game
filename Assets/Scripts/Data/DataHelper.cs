@@ -14,7 +14,7 @@ namespace Data
             {
                 if (_currency == null)
                 {
-                    DataManager.Instance.LoadAsync<DataCurrency>("Currency", (asset) =>
+                    DataManager.Instance.LoadAsync<DataCurrency>((asset) =>
                     {
                         _currency = asset;
                     });
@@ -29,7 +29,7 @@ namespace Data
             {
                 if (_prop == null)
                 {
-                    DataManager.Instance.LoadAsync<DataProp>("Prop", (asset) =>
+                    DataManager.Instance.LoadAsync<DataProp>((asset) =>
                     {
                         _prop = asset;
                     });
@@ -44,7 +44,7 @@ namespace Data
             {
                 if (_task == null)
                 {
-                    DataManager.Instance.LoadAsync<DataTask>("Task", (asset) =>
+                    DataManager.Instance.LoadAsync<DataTask>((asset) =>
                     {
                         _task = asset;
                     });

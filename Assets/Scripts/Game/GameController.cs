@@ -14,7 +14,7 @@ namespace Game
 
             UserLogic.Instance.Init();
 
-            BagLogic.Instance.Init();
+            WarehouseLogic.Instance.Init();
 
             ShopLogic.Instance.Init();
 

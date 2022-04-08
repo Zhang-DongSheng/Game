@@ -8,8 +8,10 @@ namespace Data
     {
         private readonly Dictionary<string, DataBase> m_data = new Dictionary<string, DataBase>();
 
-        public T Load<T>(string key, string path) where T : DataBase
+        public T Load<T>(string path) where T : DataBase
         {
+            string key = typeof(T).Name;
+
             if (m_data.ContainsKey(key))
             {
                 return m_data[key] as T;
@@ -30,8 +32,10 @@ namespace Data
             }
         }
 
-        public void LoadAsync<T>(string key, Action<T> action) where T : DataBase
+        public void LoadAsync<T>(Action<T> action) where T : DataBase
         {
+            string key = typeof(T).Name;
+
             if (m_data.ContainsKey(key))
             {
                 action?.Invoke(m_data[key] as T);
