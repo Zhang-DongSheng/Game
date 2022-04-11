@@ -1,69 +1,70 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEditor;
+using Object = UnityEngine.Object;
 
 namespace Game.Resource
 {
-    public class ResourceManager : MonoSingleton<ResourceManager>
+    public static class ResourceManager
     {
-        private readonly List<ResRequest> requests = new List<ResRequest>();
+        private static AssetsController controller;
 
-        public void Load(ResRequest request)
+        public static void Initialize()
         {
-            if (requests.Exists(x => x.key == request.key))
-            {
-                return;
-            }
-            requests.Add(request); Next();
+            controller = new AssetsController(LoadType.AssetDatabase);
         }
 
-        private void Next()
+        public static Object Load(string name)
         {
-            if (requests.Count > 0)
+            string path = ResourceConfig.Path(name);
+
+            AssetsData assets = controller.Load(path);
+
+            if (assets != null)
             {
-                ResRequest request = requests[0];
-
-                requests.RemoveAt(0);
-
-                StartCoroutine(Loading(request));
+                return assets.Assets[0];
             }
+            return null;
         }
 
-        private IEnumerator Loading(ResRequest res)
+        public static T Load<T>(string name) where T : Object
         {
-            Object asset = AssetDatabase.LoadAssetAtPath<Object>(res.url);
+            string path = ResourceConfig.Path(name);
 
-            res.success?.Invoke(asset);
+            AssetsData assets = controller.Load(path);
 
-            yield return null;
+            if (assets != null)
+            {
+                return assets.Assets[0] as T;
+            }
+            return null;
         }
 
-        private IEnumerator Download(ResRequest res)
+        public static void LoadAsync(string name, Action<Object> callback)
         {
-            UnityWebRequest request = UnityWebRequest.Get(res.url);
+            string path = ResourceConfig.Path(name);
 
-            yield return request.SendWebRequest();
-
-            switch (request.result)
+            controller.LoadAsync(path, (result) =>
             {
-                case UnityWebRequest.Result.InProgress:
-                    {
-                        
-                    }
-                    break;
-                case UnityWebRequest.Result.Success:
-                    {
-                        //res.success?.Invoke(request.downloadHandler.data);
-                    }
-                    break;
-                default:
-                    {
-                        Debuger.LogError(Author.Resource, request.error);
-                    }
-                    break;
-            }
+                callback?.Invoke(result.Assets[0]);
+            });
+        }
+
+        public static void LoadAsync<T>(string name, Action<T> callback) where T : Object
+        {
+            string path = ResourceConfig.Path(name);
+
+            controller.LoadAsync(path, (result) =>
+            {
+                callback?.Invoke(result.Assets[0] as T);
+            });
+        }
+
+        public static void UnLoadAsset(string name, bool isDestroy = false)
+        {
+
         }
     }
 }

@@ -10,6 +10,8 @@ namespace Game
 
         private void Awake()
         {
+            Resource.ResourceManager.Initialize();
+
             ScheduleLogic.Instance.Init();
 
             UserLogic.Instance.Init();

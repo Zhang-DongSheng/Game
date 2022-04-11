@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Game.Resource;
 using UnityEngine;
-using ResourceRequest = Game.Resource.ResRequest;
+using static Game.Resource.ResourceManager;
 
 namespace Data
 {
@@ -46,14 +46,9 @@ namespace Data
             {
                 try
                 {
-                    ResourceManager.Instance.Load(new ResourceRequest()
+                    ResourceManager.LoadAsync(string.Format("{0}/Package/Data/{1}.asset", "Assets", key), (value) =>
                     {
-                        key = key,
-                        url = string.Format("{0}/Package/Data/{1}.asset", "Assets", key),
-                        success = (value) =>
-                        {
-                            m_data.Add(key, value as T); action?.Invoke(m_data[key] as T);
-                        }
+                        m_data.Add(key, value as T); action?.Invoke(m_data[key] as T);
                     });
                 }
                 catch (Exception e)

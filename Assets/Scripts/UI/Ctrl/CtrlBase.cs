@@ -71,14 +71,9 @@ namespace Game.UI
 
             try
             {
-                ResourceManager.Instance.Load(new Resource.ResRequest()
+                ResourceManager.LoadAsync(string.Format("{0}/Package/Prefab/UI/Panel/{1}.prefab", "Assets", key.ToString()), (asset) =>
                 {
-                    key = key.ToString(),
-                    url = string.Format("{0}/Package/Prefab/UI/Panel/{1}.prefab", "Assets", key.ToString()),
-                    success = (asset) =>
-                    {
-                        Create(key, layer, asset as GameObject);
-                    }
+                    Create(key, layer, asset as GameObject);
                 });
             }
             catch (Exception e)
