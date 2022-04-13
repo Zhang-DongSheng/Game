@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Game.Resource;
 using UnityEngine;
-using static Game.Resource.ResourceManager;
 
 namespace Data
 {
@@ -10,7 +9,7 @@ namespace Data
     {
         private readonly Dictionary<string, DataBase> m_data = new Dictionary<string, DataBase>();
 
-        public T Load<T>(string path) where T : DataBase
+        public T Load<T>() where T : DataBase
         {
             string key = typeof(T).Name;
 
@@ -20,12 +19,8 @@ namespace Data
             }
             else
             {
-                T asset = null;
-#if UNITY_EDITOR
-                asset = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(string.Format("Assets/{0}.asset", path));
-#else
-                asset = Resources.Load<T>(path);
-#endif
+                T asset = ResourceManager.Load<T>(string.Format("Data/{0}.asset", key));
+
                 if (asset != null)
                 {
                     m_data.Add(key, asset);
@@ -46,7 +41,7 @@ namespace Data
             {
                 try
                 {
-                    ResourceManager.LoadAsync(string.Format("{0}/Package/Data/{1}.asset", "Assets", key), (value) =>
+                    ResourceManager.LoadAsync(string.Format("Data/{0}.asset", key), (value) =>
                     {
                         m_data.Add(key, value as T); action?.Invoke(m_data[key] as T);
                     });

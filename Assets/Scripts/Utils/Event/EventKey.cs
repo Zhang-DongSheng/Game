@@ -11,4 +11,8 @@
     Language,
 
     Progress,
+
+    UIOpen,
+
+    UIClose,
 }

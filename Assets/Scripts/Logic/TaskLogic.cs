@@ -36,7 +36,7 @@ namespace Game
 
             for (int i = 0; i < count; i++)
             {
-                if (tasks[i].status == TaskStatus.Undone &&
+                if (tasks[i].status == Status.Undone &&
                     tasks[i].action == action)
                 {
                     tasks[i].progress += value;
@@ -67,7 +67,7 @@ namespace Game
 
             if (index != -1)
             {
-                if (tasks[index].status == TaskStatus.Received)
+                if (tasks[index].status == Status.Claimed)
                 {
                     tasks.RemoveAt(index);
                 }

@@ -6,6 +6,8 @@ public class GameConfig
 {
     public const bool DEBUG = true;
 
+    public SystemLanguage language = SystemLanguage.Chinese;
+
     public const string LoginServerURL = "https://www.baidu.com/";
 
     public const string GameServerURL = "https://www.baidu.com/";

@@ -10,6 +10,7 @@ namespace Game.Resource
     {
         public override AssetsData LoadAssets(string path)
         {
+
             Object asset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(path);
 
             if (asset != null)
@@ -20,6 +21,7 @@ namespace Game.Resource
                 };
             }
             return null;
+
         }
 
         public override IEnumerator LoadAssetsAsync(string path, Action<AssetsData> callback)

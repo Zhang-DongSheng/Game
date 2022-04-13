@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.UI
+namespace Data
 {
-    public class UIShopDiamond : UIShopBase
+    public class User
     {
         
     }

@@ -11,20 +11,24 @@ namespace Game.UI
 
         [SerializeField] private UIPropBase m_prop;
 
-        [SerializeField] private Button m_button;
-
-        protected Prop prop;
-
-        private void Awake()
+        public void Refresh(Currency currency)
         {
-            m_button.onClick.AddListener(OnClick);
+            PropInformation info = DataManager.Instance.Load<DataCurrency>().Get((int)currency.currency);
+
+            if (info != null)
+            {
+                SpriteManager.Instance.SetSprite(m_prop.imgQuality, info.icon);
+
+                TextManager.Instance.SetString(m_prop.txtName, info.name);
+
+                TextManager.Instance.SetString(m_prop.txtNumber, currency.number);
+            }
+            SetActive(true);
         }
 
         public void Refresh(Prop prop)
         {
-            this.prop = prop;
-
-            PropInformation info = WarehouseLogic.PropInformation(prop.parallelism);
+            PropInformation info = DataManager.Instance.Load<DataProp>().Get(prop.parallelism);
 
             if (info != null)
             {
@@ -37,13 +41,6 @@ namespace Game.UI
             SetActive(true);
         }
 
-        private void OnClick()
-        {
-            if (prop != null)
-            {
-                callback?.Invoke(prop);
-            }
-        }
         [System.Serializable]
         class UIPropBase
         {

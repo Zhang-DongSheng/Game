@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class UIShopRecharge : MonoBehaviour
+    public class UIShopRecharge : UIShopBase
     {
         
     }

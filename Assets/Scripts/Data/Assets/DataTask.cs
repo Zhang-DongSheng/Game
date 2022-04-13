@@ -59,20 +59,4 @@ namespace Data
         Talk,
         Time,
     }
-
-    public enum TaskStatus
-    {
-        /// <summary>
-        /// 未完成
-        /// </summary>
-        Undone,
-        /// <summary>
-        /// 可领取
-        /// </summary>
-        Available,
-        /// <summary>
-        /// 已领取
-        /// </summary>
-        Received,
-    }
 }

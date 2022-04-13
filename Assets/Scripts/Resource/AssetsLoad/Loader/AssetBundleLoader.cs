@@ -43,5 +43,15 @@ namespace Game.Resource
             });
             yield return null;
         }
+
+        public override bool ExistDependencies(string name)
+        {
+            return base.ExistDependencies(name);
+        }
+
+        public override string[] GetAllDependenciesName(string name)
+        {
+            return base.GetAllDependenciesName(name);
+        }
     }
 }

@@ -9,6 +9,8 @@ namespace Game.UI
     {
         [SerializeField] private TabGroup tab;
 
+        [SerializeField] private List<UIShopBase> shops;
+
         private void Awake()
         {
             tab.Initialize(OnClickTab);
@@ -17,16 +19,23 @@ namespace Game.UI
         private void Start()
         {
             tab.Refresh(new int[5] { 1, 2, 3, 4, 5 });
+
+            Refresh(0);
         }
 
-        public void Refresh()
+        public void Refresh(int index)
         {
+            UIShopBase shop = shops.Find(x => x.enabled);
 
+            if (shop != null)
+            {
+                shop.Refresh(ShopLogic.Instance.Get(index));
+            }
         }
 
         private void OnClickTab(int index)
         {
-            Debug.LogError(index);
+            Refresh(index);
         }
     }
 }

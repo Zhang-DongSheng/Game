@@ -1,73 +1,79 @@
 using Data;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class ItemStatus : ItemBase
+    public class ItemStatus : MonoBehaviour
     {
-        [SerializeField] private GameObject _undone;
+        [SerializeField] private GameObject undone;
 
-        [SerializeField] private GameObject _available;
+        [SerializeField] private GameObject available;
 
-        [SerializeField] private GameObject _received;
+        [SerializeField] private GameObject claimed;
 
-        public UnityEvent onUndone, onAvailable, onReceived;
-
-        private void Awake()
+        public void Refresh(Status status)
         {
-            if (_undone.TryGetComponent(out Button undone))
-            {
-                undone.onClick.AddListener(OnClickUndone);
-            }
-
-            if (_available.TryGetComponent(out Button available))
-            {
-                available.onClick.AddListener(OnClickAvailable);
-            }
-
-            if (_received.TryGetComponent(out Button received))
-            {
-                received.onClick.AddListener(OnClickReceived);
-            }
-        }
-
-        public void Refresh(TaskStatus status)
-        {
-            SetActive(_undone, false);
-
-            SetActive(_available, false);
-
-            SetActive(_received, false);
-
             switch (status)
             {
-                case TaskStatus.Undone:
-                    SetActive(_undone, true);
+                case Status.Undone:
+                    {
+                        SetActive(undone, true);
+                        SetActive(available, false);
+                        SetActive(claimed, false);
+                    }
                     break;
-                case TaskStatus.Available:
-                    SetActive(_available, true);
+                case Status.Available:
+                    {
+                        SetActive(undone, false);
+                        SetActive(available, true);
+                        SetActive(claimed, false);
+                    }
                     break;
-                case TaskStatus.Received:
-                    SetActive(_received, true);
+                case Status.Claimed:
+                    {
+                        SetActive(undone, false);
+                        SetActive(available, false);
+                        SetActive(claimed, true);
+                    }
                     break;
             }
         }
 
-        private void OnClickUndone()
+        private void SetActive(GameObject go, bool active)
         {
-            onUndone?.Invoke();
+            if (go != null && go.activeSelf != active)
+            {
+                go.SetActive(active);
+            }
         }
-
-        private void OnClickAvailable()
+        [ContextMenu("Creator")]
+        protected void EditorCreator()
         {
-            onAvailable?.Invoke();
-        }
+            Transform parent = transform;
 
-        private void OnClickReceived()
-        {
-            onReceived?.Invoke();
+            while (parent.childCount < 3)
+            {
+                GameObject child = new GameObject();
+
+                child.AddComponent<RectTransform>();
+
+                child.transform.SetParent(parent);
+
+                child.transform.localPosition = Vector3.zero;
+
+                switch (parent.childCount)
+                {
+                    case 1:
+                        undone = child; child.name = "undone";
+                        break;
+                    case 2:
+                        available = child; child.name = "available";
+                        break;
+                    case 3:
+                        claimed = child; child.name = "claimed";
+                        break;
+                }
+            }
         }
     }
 }

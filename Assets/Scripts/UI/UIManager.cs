@@ -72,7 +72,7 @@ namespace Game.UI
 
         private void Register()
         {
-            _panels.Add(UIPanel.UIConfirm, new CtrlBase());
+            //_panels.Add(UIPanel.UIConfirm, new CtrlBase());
         }
 
         private void Push(UIPanel panel, CtrlBase ctrl)
@@ -178,21 +178,45 @@ namespace Game.UI
             }
             else
             {
-                CtrlBase ctrl = new CtrlBase();
+                _panels.Add(key, new CtrlBase());
 
-                ctrl.Paramter(paramter);
-
-                _panels.Add(key, ctrl);
+                _panels[key].Paramter(paramter);
             }
         }
 
-        public CtrlBase GetCtrl(UIPanel key)
+        public bool TryGetCtrl(UIPanel key, out CtrlBase ctrl)
         {
             if (_panels.ContainsKey(key))
             {
-                return _panels[key];
+                ctrl = _panels[key]; return true;
             }
-            return null;
+            else
+            {
+                ctrl = null; return false;
+            }
+        }
+
+        public bool OnlyOne(UIPanel panel, params UIPanel[] ignore)
+        {
+            bool active = false;
+
+            foreach (var _p in _panels)
+            {
+                if (ignore.Exist(_p.Key)) continue;
+
+                if (_p.Key == panel)
+                {
+                    active = _p.Value.active;
+                }
+                else
+                {
+                    if (_p.Value.active)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return active;
         }
 
         public Transform GetParent(UILayer layer)

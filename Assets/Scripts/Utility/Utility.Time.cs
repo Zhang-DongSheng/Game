@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Text;
 
 namespace Game
 {
@@ -7,7 +8,9 @@ namespace Game
     {
         public static class Time
         {
-            private static readonly DateTime Base = new DateTime(621355968000000000);
+            private static readonly StringBuilder builder = new StringBuilder();
+
+            private static readonly DateTime source = new DateTime(1970, 1, 1);
 
             private static TimeSpan span;
 
@@ -23,7 +26,7 @@ namespace Game
 
             public static DateTime ToDateTime(long ticket)
             {
-                return Base.AddMilliseconds(ticket);
+                return source.AddMilliseconds(ticket);
             }
 
             public static DateTime ToDateTime(string time)
@@ -52,7 +55,7 @@ namespace Game
 
             public static float Remaining(long ticks)
             {
-                span = Base.AddMilliseconds(ticks) - DateTime.UtcNow;
+                span = source.AddMilliseconds(ticks) - DateTime.UtcNow;
 
                 return (float)span.TotalSeconds;
             }
@@ -64,7 +67,61 @@ namespace Game
 
             public static string ToString(TimeSpan span)
             {
-                return span.ToString();
+                builder.Clear();
+
+                if (span.Days > 0)
+                {
+                    builder.Append(span.Days);
+
+                    builder.Append(Define.DAY);
+
+                    builder.Append(" ");
+
+                    builder.Append(span.Hours);
+
+                    builder.Append(Define.HOUR);
+                }
+                else if (span.Hours > 0)
+                {
+                    builder.Append(span.Hours);
+
+                    builder.Append(Define.HOUR);
+
+                    if (span.Minutes < 10)
+                    {
+                        builder.Append(Define.ZERO);
+                    }
+                    builder.Append(span.Minutes);
+
+                    builder.Append(Define.MINUTE);
+
+                    if (span.Seconds < 10)
+                    {
+                        builder.Append(Define.ZERO);
+                    }
+                    builder.Append(span.Seconds);
+
+                    builder.Append(Define.SECOND);
+                }
+                else
+                {
+                    builder.Append(span.Minutes);
+
+                    if (span.Minutes < 10)
+                    {
+                        builder.Append(Define.ZERO);
+                    }
+                    builder.Append(Define.MINUTE);
+
+                    if (span.Seconds < 10)
+                    {
+                        builder.Append(Define.ZERO);
+                    }
+                    builder.Append(span.Seconds);
+
+                    builder.Append(Define.SECOND);
+                }
+                return builder.ToString();
             }
         }
     }

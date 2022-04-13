@@ -66,7 +66,9 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            
+            float value = Utility.Math.Average(1, 2, 3);
+
+            Debuger.Log(Author.Test, value);
         }
         /// <summary>
         /// 点击测试

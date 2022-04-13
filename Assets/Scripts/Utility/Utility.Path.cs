@@ -7,37 +7,61 @@ namespace Game
     {
         public static class Path
         {
-            /// <summary>
-            /// 获取路径
-            /// </summary>
             public static string GetDirectoryName(string path)
             {
-                return System.IO.Path.GetDirectoryName(path);
+                if (string.IsNullOrEmpty(path)) return string.Empty;
+
+                string[] parameters = path.Split('/', '\\');
+
+                if (parameters.Length > 1)
+                {
+                    parameters[parameters.Length - 1] = null;
+
+                    return string.Join("/", parameters);
+                }
+                return string.Empty;
+
+                //return System.IO.Path.GetDirectoryName(path);
             }
-            /// <summary>
-            /// 获取后缀
-            /// </summary>
+
             public static string GetExtension(string path)
             {
+                if (string.IsNullOrEmpty(path)) return string.Empty;
+
                 return System.IO.Path.GetExtension(path);
             }
-            /// <summary>
-            /// 获取文件名
-            /// </summary>
+
             public static string GetFileName(string path)
             {
-                return System.IO.Path.GetFileName(path);
+                if (string.IsNullOrEmpty(path)) return string.Empty;
+
+                string[] parameters = path.Split('/', '\\');
+
+                if (parameters.Length > 1)
+                {
+                    return parameters[parameters.Length - 1];
+                }
+                return path;
+
+                //return System.IO.Path.GetFileName(path);
             }
-            /// <summary>
-            /// 获取不带后缀文件名
-            /// </summary>
+
+            public static string GetPathWithoutExtension(string path)
+            {
+                string extension = GetExtension(path);
+
+                if (!string.IsNullOrEmpty(extension))
+                {
+                    path = path.Remove(path.Length - extension.Length, extension.Length);
+                }
+                return path;
+            }
+
             public static string GetFileNameWithoutExtension(string path)
             {
                 return System.IO.Path.GetFileNameWithoutExtension(path);
             }
-            /// <summary>
-            /// 获取规范的路径。
-            /// </summary>
+
             public static string GetRegularPath(string path)
             {
                 if (string.IsNullOrEmpty(path))
@@ -93,11 +117,11 @@ namespace Game
             /// </summary>
             public static string New(string path)
             {
-                string directory = Path.GetDirectoryName(path);
+                string directory = System.IO.Path.GetDirectoryName(path);
 
-                string file = Path.GetFileNameWithoutExtension(path);
+                string file = System.IO.Path.GetFileNameWithoutExtension(path);
 
-                string extension = Path.GetExtension(path);
+                string extension = System.IO.Path.GetExtension(path);
 
                 int index = 0;
 

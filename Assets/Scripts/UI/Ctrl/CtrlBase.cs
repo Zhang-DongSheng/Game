@@ -1,6 +1,7 @@
 using Game.Resource;
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Game.UI
 {
@@ -28,16 +29,23 @@ namespace Game.UI
             switch (status)
             {
                 case Status.None:
+#if UNITY_EDITOR
                     Load(panel, layer);
+#else
+                    LoadAsync(panel, layer);
+#endif
                     break;
                 case Status.Loading:
-                    Debug.LogWarningFormat("The paenl of [{0}] is loading...", panel);
+                    Debuger.LogWarning(Author.UI, string.Format("The paenl of [{0}] is loading...", panel));
                     break;
                 case Status.Display:
                     if (view != null)
                     {
                         view.Reopen(); Show();
                     }
+                    break;
+                case Status.Error:
+                    Debuger.LogWarning(Author.UI, string.Format("The paenl of [{0}] is can't create!", panel));
                     break;
             }
         }
@@ -71,10 +79,9 @@ namespace Game.UI
 
             try
             {
-                ResourceManager.LoadAsync(string.Format("{0}/Package/Prefab/UI/Panel/{1}.prefab", "Assets", key.ToString()), (asset) =>
-                {
-                    Create(key, layer, asset as GameObject);
-                });
+                Object prefab = ResourceManager.Load(string.Format("Prefab/UI/Panel/{0}.prefab", key));
+
+                Create(key, layer, prefab);
             }
             catch (Exception e)
             {
@@ -85,27 +92,46 @@ namespace Game.UI
         private void LoadAsync(UIPanel key, UILayer layer)
         {
             status = Status.Loading;
+
+            try
+            {
+                ResourceManager.LoadAsync(string.Format("Prefab/UI/Panel/{0}.prefab", key), (asset) =>
+                {
+                    Create(key, layer, asset);
+                });
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
         }
 
-        private void Create(UIPanel key, UILayer layer, GameObject prefab)
+        private void Create(UIPanel key, UILayer layer, Object prefab)
         {
-            GameObject entity = GameObject.Instantiate(prefab);
+            try
+            {
+                GameObject entity = GameObject.Instantiate(prefab) as GameObject;
 
-            RectTransform rect = entity.GetComponent<RectTransform>();
+                RectTransform rect = entity.GetComponent<RectTransform>();
 
-            view = entity.GetComponent<UIBase>();
+                view = entity.GetComponent<UIBase>();
 
-            view.layer = layer != UILayer.None ? layer : view.layer;
+                view.layer = layer != UILayer.None ? layer : view.layer;
 
-            view.SetParent(UIManager.Instance.GetParent(view.layer));
+                view.SetParent(UIManager.Instance.GetParent(view.layer));
 
-            view.SetName(key.ToString());
+                view.SetName(key.ToString());
 
-            rect.Reset(); rect.SetFull();
+                rect.Reset(); rect.SetFull();
 
-            view.Init(); Show();
+                view.Init(); Show();
 
-            status = Status.Display;
+                status = Status.Display;
+            }
+            catch
+            {
+                status = Status.Error;
+            }
         }
 
         protected virtual void Show()
@@ -118,6 +144,7 @@ namespace Game.UI
 
                 UIManager.Instance.SortDisplay(view.layer, view.transform);
             }
+            EventManager.Post(EventKey.UIOpen);
         }
 
         protected virtual void Hide()
@@ -126,6 +153,7 @@ namespace Game.UI
             {
                 view.SetActive(false);
             }
+            EventManager.Post(EventKey.UIClose);
         }
 
         public UIPanel panel { get; protected set; }
@@ -141,6 +169,7 @@ namespace Game.UI
             None,
             Loading,
             Display,
+            Error,
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
@@ -67,11 +68,120 @@ namespace Game
                 return radian * Mathf.Rad2Deg;
             }
             /// <summary>
+            /// 转化为角度区间
+            /// </summary>
+            public static float AngleIn360(float value)
+            {
+                if (value > 360)
+                {
+                    while (value > 360)
+                    {
+                        value -= 360;
+                    }
+                }
+                else if (value < 0)
+                {
+                    while (value < 0)
+                    {
+                        value += 360;
+                    }
+                }
+                return value;
+            }
+            /// <summary>
             /// 保留小数位
             /// </summary>
             public static float Round(float value, int digit)
             {
                 return (float)System.Math.Round(value, digit);
+            }
+            /// <summary>
+            /// 进度
+            /// </summary>
+            public static float Progress(float value, float max, float min = 0)
+            {
+                float interval = max - min;
+
+                if (interval == 0) return 0;
+
+                value -= min;
+
+                return value / interval;
+            }
+            /// <summary>
+            /// 求和
+            /// </summary>
+            public static float Sum(params float[] numbers)
+            {
+                float value = 0;
+
+                int length = numbers != null ? numbers.Length : 0;
+
+                for (int i = 0; i < length; i++)
+                {
+                    value += numbers[i];
+                }
+                return value;
+            }
+            /// <summary>
+            /// 最小值
+            /// </summary>
+            public static float Min(params float[] numbers)
+            {
+                float value;
+
+                int length = numbers != null ? numbers.Length : 0;
+
+                value = length > 0 ? numbers[0] : 0;
+
+                for (int i = 1; i < length; i++)
+                {
+                    if (value > numbers[i])
+                    {
+                        value = numbers[i];
+                    }
+                }
+                return value;
+            }
+            /// <summary>
+            /// 最大值
+            /// </summary>
+            public static float Max(params float[] numbers)
+            {
+                float value;
+
+                int length = numbers != null ? numbers.Length : 0;
+
+                value = length > 0 ? numbers[0] : 0;
+
+                for (int i = 1; i < length; i++)
+                {
+                    if (value < numbers[i])
+                    {
+                        value = numbers[i];
+                    }
+                }
+                return value;
+            }
+            /// <summary>
+            /// 平均数
+            /// </summary>
+            public static float Average(params float[] numbers)
+            {
+                float value = 0;
+
+                int length = numbers != null ? numbers.Length : 0;
+
+                for (int i = 0; i < length; i++)
+                {
+                    value += numbers[i];
+                }
+
+                if (value > 1)
+                {
+                    return value / length;
+                }
+                return value;
             }
         }
     }

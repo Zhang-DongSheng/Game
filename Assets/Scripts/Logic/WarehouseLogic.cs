@@ -97,10 +97,5 @@ namespace Game
 
         }
         #endregion
-
-        public static PropInformation PropInformation(int ID)
-        {
-            return null;
-        }
     }
 }

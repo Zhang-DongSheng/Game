@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Game.Resource
@@ -53,7 +54,22 @@ namespace Game.Resource
 
         public void LoadAsync(string path, Action<AssetsData> callback)
         {
-            LoadAssetsDependencies(path);
+            GameController.Instance.StartCoroutine(LoadAssetsAsync(path, callback));
+        }
+
+        public void Unload(string path)
+        {
+
+        }
+
+        private void LoadAssetsDependencies(string path)
+        {
+
+        }
+
+        private IEnumerator LoadAssetsAsync(string path, Action<AssetsData> callback)
+        {
+            yield return LoadAssetsDependenciesAsync(path);
 
             if (caches.ContainsKey(path))
             {
@@ -61,18 +77,13 @@ namespace Game.Resource
             }
             else
             {
-                GameController.Instance.StartCoroutine(loader.LoadAssetsAsync(path, callback));
+                yield return loader.LoadAssetsAsync(path, callback);
             }
         }
 
-        private void LoadAssetsDependencies(string path)
-        { 
-            
-        }
-
-        public void Unload()
-        { 
-            
+        private IEnumerator LoadAssetsDependenciesAsync(string path)
+        {
+            yield return null;
         }
     }
 }

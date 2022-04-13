@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
@@ -23,6 +22,19 @@ namespace Game
             value = Mathf.Clamp(value, min, max);
 
             return value;
+        }
+        /// <summary>
+        /// 进度
+        /// </summary>
+        public static float Progress(this float value, float max, float min = 0)
+        {
+            float interval = max - min;
+
+            if (interval == 0) return 0;
+
+            value -= min;
+
+            return value / interval;
         }
         /// <summary>
         /// 求和
@@ -61,95 +73,11 @@ namespace Game
             return Math.Abs(from - to);
         }
         /// <summary>
-        /// 数字处理
-        /// </summary>
-        public static float Command(IEnumerable<float> source, NumberCommand command)
-        {
-            float result = 0;
-
-            int index = 0;
-
-            var enumerator = source.GetEnumerator();
-
-            switch (command)
-            {
-                case NumberCommand.Sum:
-                    {
-                        while (enumerator.MoveNext())
-                        {
-                            result += enumerator.Current;
-                        }
-                    }
-                    break;
-                case NumberCommand.Min:
-                    {
-                        while (enumerator.MoveNext())
-                        {
-                            if (index++ == 0)
-                            {
-                                result = enumerator.Current;
-                            }
-                            else if (result > enumerator.Current)
-                            {
-                                result = enumerator.Current;
-                            }
-                        }
-                    }
-                    break;
-                case NumberCommand.Max:
-                    {
-                        while (enumerator.MoveNext())
-                        {
-                            if (index++ == 0)
-                            {
-                                result = enumerator.Current;
-                            }
-                            else if (result < enumerator.Current)
-                            {
-                                result = enumerator.Current;
-                            }
-                        }
-                    }
-                    break;
-            }
-            enumerator.Dispose();
-
-            return result;
-        }
-        /// <summary>
         /// 保留指定小数位
         /// </summary>
         public static float Round(float value, int digit)
         {
             return (float)Math.Round(value, digit);
         }
-        /// <summary>
-        /// 转化为角度区间
-        /// </summary>
-        public static float Angle(this float number)
-        {
-            if (number > 360)
-            {
-                while (number > 360)
-                {
-                    number -= 360;
-                }
-            }
-            else if (number < -360)
-            {
-                while (number < -360)
-                {
-                    number += 360;
-                }
-            }
-            return number;
-        }
-    }
-
-    public enum NumberCommand
-    {
-        Sum,
-        Min,
-        Max,
     }
 }
