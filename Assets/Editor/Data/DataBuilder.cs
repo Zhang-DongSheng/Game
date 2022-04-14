@@ -9,35 +9,42 @@ namespace UnityEditor
         public const string PATH = "Assets/Package/Data";
 
         #region Create
-        [MenuItem("Data/Create/Language")]
-        protected static void Create_Language()
+        [MenuItem("Data/Create/Text")]
+        protected static void Create_Text()
         {
-            Create<DataText>("Language");
+            Create<DataText>();
+        }
+        [MenuItem("Data/Create/Atlas")]
+        protected static void Create_Atlas()
+        {
+            Create<DataAtlas>();
         }
         [MenuItem("Data/Create/Currency")]
         protected static void Create_Currency()
         {
-            Create<DataCurrency>("Currency");
+            Create<DataCurrency>();
         }
         [MenuItem("Data/Create/Prop")]
         protected static void Create_Prop()
         {
-            Create<DataProp>("Prop");
+            Create<DataProp>();
         }
         [MenuItem("Data/Create/Task")]
         protected static void Create_Task()
         {
-            Create<DataTask>("Task");
+            Create<DataTask>();
         }
         [MenuItem("Data/Create/Bone")]
         protected static void Create_Bone()
         {
-            Create<DataBone>("Bone");
+            Create<DataBone>();
         }
         #endregion
 
-        protected static void Create<T>(string file) where T : ScriptableObject
+        protected static void Create<T>() where T : ScriptableObject
         {
+            string file = typeof(T).Name;
+
             string path = string.Format("{0}/{1}.asset", PATH, file);
 
             if (AssetDatabase.LoadAssetAtPath(path, typeof(Object))) return;
@@ -52,19 +59,6 @@ namespace UnityEditor
             AssetDatabase.CreateAsset(script, path);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-        }
-
-        public static void Load<T>(string path, out T asset) where T : ScriptableObject
-        {
-            asset = AssetDatabase.LoadAssetAtPath<T>(path);
-
-            if (asset == null)
-            {
-                asset = ScriptableObject.CreateInstance<T>();
-                AssetDatabase.CreateAsset(asset, path);
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
-            }
         }
     }
 }

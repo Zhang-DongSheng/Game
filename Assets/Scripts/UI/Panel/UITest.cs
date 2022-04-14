@@ -55,8 +55,8 @@ namespace Game.UI
                     title = "XXX",
                     currencies = new List<Currency>()
                     {
-                        new Currency(CurrencyType.Gold,999),
-                        new Currency(CurrencyType.Diamond,10),
+                        new Currency(CurrencyEnum.Gold,999),
+                        new Currency(CurrencyEnum.Diamond,10),
                     },
                     props = new List<Prop>()
                     {

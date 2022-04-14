@@ -5,13 +5,15 @@ using Data;
 
 namespace Game.UI
 {
-    public class UIShopBase : ItemBase
+    public abstract class UIShopBase : ItemBase
     {
-        [SerializeField] private ParentAndPrefab prefab;
+        [SerializeField] protected CounterEnum counter;
 
-        private readonly List<ItemCommodity> commodities = new List<ItemCommodity>();
+        [SerializeField] protected ParentAndPrefab prefab;
 
-        public virtual void Refresh(Cabinet cabinet)
+        protected readonly List<ItemCommodity> commodities = new List<ItemCommodity>();
+
+        public virtual void Refresh(Counter cabinet)
         {
             int count = cabinet.commodities.Count;
 
@@ -27,6 +29,11 @@ namespace Game.UI
             {
                 commodities[i].SetActive(false);
             }
+        }
+
+        public bool Equal(CounterEnum counter)
+        {
+            return this.counter == counter;
         }
     }
 }

@@ -33,9 +33,11 @@ namespace Data
 
         public string icon;
 
-        public int source;
+        public Quality quality;
 
         public float price;
+
+        public int source;
 
         public string description;
     }

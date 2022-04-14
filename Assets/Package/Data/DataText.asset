@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32aab119162d262499cfd1a770b3ed0b, type: 3}
-  m_Name: Language
+  m_Script: {fileID: 11500000, guid: 1e0f59d3ad2c36f4e9acd417e89f2c36, type: 3}
+  m_Name: DataText
   m_EditorClassIdentifier: 
   dictionaries:
   - language: 0
-    icon: {fileID: 0}
+    icon: 
     font: {fileID: 0}
     words: []

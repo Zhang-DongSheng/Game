@@ -1,4 +1,4 @@
-using System.Collections;
+using Data;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,7 +25,7 @@ namespace Game.UI
 
         public void Refresh(int index)
         {
-            UIShopBase shop = shops.Find(x => x.enabled);
+            UIShopBase shop = shops.Find(x => x.Equal((CounterEnum)index));
 
             if (shop != null)
             {

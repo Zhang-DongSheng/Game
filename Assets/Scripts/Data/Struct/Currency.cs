@@ -6,11 +6,11 @@ namespace Data
 {
     public class Currency
     {
-        public CurrencyType currency;
+        public CurrencyEnum currency;
 
         public int number;
 
-        public Currency(CurrencyType currency, int number)
+        public Currency(CurrencyEnum currency, int number)
         {
             this.currency = currency;
 
@@ -20,7 +20,7 @@ namespace Data
     /// <summary>
     /// ªı±“÷÷¿‡
     /// </summary>
-    public enum CurrencyType
+    public enum CurrencyEnum
     {
         Gold,
         Diamond,

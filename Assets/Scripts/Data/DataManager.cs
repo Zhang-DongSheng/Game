@@ -43,7 +43,11 @@ namespace Data
                 {
                     ResourceManager.LoadAsync(string.Format("Data/{0}.asset", key), (value) =>
                     {
-                        m_data.Add(key, value as T); action?.Invoke(m_data[key] as T);
+                        if (!m_data.ContainsKey(key))
+                        {
+                            m_data.Add(key, value as T);
+                        }
+                        action?.Invoke(m_data[key] as T);
                     });
                 }
                 catch (Exception e)

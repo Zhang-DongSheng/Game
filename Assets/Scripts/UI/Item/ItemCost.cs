@@ -12,6 +12,8 @@ namespace Game.UI
 
         public void Refresh(Cost cost)
         {
+            if (cost == null) return;
+
             switch (cost.consume)
             {
                 default:

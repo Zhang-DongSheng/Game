@@ -45,7 +45,7 @@ namespace Game
         
 
         #region Function
-        public void RenovateCurrency(CurrencyType currency, int number)
+        public void RenovateCurrency(CurrencyEnum currency, int number)
         {
             if (_currencies.Exists(x => x.currency == currency))
             {

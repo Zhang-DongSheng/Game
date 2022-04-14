@@ -5,26 +5,28 @@ namespace Game
 {
     public class ShopLogic : Singleton<ShopLogic>, ILogic
     {
-        private readonly List<Cabinet> cabinets = new List<Cabinet>();
+        private readonly List<Counter> cabinets = new List<Counter>();
 
         public void Init()
         {
             NetworkEventManager.Register(NetworkEventKey.Shop, OnReceivedInformation);
         }
 
-        public Cabinet Get(int index)
+        public Counter Get(int index)
         {
-            return new Cabinet()
+            return new Counter()
             {
                 commodities = new List<Commodity>()
                 {
                     new Commodity()
                     {
                         props = new List<Prop>()
-                        { 
+                        {
                             new Prop()
-                            { 
-                                
+                            {
+                                identification = 1001,
+                                number = 1,
+                                parallelism = UnityEngine.Random.Range(0,4),
                             }
                         }
                     }

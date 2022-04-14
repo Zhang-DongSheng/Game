@@ -17,7 +17,9 @@ namespace Game.UI
 
             if (info != null)
             {
-                SpriteManager.Instance.SetSprite(m_prop.imgQuality, info.icon);
+                SpriteManager.Instance.SetSprite(m_prop.imgIcon, info.icon);
+
+                SpriteManager.Instance.SetSprite(m_prop.imgQuality, info.quality);
 
                 TextManager.Instance.SetString(m_prop.txtName, info.name);
 
@@ -32,7 +34,9 @@ namespace Game.UI
 
             if (info != null)
             {
-                SpriteManager.Instance.SetSprite(m_prop.imgQuality, info.icon);
+                SpriteManager.Instance.SetSprite(m_prop.imgIcon, info.icon);
+
+                SpriteManager.Instance.SetSprite(m_prop.imgQuality, info.quality);
 
                 TextManager.Instance.SetString(m_prop.txtName, info.name);
 
@@ -40,7 +44,6 @@ namespace Game.UI
             }
             SetActive(true);
         }
-
         [System.Serializable]
         class UIPropBase
         {

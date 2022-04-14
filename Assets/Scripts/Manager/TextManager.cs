@@ -39,7 +39,14 @@ namespace Game
                     {
                         dictionary = asset.dictionaries.Find(x => x.language == Language.Chinese);
 
-                        SetString(component, dictionary.Word(content), false);
+                        if (dictionary != null)
+                        {
+                            SetString(component, dictionary.Word(content), false);
+                        }
+                        else
+                        {
+                            SetString(component, content, false);
+                        }
                     });
                 }
             }
