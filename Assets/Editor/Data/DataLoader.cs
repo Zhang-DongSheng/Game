@@ -14,7 +14,7 @@ namespace UnityEditor
         {
             DataText data = Load<DataText>();
 
-            data.dictionaries.Clear();
+            data.words.Clear();
 
             AssetDatabase.SaveAssets(); AssetDatabase.Refresh();
         }

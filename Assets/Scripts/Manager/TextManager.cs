@@ -5,9 +5,7 @@ namespace Game
 {
     public static class TextManager
     {
-        private static Language language = Language.Chinese;
-
-        private static Dictionary dictionary;
+        private static DataText dictionary;
 
         public static void SetString(Text component, int value)
         {
@@ -34,9 +32,7 @@ namespace Game
                 }
                 else
                 {
-                    DataText data = DataManager.Instance.Load<DataText>();
-
-                    dictionary = data.dictionaries.Find(x => x.language == TextManager.language);
+                    dictionary = DataManager.Instance.Load<DataText>();
 
                     if (dictionary != null)
                     {

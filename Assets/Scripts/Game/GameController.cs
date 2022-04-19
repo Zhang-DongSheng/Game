@@ -10,7 +10,7 @@ namespace Game
 
         private void Awake()
         {
-            Resource.ResourceManager.Initialize(Resource.LoadType.AssetDatabase);
+            Resource.ResourceManager.Initialize(Resource.LoadType.AssetBundle);
 
             ScheduleLogic.Instance.Init();
 

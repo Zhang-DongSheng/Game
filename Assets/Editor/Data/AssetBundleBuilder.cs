@@ -92,7 +92,7 @@ namespace UnityEditor.Window
 
         private void UpdateAssetBundleFolder()
         {
-            string path = AssetBundlePath + "/" + GameConfig.ArtPath;
+            string path = AssetBundlePath + "/" + GameConfig.Resource;
 
             folder_assetbundle.Clear();
 
@@ -397,7 +397,7 @@ namespace UnityEditor.Window
             {
                 DirectoryInfo root = new DirectoryInfo(path);
 
-                foreach (FileInfo file in root.GetFiles())
+                foreach (FileInfo file in root.GetFiles("*.*", SearchOption.AllDirectories))
                 {
                     if (!IgnoreExtensionList.Contains(file.Extension))
                     {
@@ -658,7 +658,7 @@ namespace UnityEditor.Window
         {
             get
             {
-                return Application.dataPath + "/" + GameConfig.ArtPath;
+                return Application.dataPath + "/" + GameConfig.Resource;
             }
         }
 

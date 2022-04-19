@@ -16,7 +16,7 @@ public class GameConfig
 
     public const string AssetBundlePath = "AssetBundle";
 
-    public const string ArtPath = "Art";
+    public const string Resource = "Package";
 
     public const string History = "history.txt";
 
