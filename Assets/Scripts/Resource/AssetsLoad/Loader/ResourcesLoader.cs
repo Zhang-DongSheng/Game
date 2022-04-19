@@ -7,13 +7,13 @@ namespace Game.Resource
 {
     public class ResourcesLoader : Loader
     {
-        public override AssetsData LoadAssets(string path)
+        public override AssetsResponse LoadAssets(string path)
         {
             Object asset = Resources.Load(path);
 
             if (asset != null)
             {
-                return new AssetsData(path)
+                return new AssetsResponse(path)
                 {
                     Assets = new Object[] { asset }
                 };
@@ -21,7 +21,7 @@ namespace Game.Resource
             return null;
         }
 
-        public override IEnumerator LoadAssetsAsync(string path, Action<AssetsData> callback)
+        public override IEnumerator LoadAssetsAsync(string path, Action<AssetsResponse> callback)
         {
             ResourceRequest request = Resources.LoadAsync(path);
             
@@ -29,7 +29,7 @@ namespace Game.Resource
 
             if (request.asset != null)
             {
-                callback?.Invoke(new AssetsData(path)
+                callback?.Invoke(new AssetsResponse(path)
                 {
                     Assets = new Object[] { request.asset }
                 });

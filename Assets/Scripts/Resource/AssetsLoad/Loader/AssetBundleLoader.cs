@@ -6,7 +6,7 @@ namespace Game.Resource
 {
     public class AssetBundleLoader : Loader
     {
-        public override AssetsData LoadAssets(string path)
+        public override AssetsResponse LoadAssets(string path)
         {
             if (Application.platform == RuntimePlatform.Android)
             {
@@ -17,14 +17,14 @@ namespace Game.Resource
 
             if (bundel == null) return null;
 
-            return new AssetsData(path)
+            return new AssetsResponse(path)
             {
                 AssetBundle = bundel,
                 Assets = bundel.LoadAllAssets(),
             };
         }
 
-        public override IEnumerator LoadAssetsAsync(string path, Action<AssetsData> callback)
+        public override IEnumerator LoadAssetsAsync(string path, Action<AssetsResponse> callback)
         {
             AssetBundleCreateRequest create = AssetBundle.LoadFromFileAsync(path);
 
@@ -36,7 +36,7 @@ namespace Game.Resource
 
             yield return request;
 
-            callback?.Invoke(new AssetsData(path)
+            callback?.Invoke(new AssetsResponse(path)
             {
                 AssetBundle = bundel,
                 Assets = request.allAssets,

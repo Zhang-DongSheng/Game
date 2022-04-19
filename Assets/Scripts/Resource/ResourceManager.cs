@@ -30,7 +30,7 @@ namespace Game.Resource
         {
             string path = ResourceConfig.Path(type, name);
 
-            AssetsData assets = controller.Load(path);
+            AssetsResponse assets = controller.Load(path);
 
             if (assets != null)
             {
@@ -43,7 +43,7 @@ namespace Game.Resource
         {
             string path = ResourceConfig.Path(type, name);
 
-            AssetsData assets = controller.Load(path);
+            AssetsResponse assets = controller.Load(path);
 
             if (assets != null)
             {

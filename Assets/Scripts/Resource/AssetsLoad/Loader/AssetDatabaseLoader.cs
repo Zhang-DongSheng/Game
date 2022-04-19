@@ -8,13 +8,13 @@ namespace Game.Resource
 #if UNITY_EDITOR
     public class AssetDatabaseLoader : Loader
     {
-        public override AssetsData LoadAssets(string path)
+        public override AssetsResponse LoadAssets(string path)
         {
             Object asset = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(path);
 
             if (asset != null)
             {
-                return new AssetsData(path)
+                return new AssetsResponse(path)
                 {
                     Assets = new Object[] { asset }
                 };
@@ -22,13 +22,13 @@ namespace Game.Resource
             return null;
         }
 
-        public override IEnumerator LoadAssetsAsync(string path, Action<AssetsData> callback)
+        public override IEnumerator LoadAssetsAsync(string path, Action<AssetsResponse> callback)
         {
             Object asset = UnityEditor.AssetDatabase.LoadMainAssetAtPath(path);
 
             if (asset != null)
             {
-                callback?.Invoke(new AssetsData(path)
+                callback?.Invoke(new AssetsResponse(path)
                 {
                     Assets = new Object[] { asset }
                 });

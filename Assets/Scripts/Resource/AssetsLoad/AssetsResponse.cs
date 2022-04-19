@@ -4,7 +4,7 @@ using UnityEngine.Profiling;
 
 namespace Game.Resource
 {
-    public class AssetsData
+    public class AssetsResponse
     {
         public string name;
 
@@ -57,7 +57,7 @@ namespace Game.Resource
             }
         }
 
-        public AssetsData(string path)
+        public AssetsResponse(string path)
         {
             this.name = Path.GetFileNameWithoutExtension(path);
 

@@ -5,9 +5,9 @@ namespace Game.Resource
 {
     public abstract class Loader
     {
-        public abstract AssetsData LoadAssets(string path);
+        public abstract AssetsResponse LoadAssets(string path);
 
-        public abstract IEnumerator LoadAssetsAsync(string path, Action<AssetsData> callback);
+        public abstract IEnumerator LoadAssetsAsync(string path, Action<AssetsResponse> callback);
 
         public virtual bool ExistDependencies(string name) { return false; }
 

@@ -6,9 +6,13 @@ namespace Game.Resource
 {
     public class AssetsController
     {
-        private readonly Dictionary<string, AssetsData> caches = new Dictionary<string, AssetsData>();
+        private readonly Dictionary<string, AssetsResponse> caches = new Dictionary<string, AssetsResponse>();
+
+        private readonly List<AssetsRequest> requests = new List<AssetsRequest>();
 
         private Loader loader;
+
+        private int loading;
 
         public AssetsController(LoadType type, bool cache = false)
         {
@@ -32,7 +36,7 @@ namespace Game.Resource
             }
         }
 
-        public AssetsData Load(string path)
+        public AssetsResponse Load(string path)
         {
             LoadAssetsDependencies(path);
 
@@ -42,7 +46,7 @@ namespace Game.Resource
             }
             else
             {
-                AssetsData assets = loader.LoadAssets(path);
+                AssetsResponse assets = loader.LoadAssets(path);
 
                 if (assets != null)
                 {
@@ -52,9 +56,26 @@ namespace Game.Resource
             }
         }
 
-        public void LoadAsync(string path, Action<AssetsData> callback)
+        public void LoadAsync(string path, Action<AssetsResponse> callback)
         {
-            GameController.Instance.StartCoroutine(LoadAssetsAsync(path, callback));
+            AssetsRequest request = requests.Find(x => x.path == path);
+
+            if (request != null)
+            {
+                request.callback += callback;
+
+                UnityEngine.Debug.LogError(path + request.callback.GetInvocationList().Length);
+            }
+            else
+            {
+                requests.Add(new AssetsRequest()
+                {
+                    path = path,
+                    callback = callback,
+                    status = RequestStatus.Ready,
+                });
+                LoadAssetsAsync();
+            }
         }
 
         public void Unload(string path)
@@ -67,17 +88,70 @@ namespace Game.Resource
 
         }
 
-        private IEnumerator LoadAssetsAsync(string path, Action<AssetsData> callback)
+        private void LoadAssetsAsync()
         {
-            yield return LoadAssetsDependenciesAsync(path);
+            loading = 0;
 
-            if (caches.ContainsKey(path))
+            int count = requests.Count;
+
+            for (int i = count - 1; i > -1; i--)
             {
-                callback?.Invoke(caches[path]);
+                switch (requests[i].status)
+                {
+                    case RequestStatus.Loading:
+                        loading++;
+                        break;
+                    case RequestStatus.Complete:
+                        requests.RemoveAt(i);
+                        break;
+                }
+            }
+
+            if (loading >= 3) return;
+
+            count = requests.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                switch (requests[i].status)
+                {
+                    case RequestStatus.Ready:
+                        {
+                            GameController.Instance.StartCoroutine(LoadAssetsAsync(requests[i]));
+                            loading++;
+                        }
+                        break;
+                }
+                if (loading >= 3) break;
+            }
+        }
+
+        private IEnumerator LoadAssetsAsync(AssetsRequest request)
+        {
+            request.status = RequestStatus.Loading;
+
+            yield return LoadAssetsDependenciesAsync(request.path);
+
+            if (caches.ContainsKey(request.path))
+            {
+                request.callback?.Invoke(caches[request.path]);
+
+                request.status = RequestStatus.Complete;
+
+                LoadAssetsAsync();
             }
             else
             {
-                yield return loader.LoadAssetsAsync(path, callback);
+                yield return loader.LoadAssetsAsync(request.path, (response) =>
+                {
+                    caches.Add(request.path, response);
+
+                    request.callback?.Invoke(response);
+
+                    request.status = RequestStatus.Complete;
+
+                    LoadAssetsAsync();
+                });
             }
         }
 

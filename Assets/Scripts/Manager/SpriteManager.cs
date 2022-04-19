@@ -45,7 +45,7 @@ namespace Game
                     {
                         SetSprite(image, atlas.GetSprite(name));
                     }
-                    Add(information.path, atlas);
+                    Add(information.name, atlas);
                 });
             }
         }
@@ -81,7 +81,7 @@ namespace Game
                     {
                         SetSprite(image, texture);
                     }
-                    Add(information.path, texture);
+                    Add(information.name, texture);
                 });
             }
         }
@@ -117,7 +117,7 @@ namespace Game
                     {
                         SetSprite(renderer, sprite);
                     }
-                    Add(information.path, sprite);
+                    Add(information.name, sprite);
                 });
             }
         }
