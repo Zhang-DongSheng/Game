@@ -18,18 +18,25 @@ namespace Game.UI
 
         private void Start()
         {
-            tab.Refresh(new int[5] { 1, 2, 3, 4, 5 });
+            tab.Refresh(new int[3] { 0, 1, 2 });
 
             Refresh(0);
         }
 
         public void Refresh(int index)
         {
-            UIShopBase shop = shops.Find(x => x.Equal((CounterEnum)index));
+            UIShopBase shop = shops.Find(x => x.Equal((CounterCategory)index));
 
             if (shop != null)
             {
-                shop.Refresh(ShopLogic.Instance.Get(index));
+                shop.Refresh(ShopLogic.Instance.Get((CounterCategory)index));
+            }
+
+            int count = shops.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                shops[i].SetActive(shops[i].Equal((CounterCategory)index));
             }
         }
 

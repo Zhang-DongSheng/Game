@@ -1,3 +1,5 @@
+using Game.Resource;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,48 +9,54 @@ namespace Game
     {
         private readonly List<ScheduleData> schedule = new List<ScheduleData>();
 
+        public Action<float> onValueChanged;
+
+        public Action onCompleted;
+
         public float progress { get; private set; }
 
-        public void Init() { }
-
-        public void Ready()
-        {
-            Add(Schedule.Config);
-            Add(Schedule.Language);
-            Add(Schedule.BlockedText);
-        }
+        public void Init() { Ready(); Begin(); }
 
         public void Enter()
         {
-            Add(Schedule.Shop);
-
             User();
 
             Today();
+
+            Begin();
         }
 
-        public void User()
+        private void User()
         {
             Add(Schedule.Bag);
             Add(Schedule.Mail);
             Add(Schedule.Reddot);
         }
 
-        public void Today()
+        private void Today()
         {
+            Add(Schedule.Shop);
             Add(Schedule.Activity);
         }
 
-        public void Begin()
+        private void Ready()
+        {
+            Add(Schedule.Config);
+            Add(Schedule.Resource);
+            Add(Schedule.Language);
+            Add(Schedule.BlockedText);
+        }
+
+        private void Begin()
         {
             Update(Schedule.Count);
         }
 
-        public void Add(Schedule key)
+        private void Add(Schedule key)
         {
             if (schedule.Exists(a => a.key == key)) return;
 
-            schedule.Add(new ScheduleData() { key = key, status = ScheduleStatus.Idle });
+            schedule.Add(new ScheduleData() { key = key, status = ScheduleStatus.Ready });
         }
 
         public void Update(Schedule key, ScheduleStatus status = ScheduleStatus.Complete)
@@ -67,7 +75,7 @@ namespace Game
 
             foreach (var sc in schedule)
             {
-                if (sc.status == ScheduleStatus.Idle)
+                if (sc.status == ScheduleStatus.Ready)
                 {
                     Next(sc.key);
                     break;
@@ -88,6 +96,36 @@ namespace Game
 
             switch (key)
             {
+                case Schedule.Config:
+                    Update(Schedule.Config);
+                    break;
+                case Schedule.Resource:
+                    Update(Schedule.Resource);
+                    break;
+                case Schedule.Language:
+                    Update(Schedule.Language);
+                    break;
+                case Schedule.BlockedText:
+                    Update(Schedule.BlockedText);
+                    break;
+                case Schedule.Bag:
+                    Update(Schedule.Bag);
+                    break;
+                case Schedule.Mail:
+                    Update(Schedule.Mail);
+                    break;
+                case Schedule.Reddot:
+                    Update(Schedule.Reddot);
+                    break;
+                case Schedule.Shop:
+                    Update(Schedule.Shop);
+                    break;
+                case Schedule.Activity:
+                    Update(Schedule.Activity);
+                    break;
+                case Schedule.Count:
+                    Update(Schedule.Count, ScheduleStatus.Complete);
+                    break;
                 default:
                     Debug.LogErrorFormat("Can't has the schedule : [{0}]", key);
                     break;
@@ -126,7 +164,7 @@ namespace Game
 
     public enum ScheduleStatus
     {
-        Idle,
+        Ready,
         Execute,
         Complete,
     }
@@ -138,6 +176,10 @@ namespace Game
         /// </summary>
         Config,
         /// <summary>
+        /// 资源
+        /// </summary>
+        Resource,
+        /// <summary>
         /// 语言包
         /// </summary>
         Language,
@@ -145,10 +187,6 @@ namespace Game
         /// 屏蔽字
         /// </summary>
         BlockedText,
-        /// <summary>
-        /// 商店
-        /// </summary>
-        Shop,
         /// <summary>
         /// 邮箱【个人相关】
         /// </summary>
@@ -161,6 +199,10 @@ namespace Game
         /// 红点【个人相关】
         /// </summary>
         Reddot,
+        /// <summary>
+        /// 商店
+        /// </summary>
+        Shop,
         /// <summary>
         /// 活动
         /// </summary>

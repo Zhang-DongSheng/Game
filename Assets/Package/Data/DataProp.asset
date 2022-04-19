@@ -16,30 +16,40 @@ MonoBehaviour:
   - identification: 0
     name: Prop_A
     icon: "\u4F11\u95F2\u88E4"
-    source: 0
+    quality: 1
+    category: 1
     price: 1
+    source: 0
     description: Prop_A ...
   - identification: 1
     name: Prop_B
     icon: "\u5305\u81C0\u88D9"
-    source: 0
+    quality: 1
+    category: 0
     price: 1
+    source: 3
     description: Prop_B ...
   - identification: 2
     name: Prop_C
     icon: "\u5C0F\u897F\u670D"
-    source: 0
+    quality: 3
+    category: 3
     price: 1
+    source: 0
     description: Prop_B ...
   - identification: 3
     name: Prop_D
     icon: "\u65D7\u888D"
-    source: 0
+    quality: 6
+    category: 1
     price: 1
+    source: 0
     description: Prop_B ...
   - identification: 4
     name: Prop_E
     icon: "\u8D85\u77ED\u88E4"
-    source: 0
+    quality: 0
+    category: 0
     price: 1
+    source: 0
     description: Prop_B ...

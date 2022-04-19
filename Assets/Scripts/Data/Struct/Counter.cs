@@ -2,12 +2,9 @@ using System.Collections.Generic;
 
 namespace Data
 {
-    /// <summary>
-    /// 柜台 - 售卖商品
-    /// </summary>
     public class Counter
     {
-        public CounterEnum counter;
+        public CounterCategory category;
 
         public string name;
 
@@ -16,10 +13,10 @@ namespace Data
         public List<Commodity> commodities;
     }
 
-    public enum CounterEnum
+    public enum CounterCategory
     {
-        Recharge,
         Sell,
         Package,
+        Recharge,
     }
 }

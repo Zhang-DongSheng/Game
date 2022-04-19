@@ -35,6 +35,8 @@ namespace Data
 
         public Quality quality;
 
+        public int category;
+
         public float price;
 
         public int source;

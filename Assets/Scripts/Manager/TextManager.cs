@@ -1,31 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using Data;
+using UnityEngine.UI;
 
 namespace Game
 {
-    public class TextManager : Singleton<TextManager>
+    public static class TextManager
     {
-        private Dictionary dictionary;
+        private static Language language = Language.Chinese;
 
-        public void SetString(Text component, int value)
+        private static Dictionary dictionary;
+
+        public static void SetString(Text component, int value)
         {
             SetString(component, string.Format("{0}", value), false);
         }
 
-        public void SetString(Text component, float value)
+        public static void SetString(Text component, float value)
         {
             SetString(component, string.Format("{0}", value), false);
         }
 
-        public void SetString(Text component, long value)
+        public static void SetString(Text component, long value)
         {
             SetString(component, string.Format("{0}", value), false);
         }
 
-        public void SetString(Text component, string content, bool language = true)
+        public static void SetString(Text component, string content, bool language = true)
         {
             if (language)
             {
@@ -35,19 +34,18 @@ namespace Game
                 }
                 else
                 {
-                    DataManager.Instance.LoadAsync<DataText>(asset =>
-                    {
-                        dictionary = asset.dictionaries.Find(x => x.language == Language.Chinese);
+                    DataText data = DataManager.Instance.Load<DataText>();
 
-                        if (dictionary != null)
-                        {
-                            SetString(component, dictionary.Word(content), false);
-                        }
-                        else
-                        {
-                            SetString(component, content, false);
-                        }
-                    });
+                    dictionary = data.dictionaries.Find(x => x.language == TextManager.language);
+
+                    if (dictionary != null)
+                    {
+                        SetString(component, dictionary.Word(content), false);
+                    }
+                    else
+                    {
+                        SetString(component, content, false);
+                    }
                 }
             }
             else
@@ -59,7 +57,7 @@ namespace Game
             }
         }
 
-        public void SetStringFormat(Text component, string format, params string[] parameter)
+        public static void SetStringFormat(Text component, string format, params string[] parameter)
         {
             string content = string.Format(format, parameter);
 

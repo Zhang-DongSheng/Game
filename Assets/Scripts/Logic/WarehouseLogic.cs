@@ -24,25 +24,41 @@ namespace Game
         public void Init()
         {
             NetworkEventManager.Register(NetworkEventKey.Warehouse, OnReceivedInformation);
+
+            DataProp data = DataManager.Instance.Load<DataProp>();
+
+            for (int i = 0; i < data.props.Count; i++)
+            {
+                _props.Add(new Prop()
+                {
+                    identification = i,
+                    number = 999,
+                    parallelism = data.props[i].identification
+                });
+            }
         }
 
         public List<Prop> Column(int index)
         {
             _column.Clear();
 
+            DataProp data = DataManager.Instance.Load<DataProp>();
+
+            PropInformation prop;
+
             int count = _props.Count;
 
             for (int i = 0; i < count; i++)
             {
-                //if (_props[i].parallelism)
-                //{
-                    
-                //}
+                prop = data.Get(_props[i].parallelism);
+
+                if (prop != null && prop.category == index)
+                {
+                    _column.Add(_props[i]);
+                }
             }
             return _column;
         }
-
-        
 
         #region Function
         public void RenovateCurrency(CurrencyEnum currency, int number)

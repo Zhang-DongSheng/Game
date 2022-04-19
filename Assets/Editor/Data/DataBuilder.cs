@@ -14,10 +14,10 @@ namespace UnityEditor
         {
             Create<DataText>();
         }
-        [MenuItem("Data/Create/Atlas")]
-        protected static void Create_Atlas()
+        [MenuItem("Data/Create/Sprite")]
+        protected static void Create_Sprite()
         {
-            Create<DataAtlas>();
+            Create<DataSprite>();
         }
         [MenuItem("Data/Create/Currency")]
         protected static void Create_Currency()

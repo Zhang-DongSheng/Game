@@ -20,5 +20,29 @@ namespace Game.UI
                     break;
             }
         }
+
+        private void RefreshCoinSprite(string name)
+        {
+            if (imgIcon != null)
+            {
+                SpriteManager.SetSprite(imgIcon, name);
+            }
+        }
+
+        private void RefreshNumberText(int value)
+        {
+            if (txtNumber != null)
+            {
+                txtNumber.text = string.Format("{0}", value);
+            }
+        }
+
+        private void RefreshNumberColor(Color color)
+        {
+            if (txtNumber != null)
+            {
+                txtNumber.color = color;
+            }
+        }
     }
 }

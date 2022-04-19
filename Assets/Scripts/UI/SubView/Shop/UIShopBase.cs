@@ -7,7 +7,7 @@ namespace Game.UI
 {
     public abstract class UIShopBase : ItemBase
     {
-        [SerializeField] protected CounterEnum counter;
+        [SerializeField] protected CounterCategory category;
 
         [SerializeField] protected ParentAndPrefab prefab;
 
@@ -31,9 +31,9 @@ namespace Game.UI
             }
         }
 
-        public bool Equal(CounterEnum counter)
+        public bool Equal(CounterCategory category)
         {
-            return this.counter == counter;
+            return this.category == category;
         }
     }
 }

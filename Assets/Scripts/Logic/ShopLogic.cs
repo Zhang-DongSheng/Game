@@ -12,13 +12,23 @@ namespace Game
             NetworkEventManager.Register(NetworkEventKey.Shop, OnReceivedInformation);
         }
 
-        public Counter Get(int index)
+        public Counter Get(CounterCategory category)
         {
-            return new Counter()
+            Counter counter = cabinets.Find(x => x.category == category);
+
+            if (counter == null)
             {
-                commodities = new List<Commodity>()
+                counter = new Counter()
                 {
-                    new Commodity()
+                    category = category,
+                    name = category.ToString(),
+                    time = -1,
+                    commodities = new List<Commodity>()
+                };
+
+                for (int i = 0; i < UnityEngine.Random.Range(5, 20); i++)
+                {
+                    counter.commodities.Add(new Commodity()
                     {
                         props = new List<Prop>()
                         {
@@ -29,9 +39,11 @@ namespace Game
                                 parallelism = UnityEngine.Random.Range(0,4),
                             }
                         }
-                    }
+                    });
                 }
-            };
+                cabinets.Add(counter);
+            }
+            return counter;
         }
 
         #region Request

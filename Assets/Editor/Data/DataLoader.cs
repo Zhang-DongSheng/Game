@@ -8,14 +8,24 @@ namespace UnityEditor
 {
     public class DataLoader : CustomWindow
     {
-        [MenuItem("Data/Load/Atlas")]
-        protected static void LoadDataAtlas()
+        #region 快捷方式
+        [MenuItem("Data/Load/Text")]
+        protected static void LoadDataText()
         {
-            DataAtlas data = Load<DataAtlas>();
+            DataText data = Load<DataText>();
+
+            data.dictionaries.Clear();
+
+            AssetDatabase.SaveAssets(); AssetDatabase.Refresh();
+        }
+        [MenuItem("Data/Load/Sprite")]
+        protected static void LoadDataSprite()
+        {
+            DataSprite data = Load<DataSprite>();
 
             data.atlases = new List<AtlasInformation>();
 
-            string[] guids = AssetDatabase.FindAssets("t:SpriteAtlas", new string[] { "Assets" });
+            string[] guids = AssetDatabase.FindAssets("t:SpriteAtlas", new string[] { "Assets/Package" });
 
             string path;
 
@@ -30,7 +40,7 @@ namespace UnityEditor
                     AtlasInformation atlas = new AtlasInformation()
                     {
                         name = asset.name,
-                        path = path,
+                        path = path.Replace("Assets/Package/", string.Empty),
                         sprites = new List<string>(asset.spriteCount),
                     };
 
@@ -47,15 +57,21 @@ namespace UnityEditor
             }
             AssetDatabase.SaveAssets(); AssetDatabase.Refresh();
         }
+        #endregion
+        [MenuItem("Data/Load/Editor", priority = 0)]
+        protected static void Open()
+        {
+            Open<DataLoader>("数据加载");
+        }
 
         protected override void Init()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         protected override void Refresh()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public static T Load<T>() where T : ScriptableObject
