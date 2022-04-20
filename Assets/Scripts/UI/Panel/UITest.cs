@@ -28,9 +28,7 @@ namespace Game.UI
 
         private void Start()
         {
-            GameController.Instance.model.Show();
-
-            image.texture = GameController.Instance.model.Texture;
+            
         }
 
         private void Update()
@@ -89,10 +87,6 @@ namespace Game.UI
 
         private void OnClick()
         {
-            //UIManager.Instance.Close(UIKey.UITest);
-
-            GameController.Instance.model.Hide();
-
             UIManager.Instance.Open(UIPanel.UILogin);
         }
 

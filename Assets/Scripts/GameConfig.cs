@@ -1,32 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Data;
+using Game.Resource;
 
 public class GameConfig
 {
     public const bool DEBUG = true;
 
-    public SystemLanguage language = SystemLanguage.Chinese;
+    public const Language Lang = Language.Chinese;
 
-    public const string LoginServerURL = "https://www.baidu.com/";
+    public const LoadType Load = LoadType.AssetDatabase;
 
-    public const string GameServerURL = "https://www.baidu.com/";
+    public const string ServerURL_Login = "https://www.baidu.com/";
 
-    public const string ResourceServerURL = "https://branchapptest-1302051570.cos.ap-beijing.myqcloud.com/";
+    public const string ServerURL_Game = "https://www.baidu.com/";
 
-    public const string AssetBundlePath = "AssetBundle";
+    public const string ServerURL_Resource = "https://branchapptest-1302051570.cos.ap-beijing.myqcloud.com/";
+
+    public const string AssetBundle = "AssetBundle";
 
     public const string Resource = "Package";
 
     public const string History = "history.txt";
-
 #if UNITY_EDITOR && UNITY_STANDALONE
-    public static string BuildTarget = "Window";
+    public const string BuildTarget = "Window";
 #elif UNITY_ANDROID
-    public static string BuildTarget = "Android";
+    public const string BuildTarget = "Android";
 #elif UNITY_IOS
-    public static string BuildTarget = "IOS";
+    public const string BuildTarget = "IOS";
 #else
-    public static string BuildTarget = "Unknow";
+    public const string BuildTarget = "Unknow";
 #endif
 }

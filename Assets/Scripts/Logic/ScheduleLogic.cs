@@ -99,7 +99,7 @@ namespace Game
                     Update(Schedule.Config);
                     break;
                 case Schedule.Resource:
-                    Update(Schedule.Resource);
+                    ResourceUpdate.Instance.Direction(GameConfig.Load);
                     break;
                 case Schedule.Language:
                     Update(Schedule.Language);

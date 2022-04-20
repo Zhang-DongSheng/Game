@@ -666,7 +666,7 @@ namespace UnityEditor.Window
         {
             get
             {
-                return string.Format("{0}{1}/{2}", Application.dataPath.Remove(Application.dataPath.Length - 6, 6), GameConfig.AssetBundlePath, GameConfig.BuildTarget);
+                return string.Format("{0}{1}/{2}", Application.dataPath.Remove(Application.dataPath.Length - 6, 6), GameConfig.AssetBundle, GameConfig.BuildTarget);
             }
         }
 

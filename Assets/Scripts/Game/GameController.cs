@@ -1,19 +1,12 @@
-﻿using Game.Model;
-using Game.UI;
+﻿using Game.UI;
 using UnityEngine;
 
 namespace Game
 {
     public class GameController : MonoSingleton<GameController>
     {
-        public ModelDisplay model;
-
         private void Awake()
         {
-            Resource.ResourceManager.Initialize(Resource.LoadType.AssetDatabase);
-
-            ScheduleLogic.Instance.Init();
-
             LoginLogic.Instance.Init();
 
             WarehouseLogic.Instance.Init();
@@ -28,6 +21,16 @@ namespace Game
 #if HOTFIX
             ILRuntimeLogic.Instance.Init();
 #endif
+            Resource.ResourceManager.Initialize(GameConfig.Load);
+
+            UIManager.Instance.Open(UIPanel.UILoading);
+
+            ScheduleLogic.Instance.callback = () =>
+            {
+                UIManager.Instance.CloseAll();
+                UIManager.Instance.Open(UIPanel.UILogin);
+            };
+            ScheduleLogic.Instance.Init();
         }
 
         private void Start()
@@ -37,21 +40,6 @@ namespace Game
             Application.runInBackground = true;
 
             Application.targetFrameRate = 60;
-
-            if (Application.isPlaying)
-            {
-                UIManager.Instance.Open(UI.UIPanel.UILogin);
-            }
-
-            if (model != null)
-            {
-                model.Hide();
-            }
-        }
-
-        private void Update()
-        {
-
         }
     }
 }

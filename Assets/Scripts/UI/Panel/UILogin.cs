@@ -27,6 +27,8 @@ namespace Game.UI
 
         private void Awake()
         {
+            Initialize();
+
             input_account.onValueChanged.AddListener(OnValueChangedAccount);
 
             input_password.onValueChanged.AddListener(OnValueChangedPassword);
@@ -36,8 +38,6 @@ namespace Game.UI
             tog_automatic.onValueChanged.AddListener(OnValueChangedAutomatic);
 
             btn_login.onClick.AddListener(OnClickLogin);
-
-            Initialize();
         }
 
         private void OnEnable()
@@ -67,11 +67,6 @@ namespace Game.UI
             tog_remember.isOn = remember;
 
             tog_automatic.isOn = automatic;
-
-            if (automatic)
-            {
-                OnClickLogin();
-            }
         }
 
         private void OnValueChangedAccount(string value)

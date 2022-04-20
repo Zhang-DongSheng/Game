@@ -1,20 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Game.Resource
 {
-    public class ResourceUpdate
+    public class ResourceUpdate : Singleton<ResourceUpdate>
     {
-        public static void Direction()
+        private readonly string History = string.Format("{0}/{1}/{2}/{3}", GameConfig.ServerURL_Resource, GameConfig.AssetBundle, GameConfig.BuildTarget, GameConfig.History);
+
+        private readonly List<Task> tasks = new List<Task>();
+
+        private int loading;
+
+        public void Direction(LoadType type)
         {
-            //Utility.MD5.ComputeFile()
+            if (type != LoadType.AssetBundle)
+            {
+                ScheduleLogic.Instance.Update(Schedule.Resource);
+            }
+            else
+            {
+                GameController.Instance.StartCoroutine(Download(History));
+            }
         }
 
-        IEnumerator Download(string path)
+        private IEnumerator Download(string url)
         {
-            UnityWebRequest request = UnityWebRequest.Get(ServerUrl(path));
+            UnityWebRequest request = UnityWebRequest.Get(url);
 
             yield return request.SendWebRequest();
 
@@ -27,11 +41,104 @@ namespace Game.Resource
                     break;
                 case UnityWebRequest.Result.Success:
                     {
-                        Write(LocalPath(path), request.downloadHandler.data);
+                        tasks.Clear();
+
+                        string content = Encoding.Default.GetString(request.downloadHandler.data);
+
+                        string[] lines = content.Split();
+
+                        for (int i = 0; i < lines.Length; i++)
+                        {
+                            if (!string.IsNullOrEmpty(lines[i]) && lines[i].Contains("|"))
+                            {
+                                string[] parameter = lines[i].Split('|');
+
+                                if (parameter.Length > 1)
+                                {
+                                    tasks.Add(new Task(parameter[0], parameter[1]));
+                                }
+                            }
+                        }
+                        Next();
                     }
                     break;
                 default:
                     {
+
+                    }
+                    break;
+            }
+        }
+
+        private void Next()
+        {
+            loading = 0;
+
+            int count = tasks.Count;
+
+            for (int i = count - 1; i > -1; i--)
+            {
+                switch (tasks[i].status)
+                {
+                    case Status.Loading:
+                        loading++;
+                        break;
+                    case Status.Complete:
+                        tasks.RemoveAt(i);
+                        break;
+                }
+            }
+
+            if (loading >= 3) return;
+
+            count = tasks.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                switch (tasks[i].status)
+                {
+                    case Status.Ready:
+                        {
+                            GameController.Instance.StartCoroutine(Download(tasks[i]));
+                            loading++;
+                        }
+                        break;
+                }
+                if (loading >= 3) break;
+            }
+
+            if (count == 0)
+            {
+                ScheduleLogic.Instance.Update(Schedule.Resource);
+            }
+        }
+
+        private IEnumerator Download(Task task)
+        {
+            task.status = Status.Loading;
+
+            UnityWebRequest request = UnityWebRequest.Get(task.url);
+
+            yield return request.SendWebRequest();
+
+            switch (request.result)
+            {
+                case UnityWebRequest.Result.InProgress:
+                    {
+
+                    }
+                    break;
+                case UnityWebRequest.Result.Success:
+                    {
+                        task.status = Status.Complete;
+
+                        Write(task.path, request.downloadHandler.data);
+                    }
+                    break;
+                default:
+                    {
+                        task.status = Status.Fail;
+
                         Debuger.LogError(Author.Resource, request.error);
                     }
                     break;
@@ -48,14 +155,44 @@ namespace Game.Resource
             Utility.Document.Write(path, buffer);
         }
 
-        private string ServerUrl(string path)
+        class Task
         {
-            return string.Format("{0}/{1}", GameConfig.ResourceServerURL, path);
-        }
+            public string key;
 
-        private string LocalPath(string path)
+            public string path;
+
+            public string url;
+
+            public string md5;
+
+            public Status status;
+
+            public Task(string key, string md5)
+            {
+                this.key = key;
+
+                path = string.Format("{0}/{1}", Application.persistentDataPath, path);
+
+                url = string.Format("{0}/{1}/{2}/{3}", GameConfig.ServerURL_Resource, GameConfig.AssetBundle, GameConfig.BuildTarget, path);
+
+                this.md5 = md5;
+
+                if (Utility.MD5.ComputeFile(path) != md5)
+                {
+                    status = Status.Ready;
+                }
+                else
+                {
+                    status = Status.Complete;
+                }
+            }
+        }
+        enum Status
         {
-            return string.Format("{0}/{1}", Application.persistentDataPath, path);
+            Ready,
+            Loading,
+            Fail,
+            Complete,
         }
     }
 }
