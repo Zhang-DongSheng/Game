@@ -1,4 +1,5 @@
 using Game.Resource;
+using Game.UI;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,11 +10,9 @@ namespace Game
     {
         private readonly List<ScheduleData> schedule = new List<ScheduleData>();
 
-        public Action<float> onValueChanged;
+        private float progress;
 
-        public Action onCompleted;
-
-        public float progress { get; private set; }
+        public Action callback;
 
         public void Init() { Ready(); Begin(); }
 
@@ -143,13 +142,22 @@ namespace Game
                     number++;
                 }
             }
-            int count = Mathf.Max(schedule.Count, 1);
+            int count = schedule.Count;
 
-            progress = number / (float)count;
-
-            if (number == schedule.Count)
+            if (count > 0)
             {
-                schedule.Clear();
+                progress = number / (float)count;
+
+                EventMessageArgs args = new EventMessageArgs();
+
+                args.AddOrReplace("progress", progress);
+
+                EventManager.Post(EventKey.Progress, args);
+            }
+
+            if (number == count)
+            {
+                schedule.Clear(); callback?.Invoke();
             }
         }
     }

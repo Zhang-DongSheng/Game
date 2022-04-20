@@ -1,18 +1,21 @@
+using Data;
 using UnityEngine;
 
 namespace Game
 {
-    public class UserLogic : Singleton<UserLogic>, ILogic
+    public class LoginLogic : Singleton<LoginLogic>, ILogic
     {
+        public User user { get; private set; }
+
         public void Init()
         {
             NetworkEventManager.Register(NetworkEventKey.User, OnReceivedInformation);
         }
 
         #region Request
-        public void RequestInformation()
+        public void RequestInformation(string account, string password)
         {
-
+            OnReceivedInformation(null);
         }
         #endregion
 
@@ -23,11 +26,7 @@ namespace Game
 
             args.AddOrReplace("status", true);
 
-            args.AddOrReplace("message", "");
-
             EventManager.Post(EventKey.Login, args);
-
-            ScheduleLogic.Instance.Enter();
         }
         #endregion
     }

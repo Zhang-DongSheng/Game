@@ -83,6 +83,20 @@ namespace Game
                 }
             }
 
+            public static void Write(string path, byte[] buffer)
+            {
+                try
+                {
+                    CreateDirectory(Path.GetDirectoryName(path));
+
+                    File.WriteAllBytes(path, buffer);
+                }
+                catch (Exception e)
+                {
+                    Debuger.LogException(Author.File, e);
+                }
+            }
+
             public static void WriteAppend(string path, params string[] content)
             {
                 if (File.Exists(path))

@@ -7,10 +7,6 @@ namespace Game.UI
 {
     public class UILogin : UIBase
     {
-        private const string ACCOUNT = "ACCOUNT";
-
-        private const string PASSWORD = "PASSWORD";
-
         private readonly Regex regexAccount = new Regex(@"^[A-Za-z0-9]{3,15}$");
 
         private readonly Regex regexPassword = new Regex(@"^.*(?=.{6,15})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$");
@@ -19,9 +15,15 @@ namespace Game.UI
 
         [SerializeField] private InputField input_password;
 
+        [SerializeField] private Toggle tog_remember;
+
+        [SerializeField] private Toggle tog_automatic;
+
         [SerializeField] private Button btn_login;
 
         private string account, password;
+
+        private bool remember, automatic;
 
         private void Awake()
         {
@@ -29,7 +31,13 @@ namespace Game.UI
 
             input_password.onValueChanged.AddListener(OnValueChangedPassword);
 
+            tog_remember.onValueChanged.AddListener(OnValueChangedRemember);
+
+            tog_automatic.onValueChanged.AddListener(OnValueChangedAutomatic);
+
             btn_login.onClick.AddListener(OnClickLogin);
+
+            Initialize();
         }
 
         private void OnEnable()
@@ -42,32 +50,27 @@ namespace Game.UI
             EventManager.Unregister(EventKey.Login, OnReceivedLogin);
         }
 
-        private void Start()
+        private void Initialize()
         {
-            input_account.text = GlobalVariables.Get<string>(ACCOUNT);
+            remember = GlobalVariables.Get<bool>(Const.REMEMBERPASSWORD);
 
-            input_password.text = GlobalVariables.Get<string>(PASSWORD);
-        }
+            automatic = GlobalVariables.Get<bool>(Const.AUTOMATICLOGIN);
 
-        private void OnReceivedLogin(EventMessageArgs args)
-        {
-            bool status = args.Get<bool>("status");
+            account = GlobalVariables.Get<string>(Const.ACCOUNT);
 
-            if (status)
+            password = GlobalVariables.Get<string>(Const.PASSWORD);
+
+            input_account.text = account;
+
+            input_password.text = password;
+
+            tog_remember.isOn = remember;
+
+            tog_automatic.isOn = automatic;
+
+            if (automatic)
             {
-                GlobalVariables.Set(ACCOUNT, account);
-
-                GlobalVariables.Set(PASSWORD, password);
-
-                UIManager.Instance.Open(UIPanel.UIMain, record: false);
-
-                UIManager.Instance.Close(UIPanel.UILogin);
-            }
-            else
-            {
-                string error = args.Get<string>("message");
-
-                UIQuickEntry.OpenUIHorseLamp(error);
+                OnClickLogin();
             }
         }
 
@@ -95,13 +98,72 @@ namespace Game.UI
             }
         }
 
+        private void OnValueChangedRemember(bool isOn)
+        {
+            remember = isOn;
+
+            if (!remember)
+            {
+                GlobalVariables.Set(Const.PASSWORD, string.Empty);
+
+                if (automatic)
+                {
+                    tog_automatic.isOn = false;
+                }
+            }
+            GlobalVariables.Set(Const.REMEMBERPASSWORD, remember);
+        }
+
+        private void OnValueChangedAutomatic(bool isOn)
+        {
+            automatic = isOn;
+
+            GlobalVariables.Set(Const.AUTOMATICLOGIN, automatic);
+        }
+
         private void OnClickLogin()
         {
-            //UserLogic.Instance.RequestInformation();
+            if (string.IsNullOrEmpty(account))
+            {
+                UIQuickEntry.OpenUITips("账号不能为空");
+            }
+            else if (string.IsNullOrEmpty(password))
+            {
+                UIQuickEntry.OpenUITips("密码不能为空");
+            }
+            else
+            {
+                LoginLogic.Instance.RequestInformation(account, password);
+            }
+        }
 
-            UIManager.Instance.Close(UIPanel.UILogin);
+        private void OnReceivedLogin(EventMessageArgs args)
+        {
+            bool success = args.Get<bool>("status");
 
-            UIManager.Instance.Open(UIPanel.UIMain);
+            if (success)
+            {
+                GlobalVariables.Set(Const.ACCOUNT, account);
+
+                if (remember)
+                {
+                    GlobalVariables.Set(Const.PASSWORD, password);
+                }
+                UIManager.Instance.Open(UIPanel.UILoading);
+
+                ScheduleLogic.Instance.callback = () =>
+                {
+                    UIManager.Instance.CloseAll();
+                    UIManager.Instance.Open(UIPanel.UIMain);
+                };
+                ScheduleLogic.Instance.Enter();
+            }
+            else
+            {
+                string error = args.Get<string>("message");
+
+                UIQuickEntry.OpenUIHorseLamp(error);
+            }
         }
     }
 }

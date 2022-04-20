@@ -10,11 +10,11 @@ namespace Game
 
         private void Awake()
         {
-            Resource.ResourceManager.Initialize(Resource.LoadType.AssetBundle);
+            Resource.ResourceManager.Initialize(Resource.LoadType.AssetDatabase);
 
             ScheduleLogic.Instance.Init();
 
-            UserLogic.Instance.Init();
+            LoginLogic.Instance.Init();
 
             WarehouseLogic.Instance.Init();
 

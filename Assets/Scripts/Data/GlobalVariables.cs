@@ -1,19 +1,40 @@
+using Game;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace Data
 {
     public static class GlobalVariables
     {
-        private static readonly object lockObject = new object();
-
         private static readonly Dictionary<string, string> variables = new Dictionary<string, string>();
+
+        private static readonly object _lock = new object();
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void RuntimeInitialized()
         {
-            Debuger.Log(Author.Data, "RuntimeInitialized");
+            string path = string.Format("{0}/{1}", Application.persistentDataPath, "globalvariables");
+
+            using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                StreamReader reader = new StreamReader(stream);
+
+                string line = reader.ReadLine();
+
+                while (!string.IsNullOrEmpty(line))
+                {
+                    string[] paramter = line.Split('|');
+
+                    if (paramter.Length == 2)
+                    {
+                        variables.Add(paramter[0], Utility.Cryptogram.Decrypt(paramter[1]));
+                    }
+                    line = reader.ReadLine();
+                }
+                reader.Dispose();
+            }
         }
 
         public static T Get<T>(string key)
@@ -27,7 +48,7 @@ namespace Data
 
         public static void Set(string key, object value)
         {
-            lock (lockObject)
+            lock (_lock)
             {
                 try
                 {
@@ -39,6 +60,7 @@ namespace Data
                     {
                         variables.Add(key, Parse(value));
                     }
+                    Save();
                 }
                 catch (Exception e)
                 {
@@ -49,12 +71,23 @@ namespace Data
 
         public static void Save()
         {
+            string path = string.Format("{0}/{1}", Application.persistentDataPath, "globalvariables");
 
+            using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                StreamWriter writer = new StreamWriter(stream);
+
+                foreach (var value in variables)
+                {
+                    writer.WriteLine(string.Format("{0}|{1}", value.Key, Utility.Cryptogram.Encrypt(value.Value)));
+                }
+                writer.Flush(); writer.Dispose();
+            }
         }
 
         public static void Dispose()
         {
-            variables.Clear();
+            variables.Clear(); Save();
         }
 
         private static string Parse(object value)
