@@ -29,11 +29,14 @@ namespace Game.UI
             switch (status)
             {
                 case Status.None:
-#if UNITY_EDITOR
-                    Load(panel, layer);
-#else
-                    LoadAsync(panel, layer);
-#endif
+                    if (GameConfig.Load == LoadType.AssetBundle)
+                    {
+                        LoadAsync(panel, layer);
+                    }
+                    else
+                    {
+                        Load(panel, layer);
+                    }
                     break;
                 case Status.Loading:
                     Debuger.LogWarning(Author.UI, string.Format("The paenl of [{0}] is loading...", panel));
@@ -79,7 +82,7 @@ namespace Game.UI
 
             try
             {
-                Object prefab = ResourceManager.Load(string.Format("Prefab/UI/Panel/{0}.prefab", key));
+                Object prefab = ResourceManager.Load(string.Format("Package/Prefab/UI/Panel/{0}.prefab", key));
 
                 Create(key, layer, prefab);
             }
@@ -95,7 +98,7 @@ namespace Game.UI
 
             try
             {
-                ResourceManager.LoadAsync(string.Format("Prefab/UI/Panel/{0}.prefab", key), (asset) =>
+                ResourceManager.LoadAsync(string.Format("Package/Prefab/UI/Panel/{0}.prefab", key), (asset) =>
                 {
                     Create(key, layer, asset);
                 });

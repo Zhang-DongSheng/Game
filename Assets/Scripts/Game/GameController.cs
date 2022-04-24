@@ -1,4 +1,5 @@
-﻿using Game.UI;
+﻿using Game.Resource;
+using Game.UI;
 using UnityEngine;
 
 namespace Game
@@ -21,12 +22,14 @@ namespace Game
 #if HOTFIX
             ILRuntimeLogic.Instance.Init();
 #endif
-            Resource.ResourceManager.Initialize(GameConfig.Load);
+            ResourceManager.Initialize(GameConfig.Load);
 
             UIManager.Instance.Open(UIPanel.UILoading);
 
             ScheduleLogic.Instance.callback = () =>
             {
+                ResourceManager.UpdateDependencies();
+
                 UIManager.Instance.CloseAll();
                 UIManager.Instance.Open(UIPanel.UILogin);
             };

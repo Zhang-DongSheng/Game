@@ -4,8 +4,10 @@ using UnityEngine;
 
 namespace Game.Resource
 {
-    public class AssetBundleLoader : Loader
+    public sealed class AssetBundleLoader : Loader
     {
+        private readonly AssetsManifest manifest = new AssetsManifest();
+
         public override AssetsResponse LoadAssets(string path)
         {
             if (Application.platform == RuntimePlatform.Android)
@@ -44,14 +46,19 @@ namespace Game.Resource
             yield return null;
         }
 
+        public override void UpdateDependencies()
+        {
+            manifest.UpdateDependencies();
+        }
+
         public override bool ExistDependencies(string name)
         {
-            return base.ExistDependencies(name);
+            return manifest.ExistDependencies(name);
         }
 
         public override string[] GetAllDependenciesName(string name)
         {
-            return base.GetAllDependenciesName(name);
+            return manifest.GetDependencies(name);
         }
     }
 }

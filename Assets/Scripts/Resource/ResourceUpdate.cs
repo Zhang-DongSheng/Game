@@ -64,7 +64,8 @@ namespace Game.Resource
                     break;
                 default:
                     {
-
+                        //版本校对资源失败直接进入游戏
+                        ScheduleLogic.Instance.Update(Schedule.Resource);
                     }
                     break;
             }
@@ -176,6 +177,8 @@ namespace Game.Resource
                 url = string.Format("{0}/{1}/{2}/{3}", GameConfig.ServerURL_Resource, GameConfig.AssetBundle, GameConfig.BuildTarget, path);
 
                 this.md5 = md5;
+
+               // AssetBundleManifest manifest = 
 
                 if (Utility.MD5.ComputeFile(path) != md5)
                 {

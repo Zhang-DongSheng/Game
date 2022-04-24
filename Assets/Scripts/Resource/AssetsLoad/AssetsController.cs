@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace Game.Resource
 {
-    public class AssetsController
+    public sealed class AssetsController
     {
         private readonly Dictionary<string, AssetsResponse> caches = new Dictionary<string, AssetsResponse>();
 
         private readonly List<AssetsRequest> requests = new List<AssetsRequest>();
 
-        private Loader loader;
+        private readonly Loader loader;
 
         private int loading;
 
@@ -36,6 +36,11 @@ namespace Game.Resource
             }
         }
 
+        public void UpdateDependencies()
+        {
+            loader.UpdateDependencies();
+        }
+
         public AssetsResponse Load(string path)
         {
             LoadAssetsDependencies(path);
@@ -53,6 +58,19 @@ namespace Game.Resource
                     caches.Add(path, assets);
                 }
                 return assets;
+            }
+        }
+
+        private void LoadAssetsDependencies(string path)
+        {
+            string[] dependencies = loader.GetAllDependenciesName(path);
+
+            for (int i = 0; i < dependencies.Length; i++)
+            {
+                if (!caches.ContainsKey(dependencies[i]))
+                {
+                    caches.Add(dependencies[i], loader.LoadAssets(dependencies[i]));
+                }
             }
         }
 
@@ -76,16 +94,6 @@ namespace Game.Resource
                 });
                 LoadAssetsAsync();
             }
-        }
-
-        public void Unload(string path)
-        {
-
-        }
-
-        private void LoadAssetsDependencies(string path)
-        {
-
         }
 
         private void LoadAssetsAsync()
@@ -157,7 +165,27 @@ namespace Game.Resource
 
         private IEnumerator LoadAssetsDependenciesAsync(string path)
         {
+            string[] dependencies = loader.GetAllDependenciesName(path);
+
+            for (int i = 0; i < dependencies.Length; i++)
+            {
+                if (!caches.ContainsKey(dependencies[i]))
+                {
+                    yield return loader.LoadAssetsAsync(dependencies[i], (response) =>
+                    {
+                        if (!caches.ContainsKey(dependencies[i]))
+                        {
+                            caches.Add(dependencies[i], response);
+                        }
+                    });
+                }
+            }
             yield return null;
+        }
+
+        public void Unload(string path)
+        {
+
         }
     }
 }

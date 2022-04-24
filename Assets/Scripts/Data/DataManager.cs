@@ -19,7 +19,7 @@ namespace Data
             }
             else
             {
-                T asset = ResourceManager.Load<T>(string.Format("Data/{0}.asset", key));
+                T asset = ResourceManager.Load<T>(string.Format("Package/Data/{0}.asset", key));
 
                 if (asset != null)
                 {
@@ -41,7 +41,7 @@ namespace Data
             {
                 try
                 {
-                    ResourceManager.LoadAsync(string.Format("Data/{0}.asset", key), (value) =>
+                    ResourceManager.LoadAsync(string.Format("Package/Data/{0}.asset", key), (value) =>
                     {
                         if (!m_data.ContainsKey(key))
                         {

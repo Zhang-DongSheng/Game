@@ -4,28 +4,21 @@ namespace Game.Resource
 {
     public static class ResourceConfig
     {
-        public static string Path(LoadType type, string name)
+        public static string Path(LoadType type, string path)
         {
             switch (type)
             {
                 case LoadType.Resources:
-                    return Utility.Path.GetPathWithoutExtension(name);
+                    return Utility.Path.GetPathWithoutExtension(path);
                 case LoadType.AssetBundle:
                     {
-                        if (name.StartsWith("Prefab"))
-                        {
-                            name = "Prefab/" + Utility.Path.GetFileNameWithoutExtension(name).ToLower();
-                        }
-                        else
-                        {
-                            name = Utility.Path.GetPathWithoutExtension(name).ToLower();
-                        }
+                        path = Utility.Path.GetPathWithoutExtension(path).ToLower();
                     }
-                    return string.Format("{0}/AssetBundle/{1}/{2}", Application.persistentDataPath, GameConfig.Resource, name);
+                    return string.Format("{0}/AssetBundle/{1}", Application.persistentDataPath, path);
                 case LoadType.AssetDatabase:
-                    return string.Format("Assets/{0}/{1}", GameConfig.Resource, name);
+                    return string.Format("Assets/{0}", path);
                 default:
-                    return name;
+                    return path;
             }
         }
     }

@@ -7,7 +7,7 @@ public class GameConfig
 
     public const Language Lang = Language.Chinese;
 
-    public const LoadType Load = LoadType.AssetDatabase;
+    public const LoadType Load = LoadType.AssetBundle;
 
     public const string ServerURL_Login = "https://www.baidu.com/";
 
@@ -20,6 +20,8 @@ public class GameConfig
     public const string Resource = "Package";
 
     public const string History = "history.txt";
+
+    public const string Manifest = "assets";
 #if UNITY_EDITOR && UNITY_STANDALONE
     public const string BuildTarget = "Window";
 #elif UNITY_ANDROID

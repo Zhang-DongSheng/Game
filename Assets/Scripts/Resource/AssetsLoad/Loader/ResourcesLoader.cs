@@ -5,7 +5,7 @@ using Object = UnityEngine.Object;
 
 namespace Game.Resource
 {
-    public class ResourcesLoader : Loader
+    public sealed class ResourcesLoader : Loader
     {
         public override AssetsResponse LoadAssets(string path)
         {

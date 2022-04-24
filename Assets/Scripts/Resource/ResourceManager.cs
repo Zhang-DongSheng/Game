@@ -26,6 +26,11 @@ namespace Game.Resource
             controller = new AssetsController(type);
         }
 
+        public static void UpdateDependencies()
+        {
+            controller.UpdateDependencies();
+        }
+
         public static Object Load(string name)
         {
             string path = ResourceConfig.Path(type, name);

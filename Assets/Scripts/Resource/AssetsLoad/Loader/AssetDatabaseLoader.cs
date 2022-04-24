@@ -2,11 +2,10 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Object = UnityEngine.Object;
-
+#if UNITY_EDITOR
 namespace Game.Resource
 {
-#if UNITY_EDITOR
-    public class AssetDatabaseLoader : Loader
+    public sealed class AssetDatabaseLoader : Loader
     {
         public override AssetsResponse LoadAssets(string path)
         {
@@ -40,5 +39,5 @@ namespace Game.Resource
             yield return null;
         }
     }
-#endif
 }
+#endif
