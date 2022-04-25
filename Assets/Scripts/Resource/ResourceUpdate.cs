@@ -8,9 +8,9 @@ namespace Game.Resource
 {
     public class ResourceUpdate : Singleton<ResourceUpdate>
     {
-        private readonly string History = string.Format("{0}/{1}/{2}/{3}", GameConfig.ServerURL_Resource, GameConfig.AssetBundle, GameConfig.BuildTarget, GameConfig.History);
-
         private readonly List<Task> tasks = new List<Task>();
+
+        private int count;
 
         private int loading;
 
@@ -22,7 +22,7 @@ namespace Game.Resource
             }
             else
             {
-                GameController.Instance.StartCoroutine(Download(History));
+                GameController.Instance.StartCoroutine(Download(string.Format("{0}/{1}", GameConfig.Server_Resource, GameConfig.Record)));
             }
         }
 
@@ -45,9 +45,13 @@ namespace Game.Resource
 
                         string content = Encoding.Default.GetString(request.downloadHandler.data);
 
-                        string[] lines = content.Split();
+                        content = content.Replace("\n\r", "^");
 
-                        for (int i = 0; i < lines.Length; i++)
+                        string[] lines = content.Split('^');
+
+                        count = lines.Length;
+
+                        for (int i = 0; i < count; i++)
                         {
                             if (!string.IsNullOrEmpty(lines[i]) && lines[i].Contains("|"))
                             {
@@ -112,6 +116,10 @@ namespace Game.Resource
             {
                 ScheduleLogic.Instance.Update(Schedule.Resource);
             }
+            else
+            {
+                Debuger.Log(Author.Resource, $"资源更新进度{count}/{this.count}");
+            }
         }
 
         private IEnumerator Download(Task task)
@@ -133,7 +141,9 @@ namespace Game.Resource
                     {
                         task.status = Status.Complete;
 
-                        Write(task.path, request.downloadHandler.data);
+                        Utility.Document.Write(task.path, request.downloadHandler.data);
+
+                        Next();
                     }
                     break;
                 default:
@@ -141,19 +151,11 @@ namespace Game.Resource
                         task.status = Status.Fail;
 
                         Debuger.LogError(Author.Resource, request.error);
+
+                        Next();
                     }
                     break;
             }
-        }
-
-        private string Read(string path)
-        {
-            return Utility.Document.Read(path);
-        }
-
-        private void Write(string path, byte[] buffer)
-        {
-            Utility.Document.Write(path, buffer);
         }
 
         class Task
@@ -172,13 +174,11 @@ namespace Game.Resource
             {
                 this.key = key;
 
-                path = string.Format("{0}/{1}", Application.persistentDataPath, path);
+                path = string.Format("{0}/{1}", GameConfig.Local_Resource, key);
 
-                url = string.Format("{0}/{1}/{2}/{3}", GameConfig.ServerURL_Resource, GameConfig.AssetBundle, GameConfig.BuildTarget, path);
+                url = string.Format("{0}/{1}", GameConfig.Server_Resource, key);
 
                 this.md5 = md5;
-
-               // AssetBundleManifest manifest = 
 
                 if (Utility.MD5.ComputeFile(path) != md5)
                 {
@@ -190,6 +190,7 @@ namespace Game.Resource
                 }
             }
         }
+
         enum Status
         {
             Ready,

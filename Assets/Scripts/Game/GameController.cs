@@ -24,7 +24,7 @@ namespace Game
 #endif
             ResourceManager.Initialize(GameConfig.Load);
 
-            UIManager.Instance.Open(UIPanel.UILoading);
+            //UIManager.Instance.Open(UIPanel.UILoading);
 
             ScheduleLogic.Instance.callback = () =>
             {

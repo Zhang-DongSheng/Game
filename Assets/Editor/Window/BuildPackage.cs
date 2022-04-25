@@ -1,3 +1,4 @@
+using Game;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -66,7 +67,7 @@ namespace UnityEditor.Window
             }
             options.scenes = scenes;
 
-            string path = Application.dataPath.Substring(0, Application.dataPath.Length - 7);
+            string path = Utility.Path.Project;
 
             switch (EditorUserBuildSettings.activeBuildTarget)
             {

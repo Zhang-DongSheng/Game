@@ -81,8 +81,6 @@ namespace Game.Resource
             if (request != null)
             {
                 request.callback += callback;
-
-                UnityEngine.Debug.LogError(path + request.callback.GetInvocationList().Length);
             }
             else
             {

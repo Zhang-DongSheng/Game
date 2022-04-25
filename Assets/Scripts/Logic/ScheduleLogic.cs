@@ -167,6 +167,10 @@ namespace Game
     {
         public Schedule key;
 
+        public float weight;
+
+        public float progress;
+
         public ScheduleStatus status;
     }
 

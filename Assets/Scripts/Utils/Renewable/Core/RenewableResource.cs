@@ -63,7 +63,7 @@ namespace UnityEngine.Renewable
             }
             else
             {
-                url = string.Format("{0}{1}", GameConfig.ServerURL_Resource, request.key);
+                url = string.Format("{0}{1}", GameConfig.Server_Resource, request.key);
 
                 path = string.Format("{0}/{1}", Application.persistentDataPath, request.key);
 

@@ -39,7 +39,7 @@ namespace UnityEditor.Window
 
         private readonly List<ItemFile> items = new List<ItemFile>();
 
-        [MenuItem("Data/AssetBundle")]
+        [MenuItem("AssetBundle/Editor")]
         protected static void Open()
         {
             Open<AssetBundleBuilder>("AssetBundle工具");
@@ -657,7 +657,7 @@ namespace UnityEditor.Window
         {
             get
             {
-                return Application.dataPath + "/" + GameConfig.Resource;
+                return string.Format("{0}/{1}", Application.dataPath, GameConfig.Resource);
             }
         }
 
@@ -665,7 +665,7 @@ namespace UnityEditor.Window
         {
             get
             {
-                return string.Format("{0}{1}/{2}", Application.dataPath.Remove(Application.dataPath.Length - 6, 6), GameConfig.AssetBundle, GameConfig.BuildTarget);
+                return string.Format("{0}/{1}/{2}", Utility.Path.Project, GameConfig.AssetBundle, GameConfig.BuildTarget);
             }
         }
 
@@ -673,7 +673,7 @@ namespace UnityEditor.Window
         {
             get
             {
-                return AssetBundlePath + "/" + GameConfig.History;
+                return string.Format("{0}/{1}", AssetBundlePath, GameConfig.Record);
             }
         }
     }

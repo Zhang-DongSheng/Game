@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -59,9 +60,7 @@ namespace UnityEditor
 
 		public void Init()
 		{
-			string source = Application.dataPath.Remove(Application.dataPath.Length - 6, 6);
-
-			input_inputFolder = Path.Combine(source, InputPath);
+			input_inputFolder = Path.Combine(Utility.Path.Project, InputPath);
 
 			inputFolder = input_inputFolder;
 
@@ -128,7 +127,7 @@ namespace UnityEditor
 
 						if (string.IsNullOrEmpty(input_inputFolder))
 						{
-							input_inputFolder = Path.Combine(Application.dataPath.Remove(Application.dataPath.Length - 6, 6), InputPath);
+							input_inputFolder = Path.Combine(Utility.Path.Project, InputPath);
 						}
 					}
 
@@ -300,7 +299,7 @@ namespace UnityEditor
 								source.Add(new FileItem()
 								{
 									name = Path.GetFileNameWithoutExtension(path),
-									path = Application.dataPath + path.Remove(0, 6),
+									path = Utility.Path.UnityToSystem(path),
 									output = true,
 								});
 							}

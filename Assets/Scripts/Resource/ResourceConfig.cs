@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Game.Resource
 {
     public static class ResourceConfig
@@ -14,7 +12,7 @@ namespace Game.Resource
                     {
                         path = Utility.Path.GetPathWithoutExtension(path).ToLower();
                     }
-                    return string.Format("{0}/AssetBundle/{1}", Application.persistentDataPath, path);
+                    return string.Format("{0}/{1}", GameConfig.Local_Resource, path);
                 case LoadType.AssetDatabase:
                     return string.Format("Assets/{0}", path);
                 default:

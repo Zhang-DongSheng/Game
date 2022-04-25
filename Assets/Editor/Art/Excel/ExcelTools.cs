@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -51,7 +52,7 @@ namespace UnityEditor
 
 		protected override void Init()
 		{
-			input_inputFolder = Path.Combine(Application.dataPath.Remove(Application.dataPath.Length - 6, 6), InputPath);
+			input_inputFolder = Path.Combine(Utility.Path.Project, InputPath);
 
 			inputFolder = input_inputFolder;
 

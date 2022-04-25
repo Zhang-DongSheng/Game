@@ -1,3 +1,4 @@
+using Game;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace UnityEditor
             {
                 string path = AssetDatabase.GetAssetPath(Selection.activeObject);
 
-                path = string.Format("{0}{1}", Application.dataPath, path.Remove(0, 6));
+                path = Utility.Path.UnityToSystem(path);
 
                 path = path.Replace("\\", "/");
 

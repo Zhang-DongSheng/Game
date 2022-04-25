@@ -7,6 +7,46 @@ namespace Game
     {
         public static class Path
         {
+            public static string Project
+            {
+                get
+                {
+                    return Application.dataPath.Remove(Application.dataPath.Length - 7);
+                }
+            }
+
+            public static string StreamingAssets
+            {
+                get
+                {
+                    return Application.streamingAssetsPath;
+                }
+            }
+
+            public static string PersistentData
+            {
+                get
+                {
+                    return Application.persistentDataPath;
+                }
+            }
+
+            public static string Assets
+            {
+                get
+                {
+                    return "Assets";
+                }
+            }
+
+            public static string Resources
+            {
+                get
+                {
+                    return "Resources";
+                }
+            }
+
             public static string GetDirectoryName(string path)
             {
                 if (string.IsNullOrEmpty(path)) return string.Empty;
@@ -99,14 +139,14 @@ namespace Game
             {
                 if (path.StartsWith("Assets/"))
                 {
-                    return string.Format("{0}{1}", Application.dataPath, path.Remove(0, 6));
+                    return string.Format("{0}/{1}", Application.dataPath, path.Remove(0, 7));
                 }
                 return path;
             }
 
             public static string SystemToUnity(string path)
             {
-                path = string.Format("Assets{0}", path.Remove(0, Application.dataPath.Length));
+                path = string.Format("{0}{1}", Assets, path.Remove(0, Application.dataPath.Length));
 
                 path = GetRegularPath(path);
 

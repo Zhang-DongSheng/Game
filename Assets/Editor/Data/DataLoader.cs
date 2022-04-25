@@ -40,7 +40,7 @@ namespace UnityEditor
                     AtlasInformation atlas = new AtlasInformation()
                     {
                         name = asset.name,
-                        path = path.Replace("Assets/Package/", string.Empty),
+                        path = path.Replace("Assets/", string.Empty),
                         sprites = new List<string>(asset.spriteCount),
                     };
 
@@ -66,12 +66,12 @@ namespace UnityEditor
 
         protected override void Init()
         {
-            
+
         }
 
         protected override void Refresh()
         {
-            
+
         }
 
         public static T Load<T>() where T : ScriptableObject

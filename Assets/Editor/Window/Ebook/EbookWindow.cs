@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Game;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -52,7 +53,7 @@ namespace UnityEditor.Window
             {
                 Redirect();
             };
-            input.value = string.Format("{0}/{1}", Application.dataPath.Substring(0, Application.dataPath.Length - 6), EbookConfig.PATH);
+            input.value = string.Format("{0}/{1}", Utility.Path.Project, EbookConfig.PATH);
 
             number.action = (value) =>
             {

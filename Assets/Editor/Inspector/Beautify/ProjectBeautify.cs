@@ -7,8 +7,6 @@ namespace UnityEditor
 {
     public class ProjectBeautify : Beautify<ProjectBeautify>
     {
-        private readonly string path = Application.dataPath.Substring(0, Application.dataPath.Length - 7);
-
         private readonly Dictionary<string, Information> items = new Dictionary<string, Information>();
 
         private int count;
@@ -75,7 +73,7 @@ namespace UnityEditor
         {
             if (!display) return;
 
-            string key = string.Format("{0}/{1}", path, AssetDatabase.GUIDToAssetPath(guid));
+            string key = string.Format("{0}/{1}", Utility.Path.Project, AssetDatabase.GUIDToAssetPath(guid));
 
             RefreshSize(key, rect);
         }

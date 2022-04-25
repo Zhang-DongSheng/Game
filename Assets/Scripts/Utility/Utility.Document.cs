@@ -13,20 +13,20 @@ namespace Game
             {
                 try
                 {
-                    if (File.Exists(path))
-                    {
-                        File.Delete(path);
-                    }
-                    else if (Directory.Exists(path))
+                    if (Directory.Exists(path))
                     {
                         if (delete)
                         {
-                            Directory.Delete(path);
+                            Directory.Delete(path, true);
                         }
                         else
                         {
                             return;
                         }
+                    }
+                    else if (File.Exists(path))
+                    {
+                        File.Delete(path);
                     }
                     Directory.CreateDirectory(path);
                 }
@@ -178,6 +178,23 @@ namespace Game
 
                     File.Move(src, dst);
                 }
+            }
+
+            public static void Delete(string path)
+            {
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+                else if (Directory.Exists(path))
+                {
+                    Directory.Delete(path, true);
+                }
+            }
+
+            public static void Rename(string src, string dst)
+            {
+                Move(src, dst);
             }
 
             public static float Size(string path)

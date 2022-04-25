@@ -23,15 +23,15 @@ namespace UnityEngine
 
         public static readonly Dictionary<Author, LogType> authors = new Dictionary<Author, LogType>()
         {
-            { Author.None, LogType.Exception},
-            { Author.Test, LogType.Error},
-            { Author.UI, LogType.Error},
-            { Author.Owner, LogType.Error},
-            { Author.Device, LogType.Error},
-            { Author.Data, LogType.Error },
-            { Author.File, LogType.Error },
-            { Author.Utility, LogType.Exception },
-            { Author.Resource, LogType.Exception },
+            { Author.None, LogType.Error},
+            { Author.Test, LogType.Log},
+            { Author.UI, LogType.Log},
+            { Author.Owner, LogType.Log},
+            { Author.Device, LogType.Warning},
+            { Author.Data, LogType.Log },
+            { Author.File, LogType.Warning },
+            { Author.Utility, LogType.Error },
+            { Author.Resource, LogType.Log },
         };
 
         private static readonly StringBuilder builder = new StringBuilder();
@@ -103,7 +103,7 @@ namespace UnityEngine
         {
             if (!DEBUG) return false;
 
-            if (authors.ContainsKey(author) && authors[author] <= level)
+            if (authors.ContainsKey(author) && authors[author] >= level)
             {
                 return true;
             }
