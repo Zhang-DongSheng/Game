@@ -126,7 +126,7 @@ namespace Game
                     Update(Schedule.Count, ScheduleStatus.Complete);
                     break;
                 default:
-                    Debug.LogErrorFormat("Can't has the schedule : [{0}]", key);
+                    Debuger.LogError(Author.Logic, string.Format("must deal with the schedule [{0}]!", key));
                     break;
             }
         }

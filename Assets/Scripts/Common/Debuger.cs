@@ -16,6 +16,7 @@ namespace UnityEngine
         Utility,
         Sound,
         Resource,
+        Logic,
     }
     public static class Debuger
     {
@@ -26,7 +27,7 @@ namespace UnityEngine
             { Author.None, LogType.Error},
             { Author.Test, LogType.Log},
             { Author.UI, LogType.Log},
-            { Author.Owner, LogType.Log},
+            { Author.Owner, LogType.Exception},
             { Author.Device, LogType.Warning},
             { Author.Data, LogType.Log },
             { Author.File, LogType.Warning },

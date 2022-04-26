@@ -25,8 +25,11 @@ namespace Game.Test
         [SerializeField, Range(0, 30f)] private float speed = 1;
 
         private int index;
-        
+        [Display("新的I", false)]
         public string content;
+
+        [Display("新的II")]
+        public string content1;
 
         private void Awake()
         {
@@ -75,9 +78,7 @@ namespace Game.Test
         /// </summary>
         public void OnClick()
         {
-            index++;
-
-            GetComponent<ScrollDirection>().Direction(index);
+            AudioManager.Instance.Play(AudioEnum.Music, null);
         }
         /// <summary>
         /// 菜单栏测试

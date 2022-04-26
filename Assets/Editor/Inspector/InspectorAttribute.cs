@@ -108,4 +108,32 @@ namespace UnityEditor.Inspector
             EditorGUI.DrawRect(position, line.color);
         }
     }
+    [CustomPropertyDrawer(typeof(DisplayAttribute))]
+    class DisplayDrawer : PropertyDrawer
+    {
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            DisplayAttribute display = attribute as DisplayAttribute;
+
+            if (display.active)
+            {
+                return EditorGUI.GetPropertyHeight(property, label, true);
+            }
+            return 0;
+        }
+
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            DisplayAttribute display = attribute as DisplayAttribute;
+
+            if (display.active)
+            {
+                if (!string.IsNullOrEmpty(display.name))
+                {
+                    label.text = display.name;
+                }
+                EditorGUI.PropertyField(position, property, label, true);
+            }
+        }
+    }
 }

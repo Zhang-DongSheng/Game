@@ -6,6 +6,8 @@ namespace Game
 {
     public class GameController : MonoSingleton<GameController>
     {
+        [SerializeField] private UILoading loading;
+
         private void Awake()
         {
             LoginLogic.Instance.Init();
@@ -24,11 +26,11 @@ namespace Game
 #endif
             ResourceManager.Initialize(GameConfig.Load);
 
-            //UIManager.Instance.Open(UIPanel.UILoading);
-
             ScheduleLogic.Instance.callback = () =>
             {
                 ResourceManager.UpdateDependencies();
+
+                loading.SetActive(false);
 
                 UIManager.Instance.CloseAll();
                 UIManager.Instance.Open(UIPanel.UILogin);

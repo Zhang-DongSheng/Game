@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public abstract class Singleton<T> where T : new()
 {
@@ -8,7 +9,16 @@ public abstract class Singleton<T> where T : new()
         get
         {
             if (_instance == null)
-                _instance = new T();
+            {
+                try
+                {
+                    _instance = Activator.CreateInstance<T>();
+                }
+                catch(Exception e)
+                {
+                    Debuger.LogException(Author.Owner, e);
+                }
+            }
             return _instance;
         }
     }
@@ -29,10 +39,19 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
                 {
                     _instance = new GameObject(typeof(T).Name).AddComponent<T>();
                 }
-                _instance.GetComponent<MonoSingleton<T>>().Initialized();
+                _instance.GetComponent<MonoSingleton<T>>().Initialize();
             }
             return _instance;
         }
     }
-    protected virtual void Initialized() { }
+
+    protected virtual void Initialize() 
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        _instance = null;
+    }
 }

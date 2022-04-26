@@ -49,6 +49,28 @@ namespace Game
                 return false;
             }
 
+            public static float Size(string path)
+            {
+                float size = 0;
+
+                if (File.Exists(path))
+                {
+                    FileInfo info = new FileInfo(path);
+
+                    size = info.Length;
+                }
+                else if (Directory.Exists(path))
+                {
+                    DirectoryInfo dir = new DirectoryInfo(path);
+
+                    foreach (FileInfo file in dir.GetFiles())
+                    {
+                        size += file.Length;
+                    }
+                }
+                return size;
+            }
+
             public static string Read(string path)
             {
                 if (File.Exists(path))
@@ -97,7 +119,23 @@ namespace Game
                 }
             }
 
-            public static void WriteAppend(string path, params string[] content)
+            public static void WriteEncrypt(string path, string content, EncryptType encrypt = EncryptType.AES)
+            {
+                try
+                {
+                    byte[] buffer = Encoding.Default.GetBytes(Cryptogram.Decrypt(content, encrypt));
+
+                    CreateDirectory(Path.GetDirectoryName(path));
+
+                    File.WriteAllBytes(path, buffer);
+                }
+                catch (Exception e)
+                {
+                    Debuger.LogException(Author.File, e);
+                }
+            }
+
+            public static void Append(string path, params string[] content)
             {
                 if (File.Exists(path))
                 {
@@ -117,22 +155,6 @@ namespace Game
                         }
                         writer.Flush(); writer.Dispose();
                     }
-                }
-            }
-
-            public static void WriteEncrypt(string path, string content, EncryptType encrypt = EncryptType.AES)
-            {
-                try
-                {
-                    byte[] buffer = Encoding.Default.GetBytes(Cryptogram.Decrypt(content, encrypt));
-
-                    CreateDirectory(Path.GetDirectoryName(path));
-
-                    File.WriteAllBytes(path, buffer);
-                }
-                catch (Exception e)
-                {
-                    Debuger.LogException(Author.File, e);
                 }
             }
 
@@ -195,28 +217,6 @@ namespace Game
             public static void Rename(string src, string dst)
             {
                 Move(src, dst);
-            }
-
-            public static float Size(string path)
-            {
-                float size = 0;
-
-                if (File.Exists(path))
-                {
-                    FileInfo info = new FileInfo(path);
-
-                    size = info.Length;
-                }
-                else if (Directory.Exists(path))
-                {
-                    DirectoryInfo dir = new DirectoryInfo(path);
-
-                    foreach (FileInfo file in dir.GetFiles())
-                    {
-                        size += file.Length;
-                    }
-                }
-                return size;
             }
         }
     }

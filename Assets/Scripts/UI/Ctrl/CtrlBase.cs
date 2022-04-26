@@ -39,7 +39,7 @@ namespace Game.UI
                     }
                     break;
                 case Status.Loading:
-                    Debuger.LogWarning(Author.UI, string.Format("The paenl of [{0}] is loading...", panel));
+                    Debuger.LogWarning(Author.UI, string.Format("The panel of [{0}] is loading...", panel));
                     break;
                 case Status.Display:
                     if (view != null)
@@ -48,7 +48,7 @@ namespace Game.UI
                     }
                     break;
                 case Status.Error:
-                    Debuger.LogWarning(Author.UI, string.Format("The paenl of [{0}] is can't create!", panel));
+                    Debuger.LogError(Author.UI, string.Format("The panel of [{0}] resource was not found!", panel));
                     break;
             }
         }

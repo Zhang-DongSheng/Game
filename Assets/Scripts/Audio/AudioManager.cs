@@ -55,6 +55,8 @@ namespace UnityEngine.Audio
 
         public void Play(AudioEnum key, string sound, bool loop = false)
         {
+            if (string.IsNullOrEmpty(sound)) return;
+
             if (clips.ContainsKey(sound))
             {
                 Play(key, clips[sound], loop);
@@ -62,6 +64,7 @@ namespace UnityEngine.Audio
             else if (AudioConfig.list.ContainsKey(sound))
             {
                 AudioClip clip = Resources.Load<AudioClip>(AudioConfig.list[sound]);
+
                 Store(sound, clip); Play(key, clip, loop);
             }
             else
@@ -69,6 +72,7 @@ namespace UnityEngine.Audio
                 RenewableResource.Instance.Get(new RenewableRequest(sound), (handle) =>
                 {
                     AudioClip clip = handle.Get<AudioClip>();
+
                     Store(sound, clip); Play(key, clips[sound], loop);
                 }, () =>
                 {

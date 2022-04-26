@@ -47,45 +47,6 @@ namespace Game
                 }
             }
 
-            public static string GetDirectoryName(string path)
-            {
-                if (string.IsNullOrEmpty(path)) return string.Empty;
-
-                string[] parameters = path.Split('/', '\\');
-
-                if (parameters.Length > 1)
-                {
-                    parameters[parameters.Length - 1] = null;
-
-                    return string.Join("/", parameters);
-                }
-                return string.Empty;
-
-                //return System.IO.Path.GetDirectoryName(path);
-            }
-
-            public static string GetExtension(string path)
-            {
-                if (string.IsNullOrEmpty(path)) return string.Empty;
-
-                return System.IO.Path.GetExtension(path);
-            }
-
-            public static string GetFileName(string path)
-            {
-                if (string.IsNullOrEmpty(path)) return string.Empty;
-
-                string[] parameters = path.Split('/', '\\');
-
-                if (parameters.Length > 1)
-                {
-                    return parameters[parameters.Length - 1];
-                }
-                return path;
-
-                //return System.IO.Path.GetFileName(path);
-            }
-
             public static string GetPathWithoutExtension(string path)
             {
                 string extension = GetExtension(path);
@@ -97,9 +58,32 @@ namespace Game
                 return path;
             }
 
+            public static string GetDirectoryName(string path)
+            {
+                if (string.IsNullOrEmpty(path)) return string.Empty;
+
+                return System.IO.Path.GetDirectoryName(path);
+            }
+
+            public static string GetFileName(string path)
+            {
+                if (string.IsNullOrEmpty(path)) return string.Empty;
+
+                return System.IO.Path.GetFileName(path);
+            }
+
             public static string GetFileNameWithoutExtension(string path)
             {
+                if (string.IsNullOrEmpty(path)) return string.Empty;
+
                 return System.IO.Path.GetFileNameWithoutExtension(path);
+            }
+
+            public static string GetExtension(string path)
+            {
+                if (string.IsNullOrEmpty(path)) return string.Empty;
+
+                return System.IO.Path.GetExtension(path);
             }
 
             public static string GetRegularPath(string path)
