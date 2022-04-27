@@ -24,16 +24,19 @@ namespace Game.Test
 
         [SerializeField, Range(0, 30f)] private float speed = 1;
 
-        private int index;
-        [Display("新的I", false)]
-        public string content;
+        [SerializeField] private List<Transform> items;
 
-        [Display("新的II")]
-        public string content1;
+        private int index;
 
         private void Awake()
         {
-            
+            items[0].localPosition = Vector3.zero;
+
+            //items[1].localPosition = Utility.Vector.RelativePosition(60, 50).Vector3To2();
+
+            items[1].localPosition = Utility.Vector.RotateClockwise(Vector3.zero, Vector3.right * 50, 60).Vector3To2();
+
+            items[2].localPosition = Utility.Vector.RotateCounterclockwise(Vector3.zero, Vector3.right * 50, 60).Vector3To2();
         }
 
         private void OnEnable()
@@ -69,9 +72,7 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            float value = Utility.Math.Average(1, 2, 3);
-
-            Debuger.Log(Author.Test, value);
+            
         }
         /// <summary>
         /// 点击测试
