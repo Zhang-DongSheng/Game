@@ -19,6 +19,12 @@
         public static readonly float ScreenRatio = Screen.width / (float)Screen.height;
     }
 
+    public enum Axis
+    {
+        Horizontal,
+        Vertical,
+    }
+
     public enum Direction
     {
         None,
@@ -27,9 +33,11 @@
         Slant,
     }
 
-    public enum Axis
+    public enum Corner
     {
-        Horizontal,
-        Vertical,
+        TopLeft,
+        TopRight,
+        LowerLeft,
+        LowerRight,
     }
 }

@@ -2,7 +2,12 @@
 
 namespace UnityEngine.UI
 {
+    /// <summary>
+    /// 图形镜像
+    /// </summary>
+    [DisallowMultipleComponent]
     [RequireComponent(typeof(Graphic))]
+    [AddComponentMenu("UI/Graphic/Mirror")]
     public class GraphicMirror : BaseMeshEffect
     {
         [SerializeField] private Direction direction = Direction.Horizontal;

@@ -2,16 +2,19 @@
 
 namespace UnityEngine.UI
 {
+    /// <summary>
+    /// 图形渐变
+    /// </summary>
+    [DisallowMultipleComponent]
     [RequireComponent(typeof(CanvasRenderer))]
-    public class GraphicColorFade : MaskableGraphic
+    [AddComponentMenu("UI/Graphic/Gradient")]
+    public class GraphicGradient : MaskableGraphic
     {
         [SerializeField] private Direction direction;
 
-        [SerializeField] private Color origin = Color.white;
+        [SerializeField] private Color fade = Color.white;
 
-        [SerializeField] private Color destination = Color.white;
-
-        private new Color color;
+        private Color pigment;
 
         private Vector2 topLeft, topRight, bottomLeft, bottomRight;
 
@@ -35,81 +38,73 @@ namespace UnityEngine.UI
 
             bottomRight = new Vector2(width, height * -1);
 
-            m_vertexs.Add(AddUIVertex(topLeft, Location.TopLeft));
+            m_vertexs.Add(AddUIVertex(topLeft, Corner.TopLeft));
 
-            m_vertexs.Add(AddUIVertex(topRight, Location.TopRight));
+            m_vertexs.Add(AddUIVertex(topRight, Corner.TopRight));
 
-            m_vertexs.Add(AddUIVertex(bottomLeft, Location.BottomLeft));
+            m_vertexs.Add(AddUIVertex(bottomLeft, Corner.LowerLeft));
 
-            m_vertexs.Add(AddUIVertex(bottomRight, Location.BottomRight));
+            m_vertexs.Add(AddUIVertex(bottomRight, Corner.LowerRight));
 
-            m_vertexs.Add(AddUIVertex(bottomLeft, Location.BottomLeft));
+            m_vertexs.Add(AddUIVertex(bottomLeft, Corner.LowerLeft));
 
-            m_vertexs.Add(AddUIVertex(topRight, Location.TopRight));
+            m_vertexs.Add(AddUIVertex(topRight, Corner.TopRight));
 
             helper.AddUIVertexTriangleStream(m_vertexs);
         }
 
-        private UIVertex AddUIVertex(Vector2 position, Location location)
+        private UIVertex AddUIVertex(Vector2 position, Corner corner)
         {
             switch (direction)
             {
                 case Direction.Horizontal:
-                    switch (location)
+                    switch (corner)
                     {
-                        case Location.TopLeft:
-                        case Location.BottomLeft:
-                            color = origin * base.color;
+                        case Corner.TopLeft:
+                        case Corner.LowerLeft:
+                            pigment = base.color;
                             break;
                         default:
-                            color = destination * base.color;
+                            pigment = fade;
                             break;
                     }
                     break;
                 case Direction.Vertical:
-                    switch (location)
+                    switch (corner)
                     {
-                        case Location.TopLeft:
-                        case Location.TopRight:
-                            color = origin * base.color;
+                        case Corner.TopLeft:
+                        case Corner.TopRight:
+                            pigment = base.color;
                             break;
                         default:
-                            color = destination * base.color;
+                            pigment = fade;
                             break;
                     }
                     break;
                 case Direction.Slant:
-                    switch (location)
+                    switch (corner)
                     {
-                        case Location.TopLeft:
-                            color = origin * base.color;
+                        case Corner.TopLeft:
+                            pigment = base.color;
                             break;
-                        case Location.BottomRight:
-                            color = destination * base.color;
+                        case Corner.LowerRight:
+                            pigment = fade;
                             break;
                         default:
-                            color = Color.Lerp(origin, destination, 0.5f);
+                            pigment = Color.Lerp(base.color, fade, 0.5f);
                             break;
                     }
                     break;
                 default:
-                    color = base.color;
+                    pigment = base.color;
                     break;
             }
 
             return new UIVertex()
             {
                 position = position,
-                color = color,
+                color = pigment,
             };
-        }
-
-        enum Location
-        {
-            TopLeft,
-            TopRight,
-            BottomLeft,
-            BottomRight
         }
     }
 }

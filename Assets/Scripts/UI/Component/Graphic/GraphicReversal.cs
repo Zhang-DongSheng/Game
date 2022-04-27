@@ -1,6 +1,11 @@
 namespace UnityEngine.UI
 {
+    /// <summary>
+    /// 图形反转
+    /// </summary>
+    [DisallowMultipleComponent]
     [RequireComponent(typeof(Graphic))]
+    [AddComponentMenu("UI/Graphic/Reversal")]
     public class GraphicReversal : BaseMeshEffect
     {
         [SerializeField] private Direction direction;
