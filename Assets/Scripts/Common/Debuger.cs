@@ -7,16 +7,15 @@ namespace UnityEngine
     public enum Author
     {
         None,
-        Test,
-        Owner,
-        UI,
         Device,
-        Data,
         File,
+        Script,
         Utility,
+        UI,
+        Test,
+        Data,
         Sound,
         Resource,
-        Logic,
     }
     public static class Debuger
     {
@@ -24,17 +23,17 @@ namespace UnityEngine
 
         public static readonly Dictionary<Author, LogType> authors = new Dictionary<Author, LogType>()
         {
-            { Author.None, LogType.Error},
-            { Author.Test, LogType.Log},
-            { Author.UI, LogType.Log},
-            { Author.Owner, LogType.Exception},
-            { Author.Device, LogType.Warning},
-            { Author.Data, LogType.Log },
-            { Author.File, LogType.Warning },
-            { Author.Utility, LogType.Error },
+            { Author.None,     LogType.Log },
+            { Author.Device,   LogType.Exception },
+            { Author.File,     LogType.Exception },
+            { Author.Script,   LogType.Log },
+            { Author.Utility,  LogType.Log },
+            { Author.UI,       LogType.Warning },
+            { Author.Test,     LogType.Log },
+            { Author.Data,     LogType.Error },
+            { Author.Sound,    LogType.Warning },
             { Author.Resource, LogType.Log },
         };
-
         private static readonly StringBuilder builder = new StringBuilder();
 
         public static void Log(Author author, object message, Object context = null)

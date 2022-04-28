@@ -16,7 +16,7 @@ public abstract class Singleton<T> where T : new()
                 }
                 catch(Exception e)
                 {
-                    Debuger.LogException(Author.Owner, e);
+                    Debuger.LogException(Author.Script, e);
                 }
             }
             return _instance;

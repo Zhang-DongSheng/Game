@@ -43,5 +43,18 @@ namespace UnityEditor
             }
             importer.assetBundleName = bundle;
         }
+
+        public static void Clear()
+        {
+            string[] names = AssetDatabase.GetAllAssetBundleNames();
+
+            int count = names.Length;
+
+            for (int i = 0; i < count; i++)
+            {
+                AssetDatabase.RemoveAssetBundleName(names[i], true);
+            }
+            EditorUtility.ClearProgressBar();
+        }
     }
 }

@@ -34,7 +34,6 @@ namespace UnityEditor
                 BuildPipeline.BuildAssetBundles(path, builds.ToArray(), Options, TARGET);
             }
         }
-
         [MenuItem("AssetBundle/Raname")]
         protected static void Rename()
         {
@@ -50,7 +49,13 @@ namespace UnityEditor
             });
             AssetDatabase.Refresh();
         }
+        [MenuItem("AssetBundle/Clear")]
+        protected static void Clear()
+        {
+            AssetBundleRename.Clear();
 
+            AssetDatabase.Refresh();
+        }
         [MenuItem("AssetBundle/Build")]
         protected static void Build()
         {
@@ -65,8 +70,9 @@ namespace UnityEditor
             string dst = string.Format("{0}/{1}", path, GameConfig.Manifest);
 
             Utility.Document.Rename(src, dst);
-        }
 
+            Record();
+        }
         [MenuItem("AssetBundle/Record")]
         protected static void Record()
         {

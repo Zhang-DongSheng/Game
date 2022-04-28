@@ -37,6 +37,8 @@ namespace Game.Test
             items[1].localPosition = Utility.Vector.RotateClockwise(Vector3.zero, Vector3.right * 50, 60).Vector3To2();
 
             items[2].localPosition = Utility.Vector.RotateCounterclockwise(Vector3.zero, Vector3.right * 50, 60).Vector3To2();
+
+            GameObject game = null;
         }
 
         private void OnEnable()

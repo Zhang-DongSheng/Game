@@ -23,7 +23,23 @@ namespace Game
         private static float value;
 
         private static double length;
+
+        public enum Axis
+        {
+            X,
+            Y,
+            Z,
+        }
+
+        public enum State
+        {
+            Play,
+            Pause,
+            Stop,
+        }
     }
 
     public delegate bool Match<T1, T2>(T1 arg1, T2 arg2);
+
+    
 }

@@ -224,12 +224,5 @@ namespace Game
 
             return Activator.CreateInstance(TS, new object[] { });
         }
-
-        public static string SingleName(this Type T)
-        {
-            string parameters = T.Name;
-
-            return T.Name;
-        }
     }
 }

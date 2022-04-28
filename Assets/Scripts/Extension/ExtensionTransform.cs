@@ -153,12 +153,20 @@ namespace Game
             }
             return result;
         }
-    }
 
-    public enum Axis
-    {
-        X,
-        Y,
-        Z,
+        public static string FullName(this Transform transform)
+        {
+            string path = transform.name;
+
+            Transform parent = transform.parent;
+
+            while (parent != null)
+            {
+                path = string.Format("{0}/{1}", parent.name, path);
+
+                parent = parent.parent;
+            }
+            return path;
+        }
     }
 }
