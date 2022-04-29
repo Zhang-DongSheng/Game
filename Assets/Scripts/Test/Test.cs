@@ -1,4 +1,5 @@
 ﻿using Game.Pool;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Game.Test
 {
-    public class Test : RuntimeBase
+    public class Test : MonoBehaviour
     {
         enum Command
         {
@@ -28,7 +29,9 @@ namespace Game.Test
 
         private int index;
 
-        protected override void Awake()
+        TestRuntime runtime;
+
+        protected void Awake()
         {
             items[0].localPosition = Vector3.zero;
 
@@ -40,7 +43,7 @@ namespace Game.Test
 
             GameObject game = null;
 
-            base.Awake();
+            runtime = new TestRuntime();
         }
 
         private void OnEnable()
@@ -63,11 +66,6 @@ namespace Game.Test
             var _ = StartAsync();
         }
 
-        internal override void OnUpdate(float delta)
-        {
-            Debug.Log(delta);
-        }
-
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -88,7 +86,13 @@ namespace Game.Test
         /// </summary>
         public void OnClick()
         {
-            AudioManager.Instance.Play(AudioEnum.Music, null);
+            runtime.Dispose();
+
+            runtime = null;
+
+            GC.Collect();
+
+            Debug.LogError("释放");
         }
         /// <summary>
         /// 菜单栏测试

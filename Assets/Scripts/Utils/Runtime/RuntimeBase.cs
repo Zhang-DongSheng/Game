@@ -1,10 +1,10 @@
-using UnityEngine;
+using System;
 
 namespace Game
 {
-    public abstract class RuntimeBase : MonoBehaviour
+    public abstract class RuntimeBase : IDisposable
     {
-        protected virtual void Awake()
+        public RuntimeBase()
         {
             RuntimeMonoBehaviour.Instance.Register(this);
         }
@@ -24,7 +24,7 @@ namespace Game
 
         }
 
-        protected virtual void OnDestroy()
+        public void Dispose()
         {
             RuntimeMonoBehaviour.Instance.Unregister(this);
         }
