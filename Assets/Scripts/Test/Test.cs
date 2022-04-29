@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Game.Test
 {
-    public class Test : UI.UIBase
+    public class Test : RuntimeBase
     {
         enum Command
         {
@@ -28,7 +28,7 @@ namespace Game.Test
 
         private int index;
 
-        private void Awake()
+        protected override void Awake()
         {
             items[0].localPosition = Vector3.zero;
 
@@ -39,6 +39,8 @@ namespace Game.Test
             items[2].localPosition = Utility.Vector.RotateCounterclockwise(Vector3.zero, Vector3.right * 50, 60).Vector3To2();
 
             GameObject game = null;
+
+            base.Awake();
         }
 
         private void OnEnable()
@@ -59,6 +61,11 @@ namespace Game.Test
         private void Start()
         {
             var _ = StartAsync();
+        }
+
+        internal override void OnUpdate(float delta)
+        {
+            Debug.Log(delta);
         }
 
         private void Update()

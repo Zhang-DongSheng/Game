@@ -25,7 +25,7 @@ namespace Game.UI
         {
             if (imgIcon != null)
             {
-                SpriteManager.SetSprite(imgIcon, name);
+                SpriteHelper.SetSprite(imgIcon, name);
             }
         }
 

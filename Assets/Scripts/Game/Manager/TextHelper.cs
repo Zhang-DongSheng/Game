@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public static class TextManager
+    public static class TextHelper
     {
         private static DataText dictionary;
 

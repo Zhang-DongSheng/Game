@@ -17,13 +17,13 @@ namespace Game.UI
 
             if (info != null)
             {
-                SpriteManager.SetSprite(m_prop.imgIcon, info.icon);
+                SpriteHelper.SetSprite(m_prop.imgIcon, info.icon);
 
-                SpriteManager.SetQuality(m_prop.imgQuality, info.quality);
+                SpriteHelper.SetQuality(m_prop.imgQuality, info.quality);
 
-                TextManager.SetString(m_prop.txtName, info.name);
+                TextHelper.SetString(m_prop.txtName, info.name);
 
-                TextManager.SetString(m_prop.txtNumber, currency.number);
+                TextHelper.SetString(m_prop.txtNumber, currency.number);
             }
             SetActive(true);
         }
@@ -34,13 +34,13 @@ namespace Game.UI
 
             if (info != null)
             {
-                SpriteManager.SetSprite(m_prop.imgIcon, info.icon);
+                SpriteHelper.SetSprite(m_prop.imgIcon, info.icon);
 
-                SpriteManager.SetQuality(m_prop.imgQuality, info.quality);
+                SpriteHelper.SetQuality(m_prop.imgQuality, info.quality);
 
-                TextManager.SetString(m_prop.txtName, info.name);
+                TextHelper.SetString(m_prop.txtName, info.name);
 
-                TextManager.SetString(m_prop.txtNumber, prop.number);
+                TextHelper.SetString(m_prop.txtNumber, prop.number);
             }
             SetActive(true);
         }

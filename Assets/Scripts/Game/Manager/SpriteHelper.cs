@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Game
 {
-    public static class SpriteManager
+    public static class SpriteHelper
     {
         private readonly static Dictionary<string, SpriteAtlas> atlases = new Dictionary<string, SpriteAtlas>();
 
