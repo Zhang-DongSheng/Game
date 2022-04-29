@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.SAM
+namespace Game.SM
 {
-    public class SAMActive : SAMBase
+    public class SMActive : SMBase
     {
         [SerializeField] private List<GameObject> selected;
 
@@ -20,15 +20,15 @@ namespace Game.SAM
             SetActive(unselected, !active);
         }
 
-        private void SetActive(List<GameObject> list, bool active)
+        private void SetActive(List<GameObject> items, bool active)
         {
-            if (list == null || list.Count == 0) return;
+            if (items == null || items.Count == 0) return;
 
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < items.Count; i++)
             {
-                if (list[i] != null && list[i].activeSelf != active)
+                if (items[i] != null && items[i].activeSelf != active)
                 {
-                    list[i].SetActive(active);
+                    items[i].SetActive(active);
                 }
             }
         }

@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace Game.SAM
+namespace Game.SM
 {
-    [RequireComponent(typeof(RectTransform))]
-    public abstract class SAMBase : MonoBehaviour
+    public abstract class SMBase : MonoBehaviour
     {
         public UnityEvent onBegin, onCompleted;
 
@@ -18,7 +17,7 @@ namespace Game.SAM
 
         [SerializeField, Range(0, 1)] protected float step;
 
-        [SerializeField] protected RectTransform target;
+        [SerializeField] protected Transform target;
 
         protected float progress;
 

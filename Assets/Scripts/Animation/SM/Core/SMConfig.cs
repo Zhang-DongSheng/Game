@@ -1,4 +1,4 @@
-﻿namespace Game.SAM
+﻿namespace Game.SM
 {
     public static class Config
     {

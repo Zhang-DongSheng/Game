@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace Game.SAM
+namespace Game.SM
 {
     [RequireComponent(typeof(Animation))]
-    public class SAMAnimation : SAMBase
+    public class SMAnimation : SMBase
     {
         [SerializeField] private new Animation animation;
 

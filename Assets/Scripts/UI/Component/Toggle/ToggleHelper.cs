@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Game.SAM;
+using Game.SM;
 
 namespace UnityEngine.UI
 {
@@ -8,7 +8,7 @@ namespace UnityEngine.UI
     {
         [SerializeField] private Transform cursorParent;
 
-        [SerializeField] private List<SAMBase> animations;
+        [SerializeField] private List<SMBase> animations;
 
         protected void Awake()
         {

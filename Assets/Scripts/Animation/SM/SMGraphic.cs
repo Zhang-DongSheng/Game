@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.SAM
+namespace Game.SM
 {
-    public class SAMGraphic : SAMBase
+    /// <summary>
+    /// 颜色
+    /// </summary>
+    public class SMGraphic : SMBase
     {
         [SerializeField] private Graphic graphic;
 

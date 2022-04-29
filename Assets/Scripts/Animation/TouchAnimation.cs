@@ -1,8 +1,12 @@
-﻿using UnityEngine.EventSystems;
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace UnityEngine
+namespace Game
 {
+    /// <summary>
+    /// 触控动画
+    /// </summary>
     [RequireComponent(typeof(Graphic)), DisallowMultipleComponent]
     public class TouchAnimation : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerClickHandler, IPointerUpHandler, IPointerExitHandler
     {

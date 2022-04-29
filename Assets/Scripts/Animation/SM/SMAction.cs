@@ -1,8 +1,8 @@
 using System;
 
-namespace Game.SAM
+namespace Game.SM
 {
-    public class SAMAction : SAMBase
+    public class SMAction : SMBase
     {
         public Action<float> action;
 

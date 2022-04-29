@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.SAM
+namespace Game.SM
 {
-    public class SAMAlpha : SAMBase
+    public class SMAlpha : SMBase
     {
         [SerializeField] private Relevance relevance;
 

@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.SAM
+namespace Game.SM
 {
-    public class SAMCooling : SAMBase
+    /// <summary>
+    /// 冷却
+    /// </summary>
+    public class SMCooling : SMBase
     {
         [SerializeField] private Image image;
 
@@ -11,7 +14,11 @@ namespace Game.SAM
         {
             if (image == null && !target.TryGetComponent(out image))
             {
-                Debug.LogError("The Image is Missing!");
+                Debuger.LogWarning(Author.UI, "The Image is Missing!");
+            }
+            else if (image.type != Image.Type.Filled)
+            {
+                Debuger.LogWarning(Author.UI, "The Image Type must be Filled!");
             }
             else
             {

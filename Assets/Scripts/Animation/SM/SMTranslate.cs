@@ -1,8 +1,11 @@
 using UnityEngine;
 
-namespace Game.SAM
+namespace Game.SM
 {
-    public class SAMTranslate : SAMBase
+    /// <summary>
+    /// 位移
+    /// </summary>
+    public class SMTranslate : SMBase
     {
         [SerializeField] private Circle circle;
 
@@ -10,7 +13,15 @@ namespace Game.SAM
 
         [SerializeField] private Vector3Interval position;
 
-        protected override void Init() { }
+        private RectTransform rect;
+
+        protected override void Init()
+        {
+            if (!target.TryGetComponent(out rect))
+            {
+                Debuger.LogWarning(Author.UI, "The RectTransform is missing!");
+            }
+        }
 
         protected override void Transition(float step)
         {
@@ -27,9 +38,9 @@ namespace Game.SAM
                     {
                         progress = curve.Evaluate(step);
 
-                        if (anchor)
+                        if (anchor && rect != null)
                         {
-                            target.anchoredPosition = position.Lerp(progress);
+                            rect.anchoredPosition = position.Lerp(progress);
                         }
                         else
                         {

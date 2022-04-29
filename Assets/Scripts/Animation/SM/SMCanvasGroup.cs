@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Game.SAM
+namespace Game.SM
 {
-    public class SAMCanvasGroup : SAMBase
+    public class SMCanvasGroup : SMBase
     {
         [SerializeField] private CanvasGroup canvas;
 

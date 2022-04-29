@@ -2,9 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.SAM
+namespace Game.SM
 {
-    public class SAMClip : SAMBase
+    /// <summary>
+    /// å¸§åŠ¨ç”»
+    /// </summary>
+    public class SMClip : SMBase
     {
         [SerializeField] Circle circle;
 
@@ -22,7 +25,7 @@ namespace Game.SAM
         {
             if (image == null && !target.TryGetComponent(out image))
             {
-                Debug.LogError("ÇëÌí¼Ó¹ØÁªÍ¼Æ¬ÒýÓÃ");
+                Debuger.LogWarning(Author.UI, "The Image is missing!");
             }
             else
             {

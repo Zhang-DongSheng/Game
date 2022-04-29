@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 
-namespace Game.SAM
+namespace Game.SM
 {
-    public class SAMShake : SAMBase
+    /// <summary>
+    /// 抖动
+    /// </summary>
+    public class SMShake : SMBase
     {
         [SerializeField] private float intensity = 0.3f;
 

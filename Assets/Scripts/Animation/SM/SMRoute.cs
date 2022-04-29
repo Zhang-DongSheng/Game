@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.SAM
+namespace Game.SM
 {
-    public class SAMRoute : SAMBase
+    /// <summary>
+    /// 路点
+    /// </summary>
+    public class SMRoute : SMBase
     {
         [SerializeField] private Circle circle;
 

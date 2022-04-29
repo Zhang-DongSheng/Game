@@ -1,13 +1,13 @@
-using Game.SAM;
+using Game.SM;
 
 namespace UnityEngine.UI
 {
-    [RequireComponent(typeof(Slider), typeof(SAMImage))]
+    [RequireComponent(typeof(Slider), typeof(SMImage))]
     public class SliderHelper : MonoBehaviour
     {
         [SerializeField] protected Slider slider;
 
-        [SerializeField] protected SAMImage sam;
+        [SerializeField] protected SMImage sam;
 
         private float before;
 

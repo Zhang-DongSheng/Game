@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Game.SAM;
+using Game.SM;
 
 namespace Game.UI
 {
@@ -11,7 +11,7 @@ namespace Game.UI
     {
         [SerializeField] private ParentAndPrefab prefab;
 
-        [SerializeField] private SAMSize animator;
+        [SerializeField] private SMSize animator;
 
         private NoticeStatus status;
 

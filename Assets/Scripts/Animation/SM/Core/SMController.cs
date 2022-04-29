@@ -2,17 +2,17 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Game.SAM
+namespace Game.SM
 {
-    public class SAMController : MonoBehaviour
+    public class SMController : MonoBehaviour
     {
         [SerializeField] private bool enable;
 
-        [SerializeField] private List<SAMBase> sams = new List<SAMBase>();
+        [SerializeField] private List<SMBase> sms = new List<SMBase>();
 
         public UnityEvent onCompleted;
 
-        private SAMBase current;
+        private SMBase current;
 
         private int index;
 
@@ -26,11 +26,11 @@ namespace Game.SAM
 
         private void OnValidate()
         {
-            for (int i = 0; i < sams.Count; i++)
+            for (int i = 0; i < sms.Count; i++)
             {
-                if (sams[i] != null)
+                if (sms[i] != null)
                 {
-                    sams[i].Enable = false;
+                    sms[i].Enable = false;
                 }
             }
         }
@@ -39,18 +39,18 @@ namespace Game.SAM
         {
             index++;
 
-            if (sams.Count > index)
+            if (sms.Count > index)
             {
-                for (int i = 0; i < sams.Count; i++)
+                for (int i = 0; i < sms.Count; i++)
                 {
                     if (i == index)
                     {
-                        current = sams[i];
+                        current = sms[i];
                         break;
                     }
                     else
                     {
-                        sams[i].onCompleted.RemoveAllListeners();
+                        sms[i].onCompleted.RemoveAllListeners();
                     }
                 }
                 current.onCompleted.AddListener(Next); current.Begin(true);

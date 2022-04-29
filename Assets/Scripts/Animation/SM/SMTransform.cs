@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Game.SAM
+namespace Game.SM
 {
-    public class SAMTransform : SAMBase
+    public class SMTransform : SMBase
     {
         [SerializeField] private Vector3Interval position;
 
@@ -18,7 +18,7 @@ namespace Game.SAM
 
             progress = curve.Evaluate(step);
 
-            target.anchoredPosition = position.Lerp(progress);
+            target.localPosition = position.Lerp(progress);
 
             target.localEulerAngles = rotation.Lerp(progress);
 

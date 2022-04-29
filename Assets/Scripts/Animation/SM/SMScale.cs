@@ -1,8 +1,11 @@
 using UnityEngine;
 
-namespace Game.SAM
+namespace Game.SM
 {
-    public class SAMScale : SAMBase
+    /// <summary>
+    /// 缩放
+    /// </summary>
+    public class SMScale : SMBase
     {
         [SerializeField] private Vector3Interval scale;
 

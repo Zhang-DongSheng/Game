@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 
-namespace Game.SAM
+namespace Game.SM
 {
-    public class SAMRotate : SAMBase
+    /// <summary>
+    /// 旋转
+    /// </summary>
+    public class SMRotate : SMBase
     {
         [SerializeField] private Circle circle;
 
