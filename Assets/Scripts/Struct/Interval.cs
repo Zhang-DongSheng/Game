@@ -1,6 +1,8 @@
 using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
-namespace UnityEngine
+namespace Game
 {
     /// <summary>
     /// ×´Ì¬Çø¼ä

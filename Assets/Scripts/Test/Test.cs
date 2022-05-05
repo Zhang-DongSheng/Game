@@ -29,8 +29,6 @@ namespace Game.Test
 
         private int index;
 
-        TestRuntime runtime;
-
         protected void Awake()
         {
             items[0].localPosition = Vector3.zero;
@@ -42,18 +40,18 @@ namespace Game.Test
             items[2].localPosition = Utility.Vector.RotateCounterclockwise(Vector3.zero, Vector3.right * 50, 60).Vector3To2();
 
             GameObject game = null;
-
-            runtime = new TestRuntime();
         }
 
         private void OnEnable()
         {
-           
+            RuntimeBehaviour.Instance.Register(OnUpdate);
+
+            RuntimeBehaviour.Instance.Register(OnUpdate2);
         }
 
         private void OnDisable()
         {
-
+            RuntimeBehaviour.Instance.Unregister(OnUpdate);
         }
 
         private void OnDrawGizmos()
@@ -86,13 +84,7 @@ namespace Game.Test
         /// </summary>
         public void OnClick()
         {
-            runtime.Dispose();
-
-            runtime = null;
-
-            GC.Collect();
-
-            Debug.LogError("释放");
+            RuntimeBehaviour.Instance.Unregister(OnUpdate2);
         }
         /// <summary>
         /// 菜单栏测试
@@ -114,6 +106,16 @@ namespace Game.Test
             {
                 Debuger.Log(Author.Test, "I'm fine!");
             });
+        }
+
+        private void OnUpdate(float delta)
+        {
+            Debuger.Log(Author.Test, delta);
+        }
+
+        private void OnUpdate2(float delta)
+        {
+            Debuger.LogError(Author.Test, delta);
         }
     }
 
