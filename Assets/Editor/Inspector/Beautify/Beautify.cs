@@ -39,18 +39,18 @@ namespace UnityEditor
 
         protected override void Refresh()
         {
-            bool active = HierarchyBeautify.Instance.display;
+            bool active = BeautifyHierarchy.Instance.display;
 
             if (GUILayout.Button(string.Format("Hierarchy : {0}", active ? "On" : "Off")))
             {
-                HierarchyBeautify.Instance.display = !active;
+                BeautifyHierarchy.Instance.display = !active;
             }
 
-            active = ProjectBeautify.Instance.display;
+            active = BeautifyProject.Instance.display;
 
             if (GUILayout.Button(string.Format("Project : {0}", active ? "On" : "Off")))
             {
-                ProjectBeautify.Instance.display = !active;
+                BeautifyProject.Instance.display = !active;
             }
         }
     }

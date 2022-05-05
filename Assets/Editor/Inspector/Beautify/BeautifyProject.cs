@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UnityEditor
 {
-    public class ProjectBeautify : Beautify<ProjectBeautify>
+    public class BeautifyProject : Beautify<BeautifyProject>
     {
         private readonly Dictionary<string, Information> items = new Dictionary<string, Information>();
 

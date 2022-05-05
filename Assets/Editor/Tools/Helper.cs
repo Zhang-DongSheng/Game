@@ -56,37 +56,6 @@ namespace UnityEditor
         {
             OpenFile(Application.consoleLogPath);
         }
-        [MenuItem("GameObject/Shrink/Retract", priority = 49)]
-        protected static void Retract()
-        {
-            Shrink(false);
-        }
-        [MenuItem("GameObject/Shrink/Spread", priority = 49)]
-        protected static void Spread()
-        {
-            Shrink(true);
-        }
-
-        protected static void Shrink(bool expand)
-        {
-            EditorApplication.ExecuteMenuItem("Window/General/Hierarchy");
-
-            EditorWindow window = EditorWindow.focusedWindow;
-
-            var method = window.GetType().GetMethod("SetExpandedRecursive");
-
-            if (Selection.activeGameObject != null)
-            {
-                method.Invoke(window, new object[] { Selection.activeGameObject.GetInstanceID(), expand });
-            }
-            else
-            {
-                foreach (GameObject root in SceneManager.GetActiveScene().GetRootGameObjects())
-                {
-                    method.Invoke(window, new object[] { root.GetInstanceID(), expand });
-                }
-            }
-        }
 
         protected static void OpenFolder(string path)
         {

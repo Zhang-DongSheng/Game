@@ -1,65 +1,64 @@
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using System.Collections;
+using UnityEngine;
 
 namespace Game
 {
     public class RuntimeBehaviour : MonoSingleton<RuntimeBehaviour>
     {
-        private event FunctionBySingle update;
+        private readonly WaitForEndOfFrame EndOfFrame = new WaitForEndOfFrame();
 
-        private event FunctionBySingle updateFixed;
-
-        private event Function updateLate;
-
-        private int count;
+        private event FunctionBySingle updates;
 
         private void Update()
         {
-            if (update == null) return;
+            if (updates == null) return;
 
-            update(Time.deltaTime);
+            updates(Time.deltaTime);
         }
 
-        private void FixedUpdate()
+        private IEnumerator Excute(Action action, YieldInstruction yield)
         {
-            if (updateFixed == null) return;
+            yield return yield;
 
-            updateFixed(Time.fixedDeltaTime);
-        }
-
-        private void LateUpdate()
-        {
-            if (updateLate == null) return;
-
-            updateLate();
+            action?.Invoke();
         }
 
         public void Register(FunctionBySingle action)
         {
-            if (update != null)
+            if (updates != null)
             {
-                foreach (var function in update.GetInvocationList())
+                foreach (var function in updates.GetInvocationList())
                 {
                     if (function.Equals(action))
                     {
                         return;
                     }
                 }
-                update += action;
+                updates += action;
             }
             else
             {
-                update = action;
+                updates = action;
             }
         }
 
         public void Unregister(FunctionBySingle action)
         {
-            if (update != null)
+            if (updates != null)
             {
-                update -= action;
+                updates -= action;
             }
+        }
+
+        public void Invoke(Action action)
+        {
+            StartCoroutine(Excute(action, EndOfFrame));
+        }
+
+        public void Invoke(Action action, YieldInstruction yield)
+        {
+            StartCoroutine(Excute(action, yield));
         }
     }
 }

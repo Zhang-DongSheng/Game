@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityEditor
 {
-    public class HierarchyBeautify : Beautify<HierarchyBeautify>
+    public class BeautifyHierarchy : Beautify<BeautifyHierarchy>
     {
         private readonly List<Type> ignore = new List<Type>()
         {
