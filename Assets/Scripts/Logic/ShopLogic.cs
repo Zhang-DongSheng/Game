@@ -36,7 +36,7 @@ namespace Game
                             {
                                 identification = 1001,
                                 number = 1,
-                                parallelism = UnityEngine.Random.Range(0,4),
+                                parallelism = (uint)UnityEngine.Random.Range(0,4),
                             }
                         }
                     });

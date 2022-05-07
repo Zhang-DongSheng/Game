@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Data
 {
     public class Task
-    {        public int identification;
+    {        public uint identification;
 
         public ActionType action;
 

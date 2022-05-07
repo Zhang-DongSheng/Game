@@ -6,10 +6,10 @@ namespace Data
 {
     public class Prop
     {
-        public int identification;
+        public uint identification;
 
-        public int number;
+        public uint number;
 
-        public int parallelism;
+        public uint parallelism;
     }
 }

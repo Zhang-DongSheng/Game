@@ -31,9 +31,9 @@ namespace Game
             {
                 _props.Add(new Prop()
                 {
-                    identification = i,
+                    identification = (uint)i,
                     number = 999,
-                    parallelism = data.props[i].identification
+                    parallelism = data.props[i].primary,
                 });
             }
         }

@@ -4,7 +4,7 @@ namespace Data
 {
     public class Commodity
     {
-        public int identification;
+        public uint identification;
 
         public List<Currency> currencies;
 

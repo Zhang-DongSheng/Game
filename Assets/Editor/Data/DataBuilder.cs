@@ -19,11 +19,6 @@ namespace UnityEditor
         {
             Create<DataSprite>();
         }
-        [MenuItem("Data/Create/Currency")]
-        protected static void Create_Currency()
-        {
-            Create<DataCurrency>();
-        }
         [MenuItem("Data/Create/Prop")]
         protected static void Create_Prop()
         {
@@ -33,11 +28,6 @@ namespace UnityEditor
         protected static void Create_Task()
         {
             Create<DataTask>();
-        }
-        [MenuItem("Data/Create/Bone")]
-        protected static void Create_Bone()
-        {
-            Create<DataBone>();
         }
         #endregion
 

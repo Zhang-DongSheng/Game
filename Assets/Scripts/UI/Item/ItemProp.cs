@@ -13,7 +13,7 @@ namespace Game.UI
 
         public void Refresh(Currency currency)
         {
-            PropInformation info = DataManager.Instance.Load<DataCurrency>().Get((int)currency.currency);
+            PropInformation info = DataManager.Instance.Load<DataProp>().Get((int)currency.currency);
 
             if (info != null)
             {

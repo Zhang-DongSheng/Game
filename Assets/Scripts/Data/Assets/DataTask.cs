@@ -6,24 +6,9 @@ namespace Data
     {
         public List<TaskInformation> tasks = new List<TaskInformation>();
 
-        public TaskInformation Get(int identification, bool quick = false)
+        public TaskInformation Get(int key, bool quick = false)
         {
-            if (quick)
-            {
-                return QuickLook(tasks, identification);
-            }
-            else
-            {
-                return tasks.Find(x => x.identification == identification);
-            }
-        }
-
-        protected override void Editor()
-        {
-            tasks.Sort((a, b) =>
-            {
-                return a.identification > b.identification ? 1 : -1;
-            });
+            return tasks.Find(x => x.primary == key);
         }
     }
     [System.Serializable]

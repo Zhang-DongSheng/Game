@@ -6,7 +6,7 @@ namespace Data
 {
     public class User
     {
-        public int identification;
+        public uint identification;
 
         public string name;
 

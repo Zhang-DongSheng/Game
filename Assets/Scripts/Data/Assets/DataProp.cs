@@ -6,24 +6,14 @@ namespace Data
     {
         public List<PropInformation> props = new List<PropInformation>();
 
-        public PropInformation Get(int identification, bool quick = false)
+        public PropInformation Get(int key, bool quick = false)
         {
-            if (quick)
-            {
-                return QuickLook(props, identification);
-            }
-            else
-            {
-                return props.Find(x => x.identification == identification);
-            }
+            return props.Find(x => x.primary == key);
         }
 
-        protected override void Editor()
+        public PropInformation Get(uint key, bool quick = false)
         {
-            props.Sort((a, b) =>
-            {
-                return a.identification > b.identification ? 1 : -1;
-            });
+            return props.Find(x => x.primary == key);
         }
     }
     [System.Serializable]

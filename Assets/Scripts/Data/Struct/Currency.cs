@@ -22,8 +22,8 @@ namespace Data
     /// </summary>
     public enum CurrencyEnum
     {
-        Gold,
-        Diamond,
-        Coin,
+        Gold = 101,
+        Diamond = 102,
+        Coin = 103,
     }
 }

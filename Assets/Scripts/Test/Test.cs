@@ -44,14 +44,12 @@ namespace Game.Test
 
         private void OnEnable()
         {
-            RuntimeBehaviour.Instance.Register(OnUpdate);
-
-            RuntimeBehaviour.Instance.Register(OnUpdate2);
+           
         }
 
         private void OnDisable()
         {
-            RuntimeBehaviour.Instance.Unregister(OnUpdate);
+            
         }
 
         private void OnDrawGizmos()
@@ -84,7 +82,7 @@ namespace Game.Test
         /// </summary>
         public void OnClick()
         {
-            RuntimeBehaviour.Instance.Unregister(OnUpdate2);
+            
         }
         /// <summary>
         /// 菜单栏测试
