@@ -15,6 +15,14 @@ namespace Data
         {
             return props.Find(x => x.primary == key);
         }
+
+        protected override void Editor()
+        {
+            for (int i = 0; i < props.Count; i++)
+            {
+                props[i].primary = (uint)i;
+            }
+        }
     }
     [System.Serializable]
     public class PropInformation : InformationBase

@@ -4,11 +4,11 @@ namespace Data
 {
     public class DataSprite : DataBase
     {
-        public List<AtlasInformation> atlases;
+        public List<AtlasInformation> atlases = new List<AtlasInformation>();
 
-        public List<SpriteInformation> sprites;
+        public List<SpriteInformation> sprites = new List<SpriteInformation>();
 
-        public List<TextureInformation> textures;
+        public List<TextureInformation> textures = new List<TextureInformation>();
 
         public AtlasInformation GetAtlas(string sprite)
         {
@@ -30,6 +30,11 @@ namespace Data
         public TextureInformation GetTexture2D(string name)
         {
             return textures.Find(x => x.name == name);
+        }
+
+        protected override void Editor()
+        {
+            
         }
     }
     [System.Serializable]

@@ -15,16 +15,10 @@ namespace Game.UI
         {
             PropInformation info = DataManager.Instance.Load<DataProp>().Get((int)currency.currency);
 
-            if (info != null)
-            {
-                SpriteHelper.SetSprite(m_prop.imgIcon, info.icon);
+            Refresh(info);
 
-                SpriteHelper.SetQuality(m_prop.imgQuality, info.quality);
+            TextHelper.SetString(m_prop.txtNumber, currency.number);
 
-                TextHelper.SetString(m_prop.txtName, info.name);
-
-                TextHelper.SetString(m_prop.txtNumber, currency.number);
-            }
             SetActive(true);
         }
 
@@ -32,17 +26,23 @@ namespace Game.UI
         {
             PropInformation info = DataManager.Instance.Load<DataProp>().Get(prop.parallelism);
 
-            if (info != null)
-            {
-                SpriteHelper.SetSprite(m_prop.imgIcon, info.icon);
+            Refresh(info);
 
-                SpriteHelper.SetQuality(m_prop.imgQuality, info.quality);
+            TextHelper.SetString(m_prop.txtNumber, prop.number);
 
-                TextHelper.SetString(m_prop.txtName, info.name);
-
-                TextHelper.SetString(m_prop.txtNumber, prop.number);
-            }
             SetActive(true);
+        }
+
+        protected void Refresh(PropInformation prop)
+        {
+            if (prop != null)
+            {
+                SpriteHelper.SetSprite(m_prop.imgIcon, prop.icon);
+
+                SpriteHelper.SetQuality(m_prop.imgQuality, prop.quality);
+
+                TextHelper.SetString(m_prop.txtName, prop.name);
+            }
         }
         [System.Serializable]
         class UIPropBase
