@@ -6,39 +6,44 @@ namespace Data
 {
     public class DataText : DataBase
     {
+        public enum Language
+        {
+            Chinese,
+            English,
+        }
         public Language language;
 
         public string icon;
 
-        public Font font;
+        public Dictionary dictionary;
 
-        public List<Word> words = new List<Word>();
-
-        public string Word(string key)
+        public string Get(string key)
         {
-            for (int i = 0; i < words.Count; i++)
+            for (int i = 0; i < dictionary.words.Count; i++)
             {
-                if (words[i].key == key)
+                if (dictionary.words[i].key == key)
                 {
-                    return words[i].value;
+                    return dictionary.words[i].value;
                 }
             }
             return key;
         }
-    }
-    [Serializable]
-    public class Word
-    {
-        public string key;
 
-        public string value;
-    }
-    /// <summary>
-    /// 语言
-    /// </summary>
-    public enum Language
-    {
-        Chinese,
-        English,
+        protected override void Editor()
+        {
+            Debuger.LogError(Author.Data, JsonUtility.ToJson(dictionary));
+        }
+        [Serializable]
+        public class Dictionary
+        {
+            public List<Word> words = new List<Word>();
+        }
+        [Serializable]
+        public class Word
+        {
+            public string key;
+
+            public string value;
+        }
     }
 }

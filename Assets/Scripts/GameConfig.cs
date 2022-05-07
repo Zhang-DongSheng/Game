@@ -7,7 +7,7 @@ public class GameConfig
 {
     public const bool DEBUG = true;
 
-    public const Language Lang = Language.Chinese;
+    public const DataText.Language Lang = DataText.Language.Chinese;
 
     public const LoadType Load = LoadType.AssetBundle;
 

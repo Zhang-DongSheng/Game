@@ -28,7 +28,7 @@ namespace Game
             {
                 if (dictionary != null)
                 {
-                    SetString(component, dictionary.Word(content), false);
+                    SetString(component, dictionary.Get(content), false);
                 }
                 else
                 {
@@ -36,7 +36,7 @@ namespace Game
 
                     if (dictionary != null)
                     {
-                        SetString(component, dictionary.Word(content), false);
+                        SetString(component, dictionary.Get(content), false);
                     }
                     else
                     {

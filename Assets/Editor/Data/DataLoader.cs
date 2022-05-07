@@ -14,8 +14,27 @@ namespace UnityEditor
         {
             DataText data = Load<DataText>();
 
-            data.words.Clear();
+            string[] guids = AssetDatabase.FindAssets("t:TextAsset", new string[] { "Assets/Art/Language" });
 
+            string path, file;
+
+            foreach (var guid in guids)
+            {
+                path = AssetDatabase.GUIDToAssetPath(guid);
+
+                file = System.IO.Path.GetFileNameWithoutExtension(path);
+
+                if (GameConfig.Lang.ToString().ToLower() == file)
+                {
+                    TextAsset asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
+
+                    if (asset != null && !string.IsNullOrEmpty(asset.text))
+                    {
+                        data.dictionary = JsonUtility.FromJson<DataText.Dictionary>(asset.text);
+                    }
+                    break;
+                }
+            }
             AssetDatabase.SaveAssets(); AssetDatabase.Refresh();
         }
         [MenuItem("Data/Load/Sprite")]

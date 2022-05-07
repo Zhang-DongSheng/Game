@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DataProp
   m_EditorClassIdentifier: 
   props:
-  - identification: 0
+  - primary: 0
     name: Prop_A
     icon: "\u4F11\u95F2\u88E4"
     quality: 1
@@ -21,7 +21,7 @@ MonoBehaviour:
     price: 1
     source: 0
     description: Prop_A ...
-  - identification: 1
+  - primary: 1
     name: Prop_B
     icon: "\u5305\u81C0\u88D9"
     quality: 1
@@ -29,7 +29,7 @@ MonoBehaviour:
     price: 1
     source: 3
     description: Prop_B ...
-  - identification: 2
+  - primary: 2
     name: Prop_C
     icon: "\u5C0F\u897F\u670D"
     quality: 3
@@ -37,7 +37,7 @@ MonoBehaviour:
     price: 1
     source: 0
     description: Prop_B ...
-  - identification: 3
+  - primary: 3
     name: Prop_D
     icon: "\u65D7\u888D"
     quality: 6
@@ -45,7 +45,7 @@ MonoBehaviour:
     price: 1
     source: 0
     description: Prop_B ...
-  - identification: 4
+  - primary: 4
     name: Prop_E
     icon: "\u8D85\u77ED\u88E4"
     quality: 0
