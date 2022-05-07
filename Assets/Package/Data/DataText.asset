@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e0f59d3ad2c36f4e9acd417e89f2c36, type: 3}
-  m_Name: 
+  m_Name: DataText
   m_EditorClassIdentifier: 
   language: 0
   icon: 
