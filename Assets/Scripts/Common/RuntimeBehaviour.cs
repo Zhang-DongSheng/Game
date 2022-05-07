@@ -1,14 +1,17 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
 {
     public class RuntimeBehaviour : MonoSingleton<RuntimeBehaviour>
     {
+        private event FunctionBySingle updates;
+
         private readonly WaitForEndOfFrame EndOfFrame = new WaitForEndOfFrame();
 
-        private event FunctionBySingle updates;
+        private readonly Dictionary<float, WaitForSeconds> Seconds = new Dictionary<float, WaitForSeconds>();
 
         private void Update()
         {
@@ -51,9 +54,18 @@ namespace Game
             }
         }
 
-        public void Invoke(Action action)
+        public void InvokeWaitForEndOfFrame(Action action)
         {
-            StartCoroutine(Excute(action, EndOfFrame));
+            Invoke(action, EndOfFrame);
+        }
+
+        public void InvokeWaitForSeconds(Action action, float seconds)
+        {
+            if (!Seconds.ContainsKey(seconds))
+            {
+                Seconds.Add(seconds, new WaitForSeconds(seconds));
+            }
+            Invoke(action, Seconds[seconds]);
         }
 
         public void Invoke(Action action, YieldInstruction yield)
