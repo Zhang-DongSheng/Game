@@ -1,7 +1,7 @@
 namespace UnityEngine
 {
     [System.Serializable]
-    public class ParentAndPrefab
+    public class PrefabWithParent
     {
         [SerializeField] private Transform parent;
 

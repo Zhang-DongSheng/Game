@@ -9,7 +9,7 @@ namespace Game.UI
     {
         public Action<Prop> callback;
 
-        [SerializeField] private ParentAndPrefab prefab;
+        [SerializeField] private PrefabWithParent prefab;
 
         private readonly List<ItemProp> items = new List<ItemProp>();
 

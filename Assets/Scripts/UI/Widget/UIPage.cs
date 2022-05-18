@@ -6,7 +6,7 @@ namespace UnityEngine.UI
 {
     public class UIPage : MonoBehaviour
     {
-        [SerializeField] private ParentAndPrefab prefab;
+        [SerializeField] private PrefabWithParent prefab;
 
         private readonly List<GameObject> items = new List<GameObject>();
 

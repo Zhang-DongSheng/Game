@@ -9,7 +9,7 @@ namespace Game.UI
     /// </summary>
     public class UIHorseLamp : UIBase
     {
-        [SerializeField] private ParentAndPrefab prefab;
+        [SerializeField] private PrefabWithParent prefab;
 
         [SerializeField] private SMSize animator;
 

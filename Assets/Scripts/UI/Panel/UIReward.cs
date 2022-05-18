@@ -11,7 +11,7 @@ namespace Game.UI
     /// </summary>
     public class UIReward : UIBase
     {
-        [SerializeField] private ParentAndPrefab prefab;
+        [SerializeField] private PrefabWithParent prefab;
 
         [SerializeField] private Text title;
 
