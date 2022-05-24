@@ -25,7 +25,7 @@ namespace Game
 
         public static void PlayAnimation(this GameObject go, string name = null, State state = State.Play)
         {
-            Animation animation = go.GetComponentInChildren<Animation>();
+            UnityEngine.Animation animation = go.GetComponentInChildren<UnityEngine.Animation>();
 
             if (animation != null)
             {

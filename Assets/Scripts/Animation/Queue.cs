@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace Game
+namespace Game.Animation
 {
     /// <summary>
     /// 行动队列
@@ -19,7 +19,7 @@ namespace Game
 
         [SerializeField] private bool active = true;
 
-        public Action<GameObject, State> callback;
+        public UnityEvent<GameObject, State> callback;
 
         private float timer;
 

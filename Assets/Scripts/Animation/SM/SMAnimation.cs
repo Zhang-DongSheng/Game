@@ -2,10 +2,9 @@ using UnityEngine;
 
 namespace Game.SM
 {
-    [RequireComponent(typeof(Animation))]
     public class SMAnimation : SMBase
     {
-        [SerializeField] private new Animation animation;
+        [SerializeField] private new UnityEngine.Animation animation;
 
         private float interval;
 

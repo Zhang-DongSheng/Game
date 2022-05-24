@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Game
+namespace Game.Animation
 {
     public class Route : MonoBehaviour
     {
