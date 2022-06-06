@@ -11,11 +11,11 @@ namespace UnityEditor.Ebook
         {
             try
             {
-                Encoding decoding = Utility.Encode.FileEncoding(path);
+                Encoding decoding = Utility._Encode.FileEncoding(path);
 
                 string content = File.ReadAllText(path);
 
-                path = Utility.Path.New(path);
+                path = Utility._Path.New(path);
 
                 File.WriteAllText(path, content, encoding);
             }

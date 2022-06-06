@@ -187,7 +187,7 @@ namespace UnityEditor.Window
 		{
 			if (!string.IsNullOrEmpty(source))
 			{
-				target = Utility.Path.New(string.Format("{0}/{1}", input.value, Path.GetFileName(source)));
+				target = Utility._Path.New(string.Format("{0}/{1}", input.value, Path.GetFileName(source)));
 
 				string prefab = target;
 
@@ -195,7 +195,7 @@ namespace UnityEditor.Window
 
 				for (int i = 0; i < dependencies.Count; i++)
 				{
-					target = Utility.Path.New(dependencies[i].path);
+					target = Utility._Path.New(dependencies[i].path);
 
 					if (dependencies[i].ignore)
 					{

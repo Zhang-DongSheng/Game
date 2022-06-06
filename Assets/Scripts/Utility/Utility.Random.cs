@@ -4,7 +4,7 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class Random
+        public static class _Random
         {
             private static readonly List<int> sequence = new List<int>();
 

@@ -125,7 +125,7 @@ namespace UnityEditor.Window
 						}
 						else
 						{
-							message = Utility.MD5.ComputeContent(inputString.value);
+							message = Utility._Md5.ComputeContent(inputString.value);
 						}
 					}
 				}
@@ -141,7 +141,7 @@ namespace UnityEditor.Window
 					}
 					if (GUILayout.Button("确定", GUILayout.Width(60)))
 					{
-						message = Utility.MD5.ComputeFile(inputFile.value);
+						message = Utility._Md5.ComputeFile(inputFile.value);
 					}
 				}
 				GUILayout.EndHorizontal();

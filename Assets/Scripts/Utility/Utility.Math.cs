@@ -5,7 +5,7 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class Math
+        public static class _Math
         {
             /// <summary>
             /// 最大公约数

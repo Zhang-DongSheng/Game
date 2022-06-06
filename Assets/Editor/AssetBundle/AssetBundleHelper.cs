@@ -14,9 +14,9 @@ namespace UnityEditor
         [MenuItem("Assets/Build AssetBundle")]
         protected static void BuildAssetToAssetBundle()
         {
-            string path = string.Format("{0}/{1}/Select", Utility.Path.Project, GameConfig.AssetBundle);
+            string path = string.Format("{0}/{1}/Select", Utility._Path.Project, GameConfig.AssetBundle);
 
-            Utility.Document.CreateDirectory(path);
+            Utility._Document.CreateDirectory(path);
 
             if (Selection.objects != null && Selection.objects.Length > 0)
             {
@@ -59,9 +59,9 @@ namespace UnityEditor
         [MenuItem("AssetBundle/Build")]
         protected static void Build()
         {
-            string path = string.Format("{0}/{1}/{2}", Utility.Path.Project, GameConfig.AssetBundle, TARGET);
+            string path = string.Format("{0}/{1}/{2}", Utility._Path.Project, GameConfig.AssetBundle, TARGET);
 
-            Utility.Document.CreateDirectory(path, true);
+            Utility._Document.CreateDirectory(path, true);
 
             BuildPipeline.BuildAssetBundles(path, Options, TARGET);
 
@@ -69,14 +69,14 @@ namespace UnityEditor
 
             string dst = string.Format("{0}/{1}", path, GameConfig.Manifest);
 
-            Utility.Document.Rename(src, dst);
+            Utility._Document.Rename(src, dst);
 
             Record();
         }
         [MenuItem("AssetBundle/Record")]
         protected static void Record()
         {
-            string path = string.Format("{0}/{1}/{2}", Utility.Path.Project, GameConfig.AssetBundle, TARGET);
+            string path = string.Format("{0}/{1}/{2}", Utility._Path.Project, GameConfig.AssetBundle, TARGET);
 
             string content = string.Empty;
 
@@ -92,12 +92,12 @@ namespace UnityEditor
 
                     if (key == GameConfig.Record) continue;
 
-                    string value = Utility.MD5.ComputeFile(files[i].FullName);
+                    string value = Utility._Md5.ComputeFile(files[i].FullName);
 
                     content += string.Format("{0}|{1}\n\r", key, value);
                 }
             }
-            Utility.Document.Write(string.Format("{0}/{1}", path, GameConfig.Record), content);
+            Utility._Document.Write(string.Format("{0}/{1}", path, GameConfig.Record), content);
         }
     }
 }

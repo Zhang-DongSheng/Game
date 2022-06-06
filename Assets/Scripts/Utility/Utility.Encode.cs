@@ -7,7 +7,7 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class Encode
+        public static class _Encode
         {
             public static readonly Encoding UTF8 = new UTF8Encoding(false);
 

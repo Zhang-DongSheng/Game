@@ -38,9 +38,9 @@ namespace Game.Test
 
             //items[1].localPosition = Utility.Vector.RelativePosition(60, 50).Vector3To2();
 
-            items[1].localPosition = Utility.Vector.RotateClockwise(Vector3.zero, Vector3.right * 50, 60).Vector3To2();
+            items[1].localPosition = Utility._Vector.RotateClockwise(Vector3.zero, Vector3.right * 50, 60).Vector3To2();
 
-            items[2].localPosition = Utility.Vector.RotateCounterclockwise(Vector3.zero, Vector3.right * 50, 60).Vector3To2();
+            items[2].localPosition = Utility._Vector.RotateCounterclockwise(Vector3.zero, Vector3.right * 50, 60).Vector3To2();
 
             GameObject game = null;
         }
@@ -48,11 +48,6 @@ namespace Game.Test
         private void OnEnable()
         {
            
-        }
-
-        private static void SS()
-        {
-            
         }
 
         private void OnDisable()

@@ -27,7 +27,7 @@ namespace UnityEditor
 
         public static void SetAssetBundle(string file, Func<string, string> rename)
         {
-            string importerPath = Utility.Path.SystemToUnity(file);
+            string importerPath = Utility._Path.SystemToUnity(file);
 
             AssetImporter importer = AssetImporter.GetAtPath(importerPath);
 

@@ -73,7 +73,7 @@ namespace UnityEditor
         {
             if (!display) return;
 
-            string key = string.Format("{0}/{1}", Utility.Path.Project, AssetDatabase.GUIDToAssetPath(guid));
+            string key = string.Format("{0}/{1}", Utility._Path.Project, AssetDatabase.GUIDToAssetPath(guid));
 
             RefreshSize(key, rect);
         }

@@ -6,7 +6,7 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class Time
+        public static class _Time
         {
             private static readonly StringBuilder builder = new StringBuilder();
 
@@ -73,35 +73,35 @@ namespace Game
                 {
                     builder.Append(span.Days);
 
-                    builder.Append(Define.DAY);
+                    builder.Append(_Define.DAY);
 
                     builder.Append(" ");
 
                     builder.Append(span.Hours);
 
-                    builder.Append(Define.HOUR);
+                    builder.Append(_Define.HOUR);
                 }
                 else if (span.Hours > 0)
                 {
                     builder.Append(span.Hours);
 
-                    builder.Append(Define.HOUR);
+                    builder.Append(_Define.HOUR);
 
                     if (span.Minutes < 10)
                     {
-                        builder.Append(Define.ZERO);
+                        builder.Append(_Define.ZERO);
                     }
                     builder.Append(span.Minutes);
 
-                    builder.Append(Define.MINUTE);
+                    builder.Append(_Define.MINUTE);
 
                     if (span.Seconds < 10)
                     {
-                        builder.Append(Define.ZERO);
+                        builder.Append(_Define.ZERO);
                     }
                     builder.Append(span.Seconds);
 
-                    builder.Append(Define.SECOND);
+                    builder.Append(_Define.SECOND);
                 }
                 else
                 {
@@ -109,17 +109,17 @@ namespace Game
 
                     if (span.Minutes < 10)
                     {
-                        builder.Append(Define.ZERO);
+                        builder.Append(_Define.ZERO);
                     }
-                    builder.Append(Define.MINUTE);
+                    builder.Append(_Define.MINUTE);
 
                     if (span.Seconds < 10)
                     {
-                        builder.Append(Define.ZERO);
+                        builder.Append(_Define.ZERO);
                     }
                     builder.Append(span.Seconds);
 
-                    builder.Append(Define.SECOND);
+                    builder.Append(_Define.SECOND);
                 }
                 return builder.ToString();
             }

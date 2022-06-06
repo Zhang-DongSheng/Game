@@ -60,7 +60,7 @@ namespace UnityEditor
 
 		public void Init()
 		{
-			input_inputFolder = Path.Combine(Utility.Path.Project, InputPath);
+			input_inputFolder = Path.Combine(Utility._Path.Project, InputPath);
 
 			inputFolder = input_inputFolder;
 
@@ -127,7 +127,7 @@ namespace UnityEditor
 
 						if (string.IsNullOrEmpty(input_inputFolder))
 						{
-							input_inputFolder = Path.Combine(Utility.Path.Project, InputPath);
+							input_inputFolder = Path.Combine(Utility._Path.Project, InputPath);
 						}
 					}
 
@@ -299,7 +299,7 @@ namespace UnityEditor
 								source.Add(new FileItem()
 								{
 									name = Path.GetFileNameWithoutExtension(path),
-									path = Utility.Path.UnityToSystem(path),
+									path = Utility._Path.UnityToSystem(path),
 									output = true,
 								});
 							}

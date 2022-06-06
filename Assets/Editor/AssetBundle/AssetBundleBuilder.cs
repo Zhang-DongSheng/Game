@@ -564,7 +564,7 @@ namespace UnityEditor.Window
                     {
                         key = root + items[i].folder + "/" + items[i].name;
 
-                        value = Utility.MD5.ComputeFile(items[i].path);
+                        value = Utility._Md5.ComputeFile(items[i].path);
 
                         writer.WriteLine(string.Format("{0}|{1}", key, value));
                     }
@@ -583,7 +583,7 @@ namespace UnityEditor.Window
                         {
                             key = root + items[i].folder + "/" + items[i].name;
 
-                            value = Utility.MD5.ComputeFile(items[i].path);
+                            value = Utility._Md5.ComputeFile(items[i].path);
 
                             writer.WriteLine(string.Format("{0}|{1}", key, value));
                         }
@@ -665,7 +665,7 @@ namespace UnityEditor.Window
         {
             get
             {
-                return string.Format("{0}/{1}/{2}", Utility.Path.Project, GameConfig.AssetBundle, GameConfig.BuildTarget);
+                return string.Format("{0}/{1}/{2}", Utility._Path.Project, GameConfig.AssetBundle, GameConfig.BuildTarget);
             }
         }
 

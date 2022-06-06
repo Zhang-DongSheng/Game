@@ -6,7 +6,7 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class Sort
+        public static class _Sort
         {
             public static List<T> MergeSort<T>(List<T> source) where T : IComparer
             {

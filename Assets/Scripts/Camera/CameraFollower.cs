@@ -71,7 +71,7 @@ namespace Game
 #else
             //...
 #endif
-            shift.y = Mathf.Clamp(Utility.Math.AngleIn360(shift.y), field.x, field.y);
+            shift.y = Mathf.Clamp(Utility._Math.AngleIn360(shift.y), field.x, field.y);
 
             distance = Mathf.Clamp(distance, visibility.x, visibility.y);
         }

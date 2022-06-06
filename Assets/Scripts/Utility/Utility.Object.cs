@@ -4,7 +4,7 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class Object
+        public static class _Object
         {
             public static void Unload(UnityEngine.Object asset)
             {

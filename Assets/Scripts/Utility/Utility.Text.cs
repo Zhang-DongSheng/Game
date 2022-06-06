@@ -4,7 +4,7 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class Text
+        public static class _Text
         {
             public static string Color(Color color, string content)
             {

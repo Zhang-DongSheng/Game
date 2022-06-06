@@ -208,7 +208,7 @@ namespace UnityEditor.Window
 
         private void CreateScript(string script, params Member[] parameters)
         {
-            string path = Utility.Path.New(string.Format("{0}/{1}.cs", Application.dataPath, script));
+            string path = Utility._Path.New(string.Format("{0}/{1}.cs", Application.dataPath, script));
 
             FileStream stream = new FileStream(path, FileMode.OpenOrCreate);
             StreamWriter writer = new StreamWriter(stream);

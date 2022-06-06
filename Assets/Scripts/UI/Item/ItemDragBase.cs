@@ -24,10 +24,10 @@ namespace Game.UI
             switch (axis)
             {
                 case Axis.Horizontal:
-                    drag = Utility.Vector.Horizontal(eventData.delta);
+                    drag = Utility._Vector.Horizontal(eventData.delta);
                     break;
                 case Axis.Vertical:
-                    drag = Utility.Vector.Vertical(eventData.delta);
+                    drag = Utility._Vector.Vertical(eventData.delta);
                     break;
                 default:
                     drag = true;

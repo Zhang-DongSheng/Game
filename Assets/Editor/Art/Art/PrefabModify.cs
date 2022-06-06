@@ -11,10 +11,13 @@ namespace UnityEditor
 			{
 				GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(file);
 
-				if (AssetDetection.Missing(prefab)) { }
+				if (AssetDetection.Missing(prefab))
+				{
+					Debug.LogError(string.Format("{0}丢失引用", prefab.name), prefab);
+				}
 				else
 				{
-					Debug.LogFormat("<color=green>[{0}]</color> 无丢失引用", prefab.name);
+					Debug.LogFormat("{0}无丢失引用", prefab.name);
 				}
 			}
 		}

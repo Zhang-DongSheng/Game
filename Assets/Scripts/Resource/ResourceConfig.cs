@@ -7,10 +7,10 @@ namespace Game.Resource
             switch (type)
             {
                 case LoadType.Resources:
-                    return Utility.Path.GetPathWithoutExtension(path);
+                    return Utility._Path.GetPathWithoutExtension(path);
                 case LoadType.AssetBundle:
                     {
-                        path = Utility.Path.GetPathWithoutExtension(path).ToLower();
+                        path = Utility._Path.GetPathWithoutExtension(path).ToLower();
                     }
                     return string.Format("{0}/{1}", GameConfig.Local_Resource, path);
                 case LoadType.AssetDatabase:

@@ -14,7 +14,7 @@ namespace UnityEditor
             {
                 string path = AssetDatabase.GetAssetPath(Selection.activeObject);
 
-                path = Utility.Path.UnityToSystem(path);
+                path = Utility._Path.UnityToSystem(path);
 
                 path = path.Replace("\\", "/");
 

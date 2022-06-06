@@ -115,10 +115,10 @@ namespace UnityEngine.UI
                 switch (direction)
                 {
                     case Direction.Horizontal:
-                        drag = Utility.Vector.Horizontal(eventData.delta);
+                        drag = Utility._Vector.Horizontal(eventData.delta);
                         break;
                     case Direction.Vertical:
-                        drag = Utility.Vector.Vertical(eventData.delta);
+                        drag = Utility._Vector.Vertical(eventData.delta);
                         break;
                 }
             }

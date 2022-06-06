@@ -7,7 +7,7 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class Document
+        public static class _Document
         {
             public static void CreateDirectory(string path, bool delete = false)
             {
@@ -86,7 +86,7 @@ namespace Game
                 {
                     byte[] buffer = File.ReadAllBytes(path);
 
-                    return Cryptogram.Encrypt(Encoding.Default.GetString(buffer), encrypt);
+                    return _Cryptogram.Encrypt(Encoding.Default.GetString(buffer), encrypt);
                 }
                 return string.Empty;
             }
@@ -95,7 +95,7 @@ namespace Game
             {
                 try
                 {
-                    CreateDirectory(Path.GetDirectoryName(path));
+                    CreateDirectory(_Path.GetDirectoryName(path));
 
                     File.WriteAllText(path, content);
                 }
@@ -109,7 +109,7 @@ namespace Game
             {
                 try
                 {
-                    CreateDirectory(Path.GetDirectoryName(path));
+                    CreateDirectory(_Path.GetDirectoryName(path));
 
                     File.WriteAllBytes(path, buffer);
                 }
@@ -123,9 +123,9 @@ namespace Game
             {
                 try
                 {
-                    byte[] buffer = Encoding.Default.GetBytes(Cryptogram.Decrypt(content, encrypt));
+                    byte[] buffer = Encoding.Default.GetBytes(_Cryptogram.Decrypt(content, encrypt));
 
-                    CreateDirectory(Path.GetDirectoryName(path));
+                    CreateDirectory(_Path.GetDirectoryName(path));
 
                     File.WriteAllBytes(path, buffer);
                 }
@@ -143,7 +143,7 @@ namespace Game
                 }
                 else
                 {
-                    CreateDirectory(Path.GetDirectoryName(path));
+                    CreateDirectory(_Path.GetDirectoryName(path));
 
                     using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
                     {
@@ -170,19 +170,19 @@ namespace Game
 
                     for (int i = 0; i < directories.Length; i++)
                     {
-                        CreateDirectory(Path.Replace(directories[i].FullName, src, dst));
+                        CreateDirectory(_Path.Replace(directories[i].FullName, src, dst));
                     }
 
                     FileInfo[] files = directory.GetFiles("*", SearchOption.AllDirectories);
 
                     for (int i = 0; i < directories.Length; i++)
                     {
-                        File.Copy(files[i].FullName, Path.Replace(files[i].FullName, src, dst), true);
+                        File.Copy(files[i].FullName, _Path.Replace(files[i].FullName, src, dst), true);
                     }
                 }
                 else if (File.Exists(src))
                 {
-                    CreateDirectory(Path.GetDirectoryName(dst));
+                    CreateDirectory(_Path.GetDirectoryName(dst));
 
                     File.Copy(src, dst, true);
                 }
@@ -196,7 +196,7 @@ namespace Game
                 }
                 else if (File.Exists(src))
                 {
-                    CreateDirectory(Path.GetDirectoryName(dst));
+                    CreateDirectory(_Path.GetDirectoryName(dst));
 
                     File.Move(src, dst);
                 }

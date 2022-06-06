@@ -5,7 +5,7 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class Path
+        public static class _Path
         {
             public static string Project
             {

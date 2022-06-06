@@ -6,7 +6,7 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class Define
+        public static class _Define
         {
             internal const string DAY = "d";
 

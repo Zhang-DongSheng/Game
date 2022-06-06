@@ -4,7 +4,7 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class Vector
+        public static class _Vector
         {
             private const float Min = 45f;
 

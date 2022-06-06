@@ -27,7 +27,7 @@ namespace UnityEditor
                             sp.objectReferenceInstanceIDValue != 0 &&
                             sp.objectReferenceValue == null)
                         {
-                            Debug.LogErrorFormat("{0} Missing : {1}", go.name, sp.propertyPath);
+                            Debug.LogWarningFormat("{0} Missing : {1}", go.name, sp.propertyPath);
                         }
                     }
                 }

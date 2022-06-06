@@ -27,7 +27,7 @@ namespace UnityEditor.Listener
 
         private static void ScriptEncoding(string path)
         {
-            Encoding encoding = Utility.Encode.FileEncoding(path);
+            Encoding encoding = Utility._Encode.FileEncoding(path);
 
             Encoding UTF8 = new UTF8Encoding(false);
 

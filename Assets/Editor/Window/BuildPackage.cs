@@ -67,7 +67,7 @@ namespace UnityEditor.Window
             }
             options.scenes = scenes;
 
-            string path = Utility.Path.Project;
+            string path = Utility._Path.Project;
 
             switch (EditorUserBuildSettings.activeBuildTarget)
             {

@@ -29,7 +29,7 @@ namespace Data
 
                     if (paramter.Length == 2)
                     {
-                        variables.Add(paramter[0], Utility.Cryptogram.Decrypt(paramter[1]));
+                        variables.Add(paramter[0], Utility._Cryptogram.Decrypt(paramter[1]));
                     }
                     line = reader.ReadLine();
                 }
@@ -79,7 +79,7 @@ namespace Data
 
                 foreach (var value in variables)
                 {
-                    writer.WriteLine(string.Format("{0}|{1}", value.Key, Utility.Cryptogram.Encrypt(value.Value)));
+                    writer.WriteLine(string.Format("{0}|{1}", value.Key, Utility._Cryptogram.Encrypt(value.Value)));
                 }
                 writer.Flush(); writer.Dispose();
             }

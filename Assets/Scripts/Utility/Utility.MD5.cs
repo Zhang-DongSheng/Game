@@ -9,7 +9,7 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class MD5
+        public static class _Md5
         {
             private static readonly StringBuilder builder = new StringBuilder();
 
