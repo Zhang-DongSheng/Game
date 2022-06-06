@@ -101,7 +101,7 @@ namespace Game.Test
 
         }
 
-        public void OnClickButton(int index)
+        public void OnClickButton(float index)
         {
             Debug.LogError("成功调用" + index);
         }

@@ -3,6 +3,53 @@ using UnityEngine;
 
 namespace UnityEditor.Inspector
 {
+    public class PropertyUtils
+    {
+        public static object Parameter(SerializedProperty property)
+        {
+            switch (property.propertyType)
+            {
+                case SerializedPropertyType.Integer:
+                    return property.intValue;
+                case SerializedPropertyType.Boolean:
+                    return property.boolValue;
+                case SerializedPropertyType.Float:
+                    return property.floatValue;
+                case SerializedPropertyType.String:
+                    return property.stringValue;
+                case SerializedPropertyType.Color:
+                    return property.colorValue;
+                case SerializedPropertyType.ObjectReference:
+                    return property.objectReferenceValue;
+                case SerializedPropertyType.Enum:
+                    return property.enumValueIndex;
+                case SerializedPropertyType.Vector2:
+                    return property.vector2Value;
+                case SerializedPropertyType.Vector2Int:
+                    return property.vector2IntValue;
+                case SerializedPropertyType.Vector3:
+                    return property.vector3Value;
+                case SerializedPropertyType.Vector3Int:
+                    return property.vector3IntValue;
+                case SerializedPropertyType.Vector4:
+                    return property.vector4Value;
+                case SerializedPropertyType.Quaternion:
+                    return property.quaternionValue;
+                case SerializedPropertyType.Rect:
+                    return property.rectValue;
+                case SerializedPropertyType.RectInt:
+                    return property.rectIntValue;
+                case SerializedPropertyType.Bounds:
+                    return property.boundsValue;
+                case SerializedPropertyType.BoundsInt:
+                    return property.boundsIntValue;
+                case SerializedPropertyType.Hash128:
+                    return property.hash128Value;
+                default:
+                    return null;
+            }
+        }
+    }
     [CustomPropertyDrawer(typeof(ReadonlyAttribute))]
     class ReadonlyDrawer : PropertyDrawer
     {
@@ -161,7 +208,7 @@ namespace UnityEditor.Inspector
 
             if (GUI.Button(position, _attribute.function))
             {
-                _attribute.Call(property);
+                _attribute.Call(property.serializedObject.targetObject, PropertyUtils.Parameter(property));
             }
         }
     }
