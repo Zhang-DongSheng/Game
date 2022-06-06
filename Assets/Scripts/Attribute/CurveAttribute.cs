@@ -1,6 +1,7 @@
 using System;
+using UnityEngine;
 
-namespace UnityEngine
+namespace Game.Attribute
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
     public class CurveAttribute : PropertyAttribute
@@ -11,7 +12,7 @@ namespace UnityEngine
 
         public CurveAttribute(Vector2 origination, Vector2 destination, AttributeColor attributeColor)
         {
-            this.color = AttributeConfig.Color(attributeColor);
+            this.color = Config.Color(attributeColor);
 
             this.ranges = new Rect(origination.x, origination.y, destination.x - origination.x, destination.y - origination.y);
         }

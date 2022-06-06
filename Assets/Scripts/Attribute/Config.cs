@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityEngine
+namespace Game.Attribute
 {
-    public static class AttributeConfig
+    public static class Config
     {
         public static Color Color(AttributeColor attributeColor)
         {

@@ -1,6 +1,7 @@
 using System;
+using UnityEngine;
 
-namespace UnityEngine
+namespace Game.Attribute
 {
     [AttributeUsage(AttributeTargets.Field)]
     public class DisplayAttribute : PropertyAttribute

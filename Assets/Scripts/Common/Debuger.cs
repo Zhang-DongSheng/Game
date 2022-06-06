@@ -23,7 +23,7 @@ namespace UnityEngine
 
         public static readonly Dictionary<Author, LogType> authors = new Dictionary<Author, LogType>()
         {
-            { Author.None,     LogType.Log },
+            { Author.None,     LogType.Exception },
             { Author.Device,   LogType.Exception },
             { Author.File,     LogType.Exception },
             { Author.Script,   LogType.Log },

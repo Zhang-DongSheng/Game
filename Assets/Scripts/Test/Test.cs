@@ -1,4 +1,5 @@
-﻿using Game.Pool;
+﻿using Game.Attribute;
+using Game.Pool;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,7 @@ namespace Game.Test
             Six,
         }
 
+        [Button("OnClickButton")]
         [SerializeField] private Command command;
 
         [SerializeField] private Vector3 position;
@@ -27,7 +29,8 @@ namespace Game.Test
 
         [SerializeField] private List<Transform> items;
 
-        private int index;
+        [Gradually("OnClickButton", 1)]
+        public int index;
 
         protected void Awake()
         {
@@ -45,6 +48,11 @@ namespace Game.Test
         private void OnEnable()
         {
            
+        }
+
+        private static void SS()
+        {
+            
         }
 
         private void OnDisable()
@@ -95,7 +103,7 @@ namespace Game.Test
 
         public void OnClickButton()
         {
-
+            Debug.LogError("成功调用");
         }
 
         private async System.Threading.Tasks.Task StartAsync()

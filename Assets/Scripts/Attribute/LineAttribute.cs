@@ -1,4 +1,6 @@
-namespace UnityEngine
+using UnityEngine;
+
+namespace Game.Attribute
 {
     public class LineAttribute : PropertyAttribute
     {
@@ -10,7 +12,7 @@ namespace UnityEngine
 
         public LineAttribute(AttributeColor attributeColor = AttributeColor.Gray, float height = HEIGHT)
         {
-            this.color = AttributeConfig.Color(attributeColor);
+            this.color = Config.Color(attributeColor);
 
             this.height = height;
         }
