@@ -137,92 +137,13 @@ namespace UnityEditor.Inspector
             }
         }
     }
-    [CustomPropertyDrawer(typeof(GraduallyAttribute))]
-    class GraduallyDrawer : PropertyDrawer
-    {
-        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
-        {
-            return EditorGUI.GetPropertyHeight(property, label, true);
-        }
-
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-        {
-            GraduallyAttribute _attribute = attribute as GraduallyAttribute;
-
-            position.width = Screen.width * 0.5f;
-
-            EditorGUI.LabelField(position, label);
-
-            position.x += Screen.width * 0.5f;
-
-            position.width = 100;
-
-            if (GUI.Button(position, "-"))
-            {
-                switch (property.propertyType)
-                {
-                    case SerializedPropertyType.Integer:
-                        property.intValue -= _attribute.step;
-                        break;
-                    case SerializedPropertyType.Float:
-                        property.floatValue -= _attribute.step;
-                        break;
-                    case SerializedPropertyType.Enum:
-                        property.enumValueIndex -= _attribute.step;
-                        break;
-                    default:
-                        EditorGUI.LabelField(position, "UnSupport:" + property.propertyType.ToString());
-                        break;
-                }
-                _attribute.Call(property.serializedObject.targetObject);
-            }
-            position.x += 100;
-
-            switch (property.propertyType)
-            {
-                case SerializedPropertyType.Integer:
-                    property.intValue = EditorGUI.IntField(position, property.intValue);
-                    break;
-                case SerializedPropertyType.Float:
-                    property.floatValue = EditorGUI.FloatField(position, property.floatValue);
-                    break;
-                case SerializedPropertyType.Enum:
-                    property.enumValueIndex = EditorGUI.IntField(position, property.enumValueIndex);
-                    break;
-                default:
-                    EditorGUI.LabelField(position, "UnSupport:" + property.propertyType.ToString());
-                    break;
-            }
-            position.x += 100;
-
-            if (GUI.Button(position, "+"))
-            {
-                switch (property.propertyType)
-                {
-                    case SerializedPropertyType.Integer:
-                        property.intValue += _attribute.step;
-                        break;
-                    case SerializedPropertyType.Float:
-                        property.floatValue += _attribute.step;
-                        break;
-                    case SerializedPropertyType.Enum:
-                        property.enumValueIndex += _attribute.step;
-                        break;
-                    default:
-                        EditorGUI.LabelField(position, "UnSupport:" + property.propertyType.ToString());
-                        break;
-                }
-                _attribute.Call(property.serializedObject.targetObject);
-            }
-        }
-    }
     [CustomPropertyDrawer(typeof(ButtonAttribute))]
     class ButtonDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             return EditorGUI.GetPropertyHeight(property, label, true) * 2 + 5;
-        } 
+        }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -240,7 +161,7 @@ namespace UnityEditor.Inspector
 
             if (GUI.Button(position, _attribute.function))
             {
-                _attribute.Call(property.serializedObject.targetObject);
+                _attribute.Call(property);
             }
         }
     }

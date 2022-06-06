@@ -20,7 +20,7 @@ namespace Game.Test
             Six,
         }
 
-        [Button("OnClickButton")]
+        
         [SerializeField] private Command command;
 
         [SerializeField] private Vector3 position;
@@ -29,8 +29,8 @@ namespace Game.Test
 
         [SerializeField] private List<Transform> items;
 
-        [Gradually("OnClickButton", 1)]
-        public int index;
+        [Button("OnClickButton")]
+        public float index;
 
         protected void Awake()
         {
@@ -101,9 +101,9 @@ namespace Game.Test
 
         }
 
-        public void OnClickButton()
+        public void OnClickButton(int index)
         {
-            Debug.LogError("成功调用");
+            Debug.LogError("成功调用" + index);
         }
 
         private async System.Threading.Tasks.Task StartAsync()
