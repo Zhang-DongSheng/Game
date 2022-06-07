@@ -32,8 +32,7 @@ namespace Game
 
                 loading.SetActive(false);
 
-                UIManager.Instance.CloseAll();
-                UIManager.Instance.Open(UIPanel.UILogin);
+                UIQuickEntry.OpenSingle(UIPanel.UILogin);
             };
             ScheduleLogic.Instance.Init();
         }

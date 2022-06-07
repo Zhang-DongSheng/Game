@@ -11,12 +11,21 @@ namespace Game.UI
 
         protected Paramter paramter;
 
-        private Status status = Status.None;
+        private Status status;
 
-        public void Open(UIPanel panel, UILayer layer)
+        private readonly Action<UIPanel, bool> callback;
+
+        public CtrlBase(UIPanel panel, Action<UIPanel, bool> callback)
         {
             this.panel = panel;
 
+            status = Status.None;
+
+            this.callback = callback;
+        }
+
+        public void Open(UILayer layer)
+        {
             this.layer = layer;
 
             Open();
@@ -68,7 +77,7 @@ namespace Game.UI
                 {
                     GameObject.Destroy(view.gameObject);
                 }
-                status = Status.None;
+                status = Status.None; callback?.Invoke(panel, active);
             }
             else
             {
@@ -76,15 +85,15 @@ namespace Game.UI
             }
         }
 
-        private void Load(UIPanel key, UILayer layer)
+        private void Load(UIPanel panel, UILayer layer)
         {
             status = Status.Loading;
 
             try
             {
-                Object prefab = ResourceManager.Load(string.Format("Package/Prefab/UI/Panel/{0}.prefab", key));
+                Object prefab = ResourceManager.Load(string.Format("{0}/{1}.prefab", Config.Prefab, panel));
 
-                Create(key, layer, prefab);
+                Create(panel, layer, prefab);
             }
             catch (Exception e)
             {
@@ -92,15 +101,15 @@ namespace Game.UI
             }
         }
 
-        private void LoadAsync(UIPanel key, UILayer layer)
+        private void LoadAsync(UIPanel panel, UILayer layer)
         {
             status = Status.Loading;
 
             try
             {
-                ResourceManager.LoadAsync(string.Format("Package/Prefab/UI/Panel/{0}.prefab", key), (asset) =>
+                ResourceManager.LoadAsync(string.Format("{0}/{1}", Config.Prefab, panel), (asset) =>
                 {
-                    Create(key, layer, asset);
+                    Create(panel, layer, asset);
                 });
             }
             catch (Exception e)
@@ -109,7 +118,7 @@ namespace Game.UI
             }
         }
 
-        private void Create(UIPanel key, UILayer layer, Object prefab)
+        private void Create(UIPanel panel, UILayer layer, Object prefab)
         {
             try
             {
@@ -123,11 +132,11 @@ namespace Game.UI
 
                 view.SetParent(UIManager.Instance.GetParent(view.layer));
 
-                view.SetName(key.ToString());
+                view.SetName(panel.ToString());
 
                 rect.Reset(); rect.SetFull();
 
-                view.Init(); Show();
+                view.Init(panel); Show();
 
                 status = Status.Display;
             }
@@ -147,16 +156,16 @@ namespace Game.UI
 
                 UIManager.Instance.SortDisplay(view.layer, view.transform);
             }
-            EventManager.Post(EventKey.UIOpen);
+            callback?.Invoke(panel, active);
         }
 
         protected virtual void Hide()
         {
             if (view != null)
             {
-                view.SetActive(false);
+                view.SetActive(active);
             }
-            EventManager.Post(EventKey.UIClose);
+            callback?.Invoke(panel, active);
         }
 
         public UIPanel panel { get; protected set; }

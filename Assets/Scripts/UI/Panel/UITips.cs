@@ -21,10 +21,5 @@ namespace Game.UI
         {
             content.text = paramter.Get<string>("tips");
         }
-
-        private void OnClickClose()
-        {
-            UIManager.Instance.Close(UIPanel.UITips);
-        }
     }
 }

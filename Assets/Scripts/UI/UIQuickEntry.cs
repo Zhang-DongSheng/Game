@@ -5,52 +5,65 @@ namespace Game.UI
 {
     public static class UIQuickEntry
     {
+        public static void Open(UIPanel panel, Paramter paramter = null)
+        {
+            UIManager.Instance.Paramter(panel, paramter);
+            {
+                UIManager.Instance.Open(panel);
+            }
+        }
+
+        public static void OpenSingle(UIPanel panel, Paramter paramter = null)
+        {
+            UIManager.Instance.CloseAll();
+
+            UIManager.Instance.Paramter(panel, paramter);
+            {
+                UIManager.Instance.Open(panel);
+            }
+        }
+
         public static void OpenUIConfirm(string title, string message, Action confirm, Action cancel = null)
         {
-            UIManager.Instance.Paramter(UIPanel.UIConfirm, new Paramter()
+            Open(UIPanel.UIConfirm, new Paramter()
             {
                 ["title"] = title,
                 ["message"] = message,
                 ["confirm"] = confirm,
                 ["cancel"] = cancel,
             });
-            UIManager.Instance.Open(UIPanel.UIConfirm);
         }
 
         public static void OpenUINotice(string notice)
         {
-            UIManager.Instance.Paramter(UIPanel.UINotice, new Paramter()
+            Open(UIPanel.UINotice, new Paramter()
             {
                 ["notice"] = notice,
             });
-            UIManager.Instance.Open(UIPanel.UINotice);
         }
 
         public static void OpenUITips(string tips)
         {
-            UIManager.Instance.Paramter(UIPanel.UITips, new Paramter()
+            Open(UIPanel.UITips, new Paramter()
             {
                 ["tips"] = tips,
             });
-            UIManager.Instance.Open(UIPanel.UITips);
         }
 
         public static void OpenUIHorseLamp(string message, float time = -1)
         {
-            UIManager.Instance.Paramter(UIPanel.UIHorseLamp, new Paramter()
+            Open(UIPanel.UIHorseLamp, new Paramter()
             {
                 ["message"] = message,
             });
-            UIManager.Instance.Open(UIPanel.UIHorseLamp);
         }
 
         public static void OpenUIReward(Reward reward)
         {
-            UIManager.Instance.Paramter(UIPanel.UIReward, new Paramter()
+            Open(UIPanel.UIReward, new Paramter()
             {
                 ["reward"] = reward,
             });
-            UIManager.Instance.Open(UIPanel.UIReward);
         }
     }
 }

@@ -67,7 +67,7 @@ namespace Game.UI
 
                 item.completed = Completed;
 
-                item.Init(message[0], UnityEngine.UI.Config.ScreenHalfWidth);
+                item.Init(message[0], Config.ScreenHalfWidth);
 
                 items.Add(item);
 
@@ -112,7 +112,7 @@ namespace Game.UI
 
             animator.onCompleted.AddListener(() =>
             {
-                UIManager.Instance.Close(UIPanel.UIHorseLamp);
+                OnClickClose();
             });
             animator.Begin(false);
         }

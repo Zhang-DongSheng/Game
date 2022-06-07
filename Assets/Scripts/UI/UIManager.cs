@@ -77,9 +77,7 @@ namespace Game.UI
 
         private void Push(UIPanel panel, CtrlBase ctrl)
         {
-            if (panel == UIPanel.UILogin ||
-                panel == UIPanel.UIMain ||
-                panel == UIPanel.UITitle)
+            if (Config.ignores.Contains(panel))
             {
                 Debuger.Log(Author.UI, string.Format("{0} is Ignore!", panel));
             }
@@ -98,30 +96,39 @@ namespace Game.UI
 
         private void Remove(UIPanel panel)
         {
-            for (int i = 0; i < _records.Count; i++)
+            int index = _records.FindIndex(x => x.panel == panel);
+
+            if (index > -1)
             {
-                if (_records[i].panel == panel)
-                {
-                    _records.RemoveAt(i);
-                    break;
-                }
+                _records.RemoveAt(index);
             }
         }
 
-        public void Open(UIPanel panel, UILayer layer = UILayer.None, bool record = true)
+        private void PanelEvent(UIPanel panel, bool active)
+        {
+            if (active)
+            {
+                Push(panel, _panels[panel]);
+
+                EventManager.Post(EventKey.UIOpen);
+            }
+            else
+            {
+                Remove(panel);
+
+                EventManager.Post(EventKey.UIClose);
+            }
+        }
+
+        public void Open(UIPanel panel, UILayer layer = UILayer.None)
         {
             try
             {
                 if (_panels.ContainsKey(panel) == false)
                 {
-                    _panels.Add(panel, new CtrlBase());
+                    _panels.Add(panel, new CtrlBase(panel, PanelEvent));
                 }
-                _panels[panel].Open(panel, layer);
-
-                if (record)
-                {
-                    Push(panel, _panels[panel]);
-                }
+                _panels[panel].Open(layer);
             }
             catch (Exception e)
             {
@@ -158,7 +165,6 @@ namespace Game.UI
             {
                 _panels[panel].Close(destroy);
             }
-            Remove(panel);
         }
 
         public void CloseAll(bool destroy = false)
@@ -170,25 +176,26 @@ namespace Game.UI
             _records.Clear();
         }
 
-        public void Paramter(UIPanel key, Paramter paramter)
+        public void Paramter(UIPanel panel, Paramter paramter)
         {
-            if (_panels.ContainsKey(key))
+            if (_panels.ContainsKey(panel))
             {
-                _panels[key].Paramter(paramter);
+                _panels[panel].Paramter(paramter);
             }
             else
             {
-                _panels.Add(key, new CtrlBase());
-
-                _panels[key].Paramter(paramter);
+                _panels.Add(panel, new CtrlBase(panel, PanelEvent));
+                {
+                    _panels[panel].Paramter(paramter);
+                }
             }
         }
 
-        public bool TryGetCtrl(UIPanel key, out CtrlBase ctrl)
+        public bool TryGetCtrl(UIPanel panel, out CtrlBase ctrl)
         {
-            if (_panels.ContainsKey(key))
+            if (_panels.ContainsKey(panel))
             {
-                ctrl = _panels[key]; return true;
+                ctrl = _panels[panel]; return true;
             }
             else
             {
@@ -321,27 +328,5 @@ namespace Game.UI
         Widget,
         Overlayer,
         Top,
-    }
-
-    public enum UIPanel
-    {
-        None,
-        UIMain,
-        UILogin,
-        UILoading,
-        UIWaiting,
-        UITips,
-        UITitle,
-        UINotice,
-        UIConfirm,
-        UIHorseLamp,
-        UIWarehouse,
-        UIMail,
-        UIShop,
-        UIReward,
-        UIActivity,
-        UILotteryDraw,
-        UITest,
-        Count,
     }
 }

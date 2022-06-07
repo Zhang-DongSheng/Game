@@ -71,7 +71,7 @@ namespace Game.UI
             yield return null;
         }
 
-        private void OnClickClose()
+        public override void OnClickClose()
         {
             if (coroutine != null)
             {
@@ -83,7 +83,7 @@ namespace Game.UI
             {
                 items[i].SetActive(false);
             }
-            UIManager.Instance.Close(UIPanel.UIReward);
+            base.OnClickClose();
         }
     }
 }

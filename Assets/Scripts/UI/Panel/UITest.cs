@@ -68,7 +68,7 @@ namespace Game.UI
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
-                UIManager.Instance.Open(UIPanel.UILotteryDraw);
+                UIQuickEntry.Open(UIPanel.UILotteryDraw);
             }
             else if (Input.GetKeyDown(KeyCode.E))
             {
@@ -87,7 +87,7 @@ namespace Game.UI
 
         private void OnClick()
         {
-            UIManager.Instance.Open(UIPanel.UILogin);
+            UIQuickEntry.Open(UIPanel.UILogin);
         }
 
         private void OnClickToggle(int index)

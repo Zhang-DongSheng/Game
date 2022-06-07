@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,27 +26,27 @@ namespace Game.UI
 
         private void Start()
         {
-            UIManager.Instance.Open(UIPanel.UITitle, record: false);
+            UIQuickEntry.Open(UIPanel.UITitle);
         }
 
         private void OnClickWarehouse()
         {
-            UIManager.Instance.Open(UIPanel.UIWarehouse);
+            UIQuickEntry.Open(UIPanel.UIWarehouse);
         }
 
         private void OnClickMail()
         {
-            UIManager.Instance.Open(UIPanel.UIMail);
+            UIQuickEntry.Open(UIPanel.UIMail);
         }
 
         private void OnClickActivity()
         {
-            UIManager.Instance.Open(UIPanel.UIActivity);
+            UIQuickEntry.Open(UIPanel.UIActivity);
         }
 
         private void OnClickLotteryDraw()
         {
-            UIManager.Instance.Open(UIPanel.UILotteryDraw);
+            UIQuickEntry.Open(UIPanel.UILotteryDraw);
         }
     }
 }

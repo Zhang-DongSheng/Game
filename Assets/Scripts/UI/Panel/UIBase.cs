@@ -5,15 +5,25 @@ namespace Game.UI
     [DisallowMultipleComponent]
     public abstract class UIBase : MonoBehaviour
     {
+        protected UIPanel panel;
+
         public UILayer layer = UILayer.Base;
 
         public int order;
 
-        public virtual void Init() { }
+        public virtual void Init(UIPanel panel)
+        {
+            this.panel = panel;
+        }
 
         public virtual void Reopen() { }
 
         public virtual void Refresh(Paramter paramter) { }
+
+        public virtual void OnClickClose()
+        {
+            UIManager.Instance.Close(panel);
+        }
 
         public void SetName(string name)
         {

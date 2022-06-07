@@ -56,7 +56,7 @@ namespace Game.UI
 
         private void OnClickShop()
         {
-            UIManager.Instance.Open(UIPanel.UIShop);
+            UIQuickEntry.Open(UIPanel.UIShop);
         }
     }
 }

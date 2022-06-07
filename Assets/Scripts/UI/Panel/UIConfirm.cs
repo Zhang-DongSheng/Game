@@ -29,7 +29,7 @@ namespace Game.UI
 
             btn_cancel.onClick.AddListener(OnClickCancel);
 
-            btn_close.onClick.AddListener(OnClickClose);
+            btn_close.onClick.AddListener(OnClickCancel);
         }
 
         public override void Refresh(Paramter paramter)
@@ -55,23 +55,14 @@ namespace Game.UI
         {
             confirm?.Invoke();
 
-            confirm = null;
-
-            UIManager.Instance.Close(UIPanel.UIConfirm);
+            OnClickClose();
         }
 
         private void OnClickCancel()
         {
             cancel?.Invoke();
 
-            cancel = null;
-
-            UIManager.Instance.Close(UIPanel.UIConfirm);
-        }
-
-        private void OnClickClose()
-        {
-            OnClickCancel();
+            OnClickClose();
         }
     }
 }

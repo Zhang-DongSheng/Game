@@ -144,12 +144,11 @@ namespace Game.UI
                 {
                     GlobalVariables.Set(Const.PASSWORD, password);
                 }
-                UIManager.Instance.Open(UIPanel.UILoading);
+                UIQuickEntry.Open(UIPanel.UILoading);
 
                 ScheduleLogic.Instance.callback = () =>
                 {
-                    UIManager.Instance.CloseAll();
-                    UIManager.Instance.Open(UIPanel.UIMain);
+                    UIQuickEntry.OpenSingle(UIPanel.UIMain);
                 };
                 ScheduleLogic.Instance.Enter();
             }

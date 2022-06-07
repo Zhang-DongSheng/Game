@@ -91,7 +91,7 @@ namespace Game.UI
         {
             status = Status.Idle;
 
-            UIManager.Instance.Close(UIPanel.UINotice);
+            OnClickClose();
         }
 
         enum Status
