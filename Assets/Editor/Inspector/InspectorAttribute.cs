@@ -187,6 +187,8 @@ namespace UnityEditor.Inspector
     [CustomPropertyDrawer(typeof(ButtonAttribute))]
     class ButtonDrawer : PropertyDrawer
     {
+        private string function;
+
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             return EditorGUI.GetPropertyHeight(property, label, true) * 2 + 5;
@@ -206,7 +208,15 @@ namespace UnityEditor.Inspector
 
             position.y += 3;
 
-            if (GUI.Button(position, _attribute.function))
+            if (_attribute.parameter)
+            {
+                function = string.Format("{0}({1} parameter)", _attribute.function, property.type);
+            }
+            else
+            {
+                function = _attribute.function;
+            }
+            if (GUI.Button(position, function))
             {
                 _attribute.Call(property.serializedObject.targetObject, PropertyUtils.Parameter(property));
             }
