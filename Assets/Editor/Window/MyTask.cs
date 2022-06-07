@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,15 +7,13 @@ namespace UnityEditor.Window
 {
     public class MyTask : CustomWindow
     {
-        private const string KEY = "TASKINFORMATION";
-
-        private const int WIDTH = 45;
-
         private TaskData task;
 
         private TaskInformation create;
 
         private bool active = false;
+
+        private readonly List<GUILayoutOption> options = new List<GUILayoutOption>() { GUILayout.Width(45), GUILayout.Width(150) };
 
         [MenuItem("Window/Task")]
         protected static void Open()
@@ -24,7 +23,7 @@ namespace UnityEditor.Window
 
         protected override void Init()
         {
-            string content = UnityEngine.PlayerPrefs.GetString(KEY);
+            string content = Utility._Document.Read(Path);
 
             if (string.IsNullOrEmpty(content))
             {
@@ -34,10 +33,10 @@ namespace UnityEditor.Window
             {
                 task = JsonUtility.FromJson<TaskData>(content);
             }
-
+            //初始数据
             create = new TaskInformation()
             {
-                status = Status.Create,
+                mode = Mode.Create,
             };
         }
 
@@ -62,7 +61,7 @@ namespace UnityEditor.Window
             }
             GUILayout.EndVertical();
 
-            if (GUILayout.Button(active ? "▼" : "▶", GUILayout.Width(25)))
+            if (GUILayout.Button(active ? "-" : "+", GUILayout.Width(25)))
             {
                 active = !active;
             }
@@ -78,26 +77,28 @@ namespace UnityEditor.Window
 
         private void RefreshTask(TaskInformation task)
         {
-            switch (task.status)
+            switch (task.mode)
             {
-                case Status.Create:
+                case Mode.Create:
                     {
                         RefreshWrite(task);
 
                         if (GUILayout.Button("新加", GUILayout.Width(100), GUILayout.ExpandHeight(true)))
                         {
-                            task.status = Status.None;
+                            task.mode = Mode.Display;
+
+                            task.identification = DateTime.UtcNow.Ticks;
 
                             this.task.Add(task); Save();
 
                             create = new TaskInformation()
                             {
-                                status = Status.Create,
+                                mode = Mode.Create,
                             };
                         }
                     }
                     break;
-                case Status.Editor:
+                case Mode.Editor:
                     {
                         RefreshWrite(task);
 
@@ -105,23 +106,23 @@ namespace UnityEditor.Window
                         {
                             if (GUILayout.Button("保存"))
                             {
-                                task.status = Status.None; Save();
+                                task.mode = Mode.Display; Save();
                             }
                             if (GUILayout.Button("删除"))
                             {
-                                this.task.Remove(task.name); Save();
+                                this.task.Remove(task.identification); Save();
                             }
                         }
                         GUILayout.EndVertical();
                     }
                     break;
-                case Status.None:
+                case Mode.Display:
                     {
                         RefreshRead(task);
 
                         if (GUILayout.Button("修改"))
                         {
-                            task.status = Status.Editor;
+                            task.mode = Mode.Editor;
                         }
                     }
                     break;
@@ -134,19 +135,30 @@ namespace UnityEditor.Window
             {
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Button("名称:", GUILayout.Width(WIDTH));
+                    GUILayout.Button("名称:", options[0]);
 
-                    GUILayout.Label(task.name, GUILayout.Width(150));
+                    GUILayout.Label(task.name, options[1]);
 
-                    GUILayout.Button("进度:", GUILayout.Width(WIDTH));
+                    GUILayout.Button("状态:", options[0]);
 
-                    GUILayout.Label(string.Format("{0}%", task.progress));
+                    GUILayout.Label(string.Format("{0}", task.status), options[1]);
+
+                    switch (task.status)
+                    {
+                        case Status.Develop:
+                            {
+                                GUILayout.Button("进度:", options[0]);
+
+                                GUILayout.Label(string.Format("{0}%", task.progress), options[1]);
+                            }
+                            break;
+                    }
                 }
                 GUILayout.EndHorizontal();
 
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Button("描述:", GUILayout.Width(WIDTH));
+                    GUILayout.Button("描述:", options[0]);
 
                     GUILayout.Label(task.description, GUILayout.ExpandHeight(true));
                 }
@@ -161,19 +173,30 @@ namespace UnityEditor.Window
             {
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Button("名称:", GUILayout.Width(WIDTH));
+                    GUILayout.Button("名称:", options[0]);
 
-                    task.name = GUILayout.TextField(task.name);
+                    task.name = GUILayout.TextField(task.name, options[1]);
 
-                    switch (task.status)
+                    switch (task.mode)
                     {
-                        case Status.Editor:
+                        case Mode.Editor:
                             {
-                                GUILayout.Button("进度:", GUILayout.Width(WIDTH));
+                                GUILayout.Button("状态:", options[0]);
 
-                                GUILayout.Label(string.Format("{0}%", task.progress), GUILayout.Width(100));
+                                task.status = (Status)EditorGUILayout.EnumPopup(task.status, options[1]);
 
-                                task.progress = GUILayout.HorizontalSlider(task.progress, 0, 100, GUILayout.Width(150));
+                                switch (task.status)
+                                {
+                                    case Status.Develop:
+                                        {
+                                            GUILayout.Button("进度:", options[0]);
+
+                                            GUILayout.Label(string.Format("{0}%", task.progress), GUILayout.Width(100));
+
+                                            task.progress = GUILayout.HorizontalSlider(task.progress, 0, 100, options[1]);
+                                        }
+                                        break;
+                                }
                             }
                             break;
                     }
@@ -182,7 +205,7 @@ namespace UnityEditor.Window
 
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Button("描述:", GUILayout.Width(WIDTH));
+                    GUILayout.Button("描述:", options[0]);
 
                     task.description = GUILayout.TextField(task.description, GUILayout.ExpandHeight(true));
                 }
@@ -195,7 +218,19 @@ namespace UnityEditor.Window
         {
             if (task != null)
             {
-                UnityEngine.PlayerPrefs.SetString(KEY, JsonUtility.ToJson(task));
+                Utility._Document.Write(Path, JsonUtility.ToJson(task));
+            }
+            else
+            {
+                Utility._Document.Delete(Path);
+            }
+        }
+
+        private string Path
+        {
+            get
+            {
+                return string.Format("{0}/{1}", Application.dataPath.Substring(0, Application.dataPath.Length - 6), "task");
             }
         }
 
@@ -209,9 +244,9 @@ namespace UnityEditor.Window
                 list.Add(task);
             }
 
-            public void Remove(string name)
+            public void Remove(long identification)
             {
-                int index = list.FindIndex(x => x.name == name);
+                int index = list.FindIndex(x => x.identification == identification);
 
                 if (index != -1)
                 {
@@ -228,6 +263,8 @@ namespace UnityEditor.Window
         [Serializable]
         class TaskInformation
         {
+            public long identification;
+
             public string name;
 
             public string description;
@@ -235,13 +272,23 @@ namespace UnityEditor.Window
             public float progress;
 
             public Status status;
+
+            public Mode mode;
+        }
+
+        enum Mode
+        {
+            Create,
+            Editor,
+            Display,
         }
 
         enum Status
         {
-            None,
-            Editor,
-            Create,
+            Project,
+            Develop,
+            Test,
+            Done,
         }
     }
 }

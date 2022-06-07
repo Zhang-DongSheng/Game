@@ -20,17 +20,15 @@ namespace UnityEditor.Window
 
 		private readonly List<Meta> dependencies = new List<Meta>();
 
-		[MenuItem("Assets/CopyPrefab", priority = 1)]
+		[MenuItem("Assets/CopyPrefab", priority = 0)]
 		protected static void Open()
 		{
-			if (Selection.activeObject != null && AssetDetection(Selection.activeObject))
-			{
-				Open<PrefabCopy>("预制体拷贝");
-			}
-			else
-			{
-				focusedWindow.ShowNotification(new GUIContent(string.Format("[{0}]类型的资源不可拷贝！", Selection.activeObject.GetType())));
-			}
+			Open<PrefabCopy>("预制体拷贝");
+		}
+		[MenuItem("Assets/CopyPrefab", true, priority = 0)]
+		protected static bool Detection()
+		{
+			return Selection.activeObject != null && AssetDetection(Selection.activeObject);
 		}
 
 		private static bool AssetDetection(Object asset)
