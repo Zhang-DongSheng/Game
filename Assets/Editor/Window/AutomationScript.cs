@@ -9,9 +9,15 @@ namespace UnityEditor.Window
 {
     class AutomationScript : CustomWindow
     {
-        private string script;
+        private string path;
+
+        private string content;
+
+        private Vector2 area;
 
         private readonly List<Member> members = new List<Member>();
+
+        private readonly StringBuilder builder = new StringBuilder();
         [MenuItem("Assets/Create/Script", false, 81)]
         protected static void Open()
         {
@@ -20,13 +26,14 @@ namespace UnityEditor.Window
 
         protected override void Init()
         {
-            script = "NewScript";
+            path = "NewScript";
         }
 
         protected override void Refresh()
         {
             GUILayout.BeginHorizontal();
             {
+                #region Left Menu
                 GUILayout.BeginVertical(GUILayout.Width(50));
                 {
                     foreach (var value in Enum.GetValues(typeof(MemberType)))
@@ -58,6 +65,7 @@ namespace UnityEditor.Window
                     }
                 }
                 GUILayout.EndVertical();
+                #endregion
 
                 GUILayout.Box(string.Empty, GUILayout.Width(3), GUILayout.ExpandHeight(true));
 
@@ -65,22 +73,39 @@ namespace UnityEditor.Window
                 {
                     GUILayout.Label(string.Format("成员数量：{0}", members.Count));
 
-                    for (int i = 0; i < members.Count; i++)
+                    scroll = GUILayout.BeginScrollView(scroll, GUILayout.Height(Height - 150));
                     {
-                        RefreshMember(members[i]);
+                        for (int i = 0; i < members.Count; i++)
+                        {
+                            RefreshMember(members[i]);
+                        }
                     }
+                    GUILayout.EndScrollView();
+
+                    GUILayout.Label("预览");
+
+                    area = GUILayout.BeginScrollView(area);
+                    {
+                        GUILayout.TextArea(content, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+                    }
+                    GUILayout.EndScrollView();
                 }
                 GUILayout.EndVertical();
 
                 GUILayout.Box(string.Empty, GUILayout.Width(3), GUILayout.ExpandHeight(true));
 
+                #region Right Menu
                 GUILayout.BeginVertical(GUILayout.Width(150));
                 {
-                    script = GUILayout.TextField(script);
+                    path = GUILayout.TextField(path);
 
+                    if (GUILayout.Button("刷新"))
+                    {
+                        content = Preview(members.ToArray());
+                    }
                     if (GUILayout.Button("生成"))
                     {
-                        CreateScript(script, members.ToArray());
+                        Create(path, members.ToArray());
                     }
                     if (GUILayout.Button("重置"))
                     {
@@ -92,6 +117,7 @@ namespace UnityEditor.Window
                     }
                 }
                 GUILayout.EndVertical();
+                #endregion
             }
             GUILayout.EndHorizontal();
         }
@@ -206,42 +232,56 @@ namespace UnityEditor.Window
             GUILayout.EndHorizontal();
         }
 
-        private void CreateScript(string script, params Member[] parameters)
+        private string Preview(params Member[] parameters)
+        {
+            return Builder(parameters);
+        }
+
+        private void Create(string script, params Member[] parameters)
         {
             string path = Utility._Path.New(string.Format("{0}/{1}.cs", Application.dataPath, script));
 
-            FileStream stream = new FileStream(path, FileMode.OpenOrCreate);
-            StreamWriter writer = new StreamWriter(stream);
-            string content;
-            writer.WriteLine("using System;");
-            writer.WriteLine("using UnityEngine;");
-            writer.WriteLine("using UnityEngine.UI;");
-            writer.WriteLine("using System.Collections;");
-            writer.WriteLine("using System.Collections.Generic;");
-            writer.WriteLine();
-            writer.WriteLine("namespace Game");
-            writer.WriteLine("{");
-            content = string.Format("\tpublic class {0}", script);
-            content = string.Format("{0} : {1}", content, "MonoBehaviour");
-            writer.WriteLine(content);
-            writer.WriteLine("\t{");
+            using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                StreamWriter writer = new StreamWriter(stream);
+
+                writer.Write(Builder(parameters));
+
+                writer.Flush(); writer.Dispose();
+            }
+            AssetDatabase.Refresh();
+        }
+
+        private string Builder(params Member[] parameters)
+        {
+            builder.Clear();
+            builder.AppendLine("using System;");
+            builder.AppendLine("using UnityEngine;");
+            builder.AppendLine("using UnityEngine.UI;");
+            builder.AppendLine("using System.Collections;");
+            builder.AppendLine("using System.Collections.Generic;");
+            builder.AppendLine();
+            builder.AppendLine("namespace Game");
+            builder.AppendLine("{");
+            builder.AppendLine(string.Format("\tpublic class {0}: MonoBehaviour", path));
+            builder.AppendLine("\t{");
+
             int count = parameters.Length;
+
             if (count > 0)
             {
                 for (int i = 0; i < count; i++)
                 {
-                    writer.WriteLine(parameters[i].Code);
+                    builder.AppendLine(parameters[i].Code);
                 }
             }
             else
             {
-                writer.WriteLine("\t\t");
+                builder.AppendLine("\t\t");
             }
-            writer.WriteLine("\t}");
-            writer.WriteLine("}");
-            writer.Dispose();
-            stream.Dispose();
-            AssetDatabase.Refresh();
+            builder.AppendLine("\t}");
+            builder.AppendLine("}");
+            return builder.ToString();
         }
 
         private void Sort(int index, int value)

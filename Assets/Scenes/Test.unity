@@ -995,9 +995,8 @@ MonoBehaviour:
   position: {x: 0, y: 0, z: 0}
   speed: 1
   items:
-  - {fileID: 1269747186}
-  - {fileID: 1029239869}
-  - {fileID: 1901086667}
+  - {fileID: 719324933}
+  index: 0
 --- !u!1 &1623644084
 GameObject:
   m_ObjectHideFlags: 0

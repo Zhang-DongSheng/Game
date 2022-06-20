@@ -34,15 +34,7 @@ namespace Game.Test
 
         protected void Awake()
         {
-            items[0].localPosition = Vector3.zero;
-
-            //items[1].localPosition = Utility.Vector.RelativePosition(60, 50).Vector3To2();
-
-            items[1].localPosition = Utility._Vector.RotateClockwise(Vector3.zero, Vector3.right * 50, 60).Vector3To2();
-
-            items[2].localPosition = Utility._Vector.RotateCounterclockwise(Vector3.zero, Vector3.right * 50, 60).Vector3To2();
-
-            GameObject game = null;
+            
         }
 
         private void OnEnable()
@@ -85,7 +77,41 @@ namespace Game.Test
         /// </summary>
         public void OnClick()
         {
-            
+            RectTransform cell = items[0].GetComponent<RectTransform>();
+
+            switch (command)
+            {
+                case Command.One:
+
+                    Vector2 delta = new Vector2()
+                    {
+                        x = 20,
+                        y = 0
+                    };
+                    cell.sizeDelta = delta * -1f;
+
+                    position = new Vector2()
+                    {
+                        x = 20,
+                        y = 0,
+                    };
+                    cell.anchoredPosition = position * 0.5f;
+
+                    break;
+                case Command.Two:
+
+                    cell.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, cell.rect.width + 20);
+
+                    break;
+                case Command.Three:
+
+                    cell.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 20, cell.rect.width - 20);
+                    //3043273231
+                    break;
+            }
+
+
+
         }
         /// <summary>
         /// 菜单栏测试
