@@ -50,9 +50,11 @@ namespace Game.Network
 
                     if (length == 0) break;
 
-                    string message = Convert.ToString(buffer, 0, length);
+                    byte[] result = new byte[length];
 
-                    onReceive?.Invoke(message);
+                    Array.Copy(buffer, result, length);
+
+                    onReceive?.Invoke(result);
                 }
                 catch (ThreadAbortException)
                 {

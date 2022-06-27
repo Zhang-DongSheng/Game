@@ -25,7 +25,7 @@ namespace UnityEngine.Audio
             }
         }
 
-        void Update()
+        private void Update()
         {
             if (source.isPlaying)
             {

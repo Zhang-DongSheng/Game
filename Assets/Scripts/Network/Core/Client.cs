@@ -9,7 +9,7 @@ namespace Game.Network
 {
     public abstract class Client
     {
-        public Action<string> onReceive;
+        public Action<byte[]> onReceive;
 
         protected IPEndPoint IP;
 

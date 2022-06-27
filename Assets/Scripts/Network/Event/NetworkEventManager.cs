@@ -53,11 +53,11 @@ namespace Game
 
     public class NetworkEventHandle : IDisposable
     {
-        public string content;
+        public byte[] buffer;
 
         public void Dispose()
         {
-            content = null;
+            buffer = null;
         }
     }
 }

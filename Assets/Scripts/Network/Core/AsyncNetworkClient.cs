@@ -66,7 +66,7 @@ namespace Game.Network
 
                 if (length > 0)
                 {
-                    onReceive?.Invoke(Convert.ToString(buffer));
+                    onReceive?.Invoke(buffer);
 
                     Receive();
                 }

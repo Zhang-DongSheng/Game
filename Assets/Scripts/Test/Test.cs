@@ -70,48 +70,19 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            
+            for (int i = 0; i < 5; i++)
+            {
+                Debuger.Log(Author.Test, Utility._Random.Range(1, 5));
+            }
+
+            Debuger.Log(Author.Test, "___________________________________");
         }
         /// <summary>
         /// 点击测试
         /// </summary>
         public void OnClick()
         {
-            RectTransform cell = items[0].GetComponent<RectTransform>();
-
-            switch (command)
-            {
-                case Command.One:
-
-                    Vector2 delta = new Vector2()
-                    {
-                        x = 20,
-                        y = 0
-                    };
-                    cell.sizeDelta = delta * -1f;
-
-                    position = new Vector2()
-                    {
-                        x = 20,
-                        y = 0,
-                    };
-                    cell.anchoredPosition = position * 0.5f;
-
-                    break;
-                case Command.Two:
-
-                    cell.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, cell.rect.width + 20);
-
-                    break;
-                case Command.Three:
-
-                    cell.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 20, cell.rect.width - 20);
-                    //3043273231
-                    break;
-            }
-
-
-
+            
         }
         /// <summary>
         /// 菜单栏测试

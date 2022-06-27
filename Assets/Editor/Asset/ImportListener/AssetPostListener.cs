@@ -20,20 +20,20 @@ namespace UnityEditor.Listener
             {
                 if (str.StartsWith("Assets/"))
                 {
-                    Debug.LogFormat("新增 : <color=green>{0}</color>", str);
+                    Debuger.Log(Author.Resource, string.Format("新增 : <color=green>{0}</color>", str));
                 }
             }
             foreach (string str in deletedAssets)
             {
-                Debug.LogFormat("删除 : <color=gray>{0}</color>", str);
+                Debuger.Log(Author.Resource, string.Format("删除 : <color=gray>{0}</color>", str));
             }
             foreach (string str in movedAssets)
             {
-                Debug.LogFormat("移动 Start : <color=yellow>{0}</color>", str);
+                Debuger.Log(Author.Resource, string.Format("移动 Start : <color=yellow>{0}</color>", str));
             }
             foreach (string str in movedFromAssetPaths)
             {
-                Debug.LogFormat("移动 End : <color=blue>{0}</color>", str);
+                Debuger.Log(Author.Resource, string.Format("移动 End : <color=blue>{0}</color>", str));
             }
         }
         /// <summary>
@@ -117,7 +117,7 @@ namespace UnityEditor.Listener
         {
             if (texture.width % 4 != 0 || texture.height % 4 != 0)
             {
-                Debug.LogWarning("The Texture2D not power of 2!");
+                Debuger.LogWarning(Author.Resource, "The Texture2D not power of 2!");
             }
         }
         /// <summary>

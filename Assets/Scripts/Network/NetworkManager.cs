@@ -27,11 +27,11 @@ namespace Game.Network
             }
         }
 
-        private void Receive(string value)
+        private void Receive(byte[] buffer)
         {
             NetworkEventHandle handle = new NetworkEventHandle()
             {
-                content = value,
+                buffer = buffer,
             };
             NetworkEventManager.PostEvent(NetworkEventKey.Test, handle);
         }
