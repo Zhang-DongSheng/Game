@@ -32,18 +32,24 @@ namespace Game.Resource
 
             yield return create;
 
-            AssetBundle bundel = create.assetBundle;
-
-            AssetBundleRequest request = bundel.LoadAllAssetsAsync();
-
-            yield return request;
-
-            callback?.Invoke(new AssetsResponse(path)
+            if (create.isDone && create.assetBundle != null)
             {
-                AssetBundle = bundel,
-                Assets = request.allAssets,
-            });
-            yield return null;
+                AssetBundle bundel = create.assetBundle;
+
+                AssetBundleRequest request = bundel.LoadAllAssetsAsync();
+
+                yield return request;
+
+                callback?.Invoke(new AssetsResponse(path)
+                {
+                    AssetBundle = bundel,
+                    Assets = request.allAssets,
+                });
+            }
+            else
+            {
+                callback?.Invoke(null);
+            }
         }
 
         public override void UpdateDependencies()

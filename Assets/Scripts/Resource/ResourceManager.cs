@@ -1,8 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Networking;
 using Object = UnityEngine.Object;
 
 namespace Game.Resource
@@ -37,7 +33,7 @@ namespace Game.Resource
 
             AssetsResponse assets = controller.Load(path);
 
-            if (assets != null)
+            if (assets != null && assets.Assets != null && assets.Assets.Length > 0)
             {
                 return assets.Assets[0];
             }
@@ -50,7 +46,7 @@ namespace Game.Resource
 
             AssetsResponse assets = controller.Load(path);
 
-            if (assets != null)
+            if (assets != null && assets.Assets != null && assets.Assets.Length > 0)
             {
                 return assets.Assets[0] as T;
             }
@@ -63,7 +59,14 @@ namespace Game.Resource
 
             controller.LoadAsync(path, (result) =>
             {
-                callback?.Invoke(result.Assets[0]);
+                if (result != null && result.Assets != null && result.Assets.Length > 0)
+                {
+                    callback?.Invoke(result.Assets[0]);
+                }
+                else
+                {
+                    callback?.Invoke(default);
+                }
             });
         }
 
@@ -73,7 +76,14 @@ namespace Game.Resource
 
             controller.LoadAsync(path, (result) =>
             {
-                callback?.Invoke(result.Assets[0] as T);
+                if (result != null && result.Assets != null && result.Assets.Length > 0)
+                {
+                    callback?.Invoke(result.Assets[0] as T);
+                }
+                else
+                {
+                    callback?.Invoke(default);
+                }
             });
         }
 

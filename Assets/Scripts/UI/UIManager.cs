@@ -75,47 +75,35 @@ namespace Game.UI
             //_panels.Add(UIPanel.UIConfirm, new CtrlBase());
         }
 
-        private void Push(UIPanel panel, CtrlBase ctrl)
+        private void PanelEvent(UIPanel panel, bool active)
         {
-            if (Config.ignores.Contains(panel))
+            CtrlBase ctrl = _panels[panel];
+
+            if (active)
             {
-                Debuger.Log(Author.UI, string.Format("{0} is Ignore!", panel));
+                if (Config.ignores.Contains(panel))
+                {
+                    Debuger.Log(Author.UI, string.Format("{0} is Ignore!", panel));
+                }
+                else
+                {
+                    if (_records.Contains(ctrl))
+                    {
+                        Debug.LogWarningFormat("The {0} page is opened repeatedly!", panel);
+                    }
+                    else
+                    {
+                        _records.Add(ctrl);
+                    }
+                }
+                EventManager.Post(EventKey.UIOpen);
             }
             else
             {
                 if (_records.Contains(ctrl))
                 {
-                    Debug.LogWarningFormat("The {0} page is opened repeatedly!", panel);
+                    _records.Remove(ctrl);
                 }
-                else
-                {
-                    _records.Add(ctrl);
-                }
-            }
-        }
-
-        private void Remove(UIPanel panel)
-        {
-            int index = _records.FindIndex(x => x.panel == panel);
-
-            if (index > -1)
-            {
-                _records.RemoveAt(index);
-            }
-        }
-
-        private void PanelEvent(UIPanel panel, bool active)
-        {
-            if (active)
-            {
-                Push(panel, _panels[panel]);
-
-                EventManager.Post(EventKey.UIOpen);
-            }
-            else
-            {
-                Remove(panel);
-
                 EventManager.Post(EventKey.UIClose);
             }
         }
@@ -143,8 +131,6 @@ namespace Game.UI
                 index = _records.Count - 1;
 
                 _records[index].Close(false);
-
-                _records.RemoveAt(index);
 
                 index = _records.Count - 1;
 
