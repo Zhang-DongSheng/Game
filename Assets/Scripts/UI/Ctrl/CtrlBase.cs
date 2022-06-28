@@ -13,6 +13,8 @@ namespace Game.UI
 
         private Status status;
 
+        private bool async;
+
         private readonly Action<UIPanel, bool> callback;
 
         public CtrlBase(UIPanel panel, Action<UIPanel, bool> callback)
@@ -24,9 +26,11 @@ namespace Game.UI
             this.callback = callback;
         }
 
-        public void Open(UILayer layer)
+        public void Open(UILayer layer, bool async)
         {
             this.layer = layer;
+
+            this.async = async;
 
             Open();
         }
@@ -38,22 +42,22 @@ namespace Game.UI
             switch (status)
             {
                 case Status.None:
-                    if (GameConfig.Load == LoadType.AssetBundle)
                     {
-                        LoadAsync(panel, layer);
-                    }
-                    else
-                    {
-                        Load(panel, layer);
+                        if (async)
+                            LoadAsync(panel, layer);
+                        else
+                            Load(panel, layer);
                     }
                     break;
                 case Status.Loading:
                     Debuger.LogWarning(Author.UI, string.Format("The panel of [{0}] is loading...", panel));
                     break;
                 case Status.Display:
-                    if (view != null)
                     {
-                        view.Reopen(); Show();
+                        if (view != null)
+                        {
+                            view.Reopen(); Show();
+                        }
                     }
                     break;
                 case Status.Error:

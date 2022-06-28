@@ -123,7 +123,7 @@ namespace Game.Resource
                 {
                     case RequestStatus.Ready:
                         {
-                            GameController.Instance.StartCoroutine(LoadAssetsAsync(requests[i]));
+                            RuntimeBehaviour.Instance.StartCoroutine(LoadAssetsAsync(requests[i]));
                             loading++;
                         }
                         break;

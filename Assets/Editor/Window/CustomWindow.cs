@@ -34,44 +34,6 @@ namespace UnityEditor.Window
 
         protected abstract void Refresh();
 
-        protected virtual void Horizontal(UnityAction action)
-        {
-            GUILayout.BeginHorizontal();
-            {
-                action?.Invoke();
-            }
-            GUILayout.EndHorizontal();
-        }
-
-        protected virtual void TextField(string key, ref string value, int width = 50)
-        {
-            GUILayout.BeginHorizontal();
-            {
-                GUILayout.Label(key, GUILayout.Width(width));
-
-                value = GUILayout.TextField(value);
-            }
-            GUILayout.EndHorizontal();
-        }
-
-        protected string ToAssetPath(string path)
-        {
-            int length = Application.dataPath.Length;
-
-            path = string.Format("Assets{0}", path.Remove(0, length));
-
-            return path.Replace('\\', '/');
-        }
-
-        protected string ToAbsolutePath(string path)
-        {
-            if (path.StartsWith("Assets/"))
-            {
-                path = path.Remove(0, 6);
-            }
-            return string.Format("{0}{1}", Application.dataPath, path);
-        }
-
         protected void ShowNotification(string message)
         {
             ShowNotification(new GUIContent(message));

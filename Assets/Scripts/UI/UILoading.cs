@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class UILoading : UIBase
+    public class UILoading : MonoSingleton<UILoading>
     {
         [SerializeField] private Slider progress;
 
@@ -34,6 +34,16 @@ namespace Game.UI
         private void OnValueChanged(float value)
         {
 
+        }
+
+        public void Open()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void Close()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

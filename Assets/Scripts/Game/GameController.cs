@@ -4,10 +4,8 @@ using UnityEngine;
 
 namespace Game
 {
-    public class GameController : MonoSingleton<GameController>
+    public class GameController : MonoBehaviour
     {
-        [SerializeField] private UILoading loading;
-
         private void Awake()
         {
             LoginLogic.Instance.Init();
@@ -30,9 +28,9 @@ namespace Game
             {
                 ResourceManager.UpdateDependencies();
 
-                loading.SetActive(false);
-
                 UIQuickEntry.OpenSingle(UIPanel.UILogin);
+
+                UILoading.Instance.Close();
             };
             ScheduleLogic.Instance.Init();
         }

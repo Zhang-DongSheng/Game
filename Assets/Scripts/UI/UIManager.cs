@@ -108,7 +108,7 @@ namespace Game.UI
             }
         }
 
-        public void Open(UIPanel panel, UILayer layer = UILayer.None)
+        public void Open(UIPanel panel, UILayer layer = UILayer.None, bool async = false)
         {
             try
             {
@@ -116,7 +116,7 @@ namespace Game.UI
                 {
                     _panels.Add(panel, new CtrlBase(panel, PanelEvent));
                 }
-                _panels[panel].Open(layer);
+                _panels[panel].Open(layer, async);
             }
             catch (Exception e)
             {

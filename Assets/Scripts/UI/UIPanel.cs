@@ -5,7 +5,6 @@ namespace Game.UI
         None,
         UIMain,
         UILogin,
-        UILoading,
         UIWaiting,
         UITips,
         UITitle,

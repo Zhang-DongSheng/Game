@@ -291,7 +291,8 @@ namespace UnityEditor.Window
 							PrefabModify.Missing(file.asset);
 						}
 					}
-					Horizontal(() =>
+
+					GUILayout.BeginHorizontal();
 					{
 						color[0] = EditorGUILayout.ColorField(color[0]);
 
@@ -299,8 +300,10 @@ namespace UnityEditor.Window
 						{
 							PrefabModify.ModifyGraphicColor(file.asset, color[0]);
 						}
-					});
-					Horizontal(() =>
+					}
+					GUILayout.EndHorizontal();
+
+					GUILayout.BeginHorizontal();
 					{
 						color[1] = EditorGUILayout.ColorField(color[1]);
 
@@ -308,8 +311,10 @@ namespace UnityEditor.Window
 						{
 							PrefabModify.ModifyTextColor(file.asset, color[1]);
 						}
-					});
-					Horizontal(() =>
+					}
+					GUILayout.EndHorizontal();
+
+					GUILayout.BeginHorizontal();
 					{
 						color[2] = EditorGUILayout.ColorField(color[2]);
 
@@ -317,11 +322,14 @@ namespace UnityEditor.Window
 						{
 							PrefabModify.ModifyShadowColor(file.asset, color[2]);
 						}
-					});
+					}
+					GUILayout.EndHorizontal();
+
 					if (GUILayout.Button("触发:false"))
 					{
 						PrefabModify.ModifyGraphicRaycast(file.asset);
 					}
+
 					if (GUILayout.Button("复制"))
 					{
 						Selection.activeObject = prefab;

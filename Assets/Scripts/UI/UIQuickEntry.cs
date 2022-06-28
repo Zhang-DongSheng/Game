@@ -5,11 +5,13 @@ namespace Game.UI
 {
     public static class UIQuickEntry
     {
+        public static bool async = GameConfig.Load == Resource.LoadType.AssetBundle;
+
         public static void Open(UIPanel panel, Paramter paramter = null)
         {
             UIManager.Instance.Paramter(panel, paramter);
             {
-                UIManager.Instance.Open(panel);
+                UIManager.Instance.Open(panel, async: async);
             }
         }
 
@@ -19,7 +21,7 @@ namespace Game.UI
 
             UIManager.Instance.Paramter(panel, paramter);
             {
-                UIManager.Instance.Open(panel);
+                UIManager.Instance.Open(panel, async: async);
             }
         }
 
