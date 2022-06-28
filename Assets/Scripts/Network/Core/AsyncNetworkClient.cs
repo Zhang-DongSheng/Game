@@ -66,7 +66,11 @@ namespace Game.Network
 
                 if (length > 0)
                 {
-                    onReceive?.Invoke(buffer);
+                    result = new byte[length];
+
+                    Array.Copy(buffer, result, length);
+
+                    onReceive?.Invoke(result);
 
                     Receive();
                 }

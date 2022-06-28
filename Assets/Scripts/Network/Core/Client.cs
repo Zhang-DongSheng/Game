@@ -15,6 +15,8 @@ namespace Game.Network
 
         protected Socket socket;
 
+        protected byte[] result;
+
         protected readonly byte[] buffer = new byte[1024];
 
         protected readonly StringBuilder builder = new StringBuilder();

@@ -1,22 +1,43 @@
+using Google.Protobuf;
 using System.Text;
 
 namespace Game.Network
 {
     public static class Convert
     {
+        static readonly Encoding encoding = new UTF8Encoding(false);
+
         public static string ToString(byte[] buffer)
         {
-            return Encoding.UTF32.GetString(buffer);
+            return encoding.GetString(buffer);
         }
 
         public static string ToString(byte[] buffer, int index, int count)
         {
-            return Encoding.UTF32.GetString(buffer, index, count);
+            return encoding.GetString(buffer, index, count);
         }
 
         public static byte[] ToBytes(string value)
         {
-            return Encoding.UTF32.GetBytes(value);
+            return encoding.GetBytes(value);
+        }
+
+        public static string Serialize<T>(T target) where T : IMessage
+        {
+            if (target != null)
+            {
+                return JsonFormatter.Default.Format(target);
+            }
+            return null;
+        }
+
+        public static T Deserialize<T>(string json) where T : IMessage, new()
+        {
+            if (!string.IsNullOrEmpty(json))
+            {
+                return JsonParser.Default.Parse<T>(json);
+            }
+            return default;
         }
     }
 }

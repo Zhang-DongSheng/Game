@@ -1,7 +1,10 @@
 ﻿using Game.Attribute;
+using Game.Network;
 using Game.Pool;
+using Protobuf;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -34,7 +37,9 @@ namespace Game.Test
 
         protected void Awake()
         {
-            
+            NetworkEventManager.Register(NetworkEventKey.Test, OnReceiveMessage);
+
+            NetworkManager.Instance.Connection();
         }
 
         private void OnEnable()
@@ -82,7 +87,16 @@ namespace Game.Test
         /// </summary>
         public void OnClick()
         {
-            
+            Person person = new Person()
+            {
+                Name = "张三",
+                Age = 18,
+            };
+
+            string content = Network.Convert.Serialize(person);
+
+
+            NetworkManager.Instance.Send(content);
         }
         /// <summary>
         /// 菜单栏测试
@@ -106,14 +120,15 @@ namespace Game.Test
             });
         }
 
-        private void OnUpdate(float delta)
+        private void OnReceiveMessage(NetworkEventHandle handle)
         {
-            Debuger.Log(Author.Test, delta);
-        }
+            string content = Network.Convert.ToString(handle.buffer);
 
-        private void OnUpdate2(float delta)
-        {
-            Debuger.LogError(Author.Test, delta);
+            Debuger.Log(Author.Test, content);
+
+            Person person = Network.Convert.Deserialize<Person>(content);
+
+            Debuger.Log(Author.Test, person.Name);
         }
     }
 

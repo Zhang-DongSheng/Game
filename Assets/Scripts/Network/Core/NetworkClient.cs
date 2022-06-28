@@ -50,7 +50,7 @@ namespace Game.Network
 
                     if (length == 0) break;
 
-                    byte[] result = new byte[length];
+                    result = new byte[length];
 
                     Array.Copy(buffer, result, length);
 
