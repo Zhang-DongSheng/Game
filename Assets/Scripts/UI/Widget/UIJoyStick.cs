@@ -7,7 +7,7 @@ namespace UnityEngine.UI
     /// <summary>
     /// 方向摇杆
     /// </summary>
-    public class UIJoyStick : MonoBehaviour
+    public class UIJoyStick : ItemBase
     {
         enum Status
         {
@@ -82,7 +82,7 @@ namespace UnityEngine.UI
             SetActive(false, Vector3.zero);
         }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
 #if UNITY_EDITOR
             if (Input.GetMouseButtonDown(0))

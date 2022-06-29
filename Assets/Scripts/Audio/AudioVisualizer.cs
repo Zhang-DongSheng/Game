@@ -1,9 +1,10 @@
+using UnityEngine;
 using UnityEngine.Events;
 
-namespace UnityEngine.Audio
+namespace Game.Audio
 {
     [RequireComponent(typeof(AudioSource))]
-    public class AudioVisualizer : MonoBehaviour
+    public class AudioVisualizer : RuntimeBase
     {
         [SerializeField] private AudioSource source;
 
@@ -25,7 +26,7 @@ namespace UnityEngine.Audio
             }
         }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             if (source.isPlaying)
             {

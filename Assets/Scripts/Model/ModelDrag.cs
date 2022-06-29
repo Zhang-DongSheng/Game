@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Model
 {
-    public class ModelDrag : MonoBehaviour
+    public class ModelDrag : RuntimeBase
     {
         [SerializeField] private GameObject model;
 
@@ -14,7 +14,7 @@ namespace Game.Model
 
         public ModelDragStatus status { get; private set; }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             if (Input.GetMouseButtonDown(0))
             {

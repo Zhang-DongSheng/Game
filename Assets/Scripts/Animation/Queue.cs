@@ -7,7 +7,7 @@ namespace Game.Animation
     /// <summary>
     /// 行动队列
     /// </summary>
-    public class ActionQueue : MonoBehaviour
+    public class ActionQueue : RuntimeBase
     {
         public enum State
         {
@@ -25,7 +25,7 @@ namespace Game.Animation
 
         private readonly List<GameObject> stack = new List<GameObject>();
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             if (!active) return;
 

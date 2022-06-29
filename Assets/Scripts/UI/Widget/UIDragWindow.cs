@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Game
+namespace Game.UI
 {
-    public class UIDragWindow : MonoBehaviour
+    public class UIDragWindow : ItemBase
     {
         [SerializeField] public string dragTag;
 
@@ -39,7 +39,7 @@ namespace Game
             panel = new Window(target, boundary);
         }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
 #if UNITY_EDITOR
             if (Input.GetMouseButtonDown(0))

@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 namespace Game.Test
 {
-    public class Test : MonoBehaviour
+    public class Test : RuntimeBase
     {
         enum Command
         {
@@ -42,16 +42,6 @@ namespace Game.Test
             NetworkManager.Instance.Connection();
         }
 
-        private void OnEnable()
-        {
-           
-        }
-
-        private void OnDisable()
-        {
-            
-        }
-
         private void OnDrawGizmos()
         {
             
@@ -62,12 +52,13 @@ namespace Game.Test
             var _ = StartAsync();
         }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 OnClick();
             }
+            Debuger.Log(Author.Test, "___________________________________");
         }
         /// <summary>
         /// 测试模块

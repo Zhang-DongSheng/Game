@@ -149,8 +149,6 @@ namespace Game.UI
                 ScheduleLogic.Instance.callback = () =>
                 {
                     UIQuickEntry.OpenSingle(UIPanel.UIMain);
-
-                    UILoading.Instance.Close();
                 };
                 ScheduleLogic.Instance.Enter();
             }

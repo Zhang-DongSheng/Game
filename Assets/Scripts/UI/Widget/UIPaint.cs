@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace UnityEngine.UI
+namespace Game.UI
 {
-    public class UIPaint : MonoBehaviour
+    public class UIPaint : ItemBase
     {
         [SerializeField] private SpriteRenderer sprite;
 
@@ -48,7 +49,7 @@ namespace UnityEngine.UI
             sprite.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
         }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             if (Input.GetMouseButtonDown(0))
             {

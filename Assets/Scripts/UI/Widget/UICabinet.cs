@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace UnityEngine.UI
+namespace Game.UI
 {
-    public class UICabinet : MonoBehaviour
+    public class UICabinet : ItemBase
     {
         [SerializeField] private RectTransform rect;
 

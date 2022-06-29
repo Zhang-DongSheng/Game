@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Animation
 {
-    public class Follower : MonoBehaviour
+    public class Follower : RuntimeBase
     {
         [SerializeField] private Transform target;
 
@@ -16,7 +16,7 @@ namespace Game.Animation
 
         private Vector3 position;
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             position = Position(target.position, target.eulerAngles.y, offset);
 

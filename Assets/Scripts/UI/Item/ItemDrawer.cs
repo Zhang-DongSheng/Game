@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace UnityEngine.UI
+namespace Game.UI
 {
-    public class ItemDrawer : MonoBehaviour
+    public class ItemDrawer : ItemBase
     {
         [SerializeField] private RectTransform target;
 
@@ -75,14 +77,6 @@ namespace UnityEngine.UI
                 Turn(active);
             }
             button.gameObject.SetActive(overflow);
-        }
-
-        public void SetActive(bool active)
-        {
-            if (gameObject != null && gameObject.activeSelf != active)
-            {
-                gameObject.SetActive(active);
-            }
         }
 
         private void OnClick()

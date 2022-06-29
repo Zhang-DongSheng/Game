@@ -15,7 +15,7 @@ namespace Game.UI
             vector = Vector3.forward * angle;
         }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             target.Rotate(vector * Time.deltaTime);
         }

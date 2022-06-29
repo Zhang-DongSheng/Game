@@ -23,13 +23,13 @@ namespace Game.UI
 
         private Status status;
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             switch (status)
             {
                 case Status.Update:
                     {
-                        timer += Time.deltaTime;
+                        timer += delta;
 
                         if (timer > duration)
                         {

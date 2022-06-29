@@ -24,7 +24,7 @@ namespace Game.UI
 
         private Status status;
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             switch (status)
             {
@@ -32,7 +32,7 @@ namespace Game.UI
                     {
                         timer += Time.deltaTime;
 
-                        position += Vector3.up * _speed * Time.deltaTime;
+                        position += Vector3.up * _speed * delta;
 
                         _target.localPosition = position;
 

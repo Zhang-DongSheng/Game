@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace Game.Animation
 {
-    public class Route : MonoBehaviour
+    public class Route : RuntimeBase
     {
         public UnityEvent onComplete;
 
@@ -22,7 +22,7 @@ namespace Game.Animation
 
         private readonly List<Segment> segments = new List<Segment>();
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             switch (status)
             {

@@ -5,9 +5,11 @@ using UnityEngine;
 
 namespace Game
 {
-    public class RuntimeBehaviour : MonoSingleton<RuntimeBehaviour>
+    public sealed class RuntimeBehaviour : MonoSingleton<RuntimeBehaviour>
     {
         private event FunctionBySingle updates;
+
+        private event FunctionBySingle fixeds;
 
         private readonly WaitForEndOfFrame EndOfFrame = new WaitForEndOfFrame();
 
@@ -20,6 +22,13 @@ namespace Game
             updates(Time.deltaTime);
         }
 
+        private void FixedUpdate()
+        {
+            if (fixeds == null) return;
+
+            fixeds(Time.fixedDeltaTime);
+        }
+
         private IEnumerator Excute(Action action, YieldInstruction yield)
         {
             yield return yield;
@@ -27,7 +36,7 @@ namespace Game
             action?.Invoke();
         }
 
-        public void Register(FunctionBySingle action)
+        public void RegisterUpdate(FunctionBySingle action)
         {
             if (updates != null)
             {
@@ -46,11 +55,38 @@ namespace Game
             }
         }
 
-        public void Unregister(FunctionBySingle action)
+        public void RegisterFixedUpdate(FunctionBySingle action)
+        {
+            if (fixeds != null)
+            {
+                foreach (var function in fixeds.GetInvocationList())
+                {
+                    if (function.Equals(action))
+                    {
+                        return;
+                    }
+                }
+                fixeds += action;
+            }
+            else
+            {
+                fixeds = action;
+            }
+        }
+
+        public void UnregisterUpdate(FunctionBySingle action)
         {
             if (updates != null)
             {
                 updates -= action;
+            }
+        }
+
+        public void UnregisterFixedUpdate(FunctionBySingle action)
+        {
+            if (fixeds != null)
+            {
+                fixeds -= action;
             }
         }
 

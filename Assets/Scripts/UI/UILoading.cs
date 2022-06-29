@@ -12,16 +12,17 @@ namespace Game.UI
         private void Awake()
         {
             progress.onValueChanged.AddListener(OnValueChanged);
-        }
 
-        private void OnEnable()
-        {
             EventManager.Register(EventKey.Progress, Refresh);
+
+            EventManager.Register(EventKey.UIOpen, OnUILoadingCompleted);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             EventManager.Unregister(EventKey.Progress, Refresh);
+
+            EventManager.Unregister(EventKey.UIOpen, OnUILoadingCompleted);
         }
 
         private void Refresh(EventMessageArgs args)
@@ -29,6 +30,11 @@ namespace Game.UI
             step = args.Get<float>("progress");
 
             progress.value = step;
+        }
+
+        private void OnUILoadingCompleted(EventMessageArgs args)
+        {
+            Close();
         }
 
         private void OnValueChanged(float value)

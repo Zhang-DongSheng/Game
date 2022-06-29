@@ -33,7 +33,7 @@ namespace Game.UI
             button.onClick.AddListener(OnClickDraw);
         }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             switch (status)
             {
@@ -42,9 +42,9 @@ namespace Game.UI
                     break;
                 case DrawStatus.Ready:
                     {
-                        speed.current += speed.value * Time.deltaTime;
+                        speed.current += speed.value * delta;
 
-                        euler += speed.current * Time.deltaTime;
+                        euler += speed.current * delta;
 
                         Rotate(euler);
 
@@ -58,7 +58,7 @@ namespace Game.UI
                     break;
                 case DrawStatus.Rotate:
                     {
-                        euler += speed.current * Time.deltaTime;
+                        euler += speed.current * delta;
 
                         if (360 > euler) { }
                         else

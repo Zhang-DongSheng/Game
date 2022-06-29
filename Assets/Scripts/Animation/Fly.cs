@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Animation
 {
-    public class Fly : MonoBehaviour
+    public class Fly : RuntimeBase
     {
         public Action callback;
 
@@ -29,11 +29,11 @@ namespace Game.Animation
             }
         }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             if (active)
             {
-                step += Time.deltaTime * speed;
+                step += delta * speed;
 
                 progress = curve.Evaluate(step);
 

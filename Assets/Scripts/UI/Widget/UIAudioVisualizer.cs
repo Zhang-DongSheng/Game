@@ -1,11 +1,11 @@
+using Game.Audio;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class UIAudioVisualizer : MonoBehaviour
+    public class UIAudioVisualizer : ItemBase
     {
         [SerializeField] private AudioVisualizer visualizer;
 

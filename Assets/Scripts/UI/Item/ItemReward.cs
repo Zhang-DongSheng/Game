@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class ItemReward : MonoBehaviour
+    public class ItemReward : ItemBase
     {
         [SerializeField] private ItemProp prop;
 

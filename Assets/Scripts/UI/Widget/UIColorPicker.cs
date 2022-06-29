@@ -1,8 +1,10 @@
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
-namespace UnityEngine.UI
+namespace Game.UI
 {
-    public class UIColorPicker : MonoBehaviour
+    public class UIColorPicker : ItemBase
     {
         private readonly Color[] colors = new Color[]
         {
@@ -61,7 +63,7 @@ namespace UnityEngine.UI
             Init();
         }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             if (Input.GetMouseButtonDown(0))
             {

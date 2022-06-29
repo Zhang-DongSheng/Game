@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class ItemStatus : MonoBehaviour
+    public class ItemStatus : ItemBase
     {
         [SerializeField] private GameObject undone;
 
@@ -36,14 +36,6 @@ namespace Game.UI
                         SetActive(claimed, true);
                     }
                     break;
-            }
-        }
-
-        private void SetActive(GameObject go, bool active)
-        {
-            if (go != null && go.activeSelf != active)
-            {
-                go.SetActive(active);
             }
         }
         [ContextMenu("Creator")]

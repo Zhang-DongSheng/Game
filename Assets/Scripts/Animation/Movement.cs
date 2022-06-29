@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Movement : MonoBehaviour
+    public class Movement : RuntimeBase
     {
         [SerializeField] protected TRS TRS;
 
@@ -38,7 +38,7 @@ namespace Game
             }
         }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             switch (pattern)
             {

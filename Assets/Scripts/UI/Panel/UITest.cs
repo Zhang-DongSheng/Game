@@ -31,7 +31,7 @@ namespace Game.UI
             
         }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             if (Input.GetKeyDown(KeyCode.A))
             {

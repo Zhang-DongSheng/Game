@@ -2,7 +2,7 @@
 
 namespace Game.UI
 {
-    public abstract class ItemBase : MonoBehaviour
+    public abstract class ItemBase : RuntimeBase
     {
         protected virtual void SetPosition(Vector3 position)
         {
@@ -33,11 +33,6 @@ namespace Game.UI
         protected virtual void SetOrder(int index)
         {
             transform.SetSiblingIndex(index);
-        }
-
-        protected virtual void SetActive(bool active)
-        {
-            SetActive(gameObject, active);
         }
 
         protected virtual void SetActive(GameObject go, bool active)

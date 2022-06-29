@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace Game.SM
 {
-    public abstract class SMBase : MonoBehaviour
+    public abstract class SMBase : RuntimeBase
     {
         public UnityEvent onBegin, onCompleted;
 
@@ -38,12 +38,13 @@ namespace Game.SM
             Init();
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
             if (enable)
             {
                 Begin(true);
             }
+            base.OnEnable();
         }
 
         private void OnValidate()
@@ -54,7 +55,7 @@ namespace Game.SM
             }
         }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             Renovate();
         }

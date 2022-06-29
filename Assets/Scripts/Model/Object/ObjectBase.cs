@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Model
 {
-    public class ObjectBase : MonoBehaviour
+    public class ObjectBase : RuntimeBase
     {
         [SerializeField] AnimationCurve curve = new AnimationCurve(new Keyframe(0f, 0f, 0f, 1f), new Keyframe(1f, 1f, 1f, 0f));
 
@@ -26,7 +26,7 @@ namespace Game.Model
             status = Status.Alive;
         }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             switch (status)
             {
