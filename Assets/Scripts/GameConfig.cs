@@ -9,7 +9,7 @@ public class GameConfig
 
     public const DataText.Language Lang = DataText.Language.Chinese;
 
-    public const LoadType Load = LoadType.AssetBundle;
+    public const LoadType Load = LoadType.AssetDatabase;
 
     public const string ServerURL_Login = "https://www.baidu.com";
 

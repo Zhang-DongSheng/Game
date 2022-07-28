@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +12,13 @@ namespace Game.UI
 
         [SerializeField, Range(0.1f, 10f)] private float interval = 3f;
 
+        [SerializeField, Range(0.1f, 99f)] private float speed = 10f;
+
+        [SerializeField] private Style style;
+
         private float timer;
+
+        private Vector3 position;
 
         public Action callback;
 
@@ -34,27 +38,64 @@ namespace Game.UI
 
         private void Transform(float progress)
         {
-            canvas.alpha = progress;
+            switch (style)
+            {
+                case Style.None:
+                    {
+
+                    }
+                    break;
+                default:
+                    {
+                        //½¥Òþ
+                        if ((style & Style.Alpha) != 0)
+                        {
+                            canvas.alpha = progress;
+                        }
+                        //Î»ÒÆ
+                        if ((style & Style.Translate) != 0)
+                        {
+                            position.y += Time.deltaTime * speed;
+
+                            SetPosition(position);
+                        }
+                    }
+                    break;
+            }
         }
 
         private void Complete()
         {
-            SetActive(false);
+            Default(); callback?.Invoke();
+        }
 
+        private void Default()
+        {
             timer = 0;
 
-            callback?.Invoke();
+            canvas.alpha = 1;
+
+            position = Vector3.zero;
+
+            SetPosition(position);
+
+            SetActive(false);
         }
 
         public void Startup(string message)
         {
             tips.text = message;
 
-            timer = 0;
-
-            canvas.alpha = 1;
+            Default();
 
             SetActive(true);
+        }
+        [Flags]
+        enum Style
+        {
+            None,
+            Alpha,
+            Translate,
         }
     }
 }

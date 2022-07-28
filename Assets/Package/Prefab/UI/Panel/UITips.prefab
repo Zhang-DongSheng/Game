@@ -166,6 +166,8 @@ MonoBehaviour:
   canvas: {fileID: 8595143470994030843}
   tips: {fileID: 700211348434973650}
   interval: 3
+  speed: 99
+  style: 2
 --- !u!222 &700211347524975174
 CanvasRenderer:
   m_ObjectHideFlags: 0
