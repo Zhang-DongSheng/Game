@@ -31,6 +31,7 @@ namespace Game.SM
             range = Mathf.Lerp(0, intensity, progress);
 
             target.localPosition = position + Random.insideUnitSphere * range;
+
             target.localRotation = new Quaternion(
                 rotation.x + Random.Range(-range, range) * 0.2f,
                 rotation.y + Random.Range(-range, range) * 0.2f,

@@ -1,6 +1,7 @@
 ﻿using Game.Attribute;
 using Game.Network;
 using Game.Pool;
+using Game.UI;
 using Protobuf;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,8 @@ namespace Game.Test
         [SerializeField, Range(0, 30f)] private float speed = 1;
 
         [SerializeField] private List<Transform> items;
+
+        [SerializeField] private ItemSlider slider;
 
         [Button("OnClickButton")]
         public float index;
@@ -78,16 +81,7 @@ namespace Game.Test
         /// </summary>
         public void OnClick()
         {
-            Person person = new Person()
-            {
-                Name = "张三",
-                Age = 18,
-            };
-
-            string content = Network.Convert.Serialize(person);
-
-
-            NetworkManager.Instance.Send(content);
+            slider.SetValue(UnityEngine.Random.Range(0, 1f));
         }
         /// <summary>
         /// 菜单栏测试

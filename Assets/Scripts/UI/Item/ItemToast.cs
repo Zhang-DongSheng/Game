@@ -58,18 +58,18 @@ namespace Game.UI
 
             _message.text = message;
 
-            SetActive(true);
-
             status = Status.Toast;
+
+            SetActive(true);
         }
 
         private void OnComplete()
         {
             onCompleted?.Invoke();
 
-            SetActive(false);
-
             status = Status.None;
+
+            SetActive(false);
         }
 
         enum Status

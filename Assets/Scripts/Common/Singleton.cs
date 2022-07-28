@@ -33,7 +33,7 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             if (_instance == null)
             {
-                _instance = FindObjectOfType<T>();
+                _instance = FindObjectOfType<T>(true);
 
                 if (_instance == null)
                 {

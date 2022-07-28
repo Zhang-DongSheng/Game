@@ -76,9 +76,8 @@ namespace Game.UI
             if (regexAccount.IsMatch(value))
             {
                 input_account.textComponent.color = Color.black;
-
-                account = value;
             }
+            account = value;
         }
 
         private void OnValueChangedPassword(string value)
@@ -88,9 +87,8 @@ namespace Game.UI
             if (regexPassword.IsMatch(value))
             {
                 input_password.textComponent.color = Color.black;
-
-                password = value;
             }
+            password = value;
         }
 
         private void OnValueChangedRemember(bool isOn)

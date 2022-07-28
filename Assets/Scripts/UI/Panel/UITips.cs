@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -8,18 +8,65 @@ namespace Game.UI
     /// </summary>
     public class UITips : UIBase
     {
-        [SerializeField] private Text content;
+        [SerializeField] private ItemTips tips;
 
-        [SerializeField] private Button close;
+        private Status status;
+
+        private readonly Stack<string> stack = new Stack<string>();
 
         private void Awake()
         {
-            close.onClick.AddListener(OnClickClose);
+            tips.callback = Next;
+        }
+
+        private void Compute()
+        {
+            if (status == Status.None || status == Status.Next)
+            {
+                status = stack.Count > 0 ? Status.Ready : Status.Complete;
+
+                switch (status)
+                {
+                    case Status.Ready:
+                        {
+                            tips.Startup(stack.Pop());
+
+                            status = Status.Display;
+                        }
+                        break;
+                    case Status.Complete:
+                        {
+                            OnClickClose();
+
+                            status = Status.None;
+                        }
+                        break;
+                }
+            }
+        }
+
+        private void Next()
+        {
+            status = Status.Next;
+
+            Compute();
         }
 
         public override void Refresh(Paramter paramter)
         {
-            content.text = paramter.Get<string>("tips");
+            string messsage = paramter.Get<string>("tips");
+
+            stack.Push(messsage);
+
+            Compute();
+        }
+        enum Status
+        {
+            None,
+            Ready,
+            Display,
+            Next,
+            Complete,
         }
     }
 }
