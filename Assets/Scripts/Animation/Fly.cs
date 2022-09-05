@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Animation
 {
-    public class Fly : RuntimeBase
+    public class Fly : RuntimeBehaviour
     {
         public Action callback;
 

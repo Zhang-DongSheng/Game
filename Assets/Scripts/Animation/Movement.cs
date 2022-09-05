@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Movement : RuntimeBase
+    public class Movement : RuntimeBehaviour
     {
         [SerializeField] protected TRS TRS;
 

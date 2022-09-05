@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Model
 {
-    public class ModelDrag : RuntimeBase
+    public class ModelDrag : RuntimeBehaviour
     {
         [SerializeField] private GameObject model;
 

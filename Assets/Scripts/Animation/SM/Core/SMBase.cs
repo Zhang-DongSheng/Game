@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace Game.SM
 {
-    public abstract class SMBase : RuntimeBase
+    public abstract class SMBase : RuntimeBehaviour
     {
         public UnityEvent onBegin, onCompleted;
 

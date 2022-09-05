@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Model
 {
-    public class ObjectBase : RuntimeBase
+    public class ObjectBase : RuntimeBehaviour
     {
         [SerializeField] AnimationCurve curve = new AnimationCurve(new Keyframe(0f, 0f, 0f, 1f), new Keyframe(1f, 1f, 1f, 0f));
 

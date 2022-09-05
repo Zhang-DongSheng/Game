@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace Game.Animation
 {
-    public class Route : RuntimeBase
+    public class Route : RuntimeBehaviour
     {
         public UnityEvent onComplete;
 

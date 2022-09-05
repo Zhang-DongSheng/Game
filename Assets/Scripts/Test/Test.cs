@@ -12,7 +12,7 @@ using UnityEngine.UI;
 
 namespace Game.Test
 {
-    public class Test : RuntimeBase
+    public class Test : RuntimeBehaviour
     {
         enum Command
         {

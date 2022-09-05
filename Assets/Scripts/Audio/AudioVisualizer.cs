@@ -4,7 +4,7 @@ using UnityEngine.Events;
 namespace Game.Audio
 {
     [RequireComponent(typeof(AudioSource))]
-    public class AudioVisualizer : RuntimeBase
+    public class AudioVisualizer : RuntimeBehaviour
     {
         [SerializeField] private AudioSource source;
 

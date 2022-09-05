@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace Game.Model
 {
-    public class RayTouch : RuntimeBase
+    public class RayTouch : RuntimeBehaviour
     {
         [Tooltip("相机")]
         [SerializeField] private Camera viewer;

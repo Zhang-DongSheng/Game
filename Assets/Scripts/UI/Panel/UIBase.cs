@@ -3,7 +3,7 @@
 namespace Game.UI
 {
     [DisallowMultipleComponent]
-    public abstract class UIBase : RuntimeBase
+    public abstract class UIBase : RuntimeBehaviour
     {
         protected UIPanel panel;
 
@@ -35,14 +35,6 @@ namespace Game.UI
             if (transform.parent != parent)
             {
                 transform.SetParent(parent);
-            }
-        }
-
-        public void SetActive(GameObject go, bool active)
-        {
-            if (go != null && go.activeSelf != active)
-            {
-                go.SetActive(active);
             }
         }
 

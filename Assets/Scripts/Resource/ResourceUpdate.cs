@@ -22,7 +22,7 @@ namespace Game.Resource
             }
             else
             {
-                RuntimeBehaviour.Instance.StartCoroutine(Download(string.Format("{0}/{1}", GameConfig.Server_Resource, GameConfig.Record)));
+                RuntimeManager.Instance.StartCoroutine(Download(string.Format("{0}/{1}", GameConfig.Server_Resource, GameConfig.Record)));
             }
         }
 
@@ -104,7 +104,7 @@ namespace Game.Resource
                 {
                     case Status.Ready:
                         {
-                            RuntimeBehaviour.Instance.StartCoroutine(Download(tasks[i]));
+                            RuntimeManager.Instance.StartCoroutine(Download(tasks[i]));
                             loading++;
                         }
                         break;

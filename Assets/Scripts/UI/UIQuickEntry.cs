@@ -1,5 +1,6 @@
 using Data;
 using System;
+using System.Diagnostics;
 
 namespace Game.UI
 {
@@ -9,6 +10,8 @@ namespace Game.UI
 
         public static void Open(UIPanel panel, Paramter paramter = null)
         {
+            UnityEngine.Debug.LogError("´ò¿ª£º" + panel);
+
             UIManager.Instance.Paramter(panel, paramter);
             {
                 UIManager.Instance.Open(panel, async: async);

@@ -2,7 +2,7 @@
 
 namespace Game.UI
 {
-    public abstract class ItemBase : RuntimeBase
+    public abstract class ItemBase : RuntimeBehaviour
     {
         protected virtual void SetPosition(Vector3 position)
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Animation
 {
-    public class Follower : RuntimeBase
+    public class Follower : RuntimeBehaviour
     {
         [SerializeField] private Transform target;
 
