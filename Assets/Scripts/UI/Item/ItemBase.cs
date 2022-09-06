@@ -16,15 +16,16 @@ namespace Game.UI
             }
         }
 
-        protected virtual void SetSize(RectTransform rect, float width = -1f, float height = -1f)
+        protected virtual void SetSize(RectTransform rect, float width = Config.MinusOne, float height = Config.MinusOne)
         {
             if (rect == null) return;
 
-            if (width != -1f)
+            if (width != Config.MinusOne)
             {
                 rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
             }
-            if (height != -1f)
+            // if the value is default. don't modify!
+            if (height != Config.MinusOne)
             {
                 rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
             }
@@ -33,22 +34,6 @@ namespace Game.UI
         protected virtual void SetOrder(int index)
         {
             transform.SetSiblingIndex(index);
-        }
-
-        protected virtual void SetActive(GameObject go, bool active)
-        {
-            if (go != null && go.activeSelf != active)
-            {
-                go.SetActive(active);
-            }
-        }
-
-        protected virtual void SetActive(Component component, bool active)
-        {
-            if (component != null)
-            {
-                SetActive(component.gameObject, active);
-            }
         }
 
         public void Destroy()

@@ -8,48 +8,35 @@ namespace Game.UI
     /// </summary>
     public class UITips : UIBase
     {
-        [SerializeField] private ItemTips tips;
+        [SerializeField, Range(0, 10f)] private float interval = 3f;
 
-        private Status status;
+        [SerializeField] private List<ItemTips> tips;
+
+        private float timer;
+
+        private int count;
 
         private readonly Stack<string> stack = new Stack<string>();
 
-        private void Awake()
+        protected override void OnUpdate(float delta)
         {
-            tips.callback = Next;
-        }
+            if (timer + interval > Time.time) return;
 
-        private void Compute()
-        {
-            if (status == Status.None || status == Status.Next)
+            if (stack.Count == 0) return;
+
+            count = tips.Count;
+
+            for (int i = 0; i < count; i++)
             {
-                status = stack.Count > 0 ? Status.Ready : Status.Complete;
-
-                switch (status)
+                if (tips[i].Active == false)
                 {
-                    case Status.Ready:
-                        {
-                            tips.Startup(stack.Pop());
+                    tips[i].Startup(stack.Pop());
 
-                            status = Status.Display;
-                        }
-                        break;
-                    case Status.Complete:
-                        {
-                            OnClickClose();
+                    timer = Time.time;
 
-                            status = Status.None;
-                        }
-                        break;
+                    break;
                 }
             }
-        }
-
-        private void Next()
-        {
-            status = Status.Next;
-
-            Compute();
         }
 
         public override void Refresh(Paramter paramter)
@@ -57,16 +44,6 @@ namespace Game.UI
             string messsage = paramter.Get<string>("tips");
 
             stack.Push(messsage);
-
-            Compute();
-        }
-        enum Status
-        {
-            None,
-            Ready,
-            Display,
-            Next,
-            Complete,
         }
     }
 }

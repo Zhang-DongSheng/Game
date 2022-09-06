@@ -9,6 +9,10 @@ namespace Game.UI
 
         public const float ResolutionHeight = 1080f;
 
+        public const float MinusOne = -1;
+
+        public const float Zero = 0;
+
         public const string Prefab = "Package/Prefab/UI/Panel";
 
         public static readonly float ResolutionRatio = ResolutionWidth / ResolutionHeight;

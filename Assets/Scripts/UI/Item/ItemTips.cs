@@ -20,7 +20,7 @@ namespace Game.UI
 
         private Vector3 position;
 
-        public Action callback;
+        public bool Active { get; private set; }
 
         protected override void OnUpdate(float delta)
         {
@@ -66,10 +66,10 @@ namespace Game.UI
 
         private void Complete()
         {
-            Default(); callback?.Invoke();
+            Default(false);
         }
 
-        private void Default()
+        private void Default(bool active)
         {
             timer = 0;
 
@@ -79,14 +79,16 @@ namespace Game.UI
 
             SetPosition(position);
 
-            SetActive(false);
+            SetActive(active);
+
+            Active = active;
         }
 
         public void Startup(string message)
         {
             tips.text = message;
 
-            Default();
+            Default(true);
 
             SetActive(true);
         }
