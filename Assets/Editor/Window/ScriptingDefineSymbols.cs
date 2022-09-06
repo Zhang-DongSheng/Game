@@ -7,7 +7,7 @@ namespace UnityEditor.Window
     {
         private readonly List<string> defines = new List<string>();
 
-        [MenuItem("Tools/宏定义")]
+        [MenuItem("File/宏定义")]
         protected static void Open()
         {
             Open<ScriptingDefineSymbols>("宏定义");

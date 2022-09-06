@@ -16,7 +16,7 @@ namespace UnityEditor.Window
 
         private readonly Input inputVersion = new Input();
 
-        [MenuItem("Tools/Build")]
+        [MenuItem("File/Build")]
         protected static void Open()
         {
             Open<BuildPackage>("Ò»¼ü´ò°ü");
