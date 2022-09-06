@@ -2,7 +2,10 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class _BitOperation
+        /// <summary>
+        /// 位操作
+        /// </summary>
+        public static class BitOperation
         {
             /// <summary>
             /// 与（&）

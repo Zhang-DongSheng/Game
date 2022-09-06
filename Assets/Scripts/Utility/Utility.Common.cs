@@ -5,7 +5,10 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class _Common
+        /// <summary>
+        /// 通用
+        /// </summary>
+        public static class Common
         {
             /// <summary>
             /// 获取网络类型

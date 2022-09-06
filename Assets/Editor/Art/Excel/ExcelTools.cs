@@ -52,7 +52,7 @@ namespace UnityEditor
 
 		protected override void Init()
 		{
-			input_inputFolder = Path.Combine(Utility._Path.Project, InputPath);
+			input_inputFolder = Path.Combine(Utility.Path.Project, InputPath);
 
 			inputFolder = input_inputFolder;
 

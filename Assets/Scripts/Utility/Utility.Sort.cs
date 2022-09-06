@@ -6,7 +6,10 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class _Sort
+        /// <summary>
+        /// 排序算法
+        /// </summary>
+        public static class Sort
         {
             public static List<T> MergeSort<T>(List<T> source) where T : IComparer
             {

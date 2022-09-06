@@ -7,11 +7,14 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class _Compress
+        /// <summary>
+        /// Ω‚—πÀı
+        /// </summary>
+        public static class Compression
         {
-            const int Level = 6;
+            const int LEVEL = 6;
 
-            const int Size = 1024 * 4;
+            const int SIZE = 1024 * 4;
 
             public static bool Compress(byte[] buffer, string output)
             {
@@ -25,7 +28,7 @@ namespace Game
                 {
                     using (GZipOutputStream zip = new GZipOutputStream(stream))
                     {
-                        zip.SetLevel(Level);
+                        zip.SetLevel(LEVEL);
                         zip.Write(buffer, 0, buffer.Length);
                         zip.Flush();
                     }
@@ -61,7 +64,7 @@ namespace Game
                 {
                     using (Stream zip = new GZipInputStream(memory))
                     {
-                        byte[] buffer = new byte[Size];
+                        byte[] buffer = new byte[SIZE];
 
                         int size = 0;
 

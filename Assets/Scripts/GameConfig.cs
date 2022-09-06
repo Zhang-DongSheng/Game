@@ -15,7 +15,7 @@ public class GameConfig
 
     public const string ServerURL_Game = "https://www.baidu.com";
 #if UNITY_EDITOR
-    public static string Server_Resource = string.Format("{0}/{1}/{2}", Utility._Path.Project, AssetBundle, BuildTarget);
+    public static string Server_Resource = string.Format("{0}/{1}/{2}", Utility.Path.Project, AssetBundle, BuildTarget);
 #else
     public static string Server_Resource = "https://branchapptest-1302051570.cos.ap-beijing.myqcloud.com";
 #endif

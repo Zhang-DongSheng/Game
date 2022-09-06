@@ -4,9 +4,12 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class _Random
+        /// <summary>
+        /// Ëæ»úÊı
+        /// </summary>
+        public static class Random
         {
-            private static readonly Random random = new Random();
+            private static readonly System.Random random = new System.Random();
 
             public static int Range(int min, int max)
             {

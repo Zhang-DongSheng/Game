@@ -6,7 +6,10 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class _Time
+        /// <summary>
+        /// Ê±¼ä
+        /// </summary>
+        public static class Time
         {
             private static readonly StringBuilder builder = new StringBuilder();
 
@@ -73,35 +76,35 @@ namespace Game
                 {
                     builder.Append(span.Days);
 
-                    builder.Append(_Define.DAY);
+                    builder.Append(Define.DAY);
 
                     builder.Append(" ");
 
                     builder.Append(span.Hours);
 
-                    builder.Append(_Define.HOUR);
+                    builder.Append(Define.HOUR);
                 }
                 else if (span.Hours > 0)
                 {
                     builder.Append(span.Hours);
 
-                    builder.Append(_Define.HOUR);
+                    builder.Append(Define.HOUR);
 
                     if (span.Minutes < 10)
                     {
-                        builder.Append(_Define.ZERO);
+                        builder.Append(Define.ZERO);
                     }
                     builder.Append(span.Minutes);
 
-                    builder.Append(_Define.MINUTE);
+                    builder.Append(Define.MINUTE);
 
                     if (span.Seconds < 10)
                     {
-                        builder.Append(_Define.ZERO);
+                        builder.Append(Define.ZERO);
                     }
                     builder.Append(span.Seconds);
 
-                    builder.Append(_Define.SECOND);
+                    builder.Append(Define.SECOND);
                 }
                 else
                 {
@@ -109,17 +112,17 @@ namespace Game
 
                     if (span.Minutes < 10)
                     {
-                        builder.Append(_Define.ZERO);
+                        builder.Append(Define.ZERO);
                     }
-                    builder.Append(_Define.MINUTE);
+                    builder.Append(Define.MINUTE);
 
                     if (span.Seconds < 10)
                     {
-                        builder.Append(_Define.ZERO);
+                        builder.Append(Define.ZERO);
                     }
                     builder.Append(span.Seconds);
 
-                    builder.Append(_Define.SECOND);
+                    builder.Append(Define.SECOND);
                 }
                 return builder.ToString();
             }

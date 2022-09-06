@@ -7,7 +7,10 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class _Cryptogram
+        /// <summary>
+        /// º”√‹
+        /// </summary>
+        public static class Cryptogram
         {
             private const string AESKEY32 = "abcdefghijklmnopqrstuvwxyz123456";
 

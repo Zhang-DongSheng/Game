@@ -4,6 +4,14 @@ namespace Game
 {
     public static partial class Extension
     {
+        public static Color32 ToColor32(this Color color)
+        {
+            return new Color32(
+                (byte)Mathf.Round(Mathf.Clamp01(color.r) * 255f),
+                (byte)Mathf.Round(Mathf.Clamp01(color.g) * 255f),
+                (byte)Mathf.Round(Mathf.Clamp01(color.b) * 255f),
+                (byte)Mathf.Round(Mathf.Clamp01(color.a) * 255f));
+        }
         /// <summary>
         /// 变亮
         /// </summary>

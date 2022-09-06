@@ -7,7 +7,10 @@ namespace Game
 {
     public static partial class Utility
     {
-        public class _Class
+        /// <summary>
+        /// ¿‡
+        /// </summary>
+        public class Class
         {
             public static object Create(string name)
             {

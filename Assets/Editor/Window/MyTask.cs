@@ -23,7 +23,7 @@ namespace UnityEditor.Window
 
         protected override void Init()
         {
-            string content = Utility._Document.Read(Path);
+            string content = Utility.Document.Read(Path);
 
             if (string.IsNullOrEmpty(content))
             {
@@ -218,11 +218,11 @@ namespace UnityEditor.Window
         {
             if (task != null)
             {
-                Utility._Document.Write(Path, JsonUtility.ToJson(task));
+                Utility.Document.Write(Path, JsonUtility.ToJson(task));
             }
             else
             {
-                Utility._Document.Delete(Path);
+                Utility.Document.Delete(Path);
             }
         }
 

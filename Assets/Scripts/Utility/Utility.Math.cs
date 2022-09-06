@@ -1,11 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
 {
     public static partial class Utility
     {
-        public static class _Math
+        /// <summary>
+        /// 数学
+        /// </summary>
+        public static class Math
         {
             /// <summary>
             /// 最大公约数
@@ -94,19 +96,6 @@ namespace Game
             public static float Round(float value, int digit)
             {
                 return (float)System.Math.Round(value, digit);
-            }
-            /// <summary>
-            /// 进度
-            /// </summary>
-            public static float Progress(float value, float max, float min = 0)
-            {
-                float interval = max - min;
-
-                if (interval == 0) return 0;
-
-                value -= min;
-
-                return value / interval;
             }
             /// <summary>
             /// 求和

@@ -71,7 +71,7 @@ namespace Game.Test
         {
             for (int i = 0; i < 5; i++)
             {
-                Debuger.Log(Author.Test, Utility._Random.Range(1, 5));
+                Debuger.Log(Author.Test, Utility.Random.Range(1, 5));
             }
 
             Debuger.Log(Author.Test, "___________________________________");

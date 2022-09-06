@@ -9,7 +9,10 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class _Md5
+        /// <summary>
+        /// 信息摘要算法
+        /// </summary>
+        public static class Md5
         {
             private static readonly StringBuilder builder = new StringBuilder();
 

@@ -239,7 +239,7 @@ namespace UnityEditor.Window
 
         private void Create(string script, params Member[] parameters)
         {
-            string path = Utility._Path.New(string.Format("{0}/{1}.cs", Application.dataPath, script));
+            string path = Utility.Path.New(string.Format("{0}/{1}.cs", Application.dataPath, script));
 
             using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
             {

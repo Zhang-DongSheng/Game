@@ -13,7 +13,7 @@ namespace UnityEditor
             {
                 string path = AssetDatabase.GetAssetPath(Selection.activeObject);
 
-                path = Utility._Path.UnityToSystem(path);
+                path = Utility.Path.UnityToSystem(path);
 
                 path = path.Replace("\\", "/");
 

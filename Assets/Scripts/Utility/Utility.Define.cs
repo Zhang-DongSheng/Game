@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace Game
 {
     public static partial class Utility
     {
-        public static class _Define
+        /// <summary>
+        /// ³£Á¿
+        /// </summary>
+        public static class Define
         {
             internal const string DAY = "d";
 
@@ -17,6 +16,8 @@ namespace Game
             internal const string SECOND = "";
 
             internal const string ZERO = "";
+
+            internal const int MEMORY = 1024;
         }
     }
 }

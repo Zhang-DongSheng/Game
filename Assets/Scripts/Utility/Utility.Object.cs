@@ -4,7 +4,10 @@ namespace Game
 {
     public static partial class Utility
     {
-        public static class _Object
+        /// <summary>
+        /// ∂‘œÛ
+        /// </summary>
+        public static class Object
         {
             public static void Unload(UnityEngine.Object asset)
             {

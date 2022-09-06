@@ -53,7 +53,7 @@ namespace UnityEditor.Window
             {
                 Redirect();
             };
-            input.value = string.Format("{0}/{1}", Utility._Path.Project, EbookConfig.PATH);
+            input.value = string.Format("{0}/{1}", Utility.Path.Project, EbookConfig.PATH);
 
             number.action = (value) =>
             {
