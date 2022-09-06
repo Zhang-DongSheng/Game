@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Game
@@ -6,7 +7,20 @@ namespace Game
     {
         protected virtual void OnEnable()
         {
-            RuntimeManager.Instance.Register(RuntimeEvent.Update, OnUpdate);
+            if (this.Override("OnFixedUpdate"))
+            {
+                RuntimeManager.Instance.Register(RuntimeEvent.FixedUpdate, OnFixedUpdate);
+            }
+
+            if (this.Override("OnUpdate"))
+            {
+                RuntimeManager.Instance.Register(RuntimeEvent.Update, OnUpdate);
+            }
+
+            if (this.Override("OnLateUpdate"))
+            {
+                RuntimeManager.Instance.Register(RuntimeEvent.LateUpdate, OnLateUpdate);
+            }
         }
 
         protected virtual void OnDisable()
@@ -20,6 +34,11 @@ namespace Game
         }
 
         protected virtual void OnFixedUpdate(float delta)
+        {
+
+        }
+
+        protected virtual void OnLateUpdate(float delta)
         {
 
         }

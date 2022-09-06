@@ -224,5 +224,30 @@ namespace Game
 
             return Activator.CreateInstance(TS, new object[] { });
         }
+        /// <summary>
+        /// 是否重写方法
+        /// </summary>
+        public static bool Override<T>(this T script, string function)
+        {
+            try
+            {
+                Type type = script.GetType();
+
+                MethodInfo method = type.GetMethod(function, Flags);
+
+                if (method == null) return false;
+
+                if (method.IsVirtual && !method.IsFinal)
+                {
+                    return method.DeclaringType != method.GetBaseDefinition().DeclaringType;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                Debuger.LogException(Author.None, e);
+            }
+            return false;
+        }
     }
 }

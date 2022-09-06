@@ -29,6 +29,11 @@ namespace Game.UI
             EventManager.Unregister(EventKey.UIClose, Refresh);
         }
 
+        protected override void OnUpdate(float delta)
+        {
+            
+        }
+
         public override void Refresh(Paramter paramter)
         {
             Refresh(null);

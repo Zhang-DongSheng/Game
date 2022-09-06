@@ -40,12 +40,12 @@ namespace Game.UI
             btn_login.onClick.AddListener(OnClickLogin);
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
             EventManager.Register(EventKey.Login, OnReceivedLogin);
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
             EventManager.Unregister(EventKey.Login, OnReceivedLogin);
         }

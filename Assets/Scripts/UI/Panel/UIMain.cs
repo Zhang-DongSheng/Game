@@ -36,7 +36,7 @@ namespace Game.UI
 
         private void OnClickMail()
         {
-            UIQuickEntry.Open(UIPanel.UIMail);
+            UIQuickEntry.Open(UIPanel.UITest);
         }
 
         private void OnClickActivity()
