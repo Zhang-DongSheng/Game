@@ -28,7 +28,7 @@ namespace Game.SM
 
         protected override void Transition(float step)
         {
-            progress = curve.Evaluate(Config.One - step);
+            progress = curve.Evaluate(Config.ONE - step);
 
             SetImageFillAmount(progress);
         }

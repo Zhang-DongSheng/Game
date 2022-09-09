@@ -61,7 +61,6 @@ namespace Game.Test
             {
                 OnClick();
             }
-            Debuger.Log(Author.Test, "___________________________________");
         }
         /// <summary>
         /// 测试模块
@@ -89,7 +88,7 @@ namespace Game.Test
         [ContextMenu("OnClick")]
         public void OnClickContextMenu()
         {
-
+            Material material;
         }
 
         public void OnClickButton(float index)

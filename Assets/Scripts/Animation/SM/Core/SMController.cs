@@ -53,7 +53,7 @@ namespace Game.SM
                         sms[i].onCompleted.RemoveAllListeners();
                     }
                 }
-                current.onCompleted.AddListener(Next); current.Begin(true);
+                current.onCompleted.AddListener(Next); current.Begin();
             }
             else
             {

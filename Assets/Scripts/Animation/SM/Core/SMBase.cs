@@ -31,10 +31,13 @@ namespace Game.SM
         {
             if (target == null)
             {
-                target = GetComponent<RectTransform>();
+                target = GetComponent<Transform>();
             }
-            speed = useConfig ? Config.Speed : speed;
-
+            // 使用配置数据
+            if (useConfig)
+            {
+                speed = Config.SPEED;
+            }
             Init();
         }
 
@@ -42,7 +45,7 @@ namespace Game.SM
         {
             if (enable)
             {
-                Begin(true);
+                Begin();
             }
             base.OnEnable();
         }
@@ -72,18 +75,18 @@ namespace Game.SM
 
                 Transition(Format(forward, step));
 
-                if (step >= Config.One)
+                if (step >= Config.ONE)
                 {
                     Completed();
                 }
             }
         }
 
-        protected virtual void Compute()
+        protected virtual void Ready()
         {
-            status = Status.Compute;
+            status = Status.Ready;
 
-            step = Config.Zero;
+            step = Config.ZERO;
 
             onBegin?.Invoke();
 
@@ -103,35 +106,19 @@ namespace Game.SM
         {
             if (forward)
             {
-                return Mathf.Min(step, Config.One);
+                return Mathf.Clamp01(step);
             }
             else
             {
-                return Mathf.Max(Config.One - step, Config.Zero);
+                return Mathf.Clamp01(Config.ONE - step);
             }
         }
 
-        protected virtual void SetActive(bool active)
-        {
-            if (target != null && target.gameObject.activeSelf != active)
-            {
-                target.gameObject.SetActive(active);
-            }
-        }
-
-        protected virtual void SetActive(Component component, bool active)
-        {
-            if (component != null && component.gameObject.activeSelf != active)
-            {
-                component.gameObject.SetActive(active);
-            }
-        }
-
-        public virtual void Begin(bool forward)
+        public virtual void Begin(bool forward = true)
         {
             this.forward = forward;
 
-            Compute();
+            Ready();
         }
 
         public virtual void Pause(bool pause)

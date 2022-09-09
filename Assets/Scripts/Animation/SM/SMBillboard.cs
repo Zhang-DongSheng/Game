@@ -34,10 +34,8 @@ namespace Game.SM
             rect.anchoredPosition = position.Lerp(progress);
         }
 
-        protected override void Compute()
+        protected override void Ready()
         {
-            status = Status.Compute;
-
             Vector2 space = new Vector2(port.rect.width / 2f, port.rect.height / 2f);
 
             Vector2 view = new Vector2(rect.rect.width / 2f, rect.rect.height / 2f);
@@ -57,12 +55,7 @@ namespace Game.SM
                 default:
                     break;
             }
-
-            step = Config.Zero;
-
-            onBegin?.Invoke();
-
-            status = Status.Transition;
+            base.Ready();
         }
 
         protected override void Completed()
@@ -73,10 +66,14 @@ namespace Game.SM
                     base.Completed();
                     break;
                 case Circle.Round:
-                    forward = !forward; step = Config.Zero;
+                    {
+                        step = Config.ZERO;
+                        // Loop
+                        forward = !forward;
+                    }
                     break;
                 case Circle.Always:
-                    step = Config.Zero;
+                    step = Config.ZERO;
                     break;
             }
         }

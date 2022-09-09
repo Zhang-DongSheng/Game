@@ -59,7 +59,7 @@ namespace Game.SM
                     base.Completed();
                     break;
                 default:
-                    forward = !forward; step = Config.Zero;
+                    forward = !forward; step = Config.ZERO;
                     break;
             }
         }

@@ -66,10 +66,10 @@ namespace Game.SM
                     base.Completed();
                     break;
                 case Circle.Always:
-                    step = Config.Zero;
+                    step = Config.ZERO;
                     break;
                 default:
-                    forward = !forward; step = Config.Zero;
+                    forward = !forward; step = Config.ZERO;
                     break;
             }
         }

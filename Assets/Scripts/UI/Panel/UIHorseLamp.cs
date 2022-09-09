@@ -25,7 +25,7 @@ namespace Game.UI
         {
             base.OnEnable();
             animator.onCompleted.RemoveAllListeners();
-            animator.Begin(true);
+            animator.Begin();
         }
 
         protected override void OnUpdate(float delta)

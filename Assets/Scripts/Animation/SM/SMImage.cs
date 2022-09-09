@@ -37,7 +37,7 @@ namespace Game.SM
 
             interval.destination = end;
 
-            Begin(true);
+            Begin();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Game.SM
         {
             if (target == null) return;
 
-            progress = curve.Evaluate(Config.One - step);
+            progress = curve.Evaluate(Config.ONE - step);
 
             range = Mathf.Lerp(0, intensity, progress);
 

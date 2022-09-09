@@ -27,11 +27,9 @@ namespace Game.SM
             target.localPosition = position.Lerp(progress);
         }
 
-        protected override void Compute()
+        protected override void Ready()
         {
             if (route.Count == 0) return;
-
-            status = Status.Compute;
 
             count = route.Count;
 
@@ -39,16 +37,12 @@ namespace Game.SM
 
             Position(forward, index);
 
-            step = Config.Zero;
-
-            onBegin?.Invoke();
-
-            status = Status.Transition;
+            base.Ready();
         }
 
         protected override void Completed()
         {
-            step = Config.Zero;
+            step = Config.ZERO;
 
             index = forward ? index + 1 : index - 1;
 

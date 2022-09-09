@@ -44,6 +44,11 @@ namespace Game.UI
             }
         }
 
+        private void OnValidate()
+        {
+            
+        }
+
         protected override void OnUpdate(float delta)
         {
             switch (status)
