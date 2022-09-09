@@ -7,17 +7,17 @@ namespace Game
         /// </summary>
         public static class Define
         {
-            internal const string DAY = "d";
+            internal const char BREAKINGSPACE = '\u0020';
 
-            internal const string HOUR = "h";
+            internal const char SPACE = '\u00A0';
 
-            internal const string MINUTE = ":";
+            internal const int ZERO = 0;
 
-            internal const string SECOND = "";
-
-            internal const string ZERO = "";
+            internal const int ONE = 1;
 
             internal const int MEMORY = 1024;
+
+            internal const float HALF = 0.5f;
         }
     }
 }

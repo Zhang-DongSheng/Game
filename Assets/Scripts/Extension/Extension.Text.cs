@@ -1,77 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
-using UnityEngine.U2D;
 using UnityEngine.UI;
 
 namespace Game
 {
     public static partial class Extension
     {
-        private const char special = '#';
-
-        private static readonly Regex emojiRegex = new Regex(@"<emoji=(.+?)/>", RegexOptions.Singleline);
-
-        private static readonly Regex specialRegex = new Regex(string.Format(@"X{0}", special), RegexOptions.Singleline);
-        /// <summary>
-        /// 设置带图片文本
-        /// </summary>
-        public static void SetTextWithEmoji(this Text component, string content)
-        {
-            component.transform.Clear();
-
-            if (emojiRegex.IsMatch(content))
-            {
-                List<EmojiInformation> emojis = new List<EmojiInformation>();
-
-                string value = emojiRegex.Replace(content, string.Format("X{0}", special));
-
-                int index = 0;
-
-                for (int i = 0; i < value.Length; i++)
-                {
-                    if (value[i] == special)
-                    {
-                        emojis.Add(new EmojiInformation()
-                        {
-                            index = i,
-                            size = Vector2.one * component.fontSize,
-                        });
-                    }
-                }
-
-                foreach (Match match in emojiRegex.Matches(content))
-                {
-                    emojis[index++].name = match.Groups[1].Value;
-                }
-
-                TextGenerator generator = new TextGenerator();
-
-                RectTransform rectTransform = component.GetComponent<RectTransform>();
-
-                TextGenerationSettings settings = component.GetGenerationSettings(rectTransform.rect.size);
-
-                generator.Populate(value, settings);
-
-                for (int i = 0; i < emojis.Count; i++)
-                {
-                    if (generator.characters.Count > emojis[i].index)
-                    {
-                        emojis[i].position = generator.characters[emojis[i].index].cursorPos;
-
-                        CreateImageEmoji(emojis[i], component.transform);
-                    }
-                }
-
-                component.text = specialRegex.Replace(value, string.Format("<color=#FFFFFF00>X{0}</color>", special));
-            }
-            else
-            {
-                component.text = content;
-            }
-        }
         /// <summary>
         /// 设置带省略号文本...
         /// </summary>
@@ -160,40 +95,19 @@ namespace Game
             return height;
         }
         /// <summary>
-        /// 创建表情
+        /// 换行
         /// </summary>
-        private static void CreateImageEmoji(EmojiInformation emoji, Transform parent)
+        public static void LineBreak(this Text component)
         {
-            if (emoji == null) return;
+            if (component.supportRichText == false) return;
 
-            RectTransform go = new GameObject("emoji").AddComponent<RectTransform>();
+            if (string.IsNullOrEmpty(component.text)) return;
 
-            Image image = go.gameObject.AddComponent<Image>();
+            string content = component.text;
 
-            SpriteAtlas atlas = Resources.Load<SpriteAtlas>("emoji");
+            content = content.Replace("\\n", "\n");
 
-            go.SetParent(parent);
-
-            go.pivot = new Vector2(0.55f, 1);
-
-            go.anchoredPosition = emoji.position;
-
-            go.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, emoji.size.x);
-
-            go.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, emoji.size.y);
-
-            image.sprite = atlas.GetSprite(emoji.name);
-        }
-
-        class EmojiInformation
-        {
-            public string name;
-
-            public int index;
-
-            public Vector2 position;
-
-            public Vector2 size;
+            component.text = content;
         }
     }
 }

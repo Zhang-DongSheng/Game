@@ -76,19 +76,19 @@ namespace Game
                 {
                     builder.Append(span.Days);
 
-                    builder.Append(Define.DAY);
+                    builder.Append("d");
 
                     builder.Append(" ");
 
                     builder.Append(span.Hours);
 
-                    builder.Append(Define.HOUR);
+                    builder.Append("h");
                 }
                 else if (span.Hours > 0)
                 {
                     builder.Append(span.Hours);
 
-                    builder.Append(Define.HOUR);
+                    builder.Append("h");
 
                     if (span.Minutes < 10)
                     {
@@ -96,7 +96,7 @@ namespace Game
                     }
                     builder.Append(span.Minutes);
 
-                    builder.Append(Define.MINUTE);
+                    builder.Append("m");
 
                     if (span.Seconds < 10)
                     {
@@ -104,7 +104,7 @@ namespace Game
                     }
                     builder.Append(span.Seconds);
 
-                    builder.Append(Define.SECOND);
+                    builder.Append("s");
                 }
                 else
                 {
@@ -114,7 +114,7 @@ namespace Game
                     {
                         builder.Append(Define.ZERO);
                     }
-                    builder.Append(Define.MINUTE);
+                    builder.Append("m");
 
                     if (span.Seconds < 10)
                     {
@@ -122,7 +122,7 @@ namespace Game
                     }
                     builder.Append(span.Seconds);
 
-                    builder.Append(Define.SECOND);
+                    builder.Append("s");
                 }
                 return builder.ToString();
             }

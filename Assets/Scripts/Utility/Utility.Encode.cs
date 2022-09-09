@@ -35,7 +35,6 @@ namespace Game
                 if (buffer[0] == 0xff && buffer[1] == 0xfe) return Encoding.Unicode;
                 if (buffer[0] == 0xfe && buffer[1] == 0xff) return Encoding.BigEndianUnicode;
                 if (buffer[0] == 0 && buffer[1] == 0 && buffer[2] == 0xfe && buffer[3] == 0xff) return Encoding.UTF32;
-
                 return Encoding.ASCII;
             }
 
