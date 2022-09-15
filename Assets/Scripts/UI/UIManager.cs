@@ -75,13 +75,13 @@ namespace Game.UI
             //_panels.Add(UIPanel.UIConfirm, new CtrlBase());
         }
 
-        private void PanelEvent(UIPanel panel, bool active)
+        private void Record(UIPanel panel, UIType type, bool active)
         {
             CtrlBase ctrl = _panels[panel];
 
             if (active)
             {
-                if (Config.ignores.Contains(panel))
+                if (Config.ignores.Contains(panel) || type != UIType.Panel)
                 {
                     Debuger.Log(Author.UI, string.Format("{0} is Ignore!", panel));
                 }
@@ -114,7 +114,7 @@ namespace Game.UI
             {
                 if (_panels.ContainsKey(panel) == false)
                 {
-                    _panels.Add(panel, new CtrlBase(panel, PanelEvent));
+                    _panels.Add(panel, new CtrlBase(panel, Record));
                 }
                 _panels[panel].Open(layer, async);
             }
@@ -130,7 +130,7 @@ namespace Game.UI
             {
                 index = _records.Count - 1;
 
-                _records[index].Close(false);
+                _records[index].Close();
 
                 index = _records.Count - 1;
 
@@ -170,7 +170,7 @@ namespace Game.UI
             }
             else
             {
-                _panels.Add(panel, new CtrlBase(panel, PanelEvent));
+                _panels.Add(panel, new CtrlBase(panel, Record));
                 {
                     _panels[panel].Paramter(paramter);
                 }
@@ -225,7 +225,7 @@ namespace Game.UI
             return null;
         }
 
-        public void SortDisplay(UILayer layer, Transform panel)
+        public void Sort(UILayer layer, Transform panel)
         {
             panel.SetAsLastSibling();
 
@@ -314,5 +314,12 @@ namespace Game.UI
         Widget,
         Overlayer,
         Top,
+    }
+
+    public enum UIType
+    {
+        Panel,
+        Popup,
+        Widget,
     }
 }

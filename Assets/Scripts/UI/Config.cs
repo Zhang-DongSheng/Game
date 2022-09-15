@@ -31,9 +31,6 @@ namespace Game.UI
         {
             UIPanel.UILogin,
             UIPanel.UIMain,
-            UIPanel.UITitle,
-            UIPanel.UITips,
-            UIPanel.UIHorseLamp
         };
     }
 

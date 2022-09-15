@@ -9,6 +9,8 @@ namespace Game.UI
 
         public UILayer layer = UILayer.Base;
 
+        public UIType type = UIType.Panel;
+
         public int order;
 
         public virtual void Init(UIPanel panel)

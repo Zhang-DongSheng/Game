@@ -15,13 +15,11 @@ namespace Game.UI
 
         private bool async;
 
-        private readonly Action<UIPanel, bool> callback;
+        private readonly Action<UIPanel, UIType, bool> callback;
 
-        public CtrlBase(UIPanel panel, Action<UIPanel, bool> callback)
+        public CtrlBase(UIPanel panel, Action<UIPanel, UIType, bool> callback)
         {
             this.panel = panel;
-
-            status = Status.None;
 
             this.callback = callback;
         }
@@ -71,17 +69,21 @@ namespace Game.UI
             this.paramter = paramter;
         }
 
-        public void Close(bool destroy)
+        public void Close(bool destroy = false)
         {
             active = false;
 
+            if (view == null) return;
+
+            callback?.Invoke(panel, view.type, active);
+
             if (destroy)
             {
-                if (view != null && view.gameObject != null)
+                if (view.gameObject != null)
                 {
                     GameObject.Destroy(view.gameObject);
                 }
-                status = Status.None; callback?.Invoke(panel, active);
+                status = Status.None;
             }
             else
             {
@@ -152,15 +154,15 @@ namespace Game.UI
 
         protected virtual void Show()
         {
-            if (view != null)
-            {
-                view.Refresh(paramter);
+            if (view == null) return;
 
-                view.SetActive(active);
+            view.Refresh(paramter);
 
-                UIManager.Instance.SortDisplay(view.layer, view.transform);
-            }
-            callback?.Invoke(panel, active);
+            view.SetActive(active);
+
+            callback?.Invoke(panel, view.type, active);
+
+            UIManager.Instance.Sort(view.layer, view.transform);
         }
 
         protected virtual void Hide()
@@ -169,7 +171,7 @@ namespace Game.UI
             {
                 view.SetActive(active);
             }
-            callback?.Invoke(panel, active);
+            number--;
         }
 
         public UIPanel panel { get; protected set; }
