@@ -28,7 +28,7 @@ namespace UnityEngine
             { Author.File,     LogType.Exception },
             { Author.Script,   LogType.Log },
             { Author.Utility,  LogType.Log },
-            { Author.UI,       LogType.Warning },
+            { Author.UI,       LogType.Log },
             { Author.Test,     LogType.Log },
             { Author.Data,     LogType.Error },
             { Author.Sound,    LogType.Warning },

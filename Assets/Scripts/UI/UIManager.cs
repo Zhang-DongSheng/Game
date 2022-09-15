@@ -17,8 +17,6 @@ namespace Game.UI
 
         private Canvas canvas;
 
-        private int index;
-
         private void Awake()
         {
             Init(); Register();
@@ -36,7 +34,6 @@ namespace Game.UI
                 {
                     scale.matchWidthOrHeight = 1;
                 }
-
                 foreach (var layer in Enum.GetValues(typeof(UILayer)))
                 {
                     if ((UILayer)layer == UILayer.None) continue;
@@ -66,7 +63,7 @@ namespace Game.UI
             }
             else
             {
-                Debug.LogError("Can't Find Canvas, Please Add 'Canvas' in Hierarchy!");
+                Debuger.LogError(Author.UI, "Can't Find Canvas, Please Add 'Canvas' in Hierarchy!");
             }
         }
 
@@ -75,26 +72,29 @@ namespace Game.UI
             //_panels.Add(UIPanel.UIConfirm, new CtrlBase());
         }
 
-        private void Record(UIPanel panel, UIType type, bool active)
+        private void Record(CtrlBase ctrl)
         {
-            CtrlBase ctrl = _panels[panel];
-
-            if (active)
+            if (ctrl.active)
             {
-                if (type != UIType.Panel)
+                switch (ctrl.type)
                 {
-                    Debuger.Log(Author.UI, string.Format("{0} is Ignore!", panel));
-                }
-                else
-                {
-                    if (_records.Contains(ctrl))
-                    {
-                        Debug.LogWarningFormat("The {0} page is opened repeatedly!", panel);
-                    }
-                    else
-                    {
-                        _records.Add(ctrl);
-                    }
+                    case UIType.Panel:
+                        {
+                            if (_records.Contains(ctrl))
+                            {
+                                Debuger.LogWarning(Author.UI, string.Format("The {0} page is opened repeatedly!", ctrl.panel));
+                            }
+                            else
+                            {
+                                _records.Add(ctrl);
+                            }
+                        }
+                        break;
+                    default:
+                        {
+                            Debuger.Log(Author.UI, string.Format("{0} is unrecord!", ctrl.panel));
+                        }
+                        break;
                 }
                 EventManager.Post(EventKey.UIOpen);
             }
@@ -120,28 +120,26 @@ namespace Game.UI
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debuger.LogException(Author.UI, e);
             }
         }
 
         public void Back()
         {
-            if (_records.Count > 0)
+            int last = _records.Count - 1;
+
+            if (last > -1)
             {
-                index = _records.Count - 1;
+                _records[last--].Close();
 
-                _records[index].Close();
-
-                index = _records.Count - 1;
-
-                if (index > -1 && !_records[index].active)
+                if (last > -1 && !_records[last].active)
                 {
-                    _records[index].Open();
+                    _records[last].Open();
                 }
             }
             else
             {
-                Debug.LogWarning("this is last panel!");
+                Debuger.LogError(Author.UI, "this is last panel!");
             }
         }
 
@@ -189,38 +187,15 @@ namespace Game.UI
             }
         }
 
-        public bool OnlyOne(UIPanel panel, params UIPanel[] ignore)
-        {
-            bool active = false;
-
-            foreach (var _p in _panels)
-            {
-                if (ignore.Exist(_p.Key)) continue;
-
-                if (_p.Key == panel)
-                {
-                    active = _p.Value.active;
-                }
-                else
-                {
-                    if (_p.Value.active)
-                    {
-                        return false;
-                    }
-                }
-            }
-            return active;
-        }
-
         public Transform GetParent(UILayer layer)
         {
             try
             {
-                return _parents[(int)layer - 1];
+                return _parents[(int)layer];
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debuger.LogError(Author.UI, e.Message + layer);
             }
             return null;
         }
@@ -247,6 +222,11 @@ namespace Game.UI
             {
                 childs[i].transform.SetSiblingIndex(i);
             }
+        }
+
+        public bool CanBack()
+        {
+            return _records.Count > 0;
         }
 
         public Vector2 Resolution

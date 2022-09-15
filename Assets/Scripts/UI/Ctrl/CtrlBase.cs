@@ -13,27 +13,21 @@ namespace Game.UI
 
         private Status status;
 
-        private bool async;
+        private readonly Action<CtrlBase> callback;
 
-        private readonly Action<UIPanel, UIType, bool> callback;
-
-        public CtrlBase(UIPanel panel, Action<UIPanel, UIType, bool> callback)
+        public CtrlBase(UIPanel panel, Action<CtrlBase> callback)
         {
             this.panel = panel;
 
             this.callback = callback;
         }
 
-        public void Open(UILayer layer, bool async)
+        public void Open()
         {
-            this.layer = layer;
-
-            this.async = async;
-
-            Open();
+            Open(UILayer.None, UIQuickEntry.async);
         }
 
-        public void Open()
+        public void Open(UILayer layer, bool async)
         {
             active = true; number++;
 
@@ -50,7 +44,7 @@ namespace Game.UI
                 case Status.Loading:
                     Debuger.LogWarning(Author.UI, string.Format("The panel of [{0}] is loading...", panel));
                     break;
-                case Status.Display:
+                case Status.Show:
                     {
                         if (view != null)
                         {
@@ -64,14 +58,9 @@ namespace Game.UI
             }
         }
 
-        public void Paramter(Paramter paramter)
-        {
-            this.paramter = paramter;
-        }
-
         public void Close(bool destroy = false)
         {
-            active = false;
+            active = false; number--;
 
             if (view == null) return;
 
@@ -87,7 +76,12 @@ namespace Game.UI
             {
                 Hide();
             }
-            callback?.Invoke(panel, view.type, active);
+            callback?.Invoke(this);
+        }
+
+        public void Paramter(Paramter paramter)
+        {
+            this.paramter = paramter;
         }
 
         private void Load(UIPanel panel, UILayer layer)
@@ -141,9 +135,11 @@ namespace Game.UI
 
                 rect.Reset(); rect.SetFull();
 
+                type = view.type;
+
                 view.Init(panel); Show();
 
-                status = Status.Display;
+                status = Status.Show;
             }
             catch
             {
@@ -153,29 +149,23 @@ namespace Game.UI
 
         protected virtual void Show()
         {
-            if (view == null) return;
-
             view.Refresh(paramter);
 
             view.SetActive(active);
 
-            callback?.Invoke(panel, view.type, active);
+            callback?.Invoke(this);
 
             UIManager.Instance.Sort(view.layer, view.transform);
         }
 
         protected virtual void Hide()
         {
-            if (view != null)
-            {
-                view.SetActive(active);
-            }
-            number--;
+            view.SetActive(active);
         }
 
         public UIPanel panel { get; protected set; }
 
-        public UILayer layer { get; protected set; }
+        public UIType type { get; protected set; }
 
         public bool active { get; protected set; }
 
@@ -185,7 +175,7 @@ namespace Game.UI
         {
             None,
             Loading,
-            Display,
+            Show,
             Error,
         }
     }

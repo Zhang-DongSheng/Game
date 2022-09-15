@@ -49,9 +49,7 @@ namespace Game.UI
             }
             btnShop.SetActive(!shop);
 
-            bool back = UIManager.Instance.OnlyOne(UIPanel.UIMain, UIPanel.UITitle);
-
-            btnBack.SetActive(!back);
+            btnBack.SetActive(UIManager.Instance.CanBack());
         }
 
         private void OnClickBack()
