@@ -175,6 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 5
+  type: 1
   order: 0
   display: 2
   content: {fileID: 6180908440464265516}

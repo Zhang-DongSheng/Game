@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game.UI
 {
@@ -26,12 +25,6 @@ namespace Game.UI
         public static readonly float ScreenHeightRatio = ResolutionHeight / Screen.height;
 
         public static readonly float ScreenRatio = Screen.width / (float)Screen.height;
-
-        public static readonly List<UIPanel> ignores = new List<UIPanel>()
-        {
-            UIPanel.UILogin,
-            UIPanel.UIMain,
-        };
     }
 
     public enum Axis

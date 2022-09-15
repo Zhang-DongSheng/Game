@@ -566,6 +566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 2
+  type: 0
   order: 0
   input_account: {fileID: 2698727356401092498}
   input_password: {fileID: 5324082844931730625}

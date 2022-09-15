@@ -7,11 +7,11 @@ namespace Game.UI
     {
         protected UIPanel panel;
 
-        public UILayer layer = UILayer.Base;
+        public UILayer layer = UILayer.Window;
 
         public UIType type = UIType.Panel;
 
-        public int order;
+        public int order = 0;
 
         public virtual void Init(UIPanel panel)
         {

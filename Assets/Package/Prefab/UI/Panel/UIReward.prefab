@@ -87,10 +87,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 757eb692532e63f4cb1004658d7877ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imgIcon: {fileID: 1929111345740818521}
-  imgQuality: {fileID: 7490612297309673485}
-  txtName: {fileID: 3626917328050831841}
-  txtNumber: {fileID: 7643928997766221338}
+  m_prop:
+    txtName: {fileID: 0}
+    txtNumber: {fileID: 0}
+    imgIcon: {fileID: 0}
+    imgQuality: {fileID: 0}
 --- !u!1 &2923875124083088729
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,6 +370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 5
+  type: 1
   order: 0
   prefab:
     parent: {fileID: 5546310346361309367}

@@ -451,6 +451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 2
+  type: 0
   order: 0
   btnWarehouse: {fileID: 1938405887184319246}
   btnMail: {fileID: 2435239072434313541}

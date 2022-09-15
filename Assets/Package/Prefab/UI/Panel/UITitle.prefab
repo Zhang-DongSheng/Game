@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 4
+  type: 2
   order: -1
   btnBack: {fileID: 8618687823428182101}
   btnShop: {fileID: 2161181143450624669}

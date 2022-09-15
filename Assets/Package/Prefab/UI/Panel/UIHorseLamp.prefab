@@ -332,6 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 5
+  type: 2
   order: 0
   prefab:
     parent: {fileID: 6624498059655149479}

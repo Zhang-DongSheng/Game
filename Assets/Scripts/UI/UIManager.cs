@@ -81,7 +81,7 @@ namespace Game.UI
 
             if (active)
             {
-                if (Config.ignores.Contains(panel) || type != UIType.Panel)
+                if (type != UIType.Panel)
                 {
                     Debuger.Log(Author.UI, string.Format("{0} is Ignore!", panel));
                 }
@@ -307,7 +307,7 @@ namespace Game.UI
 
     public enum UILayer
     {
-        None,
+        None = -1,
         Bottom,
         Base,
         Window,
@@ -318,6 +318,7 @@ namespace Game.UI
 
     public enum UIType
     {
+        Base,
         Panel,
         Popup,
         Widget,

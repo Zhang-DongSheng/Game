@@ -7,9 +7,9 @@ namespace Game.UI
 {
     public class CtrlBase
     {
-        protected UIBase view;
-
         protected Paramter paramter;
+
+        protected UIBase view;
 
         private Status status;
 
@@ -75,8 +75,6 @@ namespace Game.UI
 
             if (view == null) return;
 
-            callback?.Invoke(panel, view.type, active);
-
             if (destroy)
             {
                 if (view.gameObject != null)
@@ -89,6 +87,7 @@ namespace Game.UI
             {
                 Hide();
             }
+            callback?.Invoke(panel, view.type, active);
         }
 
         private void Load(UIPanel panel, UILayer layer)
