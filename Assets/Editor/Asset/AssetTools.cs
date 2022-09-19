@@ -21,13 +21,24 @@ namespace UnityEditor
 
                 if (EditorWindow.focusedWindow != null)
                 {
-                    EditorWindow.focusedWindow.ShowNotification(new GUIContent("Â·¾¶¸´ÖÆ³É¹¦£¡"));
+                    EditorWindow.focusedWindow.ShowNotification(new GUIContent("è·¯å¾„å¤åˆ¶æˆåŠŸï¼"));
                 }
                 else
                 {
-                    Debuger.Log(Author.File, "Â·¾¶¸´ÖÆ³É¹¦£¡");
+                    Debuger.Log(Author.File, "è·¯å¾„å¤åˆ¶æˆåŠŸï¼");
                 }
             }
+        }
+        [MenuItem("Assets/Open HotFix Project", priority = 101)]
+        internal static void OpenHotFixProject()
+        {
+            string folder = "ILRuntime/Hotfix~";
+
+            string file = "Hotfix";
+
+            string path = string.Format("{0}/{1}/{2}.sln", Application.dataPath, folder, file);
+
+            EditorUtility.OpenWithDefaultApp(path);
         }
 
         public static List<T> FindAssetsByType<T>() where T : Object

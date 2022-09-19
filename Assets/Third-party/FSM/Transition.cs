@@ -1,40 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-namespace VGBasic.FSM
+namespace FSM
 {
     public class Transition : ITransition
     {
-        #region 基础成员变量
+        protected IState _from;
 
-        private IState _from;
-        private IState _to;
-        private StateTransitionConditionEventHandle condition;
+        protected IState _to;
 
-        #endregion
+        protected Func<bool> _match;
 
-        public Transition(IState from, IState to, StateTransitionConditionEventHandle con)
+        public IState From { get => _from; }
+
+        public IState To { get => _to; }
+
+        public Transition(IState from, IState to, Func<bool> match)
         {
             _from = from;
+
             _to = to;
-            condition = con;
+
+            _match = match;
         }
 
-        public IState From
+        public bool Condition()
         {
-            get { return _from; }
-            set { _from = value; }
-        }
-        public IState To
-        {
-            get { return _to; }
-            set { _to = value; }
-        }
-        public StateTransitionConditionEventHandle Condition
-        {
-            get { return condition; }
-            set { condition = value; }
+            if (_match != null)
+            {
+                return _match.Invoke();
+            }
+            return true;
         }
     }
 }

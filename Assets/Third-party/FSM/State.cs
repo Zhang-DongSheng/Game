@@ -1,85 +1,53 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-namespace VGBasic.FSM
+namespace FSM
 {
     public class State : IState
     {
+        protected string _name;
 
-        #region 基础成员变量
+        protected readonly List<ITransition> _transitions = new List<ITransition>();
 
-        private string stateName;
-        private IStateMachine parent;
-        private StateBaseEventHandle onStateEnter;
-        private StateBaseEventHandle onStateExit;
-        private StateEmptyEventHandle onStateUpdate;
-        private List<ITransition> transitions;
+        public string Name { get => _name; set => _name = value; }
 
-        #endregion
+        public List<ITransition> Transitions { get => _transitions; }
+
+        public Action onEnter, onStay, onExit;
 
         public State(string name)
         {
-            stateName = name;
-            
-            transitions = new List<ITransition>();
+            _name = name;
         }
 
-        public string StateName
+        public virtual void OnEnter()
         {
-            get { return stateName; }
+            onEnter?.Invoke();
         }
 
-        public StateBaseEventHandle OnStateEnter
+        public virtual void OnStay()
         {
-            get { return onStateEnter; }
-            set { onStateEnter = value; }
+            onStay?.Invoke();
         }
 
-        public StateBaseEventHandle OnStateExit
+        public virtual void OnExit()
         {
-            get { return onStateExit; }
-            set { onStateExit = value; }
+            onExit?.Invoke();
         }
 
-        public StateEmptyEventHandle OnStateUpdate
+        public void Add(ITransition transition)
         {
-            get { return onStateUpdate; }
-            set { onStateUpdate = value; }
-        }
-
-        public IStateMachine Parent
-        {
-            get { return parent; }
-            set { parent = value; }
-        }
-
-        public List<ITransition> StateTransitions
-        {
-            get { return transitions; }
-        }
-
-        /// <summary>
-        /// 添加过度方法
-        /// </summary>
-        /// <param name="t"></param>
-        public void AddTransition(ITransition t)
-        {
-            if (t != null && !transitions.Contains(t))
+            if (_transitions != null && !_transitions.Contains(transition))
             {
-                transitions.Add(t);
+                _transitions.Add(transition);
             }
         }
 
-        /// <summary>
-        /// 移除过度方法
-        /// </summary>
-        /// <param name="t"></param>
-        public void RemoveTransition(ITransition t)
+        public void Remove(ITransition transition)
         {
-            if (t != null && transitions.Contains(t))
+            if (_transitions != null && _transitions.Contains(transition))
             {
-                transitions.Remove(t);
+                _transitions.Remove(transition);
             }
         }
     }

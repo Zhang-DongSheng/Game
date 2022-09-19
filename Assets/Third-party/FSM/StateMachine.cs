@@ -1,241 +1,171 @@
-using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-namespace VGBasic.FSM
+namespace FSM
 {
-    /// <summary>
-    /// 状态机
-    /// </summary>
-    public class StateMachine : State, IStateMachine
+    public class StateMachine : IStateMachine
     {
-        #region 基础成员变量
+        protected string _name;
 
-        IState _current;
-        IState _default;
-        List<IState> allStates;
-        List<ITransition> anyStateTransitions;
+        protected bool _run;
 
-        #endregion
+        protected IState _default;
 
-        public StateMachine(string name) : base(name)
+        protected IState _current;
+
+        protected readonly Parameter _parameter = new Parameter();
+
+        protected readonly List<IState> _states = new List<IState>();
+
+        protected readonly List<ITransition> _transitions = new List<ITransition>();
+
+        public string Name { get => _name; }
+
+        public Parameter Parameter { get => _parameter; }
+
+        public IState Default { get => _default; set => _default = value; }
+
+        public IState Current { get => _current; set => _current = value; }
+
+        public List<IState> States { get => _states; }
+
+        public List<ITransition> Transitions { get => _transitions; }
+
+        public StateMachine(string name)
         {
-            allStates = new List<IState>();
+            _name = name;
 
-            anyStateTransitions = new List<ITransition>();
+            _run = false;
         }
 
-        public IState Current
-        {
-            get{ return _current; }
-            set{ _current = value; }
-        }
-        public IState Default
-        {
-            get{ return _default; }
-            set{ _default = value; }
-        }
-        public List<IState> AllStates
-        {
-            get{ return allStates; }
-        }
-        public List<ITransition> AnyStateTransitions
-        {
-            get{ return anyStateTransitions; }
-        }
-
-        /// <summary>
-        /// 添加状态
-        /// </summary>
-        /// <param name="s"></param>
-        public void AddState(IState s)
-        {
-            if (s != null && !allStates.Contains(s))
-            {
-                //设置默认状态
-                if (allStates.Count == 0)
-                {
-                    _default = s;
-                }
-                //设置所处的状态机
-                s.Parent = this;
-                //添加状态
-                allStates.Add(s);
-            }
-        }
-
-        /// <summary>
-        /// 移除状态
-        /// </summary>
-        /// <param name="s"></param>
-        public void RemoveState(IState s)
-        {
-            //当前状态不能移除
-            if (_current == s)
-            {
-                return;
-            }
-            if (s != null && allStates.Contains(s))
-            {
-                s.Parent = null;
-                allStates.Remove(s);
-            }
-        }
-
-        /// <summary>
-        /// 名字查找状态
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public IState FindStateWithName(string name)
-        {
-            for (int i = 0; i < allStates.Count; i++)
-            {
-                if (allStates[i].StateName == name)
-                {
-                    return allStates[i];
-                }
-            }
-            Debug.LogWarning(string.Format("未找到{0}名称的状态", name));
-            
-            return null; 
-        }
-
-        /// <summary>
-        /// 添加任意状态过渡
-        /// </summary>
-        /// <param name="t"></param>
-        public void AddAnyStateTransition(ITransition t)
-        {
-            if (t != null && !anyStateTransitions.Contains(t))
-            {
-                anyStateTransitions.Add(t);
-            }
-        }
-
-        /// <summary>
-        /// 移除任意状态过渡
-        /// </summary>
-        /// <param name="t"></param>
-        public void RemoveAnyStateTransition(ITransition t)
-        {
-            if (t != null && anyStateTransitions.Contains(t))
-            {
-                anyStateTransitions.Remove(t);
-            }
-        }
-
-        /// <summary>
-        /// 检测当前状态过渡
-        /// </summary>
-        public void CheckCurrentTransition()
+        public void Startup()
         {
             if (_current == null)
             {
-                return;
+                _current = _default;
             }
+            _run = true;
+        }
 
-            //遍历当前状态的所有过度情况
-            for (int i = 0; i < _current.StateTransitions.Count; i++)
+        public void Update()
+        {
+            if (_run)
             {
-                //满足过度条件时
-                if (_current.StateTransitions[i].Condition())
+                Any();
+
+                Detection();
+
+                if (_current != null)
                 {
-                    //切换到目标状态
-                    SwitchState(_current.StateTransitions[i]);
-                    return;
+                    _current.OnStay();
                 }
             }
         }
 
-        /// <summary>
-        /// 检测任意状态过度
-        /// </summary>
-        public void CheckAnyStateTransition()
+        public void Add(params IState[] states)
         {
-            //遍历任意状态的所有过度情况
-            for (int i = 0; i < anyStateTransitions.Count; i++)
+            if (states == null) return;
+
+            int count = states.Length;
+
+            for (int i = 0; i < count; i++)
             {
-                //满足过度条件时
-                if (anyStateTransitions[i].Condition())
+                if (_states.Contains(states[i]))
                 {
-                    //切换到目标状态
-                    SwitchState(anyStateTransitions[i]);
+                    Debuger.LogWarning(Author.Script, "״̬���ظ�����");
                 }
-                return;
+                else
+                {
+                    _states.Add(states[i]);
+                }
             }
         }
 
-        /// <summary>
-        /// 切换状态
-        /// </summary>
-        /// <param name="s"></param>
-        public void SwitchState(ITransition t)
+        public void Remove(IState state)
         {
-            //移除上一个状态的更新事件
-            if (t.From.OnStateUpdate != null)
+            if (_states.Contains(state))
             {
-                StateUpdate.Instance.updateEvent -= t.From.OnStateUpdate;
-            }
-            //如果有离开事件
-            if (t.From.OnStateExit != null)
-            {
-                //上一个状态执行离开事件
-                t.From.OnStateExit(t.To);
-            }
-            //更换新的状态
-            _current = t.To;
-            //如果有下一个状态进入事件
-            if (t.To.OnStateEnter != null)
-            {
-                //执行下一个状态进入事件
-                t.To.OnStateEnter(t.From);
-            }
-            //绑定新状态的更新事件
-            if (t.To.OnStateUpdate != null)
-            {
-                StateUpdate.Instance.updateEvent += t.To.OnStateUpdate;
+                _states.Remove(state);
             }
         }
 
-        /// <summary>
-        /// 状态机启动
-        /// </summary>
-        public void MachineStart()
+        public void Add(params ITransition[] transitions)
         {
-            //状态机也是一个状态
-            if (OnStateEnter != null)
+            if (transitions == null) return;
+
+            int count = transitions.Length;
+
+            for (int i = 0; i < count; i++)
             {
-                //执行状态机的进入事件
-                OnStateEnter(null);
-            }
-            if (_current == null)
-            {
-                _current = Default;
-            }
-
-            //状态机必须每帧检测当前状态是否可以切换
-            OnStateUpdate += CheckCurrentTransition;
-
-            //状态机必须每帧检测任意状态是否可以切换
-            OnStateUpdate += CheckAnyStateTransition;
-
-            //绑定状态机的更新事件
-            StateUpdate.Instance.updateEvent += OnStateUpdate;
-
-            if (_current != null)
-            {
-                if (_current.OnStateEnter != null)
+                if (_transitions.Contains(transitions[i]))
                 {
-                    //执行当前状态的进入事件
-                    _current.OnStateEnter(null);
+                    Debuger.LogWarning(Author.Script, "״̬���ظ�����");
                 }
-                if (_current.OnStateUpdate != null)
+                else
                 {
-                    //绑定当前状态的更新事件
-                    StateUpdate.Instance.updateEvent += _current.OnStateUpdate;
+                    _transitions.Add(transitions[i]);
                 }
             }
+        }
+
+        public void Remove(ITransition transition)
+        {
+            if (_transitions.Contains(transition))
+            {
+                _transitions.Remove(transition);
+            }
+        }
+
+        public void Switch(ITransition transition)
+        {
+            // �˳���ǰ״̬
+            if (transition.From != null)
+            {
+                transition.From.OnExit();
+            }
+            else if (_current != null)
+            {
+                _current.OnExit();
+            }
+            // ����״̬
+            _current = transition.To;
+            // ������һ��״̬
+            if (transition.To != null)
+            {
+                transition.To.OnEnter();
+            }
+        }
+
+        public void Detection()
+        {
+            if (_current == null) return;
+
+            for (int i = 0; i < _current.Transitions.Count; i++)
+            {
+                if (_current.Transitions[i].Condition())
+                {
+                    Switch(_current.Transitions[i]);
+                    break;
+                }
+            }
+        }
+
+        public void Any()
+        {
+            for (int i = 0; i < _transitions.Count; i++)
+            {
+                if (_transitions[i].Condition())
+                {
+                    Switch(_transitions[i]);
+                    break;
+                }
+            }
+        }
+
+        public IState Get(string name)
+        {
+            return _states.Find(x => x.Name.Equals(name));
         }
     }
 }
