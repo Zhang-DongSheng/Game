@@ -1,11 +1,18 @@
+using System;
+
 namespace UnityEngine
 {
-    [System.Serializable]
-    public class PrefabWithParent
+    /// <summary>
+    /// 预制体实例对象
+    /// </summary>
+    [Serializable]
+    public class PrefabAndParent
     {
-        [SerializeField] private Transform parent;
+        public Transform parent;
 
-        [SerializeField] private GameObject prefab;
+        public GameObject prefab;
+
+        public string name;
 
         public GameObject Create()
         {

@@ -22,11 +22,11 @@ namespace ILRuntime.Runtime.Generated
         /// </summary>
         public static void Initialize(ILRuntime.Runtime.Enviorment.AppDomain app)
         {
-            UnityEngine_Debug_Binding.Register(app);
-            UnityEngine_GameObject_Binding.Register(app);
             System_Object_Binding.Register(app);
             System_String_Binding.Register(app);
+            UnityEngine_Debug_Binding.Register(app);
             System_DateTime_Binding.Register(app);
+            UnityEngine_GameObject_Binding.Register(app);
         }
 
         /// <summary>

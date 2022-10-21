@@ -15,6 +15,7 @@ namespace ILRuntime
             Debug.LogError("我是测试代码！");
 
             GameObject go = new GameObject("Test");
+
             go.AddComponent<TestView>();
         }
     }

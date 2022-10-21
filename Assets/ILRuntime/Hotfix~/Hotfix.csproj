@@ -55,7 +55,7 @@
     <Compile Include="Script\Core\Main.cs" />
     <Compile Include="Script\View\TestView.cs" />
     <Compile Include="Script\Program.cs" />
-    <Compile Include="Script\Utils\Helper.cs" />
+    <Compile Include="Script\Utils\Math.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

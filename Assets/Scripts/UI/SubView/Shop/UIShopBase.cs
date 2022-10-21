@@ -1,7 +1,6 @@
-using System.Collections;
+using Data;
 using System.Collections.Generic;
 using UnityEngine;
-using Data;
 
 namespace Game.UI
 {
@@ -9,7 +8,7 @@ namespace Game.UI
     {
         [SerializeField] protected CounterCategory category;
 
-        [SerializeField] protected PrefabWithParent prefab;
+        [SerializeField] protected PrefabAndParent prefab;
 
         protected readonly List<ItemCommodity> commodities = new List<ItemCommodity>();
 

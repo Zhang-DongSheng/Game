@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
-    [RequireComponent(typeof(GameObject))]
+    [DisallowMultipleComponent]
     class PrefabBind : MonoBehaviour
     {
         [SerializeField] private List<GameObject> objects;

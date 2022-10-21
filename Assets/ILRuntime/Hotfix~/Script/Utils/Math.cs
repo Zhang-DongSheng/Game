@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ILRuntime.Utils
 {
-    class Helper
+    class Math
     {
         public static float Add(float a, float b)
         {
