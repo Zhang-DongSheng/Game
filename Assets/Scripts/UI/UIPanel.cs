@@ -18,6 +18,7 @@ namespace Game.UI
         UIActivity,
         UILotteryDraw,
         UITest,
+        UIIntroduce,
         Count,
     }
 }

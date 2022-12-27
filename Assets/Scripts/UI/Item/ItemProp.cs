@@ -2,14 +2,17 @@ using Data;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace Game.UI
 {
-    public class ItemProp : ItemBase
+    public class ItemProp : ItemBase, IPointerClickHandler
     {
         public Action<Prop> callback;
 
         [SerializeField] private UIPropBase m_prop;
+
+        [SerializeField] private UIPropConfig m_config;
 
         public void Refresh(Currency currency)
         {
@@ -44,6 +47,14 @@ namespace Game.UI
                 TextHelper.SetString(m_prop.txtName, prop.name);
             }
         }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (m_config.click)
+            {
+                UIQuickEntry.Open(UIPanel.UIIntroduce, new Paramter());
+            }
+        }
         [System.Serializable]
         class UIPropBase
         {
@@ -54,6 +65,11 @@ namespace Game.UI
             public Image imgIcon;
 
             public Image imgQuality;
+        }
+        [System.Serializable]
+        class UIPropConfig
+        {
+            public bool click;
         }
     }
 }

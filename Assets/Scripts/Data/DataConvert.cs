@@ -26,12 +26,12 @@ namespace Data
             }
         }
 
-        public static string SerializeJson<T>(T target)
+        public static string SerializeToJson<T>(T target)
         {
             return JsonUtility.ToJson(target);
         }
 
-        public static T DeserializeJson<T>(string json)
+        public static T DeserializeFromJson<T>(string json)
         {
             if (!string.IsNullOrEmpty(json))
             {
