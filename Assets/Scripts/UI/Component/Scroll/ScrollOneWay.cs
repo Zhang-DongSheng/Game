@@ -6,27 +6,28 @@ namespace UnityEngine.UI
     /// <summary>
     /// 叠加滑动列表
     /// </summary>
-    public class ScrollMulti : ScrollRect
+    public class ScrollOneWay : ScrollRect
     {
-        [SerializeField] private ScrollRect scroll;
+        public ScrollRect other;
 
-        [SerializeField] private bool multi;
+        public bool multi;
 
         private bool drag;
 
         protected override void Awake()
         {
+            if (other == null)
+            {
+                other = GetMultiScroll();
+            }
             base.Awake();
-
-            if (scroll == null)
-                scroll = GetMultiScroll();
         }
 
         public override void OnBeginDrag(PointerEventData eventData)
         {
             drag = true;
 
-            if (multi && scroll != null)
+            if (multi && other != null)
             {
                 if (horizontal)
                 {
@@ -44,7 +45,7 @@ namespace UnityEngine.UI
             }
             else
             {
-                scroll.OnBeginDrag(eventData);
+                other.OnBeginDrag(eventData);
             }
         }
 
@@ -56,7 +57,7 @@ namespace UnityEngine.UI
             }
             else
             {
-                scroll.OnDrag(eventData);
+                other.OnDrag(eventData);
             }
         }
 
@@ -68,19 +69,23 @@ namespace UnityEngine.UI
             }
             else
             {
-                scroll.OnEndDrag(eventData);
+                other.OnEndDrag(eventData);
             }
         }
 
         private ScrollRect GetMultiScroll()
         {
-            ScrollRect[] scrolls = GetComponentsInParent<ScrollRect>();
+            Transform parent = transform.parent;
 
-            for (int i = 0; i < scrolls.Length; i++)
+            while (parent != null)
             {
-                if (i == 1)
+                if (parent.TryGetComponent(out ScrollRect scroll))
                 {
-                    return scrolls[i];
+                    return scroll;
+                }
+                else
+                {
+                    parent = parent.parent;
                 }
             }
             return null;

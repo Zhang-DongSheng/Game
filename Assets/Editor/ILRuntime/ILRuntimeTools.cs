@@ -7,10 +7,11 @@ namespace UnityEditor
 {
     public class ILRuntimeTools
     {
-        private static readonly string PATH = string.Format("{0}/{1}", Application.dataPath, "ILRuntime");
+        private readonly static string PATH = string.Format("{0}/{1}", Application.dataPath, "ILRuntime");
+
+        private readonly static string PATH_CLR = "ILRuntime/Generated";
 
         private static string path;
-
         [MenuItem("ILRuntime/打开项目")]
         protected static void OpenProject()
         {
@@ -18,7 +19,6 @@ namespace UnityEditor
 
             EditorUtility.OpenWithDefaultApp(path);
         }
-
         [MenuItem("ILRuntime/生成跨域继承适配器")]
         protected static void GenerateCrossbindAdapter()
         {
@@ -39,7 +39,6 @@ namespace UnityEditor
                 writer.WriteLine(ILRuntime.Runtime.Enviorment.CrossBindingCodeGenerator.GenerateCrossBindingAdapterCode(typeof(T), "ILRuntime"));
             }
         }
-
         [MenuItem("ILRuntime/通过自动分析热更DLL生成CLR绑定")]
         protected static void GenerateCLRBindingByAnalysis()
         {
@@ -53,7 +52,7 @@ namespace UnityEditor
 
                 InitILRuntime(domain);
 
-                ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(domain, "Assets/ILRuntime/Generated");
+                ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(domain, string.Format("Assets/{0}", PATH_CLR));
             }
             AssetDatabase.Refresh();
         }
@@ -63,7 +62,17 @@ namespace UnityEditor
             //这里需要注册所有热更DLL中用到的跨域继承Adapter，否则无法正确抓取引用
             domain.RegisterCrossBindingAdaptor(new MonoBehaviourAdapter());
         }
+        [MenuItem("ILRuntime/清除CLR绑定")]
+        static public void ClearCLRBinding()
+        {
+            string path = string.Format("{0}/{1}", Application.dataPath, PATH_CLR);
 
+            if (System.IO.Directory.Exists(path))
+            {
+                System.IO.Directory.Delete(path, true);
+            }
+            AssetDatabase.Refresh();
+        }
         [MenuItem("ILRuntime/打开ILRuntime中文文档")]
         protected static void OpenDocumentation()
         {

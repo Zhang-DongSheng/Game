@@ -29,7 +29,9 @@ namespace UnityEngine.UI
             if (scroll == null)
                 scroll = GetComponent<ScrollRect>();
             scroll.onValueChanged.AddListener(OnValueChanged);
+
             viewport = scroll.viewport;
+
             content = scroll.content;
         }
 

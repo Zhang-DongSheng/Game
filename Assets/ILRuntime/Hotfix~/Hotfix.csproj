@@ -53,9 +53,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script\Common\Debug.cs" />
     <Compile Include="Script\Core\Main.cs" />
-    <Compile Include="Script\View\TestView.cs" />
+    <Compile Include="Script\UI\Core\ItemBase.cs" />
+    <Compile Include="Script\UI\Core\UIBase.cs" />
+    <Compile Include="Script\UI\Panel\TestView.cs" />
     <Compile Include="Script\Program.cs" />
     <Compile Include="Script\Utils\Math.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Script\UI\Item\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

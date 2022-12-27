@@ -7,23 +7,15 @@ namespace UnityEngine.UI
     {
         [SerializeField] private ScrollRect scroll;
 
-        private float spacing;
+        private float space, capacity;
 
-        private float position;
+        private Vector2 position;
 
         private void Awake()
         {
-            if (scroll.content.TryGetComponent(out HorizontalLayoutGroup horizontal))
+            if (scroll == null)
             {
-                spacing = horizontal.spacing;
-            }
-            else if (scroll.content.TryGetComponent(out VerticalLayoutGroup vertical))
-            {
-                spacing = vertical.spacing;
-            }
-            else if (scroll.content.TryGetComponent(out GridLayoutGroup grid))
-            {
-                spacing = grid.spacing.x;
+                scroll = GetComponent<ScrollRect>();
             }
         }
 
@@ -33,37 +25,44 @@ namespace UnityEngine.UI
 
             if (index >= count) return;
 
-            StartCoroutine(DirectionPosition(index));
+            StartCoroutine(FixedPosition(index));
         }
 
-        private IEnumerator DirectionPosition(int index)
+        private IEnumerator FixedPosition(int index)
         {
             yield return new WaitForEndOfFrame();
 
-            position = 0;
+            position = Vector2.zero;
 
-            if (index > 0)
+            space = scroll.viewport.rect.width;
+
+            capacity = scroll.content.rect.width;
+
+            if (capacity < space)
             {
-                for (int i = 0; i < index; i++)
-                {
-                    if (scroll.content.GetChild(i).GetComponent<RectTransform>().rect.width > 0)
-                    {
-                        position -= scroll.content.GetChild(i).GetComponent<RectTransform>().rect.width + spacing;
-                    }
-                }
-                position -= scroll.content.GetChild(index).GetComponent<RectTransform>().rect.width * 0.5f;
-
-                position -= spacing;
-
-                position += scroll.viewport.rect.width * 0.5f;
-
-                if (Mathf.Abs(position) > scroll.content.rect.width - scroll.viewport.rect.width)
-                {
-                    position = (scroll.content.rect.width - scroll.viewport.rect.width) * -1f;
-                }
-                position = Mathf.Min(0, position);
+                // 内容小于空间大小，就在起始位置
             }
-            scroll.content.anchoredPosition = new Vector2(position, 0);
+            else if (index == 1)
+            {
+                // 第一个奖励就在起点不动了
+            }
+            else if (index > 0)
+            {
+                index--;
+
+                if (scroll.content.childCount > index &&
+                    scroll.content.GetChild(index).TryGetComponent(out RectTransform target))
+                {
+                    position.x = target.anchoredPosition.x * -1;
+                }
+                // 限制在指定范围内
+                if (position.x + capacity < space)
+                {
+                    position.x = space - capacity;
+                }
+                position.x = Mathf.Min(0, position.x);
+            }
+            scroll.content.anchoredPosition = position;
         }
     }
 }
