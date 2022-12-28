@@ -317,6 +317,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 1734130652}
+  padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
   space: {x: 20, y: 20}
 --- !u!1 &612081107
 GameObject:
@@ -464,10 +469,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 844009211}
-  - component: {fileID: 844009212}
   - component: {fileID: 844009215}
   - component: {fileID: 844009214}
-  - component: {fileID: 844009213}
+  - component: {fileID: 844009212}
   m_Layer: 5
   m_Name: Scroll
   m_TagString: Untagged
@@ -505,29 +509,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 844009210}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2858da99c8838047a72fe83059cb007, type: 3}
+  m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 2
-  layout: {fileID: 413040556}
-  scroll: {fileID: 0}
-  align:
-    ratio: 1
-  ratio: 1
---- !u!114 &844009213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 844009210}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9100f01bdf59d6b4c9e382fbe007f906, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  list: []
-  position: {x: 0, y: 0, z: 0}
+  m_Content: {fileID: 0}
+  m_Horizontal: 0
+  m_Vertical: 1
+  m_MovementType: 1
+  m_Elasticity: 0.1
+  m_Inertia: 1
+  m_DecelerationRate: 0.135
+  m_ScrollSensitivity: 1
+  m_Viewport: {fileID: 0}
+  m_HorizontalScrollbar: {fileID: 0}
+  m_VerticalScrollbar: {fileID: 0}
+  m_HorizontalScrollbarVisibility: 0
+  m_VerticalScrollbarVisibility: 0
+  m_HorizontalScrollbarSpacing: 0
+  m_VerticalScrollbarSpacing: 0
+  m_OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &844009214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,6 +672,7 @@ GameObject:
   - component: {fileID: 910039420}
   - component: {fileID: 910039422}
   - component: {fileID: 910039421}
+  - component: {fileID: 910039423}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -734,6 +737,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 910039419}
   m_CullTransparentMesh: 1
+--- !u!114 &910039423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910039419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9100f01bdf59d6b4c9e382fbe007f906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: {x: 0, y: 0, z: 0}
+  speed: 1
+  index: 0
 --- !u!1 &982137828
 GameObject:
   m_ObjectHideFlags: 0

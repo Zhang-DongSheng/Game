@@ -13,7 +13,7 @@ namespace Game.UI
         {
             background.color.Rainbow(Index / 100f);
 
-            label.text = Source.ToString();
+            //label.text = Source.ToString();
         }
     }
 }

@@ -7,8 +7,6 @@ namespace Game.UI
 {
     public class UIMail : UIBase
     {
-        [SerializeField] UnregularScrollList scroll;
-
         private readonly List<int> list = new List<int>();
 
         private void Start()
@@ -19,8 +17,6 @@ namespace Game.UI
             {
                 list.Add(i);
             }
-
-            scroll.Refresh(list);
         }
     }
 }

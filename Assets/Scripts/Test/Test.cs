@@ -14,29 +14,11 @@ namespace Game.Test
 {
     public class Test : RuntimeBehaviour
     {
-        enum Command
-        {
-            One,
-            Two,
-            Three,
-            Four,
-            Five,
-            Six,
-        }
-
-        
-        [SerializeField] private Command command;
-
         [SerializeField] private Vector3 position;
 
         [SerializeField, Range(0, 30f)] private float speed = 1;
 
-        [SerializeField] private List<Transform> items;
-
-        [SerializeField] private ItemSlider slider;
-
-        [Button("OnClickButton")]
-        public float index;
+        [Button("OnClickButton")] public float index;
 
         protected void Awake()
         {
@@ -80,7 +62,13 @@ namespace Game.Test
         /// </summary>
         public void OnClick()
         {
-            slider.SetValue(UnityEngine.Random.Range(0, 1f));
+            var scroll = transform.parent.Find("Scroll/View Port/Content");
+
+            var list = new List<int>()
+            {
+                1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,
+            };
+            scroll.GetComponent<UnregularScrollLayout>().Refresh(list);
         }
         /// <summary>
         /// 菜单栏测试
