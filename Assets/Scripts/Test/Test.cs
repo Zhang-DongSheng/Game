@@ -64,11 +64,28 @@ namespace Game.Test
         {
             var scroll = transform.parent.Find("Scroll/View Port/Content");
 
-            var list = new List<int>()
+            var list = new List<int>();
+
+            for(int i = 0;i<100;i++)
             {
-                1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,
+                list.Add(i);
             };
-            scroll.GetComponent<UnregularScrollLayout>().Refresh(list);
+            scroll.GetComponent<UnregularLayout>().Initialise(list,(index)=>
+            {
+                switch (index % 5)
+                {
+                    case 1:
+                        return new Vector2(50,100);
+                    case 2:
+                        return new Vector2(100, 100);
+                    case 3:
+                        return new Vector2(200, 100);
+                    case 4:
+                        return new Vector2(250, 100);
+                    default:
+                        return new Vector2(150, 100);
+                }
+            });
         }
         /// <summary>
         /// 菜单栏测试

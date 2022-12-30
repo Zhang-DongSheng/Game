@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class ItemCell : UnregularScrollItem
+    public class ItemCell : UnregularItem
     {
         [SerializeField] private Image background;
 
@@ -11,9 +11,9 @@ namespace Game.UI
 
         protected override void Refresh()
         {
-            background.color.Rainbow(Index / 100f);
+            background.color = background.color.Rainbow(Index / 100f);
 
-            //label.text = Source.ToString();
+            label.text = Index.ToString();
         }
     }
 }

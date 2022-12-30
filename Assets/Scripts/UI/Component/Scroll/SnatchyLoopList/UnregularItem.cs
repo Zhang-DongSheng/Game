@@ -1,6 +1,6 @@
 namespace UnityEngine.UI
 {
-    public abstract class UnregularScrollItem : MonoBehaviour
+    public abstract class UnregularItem : MonoBehaviour
     {
         protected GameObject self;
 
