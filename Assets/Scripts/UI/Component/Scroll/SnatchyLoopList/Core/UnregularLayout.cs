@@ -13,9 +13,19 @@ namespace UnityEngine.UI
 
         public Vector2 space;
 
+        public TextAlignment alignment;
+
+        public bool expand;
+
+        protected float mark;
+
         protected Rect rect;
 
         protected IList list;
+
+        protected Vector2 view;
+
+        protected Vector2 point;
 
         protected Vector2 position;
 
@@ -23,9 +33,11 @@ namespace UnityEngine.UI
 
         protected RectTransform content;
 
-        protected readonly List<UnregularScrollCell> cells = new List<UnregularScrollCell>();
+        protected Func<int, Vector2> method;
 
-        protected readonly List<UnregularScrollCell> cache = new List<UnregularScrollCell>();
+        protected readonly List<UnregularCell> cells = new List<UnregularCell>();
+
+        protected readonly List<UnregularCell> cache = new List<UnregularCell>();
 
         protected readonly List<UnregularItem> items = new List<UnregularItem>();
 
@@ -41,6 +53,12 @@ namespace UnityEngine.UI
 
             content.pivot = new Vector2(0, 1);
 
+            view = scroll.viewport.rect.size;
+
+            view.x -= padding.left + padding.right;
+
+            view.y -= padding.top + padding.bottom;
+
             scroll.onValueChanged.AddListener(OnValueChanged);
         }
 
@@ -54,23 +72,31 @@ namespace UnityEngine.UI
             });
         }
 
-        public void Initialise(IList list, Func<int, Vector2> size)
+        public void Initialise(IList list, Func<int, Vector2> method)
         {
             this.list = list;
 
-            Initialise(list.Count, size);
+            this.method = method;
 
-            OnValueChanged(Vector2.zero);
+            Initialise(list.Count, method);
+
+            Variable(true);
         }
 
         public void Refresh(IList list)
         {
+            if (this.list.Count != list.Count)
+            {
+                Initialise(list.Count, method);
+            }
             this.list = list;
+
+            Variable(true);
         }
 
-        protected abstract void Initialise(int count, Func<int, Vector2> size);
+        protected abstract void Initialise(int count, Func<int, Vector2> method);
 
-        protected abstract void Variable();
+        protected abstract void Variable(bool force);
 
         protected virtual void Calculate(Vector2 position)
         {
@@ -128,29 +154,20 @@ namespace UnityEngine.UI
 
         protected virtual void Detection()
         {
-            if (items.Count >= cache.Count)
+            if (items.Count < cache.Count)
             {
-
-            }
-            else
-            {
-                int count = cache.Count;
-
-                for (int i = 0; i < count; i++)
+                for (int i = items.Count; i < cache.Count; i++)
                 {
-                    if (i >= items.Count)
-                    {
-                        var item = Instantiate(prefab, transform).GetComponent<UnregularItem>();
+                    var item = Instantiate(prefab, transform).GetComponent<UnregularItem>();
 
-                        item.Init();
+                    item.Init();
 
-                        items.Add(item);
-                    }
+                    items.Add(item);
                 }
             }
         }
 
-        protected virtual void Renovate()
+        protected virtual void Renovate(bool force)
         {
             int count = Math.Min(cache.Count, items.Count);
 
@@ -160,8 +177,10 @@ namespace UnityEngine.UI
 
                 if (index > 0)
                 {
-                    items[i].Refresh(cache[index].index, list[cache[index].index]);
-
+                    if (force)
+                    {
+                        items[i].Refresh(cache[index].index, list[cache[index].index]);
+                    }
                     cache.RemoveAt(index);
                 }
                 else
@@ -181,23 +200,22 @@ namespace UnityEngine.UI
             }
         }
 
-        protected virtual bool InSide(Rect rect, UnregularScrollCell cell)
+        protected virtual bool InSide(Rect rect, UnregularCell cell)
         {
             return rect.Contains(cell.position);
         }
 
-        protected void OnValueChanged(Vector2 value)
+        protected virtual bool Mark(Vector2 position)
         {
-            Variable();
+            return true;
         }
 
-        protected struct UnregularScrollCell
+        protected void OnValueChanged(Vector2 value)
         {
-            public int index;
-
-            public Vector2 position;
-
-            public Vector2 size;
+            if (Mark(content.anchoredPosition))
+            {
+                Variable(false);
+            }
         }
     }
 }

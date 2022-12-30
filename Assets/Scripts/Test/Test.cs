@@ -93,7 +93,15 @@ namespace Game.Test
         [ContextMenu("OnClick")]
         public void OnClickContextMenu()
         {
-            Material material;
+            var scroll = transform.parent.Find("Scroll/View Port/Content");
+
+            var list = new List<int>();
+
+            for (int i = 0; i < 50; i++)
+            {
+                list.Add(i);
+            };
+            scroll.GetComponent<UnregularLayout>().Refresh(list);
         }
 
         public void OnClickButton(float index)
