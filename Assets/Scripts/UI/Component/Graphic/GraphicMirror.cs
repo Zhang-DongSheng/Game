@@ -8,7 +8,6 @@ namespace UnityEngine.UI
     /// </summary>
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Graphic))]
-    [AddComponentMenu("UI/Graphic/Mirror")]
     public class GraphicMirror : BaseMeshEffect
     {
         [SerializeField] private Direction direction = Direction.Horizontal;
@@ -46,7 +45,7 @@ namespace UnityEngine.UI
                         case Direction.Vertical:
                             rect.sizeDelta = new Vector2(w, h * 2);
                             break;
-                        case Direction.Slant:
+                        case Direction.Custom:
                             rect.sizeDelta = new Vector2(w * 2, h * 2);
                             break;
                     }
@@ -113,7 +112,7 @@ namespace UnityEngine.UI
                     ExtendCapacity(output, count);
                     MirrorVerts(rect, output, count, false);
                     break;
-                case Direction.Slant:
+                case Direction.Custom:
                     ExtendCapacity(output, count * 3);
                     MirrorVerts(rect, output, count, true);
                     MirrorVerts(rect, output, count * 2, false);
@@ -138,12 +137,12 @@ namespace UnityEngine.UI
 
                 Vector3 position = vertex.position;
 
-                if (direction == Direction.Horizontal || direction == Direction.Slant)
+                if (direction == Direction.Horizontal || direction == Direction.Custom)
                 {
                     position.x = (position.x + rect.x) * 0.5f;
                 }
 
-                if (direction == Direction.Vertical || direction == Direction.Slant)
+                if (direction == Direction.Vertical || direction == Direction.Custom)
                 {
                     position.y = (position.y + rect.y) * 0.5f;
                 }

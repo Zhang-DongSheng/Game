@@ -10,15 +10,15 @@ namespace UnityEngine.UI
 
         public object Source { get; private set; }
 
-        public virtual void Init()
+        public virtual void Init(float x, float y)
         {
             if (TryGetComponent(out rect))
             {
-                rect.anchorMin = new Vector2(0, 1);
+                rect.anchorMin = new Vector2(x, y);
 
-                rect.anchorMax = new Vector2(0, 1);
+                rect.anchorMax = new Vector2(x, y);
 
-                rect.pivot = new Vector2(0, 1);
+                rect.pivot = new Vector2(x, y);
             }
             Index = -1;
         }

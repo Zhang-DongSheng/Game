@@ -3,6 +3,9 @@ using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI
 {
+    /// <summary>
+    /// 滑动事件
+    /// </summary>
     [RequireComponent(typeof(Graphic))]
     public class GraphicDragEvent : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {

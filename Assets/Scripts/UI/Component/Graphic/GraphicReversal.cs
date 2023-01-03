@@ -7,7 +7,6 @@ namespace UnityEngine.UI
     /// </summary>
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Graphic))]
-    [AddComponentMenu("UI/Graphic/Reversal")]
     public class GraphicReversal : BaseMeshEffect
     {
         [SerializeField] private Direction direction;
@@ -32,7 +31,7 @@ namespace UnityEngine.UI
                     case Direction.Vertical:
                         vertex.position.y += (rt.rect.center.y - vertex.position.y) * 2;
                         break;
-                    case Direction.Slant:
+                    case Direction.Custom:
                         vertex.position.x += (rt.rect.center.x - vertex.position.x) * 2;
                         vertex.position.y += (rt.rect.center.y - vertex.position.y) * 2;
                         break;

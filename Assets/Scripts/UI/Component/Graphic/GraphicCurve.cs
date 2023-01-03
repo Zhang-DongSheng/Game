@@ -7,7 +7,6 @@ namespace UnityEngine.UI
     /// </summary>
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Graphic))]
-    [AddComponentMenu("UI/Graphic/Curve")]
     public class GraphicCurve : BaseMeshEffect
     {
         [SerializeField] private AnimationCurve curve = AnimationCurve.Linear(0, 0, 1, 1);

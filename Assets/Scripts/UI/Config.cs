@@ -38,7 +38,7 @@ namespace Game.UI
         None,
         Horizontal,
         Vertical,
-        Slant,
+        Custom,
     }
 
     public enum Corner

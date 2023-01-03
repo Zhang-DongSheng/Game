@@ -93,7 +93,7 @@ namespace UnityEditor.Hierarchy
         {
             GameObject go = CreateGameObject("GraphicGradient", true);
 
-            GraphicGradient gradient = go.AddComponent<GraphicGradient>();
+            GraphicColorMixed gradient = go.AddComponent<GraphicColorMixed>();
         }
         [MenuItem(UIMENU + "Graphic/Mirror")]
         protected static void CreateGraphicMirror()

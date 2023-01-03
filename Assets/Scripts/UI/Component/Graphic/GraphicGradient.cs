@@ -1,111 +1,86 @@
-Ôªøusing Game.UI;
-using System.Collections.Generic;
+using Game.UI;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace UnityEngine.UI
+namespace Coffee.UIExtensions
 {
     /// <summary>
-    /// ÂõæÂΩ¢Ê∏êÂèò
+    /// Õº–ŒΩ•±‰
     /// </summary>
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(CanvasRenderer))]
-    [AddComponentMenu("UI/Graphic/Gradient")]
-    public class GraphicGradient : MaskableGraphic
+    public class GraphicGradient : BaseMeshEffect
     {
-        [SerializeField] private Direction direction;
+        public Direction direction;
 
-        [SerializeField] private Color fade = Color.white;
+        public GradientStyle style;
 
-        private Color pigment;
+        public Color from = Color.white;
 
-        private Vector2 topLeft, topRight, bottomLeft, bottomRight;
+        public Color to = Color.white;
 
-        private readonly List<UIVertex> m_vertexs = new List<UIVertex>();
+        public float rotation;
 
-        protected override void OnPopulateMesh(VertexHelper helper)
+        private UIVertex vertex = new UIVertex();
+
+        public override void ModifyMesh(VertexHelper vh)
         {
-            if (!IsActive()) return;
+            if (!isActiveAndEnabled)
+                return;
 
-            helper.Clear(); m_vertexs.Clear();
+            var rect = default(Rect);
 
-            float width = GetComponent<RectTransform>().rect.width / 2f;
-
-            float height = GetComponent<RectTransform>().rect.height / 2f;
-
-            topLeft = new Vector2(width * -1, height);
-
-            topRight = new Vector2(width, height);
-
-            bottomLeft = new Vector2(width * -1, height * -1);
-
-            bottomRight = new Vector2(width, height * -1);
-
-            m_vertexs.Add(AddUIVertex(topLeft, Corner.TopLeft));
-
-            m_vertexs.Add(AddUIVertex(topRight, Corner.TopRight));
-
-            m_vertexs.Add(AddUIVertex(bottomLeft, Corner.LowerLeft));
-
-            m_vertexs.Add(AddUIVertex(bottomRight, Corner.LowerRight));
-
-            m_vertexs.Add(AddUIVertex(bottomLeft, Corner.LowerLeft));
-
-            m_vertexs.Add(AddUIVertex(topRight, Corner.TopRight));
-
-            helper.AddUIVertexTriangleStream(m_vertexs);
-        }
-
-        private UIVertex AddUIVertex(Vector2 position, Corner corner)
-        {
-            switch (direction)
+            switch (style)
             {
-                case Direction.Horizontal:
-                    switch (corner)
+                case GradientStyle.Rect:
+                    rect = graphic.rectTransform.rect;
+                    break;
+                case GradientStyle.Split:
+                    rect.Set(0, 0, 1, 1);
+                    break;
+                case GradientStyle.Fit:
                     {
-                        case Corner.TopLeft:
-                        case Corner.LowerLeft:
-                            pigment = base.color;
-                            break;
-                        default:
-                            pigment = fade;
-                            break;
+                        // Fit to contents.
+                        rect.xMin = rect.yMin = float.MaxValue;
+                        rect.xMax = rect.yMax = float.MinValue;
+                        for (var i = 0; i < vh.currentVertCount; i++)
+                        {
+                            vh.PopulateUIVertex(ref vertex, i);
+                            rect.xMin = Mathf.Min(rect.xMin, vertex.position.x);
+                            rect.yMin = Mathf.Min(rect.yMin, vertex.position.y);
+                            rect.xMax = Mathf.Max(rect.xMax, vertex.position.x);
+                            rect.yMax = Mathf.Max(rect.yMax, vertex.position.y);
+                        }
+
+                        break;
                     }
-                    break;
-                case Direction.Vertical:
-                    switch (corner)
-                    {
-                        case Corner.TopLeft:
-                        case Corner.TopRight:
-                            pigment = base.color;
-                            break;
-                        default:
-                            pigment = fade;
-                            break;
-                    }
-                    break;
-                case Direction.Slant:
-                    switch (corner)
-                    {
-                        case Corner.TopLeft:
-                            pigment = base.color;
-                            break;
-                        case Corner.LowerRight:
-                            pigment = fade;
-                            break;
-                        default:
-                            pigment = Color.Lerp(base.color, fade, 0.5f);
-                            break;
-                    }
-                    break;
-                default:
-                    pigment = base.color;
-                    break;
             }
 
-            return new UIVertex()
+            // Gradient rotation.
+            var rad = rotation * Mathf.Deg2Rad;
+
+            var dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+
+            var localMatrix = new Matrix2x3(rect, dir.x, dir.y);
+
+            for (var i = 0; i < vh.currentVertCount; i++)
             {
-                position = position,
-                color = pigment,
-            };
+                vh.PopulateUIVertex(ref vertex, i);
+
+                Vector2 normalizedPos = localMatrix * vertex.position;
+
+                Color color = Color.LerpUnclamped(from, to, normalizedPos.y);
+
+                vertex.color *= color;
+
+                vh.SetUIVertex(vertex, i);
+            }
+        }
+
+        public enum GradientStyle
+        {
+            Rect,
+            Fit,
+            Split,
         }
     }
 }

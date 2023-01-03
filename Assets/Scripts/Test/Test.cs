@@ -70,7 +70,7 @@ namespace Game.Test
             {
                 list.Add(i);
             };
-            scroll.GetComponent<UnregularLayout>().Initialise(list,(index)=>
+            scroll.GetComponent<UnregularLayout>().Create(list,(index)=>
             {
                 switch (index % 5)
                 {

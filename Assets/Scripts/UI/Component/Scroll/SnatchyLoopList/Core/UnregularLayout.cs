@@ -1,3 +1,4 @@
+using Microsoft.SqlServer.Server;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,11 +48,7 @@ namespace UnityEngine.UI
 
             content = GetComponent<RectTransform>();
 
-            content.anchorMin = new Vector2(0, 1);
-
-            content.anchorMax = new Vector2(0, 1);
-
-            content.pivot = new Vector2(0, 1);
+            Initialise();
 
             view = scroll.viewport.rect.size;
 
@@ -62,23 +59,23 @@ namespace UnityEngine.UI
             scroll.onValueChanged.AddListener(OnValueChanged);
         }
 
-        public void Initialise(IList list)
+        public void Create(IList list)
         {
             Vector2 size = prefab.GetComponent<RectTransform>().rect.size;
 
-            Initialise(list, (int index) =>
+            Create(list, (int index) =>
             {
                 return size;
             });
         }
 
-        public void Initialise(IList list, Func<int, Vector2> method)
+        public void Create(IList list, Func<int, Vector2> method)
         {
             this.list = list;
 
             this.method = method;
 
-            Initialise(list.Count, method);
+            Create(list.Count, method);
 
             Variable(true);
         }
@@ -87,14 +84,18 @@ namespace UnityEngine.UI
         {
             if (this.list.Count != list.Count)
             {
-                Initialise(list.Count, method);
+                Create(list.Count, method);
             }
             this.list = list;
 
             Variable(true);
         }
 
-        protected abstract void Initialise(int count, Func<int, Vector2> method);
+        protected abstract void Initialise();
+
+        protected abstract void Create(int count, Func<int, Vector2> method);
+
+        protected abstract void Format(UnregularItem item);
 
         protected abstract void Variable(bool force);
 
@@ -158,9 +159,9 @@ namespace UnityEngine.UI
             {
                 for (int i = items.Count; i < cache.Count; i++)
                 {
-                    var item = Instantiate(prefab, transform).GetComponent<UnregularItem>();
+                    var item = Instantiate(prefab, content).GetComponent<UnregularItem>();
 
-                    item.Init();
+                    Format(item);
 
                     items.Add(item);
                 }

@@ -2,16 +2,35 @@ using System;
 
 namespace UnityEngine.UI
 {
-    public sealed class VerticalUnregularLayout : UnregularLayout
+    public sealed class UnregularLayoutVertical : UnregularLayout
     {
-        protected override void Initialise(int count, Func<int, Vector2> method)
+        protected override void Initialise()
+        {
+            content.anchorMin = new Vector2(0, 1);
+
+            content.anchorMax = new Vector2(1, 1);
+
+            content.pivot = new Vector2(0.5f, 1);
+        }
+
+        protected override void Create(int count, Func<int, Vector2> method)
         {
             cells.Clear();
 
             position = Vector2.zero;
 
-            position.x += padding.left;
-
+            switch (alignment)
+            {
+                case TextAlignment.Left:
+                    position.x += padding.left;
+                    break;
+                case TextAlignment.Center:
+                    position.x += padding.left - padding.right;
+                    break;
+                case TextAlignment.Right:
+                    position.x -= padding.right;
+                    break;
+            }
             position.y -= padding.top;
 
             for (int i = 0; i < count; i++)
@@ -34,6 +53,28 @@ namespace UnityEngine.UI
             position.y -= padding.bottom;
 
             content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, -position.y);
+        }
+
+        protected override void Format(UnregularItem item)
+        {
+            switch (alignment)
+            {
+                case TextAlignment.Left:
+                    {
+                        item.Init(0, 1);
+                    }
+                    break;
+                case TextAlignment.Center:
+                    {
+                        item.Init(0.5f, 1);
+                    }
+                    break;
+                case TextAlignment.Right:
+                    {
+                        item.Init(1, 1);
+                    }
+                    break;
+            }
         }
 
         protected override void Variable(bool force)
@@ -59,13 +100,17 @@ namespace UnityEngine.UI
         {
             point = cell.position;
 
-            if (rect.Contains(point))
+            if (point.y >= rect.y && point.y < rect.y + rect.height)
             {
                 return true;
             }
             point.y -= cell.size.y;
 
-            return rect.Contains(point);
+            if (point.y >= rect.y && point.y < rect.y + rect.height)
+            {
+                return true;
+            }
+            return false;
         }
 
         protected override bool Mark(Vector2 position)
