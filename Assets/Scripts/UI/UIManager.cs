@@ -69,7 +69,7 @@ namespace Game.UI
 
         private void Register()
         {
-            //_panels.Add(UIPanel.UIConfirm, new CtrlBase());
+            
         }
 
         private void Record(CtrlBase ctrl)

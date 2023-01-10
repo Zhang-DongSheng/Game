@@ -7,15 +7,15 @@ namespace Game.Resource
     {
         private static AssetsController controller;
 
-        private static LoadType type;
+        private static LoadingType type;
 #if UNITY_EDITOR
         [UnityEditor.InitializeOnLoadMethod]
         private static void Initialize()
         {
-            Initialize(LoadType.AssetDatabase);
+            Initialize(LoadingType.AssetDatabase);
         }
 #endif
-        public static void Initialize(LoadType type)
+        public static void Initialize(LoadingType type)
         {
             ResourceManager.type = type;
 

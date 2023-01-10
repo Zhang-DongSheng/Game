@@ -14,17 +14,17 @@ namespace Game.Resource
 
         private int loading;
 
-        public AssetsController(LoadType type, bool cache = false)
+        public AssetsController(LoadingType type, bool cache = false)
         {
             switch (type)
             {
-                case LoadType.Resources:
+                case LoadingType.Resources:
                     loader = new ResourcesLoader();
                     break;
-                case LoadType.AssetBundle:
+                case LoadingType.AssetBundle:
                     loader = new AssetBundleLoader();
                     break;
-                case LoadType.AssetDatabase:
+                case LoadingType.AssetDatabase:
 #if UNITY_EDITOR
                     loader = new AssetDatabaseLoader();
 #else

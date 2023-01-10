@@ -2,6 +2,7 @@ using Game;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Game.Resource;
 
 namespace UnityEditor
 {
@@ -14,7 +15,7 @@ namespace UnityEditor
         [MenuItem("Assets/Build AssetBundle")]
         protected static void BuildAssetToAssetBundle()
         {
-            string path = string.Format("{0}/{1}/Select", Utility.Path.Project, GameConfig.AssetBundle);
+            string path = string.Format("{0}/{1}/Select", Utility.Path.Project, ResourceConfig.AssetBundle);
 
             Utility.Document.CreateDirectory(path);
 
@@ -37,7 +38,7 @@ namespace UnityEditor
         [MenuItem("AssetBundle/Raname")]
         protected static void Rename()
         {
-            AssetBundleRename.SetAssetBundles(string.Format("{0}/{1}", Application.dataPath, GameConfig.Resource), (path) =>
+            AssetBundleRename.SetAssetBundles(string.Format("{0}/{1}", Application.dataPath, ResourceConfig.Package), (path) =>
             {
                 string name = path.Remove(0, Application.dataPath.Length + 1);
 
@@ -59,7 +60,7 @@ namespace UnityEditor
         [MenuItem("AssetBundle/Build")]
         protected static void Build()
         {
-            string path = string.Format("{0}/{1}/{2}", Utility.Path.Project, GameConfig.AssetBundle, TARGET);
+            string path = string.Format("{0}/{1}/{2}", Utility.Path.Project, ResourceConfig.AssetBundle, TARGET);
 
             Utility.Document.CreateDirectory(path, true);
 
@@ -67,7 +68,7 @@ namespace UnityEditor
 
             string src = string.Format("{0}/{1}", path, TARGET.ToString());
 
-            string dst = string.Format("{0}/{1}", path, GameConfig.Manifest);
+            string dst = string.Format("{0}/{1}", path, ResourceConfig.Manifest);
 
             Utility.Document.Rename(src, dst);
 
@@ -76,7 +77,7 @@ namespace UnityEditor
         [MenuItem("AssetBundle/Record")]
         protected static void Record()
         {
-            string path = string.Format("{0}/{1}/{2}", Utility.Path.Project, GameConfig.AssetBundle, TARGET);
+            string path = string.Format("{0}/{1}/{2}", Utility.Path.Project, ResourceConfig.AssetBundle, TARGET);
 
             string content = string.Empty;
 
@@ -90,14 +91,14 @@ namespace UnityEditor
                 {
                     string key = files[i].FullName.Remove(0, path.Length + 1);
 
-                    if (key == GameConfig.Record) continue;
+                    if (key == ResourceConfig.Record) continue;
 
                     string value = Utility.Md5.ComputeFile(files[i].FullName);
 
                     content += string.Format("{0}|{1}\n\r", key, value);
                 }
             }
-            Utility.Document.Write(string.Format("{0}/{1}", path, GameConfig.Record), content);
+            Utility.Document.Write(string.Format("{0}/{1}", path, ResourceConfig.Record), content);
         }
     }
 }

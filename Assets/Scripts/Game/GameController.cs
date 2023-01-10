@@ -8,6 +8,15 @@ namespace Game
     {
         private void Awake()
         {
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
+            Application.runInBackground = true;
+
+            Application.targetFrameRate = 60;
+        }
+
+        private void Start()
+        {
             LoginLogic.Instance.Init();
 
             WarehouseLogic.Instance.Init();
@@ -22,7 +31,7 @@ namespace Game
 #if HOTFIX
             ILRuntimeLogic.Instance.Init();
 #endif
-            ResourceManager.Initialize(GameConfig.Load);
+            ResourceManager.Initialize(ResourceConfig.Loading);
 
             ScheduleLogic.Instance.callback = () =>
             {
@@ -31,15 +40,6 @@ namespace Game
                 UIQuickEntry.OpenSingle(UIPanel.UILogin);
             };
             ScheduleLogic.Instance.Init();
-        }
-
-        private void Start()
-        {
-            Screen.sleepTimeout = SleepTimeout.NeverSleep;
-
-            Application.runInBackground = true;
-
-            Application.targetFrameRate = 60;
         }
     }
 }

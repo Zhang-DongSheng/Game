@@ -1,4 +1,5 @@
 ﻿using Game;
+using Game.Resource;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -91,7 +92,7 @@ namespace UnityEditor.Window
 
         private void UpdateAssetBundleFolder()
         {
-            string path = AssetBundlePath + "/" + GameConfig.Resource;
+            string path = AssetBundlePath + "/" + ResourceConfig.Package;
 
             folder_assetbundle.Clear();
 
@@ -657,7 +658,7 @@ namespace UnityEditor.Window
         {
             get
             {
-                return string.Format("{0}/{1}", Application.dataPath, GameConfig.Resource);
+                return string.Format("{0}/{1}", Application.dataPath, ResourceConfig.Package);
             }
         }
 
@@ -665,7 +666,7 @@ namespace UnityEditor.Window
         {
             get
             {
-                return string.Format("{0}/{1}/{2}", Utility.Path.Project, GameConfig.AssetBundle, GameConfig.BuildTarget);
+                return string.Format("{0}/{1}/{2}", Utility.Path.Project, ResourceConfig.AssetBundle, ResourceConfig.Platform);
             }
         }
 
@@ -673,7 +674,7 @@ namespace UnityEditor.Window
         {
             get
             {
-                return string.Format("{0}/{1}", AssetBundlePath, GameConfig.Record);
+                return string.Format("{0}/{1}", AssetBundlePath, ResourceConfig.Record);
             }
         }
     }

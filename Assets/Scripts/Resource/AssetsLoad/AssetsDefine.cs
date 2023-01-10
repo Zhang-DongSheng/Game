@@ -1,22 +1,11 @@
 namespace Game.Resource
 {
-    public enum LoadType
+    public enum LoadingType
     {
         Resources,
 
         AssetBundle,
 
         AssetDatabase,
-    }
-
-    public enum LoadLocation
-    {
-        Resources,
-
-        Streaming,
-
-        Persistent,
-
-        Cache,
     }
 }

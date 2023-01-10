@@ -11,7 +11,7 @@ namespace Game.Resource
 
         public void UpdateDependencies()
         {
-            string path = ResourceConfig.Path(LoadType.AssetBundle, GameConfig.Manifest);
+            string path = ResourceConfig.Path(LoadingType.AssetBundle, ResourceConfig.Manifest);
 
             AssetBundle bundle = AssetBundle.LoadFromFile(path);
 
@@ -33,9 +33,9 @@ namespace Game.Resource
 
                     for (int j = 0; j < depends.Length; j++)
                     {
-                        _dependencies[j] = ResourceConfig.Path(LoadType.AssetBundle, depends[j]);
+                        _dependencies[j] = ResourceConfig.Path(LoadingType.AssetBundle, depends[j]);
                     }
-                    dependencies.Add(ResourceConfig.Path(LoadType.AssetBundle, assets[i]), _dependencies);
+                    dependencies.Add(ResourceConfig.Path(LoadingType.AssetBundle, assets[i]), _dependencies);
                 }
             }
         }

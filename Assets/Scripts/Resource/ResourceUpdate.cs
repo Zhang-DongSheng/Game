@@ -14,15 +14,15 @@ namespace Game.Resource
 
         private int loading;
 
-        public void Direction(LoadType type)
+        public void Direction(LoadingType type)
         {
-            if (type != LoadType.AssetBundle)
+            if (type != LoadingType.AssetBundle)
             {
                 ScheduleLogic.Instance.Update(Schedule.Resource);
             }
             else
             {
-                RuntimeManager.Instance.StartCoroutine(Download(string.Format("{0}/{1}", GameConfig.Server_Resource, GameConfig.Record)));
+                RuntimeManager.Instance.StartCoroutine(Download(string.Format("{0}/{1}", ResourceConfig.CloudResources, ResourceConfig.Record)));
             }
         }
 
@@ -174,9 +174,9 @@ namespace Game.Resource
             {
                 this.key = key;
 
-                path = string.Format("{0}/{1}", GameConfig.Local_Resource, key);
+                path = string.Format("{0}/{1}", ResourceConfig.LocalResources, key);
 
-                url = string.Format("{0}/{1}", GameConfig.Server_Resource, key);
+                url = string.Format("{0}/{1}", ResourceConfig.CloudResources, key);
 
                 this.md5 = md5;
 

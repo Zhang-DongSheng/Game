@@ -1,12 +1,12 @@
 using Data;
+using Game.Resource;
 using System;
-using System.Diagnostics;
 
 namespace Game.UI
 {
     public static class UIQuickEntry
     {
-        public static bool async = GameConfig.Load == Resource.LoadType.AssetBundle;
+        public static bool async = ResourceConfig.Loading == LoadingType.AssetBundle;
 
         public static void Open(UIPanel panel, Paramter paramter = null)
         {

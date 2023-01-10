@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game.Resource;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -63,7 +64,7 @@ namespace UnityEngine.Renewable
             }
             else
             {
-                url = string.Format("{0}{1}", GameConfig.Server_Resource, request.key);
+                url = string.Format("{0}{1}", ResourceConfig.CloudResources, request.key);
 
                 path = string.Format("{0}/{1}", Application.persistentDataPath, request.key);
 

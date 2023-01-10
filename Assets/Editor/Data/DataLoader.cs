@@ -1,4 +1,5 @@
 using Data;
+using Game;
 using System.Collections.Generic;
 using UnityEditor.Window;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace UnityEditor
 
                 file = System.IO.Path.GetFileNameWithoutExtension(path);
 
-                if (GameConfig.Lang.ToString().ToLower() == file)
+                if (GameConfig.Language.ToString().ToLower() == file)
                 {
                     TextAsset asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
 

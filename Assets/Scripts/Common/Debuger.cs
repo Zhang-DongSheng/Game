@@ -36,6 +36,11 @@ namespace UnityEngine
         };
         private static readonly StringBuilder builder = new StringBuilder();
 
+        public static void Assert(bool condition, object message, Object context = null)
+        {
+            Debug.Assert(condition, message, context);
+        }
+
         public static void Log(Author author, object message, Object context = null)
         {
             if (!Pass(author, LogType.Log)) return;
