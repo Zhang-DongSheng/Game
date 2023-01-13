@@ -6,11 +6,9 @@ namespace Game
 {
     public class GameConfig
     {
-        public static DataText.Language Language = DataText.Language.Chinese;
+        public const string ServerLoginURL = "https://www.baidu.com";
 
-        public const string ServerURL_Login = "https://www.baidu.com";
-
-        public const string ServerURL_Game = "https://www.baidu.com";
+        public const string ServerGameURL = "https://www.baidu.com";
 
         public static AppMode AppMode
         {
@@ -27,6 +25,10 @@ namespace Game
 #endif
             }
         }
+
+        public static string Version = Application.version;
+
+        public static DataText.Language Language = DataText.Language.Chinese;
     }
 
     public enum AppMode

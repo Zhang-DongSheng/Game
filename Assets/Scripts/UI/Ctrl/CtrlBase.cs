@@ -151,7 +151,7 @@ namespace Game.UI
         {
             view.Refresh(paramter);
 
-            view.SetActive(active);
+            view.Enter();
 
             callback?.Invoke(this);
 
@@ -160,7 +160,7 @@ namespace Game.UI
 
         protected virtual void Hide()
         {
-            view.SetActive(active);
+            view.Exit();
         }
 
         public UIPanel panel { get; protected set; }

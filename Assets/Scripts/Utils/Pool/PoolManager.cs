@@ -59,7 +59,7 @@ namespace Game.Pool
 
             Debuger.Assert(component == null, string.Format("PoolObject Error. component is Null: {0}", key));
 
-            component.OnCreate();
+            component.OnCreate(key);
 
             return null;
         }

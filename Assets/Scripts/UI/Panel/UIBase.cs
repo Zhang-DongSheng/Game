@@ -18,6 +18,16 @@ namespace Game.UI
             this.panel = panel;
         }
 
+        public virtual void Enter()
+        {
+            SetActive(true);
+        }
+
+        public virtual void Exit()
+        {
+            SetActive(false);
+        }
+
         public virtual void Reopen() { }
 
         public virtual void Refresh(Paramter paramter) { }
