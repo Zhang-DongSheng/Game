@@ -19,7 +19,7 @@ namespace UnityEditor.Window
             Open<Debuger>("代码调试");
         }
 
-        protected override void Init()
+        protected override void Initialise()
         {
 
         }

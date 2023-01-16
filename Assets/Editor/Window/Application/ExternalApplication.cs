@@ -22,7 +22,7 @@ namespace UnityEditor.Window
             Open<ExternalApplication>("第三方应用");
         }
 
-        protected override void Init()
+        protected override void Initialise()
         {
             applications.Clear();
 

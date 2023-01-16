@@ -32,7 +32,7 @@ namespace UnityEditor.Window
             Open<EbookWindow>("电子书");
         }
 
-        protected override void Init()
+        protected override void Initialise()
         {
             composition.onSuccess = () =>
             {

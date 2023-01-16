@@ -13,7 +13,7 @@ namespace UnityEditor.Window
             Open<ScriptingDefineSymbols>("∫Í∂®“Â");
         }
 
-        protected override void Init()
+        protected override void Initialise()
         {
             string content = PlayerSettings.GetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup);
 

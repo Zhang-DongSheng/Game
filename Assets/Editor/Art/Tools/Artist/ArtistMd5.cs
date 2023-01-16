@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityEditor.Window
 {
-    public partial class Artist : CustomWindow
+    public class ArtistMd5 : ArtistBase
     {
         private readonly Input inputString = new Input();
 
@@ -11,7 +11,14 @@ namespace UnityEditor.Window
 
         private string message;
 
-        private void RefreshMd5()
+        public override string Name => "Md5";
+
+        public override void Initialise()
+        {
+            
+        }
+
+        public override void Refresh()
         {
             GUILayout.BeginArea(new Rect(10, 10, Screen.width - 20, Screen.height - 20));
             {
@@ -25,7 +32,7 @@ namespace UnityEditor.Window
                     {
                         if (string.IsNullOrEmpty(inputString.value))
                         {
-                            ShowNotification(new GUIContent("Error: Empty!"));
+                            //ShowNotification(new GUIContent("Error: Empty!"));
                         }
                         else
                         {

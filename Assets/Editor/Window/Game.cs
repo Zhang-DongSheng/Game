@@ -20,7 +20,7 @@ namespace UnityEditor.Window
             Open<Game>("UIÄ£°å±à¼­");
         }
 
-        protected override void Init()
+        protected override void Initialise()
         {
 
         }

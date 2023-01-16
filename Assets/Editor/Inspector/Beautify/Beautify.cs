@@ -32,7 +32,7 @@ namespace UnityEditor
             Open<BeautifyWindow>("√¿ªØ");
         }
 
-        protected override void Init()
+        protected override void Initialise()
         {
             
         }

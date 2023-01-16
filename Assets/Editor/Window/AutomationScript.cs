@@ -24,7 +24,7 @@ namespace UnityEditor.Window
             Open<AutomationScript>("简单脚本生成工具");
         }
 
-        protected override void Init()
+        protected override void Initialise()
         {
             path = "NewScript";
         }

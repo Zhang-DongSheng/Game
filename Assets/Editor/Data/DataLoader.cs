@@ -84,7 +84,7 @@ namespace UnityEditor
             Open<DataLoader>("йЩ╬щ╪сть");
         }
 
-        protected override void Init()
+        protected override void Initialise()
         {
 
         }

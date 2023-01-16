@@ -46,7 +46,7 @@ namespace UnityEditor.Window
             Open<AssetBundleBuilder>("AssetBundle工具");
         }
 
-        protected override void Init()
+        protected override void Initialise()
         {
             UpdateAssetFolder();
 

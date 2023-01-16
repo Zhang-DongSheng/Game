@@ -249,5 +249,30 @@ namespace Game
             }
             return false;
         }
+        /// <summary>
+        /// 获取父类的所有子类
+        /// </summary>
+        public static List<Type> GetChildrenTypes(this Type parent, bool inherit = false)
+        {
+            List<Type> children = new List<Type>();
+
+            Assembly assembly = Assembly.GetAssembly(parent);
+
+            foreach (Type child in assembly.GetTypes())
+            {
+                if (child.BaseType == parent)
+                {
+                    children.Add(child);
+
+                    if (inherit)
+                    {
+                        var posterity = GetChildrenTypes(child, inherit);
+                        if (posterity.Count > 0)
+                            children.AddRange(posterity);
+                    }
+                }
+            }
+            return children;
+        }
     }
 }

@@ -50,7 +50,7 @@ namespace UnityEditor
 			Open<ExcelTools>("表格工具");
 		}
 
-		protected override void Init()
+		protected override void Initialise()
 		{
 			input_inputFolder = Path.Combine(Utility.Path.Project, InputPath);
 

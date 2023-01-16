@@ -21,7 +21,7 @@ namespace UnityEditor.Window
 			Open<PlayerPrefs>("本地化数据");
 		}
 
-		protected override void Init()
+		protected override void Initialise()
 		{
 			m_data = PlayerPrefsExtension.GetAll();
 		}

@@ -21,7 +21,7 @@ namespace UnityEditor.Window
             Open<MyTask>("任务中心");
         }
 
-        protected override void Init()
+        protected override void Initialise()
         {
             string content = Utility.Document.Read(Path);
 

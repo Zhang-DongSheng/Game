@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace UnityEditor.Window
 {
-    public partial class Artist : CustomWindow
+    public class ArtistPrefab : ArtistBase
     {
         private readonly Index indexPrefab = new Index();
 
@@ -16,11 +16,15 @@ namespace UnityEditor.Window
 
         private GameObject prefab;
 
+        private Vector2 scroll = new Vector2();
+
         private readonly List<Object> dependencies = new List<Object>();
 
         private readonly Color[] color = new Color[3] { Color.white, Color.white, Color.white };
 
-        private void InitialisePrefab()
+        public override string Name => "预制体";
+
+        public override void Initialise()
         {
             list = Finder.LoadFiles(Application.dataPath, "*.prefab");
 
@@ -62,7 +66,7 @@ namespace UnityEditor.Window
             };
         }
 
-        private void RefreshPrefab()
+        public override void Refresh()
         {
             GUILayout.BeginHorizontal();
             {
@@ -138,8 +142,6 @@ namespace UnityEditor.Window
                     {
                         color[2] = EditorGUILayout.ColorField(color[2]);
 
-
-
                         if (GUILayout.Button("阴影"))
                         {
                             ModifyShadowColor(file.asset, color[2]);
@@ -156,7 +158,7 @@ namespace UnityEditor.Window
                     {
                         Selection.activeObject = prefab;
 
-                        Open<PrefabCopy>("拷贝文件");
+                        //CustomWindow.Open<PrefabCopy>("拷贝文件");
                     }
                 }
                 GUILayout.EndVertical();
@@ -181,7 +183,7 @@ namespace UnityEditor.Window
             {
                 GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(file);
 
-                if (AssetDetection.Missing(prefab))
+                if (Missing(prefab))
                 {
                     Debug.LogError(string.Format("{0}丢失引用", prefab.name), prefab);
                 }
@@ -190,6 +192,38 @@ namespace UnityEditor.Window
                     Debug.LogFormat("{0}无丢失引用", prefab.name);
                 }
             }
+        }
+
+        private bool Missing(GameObject go)
+        {
+            bool missing = false;
+
+            Component[] components = go.GetComponentsInChildren<Component>(true);
+
+            foreach (var component in components)
+            {
+                if (component != null)
+                {
+                    SerializedObject so = new SerializedObject(component);
+
+                    SerializedProperty sp = so.GetIterator();
+
+                    while (sp.NextVisible(true))
+                    {
+                        if (sp.propertyType == SerializedPropertyType.ObjectReference &&
+                            sp.objectReferenceInstanceIDValue != 0 &&
+                            sp.objectReferenceValue == null)
+                        {
+                            Debug.LogWarningFormat("{0} Missing : {1}", go.name, sp.propertyPath);
+                        }
+                    }
+                }
+                else
+                {
+                    missing = true;
+                }
+            }
+            return missing;
         }
 
         private void ModifyGraphicColor(string path, Color color)

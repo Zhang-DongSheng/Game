@@ -17,7 +17,7 @@ namespace UnityEditor.Window
             Open<PictureSimpleToDetail>("Í¼Æ¬×ª¸ßÇå");
         }
 
-        protected override void Init() { }
+        protected override void Initialise() { }
 
         protected override void Refresh()
         {

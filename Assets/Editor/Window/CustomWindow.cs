@@ -22,7 +22,7 @@ namespace UnityEditor.Window
             window.minSize = new Vector2(128, 128);
             window.maxSize = new Vector2(2048, 2048);
             window.titleContent = new GUIContent(title);
-            window.Init(); window.Show();
+            window.Initialise(); window.Show();
         }
 
         private void OnGUI()
@@ -30,7 +30,7 @@ namespace UnityEditor.Window
             Refresh();
         }
 
-        protected abstract void Init();
+        protected abstract void Initialise();
 
         protected abstract void Refresh();
 

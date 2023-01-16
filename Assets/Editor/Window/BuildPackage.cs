@@ -22,7 +22,7 @@ namespace UnityEditor.Window
             Open<BuildPackage>("Ò»¼ü´ò°ü");
         }
 
-        protected override void Init()
+        protected override void Initialise()
         {
             inputCompany.value = PlayerSettings.companyName;
 

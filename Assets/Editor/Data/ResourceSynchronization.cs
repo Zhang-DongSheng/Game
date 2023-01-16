@@ -11,7 +11,7 @@ namespace UnityEditor.Window
             Open<ResourceSynchronization>("资源同步");
         }
 
-        protected override void Init()
+        protected override void Initialise()
         {
 
         }

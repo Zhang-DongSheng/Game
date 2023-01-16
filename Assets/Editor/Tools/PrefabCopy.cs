@@ -46,7 +46,7 @@ namespace UnityEditor.Window
 			return false;
 		}
 
-		protected override void Init()
+		protected override void Initialise()
 		{
 			OnValueChanged();
 		}
