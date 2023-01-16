@@ -1,26 +1,25 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
     public class ItemProperty : ItemBase
     {
-        [SerializeField] private Image icon;
+        [SerializeField] private ImageBind imgIcon;
 
-        [SerializeField] private Text key;
+        [SerializeField] private TextBind txtKey;
 
-        [SerializeField] private Text value;
+        [SerializeField] private TextBind txtValue;
 
         public void Refresh(int ID, float value, int type = 0)
         {
-            
+
         }
 
         public void Refresh(string key, float value, int type = 0)
         {
-            TextHelper.SetString(this.key, key);
+            txtKey.SetText(key);
 
-            this.value.text = string.Format("{0}{1}", value, Unit(type));
+            txtValue.SetText(string.Format("{0}{1}", value, Unit(type)), false);
         }
 
         public static string Unit(int type)

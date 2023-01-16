@@ -1,7 +1,6 @@
 using Data;
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 namespace Game.UI
@@ -20,7 +19,7 @@ namespace Game.UI
 
             Refresh(info);
 
-            TextHelper.SetString(m_prop.txtNumber, currency.number);
+            m_prop.txtNumber.SetText(currency.number);
 
             SetActive(true);
         }
@@ -31,7 +30,7 @@ namespace Game.UI
 
             Refresh(info);
 
-            TextHelper.SetString(m_prop.txtNumber, prop.number);
+            m_prop.txtNumber.SetText(prop.number);
 
             SetActive(true);
         }
@@ -40,11 +39,11 @@ namespace Game.UI
         {
             if (prop != null)
             {
-                SpriteHelper.SetSprite(m_prop.imgIcon, prop.icon);
+                m_prop.txtName.SetText(prop.name);
 
-                SpriteHelper.SetQuality(m_prop.imgQuality, prop.quality);
+                m_prop.imgIcon.SetSprite(prop.icon);
 
-                TextHelper.SetString(m_prop.txtName, prop.name);
+                m_prop.imgQuality.SetSprite(string.Format("quality_{0}", prop.quality));
             }
         }
 
@@ -58,13 +57,13 @@ namespace Game.UI
         [System.Serializable]
         class UIPropBase
         {
-            public Text txtName;
+            public TextBind txtName;
 
-            public Text txtNumber;
+            public TextBind txtNumber;
 
-            public Image imgIcon;
+            public ImageBind imgIcon;
 
-            public Image imgQuality;
+            public ImageBind imgQuality;
         }
         [System.Serializable]
         class UIPropConfig

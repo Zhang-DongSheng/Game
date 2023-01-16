@@ -16,8 +16,6 @@ namespace Game.Test
     {
         [SerializeField] private Vector3 position;
 
-        [SerializeField, Range(0, 30f)] private float speed = 1;
-
         [Button("OnClickButton")] public float index;
 
         protected void Awake()

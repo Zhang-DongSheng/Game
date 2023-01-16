@@ -109,5 +109,40 @@ namespace Game
 
             component.text = content;
         }
+
+        public static void SetText(this Text component, int value)
+        {
+            SetText(component, string.Format("{0}", value));
+        }
+
+        public static void SetText(this Text component, float value, int digits = -1)
+        {
+            if (digits > -1)
+            {
+                SetText(component, string.Format("{0}", Math.Round(value, digits)));
+            }
+            else
+            {
+                SetText(component, string.Format("{0}", value));
+            }
+        }
+
+        public static void SetText(this Text component, long value)
+        {
+            SetText(component, string.Format("{0}", value));
+        }
+
+        public static void SetText(this Text component, UnityEngine.Object value)
+        {
+            SetText(component, string.Format("{0}", value));
+        }
+
+        public static void SetText(this Text component, string value)
+        {
+            if (component.text != value)
+            {
+                component.text = value;
+            }
+        }
     }
 }

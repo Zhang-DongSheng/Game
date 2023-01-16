@@ -8,13 +8,13 @@ namespace Game.Model
 
         [SerializeField] private Transform eye;
 
-        [SerializeField] private new CameraProjection camera;
+        [SerializeField] private CameraProjection projection;
 
         [SerializeField, Range(0.1f, 3)] private float speed = 1;
 
         private float zoom;
 
-        public RenderTexture Texture { get { return camera.Texture; } }
+        public RenderTexture Texture { get { return projection.Texture; } }
 
         public void Rotate(float angle)
         {
@@ -27,7 +27,7 @@ namespace Game.Model
 
             zoom = Mathf.Clamp(zoom, 30, 100);
 
-            camera.Zoom(zoom);
+            projection.Zoom(zoom);
         }
 
         public void Show()

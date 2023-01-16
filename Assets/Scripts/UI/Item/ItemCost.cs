@@ -1,14 +1,13 @@
 using Data;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
     public class ItemCost : ItemBase
     {
-        [SerializeField] private Image imgIcon;
+        [SerializeField] private ImageBind imgIcon;
 
-        [SerializeField] private Text txtNumber;
+        [SerializeField] private TextBind txtNumber;
 
         public void Refresh(Cost cost)
         {
@@ -25,7 +24,7 @@ namespace Game.UI
         {
             if (imgIcon != null)
             {
-                SpriteHelper.SetSprite(imgIcon, name);
+                imgIcon.SetSprite(name);
             }
         }
 
@@ -33,15 +32,7 @@ namespace Game.UI
         {
             if (txtNumber != null)
             {
-                txtNumber.text = string.Format("{0}", value);
-            }
-        }
-
-        private void RefreshNumberColor(Color color)
-        {
-            if (txtNumber != null)
-            {
-                txtNumber.color = color;
+                txtNumber.SetText(value);
             }
         }
     }
