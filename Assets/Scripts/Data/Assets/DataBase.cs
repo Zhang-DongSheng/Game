@@ -7,6 +7,13 @@ namespace Data
     /// </summary>
     public abstract class DataBase : ScriptableObject
     {
+        [ContextMenu("Save")]
+        protected void MenuSave()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(this);
+#endif
+        }
         [ContextMenu("Editor")]
         protected void MenuEditor()
         {

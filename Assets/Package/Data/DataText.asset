@@ -16,7 +16,23 @@ MonoBehaviour:
   icon: 
   dictionary:
     words:
-    - key: A
-      value: aa
-    - key: B
-      value: bb
+    - key: 10001
+      value: "\u9053\u5177A"
+    - key: 10002
+      value: "\u9053\u5177B"
+    - key: 10003
+      value: "\u9053\u5177C"
+    - key: 10004
+      value: "\u9053\u5177D"
+    - key: 10005
+      value: "\u9053\u5177E"
+    - key: 10006
+      value: "\u9053\u5177F"
+    - key: 10007
+      value: "\u9053\u5177G"
+    - key: 10008
+      value: "\u9053\u5177H"
+    - key: 10009
+      value: "\u9053\u5177I"
+    - key: 10010
+      value: "\u9053\u5177J"

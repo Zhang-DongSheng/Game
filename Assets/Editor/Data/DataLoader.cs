@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.Window;
 using UnityEngine;
 using UnityEngine.U2D;
+using Debuger = UnityEngine.Debuger;
 
 namespace UnityEditor
 {
@@ -36,7 +37,11 @@ namespace UnityEditor
                     break;
                 }
             }
-            AssetDatabase.SaveAssets(); AssetDatabase.Refresh();
+            EditorUtility.SetDirty(data);
+
+            AssetDatabase.SaveAssets();
+            
+            AssetDatabase.Refresh();
         }
         [MenuItem("Data/Load/Sprite")]
         protected static void LoadDataSprite()
@@ -70,12 +75,25 @@ namespace UnityEditor
 
                     for (int i = 0; i < sprites.Length; i++)
                     {
-                        atlas.sprites.Add(sprites[i].name.Remove(sprites[i].name.Length - 7, 7));
+                        if (sprites[i] != null)
+                        {
+                            int length = sprites[i].name.Length;
+
+                            atlas.sprites.Add(sprites[i].name.Remove(length - 7, 7));
+                        }
+                        else
+                        {
+                            Debuger.LogError(Author.Data, $"{asset.name}的第{i}张图片出问题了");
+                        }
                     }
                     data.atlases.Add(atlas);
                 }
             }
-            AssetDatabase.SaveAssets(); AssetDatabase.Refresh();
+            EditorUtility.SetDirty(data);
+
+            AssetDatabase.SaveAssets();
+            
+            AssetDatabase.Refresh();
         }
         #endregion
         [MenuItem("Data/Load/Editor", priority = 0)]

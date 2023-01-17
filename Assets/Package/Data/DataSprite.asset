@@ -14,19 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atlases:
   - primary: 0
+    name: atlas_common
+    path: Package/Atlas/atlas_common.spriteatlas
+    sprites:
+    - Rounded Circle Shadow (200ppu)
+    - background_2
+    - Vertical Shadow
+    - Square Shadow (200ppu)
+    - background_4
+    - button_1
+    - Rounded Circle Shadow (400ppu)
+    - background_1
+    - Horizontal Shadow
+    - Rounded Circle Shadow (150ppu)
+    - background_3
+  - primary: 0
     name: atlas_currency
     path: Package/Atlas/atlas_currency.spriteatlas
     sprites:
+    - gold
     - coin
     - diamond
-    - gold
   - primary: 0
     name: atlas_emoji
     path: Package/Atlas/atlas_emoji.spriteatlas
     sprites: []
   - primary: 0
-    name: atlas_prop
-    path: Package/Atlas/atlas_prop.spriteatlas
+    name: atlas_prop_dress
+    path: Package/Atlas/atlas_prop_dress.spriteatlas
     sprites:
     - "\u6C49\u670D"
     - "\u8FDE\u8863\u88D9"
@@ -48,5 +63,28 @@ MonoBehaviour:
     - "\u4F11\u95F2\u88E4"
     - "\u8D85\u77ED\u88E4"
     - "\u886C\u886B"
+  - primary: 0
+    name: atlas_quality
+    path: Package/Atlas/atlas_quality.spriteatlas
+    sprites:
+    - quality_4
+    - quality_6
+    - quality_2
+    - quality_3
+    - quality_1
+    - quality_5
+  - primary: 0
+    name: atlas_widget
+    path: Package/Atlas/atlas_widget.spriteatlas
+    sprites:
+    - "\u5E2E\u52A9"
+    - "\u641C\u7D22"
+    - "\u6CE8\u610F"
+    - "\u9501"
+    - "\u53D1\u5E03"
+    - "\u8FD4\u56DE"
+    - "\u4FE1\u606F"
+    - "\u5237\u65B0"
+    - "\u64A4\u9500"
   sprites: []
   textures: []
