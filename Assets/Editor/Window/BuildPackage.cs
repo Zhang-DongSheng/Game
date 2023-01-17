@@ -106,7 +106,7 @@ namespace UnityEditor.Window
 
         private void Success(BuildSummary summary)
         {
-            string size = "检测打包大小失败";
+            //string size = "检测打包大小失败";
 
             //if (File.Exists())
             //{

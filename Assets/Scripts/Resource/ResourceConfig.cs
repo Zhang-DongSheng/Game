@@ -16,7 +16,7 @@ namespace Game.Resource
 
         public static readonly string LocalResources = string.Format("{0}/{1}", Application.persistentDataPath, AssetBundle);
 
-        public static LoadingType Loading = LoadingType.AssetBundle;
+        public static LoadingType Loading = LoadingType.AssetDatabase;
 
         public static string Path(LoadingType type, string path)
         {

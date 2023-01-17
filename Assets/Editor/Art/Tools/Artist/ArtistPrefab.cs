@@ -6,7 +6,11 @@ namespace UnityEditor.Window
 {
     public class ArtistPrefab : ArtistBase
     {
+        private readonly string[] options = new string[3] { "组件", "图像", "文本" };
+
         private readonly Index indexPrefab = new Index();
+
+        private readonly Index indexMenu = new Index();
 
         private List<ItemFile> list;
 
@@ -20,7 +24,9 @@ namespace UnityEditor.Window
 
         private readonly List<Object> dependencies = new List<Object>();
 
-        private readonly Color[] color = new Color[3] { Color.white, Color.white, Color.white };
+        private readonly TextInformation text = new TextInformation();
+
+        private readonly GraphicInformation graphic = new GraphicInformation();
 
         public override string Name => "预制体";
 
@@ -94,7 +100,7 @@ namespace UnityEditor.Window
 
                             for (int i = 0; i < count; i++)
                             {
-                                RefreshPrefabDependence(dependencies[i]);
+                                RefreshDependence(dependencies[i]);
                             }
                             GUI.enabled = true;
                         }
@@ -107,58 +113,25 @@ namespace UnityEditor.Window
 
                 GUILayout.BeginVertical(GUILayout.Width(200));
                 {
-                    if (GUILayout.Button("检查组件引用"))
+                    indexMenu.value = GUILayout.Toolbar(indexMenu.value, options);
+
+                    switch (indexMenu.value)
                     {
-                        if (indexPrefab.value == 0) { }
-                        else
-                        {
-                            Missing(file.asset);
-                        }
-                    }
-
-                    GUILayout.BeginHorizontal();
-                    {
-                        color[0] = EditorGUILayout.ColorField(color[0]);
-
-                        if (GUILayout.Button("图像"))
-                        {
-                            ModifyGraphicColor(file.asset, color[0]);
-                        }
-                    }
-                    GUILayout.EndHorizontal();
-
-                    GUILayout.BeginHorizontal();
-                    {
-                        color[1] = EditorGUILayout.ColorField(color[1]);
-
-                        if (GUILayout.Button("文本"))
-                        {
-                            ModifyTextColor(file.asset, color[1]);
-                        }
-                    }
-                    GUILayout.EndHorizontal();
-
-                    GUILayout.BeginHorizontal();
-                    {
-                        color[2] = EditorGUILayout.ColorField(color[2]);
-
-                        if (GUILayout.Button("阴影"))
-                        {
-                            ModifyShadowColor(file.asset, color[2]);
-                        }
-                    }
-                    GUILayout.EndHorizontal();
-
-                    if (GUILayout.Button("触发:false"))
-                    {
-                        ModifyGraphicRaycast(file.asset);
-                    }
-
-                    if (GUILayout.Button("复制"))
-                    {
-                        Selection.activeObject = prefab;
-
-                        //CustomWindow.Open<PrefabCopy>("拷贝文件");
+                        case 0:
+                            {
+                                RefreshComponent();
+                            }
+                            break;
+                        case 1:
+                            {
+                                RefreshGraphic();
+                            }
+                            break;
+                        case 2:
+                            {
+                                RefreshText();
+                            }
+                            break;
                     }
                 }
                 GUILayout.EndVertical();
@@ -166,7 +139,7 @@ namespace UnityEditor.Window
             GUILayout.EndHorizontal();
         }
 
-        private void RefreshPrefabDependence(Object meta)
+        private void RefreshDependence(Object meta)
         {
             GUILayout.BeginHorizontal();
             {
@@ -175,6 +148,122 @@ namespace UnityEditor.Window
                 EditorGUILayout.ObjectField(meta, typeof(Object), false);
             }
             GUILayout.EndHorizontal();
+        }
+
+        private void RefreshComponent()
+        {
+            if (GUILayout.Button("检查组件引用"))
+            {
+                if (indexPrefab.value == 0) { }
+                else
+                {
+                    Missing(file.asset);
+                }
+            }
+        }
+
+        private void RefreshGraphic()
+        {
+            GUILayout.BeginVertical();
+            {
+                graphic.color = EditorGUILayout.ColorField(graphic.color);
+
+                graphic.raycast = EditorGUILayout.Toggle("触发", graphic.raycast);
+
+                if (GUILayout.Button("修改"))
+                {
+                    GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(file.asset);
+
+                    Graphic[] graphics = prefab.GetComponentsInChildren<Graphic>();
+
+                    for (int i = 0; i < graphics.Length; i++)
+                    {
+                        graphics[i].color = graphic.color;
+
+                        graphics[i].raycastTarget = graphic.raycast;
+                    }
+                    PrefabUtility.SavePrefabAsset(prefab); indexPrefab.Excute();
+                }
+            }
+            GUILayout.EndVertical();
+        }
+
+        private void RefreshText()
+        {
+            GUILayout.BeginVertical();
+            {
+                text.style = (FontStyle)EditorGUILayout.EnumPopup(text.style);
+
+                text.color = EditorGUILayout.ColorField(text.color);
+
+                text.size = EditorGUILayout.IntField("字号", text.size);
+
+                text.extra = (TextInformation.Extra)EditorGUILayout.EnumPopup(text.extra);
+
+                switch (text.extra)
+                {
+                    case TextInformation.Extra.None:
+                    case TextInformation.Extra.Clear:
+                        break;
+                    default:
+                        {
+                            text.shadow = EditorGUILayout.ColorField(text.shadow);
+
+                            text.offset = EditorGUILayout.Vector2Field(string.Empty, text.offset);
+                        }
+                        break;
+                }
+                if (GUILayout.Button("修改"))
+                {
+                    GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(file.asset);
+
+                    Text[] texts = prefab.GetComponentsInChildren<Text>();
+
+                    for (int i = 0; i < texts.Length; i++)
+                    {
+                        texts[i].fontStyle = text.style;
+
+                        texts[i].color = text.color;
+
+                        texts[i].fontSize = text.size;
+
+                        switch (text.extra)
+                        {
+                            case TextInformation.Extra.Shadow:
+                                {
+                                    RemoveComponent<Outline>(texts[i]);
+
+                                    var shadow = AddComponent<Shadow>(texts[i]);
+
+                                    shadow.effectColor = text.shadow;
+
+                                    shadow.effectDistance = text.offset;
+                                }
+                                break;
+                            case TextInformation.Extra.Outline:
+                                {
+                                    RemoveComponent<Shadow>(texts[i]);
+
+                                    var outline = AddComponent<Outline>(texts[i]);
+
+                                    outline.effectColor = text.shadow;
+
+                                    outline.effectDistance = text.offset;
+                                }
+                                break;
+                            case TextInformation.Extra.Clear:
+                                {
+                                    RemoveComponent<Shadow>(texts[i]);
+
+                                    RemoveComponent<Outline>(texts[i]);
+                                }
+                                break;
+                        }
+                    }
+                    PrefabUtility.SavePrefabAsset(prefab); indexPrefab.Excute();
+                }
+            }
+            GUILayout.EndVertical();
         }
 
         private void Missing(params string[] files)
@@ -226,56 +315,59 @@ namespace UnityEditor.Window
             return missing;
         }
 
-        private void ModifyGraphicColor(string path, Color color)
+        private T AddComponent<T>(Component target) where T : Component
         {
-            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            if (target == null) return null;
 
-            Graphic[] graphics = prefab.GetComponentsInChildren<Graphic>();
-
-            for (int i = 0; i < graphics.Length; i++)
+            if (target.TryGetComponent(out T component))
             {
-                graphics[i].color = color;
+
             }
-            PrefabUtility.SavePrefabAsset(prefab);
+            else
+            {
+                component = target.gameObject.AddComponent<T>();
+            }
+            return component;
         }
 
-        private void ModifyTextColor(string path, Color color)
+        private void RemoveComponent<T>(Component target) where T : Component
         {
-            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            if (target == null) return;
 
-            Text[] texts = prefab.GetComponentsInChildren<Text>();
-
-            for (int i = 0; i < texts.Length; i++)
+            if (target.TryGetComponent(out T component))
             {
-                texts[i].color = color;
+                UnityEngine.Object.DestroyImmediate(component, true);
             }
-            PrefabUtility.SavePrefabAsset(prefab);
         }
-
-        private void ModifyShadowColor(string path, Color color)
+        [System.Serializable]
+        class GraphicInformation
         {
-            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            public Color color = new Color(1, 1, 1, 1);
 
-            Shadow[] shadows = prefab.GetComponentsInChildren<Shadow>();
-
-            for (int i = 0; i < shadows.Length; i++)
-            {
-                shadows[i].effectColor = color;
-            }
-            PrefabUtility.SavePrefabAsset(prefab);
+            public bool raycast;
         }
-
-        private void ModifyGraphicRaycast(string path)
+        [System.Serializable]
+        class TextInformation
         {
-            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            public FontStyle style = FontStyle.Normal;
 
-            Graphic[] graphics = prefab.GetComponentsInChildren<Graphic>();
+            public Color color = new Color(1, 1, 1, 1);
 
-            for (int i = 0; i < graphics.Length; i++)
+            public int size = 28;
+
+            public Extra extra = Extra.None;
+
+            public Color shadow = new Color(0, 0, 0, 0.5f);
+
+            public Vector2 offset = new Vector2(1, -1);
+
+            public enum Extra
             {
-                graphics[i].raycastTarget = false;
+                None,
+                Shadow,
+                Outline,
+                Clear,
             }
-            PrefabUtility.SavePrefabAsset(prefab);
         }
     }
 }

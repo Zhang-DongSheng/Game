@@ -90,13 +90,17 @@ namespace UnityEditor.Window
             }
             set
             {
-                if (_value != value)
-                {
-                    _value = value;
+                if (_value.Equals(value)) return;
 
-                    action?.Invoke(_value);
-                }
+                _value = value;
+
+                Excute();
             }
+        }
+
+        public void Excute()
+        {
+            action?.Invoke(_value);
         }
     }
     [System.Serializable]
@@ -113,13 +117,17 @@ namespace UnityEditor.Window
             }
             set
             {
-                if (_value != value)
-                {
-                    _value = value;
+                if (_value.Equals(value)) return;
 
-                    action?.Invoke(_value);
-                }
+                _value = value;
+
+                Excute();
             }
+        }
+
+        public void Excute()
+        {
+            action?.Invoke(_value);
         }
     }
 }

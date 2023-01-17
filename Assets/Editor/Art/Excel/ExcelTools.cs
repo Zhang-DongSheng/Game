@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using UnityEditor.Window;
 using UnityEngine;
 
@@ -335,9 +334,11 @@ namespace UnityEditor
 
 		private void Convert()
 		{
-			if (!Directory.Exists(outputFolder))
-				Directory.CreateDirectory(outputFolder);
-
+			if (Directory.Exists(outputFolder)) { }
+			else
+			{
+                Directory.CreateDirectory(outputFolder);
+            }
 			for (int i = 0; i < source.Count; i++)
 			{
 				if (source[i].select)

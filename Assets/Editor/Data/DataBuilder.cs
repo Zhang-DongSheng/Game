@@ -14,7 +14,7 @@ namespace UnityEditor
         {
             Create<DataText>();
         }
-        [MenuItem("Data/Create/Sprite")]
+        [MenuItem("Data/Create/Sprite", priority = 1)]
         protected static void Create_Sprite()
         {
             Create<DataSprite>();
