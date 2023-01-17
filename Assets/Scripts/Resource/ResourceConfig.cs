@@ -4,19 +4,19 @@ namespace Game.Resource
 {
     public static class ResourceConfig
     {
-        public static LoadingType Loading = LoadingType.AssetDatabase;
+        public const string AssetBundle = "AssetBundle";
 
-        public static string CloudResources = string.Format("{0}/{1}/{2}", Utility.Path.Project, AssetBundle, Platform);
+        public const string Package = "Package";
 
-        public static string LocalResources = string.Format("{0}/{1}", Application.persistentDataPath, AssetBundle);
+        public const string Record = "record";
 
-        public static readonly string AssetBundle = "AssetBundle";
+        public const string Manifest = "dependencies";
 
-        public static readonly string Package = "Package";
+        public static readonly string CloudResources = string.Format("{0}/{1}/{2}", Utility.Path.Project, AssetBundle, Platform);
 
-        public static readonly string Record = "record";
+        public static readonly string LocalResources = string.Format("{0}/{1}", Application.persistentDataPath, AssetBundle);
 
-        public static readonly string Manifest = "dependencies";
+        public static LoadingType Loading = LoadingType.AssetBundle;
 
         public static string Path(LoadingType type, string path)
         {

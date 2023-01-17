@@ -68,6 +68,7 @@ namespace Game.Resource
                     break;
                 default:
                     {
+                        Debuger.LogError(Author.Resource, request.error);
                         //版本校对资源失败直接进入游戏
                         ScheduleLogic.Instance.Update(Schedule.Resource);
                     }
