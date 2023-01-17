@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: atlas_prop
+  m_Name: atlas_prop_dress
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -80,5 +80,5 @@ SpriteAtlas:
   - "\u8D85\u77ED\u88E4"
   - "\u886C\u886B"
   m_RenderDataMap: {}
-  m_Tag: atlas_prop
+  m_Tag: atlas_prop_dress
   m_IsVariant: 0

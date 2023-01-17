@@ -24,7 +24,6 @@ namespace Game.UI
                 if (i >= items.Count)
                 {
                     ItemProp item = prefab.Create<ItemProp>();
-                    item.callback = OnClickProp;
                     items.Add(item);
                 }
                 items[i].Refresh(column[i]);

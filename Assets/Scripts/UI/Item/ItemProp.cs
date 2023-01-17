@@ -1,5 +1,4 @@
 using Data;
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,17 +6,17 @@ namespace Game.UI
 {
     public class ItemProp : ItemBase, IPointerClickHandler
     {
-        public Action<Prop> callback;
-
         [SerializeField] private UIPropBase m_prop;
 
         [SerializeField] private UIPropConfig m_config;
 
+        private PropInformation information;
+
         public void Refresh(Currency currency)
         {
-            PropInformation info = DataManager.Instance.Load<DataProp>().Get((int)currency.currency);
+            information = DataManager.Instance.Load<DataProp>().Get((int)currency.currency);
 
-            Refresh(info);
+            Refresh(information);
 
             m_prop.txtNumber.SetText(currency.number);
 
@@ -26,9 +25,9 @@ namespace Game.UI
 
         public void Refresh(Prop prop)
         {
-            PropInformation info = DataManager.Instance.Load<DataProp>().Get(prop.parallelism);
+            information = DataManager.Instance.Load<DataProp>().Get(prop.parallelism);
 
-            Refresh(info);
+            Refresh(information);
 
             m_prop.txtNumber.SetText(prop.number);
 
@@ -43,7 +42,7 @@ namespace Game.UI
 
                 m_prop.imgIcon.SetSprite(prop.icon);
 
-                m_prop.imgQuality.SetSprite(string.Format("quality_{0}", prop.quality));
+                m_prop.imgQuality.SetSprite(string.Format("quality_{0}", (int)prop.quality));
             }
         }
 
@@ -51,7 +50,9 @@ namespace Game.UI
         {
             if (m_config.click)
             {
-                UIQuickEntry.Open(UIPanel.UIIntroduce, new Paramter());
+                var parameter = new Paramter();
+                parameter.AddOrReplace("prop", information);
+                UIQuickEntry.Open(UIPanel.UIIntroduce, parameter);
             }
         }
         [System.Serializable]

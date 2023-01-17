@@ -1,1 +1,14 @@
-{"words":[{"key":"A","value":"aa"},{"key":"B","value":"bb"}]}
+{"words":
+[
+{"key":"10001","value":"道具A"},
+{"key":"10002","value":"道具B"},
+{"key":"10003","value":"道具C"},
+{"key":"10004","value":"道具D"},
+{"key":"10005","value":"道具E"},
+{"key":"10006","value":"道具F"},
+{"key":"10007","value":"道具G"},
+{"key":"10008","value":"道具H"},
+{"key":"10009","value":"道具I"},
+{"key":"10010","value":"道具J"}
+]
+}
