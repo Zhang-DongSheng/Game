@@ -112,8 +112,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 0}
+  m_AnchoredPosition: {x: 0, y: -75}
+  m_SizeDelta: {x: 300, y: -150}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &4013601303588174375
 GameObject:
@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 3
+  type: 1
   order: 0
   tab: {fileID: 3483136031149314118}
   viewSign: {fileID: 0}
@@ -612,6 +613,7 @@ MonoBehaviour:
   prefab:
     parent: {fileID: 5808543636660082821}
     prefab: {fileID: 4723363192734006192}
+    name: 
 --- !u!1 &8409741691923759907
 GameObject:
   m_ObjectHideFlags: 0
