@@ -7,7 +7,6 @@ namespace UnityEditor
     class DataBuilder
     {
         public const string PATH = "Assets/Package/Data";
-
         #region Create
         [MenuItem("Data/Create/Text", priority = 0)]
         protected static void Create_Text()
