@@ -9,6 +9,8 @@ namespace Game.UI
 
         [SerializeField] private Button btnMail;
 
+        [SerializeField] private Button btnNew;
+
         [SerializeField] private Button btnActivity;
 
         [SerializeField] private Button btnLotteryDraw;
@@ -18,6 +20,8 @@ namespace Game.UI
             btnWarehouse.onClick.AddListener(OnClickWarehouse);
 
             btnMail.onClick.AddListener(OnClickMail);
+
+            btnNew.onClick.AddListener(OnClickNew);
 
             btnActivity.onClick.AddListener(OnClickActivity);
 
@@ -37,6 +41,11 @@ namespace Game.UI
         private void OnClickMail()
         {
             UIQuickEntry.Open(UIPanel.UITest);
+        }
+
+        private void OnClickNew()
+        {
+            UIQuickEntry.OpenUITips("功能正在开发中");
         }
 
         private void OnClickActivity()

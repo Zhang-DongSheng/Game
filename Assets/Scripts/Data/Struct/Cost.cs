@@ -11,5 +11,7 @@ namespace Data
         public int coin;
 
         public int number;
+
+        public float price;
     }
 }

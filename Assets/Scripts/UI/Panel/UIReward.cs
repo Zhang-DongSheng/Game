@@ -41,22 +41,9 @@ namespace Game.UI
 
         IEnumerator Refresh(Reward reward)
         {
-            int count = reward.currencies != null ? reward.currencies.Count : 0;
-
             int index = 0;
 
-            for (int i = 0; i < count; i++)
-            {
-                if (index >= items.Count)
-                {
-                    items.Add(prefab.Create<ItemReward>());
-                }
-                items[index++].Refresh(reward.currencies[i]);
-
-                yield return wait;
-            }
-
-            count = reward.props != null ? reward.props.Count : 0;
+            int count = reward.props != null ? reward.props.Count : 0;
 
             for (int i = 0; i < count; i++)
             {
@@ -65,6 +52,18 @@ namespace Game.UI
                     items.Add(prefab.Create<ItemReward>());
                 }
                 items[index++].Refresh(reward.props[i]);
+
+                yield return wait;
+            }
+            count = reward.currencies != null ? reward.currencies.Count : 0;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (index >= items.Count)
+                {
+                    items.Add(prefab.Create<ItemReward>());
+                }
+                items[index++].Refresh(reward.currencies[i]);
 
                 yield return wait;
             }

@@ -78,8 +78,8 @@ namespace UnityEditor
                         if (sprites[i] != null)
                         {
                             int length = sprites[i].name.Length;
-
-                            atlas.sprites.Add(sprites[i].name.Remove(length - 7, 7));
+                            // É¾³ý½áÎ²(Clone)
+                            atlas.sprites.Add(sprites[i].name.Substring(0, length - 7));
                         }
                         else
                         {
@@ -92,7 +92,7 @@ namespace UnityEditor
             EditorUtility.SetDirty(data);
 
             AssetDatabase.SaveAssets();
-            
+
             AssetDatabase.Refresh();
         }
         #endregion

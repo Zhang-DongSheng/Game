@@ -35,10 +35,7 @@ namespace Game.UI
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
-                UIQuickEntry.OpenUIConfirm("A", "B", () =>
-                  {
-                      Debug.LogError(Random.Range(0, 100));
-                  });
+                
             }
             else if (Input.GetKeyDown(KeyCode.B))
             {
@@ -48,23 +45,7 @@ namespace Game.UI
             }
             else if (Input.GetKeyDown(KeyCode.C))
             {
-                UIQuickEntry.OpenUIReward(new Data.Reward()
-                {
-                    title = "XXX",
-                    currencies = new List<Currency>()
-                    {
-                        new Currency(CurrencyEnum.Gold,999),
-                        new Currency(CurrencyEnum.Diamond,10),
-                    },
-                    props = new List<Prop>()
-                    {
-                        new Prop(){ parallelism = 0},
-                        new Prop(){ parallelism = 1},
-                        new Prop(){ parallelism = 2},
-                        new Prop(){ parallelism = 3},
-                        new Prop(){ parallelism = 4},
-                    }
-                });
+                
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {

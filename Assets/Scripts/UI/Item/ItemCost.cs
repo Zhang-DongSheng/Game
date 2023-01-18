@@ -13,27 +13,13 @@ namespace Game.UI
         {
             if (cost == null) return;
 
-            switch (cost.consume)
-            {
-                default:
-                    break;
-            }
-        }
+            if (cost.consume == Consume.Recharge) return;
 
-        private void RefreshCoinSprite(string name)
-        {
-            if (imgIcon != null)
-            {
-                imgIcon.SetSprite(name);
-            }
-        }
+            PropInformation prop = DataManager.Instance.Load<DataProp>().Get(cost.coin);
 
-        private void RefreshNumberText(int value)
-        {
-            if (txtNumber != null)
-            {
-                txtNumber.SetText(value);
-            }
+            imgIcon.SetSprite(prop.icon);
+
+            txtNumber.SetText(cost.number);
         }
     }
 }

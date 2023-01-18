@@ -1,4 +1,5 @@
 using Data;
+using System;
 using System.Collections.Generic;
 
 namespace Game
@@ -38,7 +39,14 @@ namespace Game
                                 number = 1,
                                 parallelism = (uint)UnityEngine.Random.Range(0,4),
                             }
-                        }
+                        },
+                        cost = new Cost()
+                        {
+                            consume = Consume.Currency,
+                            coin = 1,
+                            number = UnityEngine.Random.Range(50, 100),
+                        },
+                        status = Status.Available
                     });
                 }
                 cabinets.Add(counter);
