@@ -45,7 +45,7 @@ namespace Game
             }
         }
 
-        private IEnumerator Excute(Action action, YieldInstruction yield)
+        private IEnumerator Execute(Action action, YieldInstruction yield)
         {
             yield return yield;
 
@@ -110,7 +110,7 @@ namespace Game
 
         public void Invoke(Action action, YieldInstruction yield)
         {
-            StartCoroutine(Excute(action, yield));
+            StartCoroutine(Execute(action, yield));
         }
     }
 }

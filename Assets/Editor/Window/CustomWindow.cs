@@ -94,11 +94,11 @@ namespace UnityEditor.Window
 
                 _value = value;
 
-                Excute();
+                Execute();
             }
         }
 
-        public void Excute()
+        public void Execute()
         {
             action?.Invoke(_value);
         }
@@ -121,11 +121,11 @@ namespace UnityEditor.Window
 
                 _value = value;
 
-                Excute();
+                Execute();
             }
         }
 
-        public void Excute()
+        public void Execute()
         {
             action?.Invoke(_value);
         }

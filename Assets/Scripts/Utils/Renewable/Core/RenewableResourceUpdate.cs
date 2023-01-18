@@ -56,7 +56,7 @@ namespace UnityEngine.Renewable
 
             for (int i = 0; i < values.Length; i++)
             {
-                Excute(values[i]);
+                Execute(values[i]);
             }
         }
 
@@ -91,7 +91,7 @@ namespace UnityEngine.Renewable
             RenewableResource.Instance.DownloadLimit = 3;
         }
 
-        private void Excute(string value)
+        private void Execute(string value)
         {
             if (string.IsNullOrEmpty(value)) return;
 

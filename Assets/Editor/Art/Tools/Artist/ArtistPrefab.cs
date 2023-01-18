@@ -182,7 +182,7 @@ namespace UnityEditor.Window
 
                         graphics[i].raycastTarget = graphic.raycast;
                     }
-                    PrefabUtility.SavePrefabAsset(prefab); indexPrefab.Excute();
+                    PrefabUtility.SavePrefabAsset(prefab); indexPrefab.Execute();
                 }
             }
             GUILayout.EndVertical();
@@ -260,7 +260,7 @@ namespace UnityEditor.Window
                                 break;
                         }
                     }
-                    PrefabUtility.SavePrefabAsset(prefab); indexPrefab.Excute();
+                    PrefabUtility.SavePrefabAsset(prefab); indexPrefab.Execute();
                 }
             }
             GUILayout.EndVertical();

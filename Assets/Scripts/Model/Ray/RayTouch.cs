@@ -192,7 +192,7 @@ namespace Game.Model
             Destination = _origination + segment * ratio;
         }
 
-        private void Excute()
+        private void Execute()
         {
             callback?.Invoke();
         }
@@ -209,7 +209,7 @@ namespace Game.Model
                 {
                     value.y = 2;
                 }
-                _origination = value; Excute();
+                _origination = value; Execute();
 
                 if (Vector3.Distance(_origination, _destination) < range.x ||
                     Vector3.Distance(_origination, _destination) > range.y)
@@ -255,7 +255,7 @@ namespace Game.Model
                         _vector = _vector.normalized * range.x;
                     }
                 }
-                _destination = _origination + _vector; Excute();
+                _destination = _origination + _vector; Execute();
             }
         }
 
