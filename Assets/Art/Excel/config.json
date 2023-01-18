@@ -4,61 +4,51 @@
 	{
 	"ID":1,
 	"key":"B",
-	"type":"int",
 	"value":"1"
 	},
 	{
 	"ID":2,
 	"key":"C",
-	"type":"float",
 	"value":"2.5"
 	},
 	{
 	"ID":3,
 	"key":"D",
-	"type":"string",
 	"value":"aaa"
 	},
 	{
 	"ID":4,
 	"key":"E",
-	"type":"string",
 	"value":"bbb"
 	},
 	{
 	"ID":5,
 	"key":"F",
-	"type":"string",
 	"value":"aaa"
 	},
 	{
 	"ID":6,
 	"key":"G",
-	"type":"string",
 	"value":"bbb"
 	},
 	{
 	"ID":7,
 	"key":"H",
-	"type":"string",
 	"value":"aaa"
 	},
 	{
 	"ID":8,
 	"key":"I",
-	"type":"string",
 	"value":"bbb"
 	},
 	{
 	"ID":9,
 	"key":"J",
-	"type":"string",
 	"value":"aaa"
 	},
 	{
 	"ID":10,
 	"key":"K",
-	"type":"string",
 	"value":"bbb"
 	}
 ]

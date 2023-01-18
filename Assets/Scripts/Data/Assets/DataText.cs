@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Data
 {
@@ -15,6 +14,8 @@ namespace Data
         public Language language;
 
         public string icon;
+
+        public string font;
 
         public Dictionary dictionary;
 
@@ -32,7 +33,7 @@ namespace Data
 
         protected override void Editor()
         {
-            Debuger.LogError(Author.Data, JsonUtility.ToJson(dictionary));
+            
         }
         [Serializable]
         public class Dictionary

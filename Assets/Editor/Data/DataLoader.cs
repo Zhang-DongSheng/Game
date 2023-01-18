@@ -16,17 +16,48 @@ namespace UnityEditor
         [MenuItem("Data/Load/Config")]
         protected static void LoadDataConfig()
         {
-            DataText aa = new DataText();
+            string path = string.Format("{0}/{1}", PATH, "config.json");
 
-            aa.dictionary = new DataText.Dictionary();
+            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
 
-            aa.dictionary.words.Add(new DataText.Word()
+            Debuger.Assert(asset != null, "配置数据为空");
+
+            if (asset == null) return;
+
+            string content = asset.text;
+
+            if (string.IsNullOrEmpty(content)) return;
+
+            DataConfig data = Load<DataConfig>();
+
+            Debuger.Assert(data != null, "配置DB为空");
+
+            if (data == null) return;
+
+            data.config = new List<ConfigInformation>();
+            // 一定要记得去掉最后一行的逗号
+            JsonData json = JsonMapper.ToObject(content);
+
+            if (json.ContainsKey("list"))
             {
-                key = "1",
-                value = "2"
-            });
+                JsonData list = json.GetJson("list");
 
-            Debug.LogError(JsonMapper.ToJson(aa));
+                int count = list.Count;
+
+                for (int i = 0; i < count; i++)
+                {
+                    data.config.Add(new ConfigInformation()
+                    {
+                        key = list[i].GetString("key"),
+                        value = list[i].GetString("value")
+                    });
+                }
+            }
+            else
+            {
+                Debuger.LogError(Author.Data, "多语言解析失败");
+            }
+            Save(data);
         }
         [MenuItem("Data/Load/Text")]
         protected static void LoadDataText()
@@ -187,8 +218,6 @@ namespace UnityEditor
         {
             Open<DataLoader>("数据加载");
         }
-
-
 
         protected static T Load<T>() where T : ScriptableObject
         {

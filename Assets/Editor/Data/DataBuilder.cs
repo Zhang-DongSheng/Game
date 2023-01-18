@@ -19,15 +19,15 @@ namespace UnityEditor
         {
             Create<DataSprite>();
         }
+        [MenuItem("Data/Create/Config")]
+        protected static void Create_Config()
+        {
+            Create<DataConfig>();
+        }
         [MenuItem("Data/Create/Prop")]
         protected static void Create_Prop()
         {
             Create<DataProp>();
-        }
-        [MenuItem("Data/Create/Task")]
-        protected static void Create_Task()
-        {
-            Create<DataTask>();
         }
         #endregion
 
