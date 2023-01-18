@@ -35,15 +35,15 @@ namespace Game
                         {
                             new Prop()
                             {
-                                identification = 1001,
+                                identification = 10001,
                                 number = 1,
-                                parallelism = (uint)UnityEngine.Random.Range(0,4),
+                                parallelism = (uint)UnityEngine.Random.Range(10001,10020),
                             }
                         },
                         cost = new Cost()
                         {
                             consume = Consume.Currency,
-                            coin = 1,
+                            coin = 101,
                             number = UnityEngine.Random.Range(50, 100),
                         },
                         status = Status.Available

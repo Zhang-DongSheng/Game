@@ -17,22 +17,40 @@ MonoBehaviour:
   dictionary:
     words:
     - key: 10001
-      value: "\u9053\u5177A"
+      value: "\u4E2D\u658710001"
     - key: 10002
-      value: "\u9053\u5177B"
+      value: "\u4E2D\u658710002"
     - key: 10003
-      value: "\u9053\u5177C"
+      value: "\u4E2D\u658710003"
     - key: 10004
-      value: "\u9053\u5177D"
+      value: "\u4E2D\u658710004"
     - key: 10005
-      value: "\u9053\u5177E"
+      value: "\u4E2D\u658710005"
     - key: 10006
-      value: "\u9053\u5177F"
+      value: "\u4E2D\u658710006"
     - key: 10007
-      value: "\u9053\u5177G"
+      value: "\u4E2D\u658710007"
     - key: 10008
-      value: "\u9053\u5177H"
+      value: "\u4E2D\u658710008"
     - key: 10009
-      value: "\u9053\u5177I"
+      value: "\u4E2D\u658710009"
     - key: 10010
-      value: "\u9053\u5177J"
+      value: "\u4E2D\u658710010"
+    - key: 10011
+      value: "\u4E2D\u658710011"
+    - key: 10012
+      value: "\u4E2D\u658710012"
+    - key: 10013
+      value: "\u4E2D\u658710013"
+    - key: 10014
+      value: "\u4E2D\u658710014"
+    - key: 10015
+      value: "\u4E2D\u658710015"
+    - key: 10016
+      value: "\u4E2D\u658710016"
+    - key: 10017
+      value: "\u4E2D\u658710017"
+    - key: 10018
+      value: "\u4E2D\u658710018"
+    - key: 10019
+      value: "\u4E2D\u658710019"

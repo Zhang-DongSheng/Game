@@ -10,6 +10,7 @@ namespace Data
         {
             Chinese,
             English,
+            Japanese,
         }
         public Language language;
 

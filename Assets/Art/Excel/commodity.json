@@ -1,0 +1,23 @@
+{
+"data":"Sheet1",
+"list":[
+	{
+	"ID":1001,
+	"name":"商品1",
+	"cost":101,
+	"price":10,
+	"purchase":0,
+	"rewards":"[[10001,1],[10002,1]]",
+	"introduce":"商品1"
+	},
+	{
+	"ID":1002,
+	"name":"商品2",
+	"cost":102,
+	"price":100,
+	"purchase":0,
+	"rewards":"[[10001,1],[10002,2]]",
+	"introduce":"商品2"
+	}
+]
+}

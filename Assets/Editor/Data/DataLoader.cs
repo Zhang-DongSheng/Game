@@ -1,5 +1,6 @@
 using Data;
 using Game;
+using LitJson;
 using System.Collections.Generic;
 using UnityEditor.Window;
 using UnityEngine;
@@ -10,38 +11,70 @@ namespace UnityEditor
 {
     public class DataLoader : CustomWindow
     {
+        protected static string PATH = "Assets/Art/Excel";
         #region 快捷方式
+        [MenuItem("Data/Load/Config")]
+        protected static void LoadDataConfig()
+        {
+            DataText aa = new DataText();
+
+            aa.dictionary = new DataText.Dictionary();
+
+            aa.dictionary.words.Add(new DataText.Word()
+            {
+                key = "1",
+                value = "2"
+            });
+
+            Debug.LogError(JsonMapper.ToJson(aa));
+        }
         [MenuItem("Data/Load/Text")]
         protected static void LoadDataText()
         {
+            string path = string.Format("{0}/{1}", PATH, "language.json");
+
+            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
+
+            Debuger.Assert(asset != null, "多语言数据为空");
+
+            if (asset == null) return;
+
+            string content = asset.text;
+
+            if (string.IsNullOrEmpty(content)) return;
+
             DataText data = Load<DataText>();
 
-            string[] guids = AssetDatabase.FindAssets("t:TextAsset", new string[] { "Assets/Art/Language" });
+            Debuger.Assert(data != null, "多语言DB为空");
 
-            string path, file;
+            if (data == null) return;
 
-            foreach (var guid in guids)
+            data.dictionary = new DataText.Dictionary();
+            // 一定要记得去掉最后一行的逗号
+            JsonData json = JsonMapper.ToObject(content);
+
+            if (json.ContainsKey("list"))
             {
-                path = AssetDatabase.GUIDToAssetPath(guid);
+                JsonData list = json.GetJson("list");
 
-                file = System.IO.Path.GetFileNameWithoutExtension(path);
+                string language = data.language.ToString().ToLower();
 
-                if (GameConfig.Language.ToString().ToLower() == file)
+                int count = list.Count;
+
+                for (int i = 0; i < count; i++)
                 {
-                    TextAsset asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
-
-                    if (asset != null && !string.IsNullOrEmpty(asset.text))
+                    data.dictionary.words.Add(new DataText.Word()
                     {
-                        data.dictionary = JsonUtility.FromJson<DataText.Dictionary>(asset.text);
-                    }
-                    break;
+                        key = list[i].GetString("key"),
+                        value = list[i].GetString(language)
+                    });
                 }
             }
-            EditorUtility.SetDirty(data);
-
-            AssetDatabase.SaveAssets();
-            
-            AssetDatabase.Refresh();
+            else
+            {
+                Debuger.LogError(Author.Data, "多语言解析失败");
+            }
+            Save(data);
         }
         [MenuItem("Data/Load/Sprite")]
         protected static void LoadDataSprite()
@@ -89,11 +122,64 @@ namespace UnityEditor
                     data.atlases.Add(atlas);
                 }
             }
-            EditorUtility.SetDirty(data);
+            Save(data);
+        }
+        [MenuItem("Data/Load/Prop")]
+        protected static void LoadDataProp()
+        {
+            string path = string.Format("{0}/{1}", PATH, "prop.json");
 
-            AssetDatabase.SaveAssets();
+            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
 
-            AssetDatabase.Refresh();
+            Debuger.Assert(asset != null, "道具数据为空");
+
+            if (asset == null) return;
+
+            string content = asset.text;
+
+            if (string.IsNullOrEmpty(content)) return;
+
+            DataProp data = Load<DataProp>();
+
+            Debuger.Assert(data != null, "道具DB为空");
+
+            if (data == null) return;
+
+            data.props = new List<PropInformation>();
+            // 一定要记得去掉最后一行的逗号
+            JsonData json = JsonMapper.ToObject(content);
+
+            if (json.ContainsKey("list"))
+            {
+                JsonData list = json.GetJson("list");
+
+                int count = list.Count;
+
+                for (int i = 0; i < count; i++)
+                {
+                    data.props.Add(new PropInformation()
+                    {
+                        primary = list[i].GetUInt("ID"),
+                        name = list[i].GetString("name"),
+                        icon = list[i].GetString("icon"),
+                        category = list[i].GetInt("category"),
+                        quality = list[i].GetByte("quality"),
+                        price = list[i].GetFloat("price"),
+                        source = list[i].GetInt("source"),
+                        description = list[i].GetString("description")
+                    });
+                }
+            }
+            else
+            {
+                Debuger.LogError(Author.Data, "多语言解析失败");
+            }
+            Save(data);
+        }
+        [MenuItem("Data/Load/All")]
+        protected static void LoadAll()
+        {
+
         }
         #endregion
         [MenuItem("Data/Load/Editor", priority = 0)]
@@ -102,17 +188,9 @@ namespace UnityEditor
             Open<DataLoader>("数据加载");
         }
 
-        protected override void Initialise()
-        {
 
-        }
 
-        protected override void Refresh()
-        {
-
-        }
-
-        public static T Load<T>() where T : ScriptableObject
+        protected static T Load<T>() where T : ScriptableObject
         {
             string path = string.Format("Assets/Package/Data/{0}.asset", typeof(T).Name);
 
@@ -120,5 +198,18 @@ namespace UnityEditor
 
             return asset;
         }
+
+        protected static void Save(Object data)
+        {
+            EditorUtility.SetDirty(data);
+
+            AssetDatabase.SaveAssets();
+
+            AssetDatabase.Refresh();
+        }
+
+        protected override void Initialise() { }
+
+        protected override void Refresh() { }
     }
 }

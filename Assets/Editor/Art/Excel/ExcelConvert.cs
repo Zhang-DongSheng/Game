@@ -194,10 +194,12 @@ namespace UnityEditor
 
 			AssetDatabase.Refresh();
 		}
-
-		public static string ToJson(DataTable table)
+        /// <summary>
+        /// 转Json，一定要记得去掉最后一行的逗号, LitJson无法转译
+        /// </summary>
+        public static string ToJson(DataTable table)
 		{
-			if (!Enter(table)) return string.Empty;
+            if (!Enter(table)) return string.Empty;
 
 			builder.Clear();
 			builder.Append("{\r\n");
@@ -216,10 +218,23 @@ namespace UnityEditor
 					builder.Append("\t");
 					builder.Append(string.Format("\"{0}\"", table.Rows[0][j]));
 					builder.Append(":");
-					builder.Append(string.Format("\"{0}\"", table.Rows[i][j]));
-					builder.Append(",\r\n");
+					switch (table.Rows[1][j].ToString().ToLower())
+					{
+						case "int":
+                        case "long":
+                        case "bool":
+                        case "byte":
+                        case "float":
+						case "double":
+                            builder.Append(string.Format("{0}", table.Rows[i][j]));
+                            break;
+						default:
+                            builder.Append(string.Format("\"{0}\"", table.Rows[i][j]));
+                            break;
+                    }
+					builder.Append(j + 1 == column ? "\r\n" : ",\r\n");
 				}
-				builder.Append("\t},\r\n");
+				builder.Append(i + 1 == row ? "\t}\r\n" : "\t},\r\n");
 			}
 			builder.Append("]\r\n");
 			builder.Append("}");

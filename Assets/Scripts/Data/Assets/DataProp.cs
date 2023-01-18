@@ -31,7 +31,7 @@ namespace Data
 
         public string icon;
 
-        public Quality quality;
+        public byte quality;
 
         public int category;
 

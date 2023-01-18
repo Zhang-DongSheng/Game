@@ -53,7 +53,7 @@ namespace Game.UI
             }
             else if (Input.GetKeyDown(KeyCode.E))
             {
-                UIQuickEntry.OpenUITips("test");
+                
             }
             else if (Input.GetKeyDown(KeyCode.F))
             {

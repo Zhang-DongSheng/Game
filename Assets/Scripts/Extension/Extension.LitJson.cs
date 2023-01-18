@@ -48,6 +48,17 @@ namespace Game
             return result;
         }
 
+        public static uint GetUInt(this JsonData json, string key)
+        {
+            uint result = 0;
+
+            if (json != null && json.ContainsKey(key) && json[key].IsInt)
+            {
+                uint.TryParse(json[key].ToString(), out result);
+            }
+            return result;
+        }
+
         public static float GetFloat(this JsonData json, string key)
         {
             float result = 0;
