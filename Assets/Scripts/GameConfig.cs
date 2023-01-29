@@ -1,5 +1,4 @@
 ﻿using Data;
-using Game.Resource;
 using UnityEngine;
 
 namespace Game
@@ -15,11 +14,11 @@ namespace Game
             get
             {
 #if APPMODE_DEV
-            return AppMode.Developing;
+                return AppMode.Developing;
 #elif APPMODE_QA
-            return AppMode.QA;
+                return AppMode.QA;
 #elif APPMODE_REL
-            return AppMode.Release;
+                return AppMode.Release;
 #else
                 return AppMode.Developing;
 #endif

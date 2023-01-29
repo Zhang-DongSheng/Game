@@ -1,6 +1,4 @@
 using Data;
-using Game;
-using LitJson;
 using System.Collections.Generic;
 using UnityEditor.Window;
 using UnityEngine;
@@ -11,16 +9,129 @@ namespace UnityEditor
 {
     public class DataLoader : CustomWindow
     {
-        protected static string PATH = "Assets/Art/Excel";
-        #region 快捷方式
-        [MenuItem("Data/Load/Config")]
-        protected static void LoadDataConfig()
+        class ItemInformation
+        {
+            public string name;
+
+            public string type;
+
+            public bool select;
+        }
+        private readonly List<ItemInformation> items = new List<ItemInformation>();
+
+        protected const string PATH = "Assets/Art/Excel";
+        [MenuItem("Data/Load", priority = 0)]
+        protected static void Open()
+        {
+            Open<DataLoader>("数据加载");
+        }
+
+        protected override void Initialise()
+        {
+            items.Clear();
+
+            items.Add(new ItemInformation()
+            {
+                name = "配置",
+                type = typeof(DataConfig).ToString(),
+                select = false,
+            });
+            items.Add(new ItemInformation()
+            {
+                name = "语言",
+                type = typeof(DataText).ToString(),
+                select = false,
+            });
+            items.Add(new ItemInformation()
+            {
+                name = "图集",
+                type = typeof(DataSprite).ToString(),
+                select = false,
+            });
+            items.Add(new ItemInformation()
+            {
+                name = "道具",
+                type = typeof(DataProp).ToString(),
+                select = false,
+            });
+            items.Add(new ItemInformation()
+            {
+                name = "商品",
+                type = typeof(DataCommodity).ToString(),
+                select = false,
+            });
+            items.Add(new ItemInformation()
+            {
+                name = "任务",
+                type = typeof(DataTask).ToString(),
+                select = false,
+            });
+        }
+
+        protected override void Refresh()
+        {
+            GUILayout.BeginHorizontal();
+            {
+                GUILayout.BeginVertical(GUILayout.Width(Width - 200));
+                {
+                    scroll = GUILayout.BeginScrollView(scroll);
+                    {
+                        int count = items.Count;
+
+                        for (int i = 0; i < count; i++)
+                        {
+                            RefreshItem(items[i]);
+                        }
+                    }
+                    GUILayout.EndScrollView();
+                }
+                GUILayout.EndVertical();
+
+                GUILayout.BeginVertical();
+                {
+                    if (GUILayout.Button("Load"))
+                    {
+                        int count = items.Count;
+
+                        for (int i = 0; i < count; i++)
+                        {
+                            if (items[i].select)
+                            {
+                                Load(items[i]);
+                            }
+                        }
+                    }
+
+                    if (GUILayout.Button("LoadAll"))
+                    {
+                        LoadAll();
+                    }
+                }
+                GUILayout.EndVertical();
+            }
+            GUILayout.EndHorizontal();
+        }
+
+        private void RefreshItem(ItemInformation information)
+        {
+            GUILayout.BeginHorizontal();
+            {
+                information.select = EditorGUILayout.Toggle(information.select, GUILayout.Width(30));
+
+                GUILayout.Space(10);
+
+                GUILayout.Label(information.name);
+            }
+            GUILayout.EndHorizontal();
+        }
+
+        private void LoadDataConfig()
         {
             string path = string.Format("{0}/{1}", PATH, "config.json");
 
             var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
 
-            Debuger.Assert(asset != null, "配置数据为空");
+            Debuger.Assert(asset != null, string.Format("{0} is null", path));
 
             if (asset == null) return;
 
@@ -34,39 +145,18 @@ namespace UnityEditor
 
             if (data == null) return;
 
-            data.config = new List<ConfigInformation>();
-            // 一定要记得去掉最后一行的逗号
-            JsonData json = JsonMapper.ToObject(content);
+            data.Set(content);
 
-            if (json.ContainsKey("list"))
-            {
-                JsonData list = json.GetJson("list");
-
-                int count = list.Count;
-
-                for (int i = 0; i < count; i++)
-                {
-                    data.config.Add(new ConfigInformation()
-                    {
-                        key = list[i].GetString("key"),
-                        value = list[i].GetString("value")
-                    });
-                }
-            }
-            else
-            {
-                Debuger.LogError(Author.Data, "多语言解析失败");
-            }
             Save(data);
         }
-        [MenuItem("Data/Load/Text")]
-        protected static void LoadDataText()
+
+        private void LoadDataText()
         {
             string path = string.Format("{0}/{1}", PATH, "language.json");
 
             var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
 
-            Debuger.Assert(asset != null, "多语言数据为空");
+            Debuger.Assert(asset != null, string.Format("{0} is null", path));
 
             if (asset == null) return;
 
@@ -80,35 +170,12 @@ namespace UnityEditor
 
             if (data == null) return;
 
-            data.dictionary = new DataText.Dictionary();
-            // 一定要记得去掉最后一行的逗号
-            JsonData json = JsonMapper.ToObject(content);
+            data.Set(content);
 
-            if (json.ContainsKey("list"))
-            {
-                JsonData list = json.GetJson("list");
-
-                string language = data.language.ToString().ToLower();
-
-                int count = list.Count;
-
-                for (int i = 0; i < count; i++)
-                {
-                    data.dictionary.words.Add(new DataText.Word()
-                    {
-                        key = list[i].GetString("key"),
-                        value = list[i].GetString(language)
-                    });
-                }
-            }
-            else
-            {
-                Debuger.LogError(Author.Data, "多语言解析失败");
-            }
             Save(data);
         }
-        [MenuItem("Data/Load/Sprite")]
-        protected static void LoadDataSprite()
+
+        private void LoadDataSprite()
         {
             DataSprite data = Load<DataSprite>();
 
@@ -155,14 +222,14 @@ namespace UnityEditor
             }
             Save(data);
         }
-        [MenuItem("Data/Load/Prop")]
-        protected static void LoadDataProp()
+
+        private void LoadDataProp()
         {
             string path = string.Format("{0}/{1}", PATH, "prop.json");
 
             var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
 
-            Debuger.Assert(asset != null, "道具数据为空");
+            Debuger.Assert(asset != null, string.Format("{0} is null", path));
 
             if (asset == null) return;
 
@@ -176,50 +243,100 @@ namespace UnityEditor
 
             if (data == null) return;
 
-            data.props = new List<PropInformation>();
-            // 一定要记得去掉最后一行的逗号
-            JsonData json = JsonMapper.ToObject(content);
+            data.Set(content);
 
-            if (json.ContainsKey("list"))
-            {
-                JsonData list = json.GetJson("list");
-
-                int count = list.Count;
-
-                for (int i = 0; i < count; i++)
-                {
-                    data.props.Add(new PropInformation()
-                    {
-                        primary = list[i].GetUInt("ID"),
-                        name = list[i].GetString("name"),
-                        icon = list[i].GetString("icon"),
-                        category = list[i].GetInt("category"),
-                        quality = list[i].GetByte("quality"),
-                        price = list[i].GetFloat("price"),
-                        source = list[i].GetInt("source"),
-                        description = list[i].GetString("description")
-                    });
-                }
-            }
-            else
-            {
-                Debuger.LogError(Author.Data, "多语言解析失败");
-            }
             Save(data);
         }
-        [MenuItem("Data/Load/All")]
-        protected static void LoadAll()
-        {
 
-        }
-        #endregion
-        [MenuItem("Data/Load/Editor", priority = 0)]
-        protected static void Open()
+        private void LoadDataCommodity()
         {
-            Open<DataLoader>("数据加载");
+            string path = string.Format("{0}/{1}", PATH, "commodity.json");
+
+            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
+
+            Debuger.Assert(asset != null, string.Format("{0} is null", path));
+
+            if (asset == null) return;
+
+            string content = asset.text;
+
+            if (string.IsNullOrEmpty(content)) return;
+
+            DataCommodity data = Load<DataCommodity>();
+
+            Debuger.Assert(data != null, "商品DB为空");
+
+            if (data == null) return;
+
+            data.Set(content);
+
+            Save(data);
         }
 
-        protected static T Load<T>() where T : ScriptableObject
+        private void LoadDataTask()
+        {
+            string path = string.Format("{0}/{1}", PATH, "task.json");
+
+            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
+
+            Debuger.Assert(asset != null, string.Format("{0} is null", path));
+
+            if (asset == null) return;
+
+            string content = asset.text;
+
+            if (string.IsNullOrEmpty(content)) return;
+
+            DataTask data = Load<DataTask>();
+
+            Debuger.Assert(data != null, "任务DB为空");
+
+            if (data == null) return;
+
+            data.Set(content);
+
+            Save(data);
+        }
+
+        private void Load(ItemInformation information)
+        {
+            if (information.type == typeof(DataConfig).ToString())
+            {
+                LoadDataConfig();
+            }
+            else if (information.type == typeof(DataText).ToString())
+            {
+                LoadDataText();
+            }
+            else if (information.type == typeof(DataSprite).ToString())
+            {
+                LoadDataSprite();
+            }
+            else if (information.type == typeof(DataProp).ToString())
+            {
+                LoadDataProp();
+            }
+            else if (information.type == typeof(DataCommodity).ToString())
+            {
+                LoadDataCommodity();
+            }
+            else if (information.type == typeof(DataTask).ToString())
+            {
+                LoadDataTask();
+            }
+        }
+
+        private void LoadAll()
+        {
+            int count = items.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                Load(items[i]);
+            }
+        }
+
+        private T Load<T>() where T : ScriptableObject
         {
             string path = string.Format("Assets/Package/Data/{0}.asset", typeof(T).Name);
 
@@ -228,7 +345,7 @@ namespace UnityEditor
             return asset;
         }
 
-        protected static void Save(Object data)
+        private void Save(Object data)
         {
             EditorUtility.SetDirty(data);
 
@@ -236,9 +353,5 @@ namespace UnityEditor
 
             AssetDatabase.Refresh();
         }
-
-        protected override void Initialise() { }
-
-        protected override void Refresh() { }
     }
 }

@@ -1,4 +1,7 @@
+using Game;
+using LitJson;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Data
 {
@@ -16,12 +19,42 @@ namespace Data
             return props.Find(x => x.primary == key);
         }
 
-        protected override void Editor()
+        public override void Set(string content)
         {
-            for (int i = 0; i < props.Count; i++)
+            base.Set(content);
+            // 一定要记得去掉最后一行的逗号
+            JsonData json = JsonMapper.ToObject(content);
+
+            if (json.ContainsKey("list"))
             {
-                props[i].primary = (uint)i;
+                JsonData list = json.GetJson("list");
+
+                int count = list.Count;
+
+                for (int i = 0; i < count; i++)
+                {
+                    props.Add(new PropInformation()
+                    {
+                        primary = list[i].GetUInt("ID"),
+                        name = list[i].GetString("name"),
+                        icon = list[i].GetString("icon"),
+                        category = list[i].GetInt("category"),
+                        quality = list[i].GetByte("quality"),
+                        price = list[i].GetFloat("price"),
+                        source = list[i].GetInt("source"),
+                        description = list[i].GetString("description")
+                    });
+                }
             }
+            else
+            {
+                Debuger.LogError(Author.Data, "道具DB解析失败");
+            }
+        }
+
+        public override void Clear()
+        {
+            props = new List<PropInformation>();
         }
     }
     [System.Serializable]

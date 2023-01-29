@@ -31,11 +31,6 @@ namespace Data
         {
             return textures.Find(x => x.name == name);
         }
-
-        protected override void Editor()
-        {
-            
-        }
     }
     [System.Serializable]
     public class AtlasInformation : InformationBase

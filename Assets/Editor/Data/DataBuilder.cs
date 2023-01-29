@@ -8,20 +8,20 @@ namespace UnityEditor
     {
         public const string PATH = "Assets/Package/Data";
         #region Create
-        [MenuItem("Data/Create/Text", priority = 0)]
-        protected static void Create_Text()
-        {
-            Create<DataText>();
-        }
-        [MenuItem("Data/Create/Sprite", priority = 1)]
-        protected static void Create_Sprite()
-        {
-            Create<DataSprite>();
-        }
         [MenuItem("Data/Create/Config")]
         protected static void Create_Config()
         {
             Create<DataConfig>();
+        }
+        [MenuItem("Data/Create/Text")]
+        protected static void Create_Text()
+        {
+            Create<DataText>();
+        }
+        [MenuItem("Data/Create/Sprite")]
+        protected static void Create_Sprite()
+        {
+            Create<DataSprite>();
         }
         [MenuItem("Data/Create/Prop")]
         protected static void Create_Prop()
@@ -30,7 +30,7 @@ namespace UnityEditor
         }
         #endregion
 
-        protected static void Create<T>() where T : ScriptableObject
+        public static void Create<T>() where T : ScriptableObject
         {
             string file = typeof(T).Name;
 

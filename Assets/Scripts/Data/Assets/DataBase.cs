@@ -7,6 +7,15 @@ namespace Data
     /// </summary>
     public abstract class DataBase : ScriptableObject
     {
+        public virtual void Set(string content)
+        {
+            Clear();
+        }
+
+        public virtual void Clear()
+        { 
+            
+        }
         [ContextMenu("Save")]
         protected void MenuSave()
         {

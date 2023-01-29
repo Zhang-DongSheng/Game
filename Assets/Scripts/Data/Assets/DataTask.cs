@@ -10,6 +10,16 @@ namespace Data
         {
             return tasks.Find(x => x.primary == key);
         }
+
+        public override void Set(string content)
+        {
+            base.Set(content);
+        }
+
+        public override void Clear()
+        {
+            base.Clear();
+        }
     }
     [System.Serializable]
     public class TaskInformation : InformationBase
