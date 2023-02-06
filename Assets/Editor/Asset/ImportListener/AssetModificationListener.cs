@@ -6,13 +6,12 @@ namespace UnityEditor.Listener
 {
     public class AssetModificationListener : AssetModificationProcessor
     {
-        public static void OnWillCreateAsset(string path)
+        protected static void OnWillCreateAsset(string path)
         {
             if (path.EndsWith(".meta"))
             {
                 path = path.Replace(".meta", null);
             }
-
             string extension = Path.GetExtension(path);
 
             switch (extension)
@@ -23,6 +22,11 @@ namespace UnityEditor.Listener
                 default:
                     break;
             }
+        }
+
+        protected static string[] OnWillSaveAssets(string[] paths)
+        {
+            return paths;
         }
 
         private static void ScriptEncoding(string path)

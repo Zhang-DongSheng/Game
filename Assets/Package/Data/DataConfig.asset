@@ -12,34 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0782164ea3583314da0cb8f9daf43264, type: 3}
   m_Name: DataConfig
   m_EditorClassIdentifier: 
-  config:
-  - primary: 0
-    key: B
-    value: 1
-  - primary: 0
-    key: C
-    value: 2.5
-  - primary: 0
-    key: D
-    value: aaa
-  - primary: 0
-    key: E
-    value: bbb
-  - primary: 0
-    key: F
-    value: aaa
-  - primary: 0
-    key: G
-    value: bbb
-  - primary: 0
-    key: H
-    value: aaa
-  - primary: 0
-    key: I
-    value: bbb
-  - primary: 0
-    key: J
-    value: aaa
-  - primary: 0
-    key: K
-    value: bbb
+  config: []
