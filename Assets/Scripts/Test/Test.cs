@@ -1,13 +1,7 @@
 ﻿using Game.Attribute;
 using Game.Network;
-using Game.Pool;
-using Game.UI;
 using Protobuf;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
 
 namespace Game.Test
@@ -48,42 +42,20 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            for (int i = 0; i < 5; i++)
-            {
-                Debuger.Log(Author.Test, Utility.Random.Range(1, 5));
-            }
+            int index = Utility.Enum.Index<TT>(2);
 
-            Debuger.Log(Author.Test, "___________________________________");
+            Debuger.LogError(Author.Test, index);
+
+            TT t = Utility.Enum.FromString<TT>("Two");
+
+            Debuger.LogError(Author.Test, t.ToString());
         }
         /// <summary>
         /// 点击测试
         /// </summary>
         public void OnClick()
         {
-            var scroll = transform.parent.Find("Scroll/View Port/Content");
-
-            var list = new List<int>();
-
-            for(int i = 0;i<100;i++)
-            {
-                list.Add(i);
-            };
-            scroll.GetComponent<UnregularLayout>().Create(list,(index)=>
-            {
-                switch (index % 5)
-                {
-                    case 1:
-                        return new Vector2(50,100);
-                    case 2:
-                        return new Vector2(100, 100);
-                    case 3:
-                        return new Vector2(200, 100);
-                    case 4:
-                        return new Vector2(250, 100);
-                    default:
-                        return new Vector2(150, 100);
-                }
-            });
+            
         }
         /// <summary>
         /// 菜单栏测试
@@ -91,15 +63,7 @@ namespace Game.Test
         [ContextMenu("OnClick")]
         public void OnClickContextMenu()
         {
-            var scroll = transform.parent.Find("Scroll/View Port/Content");
-
-            var list = new List<int>();
-
-            for (int i = 0; i < 50; i++)
-            {
-                list.Add(i);
-            };
-            scroll.GetComponent<UnregularLayout>().Refresh(list);
+            
         }
 
         public void OnClickButton(float index)
@@ -144,5 +108,13 @@ namespace Game.Test
         {
             Debug.LogError(name + "[  ]" + XX);
         }
+    }
+
+    public enum TT
+    { 
+        One = 1,
+        Two = 2,
+        Three = 3,
+        Four = 4,
     }
 }
