@@ -33,13 +33,15 @@ namespace Game.Pool
                     Debuger.LogWarning(Author.Resource, string.Format("PoolObject Error. Trying to push object that is already in the pool, obj = {0}", value));
                     return;
                 }
-                m_pool[key].Push(value);
+                m_pool[key].Push(value); value.OnRecycle();
             }
             else
             {
                 var stack = new Stack<PoolObject>();
 
                 stack.Push(value);
+
+                value.OnRecycle();
 
                 m_pool.Add(key, stack);
             }
@@ -49,7 +51,7 @@ namespace Game.Pool
         {
             GameObject prefab = ResourceManager.Load<GameObject>(key);
 
-            Debuger.Assert(prefab == null, string.Format("PoolObject Error. Load is Null: {0}", key));
+            Debuger.Assert(prefab != null, string.Format("PoolObject Error. Load is Null: {0}", key));
 
             GameObject instance = Instantiate(prefab);
 
@@ -57,11 +59,11 @@ namespace Game.Pool
 
             PoolObject component = instance.GetComponent<PoolObject>();
 
-            Debuger.Assert(component == null, string.Format("PoolObject Error. component is Null: {0}", key));
+            Debuger.Assert(component != null, string.Format("PoolObject Error. component is Null: {0}", key));
 
             component.OnCreate(key);
 
-            return null;
+            return component;
         }
 
         public void Clear(string key)

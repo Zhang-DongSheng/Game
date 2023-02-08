@@ -48,9 +48,7 @@ namespace Game.UI
 
         private void OnValidate()
         {
-            GameObject source = null;
-
-            Ensure.That(nameof(source)).IsNotNull(source);
+            
         }
 
         protected override void OnUpdate(float delta)

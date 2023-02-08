@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Pool
@@ -17,17 +15,25 @@ namespace Game.Pool
 
         public virtual void OnFetch()
         {
-
+            SetActive(true);
         }
 
         public virtual void OnRecycle()
         {
-
+            SetActive(false);
         }
 
         public virtual void OnDestory()
         {
             GameObject.Destroy(gameObject);
+        }
+
+        public virtual void SetActive(bool active)
+        {
+            if (gameObject && gameObject.activeSelf != active)
+            {
+                gameObject.SetActive(active);
+            }
         }
 
         protected virtual void OnDisable()

@@ -1,4 +1,5 @@
-﻿using Game.Attribute;
+﻿using Data;
+using Game.Attribute;
 using Game.Network;
 using Protobuf;
 using UnityEngine;
@@ -42,13 +43,11 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            int index = Utility.Enum.Index<TT>(2);
+            float x = float.Parse(paramters[0]);
 
-            Debuger.LogError(Author.Test, index);
+            float v = Mathf.Pow(x, 0.2f) * 1000 - 900;
 
-            TT t = Utility.Enum.FromString<TT>("Two");
-
-            Debuger.LogError(Author.Test, t.ToString());
+            Debuger.Log(Author.Test, v);
         }
         /// <summary>
         /// 点击测试
@@ -102,11 +101,15 @@ namespace Game.Test
         {
             get; set;
         }
-        public float value { get { return weight; } }
 
         public void Do()
         {
             Debug.LogError(name + "[  ]" + XX);
+        }
+
+        public float Value()
+        {
+            return weight;
         }
     }
 

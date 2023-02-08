@@ -1,7 +1,8 @@
 using System;
 using System.Net;
+using UnityEngine;
 
-namespace UnityEngine
+namespace Game
 {
     public class TimeSynchronization : MonoSingleton<TimeSynchronization>
     {

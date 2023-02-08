@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Game
+namespace Data
 {
     public interface IWeight
     {
-        public float value { get; }
+        public float Value();
     }
 }

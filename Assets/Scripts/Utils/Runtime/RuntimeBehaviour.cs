@@ -6,17 +6,17 @@ namespace Game
     {
         protected virtual void OnEnable()
         {
-            if (this.Override("OnFixedUpdate"))
+            if (this.Override(nameof(OnFixedUpdate)))
             {
                 RuntimeManager.Instance.Register(RuntimeEvent.FixedUpdate, OnFixedUpdate);
             }
 
-            if (this.Override("OnUpdate"))
+            if (this.Override(nameof(OnUpdate)))
             {
                 RuntimeManager.Instance.Register(RuntimeEvent.Update, OnUpdate);
             }
 
-            if (this.Override("OnLateUpdate"))
+            if (this.Override(nameof(OnLateUpdate)))
             {
                 RuntimeManager.Instance.Register(RuntimeEvent.LateUpdate, OnLateUpdate);
             }

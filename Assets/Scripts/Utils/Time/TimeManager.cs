@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using UnityEngine;
 
-namespace UnityEngine
+namespace Game
 {
     public sealed class TimeManager : MonoSingleton<TimeManager>
     {
