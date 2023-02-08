@@ -1,6 +1,4 @@
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
 using UnityEngine;
@@ -13,6 +11,7 @@ namespace Utils
     /// </summary>
     public class CaptureScreen : MonoBehaviour
     {
+        /*
         [SerializeField] private RawImage image;
 
         [SerializeField] private RectInt rect;
@@ -102,5 +101,6 @@ namespace Utils
 
             over = false;
         }
+        */
     }
 }
