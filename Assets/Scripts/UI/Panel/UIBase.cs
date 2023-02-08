@@ -50,6 +50,27 @@ namespace Game.UI
             }
         }
 
+        public void SetActive(bool active)
+        {
+            SetActive(this.gameObject, active);
+        }
+
+        public void SetActive(GameObject go, bool active)
+        {
+            if (go != null && go.activeSelf != active)
+            {
+                go.SetActive(active);
+            }
+        }
+
+        public void SetActive(Component component, bool active)
+        {
+            if (component != null)
+            {
+                SetActive(component.gameObject, active);
+            }
+        }
+
         protected virtual void Relevance()
         {
             Extension.Relevance(this);

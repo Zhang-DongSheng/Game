@@ -89,7 +89,7 @@ namespace Game.UI
 
             if (index != -1)
             {
-                items[index].Destroy();
+                GameObject.Destroy(items[index].gameObject);
                 items.RemoveAt(index);
             }
 

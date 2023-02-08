@@ -4,27 +4,33 @@ namespace Game
 {
     public abstract class RuntimeBehaviour : MonoBehaviour
     {
+        protected RuntimeParameter parameter = new RuntimeParameter();
+
         protected virtual void OnEnable()
         {
-            if (this.Override(nameof(OnFixedUpdate)))
-            {
-                RuntimeManager.Instance.Register(RuntimeEvent.FixedUpdate, OnFixedUpdate);
-            }
+            Register(RuntimeEvent.FixedUpdate, OnFixedUpdate);
 
-            if (this.Override(nameof(OnUpdate)))
-            {
-                RuntimeManager.Instance.Register(RuntimeEvent.Update, OnUpdate);
-            }
+            Register(RuntimeEvent.Update, OnUpdate);
 
-            if (this.Override(nameof(OnLateUpdate)))
-            {
-                RuntimeManager.Instance.Register(RuntimeEvent.LateUpdate, OnLateUpdate);
-            }
+            Register(RuntimeEvent.LateUpdate, OnLateUpdate);
         }
 
         protected virtual void OnDisable()
         {
-            RuntimeManager.Instance.Unregister(RuntimeEvent.Update, OnUpdate);
+            Unregister(RuntimeEvent.FixedUpdate, OnFixedUpdate);
+
+            Unregister(RuntimeEvent.Update, OnUpdate);
+
+            Unregister(RuntimeEvent.LateUpdate, OnLateUpdate);
+        }
+
+        protected virtual void OnDestroy()
+        {
+            Unregister(RuntimeEvent.FixedUpdate, OnFixedUpdate);
+
+            Unregister(RuntimeEvent.Update, OnUpdate);
+
+            Unregister(RuntimeEvent.LateUpdate, OnLateUpdate);
         }
 
         protected virtual void OnUpdate(float delta)
@@ -42,24 +48,27 @@ namespace Game
 
         }
 
-        protected virtual void SetActive(bool active)
+        protected void Register(RuntimeEvent key, FunctionBySingle function)
         {
-            SetActive(this.gameObject, active);
-        }
-
-        protected virtual void SetActive(GameObject go, bool active)
-        {
-            if (go != null && go.activeSelf != active)
+            if (this.Override(function.Method.Name))
             {
-                go.SetActive(active);
+                RuntimeManager.Instance.Register(key, function);
+
+                parameter.events.Add(key);
             }
         }
 
-        protected virtual void SetActive(Component component, bool active)
+        protected void Unregister(RuntimeEvent key, FunctionBySingle function)
         {
-            if (component != null)
+            int index = parameter.events.FindIndex(x => x == key);
+
+            if (index < 0) return;
+
+            parameter.events.RemoveAt(index);
+
+            if (this.Override(function.Method.Name))
             {
-                SetActive(component.gameObject, active);
+                RuntimeManager.Instance.Unregister(key, function);
             }
         }
     }
