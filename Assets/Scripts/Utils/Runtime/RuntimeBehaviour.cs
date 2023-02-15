@@ -33,28 +33,19 @@ namespace Game
             Unregister(RuntimeEvent.LateUpdate, OnLateUpdate);
         }
 
-        protected virtual void OnUpdate(float delta)
-        {
+        protected virtual void OnUpdate(float delta) { }
 
-        }
+        protected virtual void OnFixedUpdate(float delta) { }
 
-        protected virtual void OnFixedUpdate(float delta)
-        {
-
-        }
-
-        protected virtual void OnLateUpdate(float delta)
-        {
-
-        }
+        protected virtual void OnLateUpdate(float delta) { }
 
         protected void Register(RuntimeEvent key, FunctionBySingle function)
         {
             if (this.Override(function.Method.Name))
             {
-                RuntimeManager.Instance.Register(key, function);
-
                 parameter.events.Add(key);
+
+                RuntimeManager.Instance.Register(key, function);
             }
         }
 

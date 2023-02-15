@@ -56,5 +56,17 @@ namespace Game.UI
                 SetActive(component.gameObject, active);
             }
         }
+
+        protected virtual void ShowOrHide(bool state)
+        {
+            if (TryGetComponent(out CanvasGroup canvas))
+            {
+                canvas.alpha = state ? 1 : 0;
+
+                canvas.interactable = state;
+
+                canvas.blocksRaycasts = state;
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace Game.Model
 {
-    public class RayTouch : RuntimeBehaviour
+    public class RayTouch : MonoBehaviour
     {
         [Tooltip("相机")]
         [SerializeField] private Camera viewer;
@@ -51,7 +51,7 @@ namespace Game.Model
             }
         }
 
-        protected override void OnUpdate(float delta)
+        private void Update()
         {
             switch (mode)
             {

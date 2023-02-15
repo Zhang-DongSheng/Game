@@ -71,12 +71,24 @@ namespace Game.UI
             }
         }
 
+        public void ShowOrHide(bool state)
+        {
+            if (TryGetComponent(out CanvasGroup canvas))
+            {
+                canvas.alpha = state ? 1 : 0;
+
+                canvas.interactable = state;
+
+                canvas.blocksRaycasts = state;
+            }
+        }
+
         protected virtual void Relevance()
         {
             Extension.Relevance(this);
         }
         [ContextMenu("Relevance")]
-        protected void MenuRelevance()
+        protected void RelevanceMenu()
         {
             Relevance();
         }

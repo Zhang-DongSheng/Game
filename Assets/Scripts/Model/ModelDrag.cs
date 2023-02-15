@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Model
 {
-    public class ModelDrag : RuntimeBehaviour
+    public class ModelDrag : MonoBehaviour
     {
         [SerializeField] private GameObject model;
 
@@ -14,7 +12,7 @@ namespace Game.Model
 
         public ModelDragStatus status { get; private set; }
 
-        protected override void OnUpdate(float delta)
+        private void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
