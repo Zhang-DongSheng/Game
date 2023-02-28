@@ -57,10 +57,10 @@ namespace Game.Pool
 
             instance.name = prefab.name;
 
-            PoolObject component = instance.GetComponent<PoolObject>();
-
-            Debuger.Assert(component != null, string.Format("PoolObject Error. component is Null: {0}", key));
-
+            if (!instance.TryGetComponent(out PoolObject component))
+            {
+                component = instance.AddComponent<PoolObject>();
+            }
             component.OnCreate(key);
 
             return component;

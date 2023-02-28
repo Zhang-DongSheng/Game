@@ -196,6 +196,11 @@ namespace UnityEditor.Window
                                             task.progress = GUILayout.HorizontalSlider(task.progress, 0, 100, options[1]);
                                         }
                                         break;
+                                    case Status.Fail:
+                                        { 
+                                            
+                                        }
+                                        break;
                                 }
                             }
                             break;
@@ -289,6 +294,7 @@ namespace UnityEditor.Window
             Develop,
             Test,
             Done,
+            Fail,
         }
     }
 }

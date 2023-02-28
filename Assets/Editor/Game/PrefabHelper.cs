@@ -1,5 +1,4 @@
 using Game;
-using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -51,13 +50,34 @@ namespace UnityEditor.Game
             return prefab;
         }
 
-        public static void Modify(string path, Action<GameObject> callback)
+        public static void Modify(string path, System.Action<GameObject> callback)
         {
             GameObject prefab = PrefabUtility.LoadPrefabContents(path);
 
             callback?.Invoke(prefab);
 
             PrefabUtility.SavePrefabAsset(prefab);
+        }
+
+        public static void ConvertTo<T>(Object context) where T : MonoBehaviour
+        {
+            var target = context as MonoBehaviour;
+            var so = new SerializedObject(target);
+            so.Update();
+
+            bool oldEnable = target.enabled;
+            target.enabled = false;
+
+            foreach (var script in Resources.FindObjectsOfTypeAll<MonoScript>())
+            {
+                if (script.GetClass() != typeof(T))
+                    continue;
+                so.FindProperty("m_Script").objectReferenceValue = script;
+                so.ApplyModifiedProperties();
+                break;
+            }
+
+            (so.targetObject as MonoBehaviour).enabled = oldEnable;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Data;
 using Game.Attribute;
 using Game.Network;
+using Game.Pool;
 using Protobuf;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,6 +55,10 @@ namespace Game.Test
         /// </summary>
         public void OnClick()
         {
+            string key = "Package/Prefab/Model/Role/MODEL ANIMATION.prefab";
+
+            var go = PoolManager.Instance.Pop(key);
+
             
         }
         /// <summary>

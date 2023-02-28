@@ -22,6 +22,7 @@ namespace Game
             while (true)
             {
                 if (method != null) method.Invoke();
+
                 yield return new WaitForSeconds(repeatRateInSeconds);
             }
         }
@@ -29,6 +30,7 @@ namespace Game
         internal static IEnumerator InvokeSafeRoutine(System.Action method, float delayInSeconds)
         {
             yield return new WaitForSeconds(delayInSeconds);
+
             if (method != null) method.Invoke();
         }
     }
