@@ -1,6 +1,10 @@
+using Game;
+using System;
 using System.Collections.Generic;
+using UnityEditor.Game;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace UnityEditor.Window
 {
@@ -27,6 +31,8 @@ namespace UnityEditor.Window
         private readonly TextInformation text = new TextInformation();
 
         private readonly GraphicInformation graphic = new GraphicInformation();
+
+        private readonly ComponentInformation component = new ComponentInformation();
 
         public override string Name => "Prefab";
 
@@ -160,6 +166,44 @@ namespace UnityEditor.Window
                     Missing(file.asset);
                 }
             }
+
+            GUILayout.BeginHorizontal();
+            {
+                component.from = EditorGUILayout.ObjectField(component.from, typeof(MonoScript), false) as MonoScript;
+
+                GUILayout.Label(" > ", GUILayout.Width(25));
+
+                component.to = EditorGUILayout.ObjectField(component.to, typeof(MonoScript), false) as MonoScript;
+            }
+            GUILayout.EndHorizontal();
+
+            if (GUILayout.Button("modify"))
+            {
+                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(file.asset);
+
+                if (component.from != null && component.to != null && component.from != component.to)
+                {
+                    Type from = component.from.GetClass();
+
+                    if (!from.IsInherit(typeof(Component)))
+                    {
+                        ShowNotification(string.Format("The from type of {0} is can't inherit Component!", component.from.name));
+                        return;
+                    }
+                    else if (!component.to.GetClass().IsInherit(typeof(Component)))
+                    {
+                        ShowNotification(string.Format("The to type of {0} is can't inherit Component!", component.to.name));
+                        return;
+                    }
+                    var components = prefab.GetComponentsInChildren(from);
+
+                    for (int i = 0; i < components.Length; i++)
+                    {
+                        PrefabHelper.Replace(components[i], component.to);
+                    }
+                }
+                PrefabUtility.SavePrefabAsset(prefab); indexPrefab.Execute();
+            }
         }
 
         private void RefreshGraphic()
@@ -231,9 +275,9 @@ namespace UnityEditor.Window
                         {
                             case TextInformation.Extra.Shadow:
                                 {
-                                    RemoveComponent<Outline>(texts[i]);
+                                    texts[i].RemoveComponent<Outline>();
 
-                                    var shadow = AddComponent<Shadow>(texts[i]);
+                                    var shadow = texts[i].AddOrReplaceComponent<Shadow>();
 
                                     shadow.effectColor = text.shadow;
 
@@ -242,9 +286,9 @@ namespace UnityEditor.Window
                                 break;
                             case TextInformation.Extra.Outline:
                                 {
-                                    RemoveComponent<Shadow>(texts[i]);
+                                    texts[i].RemoveComponent<Shadow>();
 
-                                    var outline = AddComponent<Outline>(texts[i]);
+                                    var outline = texts[i].AddOrReplaceComponent<Outline>();
 
                                     outline.effectColor = text.shadow;
 
@@ -253,9 +297,9 @@ namespace UnityEditor.Window
                                 break;
                             case TextInformation.Extra.Clear:
                                 {
-                                    RemoveComponent<Shadow>(texts[i]);
+                                    texts[i].RemoveComponent<Shadow>();
 
-                                    RemoveComponent<Outline>(texts[i]);
+                                    texts[i].RemoveComponent<Outline>();
                                 }
                                 break;
                         }
@@ -310,30 +354,12 @@ namespace UnityEditor.Window
             }
             return missing;
         }
-
-        private T AddComponent<T>(Component target) where T : Component
+        [System.Serializable]
+        class ComponentInformation
         {
-            if (target == null) return null;
+            public MonoScript from;
 
-            if (target.TryGetComponent(out T component))
-            {
-
-            }
-            else
-            {
-                component = target.gameObject.AddComponent<T>();
-            }
-            return component;
-        }
-
-        private void RemoveComponent<T>(Component target) where T : Component
-        {
-            if (target == null) return;
-
-            if (target.TryGetComponent(out T component))
-            {
-                UnityEngine.Object.DestroyImmediate(component, true);
-            }
+            public MonoScript to;
         }
         [System.Serializable]
         class GraphicInformation

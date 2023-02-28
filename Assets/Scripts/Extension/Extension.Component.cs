@@ -14,7 +14,11 @@ namespace Game
         {
             if (component != null && component.gameObject is GameObject go)
             {
-                if (!go.TryGetComponent(out T _component))
+                if (component.TryGetComponent(out T _component))
+                {
+
+                }
+                else
                 {
                     _component = go.AddComponent<T>();
                 }
@@ -31,7 +35,14 @@ namespace Game
             {
                 if (go.TryGetComponent(out T _component))
                 {
-                    UnityEngine.Object.Destroy(_component);
+                    if (Application.isPlaying)
+                    {
+                        UnityEngine.Object.Destroy(_component);
+                    }
+                    else
+                    {
+                        UnityEngine.Object.DestroyImmediate(_component, true);
+                    }
                 }
             }
         }

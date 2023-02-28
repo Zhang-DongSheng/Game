@@ -1,4 +1,5 @@
 using Game;
+using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -59,9 +60,9 @@ namespace UnityEditor.Game
             PrefabUtility.SavePrefabAsset(prefab);
         }
 
-        public static void ConvertTo<T>(Object context) where T : MonoBehaviour
+        public static void Replace(UnityEngine.Object from, Type to)
         {
-            var target = context as MonoBehaviour;
+            var target = from as MonoBehaviour;
             var so = new SerializedObject(target);
             so.Update();
 
@@ -70,14 +71,22 @@ namespace UnityEditor.Game
 
             foreach (var script in Resources.FindObjectsOfTypeAll<MonoScript>())
             {
-                if (script.GetClass() != typeof(T))
+                if (script.GetClass() != to)
                     continue;
                 so.FindProperty("m_Script").objectReferenceValue = script;
                 so.ApplyModifiedProperties();
                 break;
             }
-
             (so.targetObject as MonoBehaviour).enabled = oldEnable;
+        }
+
+        public static void Replace(UnityEngine.Object from, MonoScript to)
+        {
+            var target = from as MonoBehaviour;
+            var so = new SerializedObject(target);
+            so.Update();
+            so.FindProperty("m_Script").objectReferenceValue = to;
+            so.ApplyModifiedProperties();
         }
     }
 }

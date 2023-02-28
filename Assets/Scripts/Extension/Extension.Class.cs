@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Game
@@ -273,6 +274,26 @@ namespace Game
                 }
             }
             return children;
+        }
+
+        public static bool IsInherit(this Type script, Type parent)
+        {
+            if (!script.IsClass) return false;
+
+            bool inherit = false;
+
+            Type children = script;
+
+            while (children != null)
+            {
+                if (children.BaseType.Equals(parent))
+                {
+                    inherit = true;
+                    break;
+                }
+                children = children.BaseType;
+            }
+            return inherit;
         }
     }
 }
