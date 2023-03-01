@@ -5,7 +5,7 @@ namespace UnityEngine.UI
 {
     public class TabGroup : MonoBehaviour
     {
-        [SerializeField] private PrefabAndParent prefab;
+        [SerializeField] private PrefabTemplateBehaviour prefab;
 
         private readonly List<Tab> items = new List<Tab>();
 

@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 
 namespace UnityEditor.Game
 {
-    public static class ScriptHelper
+    public static class ScriptHandler
     {
         public static Object Create(string path)
         {

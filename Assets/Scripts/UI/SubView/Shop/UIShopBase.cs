@@ -8,7 +8,7 @@ namespace Game.UI
     {
         [SerializeField] protected CounterCategory category;
 
-        [SerializeField] protected PrefabAndParent prefab;
+        [SerializeField] protected PrefabTemplateBehaviour prefab;
 
         protected readonly List<ItemCommodity> commodities = new List<ItemCommodity>();
 

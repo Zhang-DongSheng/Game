@@ -1,18 +1,29 @@
-using System;
-
 namespace UnityEngine
 {
     /// <summary>
-    /// 预制体实例对象
+    /// 预制体实例组件
     /// </summary>
-    [Serializable]
-    public class PrefabAndParent
+    [DisallowMultipleComponent]
+    public class PrefabTemplateBehaviour : MonoBehaviour
+    {
+        public PrefabTemplate template;
+
+        public GameObject Create()
+        {
+            return template.Create();
+        }
+
+        public T Create<T>() where T : Component
+        {
+            return template.Create<T>();
+        }
+    }
+    [System.Serializable]
+    public class PrefabTemplate
     {
         public Transform parent;
 
         public GameObject prefab;
-
-        public string name;
 
         public GameObject Create()
         {

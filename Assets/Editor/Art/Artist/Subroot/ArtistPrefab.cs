@@ -199,7 +199,7 @@ namespace UnityEditor.Window
 
                     for (int i = 0; i < components.Length; i++)
                     {
-                        PrefabHelper.Replace(components[i], component.to);
+                        PrefabHandler.Replace(components[i], component.to);
                     }
                 }
                 PrefabUtility.SavePrefabAsset(prefab); indexPrefab.Execute();

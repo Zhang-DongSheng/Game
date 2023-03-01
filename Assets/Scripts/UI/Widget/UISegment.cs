@@ -8,7 +8,7 @@ namespace UnityEngine.UI
     {
         public Action<GameObject, object> callback;
 
-        [SerializeField] private PrefabAndParent prefab;
+        [SerializeField] private PrefabTemplateBehaviour prefab;
 
         [SerializeField] private ScrollRect scroll;
 

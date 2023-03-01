@@ -35,13 +35,13 @@ namespace UnityEditor.Window
 
                 string path = string.Format("Assets/{0}{1}.cs", SCRIPT, content);
 
-                ScriptHelper.Create(path);
+                ScriptHandler.Create(path);
 
                 AssetDatabase.Refresh();
 
                 path = string.Format("Assets/{0}{1}.prefab", PREFAB, content);
 
-                PrefabHelper.CreateUGUI(path);
+                PrefabHandler.CreateUGUI(path);
 
                 AssetDatabase.Refresh();
 

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace UnityEditor.Game
 {
-    public static class PrefabHelper
+    public static class PrefabHandler
     {
         public static GameObject Create(string path)
         {
@@ -58,6 +58,12 @@ namespace UnityEditor.Game
             callback?.Invoke(prefab);
 
             PrefabUtility.SavePrefabAsset(prefab);
+        }
+
+        public static void CopyComponent(Component component, GameObject target)
+        {
+            UnityEditorInternal.ComponentUtility.CopyComponent(component);
+            UnityEditorInternal.ComponentUtility.PasteComponentAsNew(target);
         }
 
         public static void Replace(UnityEngine.Object from, Type to)
