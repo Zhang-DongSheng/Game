@@ -1,28 +1,35 @@
 using System;
 using System.Collections.Generic;
-
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 namespace UnityEngine
 {
     /// <summary>
     /// ‘§÷∆ÃÂ÷˙ ÷
     /// </summary>
     [ExecuteInEditMode]
-    public class PrefabHelper : MonoBehaviour
+    public class PrefabEditor : MonoBehaviour
     {
+#if UNITY_EDITOR
         public Transform target;
 
-        public List<GameObject> templates;
-
-        public Component component;
+        public MonoScript component;
 
         public string path;
+
+        public int order = -1;
+
+        public bool destroy;
+
+        public List<GameObject> templates;
 
         private void Awake()
         {
             if (target == null)
                 target = transform;
         }
-
+        [ContextMenu("Execute")]
         protected void Execute()
         {
             if (component == null)
@@ -35,7 +42,7 @@ namespace UnityEngine
             }
             else
             {
-                Type type = component.GetType();
+                Type type = component.GetClass();
 
                 var components = target.GetComponentsInChildren(type);
 
@@ -54,9 +61,12 @@ namespace UnityEngine
 
         protected void CreateTemplate(Transform parent)
         {
-            while (parent.childCount > 0)
+            if (destroy)
             {
-                GameObject.DestroyImmediate(parent.GetChild(0).gameObject, true);
+                while (parent.childCount > 0)
+                {
+                    GameObject.DestroyImmediate(parent.GetChild(0).gameObject, true);
+                }
             }
             int count = templates.Count;
 
@@ -67,7 +77,19 @@ namespace UnityEngine
                 go.transform.localScale = Vector3.one;
 
                 go.transform.localPosition = Vector3.zero;
+
+                go.name = templates[i].name;
+
+                if (order > -1)
+                {
+                    go.transform.SetSiblingIndex(order);
+                }
+                else
+                {
+                    go.transform.SetAsLastSibling();
+                }
             }
         }
+#endif
     }
 }
