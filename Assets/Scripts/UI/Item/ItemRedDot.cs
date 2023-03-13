@@ -23,8 +23,10 @@ namespace Game.UI
             Refresh();
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+
             EventManager.Unregister(EventKey.Reddot, Refresh);
         }
 

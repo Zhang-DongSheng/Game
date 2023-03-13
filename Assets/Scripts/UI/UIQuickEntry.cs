@@ -68,5 +68,14 @@ namespace Game.UI
                 ["reward"] = reward,
             });
         }
+
+        public static bool IsOpen(UIPanel panel)
+        {
+            if (UIManager.Instance.TryGetCtrl(panel, out var ctrl))
+            {
+                return ctrl.active;
+            }
+            return false;
+        }
     }
 }

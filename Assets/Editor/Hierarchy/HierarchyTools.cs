@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace UnityEditor
 {
     internal class HierarchyTools
     {
-        [MenuItem("GameObject/Copy Select Path", false)]
+        [MenuItem("GameObject/Copy Select Path", true)]
         internal static bool CopySelectPathDerection()
         {
             return Selection.activeGameObject != null;

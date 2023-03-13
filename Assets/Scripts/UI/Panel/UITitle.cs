@@ -22,7 +22,7 @@ namespace Game.UI
             EventManager.Register(EventKey.UIClose, Refresh);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             EventManager.Unregister(EventKey.UIOpen, Refresh);
 
