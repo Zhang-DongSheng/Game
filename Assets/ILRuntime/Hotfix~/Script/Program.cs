@@ -11,7 +11,7 @@ namespace ILRuntime.Game
 
             GameObject go = new GameObject("Test");
 
-            go.AddComponent<TestView>();
+            go.AddComponent<UITest>();
         }
     }
 }

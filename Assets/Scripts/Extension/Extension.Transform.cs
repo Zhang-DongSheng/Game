@@ -4,11 +4,11 @@ namespace Game
 {
     public static partial class Extension
     {
-        static private Vector3 position;
+        private static Vector3 position;
 
-        static private Vector3 rotation;
+        private static Vector3 rotation;
 
-        static private Vector3 scale;
+        private static Vector3 scale;
         /// <summary>
         /// 设置位置
         /// </summary>
@@ -111,7 +111,7 @@ namespace Game
             }
         }
         /// <summary>
-        /// 查早对象
+        /// 查找对象
         /// </summary>
         public static Transform FindByName(this Transform transform, string name, bool ignore = true)
         {
@@ -153,7 +153,35 @@ namespace Game
             }
             return result;
         }
+        /// <summary>
+        /// 找到目标并获取组件
+        /// </summary>
+        public static T FindComponent<T>(this Transform transform, string path) where T : Component
+        {
+            var target = transform.Find(path);
 
+            if (target != null && target.TryGetComponent(out T component))
+            {
+                return component;
+            }
+            return default;
+        }
+        /// <summary>
+        /// 找到目标并获取对象
+        /// </summary>
+        public static GameObject FindGameObject(this Transform transform, string path)
+        {
+            var target = transform.Find(path);
+
+            if (target != null)
+            {
+                return target.gameObject;
+            }
+            return null;
+        }
+        /// <summary>
+        /// 目标全路径
+        /// </summary>
         public static string FullName(this Transform transform)
         {
             string path = transform.name;

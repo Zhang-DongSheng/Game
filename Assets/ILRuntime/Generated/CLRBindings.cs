@@ -26,7 +26,9 @@ namespace ILRuntime.Runtime.Generated
             System_String_Binding.Register(app);
             UnityEngine_Debug_Binding.Register(app);
             System_DateTime_Binding.Register(app);
+            UnityEngine_Object_Binding.Register(app);
             UnityEngine_GameObject_Binding.Register(app);
+            UnityEngine_Component_Binding.Register(app);
         }
 
         /// <summary>

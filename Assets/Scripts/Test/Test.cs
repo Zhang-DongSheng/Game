@@ -10,6 +10,8 @@ namespace Game.Test
 {
     public class Test : RuntimeBehaviour
     {
+        [SerializeField] private RawImage image;
+
         [SerializeField] private Vector3 position;
 
         [Button("OnClickButton")] public float index;
@@ -33,9 +35,13 @@ namespace Game.Test
 
         protected override void OnUpdate(float delta)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.LeftControl))
             {
-                OnClick();
+                OnClick(0);
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                OnClick(1);
             }
         }
         /// <summary>
@@ -53,11 +59,30 @@ namespace Game.Test
         /// <summary>
         /// 点击测试
         /// </summary>
-        public void OnClick()
+        public void OnClick(int code)
         {
             string key = "Package/Prefab/Model/Role/MODEL ANIMATION.prefab";
 
             var go = PoolManager.Instance.Pop(key);
+
+            switch (code)
+            {
+                case 0:
+                    {
+                        image.texture = Camera.main.GetRenderTexture(1080, 1080);
+                    }
+                    break;
+                case 1:
+                    {
+                        Camera.main.ReleaseRenderTexture();
+                    }
+                    break;
+                default:
+                    { 
+                    
+                    }
+                    break;
+            }
 
             
         }

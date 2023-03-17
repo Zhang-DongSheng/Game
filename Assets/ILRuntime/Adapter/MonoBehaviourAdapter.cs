@@ -61,6 +61,7 @@ namespace ILRuntime
                 {"Awake", new ILMethod() },
                 {"Start", new ILMethod() },
                 {"Update", new ILMethod() },
+                {"Destroy", new ILMethod() },
             };
 
             private void Load()
@@ -84,6 +85,11 @@ namespace ILRuntime
             private void Update()
             {
                 methods["Update"].Invoke();
+            }
+
+            private void OnDestroy()
+            {
+                methods["Destroy"].Invoke();
             }
             #endregion
 

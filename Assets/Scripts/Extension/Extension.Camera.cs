@@ -22,5 +22,38 @@ namespace Game
             }
             return size;
         }
+
+        public static float Zoom(this Camera camera, float value, float min = 0, float max = 180)
+        {
+            if (camera == null) return value;
+
+            value = Mathf.Clamp(value, min, max);
+
+            camera.fieldOfView = value;
+
+            return value;
+        }
+
+        public static RenderTexture GetRenderTexture(this Camera camera, int width, int height)
+        {
+            if (camera.targetTexture == null)
+            {
+                camera.targetTexture = RenderTexture.GetTemporary(width, height, 0);
+
+                RenderTexture.active = camera.targetTexture;
+            }
+            return camera.targetTexture;
+        }
+
+        public static void ReleaseRenderTexture(this Camera camera)
+        {
+            if (camera.targetTexture != null)
+            {
+                RenderTexture.ReleaseTemporary(camera.targetTexture);
+
+                RenderTexture.active = null;
+            }
+            camera.targetTexture = null;
+        }
     }
 }

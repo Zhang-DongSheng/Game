@@ -19,9 +19,9 @@ namespace Game
         {
             return new Color()
             {
-                r = color.r + LIGHT,
-                g = color.g + LIGHT,
-                b = color.b + LIGHT,
+                r = color.r + Light,
+                g = color.g + Light,
+                b = color.b + Light,
                 a = color.a
             };
         }
@@ -32,9 +32,9 @@ namespace Game
         {
             return new Color()
             {
-                r = color.r - LIGHT,
-                g = color.g - LIGHT,
-                b = color.b - LIGHT,
+                r = color.r - Light,
+                g = color.g - Light,
+                b = color.b - Light,
                 a = color.a
             };
         }

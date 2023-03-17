@@ -71,7 +71,7 @@ namespace Game
         {
             value = Vector2.Angle(vector, Vector2.up);
 
-            return value > ANGLE45 && value < ANGLE135;
+            return value > Angle45 && value < Angle135;
         }
         /// <summary>
         /// 纵向
@@ -80,7 +80,7 @@ namespace Game
         {
             value = Vector2.Angle(vector, Vector2.up);
 
-            return value < ANGLE45 || value > ANGLE135;
+            return value < Angle45 || value > Angle135;
         }
     }
 }

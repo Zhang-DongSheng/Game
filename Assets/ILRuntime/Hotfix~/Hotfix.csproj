@@ -57,7 +57,8 @@
     <Compile Include="Script\Common\Debuger.cs" />
     <Compile Include="Script\Core\Main.cs" />
     <Compile Include="Script\UI\Core\ILItemBase.cs" />
-    <Compile Include="Script\UI\Panel\TestView.cs" />
+    <Compile Include="Script\UI\Core\ILUIBase.cs" />
+    <Compile Include="Script\UI\Panel\UITest.cs" />
     <Compile Include="Script\Program.cs" />
     <Compile Include="Script\Utils\Math.cs" />
   </ItemGroup>

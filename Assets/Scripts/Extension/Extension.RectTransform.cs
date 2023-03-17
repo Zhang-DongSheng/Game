@@ -185,11 +185,11 @@ namespace Game
         /// </summary>
         public static void Reset(this RectTransform transform)
         {
-            transform.anchorMin = Vector2.one * HALF;
+            transform.anchorMin = Vector2.one * Half;
 
-            transform.anchorMax = Vector2.one * HALF;
+            transform.anchorMax = Vector2.one * Half;
 
-            transform.pivot = Vector2.one * HALF;
+            transform.pivot = Vector2.one * Half;
 
             transform.anchoredPosition = Vector3.zero;
 
