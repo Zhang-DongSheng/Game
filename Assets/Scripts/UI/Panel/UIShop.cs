@@ -1,42 +1,40 @@
 using Data;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
     public class UIShop : UIBase
     {
-        [SerializeField] private TabGroup tab;
+        [SerializeField] private UIMenu m_menu;
 
-        [SerializeField] private List<UIShopBase> shops;
+        [SerializeField] private List<UIShopBase> m_shops;
 
         private void Awake()
         {
-            tab.Initialize(OnClickTab);
+            m_menu.callback = OnClickTab;
         }
 
         private void Start()
         {
-            tab.Refresh(new int[3] { 0, 1, 2 });
+            m_menu.Initialize(3);
 
-            Refresh(0);
+            m_menu.Select(0, true);
         }
 
         public void Refresh(int index)
         {
-            UIShopBase shop = shops.Find(x => x.Equal((CounterCategory)index));
+            UIShopBase shop = m_shops.Find(x => x.Equal((CounterCategory)index));
 
             if (shop != null)
             {
                 shop.Refresh(ShopLogic.Instance.Get((CounterCategory)index));
             }
-
-            int count = shops.Count;
+            int count = m_shops.Count;
 
             for (int i = 0; i < count; i++)
             {
-                shops[i].SetActive(shops[i].Equal((CounterCategory)index));
+                m_shops[i].SetActive(m_shops[i].Equal((CounterCategory)index));
             }
         }
 

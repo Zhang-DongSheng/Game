@@ -108,19 +108,19 @@ namespace Game
             {
                 case "静态调用":
                     {
-                        appdomain.Invoke("ILRuntime.Program", "Initialize", null);
+                        appdomain.Invoke("ILRuntime.Game.Program", "Initialize", null);
                     }
                     break;
                 case "实例调用":
                     {
                         object script = appdomain.Instantiate("ILRuntime.Main");
 
-                        appdomain.Invoke("ILRuntime.Main", "Test", script);
+                        appdomain.Invoke("ILRuntime.Game.Main", "Test", script);
                     }
                     break;
                 case "反射调用":
                     {
-                        var script = appdomain.LoadedTypes["ILRuntime.Main"];
+                        var script = appdomain.LoadedTypes["ILRuntime.Game.Main"];
 
                         var type = script.ReflectionType;
 

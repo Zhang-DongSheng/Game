@@ -1,37 +1,38 @@
 using Data;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
     public class UIWarehouse : UIBase
     {
-        [SerializeField] private TabGroup tab;
+        [SerializeField] private UIMenu m_menu;
 
-        [SerializeField] private UIWarehouseContent content;
+        [SerializeField] private UIWarehouseContent m_content;
 
-        [SerializeField] private UIWarehouseIntroduce introduce;
+        [SerializeField] private UIWarehouseIntroduce m_introduce;
 
         private void Awake()
         {
-            tab.Initialize(OnClickTab);
+            m_menu.callback = OnClickTab;
 
-            content.callback = OnClickProp;
+            m_content.callback = OnClickProp;
         }
 
         private void Start()
         {
-            tab.Refresh(new int[5] { 1, 2, 3, 4, 5 });
+            m_menu.Initialize(3);
+
+            m_menu.Select(0, true);
         }
 
         private void OnClickTab(int index)
         {
-            content.Refresh(index);
+            m_content.Refresh(index);
         }
 
         private void OnClickProp(Prop prop)
         {
-            introduce.Refresh(prop);
+            m_introduce.Refresh(prop);
         }
     }
 }

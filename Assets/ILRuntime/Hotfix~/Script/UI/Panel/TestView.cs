@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace ILRuntime.View
+namespace ILRuntime.Game.UI
 {
     public class TestView : MonoBehaviour
     {
@@ -16,7 +16,7 @@ namespace ILRuntime.View
 
         public void Update()
         {
-            Debug.LogWarning("更新");
+            //Debug.LogWarning("更新");
         }
     }
 }

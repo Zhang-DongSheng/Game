@@ -1,29 +1,24 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
     public class UIActivity : UIBase
     {
-        [SerializeField] private TabGroup tab;
+        [SerializeField] private UIMenu m_menu;
 
-        [SerializeField] private UIActivitySign viewSign;
-
-        [SerializeField] private UIActivityCDKEY viewCDKEY;
+        [SerializeField] private List<UIActivityBase> m_activities;
 
         private void Awake()
         {
-            tab.Initialize(OnClickTab);
-        }
-
-        private void Start()
-        {
-            tab.Refresh(new int[5] { 1, 2, 3, 4, 5 });
+            m_menu.callback = OnClickTab;
         }
 
         public void Refresh()
         {
+            m_menu.Initialize(3);
 
+            m_menu.Select(0, true);
         }
 
         private void OnClickTab(int index)

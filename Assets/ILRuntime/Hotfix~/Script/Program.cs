@@ -1,12 +1,7 @@
-﻿using ILRuntime.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ILRuntime.Game.UI;
 using UnityEngine;
 
-namespace ILRuntime
+namespace ILRuntime.Game
 {
     class Program
     {

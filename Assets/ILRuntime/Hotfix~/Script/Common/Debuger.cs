@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ILRuntime
+namespace ILRuntime.Game
 {
     public static class Debuger
     {

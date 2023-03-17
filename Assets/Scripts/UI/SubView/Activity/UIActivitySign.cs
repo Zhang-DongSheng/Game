@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class UIActivitySign : ItemBase
+    public class UIActivitySign : UIActivityBase
     {
         
     }

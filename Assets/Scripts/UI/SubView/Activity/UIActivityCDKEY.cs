@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class UIActivityCDKEY : ItemBase
+    public class UIActivityCDKEY : UIActivityBase
     {
         
     }

@@ -28,10 +28,9 @@ namespace UnityEngine.UI
         {
             base.Awake();
 
-            foreach (var toggle in GetComponentsInChildren<Toggle>())
-            {
-                toggles.Add(toggle);
-            }
+            toggles.Clear();
+
+            toggles.AddRange(GetComponentsInChildren<Toggle>());
 
             for (int i = 0; i < toggles.Count; i++)
             {
