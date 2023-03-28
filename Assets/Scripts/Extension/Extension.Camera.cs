@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 
 namespace Game
 {
@@ -6,19 +6,23 @@ namespace Game
     {
         public static Vector2 Size(this Camera camera, float distance = 0)
         {
-            if (camera == null) return Vector2.zero;
-
             Vector2 size = new Vector2();
+
+            if (camera == null) return size;
 
             if (camera.orthographic)
             {
                 size.y = camera.orthographicSize * 2f;
-                size.x = size.y * Screen.width / Screen.height;
+
+                size.x = size.y * camera.aspect;
             }
             else
             {
-                size.y = distance * Mathf.Tan(camera.fieldOfView * 0.5f) * 2f;
-                size.x = size.y * Screen.width / Screen.height;
+                float fov = camera.fieldOfView * 0.5f * Mathf.Deg2Rad;
+
+                size.y = distance * Mathf.Tan(fov) * -2f;
+
+                size.x = size.y * camera.aspect;
             }
             return size;
         }
