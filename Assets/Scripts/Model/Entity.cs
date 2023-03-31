@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace Game.Model
 {
-    public class ModelBase : MonoBehaviour
+    [DisallowMultipleComponent]
+    public class Entity : RuntimeBehaviour
     {
-        
+
     }
 }

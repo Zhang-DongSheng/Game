@@ -1,8 +1,5 @@
-﻿using Data;
-using Game.Attribute;
-using Game.Network;
-using Game.Pool;
-using Protobuf;
+﻿using Game.Attribute;
+using IronForce2.IF2World;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,17 +7,17 @@ namespace Game.Test
 {
     public class Test : RuntimeBehaviour
     {
-        [SerializeField] private RawImage image;
+        public MovementArrowManager movement;
 
         [SerializeField] private Vector3 position;
+        [Button("OnClickButton")]
+        public float index;
 
-        [Button("OnClickButton")] public float index;
+        private Vector2 delta;
 
         protected void Awake()
         {
-            NetworkEventManager.Register(NetworkEventKey.Test, OnReceiveMessage);
-
-            NetworkManager.Instance.Connection();
+            
         }
 
         private void OnDrawGizmos()
@@ -35,6 +32,66 @@ namespace Game.Test
 
         protected override void OnUpdate(float delta)
         {
+            this.delta.x = Input.GetAxis("Horizontal");
+
+            this.delta.y = Input.GetAxis("Vertical");
+
+            if (this.delta.x != 0)
+            {
+                if (this.delta.y != 0)
+                {
+                    if (this.delta.x > 0)
+                    {
+                        if (this.delta.y > 0)
+                        {
+                            movement.SetCurrentInputType(MovementDirection.RightForward);
+                        }
+                        else
+                        {
+                            movement.SetCurrentInputType(MovementDirection.RightBack);
+                        }
+                    }
+                    else
+                    {
+                        if (this.delta.y > 0)
+                        {
+                            movement.SetCurrentInputType(MovementDirection.LeftForward);
+                        }
+                        else
+                        {
+                            movement.SetCurrentInputType(MovementDirection.LeftBack);
+                        }
+                    }
+                }
+                else
+                {
+                    if (this.delta.x > 0)
+                    {
+                        movement.SetCurrentInputType(MovementDirection.Clockwise);
+                    }
+                    else
+                    {
+                        movement.SetCurrentInputType(MovementDirection.Counterclockwise);
+                    }
+                }
+            }
+            else if (this.delta.y != 0)
+            {
+                if (this.delta.y > 0)
+                {
+                    movement.SetCurrentInputType(MovementDirection.Forward);
+                }
+                else
+                {
+                    movement.SetCurrentInputType(MovementDirection.Back);
+                }
+            }
+            else
+            {
+                movement.SetCurrentInputType(MovementDirection.None);
+            }
+
+
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 OnClick(0);
@@ -50,40 +107,13 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            float x = float.Parse(paramters[0]);
-
-            float v = Mathf.Pow(x, 0.2f) * 1000 - 900;
-
-            Debuger.Log(Author.Test, v);
+            
         }
         /// <summary>
         /// 点击测试
         /// </summary>
         public void OnClick(int code)
         {
-            string key = "Package/Prefab/Model/Role/MODEL ANIMATION.prefab";
-
-            var go = PoolManager.Instance.Pop(key);
-
-            switch (code)
-            {
-                case 0:
-                    {
-                        image.texture = Camera.main.GetRenderTexture(1080, 1080);
-                    }
-                    break;
-                case 1:
-                    {
-                        Camera.main.ReleaseRenderTexture();
-                    }
-                    break;
-                default:
-                    { 
-                    
-                    }
-                    break;
-            }
-
             
         }
         /// <summary>
@@ -107,47 +137,5 @@ namespace Game.Test
                 Debuger.Log(Author.Test, "I'm fine!");
             });
         }
-
-        private void OnReceiveMessage(NetworkEventHandle handle)
-        {
-            string content = Network.Convert.ToString(handle.buffer);
-
-            Debuger.Log(Author.Test, content);
-
-            Person person = Network.Convert.Deserialize<Person>(content);
-
-            Debuger.Log(Author.Test, person.Name);
-        }
-    }
-
-    [System.Serializable]
-    public class TestClass : IWeight
-    {
-        public string name;
-
-        public float weight;
-
-        public string XX
-        {
-            get; set;
-        }
-
-        public void Do()
-        {
-            Debug.LogError(name + "[  ]" + XX);
-        }
-
-        public float Value()
-        {
-            return weight;
-        }
-    }
-
-    public enum TT
-    { 
-        One = 1,
-        Two = 2,
-        Three = 3,
-        Four = 4,
     }
 }

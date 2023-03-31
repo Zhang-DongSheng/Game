@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class UIWarehouseContent : MonoBehaviour
+    public class UIWarehouseContent : ItemBase
     {
         public Action<Prop> callback;
 

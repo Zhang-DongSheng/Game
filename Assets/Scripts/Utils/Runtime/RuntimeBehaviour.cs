@@ -4,7 +4,7 @@ namespace Game
 {
     public abstract class RuntimeBehaviour : MonoBehaviour
     {
-        protected RuntimeParameter parameter = new RuntimeParameter();
+        protected readonly RuntimeParameter parameter = new RuntimeParameter();
 
         protected virtual void OnEnable()
         {
@@ -33,17 +33,26 @@ namespace Game
             Unregister(RuntimeEvent.LateUpdate, OnLateUpdate);
         }
 
-        protected virtual void OnUpdate(float delta) { }
+        protected virtual void OnUpdate(float delta)
+        {
 
-        protected virtual void OnFixedUpdate(float delta) { }
+        }
 
-        protected virtual void OnLateUpdate(float delta) { }
+        protected virtual void OnFixedUpdate(float delta)
+        {
+
+        }
+
+        protected virtual void OnLateUpdate(float delta)
+        {
+
+        }
 
         protected void Register(RuntimeEvent key, FunctionBySingle function)
         {
             if (this.Override(function.Method.Name))
             {
-                parameter.events.Add(key);
+                parameter.Register(key);
 
                 RuntimeManager.Instance.Register(key, function);
             }
@@ -51,11 +60,9 @@ namespace Game
 
         protected void Unregister(RuntimeEvent key, FunctionBySingle function)
         {
-            int index = parameter.events.FindIndex(x => x == key);
+            if (parameter.Exists(key) == false) return;
 
-            if (index < 0) return;
-
-            parameter.events.RemoveAt(index);
+            parameter.Unregister(key);
 
             if (this.Override(function.Method.Name))
             {

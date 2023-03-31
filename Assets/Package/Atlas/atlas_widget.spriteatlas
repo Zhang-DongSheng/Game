@@ -42,9 +42,11 @@ SpriteAtlas:
   - {fileID: 21300000, guid: c7c58a8021ff38d43a64d6a9d339b367, type: 3}
   - {fileID: 21300000, guid: 9dcb4601f445e6e49b81a5885379979b, type: 3}
   - {fileID: 21300000, guid: b4fe08426ef102d49b38564cecd9ba39, type: 3}
+  - {fileID: 21300000, guid: 64559f469c3622341b7a83428e5dfcd5, type: 3}
   - {fileID: 21300000, guid: 527317564b48b384e9d51c6643514157, type: 3}
   - {fileID: 21300000, guid: d624f7290e3441645b9c3e01d31de3bf, type: 3}
   - {fileID: 21300000, guid: b9b41bb99d6cdb74eb7f766f857821d4, type: 3}
+  - {fileID: 21300000, guid: 343397fbeb5302a49ac170fbe85829c8, type: 3}
   - {fileID: 21300000, guid: 345199cd0807be44da19eaec3fe93664, type: 3}
   - {fileID: 21300000, guid: b79aeded2c5e810498e17546e7e92024, type: 3}
   - {fileID: 21300000, guid: 9fca0f1e53af0a34d98173767dd30833, type: 3}
@@ -52,9 +54,11 @@ SpriteAtlas:
   - "\u5E2E\u52A9"
   - "\u641C\u7D22"
   - "\u6CE8\u610F"
+  - "\u7BAD\u5934_\u5411\u53F3\u4E24\u6B21"
   - "\u9501"
   - "\u53D1\u5E03"
   - "\u8FD4\u56DE"
+  - "\u7BAD\u5934_\u5411\u5DE6\u4E24\u6B21"
   - "\u4FE1\u606F"
   - "\u5237\u65B0"
   - "\u64A4\u9500"

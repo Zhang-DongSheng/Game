@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class UIWarehouseIntroduce : MonoBehaviour
+    public class UIWarehouseIntroduce : ItemBase
     {
         public void Refresh(Prop prop)
         {

@@ -10,8 +10,6 @@ namespace Game.Model
 
         private Vector3 position;
 
-        public ModelDragStatus status { get; private set; }
-
         private void Update()
         {
             if (Input.GetMouseButtonDown(0))
@@ -48,13 +46,5 @@ namespace Game.Model
         {
 
         }
-    }
-
-    public enum ModelDragStatus
-    {
-        Idle,
-        Select,
-        Drag,
-        Complete,
     }
 }
