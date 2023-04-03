@@ -28,7 +28,7 @@ namespace Game.UI
             button.onClick.AddListener(OnClickClose);
         }
 
-        public override void Refresh(Paramter paramter)
+        public override void Refresh(UIParameter paramter)
         {
             Reward reward = paramter.Get<Reward>("reward");
 

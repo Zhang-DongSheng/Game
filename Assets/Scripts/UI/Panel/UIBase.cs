@@ -9,8 +9,6 @@ namespace Game.UI
 
         public UILayer layer = UILayer.Window;
 
-        public UIType type = UIType.Panel;
-
         public int order = 0;
 
         public virtual void Init(UIPanel panel)
@@ -30,7 +28,7 @@ namespace Game.UI
 
         public virtual void Reopen() { }
 
-        public virtual void Refresh(Paramter paramter) { }
+        public virtual void Refresh(UIParameter paramter) { }
 
         public virtual void OnClickClose()
         {

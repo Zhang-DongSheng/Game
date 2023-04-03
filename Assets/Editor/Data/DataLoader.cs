@@ -1,4 +1,5 @@
 using Data;
+using Game.UI;
 using System.Collections.Generic;
 using UnityEditor.Window;
 using UnityEngine;
@@ -34,6 +35,12 @@ namespace UnityEditor
             {
                 name = "≈‰÷√",
                 type = typeof(DataConfig).ToString(),
+                select = false,
+            });
+            items.Add(new ItemInformation()
+            {
+                name = "“≥√Ê",
+                type = typeof(DataUI).ToString(),
                 select = false,
             });
             items.Add(new ItemInformation()
@@ -147,6 +154,59 @@ namespace UnityEditor
 
             data.Set(content);
 
+            Save(data);
+        }
+
+        private void LoadDataUI()
+        {
+            DataUI data = Load<DataUI>();
+
+            Debuger.Assert(data != null, "UI DBŒ™ø’");
+
+            if (data == null) return;
+
+            data.list = new List<UIInformation>();
+
+            bool Record(UIPanel panel, UILayer layer)
+            {
+                if (panel == UIPanel.UILogin ||
+                    panel == UIPanel.UIMain)
+                {
+                    return false;
+                }
+                return layer == UILayer.Window;
+            }
+            foreach (var panel in System.Enum.GetValues(typeof(UIPanel)))
+            {
+                switch ((UIPanel)panel)
+                {
+                    case UIPanel.None:
+                    case UIPanel.Count:
+                        break;
+                    default:
+                        {
+                            string path = string.Format("{0}/{1}.prefab", UIConfig.Prefab, panel);
+
+                            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/" + path);
+
+                            if (prefab == null) continue;
+
+                            if (prefab.TryGetComponent(out UIBase view))
+                            {
+                                data.list.Add(new UIInformation()
+                                {
+                                    panel = (UIPanel)panel,
+                                    layer = view.layer,
+                                    order = view.order,
+                                    record = Record((UIPanel)panel, view.layer),
+                                    name = view.name,
+                                    path = path,
+                                });
+                            }
+                        }
+                        break;
+                }
+            }
             Save(data);
         }
 
@@ -303,6 +363,10 @@ namespace UnityEditor
             if (information.type == typeof(DataConfig).ToString())
             {
                 LoadDataConfig();
+            }
+            else if (information.type == typeof(DataUI).ToString())
+            {
+                LoadDataUI();
             }
             else if (information.type == typeof(DataText).ToString())
             {

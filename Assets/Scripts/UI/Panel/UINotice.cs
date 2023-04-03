@@ -49,7 +49,7 @@ namespace Game.UI
             }
         }
 
-        public override void Refresh(Paramter paramter)
+        public override void Refresh(UIParameter paramter)
         {
             status = Status.Idle;
 

@@ -27,6 +27,18 @@ namespace IronForce2.IF2World
             this.forward = forward;
 
             UpdatePresentation();
+
+            SetActive(true);
+        }
+
+        public void SetActive(bool active)
+        {
+            gameObject.SetActive(active);
+
+            if (!active)
+            {
+                transform.localRotation = Quaternion.identity;
+            }
         }
 
         private void UpdatePresentation()

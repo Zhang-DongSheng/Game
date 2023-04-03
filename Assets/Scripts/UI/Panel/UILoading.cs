@@ -15,14 +15,14 @@ namespace Game.UI
 
             EventManager.Register(EventKey.Progress, Refresh);
 
-            EventManager.Register(EventKey.UIOpen, OnUILoadingCompleted);
+            EventManager.Register(EventKey.UIOpen, OnLoadingCompleted);
         }
 
         private void OnDestroy()
         {
             EventManager.Unregister(EventKey.Progress, Refresh);
 
-            EventManager.Unregister(EventKey.UIOpen, OnUILoadingCompleted);
+            EventManager.Unregister(EventKey.UIOpen, OnLoadingCompleted);
         }
 
         private void Refresh(EventMessageArgs args)
@@ -32,14 +32,14 @@ namespace Game.UI
             progress.value = step;
         }
 
-        private void OnUILoadingCompleted(EventMessageArgs args)
-        {
-            Close();
-        }
-
         private void OnValueChanged(float value)
         {
 
+        }
+
+        private void OnLoadingCompleted(EventMessageArgs args)
+        {
+            Close();
         }
 
         public void Open()

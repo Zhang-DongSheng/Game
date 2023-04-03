@@ -159,6 +159,7 @@ namespace Game
             {
                 schedule.Clear(); callback?.Invoke();
             }
+            Debuger.Log(Author.Resource, $"当前进度{number}/{count}");
         }
     }
 

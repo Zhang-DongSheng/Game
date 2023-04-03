@@ -1,3 +1,4 @@
+using Data;
 using Game.Resource;
 using System;
 using UnityEngine;
@@ -7,7 +8,9 @@ namespace Game.UI
 {
     public class CtrlBase
     {
-        protected Paramter paramter;
+        protected UIInformation information;
+
+        protected UIParameter paramter;
 
         protected UIBase view;
 
@@ -17,34 +20,38 @@ namespace Game.UI
 
         public CtrlBase(UIPanel panel, Action<CtrlBase> callback)
         {
-            this.panel = panel;
+            var config = DataManager.Instance.Load<DataUI>();
+
+            this.information = config.Get(panel);
 
             this.callback = callback;
         }
 
         public void Open()
         {
-            Open(UILayer.None, UIQuickEntry.async);
+            Open(true);
         }
 
-        public void Open(UILayer layer, bool async)
+        public void Open(bool async)
         {
-            active = true; number++;
+            this.active = true;
+
+            number++;
 
             switch (status)
             {
                 case Status.None:
                     {
                         if (async)
-                            LoadAsync(panel, layer);
+                            LoadAsync();
                         else
-                            Load(panel, layer);
+                            Load();
                     }
                     break;
                 case Status.Loading:
-                    Debuger.LogWarning(Author.UI, string.Format("The panel of [{0}] is loading...", panel));
+                    Debuger.LogWarning(Author.UI, string.Format("The panel of [{0}] is loading...", information.panel));
                     break;
-                case Status.Show:
+                case Status.Display:
                     {
                         if (view != null)
                         {
@@ -53,7 +60,7 @@ namespace Game.UI
                     }
                     break;
                 case Status.Error:
-                    Debuger.LogError(Author.UI, string.Format("The panel of [{0}] resource was not found!", panel));
+                    Debuger.LogError(Author.UI, string.Format("The panel of [{0}] resource was not found!", information.panel));
                     break;
             }
         }
@@ -79,45 +86,52 @@ namespace Game.UI
             callback?.Invoke(this);
         }
 
-        public void Paramter(Paramter paramter)
+        public bool Record()
+        {
+            if (information == null) return false;
+
+            return information.record;
+        }
+
+        public void Paramter(UIParameter paramter)
         {
             this.paramter = paramter;
         }
 
-        private void Load(UIPanel panel, UILayer layer)
+        private void Load()
         {
             status = Status.Loading;
 
             try
             {
-                Object prefab = ResourceManager.Load(string.Format("{0}/{1}.prefab", Config.Prefab, panel));
+                Object prefab = ResourceManager.Load(information.path);
 
-                Create(panel, layer, prefab);
+                Create(prefab);
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debuger.LogException(Author.UI, e);
             }
         }
 
-        private void LoadAsync(UIPanel panel, UILayer layer)
+        private void LoadAsync()
         {
             status = Status.Loading;
 
             try
             {
-                ResourceManager.LoadAsync(string.Format("{0}/{1}", Config.Prefab, panel), (asset) =>
+                ResourceManager.LoadAsync(information.path, (asset) =>
                 {
-                    Create(panel, layer, asset);
+                    Create(asset);
                 });
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debuger.LogException(Author.UI, e);
             }
         }
 
-        private void Create(UIPanel panel, UILayer layer, Object prefab)
+        private void Create(Object prefab)
         {
             try
             {
@@ -127,19 +141,19 @@ namespace Game.UI
 
                 view = entity.GetComponent<UIBase>();
 
-                view.layer = layer != UILayer.None ? layer : view.layer;
+                view.layer = information.layer;
+
+                view.order = information.order;
 
                 view.SetParent(UIManager.Instance.GetParent(view.layer));
 
-                view.SetName(panel.ToString());
+                view.SetName(information.name);
 
                 rect.Reset(); rect.SetFull();
 
-                type = view.type;
+                view.Init(information.panel); Show();
 
-                view.Init(panel); Show();
-
-                status = Status.Show;
+                status = Status.Display;
             }
             catch
             {
@@ -163,19 +177,17 @@ namespace Game.UI
             view.Exit();
         }
 
-        public UIPanel panel { get; protected set; }
-
-        public UIType type { get; protected set; }
-
         public bool active { get; protected set; }
 
         public int number { get; protected set; }
+
+        public string name { get { return information.name; } }
 
         enum Status
         {
             None,
             Loading,
-            Show,
+            Display,
             Error,
         }
     }

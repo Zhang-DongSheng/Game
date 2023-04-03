@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Game.UI
 {
-    public class Config
+    public static class UIConfig
     {
         public const float ResolutionWidth = 2160;
 
@@ -11,6 +11,8 @@ namespace Game.UI
         public const float MinusOne = -1;
 
         public const float Zero = 0;
+
+        public const string Json = "";
 
         public const string Prefab = "Package/Prefab/UI/Panel";
 

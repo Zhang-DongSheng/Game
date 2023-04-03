@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa4111073f23f247b0a4c54386c2c70, type: 3}
+  m_Name: DataUI
+  m_EditorClassIdentifier: 
+  list:
+  - panel: 1
+    layer: 1
+    name: UIMain
+    record: 0
+    order: 0
+    path: Package/Prefab/UI/Panel/UIMain.prefab
+  - panel: 2
+    layer: 2
+    name: UILogin
+    record: 0
+    order: 0
+    path: Package/Prefab/UI/Panel/UILogin.prefab
+  - panel: 4
+    layer: 4
+    name: UITips
+    record: 0
+    order: 0
+    path: Package/Prefab/UI/Panel/UITips.prefab
+  - panel: 5
+    layer: 4
+    name: UITitle
+    record: 0
+    order: 9
+    path: Package/Prefab/UI/Panel/UITitle.prefab
+  - panel: 6
+    layer: 4
+    name: UINotice
+    record: 0
+    order: 0
+    path: Package/Prefab/UI/Panel/UINotice.prefab
+  - panel: 7
+    layer: 3
+    name: UIConfirm
+    record: 0
+    order: 0
+    path: Package/Prefab/UI/Panel/UIConfirm.prefab
+  - panel: 8
+    layer: 4
+    name: UIHorseLamp
+    record: 0
+    order: 0
+    path: Package/Prefab/UI/Panel/UIHorseLamp.prefab
+  - panel: 9
+    layer: 2
+    name: UIWarehouse
+    record: 1
+    order: 0
+    path: Package/Prefab/UI/Panel/UIWarehouse.prefab
+  - panel: 11
+    layer: 2
+    name: UIShop
+    record: 1
+    order: 0
+    path: Package/Prefab/UI/Panel/UIShop.prefab
+  - panel: 12
+    layer: 2
+    name: UIReward
+    record: 1
+    order: 0
+    path: Package/Prefab/UI/Panel/UIReward.prefab
+  - panel: 13
+    layer: 2
+    name: UIActivity
+    record: 1
+    order: 0
+    path: Package/Prefab/UI/Panel/UIActivity.prefab
+  - panel: 14
+    layer: 2
+    name: UILotteryDraw
+    record: 1
+    order: 0
+    path: Package/Prefab/UI/Panel/UILotteryDraw.prefab
+  - panel: 15
+    layer: 2
+    name: UITest
+    record: 1
+    order: 0
+    path: Package/Prefab/UI/Panel/UITest.prefab
+  - panel: 16
+    layer: 3
+    name: UIIntroduce
+    record: 0
+    order: 0
+    path: Package/Prefab/UI/Panel/UIIntroduce.prefab

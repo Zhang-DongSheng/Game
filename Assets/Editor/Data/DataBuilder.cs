@@ -1,4 +1,5 @@
 ﻿using Data;
+using Game.UI;
 using System.IO;
 using UnityEngine;
 
@@ -7,11 +8,17 @@ namespace UnityEditor
     class DataBuilder
     {
         public const string PATH = "Assets/Package/Data";
+
         #region Create
         [MenuItem("Data/Create/Config")]
         protected static void Create_Config()
         {
             Create<DataConfig>();
+        }
+        [MenuItem("Data/Create/UI")]
+        protected static void Create_UI()
+        {
+            Create<DataUI>();
         }
         [MenuItem("Data/Create/Text")]
         protected static void Create_Text()

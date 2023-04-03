@@ -44,7 +44,7 @@ namespace Game.UI
             }
         }
 
-        public override void Refresh(Paramter paramter)
+        public override void Refresh(UIParameter paramter)
         {
             if (paramter == null) return;
 
@@ -68,7 +68,7 @@ namespace Game.UI
 
                 item.completed = Completed;
 
-                item.Init(message[0], Config.ScreenHalfWidth);
+                item.Init(message[0], UIConfig.ScreenHalfWidth);
 
                 items.Add(item);
 

@@ -16,16 +16,16 @@ namespace Game.UI
             }
         }
 
-        protected virtual void SetSize(RectTransform rect, float width = Config.MinusOne, float height = Config.MinusOne)
+        protected virtual void SetSize(RectTransform rect, float width = UIConfig.MinusOne, float height = UIConfig.MinusOne)
         {
             if (rect == null) return;
 
-            if (width != Config.MinusOne)
+            if (width != UIConfig.MinusOne)
             {
                 rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
             }
             // if the value is default. don't modify!
-            if (height != Config.MinusOne)
+            if (height != UIConfig.MinusOne)
             {
                 rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
             }

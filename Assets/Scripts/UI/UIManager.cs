@@ -19,7 +19,7 @@ namespace Game.UI
 
         private void Awake()
         {
-            Init(); Register();
+            Init();
         }
 
         private void Init()
@@ -30,14 +30,12 @@ namespace Game.UI
             {
                 CanvasScaler scale = canvas.GetComponent<CanvasScaler>();
 
-                if (Config.ScreenRatio > Config.ResolutionRatio)
+                if (UIConfig.ScreenRatio > UIConfig.ResolutionRatio)
                 {
                     scale.matchWidthOrHeight = 1;
                 }
                 foreach (var layer in Enum.GetValues(typeof(UILayer)))
                 {
-                    if ((UILayer)layer == UILayer.None) continue;
-
                     GameObject parent = new GameObject(layer.ToString());
 
                     parent.transform.SetParent(canvas.transform);
@@ -67,56 +65,15 @@ namespace Game.UI
             }
         }
 
-        private void Register()
-        {
-            
-        }
-
-        private void Record(CtrlBase ctrl)
-        {
-            if (ctrl.active)
-            {
-                switch (ctrl.type)
-                {
-                    case UIType.Panel:
-                        {
-                            if (_records.Contains(ctrl))
-                            {
-                                Debuger.LogWarning(Author.UI, string.Format("The {0} page is opened repeatedly!", ctrl.panel));
-                            }
-                            else
-                            {
-                                _records.Add(ctrl);
-                            }
-                        }
-                        break;
-                    default:
-                        {
-                            Debuger.Log(Author.UI, string.Format("{0} is unrecord!", ctrl.panel));
-                        }
-                        break;
-                }
-                EventManager.Post(EventKey.UIOpen);
-            }
-            else
-            {
-                if (_records.Contains(ctrl))
-                {
-                    _records.Remove(ctrl);
-                }
-                EventManager.Post(EventKey.UIClose);
-            }
-        }
-
-        public void Open(UIPanel panel, UILayer layer = UILayer.None, bool async = false)
+        public void Open(UIPanel panel, bool async = false)
         {
             try
             {
-                if (_panels.ContainsKey(panel) == false)
+                if (!_panels.ContainsKey(panel))
                 {
                     _panels.Add(panel, new CtrlBase(panel, Record));
                 }
-                _panels[panel].Open(layer, async);
+                _panels[panel].Open(async);
             }
             catch (Exception e)
             {
@@ -160,7 +117,7 @@ namespace Game.UI
             _records.Clear();
         }
 
-        public void Paramter(UIPanel panel, Paramter paramter)
+        public void Paramter(UIPanel panel, UIParameter paramter)
         {
             if (_panels.ContainsKey(panel))
             {
@@ -229,6 +186,37 @@ namespace Game.UI
             return _records.Count > 0;
         }
 
+        public void Record(CtrlBase ctrl)
+        {
+            if (ctrl.active)
+            {
+                if (ctrl.Record())
+                {
+                    if (_records.Contains(ctrl))
+                    {
+                        Debuger.LogWarning(Author.UI, "The panel is opened repeatedly!");
+                    }
+                    else
+                    {
+                        _records.Add(ctrl);
+                    }
+                }
+                else
+                {
+                    Debuger.Log(Author.UI, "the panel is unrecord!");
+                }
+                EventManager.Post(EventKey.UIOpen);
+            }
+            else
+            {
+                if (_records.Contains(ctrl))
+                {
+                    _records.Remove(ctrl);
+                }
+                EventManager.Post(EventKey.UIClose);
+            }
+        }
+
         public Vector2 Resolution
         {
             get
@@ -287,20 +275,11 @@ namespace Game.UI
 
     public enum UILayer
     {
-        None = -1,
         Bottom,
         Base,
         Window,
         Widget,
         Overlayer,
         Top,
-    }
-
-    public enum UIType
-    {
-        Base,
-        Panel,
-        Popup,
-        Widget,
     }
 }

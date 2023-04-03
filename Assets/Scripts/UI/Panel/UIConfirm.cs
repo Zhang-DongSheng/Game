@@ -32,7 +32,7 @@ namespace Game.UI
             btn_close.onClick.AddListener(OnClickCancel);
         }
 
-        public override void Refresh(Paramter paramter)
+        public override void Refresh(UIParameter paramter)
         {
             if (paramter == null) return;
 

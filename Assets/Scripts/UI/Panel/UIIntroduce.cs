@@ -23,7 +23,7 @@ namespace Game.UI
             btnClose.onClick.AddListener(OnClickClose);
         }
 
-        public override void Refresh(Paramter paramter)
+        public override void Refresh(UIParameter paramter)
         {
             var prop = paramter.Get<PropInformation>("prop");
 

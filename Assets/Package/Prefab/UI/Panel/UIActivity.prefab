@@ -171,8 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d21c0613f25a84e880b897dd2d119e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layer: 3
-  type: 1
+  layer: 2
   order: 0
   m_menu: {fileID: 4072563929310703594}
   m_activities:

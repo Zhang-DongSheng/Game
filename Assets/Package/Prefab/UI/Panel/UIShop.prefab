@@ -910,8 +910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 163ad9f5e56126248b24677d115c37ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layer: 3
-  type: 1
+  layer: 2
   order: 0
   m_menu: {fileID: 2032003419216088902}
   m_shops:

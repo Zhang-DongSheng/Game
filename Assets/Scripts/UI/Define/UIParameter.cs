@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 namespace Game
 {
-    public sealed class Paramter : IDisposable
+    public sealed class UIParameter : IDisposable
     {
         private readonly Dictionary<string, object> paramters;
 
-        public Paramter()
+        public UIParameter()
         {
             paramters = new Dictionary<string, object>();
         }
 
-        public Paramter Clone()
+        public UIParameter Clone()
         {
-            return MemberwiseClone() as Paramter;
+            return MemberwiseClone() as UIParameter;
         }
 
         public object this[string key]

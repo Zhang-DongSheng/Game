@@ -50,7 +50,7 @@ namespace Game.UI
         {
             if (m_config.click)
             {
-                var parameter = new Paramter();
+                var parameter = new UIParameter();
                 parameter.AddOrReplace("prop", information);
                 UIQuickEntry.Open(UIPanel.UIIntroduce, parameter);
             }

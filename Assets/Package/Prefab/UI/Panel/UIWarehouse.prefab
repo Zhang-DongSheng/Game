@@ -815,8 +815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12c9ff85f9c40cd4089280abfefe7e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layer: 3
-  type: 1
+  layer: 2
   order: 0
   m_menu: {fileID: 2265437949413378623}
   m_content: {fileID: 4221500908108690750}

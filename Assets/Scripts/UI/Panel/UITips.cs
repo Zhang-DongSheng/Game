@@ -39,7 +39,7 @@ namespace Game.UI
             }
         }
 
-        public override void Refresh(Paramter paramter)
+        public override void Refresh(UIParameter paramter)
         {
             string messsage = paramter.Get<string>("tips");
 

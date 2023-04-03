@@ -8,27 +8,27 @@ namespace Game.UI
     {
         public static bool async = ResourceConfig.Loading == LoadingType.AssetBundle;
 
-        public static void Open(UIPanel panel, Paramter paramter = null)
+        public static void Open(UIPanel panel, UIParameter paramter = null)
         {
             UIManager.Instance.Paramter(panel, paramter);
             {
-                UIManager.Instance.Open(panel, async: async);
+                UIManager.Instance.Open(panel, async);
             }
         }
 
-        public static void OpenSingle(UIPanel panel, Paramter paramter = null)
+        public static void OpenSingle(UIPanel panel, UIParameter paramter = null)
         {
             UIManager.Instance.CloseAll();
 
             UIManager.Instance.Paramter(panel, paramter);
             {
-                UIManager.Instance.Open(panel, async: async);
+                UIManager.Instance.Open(panel, async);
             }
         }
 
         public static void OpenUIConfirm(string title, string message, Action confirm, Action cancel = null)
         {
-            Open(UIPanel.UIConfirm, new Paramter()
+            Open(UIPanel.UIConfirm, new UIParameter()
             {
                 ["title"] = title,
                 ["message"] = message,
@@ -39,7 +39,7 @@ namespace Game.UI
 
         public static void OpenUINotice(string notice)
         {
-            Open(UIPanel.UINotice, new Paramter()
+            Open(UIPanel.UINotice, new UIParameter()
             {
                 ["notice"] = notice,
             });
@@ -47,7 +47,7 @@ namespace Game.UI
 
         public static void OpenUITips(string tips)
         {
-            Open(UIPanel.UITips, new Paramter()
+            Open(UIPanel.UITips, new UIParameter()
             {
                 ["tips"] = tips,
             });
@@ -55,7 +55,7 @@ namespace Game.UI
 
         public static void OpenUIHorseLamp(string message, float time = -1)
         {
-            Open(UIPanel.UIHorseLamp, new Paramter()
+            Open(UIPanel.UIHorseLamp, new UIParameter()
             {
                 ["message"] = message,
             });
@@ -63,7 +63,7 @@ namespace Game.UI
 
         public static void OpenUIReward(Reward reward)
         {
-            Open(UIPanel.UIReward, new Paramter()
+            Open(UIPanel.UIReward, new UIParameter()
             {
                 ["reward"] = reward,
             });
