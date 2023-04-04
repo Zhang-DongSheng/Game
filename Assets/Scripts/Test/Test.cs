@@ -7,7 +7,7 @@ namespace Game.Test
 {
     public class Test : RuntimeBehaviour
     {
-        public MovementArrowManager movement;
+        public Animator animator;
 
         [SerializeField] private Vector3 position;
         [Button("OnClickButton")]
@@ -35,63 +35,7 @@ namespace Game.Test
             this.delta.x = Input.GetAxis("Horizontal");
 
             this.delta.y = Input.GetAxis("Vertical");
-
-            if (this.delta.x != 0)
-            {
-                if (this.delta.y != 0)
-                {
-                    if (this.delta.x > 0)
-                    {
-                        if (this.delta.y > 0)
-                        {
-                            movement.SetCurrentInputType(MovementDirection.RightForward);
-                        }
-                        else
-                        {
-                            movement.SetCurrentInputType(MovementDirection.RightBack);
-                        }
-                    }
-                    else
-                    {
-                        if (this.delta.y > 0)
-                        {
-                            movement.SetCurrentInputType(MovementDirection.LeftForward);
-                        }
-                        else
-                        {
-                            movement.SetCurrentInputType(MovementDirection.LeftBack);
-                        }
-                    }
-                }
-                else
-                {
-                    if (this.delta.x > 0)
-                    {
-                        movement.SetCurrentInputType(MovementDirection.Clockwise);
-                    }
-                    else
-                    {
-                        movement.SetCurrentInputType(MovementDirection.Counterclockwise);
-                    }
-                }
-            }
-            else if (this.delta.y != 0)
-            {
-                if (this.delta.y > 0)
-                {
-                    movement.SetCurrentInputType(MovementDirection.Forward);
-                }
-                else
-                {
-                    movement.SetCurrentInputType(MovementDirection.Back);
-                }
-            }
-            else
-            {
-                movement.SetCurrentInputType(MovementDirection.None);
-            }
-
-
+            
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 OnClick(0);

@@ -4,7 +4,27 @@ namespace Game
 {
     public static partial class Extension
     {
-        public static float GetClipTime(this Animator animator, string name, int layer = 0)
+        public static float GetClipTime(this Animator animator, string name)
+        {
+            if (animator == null) return -1;
+
+            var controller = animator.runtimeAnimatorController;
+
+            var clips = controller.animationClips;
+
+            for (int i = 0; i < clips.Length; i++)
+            {
+                if (clips[i] == null) continue;
+
+                if (clips[i].name == name)
+                {
+                    return clips[i].length;
+                }
+            }
+            return -1;
+        }
+
+        public static float GetClipTimeByLayer(this Animator animator, string name, int layer = 0)
         {
             AnimatorClipInfo[] clips = animator.GetCurrentAnimatorClipInfo(layer);
 
