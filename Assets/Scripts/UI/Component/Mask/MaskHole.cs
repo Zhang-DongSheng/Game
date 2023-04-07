@@ -1,6 +1,6 @@
 namespace UnityEngine.UI
 {
-    public class HoleMask : Mask
+    public class MaskHole : Mask
     {
         public override bool IsRaycastLocationValid(Vector2 sp, Camera eventCamera)
         {
