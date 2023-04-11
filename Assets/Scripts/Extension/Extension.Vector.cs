@@ -82,5 +82,23 @@ namespace Game
 
             return value < Angle45 || value > Angle135;
         }
+
+        public static float Angle(this Vector2 vector)
+        {
+            return Vector2.SignedAngle(vector, Vector2.up);
+        }
+
+        public static float Angle(this Vector3 vector)
+        {
+            var dir = vector.normalized;
+
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+            if (angle < 0)
+            {
+                angle += 360;
+            }
+            return angle;
+        }
     }
 }

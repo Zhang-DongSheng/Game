@@ -77,5 +77,12 @@ namespace Game
                 }
             }
         }
+        /// <summary>
+        /// 判空[内存优化策略]
+        /// </summary>
+        public static bool IsNull(this GameObject go)
+        {
+            return System.Object.ReferenceEquals(go, null);
+        }
     }
 }

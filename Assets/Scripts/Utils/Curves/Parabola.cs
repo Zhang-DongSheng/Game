@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
-using static UnityEngine.UI.Image;
 
 namespace Game
 {

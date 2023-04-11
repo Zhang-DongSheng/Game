@@ -77,6 +77,12 @@ namespace Game.Test
             Debuger.LogError(Author.Test, $"目标位置 x:{position.x}, y:{position.y}");
 
             Debuger.LogError(Author.Test, "目标角度" + angle);
+
+            var vector = position - start;
+
+            angle = vector.Angle();
+
+            Debuger.LogError(Author.Test, "角度" + angle);
         }
     }
 }

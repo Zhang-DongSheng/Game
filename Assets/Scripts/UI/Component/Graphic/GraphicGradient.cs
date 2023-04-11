@@ -8,6 +8,7 @@ namespace Coffee.UIExtensions
     /// Í¼ÐÎ½¥±ä
     /// </summary>
     [DisallowMultipleComponent]
+    [RequireComponent(typeof(Graphic))]
     public class GraphicGradient : BaseMeshEffect
     {
         public Direction direction;
@@ -50,7 +51,6 @@ namespace Coffee.UIExtensions
                             rect.xMax = Mathf.Max(rect.xMax, vertex.position.x);
                             rect.yMax = Mathf.Max(rect.yMax, vertex.position.y);
                         }
-
                         break;
                     }
             }

@@ -1,4 +1,6 @@
-using System.Collections.Generic;
+ using System.Collections.Generic;
+using System.IO;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace UnityEditor.Window
@@ -59,6 +61,14 @@ namespace UnityEditor.Window
                         case 0:
                             {
                                 GUILayout.Label(string.Empty);
+                            }
+                            break;
+                        case 1:
+                            {
+                                if (GUILayout.Button("空方法检测"))
+                                {
+                                    EmptyFunction();
+                                }
                             }
                             break;
                         case 2:
@@ -235,6 +245,53 @@ namespace UnityEditor.Window
                     {
                         Debug.LogWarning(string.Format("{0}: Material Shader is {1}!", path, shader), material);
                     }
+                }
+            }
+        }
+
+        public void EmptyFunction()
+        {
+            string[] guids = AssetDatabase.FindAssets("t:TextAsset", folders);
+
+            string path, extension;
+
+            foreach (var guid in guids)
+            {
+                path = AssetDatabase.GUIDToAssetPath(guid);
+
+                extension = Path.GetExtension(path);
+
+                switch (extension)
+                {
+                    case ".cs":
+                        {
+                            if (path.StartsWith("Assets/Scripts"))
+                            {
+                                TextAsset asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
+
+                                if (!string.IsNullOrEmpty(asset.text))
+                                {
+                                    string pattern = @"void\s*Update\s*?\(\s*?\)\s*?\n*?\{\n*?\s*?\}";
+
+                                    bool pass = Regex.IsMatch(asset.text, pattern);
+
+                                    if (pass)
+                                    {
+                                        Debug.LogError(string.Format("代码{0}包含空方法!", path), asset);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Debug.Log(string.Format("代码{0}暂不处理!", path));
+                            }
+                        }
+                        break;
+                    default:
+                        {
+                            Debug.Log(string.Format("其他格式文本{0}暂不处理!", path));
+                        }
+                        break;
                 }
             }
         }
