@@ -7,7 +7,7 @@ namespace Game.Test
 {
     public class Test : RuntimeBehaviour
     {
-        public Animator animator;
+        public GameObject target;
 
         [SerializeField] private Vector3 position;
         [Button("OnClickButton")]

@@ -1,7 +1,11 @@
 using System.Collections.Generic;
+using Unity.Mathematics;
 
 namespace UnityEngine.UI
 {
+    /// <summary>
+    /// 高斯模糊，未完成-UGUI好像只有顶点处理，未发现片元处理
+    /// </summary>
     [RequireComponent(typeof(CanvasRenderer))]
     public class ImageBlur : MaskableGraphic
     {
@@ -11,6 +15,16 @@ namespace UnityEngine.UI
 
         private Vector2 space = new Vector2(0, 0);
 
+        private readonly Vector4[] gauss = new Vector4[7]
+        {
+            new Vector4(0.0205f, 0.0205f, 0.0205f, 0),
+            new Vector4(0.0855f, 0.0855f, 0.0855f, 0),
+            new Vector4(0.232f, 0.232f, 0.232f, 0),
+            new Vector4(0.324f, 0.324f, 0.324f, 1),
+            new Vector4(0.232f, 0.232f, 0.232f, 0),
+            new Vector4(0.0855f, 0.0855f, 0.0855f, 0),
+            new Vector4(0.0205f, 0.0205f, 0.0205f, 0)
+        };
         private readonly List<Vector2> points = new List<Vector2>(4);
 
         protected override void OnPopulateMesh(VertexHelper helper)
