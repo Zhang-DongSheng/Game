@@ -76,7 +76,7 @@ namespace UnityEditor.Window
                 //UIPanel panel = new UIPanel();
             }
 
-            if (GUILayout.Button("Refrelence"))
+            if (GUILayout.Button(LanuageManager.Get("Reference")))
             {
 
             }

@@ -9,11 +9,11 @@ namespace UnityEditor
 
         private static readonly Dictionary<string, string> words = new Dictionary<string, string>();
         [InitializeOnLoadMethod]
-        private static void Initialize()
+        public static void Initialize()
         {
             m_data = AssetDatabase.LoadAssetAtPath<LanuageData>("Assets/Editor/Lanuage/Lanuage.asset");
 
-            Debug.LogError("多语言加载成功");
+            words.Clear();
         }
 
         public static string Get(string key)

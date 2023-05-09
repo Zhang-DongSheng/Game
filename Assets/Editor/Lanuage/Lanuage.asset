@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lanuage
   m_EditorClassIdentifier: 
   list:
-  - language: 6
+  - language: 40
     words:
     - key: Create
       value: "\u521B\u5EFA"
@@ -35,7 +35,5 @@ MonoBehaviour:
       value: "\u7D22\u5F15"
     - key: Count
       value: "\u6570\u91CF"
-  - language: 10
-    words: []
-  - language: 22
-    words: []
+    - key: Reference
+      value: "\u5173\u8054"
