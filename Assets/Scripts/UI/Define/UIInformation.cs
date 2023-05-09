@@ -20,6 +20,21 @@ namespace Game.UI
 
         }
 
+        public void Copy(UIInformation other)
+        {
+            panel = other.panel;
+
+            layer = other.layer;
+
+            name = other.name;
+
+            record = other.record;
+
+            order = other.order;
+
+            path = other.path;
+        }
+
         public static UIInformation Default(UIPanel panel)
         {
             return new UIInformation()

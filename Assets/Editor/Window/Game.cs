@@ -1,6 +1,5 @@
-using System;
-using System.Reflection;
-using UnityEditor.AssetImporters;
+using Data;
+using Game.UI;
 using UnityEditor.Game;
 using UnityEngine;
 
@@ -12,7 +11,13 @@ namespace UnityEditor.Window
 
         private const string PREFAB = "Package/Prefab/UI/Panel/";
 
+        private readonly string[] menu = new string[] { "Create", "Modify" };
+
+        private UIPanel panel;
+
         private string content;
+
+        private readonly UIInformation information = new UIInformation();
 
         [MenuItem("Game/UI")]
         protected static void Open()
@@ -27,9 +32,28 @@ namespace UnityEditor.Window
 
         protected override void Refresh()
         {
-            this.content = GUILayout.TextField(content);
+            index.value = GUILayout.Toolbar(index.value, menu);
 
-            if (GUILayout.Button("生成"))
+            switch (index.value)
+            {
+                case 0:
+                    {
+                        RefreshCreate();
+                    }
+                    break;
+                case 1:
+                    {
+                        RefreshModify();
+                    }
+                    break;
+            }
+        }
+
+        private void RefreshCreate()
+        {
+            RefreshUIInformation(true);
+
+            if (GUILayout.Button(LanuageManager.Get("Create")))
             {
                 if (string.IsNullOrEmpty(content)) return;
 
@@ -48,7 +72,105 @@ namespace UnityEditor.Window
                 ShowNotification("模板创建完成");
 
                 // 接下来请添加页面枚举
+
+                //UIPanel panel = new UIPanel();
             }
+
+            if (GUILayout.Button("Refrelence"))
+            {
+
+            }
+        }
+
+        private void RefreshModify()
+        {
+            panel = (UIPanel)EditorGUILayout.EnumPopup(panel);
+
+            if (information.panel != panel)
+            {
+                var asset = AssetDatabase.LoadAssetAtPath<DataUI>("Assets/Package/Data/DataUI.asset");
+
+                var info = asset.list.Find(x => x.panel == panel);
+
+                if (info != null)
+                {
+                    information.Copy(info);
+                }
+                else
+                {
+                    information.panel = panel;
+                }
+            }
+            RefreshUIInformation(false);
+
+            if (GUILayout.Button(LanuageManager.Get("Modify")))
+            {
+
+            }
+        }
+
+        private void RefreshUIInformation(bool editor)
+        {
+            float width = 100;
+
+            GUILayout.BeginVertical();
+            {
+                GUILayout.BeginHorizontal();
+                {
+                    GUILayout.Label(LanuageManager.Get("Panel"), GUILayout.Width(width));
+
+                    if (editor)
+                    {
+                        content = GUILayout.TextField(content);
+                    }
+                    else
+                    {
+                        GUILayout.Label(information.panel.ToString());
+                    }
+                }
+                GUILayout.EndHorizontal();
+
+                GUILayout.BeginHorizontal();
+                {
+                    GUILayout.Label(LanuageManager.Get("Layer"), GUILayout.Width(width));
+
+                    information.layer = (UILayer)EditorGUILayout.EnumPopup(information.layer);
+                }
+                GUILayout.EndHorizontal();
+
+                GUILayout.BeginHorizontal();
+                {
+                    GUILayout.Label(LanuageManager.Get("Name"), GUILayout.Width(width));
+
+                    information.name = EditorGUILayout.TextField(information.name);
+                }
+                GUILayout.EndHorizontal();
+
+                GUILayout.BeginHorizontal();
+                {
+                    GUILayout.Label(LanuageManager.Get("Record"), GUILayout.Width(width));
+
+                    information.record = GUILayout.Toggle(information.record, string.Empty);
+                }
+                GUILayout.EndHorizontal();
+
+                GUILayout.BeginHorizontal();
+                {
+                    GUILayout.Label(LanuageManager.Get("Order"), GUILayout.Width(width));
+
+                    information.order = EditorGUILayout.IntField(information.order);
+                }
+                GUILayout.EndHorizontal();
+
+                GUILayout.BeginHorizontal();
+                {
+                    GUILayout.Label(LanuageManager.Get("Path"), GUILayout.Width(width));
+
+                    information.path = EditorGUILayout.TextField(information.path);
+                }
+                GUILayout.EndHorizontal();
+            }
+            GUILayout.EndVertical();
         }
     }
 }
