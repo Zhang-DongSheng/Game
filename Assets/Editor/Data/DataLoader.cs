@@ -181,7 +181,6 @@ namespace UnityEditor
                 switch ((UIPanel)panel)
                 {
                     case UIPanel.None:
-                    case UIPanel.Count:
                         break;
                     default:
                         {

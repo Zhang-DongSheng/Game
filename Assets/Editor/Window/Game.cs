@@ -71,9 +71,7 @@ namespace UnityEditor.Window
 
                 ShowNotification("模板创建完成");
 
-                // 接下来请添加页面枚举
-
-                //UIPanel panel = new UIPanel();
+                ScriptHandler.Modify(typeof(UIPanel), content);
             }
 
             if (GUILayout.Button(LanuageManager.Get("Reference")))
@@ -105,7 +103,7 @@ namespace UnityEditor.Window
 
             if (GUILayout.Button(LanuageManager.Get("Modify")))
             {
-
+                ModifyUIInformation();
             }
         }
 
@@ -171,6 +169,38 @@ namespace UnityEditor.Window
                 GUILayout.EndHorizontal();
             }
             GUILayout.EndVertical();
+        }
+
+        private void AddOrReplaceUIInformation()
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<DataUI>("Assets/Package/Data/DataUI.asset");
+
+            if (asset.list.Exists(x => x.panel.ToString() == content))
+            {
+
+            }
+            else
+            {
+                
+            }
+            AssetDatabase.SaveAssets();
+
+            AssetDatabase.Refresh();
+        }
+
+        private void ModifyUIInformation()
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<DataUI>("Assets/Package/Data/DataUI.asset");
+
+            int index = asset.list.FindIndex(x => x.panel == information.panel);
+
+            if (index > -1) 
+            {
+                asset.list[index].Copy(information);
+            }
+            AssetDatabase.SaveAssets();
+
+            AssetDatabase.Refresh();
         }
     }
 }

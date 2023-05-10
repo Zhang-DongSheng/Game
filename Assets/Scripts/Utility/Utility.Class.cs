@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
+using UnityEditor;
 using UnityEngine;
 
 namespace Game
@@ -113,6 +115,26 @@ namespace Game
                     }
                 }
                 return children;
+            }
+
+            public static string GetPath(Type type)
+            {
+                string script = type.Name;
+
+                string[] files = Directory.GetFiles(Application.dataPath, "*.cs", SearchOption.AllDirectories);
+
+                string name;
+
+                foreach (var file in files)
+                {
+                    name = Path.GetFileNameWithoutExtension(file);
+
+                    if (name == script)
+                    {
+                        return file;
+                    }
+                }
+                return string.Empty;
             }
         }
     }

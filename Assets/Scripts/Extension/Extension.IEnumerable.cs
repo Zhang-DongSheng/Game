@@ -173,6 +173,19 @@ namespace Game
             }
             return false;
         }
+
+        public static bool AllExist(this string[] array, string[] values)
+        {
+            bool exist = true;
+
+            foreach (string value in values)
+            {
+                exist = Exist(array, value);
+
+                if (!exist) break;
+            }
+            return exist;
+        }
         #endregion
     }
 }
