@@ -18,6 +18,7 @@ namespace Game
     /// <summary>
     /// 整型区间
     /// </summary>
+    [Serializable]
     public struct IntInterval
     {
         public int origination, destination;

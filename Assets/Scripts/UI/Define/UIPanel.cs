@@ -19,7 +19,5 @@ namespace Game.UI
 		UILotteryDraw,
 		UITest,
 		UIIntroduce,
-		TR7,
-		TR8,
 	}
 }

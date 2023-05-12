@@ -2,6 +2,7 @@ using Data;
 using Game.UI;
 using UnityEditor.Game;
 using UnityEngine;
+using static Game.Utility;
 
 namespace UnityEditor.Window
 {
@@ -18,17 +19,13 @@ namespace UnityEditor.Window
         private string content;
 
         private readonly UIInformation information = new UIInformation();
-
         [MenuItem("Game/UI")]
         protected static void Open()
         {
             Open<Game>("UI模板编辑");
         }
 
-        protected override void Initialise()
-        {
-
-        }
+        protected override void Initialise() { }
 
         protected override void Refresh()
         {
@@ -51,7 +48,7 @@ namespace UnityEditor.Window
 
         private void RefreshCreate()
         {
-            RefreshUIInformation(true);
+            content = GUILayout.TextField(content);
 
             if (GUILayout.Button(LanuageManager.Get("Create")))
             {
@@ -61,22 +58,33 @@ namespace UnityEditor.Window
 
                 ScriptHandler.Create(path);
 
-                AssetDatabase.Refresh();
+                AssetDatabase.ImportAsset(path);
 
                 path = string.Format("Assets/{0}{1}.prefab", PREFAB, content);
 
                 PrefabHandler.CreateUGUI(path);
 
+                AssetDatabase.ImportAsset(path);
+
+                ScriptHandler.Modify(typeof(UIPanel), content);
+
                 AssetDatabase.Refresh();
 
                 ShowNotification("模板创建完成");
-
-                ScriptHandler.Modify(typeof(UIPanel), content);
             }
 
             if (GUILayout.Button(LanuageManager.Get("Reference")))
             {
+                AddOrReplaceUIInformation();
 
+                //Type type = Type.GetType(content);
+
+                //if (type != null)
+                //{
+
+
+
+                //}
             }
         }
 
@@ -99,7 +107,7 @@ namespace UnityEditor.Window
                     information.panel = panel;
                 }
             }
-            RefreshUIInformation(false);
+            RefreshUIInformation();
 
             if (GUILayout.Button(LanuageManager.Get("Modify")))
             {
@@ -107,7 +115,7 @@ namespace UnityEditor.Window
             }
         }
 
-        private void RefreshUIInformation(bool editor)
+        private void RefreshUIInformation()
         {
             float width = 100;
 
@@ -117,14 +125,7 @@ namespace UnityEditor.Window
                 {
                     GUILayout.Label(LanuageManager.Get("Panel"), GUILayout.Width(width));
 
-                    if (editor)
-                    {
-                        content = GUILayout.TextField(content);
-                    }
-                    else
-                    {
-                        GUILayout.Label(information.panel.ToString());
-                    }
+                    GUILayout.Label(information.panel.ToString());
                 }
                 GUILayout.EndHorizontal();
 
@@ -177,11 +178,22 @@ namespace UnityEditor.Window
 
             if (asset.list.Exists(x => x.panel.ToString() == content))
             {
+                var clone = new UIInformation();
 
+                clone.Copy(information);
+
+                clone.panel = Enum.FromString<UIPanel>(content);
+
+                asset.list.Add(clone);
             }
             else
             {
-                
+                int index = asset.list.FindIndex(x => x.panel == information.panel);
+
+                if (index > -1)
+                {
+                    asset.list[index].Copy(information);
+                }
             }
             AssetDatabase.SaveAssets();
 
