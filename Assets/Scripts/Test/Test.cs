@@ -1,5 +1,4 @@
 ﻿using Game.Attribute;
-using IronForce2.IF2World;
 using UnityEngine;
 using UnityEngine.UI;
 

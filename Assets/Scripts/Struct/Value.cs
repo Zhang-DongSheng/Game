@@ -6,25 +6,25 @@ namespace Game
     /// 布尔型
     /// </summary>
     [Serializable]
-    public class BoolValue
+    public sealed class BoolValue
     {
         public Action<bool> action;
 
-        public bool value;
+        private bool _value = false;
 
-        public bool Value
+        public bool value
         {
             get
             {
-                return value;
+                return _value;
             }
             set
             {
-                if (this.value != value)
+                if (!_value.Equals(value))
                 {
                     action?.Invoke(value);
                 }
-                this.value = value;
+                _value = value;
             }
         }
     }
@@ -36,21 +36,21 @@ namespace Game
     {
         public Action<int> action;
 
-        public int value;
+        private int _value = 0;
 
-        public int Value
+        public int value
         {
             get
             {
-                return value;
+                return _value;
             }
             set
             {
-                if (this.value != value)
+                if (!_value.Equals(value))
                 {
                     action?.Invoke(value);
                 }
-                this.value = value;
+                _value = value;
             }
         }
     }
@@ -62,47 +62,99 @@ namespace Game
     {
         public Action<float> action;
 
-        public float value;
+        private float _value = 0;
 
-        public float Value
+        public float value
         {
             get
             {
-                return value;
+                return _value;
             }
             set
             {
-                if (this.value != value)
+                if (!_value.Equals(value))
                 {
                     action?.Invoke(value);
                 }
-                this.value = value;
+                _value = value;
             }
         }
     }
     /// <summary>
-    /// 泛型
+    /// Class泛型
     /// </summary>
     [Serializable]
-    public class GenericityValue<T> where T : class
+    public class ClassValue<T> where T : class
     {
         public Action<T> action;
 
-        public T value;
+        private T _value = default;
 
-        public T Value
+        public T value
         {
             get
             {
-                return value;
+                return _value;
             }
             set
             {
-                if (this.value != value)
+                if (!_value.Equals(value))
                 {
                     action?.Invoke(value);
                 }
-                this.value = value;
+                _value = value;
+            }
+        }
+    }
+    /// <summary>
+    /// Struct泛型
+    /// </summary>
+    [Serializable]
+    public class StructValue<T> where T : struct
+    {
+        public Action<T> action;
+
+        private T _value = default;
+
+        public T value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                if (!_value.Equals(value))
+                {
+                    action?.Invoke(value);
+                }
+                _value = value;
+            }
+        }
+    }
+    /// <summary>
+    /// 基类型
+    /// </summary>
+    [Serializable]
+    public class ObjectValue
+    {
+        public Action<object> action;
+
+        private object _value = null;
+
+        public object value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                if (!_value.Equals(value))
+                {
+                    action?.Invoke(value);
+                }
+                _value = value;
             }
         }
     }
