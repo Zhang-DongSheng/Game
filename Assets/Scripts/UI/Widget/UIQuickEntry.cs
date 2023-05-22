@@ -69,6 +69,14 @@ namespace Game.UI
             });
         }
 
+        public static void UpdateUITitle(UIInformation information)
+        {
+            Open(UIPanel.UIReward, new UIParameter()
+            {
+                ["info"] = information,
+            });
+        }
+
         public static bool IsOpen(UIPanel panel)
         {
             if (UIManager.Instance.TryGetCtrl(panel, out var ctrl))

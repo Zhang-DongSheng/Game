@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,11 +17,6 @@ namespace Game.UI
         }
 
         public override void Refresh(UIParameter paramter)
-        {
-            Refresh(null);
-        }
-
-        private void Refresh(EventMessageArgs args)
         {
             bool shop = false;
 

@@ -12,7 +12,7 @@
 
     Progress,
 
-    UIOpen,
+    OpenPanel,
 
-    UIClose,
+    ClosePanel,
 }
