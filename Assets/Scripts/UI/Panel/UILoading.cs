@@ -12,17 +12,16 @@ namespace Game.UI
         private void Awake()
         {
             progress.onValueChanged.AddListener(OnValueChanged);
-
-            EventManager.Register(EventKey.Progress, Refresh);
-
-            EventManager.Register(EventKey.UIOpen, OnLoadingCompleted);
         }
 
-        private void OnDestroy()
+        private void OnEnable()
+        {
+            EventManager.Register(EventKey.Progress, Refresh);
+        }
+
+        private void OnDisable()
         {
             EventManager.Unregister(EventKey.Progress, Refresh);
-
-            EventManager.Unregister(EventKey.UIOpen, OnLoadingCompleted);
         }
 
         private void Refresh(EventMessageArgs args)

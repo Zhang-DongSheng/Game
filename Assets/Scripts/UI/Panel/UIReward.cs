@@ -70,7 +70,7 @@ namespace Game.UI
             yield return null;
         }
 
-        public override void OnClickClose()
+        protected override void OnClickClose()
         {
             if (coroutine != null)
             {

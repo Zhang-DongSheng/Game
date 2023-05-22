@@ -19,11 +19,6 @@ namespace Game.UI
 
         private void Awake()
         {
-            Init();
-        }
-
-        private void Init()
-        {
             canvas = GetComponentInChildren<Canvas>();
 
             if (canvas != null)
@@ -65,13 +60,21 @@ namespace Game.UI
             }
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Back();
+            }
+        }
+
         public void Open(UIPanel panel, bool async = false)
         {
             try
             {
                 if (!_panels.ContainsKey(panel))
                 {
-                    _panels.Add(panel, new CtrlBase(panel, Record));
+                    _panels.Add(panel, new CtrlBase(panel));
                 }
                 _panels[panel].Open(async);
             }
@@ -81,22 +84,18 @@ namespace Game.UI
             }
         }
 
-        public void Back()
+        public void Parameter(UIPanel panel, UIParameter paramter)
         {
-            int last = _records.Count - 1;
-
-            if (last > -1)
+            if (_panels.ContainsKey(panel))
             {
-                _records[last--].Close();
-
-                if (last > -1 && !_records[last].active)
-                {
-                    _records[last].Open();
-                }
+                _panels[panel].Paramter(paramter);
             }
             else
             {
-                Debuger.LogError(Author.UI, "this is last panel!");
+                _panels.Add(panel, new CtrlBase(panel));
+                {
+                    _panels[panel].Paramter(paramter);
+                }
             }
         }
 
@@ -117,18 +116,51 @@ namespace Game.UI
             _records.Clear();
         }
 
-        public void Paramter(UIPanel panel, UIParameter paramter)
+        public void Record(CtrlBase ctrl)
         {
-            if (_panels.ContainsKey(panel))
+            if (ctrl.active)
             {
-                _panels[panel].Paramter(paramter);
+                if (ctrl.record)
+                {
+                    if (_records.Contains(ctrl))
+                    {
+                        Debuger.LogWarning(Author.UI, "The panel is opened repeatedly!");
+                    }
+                    else
+                    {
+                        _records.Add(ctrl);
+                    }
+                }
+                else
+                {
+                    Debuger.Log(Author.UI, "the panel is unrecord!");
+                }
             }
             else
             {
-                _panels.Add(panel, new CtrlBase(panel, Record));
+                if (_records.Contains(ctrl))
                 {
-                    _panels[panel].Paramter(paramter);
+                    _records.Remove(ctrl);
                 }
+            }
+        }
+
+        public void Back()
+        {
+            if (_records.Count > 1)
+            {
+                int last = _records.Count - 1;
+
+                switch (_records[last--].Back())
+                {
+                    case UIBackEvent.Pre:
+                        _records[last].Open();
+                        break;
+                }
+            }
+            else
+            {
+                Debuger.LogError(Author.UI, "this is last panel!");
             }
         }
 
@@ -178,42 +210,6 @@ namespace Game.UI
             for (int i = 0; i < childs.Count; i++)
             {
                 childs[i].transform.SetSiblingIndex(i);
-            }
-        }
-
-        public bool CanBack()
-        {
-            return _records.Count > 0;
-        }
-
-        public void Record(CtrlBase ctrl)
-        {
-            if (ctrl.active)
-            {
-                if (ctrl.Record())
-                {
-                    if (_records.Contains(ctrl))
-                    {
-                        Debuger.LogWarning(Author.UI, "The panel is opened repeatedly!");
-                    }
-                    else
-                    {
-                        _records.Add(ctrl);
-                    }
-                }
-                else
-                {
-                    Debuger.Log(Author.UI, "the panel is unrecord!");
-                }
-                EventManager.Post(EventKey.UIOpen);
-            }
-            else
-            {
-                if (_records.Contains(ctrl))
-                {
-                    _records.Remove(ctrl);
-                }
-                EventManager.Post(EventKey.UIClose);
             }
         }
 
@@ -272,7 +268,9 @@ namespace Game.UI
             return false;
         }
     }
-
+    /// <summary>
+    /// UI层级
+    /// </summary>
     public enum UILayer
     {
         Bottom,
@@ -281,5 +279,13 @@ namespace Game.UI
         Widget,
         Overlayer,
         Top,
+    }
+    /// <summary>
+    /// UI回退操作
+    /// </summary>
+    public enum UIBackEvent
+    {
+        None,
+        Pre,
     }
 }

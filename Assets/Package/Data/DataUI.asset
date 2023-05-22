@@ -16,7 +16,7 @@ MonoBehaviour:
   - panel: 1
     layer: 1
     name: UIMain
-    record: 0
+    record: 1
     order: 0
     path: Package/Prefab/UI/Panel/UIMain.prefab
   - panel: 2

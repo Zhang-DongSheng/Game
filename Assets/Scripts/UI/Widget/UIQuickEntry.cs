@@ -8,19 +8,19 @@ namespace Game.UI
     {
         public static bool async = ResourceConfig.Loading == LoadingType.AssetBundle;
 
-        public static void Open(UIPanel panel, UIParameter paramter = null)
+        public static void Open(UIPanel panel, UIParameter parameter = null)
         {
-            UIManager.Instance.Paramter(panel, paramter);
+            UIManager.Instance.Parameter(panel, parameter);
             {
                 UIManager.Instance.Open(panel, async);
             }
         }
 
-        public static void OpenSingle(UIPanel panel, UIParameter paramter = null)
+        public static void OpenSingle(UIPanel panel, UIParameter parameter = null)
         {
             UIManager.Instance.CloseAll();
 
-            UIManager.Instance.Paramter(panel, paramter);
+            UIManager.Instance.Parameter(panel, parameter);
             {
                 UIManager.Instance.Open(panel, async);
             }

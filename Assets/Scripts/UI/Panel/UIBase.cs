@@ -30,7 +30,14 @@ namespace Game.UI
 
         public virtual void Refresh(UIParameter paramter) { }
 
-        public virtual void OnClickClose()
+        public virtual bool Back()
+        {
+            UIManager.Instance.Close(panel);
+
+            return true;
+        }
+
+        protected virtual void OnClickClose()
         {
             UIManager.Instance.Close(panel);
         }

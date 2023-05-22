@@ -16,17 +16,6 @@ namespace Game.UI
             btnBack.onClick.AddListener(OnClickBack);
 
             btnShop.onClick.AddListener(OnClickShop);
-
-            EventManager.Register(EventKey.UIOpen, Refresh);
-
-            EventManager.Register(EventKey.UIClose, Refresh);
-        }
-
-        protected override void OnDestroy()
-        {
-            EventManager.Unregister(EventKey.UIOpen, Refresh);
-
-            EventManager.Unregister(EventKey.UIClose, Refresh);
         }
 
         protected override void OnUpdate(float delta)
@@ -48,8 +37,6 @@ namespace Game.UI
                 shop = ctrl.active;
             }
             btnShop.SetActive(!shop);
-
-            btnBack.SetActive(UIManager.Instance.CanBack());
         }
 
         private void OnClickBack()

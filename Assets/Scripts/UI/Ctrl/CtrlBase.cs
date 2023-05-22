@@ -16,15 +16,16 @@ namespace Game.UI
 
         private Status status;
 
-        private readonly Action<CtrlBase> callback;
-
-        public CtrlBase(UIPanel panel, Action<CtrlBase> callback)
+        public CtrlBase(UIPanel panel)
         {
             var config = DataManager.Instance.Load<DataUI>();
 
-            this.information = config.Get(panel);
+            information = config.Get(panel);
 
-            this.callback = callback;
+            if (information == null)
+            {
+                Debuger.LogError(Author.UI, "Config is Null!");
+            }
         }
 
         public void Open()
@@ -65,6 +66,11 @@ namespace Game.UI
             }
         }
 
+        public void Paramter(UIParameter paramter)
+        {
+            this.paramter = paramter;
+        }
+
         public void Close(bool destroy = false)
         {
             active = false; number--;
@@ -83,19 +89,18 @@ namespace Game.UI
             {
                 Hide();
             }
-            callback?.Invoke(this);
+            UIManager.Instance.Record(this);
         }
 
-        public bool Record()
+        public virtual UIBackEvent Back()
         {
-            if (information == null) return false;
+            if (view == null) return UIBackEvent.None;
 
-            return information.record;
-        }
-
-        public void Paramter(UIParameter paramter)
-        {
-            this.paramter = paramter;
+            if (view.Back())
+            {
+                return UIBackEvent.Pre;
+            }
+            return UIBackEvent.None;
         }
 
         private void Load()
@@ -167,9 +172,9 @@ namespace Game.UI
 
             view.Enter();
 
-            callback?.Invoke(this);
-
             UIManager.Instance.Sort(view.layer, view.transform);
+
+            UIManager.Instance.Record(this);
         }
 
         protected virtual void Hide()
@@ -182,6 +187,8 @@ namespace Game.UI
         public int number { get; protected set; }
 
         public string name { get { return information.name; } }
+
+        public bool record { get { return information.record; } }
 
         enum Status
         {
