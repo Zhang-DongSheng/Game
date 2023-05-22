@@ -135,6 +135,7 @@ namespace Game.UI
                 {
                     Debuger.Log(Author.UI, "the panel is unrecord!");
                 }
+                EventManager.Post(EventKey.UIOpen);
             }
             else
             {
@@ -142,6 +143,7 @@ namespace Game.UI
                 {
                     _records.Remove(ctrl);
                 }
+                EventManager.Post(EventKey.UIClose);
             }
         }
 

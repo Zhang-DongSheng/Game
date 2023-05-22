@@ -36,11 +36,6 @@ namespace Game.UI
 
         }
 
-        private void OnLoadingCompleted(EventMessageArgs args)
-        {
-            Close();
-        }
-
         public void Open()
         {
             gameObject.SetActive(true);

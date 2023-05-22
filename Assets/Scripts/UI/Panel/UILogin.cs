@@ -135,7 +135,7 @@ namespace Game.UI
             bool success = args.Get<bool>("status");
 
             if (success)
-            {
+            { 
                 GlobalVariables.Set(Const.ACCOUNT, account);
 
                 if (remember)
@@ -147,6 +147,8 @@ namespace Game.UI
                 ScheduleLogic.Instance.callback = () =>
                 {
                     UIQuickEntry.OpenSingle(UIPanel.UIMain);
+
+                    UILoading.Instance.Close();
                 };
                 ScheduleLogic.Instance.Enter();
             }

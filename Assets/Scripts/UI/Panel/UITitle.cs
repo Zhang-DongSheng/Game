@@ -18,11 +18,6 @@ namespace Game.UI
             btnShop.onClick.AddListener(OnClickShop);
         }
 
-        protected override void OnUpdate(float delta)
-        {
-            
-        }
-
         public override void Refresh(UIParameter paramter)
         {
             Refresh(null);

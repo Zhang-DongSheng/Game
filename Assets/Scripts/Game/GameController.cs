@@ -38,6 +38,8 @@ namespace Game
                 ResourceManager.UpdateDependencies();
 
                 UIQuickEntry.OpenSingle(UIPanel.UILogin);
+
+                UILoading.Instance.Close();
             };
             ScheduleLogic.Instance.Init();
         }
