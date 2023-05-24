@@ -8,8 +8,6 @@ namespace Game.UI
 {
     public class CtrlBase
     {
-        protected UIInformation information;
-
         protected UIParameter paramter;
 
         protected UIBase view;
@@ -77,7 +75,7 @@ namespace Game.UI
 
             if (view == null) return;
 
-            if (destroy)
+            if (destroy || information.destroy)
             {
                 if (view.gameObject != null)
                 {
@@ -92,15 +90,31 @@ namespace Game.UI
             UIManager.Instance.Record(this);
         }
 
-        public virtual UIBackEvent Back()
+        public void Display(bool active)
         {
-            if (view == null) return UIBackEvent.None;
+            if (this.active == active) return;
 
-            if (view.Back())
+            this.active = active;
+
+            if (view == null) return;
+
+            if (active)
             {
-                return UIBackEvent.Pre;
+                Show(); number++;
             }
-            return UIBackEvent.None;
+            else
+            {
+                Hide(); number--;
+            }
+        }
+
+        public virtual bool Back()
+        {
+            if (view != null)
+            {
+                return view.Back();
+            }
+            return false;
         }
 
         private void Load()
@@ -182,13 +196,11 @@ namespace Game.UI
             view.Exit();
         }
 
-        public bool active { get; protected set; }
+        public bool active { get; private set; }
 
-        public int number { get; protected set; }
+        public int number { get; private set; }
 
-        public string name { get { return information.name; } }
-
-        public bool record { get { return information.record; } }
+        public UIInformation information { get; private set; }
 
         enum Status
         {
@@ -198,4 +210,4 @@ namespace Game.UI
             Error,
         }
     }
-} 
+}

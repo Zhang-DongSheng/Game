@@ -11,20 +11,70 @@ namespace Game.UI
 
         private void Awake()
         {
+            EventManager.Register(EventKey.OpenPanel, Refresh);
+
             btnBack.onClick.AddListener(OnClickBack);
 
             btnShop.onClick.AddListener(OnClickShop);
         }
 
-        public override void Refresh(UIParameter paramter)
+        private void OnDestroy()
         {
-            bool shop = false;
+            EventManager.Unregister(EventKey.OpenPanel, Refresh);
+        }
 
-            if (UIManager.Instance.TryGetCtrl(UIPanel.UIShop, out CtrlBase ctrl))
+        private void Start()
+        {
+            if (UIManager.Instance.current != null)
             {
-                shop = ctrl.active;
+                Refresh(UIManager.Instance.current.information);
             }
-            btnShop.SetActive(!shop);
+        }
+
+        private void Refresh(EventMessageArgs args)
+        {
+            if (args[0] is UIInformation information)
+            {
+                Refresh(information);
+            }
+        }
+
+        private void Refresh(UIInformation information)
+        {
+            if (information == null) return;
+
+            if (information.type != UIType.Panel) return;
+
+            Default();
+
+            switch (information.panel)
+            {
+                case UIPanel.UIMain:
+                    {
+                        btnShop.SetActive(true);
+                    }
+                    break;
+                case UIPanel.UIShop:
+                    {
+                        btnBack.SetActive(true);
+                    }
+                    break;
+                default:
+                    {
+                        btnShop.SetActive(true);
+
+                        btnBack.SetActive(true);
+                    }
+                    break;
+            }
+            Debuger.Log(Author.UI, information.panel.ToString());
+        }
+
+        private void Default()
+        {
+            btnShop.SetActive(false);
+
+            btnBack.SetActive(false);
         }
 
         private void OnClickBack()

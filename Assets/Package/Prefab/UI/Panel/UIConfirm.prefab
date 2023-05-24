@@ -992,6 +992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 3
+  type: 1
   order: 0
   content: {fileID: 6978918612715007355}
   txt_title: {fileID: 6978918612664345695}

@@ -15,85 +15,99 @@ MonoBehaviour:
   list:
   - panel: 1
     layer: 1
+    type: 0
     name: UIMain
-    record: 1
     order: 0
     path: Package/Prefab/UI/Panel/UIMain.prefab
+    destroy: 0
   - panel: 2
     layer: 2
+    type: 0
     name: UILogin
-    record: 0
     order: 0
     path: Package/Prefab/UI/Panel/UILogin.prefab
+    destroy: 1
   - panel: 4
     layer: 4
+    type: 2
     name: UITips
-    record: 0
     order: 0
     path: Package/Prefab/UI/Panel/UITips.prefab
+    destroy: 0
   - panel: 5
     layer: 4
+    type: 2
     name: UITitle
-    record: 0
     order: 9
     path: Package/Prefab/UI/Panel/UITitle.prefab
+    destroy: 0
   - panel: 6
     layer: 4
+    type: 2
     name: UINotice
-    record: 0
     order: 0
     path: Package/Prefab/UI/Panel/UINotice.prefab
+    destroy: 0
   - panel: 7
     layer: 3
+    type: 1
     name: UIConfirm
-    record: 0
     order: 0
     path: Package/Prefab/UI/Panel/UIConfirm.prefab
+    destroy: 0
   - panel: 8
     layer: 4
+    type: 2
     name: UIHorseLamp
-    record: 0
     order: 0
     path: Package/Prefab/UI/Panel/UIHorseLamp.prefab
+    destroy: 0
   - panel: 9
     layer: 2
+    type: 0
     name: UIWarehouse
-    record: 1
     order: 0
     path: Package/Prefab/UI/Panel/UIWarehouse.prefab
+    destroy: 0
   - panel: 11
     layer: 2
+    type: 0
     name: UIShop
-    record: 1
     order: 0
     path: Package/Prefab/UI/Panel/UIShop.prefab
+    destroy: 1
   - panel: 12
     layer: 2
+    type: 0
     name: UIReward
-    record: 1
     order: 0
     path: Package/Prefab/UI/Panel/UIReward.prefab
+    destroy: 0
   - panel: 13
     layer: 2
+    type: 1
     name: UIActivity
-    record: 1
     order: 0
     path: Package/Prefab/UI/Panel/UIActivity.prefab
+    destroy: 0
   - panel: 14
     layer: 2
+    type: 0
     name: UILotteryDraw
-    record: 1
     order: 0
     path: Package/Prefab/UI/Panel/UILotteryDraw.prefab
+    destroy: 0
   - panel: 15
     layer: 2
+    type: 0
     name: UITest
-    record: 1
     order: 0
     path: Package/Prefab/UI/Panel/UITest.prefab
+    destroy: 0
   - panel: 16
     layer: 3
+    type: 1
     name: UIIntroduce
-    record: 0
     order: 0
     path: Package/Prefab/UI/Panel/UIIntroduce.prefab
+    destroy: 0

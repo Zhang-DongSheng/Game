@@ -814,6 +814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 3
+  type: 1
   order: 0
   imgIcon: {fileID: 4582001359556771957}
   imgQuality: {fileID: 8834809162286436010}

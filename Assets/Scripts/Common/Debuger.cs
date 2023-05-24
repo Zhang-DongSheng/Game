@@ -8,14 +8,15 @@ namespace UnityEngine
     {
         None,
         Device,
-        File,
+        Test,
         Script,
         Utility,
         UI,
-        Test,
+        File,
         Data,
         Sound,
         Resource,
+        ILRuntime,
     }
     public static class Debuger
     {
@@ -33,6 +34,7 @@ namespace UnityEngine
             { Author.Data,     LogType.Error },
             { Author.Sound,    LogType.Warning },
             { Author.Resource, LogType.Log },
+            { Author.ILRuntime,LogType.Error },
         };
         private static readonly StringBuilder builder = new StringBuilder();
 

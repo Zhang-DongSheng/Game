@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 namespace UnityEngine
 {
@@ -66,9 +67,16 @@ namespace UnityEngine
     {
         private readonly Dictionary<string, object> messages;
 
-        public EventMessageArgs()
+        public EventMessageArgs(params object[] parameters)
         {
             messages = new Dictionary<string, object>();
+
+            int length = parameters.Length;
+
+            for (int i = 0; i < length; i++)
+            {
+                AddOrReplace(i.ToString(), parameters[i]);
+            }
         }
         /// <summary>
         /// 复制
@@ -89,6 +97,23 @@ namespace UnityEngine
             set
             {
                 AddOrReplace(key, value);
+            }
+        }
+        /// <summary>
+        /// 索引访问器
+        /// </summary>
+        public object this[int index]
+        {
+            get
+            {
+                foreach (var value in messages.Values)
+                {
+                    if (index-- == 0)
+                    {
+                        return value;
+                    }
+                }
+                return null;
             }
         }
         /// <summary>

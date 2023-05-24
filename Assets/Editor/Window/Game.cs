@@ -139,6 +139,14 @@ namespace UnityEditor.Window
 
                 GUILayout.BeginHorizontal();
                 {
+                    GUILayout.Label(LanuageManager.Get("Type"), GUILayout.Width(width));
+
+                    information.type = (UIType)EditorGUILayout.EnumPopup(information.type);
+                }
+                GUILayout.EndHorizontal();
+
+                GUILayout.BeginHorizontal();
+                {
                     GUILayout.Label(LanuageManager.Get("Name"), GUILayout.Width(width));
 
                     information.name = EditorGUILayout.TextField(information.name);
@@ -149,7 +157,7 @@ namespace UnityEditor.Window
                 {
                     GUILayout.Label(LanuageManager.Get("Record"), GUILayout.Width(width));
 
-                    information.record = GUILayout.Toggle(information.record, string.Empty);
+                    information.destroy = GUILayout.Toggle(information.destroy, string.Empty);
                 }
                 GUILayout.EndHorizontal();
 

@@ -7,17 +7,17 @@ namespace ILRuntime.Game
     {
         public static void Log(object message)
         {
-            Debug.Log(Identification + message);
+            UnityEngine.Debuger.Log(Author.ILRuntime, Identification + message);
         }
 
         public static void LogWarning(object message)
         {
-            Debug.LogWarning(Identification + message);
+            UnityEngine.Debuger.LogWarning(Author.ILRuntime, Identification + message);
         }
 
         public static void LogError(object message)
         {
-            Debug.LogError(Identification + message);
+            UnityEngine.Debuger.LogError(Author.ILRuntime, Identification + message);
         }
 
         private static string Identification

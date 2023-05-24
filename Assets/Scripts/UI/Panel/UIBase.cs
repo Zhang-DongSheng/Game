@@ -9,6 +9,8 @@ namespace Game.UI
 
         public UILayer layer = UILayer.Window;
 
+        public UIType type = UIType.Panel;
+
         public int order = 0;
 
         public virtual void Init(UIPanel panel)
@@ -35,11 +37,6 @@ namespace Game.UI
             UIManager.Instance.Close(panel);
 
             return true;
-        }
-
-        protected virtual void OnClickClose()
-        {
-            UIManager.Instance.Close(panel);
         }
 
         public void SetName(string name)
@@ -86,6 +83,11 @@ namespace Game.UI
 
                 canvas.blocksRaycasts = state;
             }
+        }
+
+        protected virtual void OnClickClose()
+        {
+            UIManager.Instance.Close(panel);
         }
 
         protected virtual void Relevance()

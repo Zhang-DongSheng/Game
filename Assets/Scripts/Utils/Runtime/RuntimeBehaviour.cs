@@ -24,15 +24,6 @@ namespace Game
             Unregister(RuntimeEvent.LateUpdate, OnLateUpdate);
         }
 
-        protected virtual void OnDestroy()
-        {
-            Unregister(RuntimeEvent.FixedUpdate, OnFixedUpdate);
-
-            Unregister(RuntimeEvent.Update, OnUpdate);
-
-            Unregister(RuntimeEvent.LateUpdate, OnLateUpdate);
-        }
-
         protected virtual void OnUpdate(float delta)
         {
 

@@ -7,32 +7,36 @@ namespace Game.UI
 
         public UILayer layer;
 
-        public string name;
+        public UIType type;
 
-        public bool record;
+        public string name;
 
         public int order;
 
         public string path;
+
+        public bool destroy;
 
         public UIInformation()
         {
 
         }
 
-        public void Copy(UIInformation other)
+        public void Copy(UIInformation source)
         {
-            panel = other.panel;
+            panel = source.panel;
 
-            layer = other.layer;
+            layer = source.layer;
 
-            name = other.name;
+            type = source.type;
 
-            record = other.record;
+            name = source.name;
 
-            order = other.order;
+            order = source.order;
 
-            path = other.path;
+            path = source.path;
+
+            destroy = source.destroy;
         }
 
         public static UIInformation Default(UIPanel panel)
@@ -43,9 +47,11 @@ namespace Game.UI
 
                 layer = UILayer.Window,
 
+                type = UIType.Panel,
+
                 name = panel.ToString(),
 
-                record = false,
+                destroy = false,
 
                 order = 0,
 

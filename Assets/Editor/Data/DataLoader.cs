@@ -167,15 +167,6 @@ namespace UnityEditor
 
             data.list = new List<UIInformation>();
 
-            bool Record(UIPanel panel, UILayer layer)
-            {
-                if (panel == UIPanel.UILogin ||
-                    panel == UIPanel.UIMain)
-                {
-                    return false;
-                }
-                return layer == UILayer.Window;
-            }
             foreach (var panel in System.Enum.GetValues(typeof(UIPanel)))
             {
                 switch ((UIPanel)panel)
@@ -197,9 +188,10 @@ namespace UnityEditor
                                     panel = (UIPanel)panel,
                                     layer = view.layer,
                                     order = view.order,
-                                    record = Record((UIPanel)panel, view.layer),
+                                    type = view.type,
                                     name = view.name,
                                     path = path,
+                                    destroy = false
                                 });
                             }
                         }

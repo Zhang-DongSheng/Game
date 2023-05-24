@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -120,22 +121,31 @@ namespace Game.UI
         {
             if (ctrl.active)
             {
-                if (ctrl.record)
+                switch (ctrl.information.type)
                 {
-                    if (_records.Contains(ctrl))
-                    {
-                        Debuger.LogWarning(Author.UI, "The panel is opened repeatedly!");
-                    }
-                    else
-                    {
-                        _records.Add(ctrl);
-                    }
+                    case UIType.Panel:
+                        {
+                            if (_records.Contains(ctrl))
+                            {
+                                Debuger.LogWarning(Author.UI, "The panel is opened repeatedly!");
+                            }
+                            else
+                            {
+                                _records.Add(ctrl);
+                            }
+                            // Close Pre Panel
+                            if (current != null && current != ctrl)
+                            {
+                                current.Display(false);
+                            }
+                            current = ctrl;
+                        }
+                        break;
+                    default:
+                        Debuger.Log(Author.UI, "the panel is unrecord!");
+                        break;
                 }
-                else
-                {
-                    Debuger.Log(Author.UI, "the panel is unrecord!");
-                }
-                EventManager.Post(EventKey.OpenPanel);
+                EventManager.Post(EventKey.OpenPanel, new EventMessageArgs(ctrl.information));
             }
             else
             {
@@ -153,11 +163,9 @@ namespace Game.UI
             {
                 int last = _records.Count - 1;
 
-                switch (_records[last--].Back())
+                if (_records[last--].Back())
                 {
-                    case UIBackEvent.Pre:
-                        _records[last].Open();
-                        break;
+                    _records[last].Open();
                 }
             }
             else
@@ -215,18 +223,6 @@ namespace Game.UI
             }
         }
 
-        public Vector2 Resolution
-        {
-            get
-            {
-                if (canvas != null && canvas.TryGetComponent(out RectTransform content))
-                {
-                    return new Vector2(content.rect.width, content.rect.height);
-                }
-                return new Vector2(Screen.width, Screen.height);
-            }
-        }
-
         public bool ScreentPointToUGUIPosition(RectTransform parent, Vector2 point, out Vector2 position)
         {
             if (canvas == null)
@@ -241,6 +237,15 @@ namespace Game.UI
             {
                 return RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, point, null, out position);
             }
+        }
+
+        public Vector2 Resolution()
+        {
+            if (canvas != null && canvas.TryGetComponent(out RectTransform content))
+            {
+                return new Vector2(content.rect.width, content.rect.height);
+            }
+            return new Vector2(Screen.width, Screen.height);
         }
 
         public static bool IsPointerOverGameObjectWithTag(params string[] tags)
@@ -269,6 +274,8 @@ namespace Game.UI
             }
             return false;
         }
+
+        public CtrlBase current { get; private set; }
     }
     /// <summary>
     /// UI层级
@@ -283,11 +290,12 @@ namespace Game.UI
         Top,
     }
     /// <summary>
-    /// UI回退操作
+    /// UI类型
     /// </summary>
-    public enum UIBackEvent
+    public enum UIType
     {
-        None,
-        Pre,
+        Panel,
+        Popup,
+        Widget,
     }
 }

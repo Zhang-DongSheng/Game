@@ -18,16 +18,14 @@ namespace Game.UI
             EventManager.Register(EventKey.Reddot, Refresh);
         }
 
+        private void OnDestroy()
+        {
+            EventManager.Unregister(EventKey.Reddot, Refresh);
+        }
+
         private void Start()
         {
             Refresh();
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            EventManager.Unregister(EventKey.Reddot, Refresh);
         }
 
         private void Refresh(EventMessageArgs args)

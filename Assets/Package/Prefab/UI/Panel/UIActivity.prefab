@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 2
+  type: 1
   order: 0
   m_menu: {fileID: 4072563929310703594}
   m_activities:
