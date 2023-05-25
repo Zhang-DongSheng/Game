@@ -30,7 +30,7 @@ namespace Game.UI
 
         public virtual void Reopen() { }
 
-        public virtual void Refresh(UIParameter paramter) { }
+        public virtual void Refresh(UIParameter parameter) { }
 
         public virtual bool Back()
         {

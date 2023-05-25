@@ -27,8 +27,6 @@ namespace Game.UI
 
         private void Awake()
         {
-            Initialize();
-
             input_account.onValueChanged.AddListener(OnValueChangedAccount);
 
             input_password.onValueChanged.AddListener(OnValueChangedPassword);
@@ -38,6 +36,11 @@ namespace Game.UI
             tog_automatic.onValueChanged.AddListener(OnValueChangedAutomatic);
 
             btn_login.onClick.AddListener(OnClickLogin);
+        }
+
+        private void Start()
+        {
+            Initialize();
         }
 
         protected override void OnEnable()
@@ -67,6 +70,34 @@ namespace Game.UI
             tog_remember.isOn = remember;
 
             tog_automatic.isOn = automatic;
+        }
+
+        private void OnReceivedLogin(EventMessageArgs args)
+        {
+            bool success = args.Get<bool>("status");
+
+            if (success)
+            {
+                GlobalVariables.Set(Const.ACCOUNT, account);
+
+                if (remember)
+                {
+                    GlobalVariables.Set(Const.PASSWORD, password);
+                }
+                UILoading.Instance.Open();
+
+                ScheduleLogic.Instance.callback = () =>
+                {
+                    UIQuickEntry.OpenSingle(UIPanel.UIMain);
+                };
+                ScheduleLogic.Instance.Enter();
+            }
+            else
+            {
+                string error = args.Get<string>("message");
+
+                UIQuickEntry.OpenUIHorseLamp(error);
+            }
         }
 
         private void OnValueChangedAccount(string value)
@@ -127,36 +158,6 @@ namespace Game.UI
             else
             {
                 LoginLogic.Instance.RequestInformation(account, password);
-            }
-        }
-
-        private void OnReceivedLogin(EventMessageArgs args)
-        {
-            bool success = args.Get<bool>("status");
-
-            if (success)
-            { 
-                GlobalVariables.Set(Const.ACCOUNT, account);
-
-                if (remember)
-                {
-                    GlobalVariables.Set(Const.PASSWORD, password);
-                }
-                UILoading.Instance.Open();
-
-                ScheduleLogic.Instance.callback = () =>
-                {
-                    UIQuickEntry.OpenSingle(UIPanel.UIMain);
-
-                    UILoading.Instance.Close();
-                };
-                ScheduleLogic.Instance.Enter();
-            }
-            else
-            {
-                string error = args.Get<string>("message");
-
-                UIQuickEntry.OpenUIHorseLamp(error);
             }
         }
     }

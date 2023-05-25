@@ -4,8 +4,6 @@ namespace Game
 {
     public abstract class RuntimeBehaviour : MonoBehaviour
     {
-        protected readonly RuntimeParameter parameter = new RuntimeParameter();
-
         protected virtual void OnEnable()
         {
             Register(RuntimeEvent.FixedUpdate, OnFixedUpdate);
@@ -43,18 +41,12 @@ namespace Game
         {
             if (this.Override(function.Method.Name))
             {
-                parameter.Register(key);
-
                 RuntimeManager.Instance.Register(key, function);
             }
         }
 
         protected void Unregister(RuntimeEvent key, FunctionBySingle function)
         {
-            if (parameter.Exists(key) == false) return;
-
-            parameter.Unregister(key);
-
             if (this.Override(function.Method.Name))
             {
                 RuntimeManager.Instance.Unregister(key, function);
