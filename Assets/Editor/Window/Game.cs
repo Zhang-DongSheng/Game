@@ -1,8 +1,10 @@
 using Data;
 using Game.UI;
+using System;
+using System.IO;
+using System.Reflection;
 using UnityEditor.Game;
 using UnityEngine;
-using static Game.Utility;
 
 namespace UnityEditor.Window
 {
@@ -75,16 +77,34 @@ namespace UnityEditor.Window
 
             if (GUILayout.Button(LanuageManager.Get("Reference")))
             {
+                string path = string.Format("Assets/{0}{1}.prefab", PREFAB, content);
+
+                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+
+                Assembly assembly = Assembly.Load("Assembly-CSharp");
+
+                Type type = assembly.GetType(string.Format("Game.UI.{0}", content));
+
+                if (prefab != null && type != null)
+                {
+                    try
+                    {
+                        if (prefab.TryGetComponent(type, out _) == false)
+                        {
+                            prefab.AddComponent(type);
+                        }
+                        PrefabUtility.SavePrefabAsset(prefab);
+                    }
+                    catch (Exception e)
+                    {
+                        UnityEngine.Debuger.LogException(Author.Resource, e);
+                    }
+                }
+                else
+                {
+                    UnityEngine.Debuger.LogError(Author.Resource, "Prefab or Script is null!");
+                }
                 AddOrReplaceUIInformation();
-
-                //Type type = Type.GetType(content);
-
-                //if (type != null)
-                //{
-
-
-
-                //}
             }
         }
 
@@ -186,25 +206,20 @@ namespace UnityEditor.Window
 
             if (asset.list.Exists(x => x.panel.ToString() == content))
             {
+                
+            }
+            else
+            {
                 var clone = new UIInformation();
 
                 clone.Copy(information);
 
-                clone.panel = Enum.FromString<UIPanel>(content);
+                clone.panel = Enum.Parse<UIPanel>(content);
 
                 asset.list.Add(clone);
-            }
-            else
-            {
-                int index = asset.list.FindIndex(x => x.panel == information.panel);
 
-                if (index > -1)
-                {
-                    asset.list[index].Copy(information);
-                }
+                AssetDatabase.SaveAssets();
             }
-            AssetDatabase.SaveAssets();
-
             AssetDatabase.Refresh();
         }
 
@@ -217,9 +232,9 @@ namespace UnityEditor.Window
             if (index > -1) 
             {
                 asset.list[index].Copy(information);
-            }
-            AssetDatabase.SaveAssets();
 
+                AssetDatabase.SaveAssets();
+            }
             AssetDatabase.Refresh();
         }
     }

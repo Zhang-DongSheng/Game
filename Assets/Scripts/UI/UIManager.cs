@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,7 +13,7 @@ namespace Game.UI
 
         private readonly Dictionary<UIPanel, CtrlBase> _panels = new Dictionary<UIPanel, CtrlBase>();
 
-        private readonly List<CtrlBase> _records = new List<CtrlBase>();
+        private readonly Dictionary<UIType, List<CtrlBase>> _records = new Dictionary<UIType, List<CtrlBase>>();
 
         private Canvas canvas;
 
@@ -119,21 +118,28 @@ namespace Game.UI
 
         public void Record(CtrlBase ctrl)
         {
+            if (ctrl == null || ctrl.information == null) return;
+
+            var key = ctrl.information.type;
+
+            if (_records.ContainsKey(key) == false)
+            {
+                _records.Add(key, new List<CtrlBase>());
+            }
             if (ctrl.active)
             {
+                if (_records[key].Contains(ctrl))
+                {
+                    Debuger.LogWarning(Author.UI, string.Format("The panel of {0} is opened repeatedly!", ctrl.information.name));
+                }
+                else
+                {
+                    _records[key].Add(ctrl);
+                }
                 switch (ctrl.information.type)
                 {
                     case UIType.Panel:
                         {
-                            if (_records.Contains(ctrl))
-                            {
-                                Debuger.LogWarning(Author.UI, "The panel is opened repeatedly!");
-                            }
-                            else
-                            {
-                                _records.Add(ctrl);
-                            }
-                            // Close Pre Panel
                             if (current != null && current != ctrl)
                             {
                                 current.Display(false);
@@ -142,16 +148,16 @@ namespace Game.UI
                         }
                         break;
                     default:
-                        Debuger.Log(Author.UI, "the panel is unrecord!");
+                        Debuger.Log(Author.UI, string.Format("the panel of {0} is unrecord!", ctrl.information.name));
                         break;
                 }
                 EventManager.Post(EventKey.OpenPanel, new EventMessageArgs(ctrl.information));
             }
             else
             {
-                if (_records.Contains(ctrl))
+                if (_records[key].Contains(ctrl))
                 {
-                    _records.Remove(ctrl);
+                    _records[key].Remove(ctrl);
                 }
                 EventManager.Post(EventKey.ClosePanel);
             }
@@ -159,18 +165,29 @@ namespace Game.UI
 
         public void Back()
         {
-            if (_records.Count > 1)
-            {
-                int last = _records.Count - 1;
+            int index;
 
-                if (_records[last--].Back())
+            if (_records[UIType.Popup].Count > 0)
+            {
+                index = _records[UIType.Popup].Count - 1;
+
+                if (_records[UIType.Popup][index].Back())
                 {
-                    _records[last].Open();
+                    // 弹窗关闭不影响面板
+                }
+            }
+            else if (_records[UIType.Panel].Count > 1)
+            {
+                index = _records[UIType.Panel].Count - 1;
+
+                if (_records[UIType.Panel][index--].Back())
+                {
+                    _records[UIType.Panel][index].Open();
                 }
             }
             else
             {
-                Debuger.LogError(Author.UI, "this is last panel!");
+                Debuger.LogError(Author.UI, "This is the final panel!");
             }
         }
 

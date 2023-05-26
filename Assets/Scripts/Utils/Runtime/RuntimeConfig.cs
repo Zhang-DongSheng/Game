@@ -2,8 +2,6 @@ namespace Game
 {
     public static class RuntimeConfig
     {
-        public const bool Vsync = false;
-
         public const int Frame = 60;
     }
 

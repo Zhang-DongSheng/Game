@@ -142,7 +142,7 @@ RectTransform:
   - {fileID: 3944822998908130514}
   - {fileID: 4241529558325082880}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 2
+  type: 0
   order: 0
   prefab: {fileID: 3451189398726275846}
   title: {fileID: 709854309868806716}
@@ -482,4 +483,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   template:
     parent: {fileID: 5546310346361309367}
-    prefab: {fileID: 641752024329987939, guid: 926a2cbffa9069945bc49951deb7fe40, type: 3}
+    prefab: {fileID: 5709139893129730540, guid: 45c83dce55b54884cad1957267d97b8b, type: 3}
