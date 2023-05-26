@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace IronForce2.IF2World
 {
-	public class MovementArrowManager : MonoBehaviour
+	public class MovementArrowManager : RuntimeBehaviour
 	{
         public MovementArrow Indicator0;
 
@@ -22,13 +22,13 @@ namespace IronForce2.IF2World
 
         private MovementDirection direction;
 
-        void Awake()
-		{
+        protected override void OnAwake()
+        {
 			direction = MovementDirection.None;
 		}
 
-		void Update()
-		{
+        protected override void OnUpdate(float delta)
+        {
             UpdatePresentation();
         }
 

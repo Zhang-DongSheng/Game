@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Game
 {
-    public class GameController : MonoBehaviour
+    public class GameController : RuntimeBehaviour
     {
-        private void Awake()
+        protected override void OnAwake()
         {
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
 

@@ -29,7 +29,7 @@ namespace Game.UI
 
         private bool active;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             button.onClick.AddListener(OnClick);
         }

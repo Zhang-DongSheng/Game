@@ -16,7 +16,7 @@ namespace Game.UI
 
         [SerializeField] private List<Button> skills;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             stick.onMove.AddListener(OnMove);
 

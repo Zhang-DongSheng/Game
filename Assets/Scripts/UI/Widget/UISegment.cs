@@ -1,10 +1,11 @@
+using Game.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace UnityEngine.UI
 {
-    public class UISegment : MonoBehaviour
+    public class UISegment : ItemBase
     {
         public Action<GameObject, object> callback;
 
@@ -24,7 +25,7 @@ namespace UnityEngine.UI
 
         private readonly List<GameObject> items = new List<GameObject>();
 
-        private void Awake()
+        protected override void OnAwake()
         {
             scroll.onValueChanged.AddListener((value) =>
             {

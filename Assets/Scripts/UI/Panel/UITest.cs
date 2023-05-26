@@ -17,7 +17,7 @@ namespace Game.UI
 
         private int index;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             btn_next.onClick.AddListener(OnClick);
 

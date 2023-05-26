@@ -10,10 +10,8 @@ namespace Game.UI
 
         private bool active;
 
-        protected override void OnEnable()
+        private void OnEnable()
         {
-            base.OnEnable();
-
             timer = 0;
             
             active = true;

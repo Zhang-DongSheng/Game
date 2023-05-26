@@ -18,7 +18,7 @@ namespace Game.UI
 
         [SerializeField] private Button btnClose;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             btnClose.onClick.AddListener(OnClickClose);
         }

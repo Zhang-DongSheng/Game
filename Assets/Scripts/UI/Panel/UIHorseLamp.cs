@@ -21,9 +21,8 @@ namespace Game.UI
 
         private readonly List<ItemHorseLamp> items = new List<ItemHorseLamp>();
 
-        protected override void OnEnable()
+        private void OnEnable()
         {
-            base.OnEnable();
             animator.onCompleted.RemoveAllListeners();
             animator.Begin();
         }

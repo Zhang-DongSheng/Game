@@ -25,7 +25,7 @@ namespace Game.UI
 
         private bool remember, automatic;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             input_account.onValueChanged.AddListener(OnValueChangedAccount);
 
@@ -43,12 +43,12 @@ namespace Game.UI
             Initialize();
         }
 
-        protected override void OnEnable()
+        private void OnEnable()
         {
             EventManager.Register(EventKey.Login, OnReceivedLogin);
         }
 
-        protected override void OnDisable()
+        private void OnDisable()
         {
             EventManager.Unregister(EventKey.Login, OnReceivedLogin);
         }

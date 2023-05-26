@@ -10,7 +10,7 @@ namespace Game.UI
 
         [SerializeField] private List<UIShopBase> m_shops;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             m_menu.callback = OnClickTab;
         }

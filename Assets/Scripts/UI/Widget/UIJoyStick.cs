@@ -73,7 +73,7 @@ namespace UnityEngine.UI
 
         private Vector2 point_pre, point_now;
 
-        private void Awake()
+        private void Start()
         {
             if (canvas == null)
             {

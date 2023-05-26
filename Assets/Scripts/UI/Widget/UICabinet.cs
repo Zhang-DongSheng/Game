@@ -12,7 +12,7 @@ namespace Game.UI
 
         [SerializeField] private bool active;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             for (int i = 0; i < items.Count; i++)
             {

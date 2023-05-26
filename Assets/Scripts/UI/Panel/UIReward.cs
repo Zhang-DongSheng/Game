@@ -23,7 +23,7 @@ namespace Game.UI
 
         private readonly List<ItemReward> items = new List<ItemReward>();
 
-        private void Awake()
+        protected override void OnAwake()
         {
             button.onClick.AddListener(OnClickClose);
         }

@@ -15,7 +15,7 @@ namespace Game.UI
 
         [SerializeField] private Button btnLotteryDraw;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             btnWarehouse.onClick.AddListener(OnClickWarehouse);
 

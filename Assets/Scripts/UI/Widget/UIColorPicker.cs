@@ -45,7 +45,7 @@ namespace Game.UI
 
         public UnityEvent<Color> onValueChanged;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             slider.minValue = 0;
 

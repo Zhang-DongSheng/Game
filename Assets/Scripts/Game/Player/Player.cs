@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Game
 {
     [RequireComponent(typeof(Animator))]
-    public abstract class Player : MonoBehaviour
+    public abstract class Player : RuntimeBehaviour
     {
         [SerializeField] protected Animator animator;
 
@@ -25,7 +25,7 @@ namespace Game
 
         public abstract void ReleaseSkill(int index);
 
-        protected virtual void Awake()
+        protected override void OnAwake()
         {
             if (animator == null)
                 animator = GetComponent<Animator>();

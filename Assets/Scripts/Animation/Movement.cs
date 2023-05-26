@@ -22,7 +22,7 @@ namespace Game
 
         protected float acceleration;
 
-        private void Awake()
+        private void Start()
         {
             switch (TRS)
             {

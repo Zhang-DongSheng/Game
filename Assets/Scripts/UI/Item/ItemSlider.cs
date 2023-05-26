@@ -30,7 +30,7 @@ namespace Game.UI
 
         private Status status;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             if (background == null || foreground == null)
             {

@@ -5,8 +5,6 @@ namespace Game.Animation
 {
     public class Fly : RuntimeBehaviour
     {
-        public Action callback;
-
         [SerializeField] private Transform target;
 
         [SerializeField] private AnimationCurve curve = AnimationCurve.Linear(0, 0, 1, 1);
@@ -21,13 +19,7 @@ namespace Game.Animation
 
         private bool active;
 
-        private void Awake()
-        {
-            if (target == null)
-            {
-                target = transform;
-            }
-        }
+        public Action callback;
 
         protected override void OnUpdate(float delta)
         {

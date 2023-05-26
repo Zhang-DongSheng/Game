@@ -28,7 +28,7 @@ namespace Game.UI
 
         private DrawStatus status;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             button.onClick.AddListener(OnClickDraw);
         }

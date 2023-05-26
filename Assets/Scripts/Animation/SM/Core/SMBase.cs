@@ -27,7 +27,7 @@ namespace Game.SM
 
         protected Status status;
 
-        private void Awake()
+        private void Start()
         {
             if (target == null)
             {
@@ -41,13 +41,12 @@ namespace Game.SM
             Init();
         }
 
-        protected override void OnEnable()
+        private void OnEnable()
         {
             if (enable)
             {
                 Begin();
             }
-            base.OnEnable();
         }
 
         private void OnValidate()

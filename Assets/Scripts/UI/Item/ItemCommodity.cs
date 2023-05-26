@@ -17,7 +17,7 @@ namespace Game.UI
 
         private Commodity commodity;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             btnBuy.onClick.AddListener(OnClick);
         }

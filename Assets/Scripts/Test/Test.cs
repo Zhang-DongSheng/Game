@@ -14,11 +14,6 @@ namespace Game.Test
 
         private Vector2 delta;
 
-        protected void Awake()
-        {
-            
-        }
-
         private void OnDrawGizmos()
         {
             

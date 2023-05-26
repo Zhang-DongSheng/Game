@@ -13,13 +13,15 @@ namespace Game.UI
 
         private bool active;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             EventManager.Register(EventKey.Reddot, Refresh);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+
             EventManager.Unregister(EventKey.Reddot, Refresh);
         }
 

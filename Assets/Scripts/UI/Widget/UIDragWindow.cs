@@ -30,7 +30,7 @@ namespace Game.UI
 
         private bool drag;
 
-        private void Awake()
+        private void Start()
         {
             if (full)
             {

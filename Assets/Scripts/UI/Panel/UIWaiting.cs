@@ -10,7 +10,7 @@ namespace Game.UI
 
         private Vector3 vector;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             vector = Vector3.forward * angle;
         }

@@ -9,7 +9,7 @@ namespace Game.UI
 
         [SerializeField] private Button btnShop;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             EventManager.Register(EventKey.OpenPanel, Refresh);
 

@@ -4,8 +4,10 @@ namespace Game
 {
     public abstract class RuntimeBehaviour : MonoBehaviour
     {
-        protected virtual void OnEnable()
+        protected virtual void Awake()
         {
+            OnAwake();
+
             Register(RuntimeEvent.FixedUpdate, OnFixedUpdate);
 
             Register(RuntimeEvent.Update, OnUpdate);
@@ -13,13 +15,18 @@ namespace Game
             Register(RuntimeEvent.LateUpdate, OnLateUpdate);
         }
 
-        protected virtual void OnDisable()
+        protected virtual void OnDestroy()
         {
             Unregister(RuntimeEvent.FixedUpdate, OnFixedUpdate);
 
             Unregister(RuntimeEvent.Update, OnUpdate);
 
             Unregister(RuntimeEvent.LateUpdate, OnLateUpdate);
+        }
+
+        protected virtual void OnAwake()
+        { 
+            
         }
 
         protected virtual void OnUpdate(float delta)

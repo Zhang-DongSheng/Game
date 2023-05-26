@@ -21,7 +21,7 @@ namespace Game.UI
 
         private RectTransform target;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             visualizer.onValueChanged.AddListener(OnValueChanged);
         }

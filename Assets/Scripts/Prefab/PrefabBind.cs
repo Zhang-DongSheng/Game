@@ -4,11 +4,11 @@ using UnityEngine;
 namespace Game
 {
     [DisallowMultipleComponent]
-    class PrefabBind : MonoBehaviour
+    class PrefabBind : RuntimeBehaviour
     {
         [SerializeField] private List<GameObject> objects;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             foreach (var go in objects)
             {

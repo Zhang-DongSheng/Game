@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Game.Model
 {
-    [ExecuteInEditMode]
     public class ModelScale : RuntimeBehaviour
     {
         [SerializeField] private Transform target;
@@ -11,19 +10,7 @@ namespace Game.Model
 
         [SerializeField] private Vector3 scale = Vector3.one;
 
-        private void Awake()
-        {
-            if (target == null)
-                target = transform;
-            OnTransformParentChanged();
-        }
-
         private void OnValidate()
-        {
-            OnTransformParentChanged();
-        }
-
-        private void OnTransformParentChanged()
         {
             if (stay)
             {

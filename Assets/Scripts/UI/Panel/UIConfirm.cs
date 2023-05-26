@@ -23,7 +23,7 @@ namespace Game.UI
 
         private Action confirm, cancel;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             btn_confirm.onClick.AddListener(OnClickConfirm);
 

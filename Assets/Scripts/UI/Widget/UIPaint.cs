@@ -38,7 +38,7 @@ namespace Game.UI
             new Vector2(1, -1)
         };
 
-        private void Awake()
+        private void Start()
         {
             width = Screen.width;
 
