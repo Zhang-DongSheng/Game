@@ -8,9 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 6c1b7968bc8434f4f8b922f73cf46b6e
-  - enabled: 0
-    path: Assets/Scenes/Test.unity
-    guid: e2a8633fef0ca014a9d6852ec45110f5
+  - enabled: 1
+    path: Assets/Scenes/MMORPG.unity
+    guid: 5c7cb42c1d4586d478a3b166d878123a
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 6dfdc97336e7fee49bf39f62b135ebb6, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: a4ddcd0590ea0f9438948590d42fdd5a, type: 2}

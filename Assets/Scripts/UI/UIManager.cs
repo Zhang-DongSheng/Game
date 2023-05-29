@@ -312,6 +312,7 @@ namespace Game.UI
     /// </summary>
     public enum UIType
     {
+        None,
         Panel,
         Popup,
         Widget,

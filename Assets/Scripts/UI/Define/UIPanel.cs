@@ -20,5 +20,6 @@ namespace Game.UI
 		UITest,
 		UIIntroduce,
 		UISetting,
+		UIMMORPG,
 	}
 }

@@ -15,42 +15,42 @@ MonoBehaviour:
   list:
   - panel: 1
     layer: 1
-    type: 0
+    type: 1
     name: UIMain
     order: 0
     path: Package/Prefab/UI/Panel/UIMain.prefab
     destroy: 0
   - panel: 2
     layer: 2
-    type: 0
+    type: 1
     name: UILogin
     order: 0
     path: Package/Prefab/UI/Panel/UILogin.prefab
     destroy: 1
   - panel: 4
     layer: 4
-    type: 2
+    type: 3
     name: UITips
     order: 0
     path: Package/Prefab/UI/Panel/UITips.prefab
     destroy: 0
   - panel: 5
     layer: 4
-    type: 2
+    type: 3
     name: UITitle
     order: 9
     path: Package/Prefab/UI/Panel/UITitle.prefab
     destroy: 0
   - panel: 6
     layer: 4
-    type: 2
+    type: 1
     name: UINotice
     order: 0
     path: Package/Prefab/UI/Panel/UINotice.prefab
     destroy: 0
   - panel: 7
     layer: 3
-    type: 1
+    type: 2
     name: UIConfirm
     order: 0
     path: Package/Prefab/UI/Panel/UIConfirm.prefab
@@ -64,21 +64,21 @@ MonoBehaviour:
     destroy: 0
   - panel: 9
     layer: 2
-    type: 0
+    type: 1
     name: UIWarehouse
     order: 0
     path: Package/Prefab/UI/Panel/UIWarehouse.prefab
     destroy: 0
   - panel: 11
     layer: 2
-    type: 0
+    type: 1
     name: UIShop
     order: 0
     path: Package/Prefab/UI/Panel/UIShop.prefab
     destroy: 1
   - panel: 12
     layer: 2
-    type: 0
+    type: 2
     name: UIReward
     order: 0
     path: Package/Prefab/UI/Panel/UIReward.prefab
@@ -92,21 +92,21 @@ MonoBehaviour:
     destroy: 0
   - panel: 14
     layer: 2
-    type: 0
+    type: 1
     name: UILotteryDraw
     order: 0
     path: Package/Prefab/UI/Panel/UILotteryDraw.prefab
     destroy: 0
   - panel: 15
     layer: 2
-    type: 0
+    type: 1
     name: UITest
     order: 0
     path: Package/Prefab/UI/Panel/UITest.prefab
     destroy: 0
   - panel: 16
     layer: 3
-    type: 1
+    type: 2
     name: UIIntroduce
     order: 0
     path: Package/Prefab/UI/Panel/UIIntroduce.prefab
