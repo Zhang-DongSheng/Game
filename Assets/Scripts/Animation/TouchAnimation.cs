@@ -8,7 +8,7 @@ namespace Game
     /// 触控动画
     /// </summary>
     [RequireComponent(typeof(Graphic)), DisallowMultipleComponent]
-    public class TouchAnimation : RuntimeBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerClickHandler, IPointerUpHandler, IPointerExitHandler
+    public class TouchAnimation : ItemBase, IPointerEnterHandler, IPointerDownHandler, IPointerClickHandler, IPointerUpHandler, IPointerExitHandler
     {
         [SerializeField] private Transform target;
 

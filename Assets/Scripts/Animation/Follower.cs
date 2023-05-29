@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game.Animation
 {
-    public class Follower : RuntimeBehaviour
+    public class Follower : ItemBase
     {
         [SerializeField] private Transform target;
 

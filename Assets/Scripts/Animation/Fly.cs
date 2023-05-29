@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Animation
 {
-    public class Fly : RuntimeBehaviour
+    public class Fly : ItemBase
     {
         [SerializeField] private Transform target;
 

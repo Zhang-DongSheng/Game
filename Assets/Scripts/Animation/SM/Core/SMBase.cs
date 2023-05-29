@@ -27,7 +27,7 @@ namespace Game.SM
 
         protected Status status;
 
-        private void Start()
+        protected override void OnAwake()
         {
             if (target == null)
             {

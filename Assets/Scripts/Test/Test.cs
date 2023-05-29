@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Game.Test
 {
-    public class Test : RuntimeBehaviour
+    public class Test : ItemBase
     {
         public GameObject target;
 

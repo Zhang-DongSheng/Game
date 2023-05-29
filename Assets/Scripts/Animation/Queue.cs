@@ -7,7 +7,7 @@ namespace Game.Animation
     /// <summary>
     /// 行动队列
     /// </summary>
-    public class ActionQueue : RuntimeBehaviour
+    public class ActionQueue : ItemBase
     {
         public enum State
         {
