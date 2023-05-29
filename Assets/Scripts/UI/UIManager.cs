@@ -165,30 +165,31 @@ namespace Game.UI
 
         public void Back()
         {
-            int index;
-
-            if (_records[UIType.Popup].Count > 0)
+            if (Back(UIType.Popup, 0, out _))
             {
-                index = _records[UIType.Popup].Count - 1;
-
-                if (_records[UIType.Popup][index].Back())
-                {
-                    // 弹窗关闭不影响面板
-                }
+                // 弹窗关闭不影响面板
             }
-            else if (_records[UIType.Panel].Count > 1)
+            else if (Back(UIType.Panel, 1, out int index))
             {
-                index = _records[UIType.Panel].Count - 1;
-
-                if (_records[UIType.Panel][index--].Back())
-                {
-                    _records[UIType.Panel][index].Open();
-                }
+                _records[UIType.Panel][index].Open();
             }
             else
             {
-                Debuger.LogError(Author.UI, "This is the final panel!");
+                Debuger.Log(Author.UI, "This is the final panel!");
             }
+        }
+
+        public bool Back(UIType key, int last, out int index)
+        {
+            index = -1;
+
+            if (_records.ContainsKey(key) && _records[key].Count > last)
+            {
+                index = _records[key].Count - 1;
+
+                return _records[key][index--].Back();
+            }
+            return false;
         }
 
         public bool TryGetCtrl(UIPanel panel, out CtrlBase ctrl)

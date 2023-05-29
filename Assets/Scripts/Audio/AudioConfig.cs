@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace UnityEngine.Audio
+namespace Game.Audio
 {
     public static class AudioConfig
     {

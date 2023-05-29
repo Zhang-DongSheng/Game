@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace Game.Model
 {
-    public class RayTouch : MonoBehaviour
+    public class RayTouch : RuntimeBehaviour
     {
         [Tooltip("相机")]
         [SerializeField] private Camera viewer;
@@ -43,7 +43,7 @@ namespace Game.Model
 
         private Vector3 _destination = new Vector3(0, 2, 0);
 
-        private void Awake()
+        protected override void OnAwake()
         {
             if (viewer == null)
             {
@@ -51,7 +51,7 @@ namespace Game.Model
             }
         }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             switch (mode)
             {
@@ -60,7 +60,7 @@ namespace Game.Model
 #if UNITY_EDITOR
                         if (Input.GetMouseButtonDown(0) && !IsPointerOverGameObject())
                         {
-                            OnMouseEnter(Input.mousePosition); drag = true;
+                            OnMouseEnter(Input.mousePosition, true); drag = true;
                         }
                         else if (drag && Input.GetMouseButton(0))
                         {
@@ -127,7 +127,7 @@ namespace Game.Model
             }
         }
 
-        private void OnMouseEnter(Vector3 position)
+        private void OnMouseEnter(Vector3 position, bool x)
         {
             _point = position;
         }

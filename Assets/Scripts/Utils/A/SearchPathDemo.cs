@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Example
 {
-    public class SearchPathDemo : MonoBehaviour
+    public class SearchPathDemo : ItemBase
     {
         private SearchPath path_ctr;
 
         private Dictionary<Vector2, Renderer> m_map = new Dictionary<Vector2, Renderer>();
 
-        private void Awake()
+        protected override void OnAwake()
         {
             path_ctr = new SearchPath();
         }
@@ -41,7 +41,7 @@ namespace Example
             Search(new Vector2(3, 3), new Vector2(80, 74));
         }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             if (Input.GetKeyDown(KeyCode.P))
             {

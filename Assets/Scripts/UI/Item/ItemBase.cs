@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Game.UI;
+using UnityEngine;
 
-namespace Game.UI
+namespace Game
 {
     public abstract class ItemBase : RuntimeBehaviour
     {

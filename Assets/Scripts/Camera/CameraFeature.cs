@@ -2,7 +2,7 @@
 
 namespace Game
 {
-    public class CameraFeature : MonoBehaviour
+    public class CameraFeature : ItemBase
     {
         private const float ZERO = 0;
 
@@ -61,7 +61,7 @@ namespace Game
             }
         }
 
-        private void Awake()
+        protected override void OnAwake()
         {
             if (platform == null)
                 platform = gameObject;

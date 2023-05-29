@@ -1,8 +1,8 @@
-﻿using Game.UI;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace UnityEngine.UI
+namespace Game.UI
 {
     /// <summary>
     /// 方向摇杆

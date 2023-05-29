@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace UnityEngine.UI
+namespace Game.UI
 {
-    public class UIPage : MonoBehaviour
+    public class UIPage : ItemBase
     {
         [SerializeField] private PrefabTemplateBehaviour prefab;
 
@@ -92,14 +93,6 @@ namespace UnityEngine.UI
             for (int i = index; i < items.Count; i++)
             {
                 SetActive(items[i], false);
-            }
-        }
-
-        protected void SetActive(GameObject item, bool active)
-        {
-            if (item != null && item.activeSelf != active)
-            {
-                item.SetActive(active);
             }
         }
     }

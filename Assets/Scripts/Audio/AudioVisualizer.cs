@@ -4,7 +4,7 @@ using UnityEngine.Events;
 namespace Game.Audio
 {
     [RequireComponent(typeof(AudioSource))]
-    public class AudioVisualizer : MonoBehaviour
+    public class AudioVisualizer : ItemBase
     {
         [SerializeField] private AudioSource source;
 
@@ -14,7 +14,7 @@ namespace Game.Audio
 
         public UnityEvent<int, float> onValueChanged;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             if (source != null || TryGetComponent(out source))
             {
@@ -26,7 +26,7 @@ namespace Game.Audio
             }
         }
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             if (source.isPlaying)
             {

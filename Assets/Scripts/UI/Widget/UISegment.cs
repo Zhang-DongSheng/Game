@@ -1,9 +1,10 @@
-using Game.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace UnityEngine.UI
+namespace Game.UI
 {
     public class UISegment : ItemBase
     {
@@ -92,14 +93,6 @@ namespace UnityEngine.UI
             status = list.Count > count ? SegmentStatus.None : SegmentStatus.Complete;
 
             yield return null;
-        }
-
-        protected void SetActive(GameObject item, bool active)
-        {
-            if (item != null && item.activeSelf != active)
-            {
-                item.SetActive(active);
-            }
         }
 
         public enum SegmentStatus

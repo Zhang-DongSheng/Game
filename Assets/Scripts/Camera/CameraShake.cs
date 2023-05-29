@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class CameraShake : MonoBehaviour
+    public class CameraShake : ItemBase
     {
         [SerializeField] private ShakePattern shake;
 

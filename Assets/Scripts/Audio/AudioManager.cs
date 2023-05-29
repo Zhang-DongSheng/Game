@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Renewable;
 using UnityEngine.SceneManagement;
 
-namespace UnityEngine.Audio
+namespace Game.Audio
 {
     public sealed class AudioManager : MonoSingleton<AudioManager>
     {

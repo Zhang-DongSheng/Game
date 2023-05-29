@@ -1,14 +1,16 @@
 ﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-namespace UnityEngine.UI
+namespace Game.UI
 {
     /// <summary>
     /// 悬浮窗
     /// </summary>
     [RequireComponent(typeof(Graphic))]
-    public class UISuspensionWindow : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerClickHandler
+    public class UISuspensionWindow : ItemBase, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler, IPointerClickHandler
     {
         enum Anchors
         {
@@ -39,7 +41,7 @@ namespace UnityEngine.UI
 
         public UnityEvent onHoming;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             if (target == null)
                 target = GetComponent<RectTransform>();

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Game
 {
     [DisallowMultipleComponent]
-    class PrefabBind : RuntimeBehaviour
+    class PrefabBind : ItemBase
     {
         [SerializeField] private List<GameObject> objects;
 

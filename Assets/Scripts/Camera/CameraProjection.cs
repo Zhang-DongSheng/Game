@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Game
 {
     [RequireComponent(typeof(Camera))]
-    public class CameraProjection : MonoBehaviour
+    public class CameraProjection : ItemBase
     {
         [SerializeField] protected new Camera camera;
 
@@ -15,7 +15,7 @@ namespace Game
 
         public RenderTexture Texture { get; set; }
 
-        private void Awake()
+        protected override void OnAwake()
         {
             Texture = RenderTexture.GetTemporary(resolution.x, resolution.y, 1);
 
@@ -50,8 +50,9 @@ namespace Game
             }
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            // 未注册函数调用，不需要调用基类
             RenderTexture.ReleaseTemporary(Texture);
         }
     }

@@ -1,15 +1,16 @@
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace UnityEngine.Audio
+namespace Game.Audio
 {
     [DisallowMultipleComponent]
-    public class AudioHelper : MonoBehaviour
+    public class AudioHelper : ItemBase
     {
         [SerializeField] private AudioTrigger trigger = AudioTrigger.None;
 
         [SerializeField] private string sound;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             switch (trigger)
             {

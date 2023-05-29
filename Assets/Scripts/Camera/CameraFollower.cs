@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class CameraFollower : MonoBehaviour
+    public class CameraFollower : ItemBase
     {
         [SerializeField] private Transform follower;
 
@@ -28,28 +28,28 @@ namespace Game
 
         private RaycastHit hit;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             distance = radius;
 
             shift = new Vector2(180, 0);
         }
 
-        private void LateUpdate()
+        protected override void OnLateUpdate(float delta)
         {
             if (target == null) return;
 
-            Handle(Time.deltaTime);
+            Handle(delta);
 
             _rotation = Quaternion.Euler(shift.y, shift.x + 180, 0);
 
-            rotation = Quaternion.LerpUnclamped(rotation, _rotation, Time.deltaTime * speed);
+            rotation = Quaternion.LerpUnclamped(rotation, _rotation, delta * speed);
 
             follower.rotation = rotation;
 
             _position = target.position + Offset(shift);
 
-            position = Vector3.Lerp(position, _position, Time.deltaTime * speed);
+            position = Vector3.Lerp(position, _position, delta * speed);
 
             if (Physics.Linecast(position, target.position, out hit))
             {

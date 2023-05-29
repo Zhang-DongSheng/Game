@@ -8,7 +8,7 @@ namespace Game
     /// 触控动画
     /// </summary>
     [RequireComponent(typeof(Graphic)), DisallowMultipleComponent]
-    public class TouchAnimation : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerClickHandler, IPointerUpHandler, IPointerExitHandler
+    public class TouchAnimation : RuntimeBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerClickHandler, IPointerUpHandler, IPointerExitHandler
     {
         [SerializeField] private Transform target;
 
@@ -38,7 +38,7 @@ namespace Game
 
         private bool play;
 
-        private void Awake()
+        protected override void OnAwake()
         {
             if (target == null)
                 target = transform;
@@ -46,12 +46,7 @@ namespace Game
                 graphic = GetComponent<Graphic>();
         }
 
-        private void OnEnable()
-        {
-            Default();
-        }
-
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             if (play)
             {
@@ -79,6 +74,11 @@ namespace Game
                     }
                 }
             }
+        }
+
+        private void OnEnable()
+        {
+            Default();
         }
 #if UNITY_EDITOR
         private void OnValidate()

@@ -1,10 +1,10 @@
-using Game;
-using Game.UI;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace UnityEngine.UI
+namespace Game.UI
 {
-    public class UILayout : MonoBehaviour
+    public class UILayout : ItemBase
     {
         private readonly Vector2 TOPLEFT = new Vector2(0, 1);
 
@@ -40,7 +40,6 @@ namespace UnityEngine.UI
                     Vertical();
                     break;
             }
-
             LayoutRebuilder.ForceRebuildLayoutImmediate(root);
         }
 
