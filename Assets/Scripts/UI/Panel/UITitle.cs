@@ -9,6 +9,8 @@ namespace Game.UI
 
         [SerializeField] private Button btnShop;
 
+        [SerializeField] private Button btnSetting;
+
         protected override void OnAwake()
         {
             EventManager.Register(EventKey.OpenPanel, Refresh);
@@ -16,9 +18,11 @@ namespace Game.UI
             btnBack.onClick.AddListener(OnClickBack);
 
             btnShop.onClick.AddListener(OnClickShop);
+
+            btnSetting.onClick.AddListener(OnClickSetting);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             EventManager.Unregister(EventKey.OpenPanel, Refresh);
         }
@@ -49,9 +53,16 @@ namespace Game.UI
 
             switch (information.panel)
             {
+                case UIPanel.UIReward:
+                    { 
+                        // È«²¿Òþ²Ø
+                    }
+                    break;
                 case UIPanel.UIMain:
                     {
                         btnShop.SetActive(true);
+
+                        btnSetting.SetActive(true);
                     }
                     break;
                 case UIPanel.UIShop:
@@ -75,16 +86,23 @@ namespace Game.UI
             btnShop.SetActive(false);
 
             btnBack.SetActive(false);
-        }
 
-        private void OnClickBack()
-        {
-            UIManager.Instance.Back();
+            btnSetting.SetActive(false);
         }
 
         private void OnClickShop()
         {
             UIQuickEntry.Open(UIPanel.UIShop);
+        }
+
+        private void OnClickSetting()
+        {
+            UIQuickEntry.Open(UIPanel.UISetting);
+        }
+
+        private void OnClickBack()
+        {
+            UIManager.Instance.Back();
         }
     }
 }

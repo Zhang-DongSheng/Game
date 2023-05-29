@@ -1,4 +1,5 @@
 using Data;
+using Game.State;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -85,12 +86,6 @@ namespace Game.UI
                     GlobalVariables.Set(Const.PASSWORD, password);
                 }
                 UILoading.Instance.Open();
-
-                ScheduleLogic.Instance.callback = () =>
-                {
-                    UIQuickEntry.OpenSingle(UIPanel.UIMain);
-                };
-                ScheduleLogic.Instance.Enter();
             }
             else
             {

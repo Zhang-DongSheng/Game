@@ -1,3 +1,4 @@
+using Game.State;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,8 @@ namespace Game.UI
 
         [SerializeField] private Button btnNew;
 
+        [SerializeField] private Button btnCombat;
+
         [SerializeField] private Button btnActivity;
 
         [SerializeField] private Button btnLotteryDraw;
@@ -22,6 +25,8 @@ namespace Game.UI
             btnMail.onClick.AddListener(OnClickMail);
 
             btnNew.onClick.AddListener(OnClickNew);
+
+            btnCombat.onClick.AddListener(OnClickCombat);
 
             btnActivity.onClick.AddListener(OnClickActivity);
 
@@ -46,6 +51,11 @@ namespace Game.UI
         private void OnClickNew()
         {
             UIQuickEntry.OpenUITips("功能正在开发中");
+        }
+
+        private void OnClickCombat()
+        {
+            GameStateController.Instance.EnterState<GameCombatState>();
         }
 
         private void OnClickActivity()

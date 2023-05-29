@@ -12,8 +12,6 @@ namespace Game.Resource
 
         private int count;
 
-        private int loading;
-
         public void Direction(LoadingType type)
         {
             if (type != LoadingType.AssetBundle)
@@ -78,11 +76,9 @@ namespace Game.Resource
 
         private void Next()
         {
-            loading = 0;
+            int progress = tasks.Count, loading = 0;
 
-            int count = tasks.Count;
-
-            for (int i = count - 1; i > -1; i--)
+            for (int i = progress - 1; i > -1; i--)
             {
                 switch (tasks[i].status)
                 {
@@ -94,12 +90,11 @@ namespace Game.Resource
                         break;
                 }
             }
-
             if (loading >= 3) return;
 
-            count = tasks.Count;
+            progress = tasks.Count;
 
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < progress; i++)
             {
                 switch (tasks[i].status)
                 {
@@ -113,13 +108,15 @@ namespace Game.Resource
                 if (loading >= 3) break;
             }
 
-            if (count == 0)
+            if (progress > 0)
             {
-                ScheduleLogic.Instance.Update(Schedule.Resource);
+                Debuger.Log(Author.Resource, $"资源更新进度{count - progress}/{count}");
             }
             else
             {
-                Debuger.Log(Author.Resource, $"资源更新进度{count}/{this.count}");
+                ResourceManager.UpdateDependencies();
+                // 更新资源结束
+                ScheduleLogic.Instance.Update(Schedule.Resource);
             }
         }
 

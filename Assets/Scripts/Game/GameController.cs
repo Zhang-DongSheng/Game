@@ -1,12 +1,13 @@
 ﻿using Game.Resource;
+using Game.State;
 using Game.UI;
 using UnityEngine;
 
 namespace Game
 {
-    public class GameController : RuntimeBehaviour
+    public class GameController : MonoBehaviour
     {
-        protected override void OnAwake()
+        private void Awake()
         {
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
@@ -35,11 +36,13 @@ namespace Game
 #endif
             ResourceManager.Initialize(ResourceConfig.Loading);
 
+            GameStateController.Instance.Init();
+
+            // 这边等3s闪屏然后进入Loading界面...
+
             ScheduleLogic.Instance.callback = () =>
             {
-                ResourceManager.UpdateDependencies();
-
-                UIQuickEntry.OpenSingle(UIPanel.UILogin);
+                GameStateController.Instance.EnterState<GameLoginState>();
             };
             ScheduleLogic.Instance.Init();
         }

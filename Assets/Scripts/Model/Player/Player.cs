@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace Game
+namespace Game.Model
 {
     [RequireComponent(typeof(Animator))]
-    public abstract class Player : RuntimeBehaviour
+    public abstract class Player : Entity
     {
         [SerializeField] protected Animator animator;
 

@@ -82,7 +82,7 @@ namespace Game.UI
             {
                 items[i].SetActive(false);
             }
-            base.OnClickClose();
+            UIManager.Instance.Back();
         }
     }
 }

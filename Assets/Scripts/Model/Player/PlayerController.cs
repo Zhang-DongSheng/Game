@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game
+namespace Game.Model
 {
     public class PlayerController : MonoSingleton<PlayerController>
     {

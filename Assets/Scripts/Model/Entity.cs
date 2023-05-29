@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Game.Model
 {
     [DisallowMultipleComponent]
-    public class Entity : RuntimeBehaviour
+    public abstract class Entity : RuntimeBehaviour
     {
 
     }

@@ -1,4 +1,5 @@
 using Data;
+using Game.State;
 using UnityEngine;
 
 namespace Game
@@ -27,6 +28,12 @@ namespace Game
             args.AddOrReplace("status", true);
 
             EventManager.Post(EventKey.Login, args);
+
+            ScheduleLogic.Instance.callback = () =>
+            {
+                GameStateController.Instance.EnterState<GameLobbyState>();
+            };
+            ScheduleLogic.Instance.Enter();
         }
         #endregion
     }
