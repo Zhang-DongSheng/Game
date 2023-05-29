@@ -1,11 +1,10 @@
-using Game;
 using System;
 using UnityEngine;
 
-namespace IronForce2.IF2World
+namespace Game.Model
 {
-	public class MovementArrowManager : RuntimeBehaviour
-	{
+    public class MovementArrowManager : ItemBase
+    {
         public MovementArrow Indicator0;
 
         public MovementArrow Indicator1;
@@ -44,38 +43,38 @@ namespace IronForce2.IF2World
 			switch (direction)
 			{
 				case MovementDirection.None:
-					Indicator0.SetActive(false);
-					Indicator1.SetActive(false);
+					Indicator0.Display(false);
+					Indicator1.Display(false);
                     break;
 				case MovementDirection.Forward:
 					Indicator0.OffsetForStraightAndTurn = CurrentBounds.extents.z + 1;
 					Indicator0.ChangeDirection(MovementDirection.Forward);
-                    Indicator1.SetActive(false);
+                    Indicator1.Display(false);
                     break;
 				case MovementDirection.Back:
 					Indicator0.OffsetForStraightAndTurn = CurrentBounds.extents.z + 1;
 					Indicator0.ChangeDirection(MovementDirection.Back);
-                    Indicator1.SetActive(false);
+                    Indicator1.Display(false);
                     break;
 				case MovementDirection.LeftForward:
 					Indicator0.OffsetForStraightAndTurn = CurrentBounds.extents.z + 1;
 					Indicator0.ChangeDirection(MovementDirection.LeftForward);
-                    Indicator1.SetActive(false);
+                    Indicator1.Display(false);
                     break;
 				case MovementDirection.RightForward:
 					Indicator0.OffsetForStraightAndTurn = CurrentBounds.extents.z + 1;
 					Indicator0.ChangeDirection(MovementDirection.RightForward);
-                    Indicator1.SetActive(false);
+                    Indicator1.Display(false);
                     break;
 				case MovementDirection.LeftBack:
 					Indicator0.OffsetForStraightAndTurn = CurrentBounds.extents.z + 1;
 					Indicator0.ChangeDirection(MovementDirection.LeftBack);
-                    Indicator1.SetActive(false);
+                    Indicator1.Display(false);
                     break;
 				case MovementDirection.RightBack:
 					Indicator0.OffsetForStraightAndTurn = CurrentBounds.extents.z + 1;
 					Indicator0.ChangeDirection(MovementDirection.RightBack);
-                    Indicator1.SetActive(false);
+                    Indicator1.Display(false);
 					break;
 				case MovementDirection.Clockwise:
                     Indicator0.SpinRadius = CurrentBounds.extents.z;

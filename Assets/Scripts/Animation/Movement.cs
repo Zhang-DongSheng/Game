@@ -46,16 +46,16 @@ namespace Game
                     MoveTowards();
                     break;
                 case MotorPattern.Lerp:
-                    Lerp();
+                    Lerp(delta);
                     break;
                 case MotorPattern.Slerp:
-                    Slerp();
+                    Slerp(delta);
                     break;
                 case MotorPattern.SmoothDamp:
-                    SmoothDamp();
+                    SmoothDamp(delta);
                     break;
                 case MotorPattern.Acceleration:
-                    Acceleration();
+                    Acceleration(delta);
                     break;
             }
             CheckForBounds(); Display();
@@ -66,29 +66,29 @@ namespace Game
             current = Vector3.MoveTowards(current, target, speed);
         }
 
-        protected virtual void Lerp()
+        protected virtual void Lerp(float delta)
         {
-            current = Vector3.Lerp(current, target, speed * Time.deltaTime);
+            current = Vector3.Lerp(current, target, speed * delta);
         }
 
-        protected virtual void Slerp()
+        protected virtual void Slerp(float delta)
         {
-            current = Vector3.Slerp(current, target, speed * Time.deltaTime);
+            current = Vector3.Slerp(current, target, speed * delta);
         }
 
-        protected virtual void SmoothDamp()
+        protected virtual void SmoothDamp(float delta)
         {
-            current = Vector3.SmoothDamp(current, target, ref velocity, Time.deltaTime, speed);
+            current = Vector3.SmoothDamp(current, target, ref velocity, delta, speed);
         }
 
-        protected virtual void Acceleration()
+        protected virtual void Acceleration(float delta)
         {
             if (Vector3.Distance(current, target) < Mathf.Epsilon)
                 acceleration = speed;
             else
             {
-                acceleration += acceleratedSpeed * Time.deltaTime;
-                current = Vector3.MoveTowards(current, target, acceleration * Time.deltaTime);
+                acceleration += acceleratedSpeed * delta;
+                current = Vector3.MoveTowards(current, target, acceleration * delta);
             }
         }
 

@@ -1,8 +1,6 @@
 using Game.UI;
-using UnityEngine;
-using UnityEngine.UI;
 
-namespace Coffee.UIExtensions
+namespace UnityEngine.UI
 {
     /// <summary>
     /// Í¼ÐÎ½¥±ä

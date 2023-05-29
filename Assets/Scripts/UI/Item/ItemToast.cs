@@ -30,7 +30,7 @@ namespace Game.UI
             {
                 case Status.Toast:
                     {
-                        timer += Time.deltaTime;
+                        timer += delta;
 
                         position += Vector3.up * _speed * delta;
 

@@ -29,7 +29,7 @@ namespace Game.Animation
         {
             if (!active) return;
 
-            timer += Time.deltaTime;
+            timer += delta;
 
             if (timer > interval)
             {

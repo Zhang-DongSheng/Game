@@ -57,7 +57,7 @@ namespace Game.UI
             {
                 case Status.Increase:
                     {
-                        step += Time.deltaTime * speed;
+                        step += delta * speed;
 
                         value = Mathf.Lerp(origination, destination, step);
 
@@ -72,7 +72,7 @@ namespace Game.UI
                     break;
                 case Status.Reduce:
                     {
-                        step += Time.deltaTime * speed;
+                        step += delta * speed;
 
                         value = Mathf.Lerp(origination, destination, step);
 

@@ -75,7 +75,7 @@ namespace Game.UI
                     break;
                 case DrawStatus.Display:
                     {
-                        step.current += step.value * Time.deltaTime;
+                        step.current += step.value * delta;
 
                         euler = Mathf.Lerp(display.origin + display.value * step.current, display.destination, step.current);
 

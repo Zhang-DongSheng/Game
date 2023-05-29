@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game.Model
 {
-    public class ModelDrag : MonoBehaviour
+    public class ModelDrag : ItemBase
     {
         [SerializeField] private GameObject model;
 
@@ -10,7 +10,7 @@ namespace Game.Model
 
         private Vector3 position;
 
-        private void Update()
+        protected override void OnUpdate(float delta)
         {
             if (Input.GetMouseButtonDown(0))
             {

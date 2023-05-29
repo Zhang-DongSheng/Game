@@ -1,8 +1,7 @@
-using Game;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TEST
+namespace Game.Test
 {
     public class TestDraw : MonoBehaviour
     {

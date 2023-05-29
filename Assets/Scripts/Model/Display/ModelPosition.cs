@@ -1,53 +1,51 @@
 using UnityEngine;
 
-namespace Game
+namespace Game.Model
 {
-    [ExecuteInEditMode]
-    public class ModelPosition : MonoBehaviour
+    [DisallowMultipleComponent]
+    public class ModelPosition : ItemBase
     {
-        [SerializeField] private new Camera camera;
+        [SerializeField] private Vector3 origination;
 
-        [SerializeField] private Transform target;
+        [SerializeField] private Vector3 destination;
 
-        [SerializeField, Range(0, 1)] private float horizontal = 0.5f;
+        [SerializeField] private float speed = 10f;
 
-        [SerializeField, Range(0, 1)] private float vertical = 0.5f;
-
-        [SerializeField] private Vector2 offset;
+        [SerializeField] private AnimationCurve curve = AnimationCurve.Linear(0, 0, 1, 1);
 
         private Vector3 position;
 
-        private void Awake()
+        private float progress;
+
+        private float step;
+
+        private void OnEnable()
         {
-            if (camera == null)
-                camera = Camera.main;
-            Execute();
+            progress = 0f;
+
+            position = origination;
+
+            transform.localPosition = position;
         }
 
         private void OnValidate()
         {
-            Execute();
+            if (Application.isPlaying) return;
+
+            origination = transform.localPosition;
         }
 
-        public void Execute()
+        protected override void OnUpdate(float delta)
         {
-            if (camera == null || target == null) return;
+            progress += delta * speed;
 
-            float length = camera.transform.position.z - target.position.z;
+            progress = Mathf.Clamp01(progress);
 
-            float x = horizontal - 0.5f;
+            step = curve.Evaluate(progress);
 
-            float y = vertical - 0.5f;
+            position = Vector3.LerpUnclamped(origination, destination, step);
 
-            Vector2 size = camera.Size(length);
-
-            position.x = x * size.x + offset.x;
-
-            position.y = y * size.y + offset.y;
-
-            position.z = target.position.z;
-
-            target.position = position;
+            transform.localPosition = position;
         }
     }
 }

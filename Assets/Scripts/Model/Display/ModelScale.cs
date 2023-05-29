@@ -1,102 +1,87 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Model
 {
-    public class ModelScale : RuntimeBehaviour
+    [DisallowMultipleComponent]
+    public class ModelScale : ItemBase
     {
         [SerializeField] private Transform target;
 
-        [SerializeField] private bool stay;
+        [SerializeField] private List<ModelScaleChild> children;
 
-        [SerializeField] private Vector3 scale = Vector3.one;
+        [SerializeField] private List<ModelScaleParticle> particles;
 
-        private void OnValidate()
-        {
-            if (stay)
-            {
-                Stay(scale);
-            }
-        }
+        [SerializeField] private ModelScaleType type;
 
-        public void Stay(Vector3 scale)
-        {
-            Transform node = target.parent;
-
-            Vector3 world = Vector3.one;
-
-            if (target.TryGetComponent(out RectTransform _))
-            {
-                while (node != null)
-                {
-                    if (node.TryGetComponent(out Canvas _))
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        world.x *= node.localScale.x;
-                        world.y *= node.localScale.y;
-                        world.z *= node.localScale.z;
-                    }
-                    node = node.parent;
-                }
-            }
-            else
-            {
-                while (node != null)
-                {
-                    world.x *= node.localScale.x;
-                    world.y *= node.localScale.y;
-                    world.z *= node.localScale.z;
-                    node = node.parent;
-                }
-            }
-            // X
-            if (world.x != 0)
-            {
-                scale.x *= 1 / world.x;
-            }
-            // Y
-            if (world.y != 0)
-            {
-                scale.y *= 1 / world.y;
-            }
-            // Z
-            if (world.z != 0)
-            {
-                scale.z *= 1 / world.z;
-            }
-            target.localScale = scale;
-        }
+        private Vector3 scale = Vector3.one;
 
         public void SetScale(float size)
         {
-            this.scale.x = size;
+            scale.x = size;
 
-            this.scale.y = size;
+            scale.y = size;
 
-            this.scale.z = size;
+            scale.z = size;
 
-            if (target == null) return;
-
-            if (target.TryGetComponent(out RectTransform _))
-            {
-                this.scale.z = 1;
-            }
-            target.localScale = this.scale;
+            SetScale();
         }
 
-        public void SetScale(Vector3 scale)
+        public void SetScale(float x, float y)
         {
-            this.scale = scale;
+            scale.x = x;
 
-            if (target == null) return;
+            scale.y = 1;
 
-            if (target.TryGetComponent(out RectTransform _))
+            scale.z = y;
+
+            SetScale();
+        }
+
+        public void SetScale(float x, float y, float z)
+        {
+            scale.x = x;
+
+            scale.y = y;
+
+            scale.z = z;
+
+            SetScale();
+        }
+
+        public void SetScale()
+        {
+            if (type == ModelScaleType.None) return;
+            // 主节点
+            if ((type & ModelScaleType.Self) != 0)
             {
-                this.scale.z = 1;
+                target.localScale = scale;
             }
-            target.localScale = this.scale;
+            // 子节点单独修改
+            if ((type & ModelScaleType.Child) != 0)
+            {
+                foreach (var child in children)
+                {
+                    child.SetScale(scale);
+                }
+            }
+            // 粒子特效特殊修改
+            if ((type & ModelScaleType.Particle) != 0)
+            {
+                foreach (var particle in particles)
+                {
+                    particle.SetScale(scale);
+                }
+            }
+        }
+        [Flags]
+        enum ModelScaleType
+        {
+            None,
+            Self = 1,
+            Child = 2,
+            Particle = 4,
         }
     }
 }

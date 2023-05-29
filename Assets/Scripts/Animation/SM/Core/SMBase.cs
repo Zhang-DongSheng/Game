@@ -59,18 +59,18 @@ namespace Game.SM
 
         protected override void OnUpdate(float delta)
         {
-            Renovate();
+            Renovate(delta);
         }
 
         protected abstract void Init();
 
         protected abstract void Transition(float step);
 
-        protected virtual void Renovate()
+        protected virtual void Renovate(float delta)
         {
             if (status == Status.Transition)
             {
-                step += Time.deltaTime * speed;
+                step += delta * speed;
 
                 Transition(Format(forward, step));
 

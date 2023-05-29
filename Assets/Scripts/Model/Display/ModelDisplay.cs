@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game.Model
 {
-    public class ModelDisplay : MonoBehaviour
+    public class ModelDisplay : ItemBase
     {
         [SerializeField] private GameObject self;
 
@@ -32,20 +32,12 @@ namespace Game.Model
 
         public void Show()
         {
-            SetActive(true);
+            SetActive(self, true);
         }
 
         public void Hide()
         {
-            SetActive(false);
-        }
-
-        private void SetActive(bool active)
-        {
-            if (self != null && self.activeSelf != active)
-            {
-                self.SetActive(active);
-            }
+            SetActive(self, false);
         }
     }
 }

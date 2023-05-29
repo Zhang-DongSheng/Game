@@ -1,9 +1,8 @@
-using Game;
 using UnityEngine;
 
-namespace IronForce2.IF2World
+namespace Game.Model
 {
-    public class MovementArrow : MonoBehaviour
+    public class MovementArrow : ItemBase
     {
         // 对 前进 后退 有用。
         public float IntervalDistance = 1;
@@ -28,12 +27,12 @@ namespace IronForce2.IF2World
 
             UpdatePresentation();
 
-            SetActive(true);
+            Display(true);
         }
 
-        public void SetActive(bool active)
+        public void Display(bool active)
         {
-            gameObject.SetActive(active);
+            SetActive(active);
 
             if (!active)
             {

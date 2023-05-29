@@ -71,10 +71,10 @@ namespace Game
         {
             Status = FeatureStatus.Idle;
 
-            SetActive(false);
+            SetActive(platform, false);
         }
 
-        private void LateUpdate()
+        protected override void OnLateUpdate(float delta)
         {
             switch (Status)
             {
@@ -151,7 +151,7 @@ namespace Game
 
             platform.transform.eulerAngles = Vector3.zero;
 
-            SetActive(true);
+            SetActive(platform, true);
 
             Status = FeatureStatus.Follow;
         }
@@ -166,14 +166,6 @@ namespace Game
         public void StartUp(Vector3 position, Vector3 rotation)
         {
             Ready(position, rotation);
-        }
-
-        private void SetActive(bool active)
-        {
-            if (platform != null && platform.activeSelf != active)
-            {
-                platform.SetActive(active);
-            }
         }
 
         enum FeatureStatus

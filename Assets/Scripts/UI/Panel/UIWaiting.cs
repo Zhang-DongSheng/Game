@@ -17,7 +17,7 @@ namespace Game.UI
 
         protected override void OnUpdate(float delta)
         {
-            target.Rotate(vector * Time.deltaTime);
+            target.Rotate(vector * delta);
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Test
 {
-    public class CurvesTest : MonoBehaviour
+    public class TestCurves : MonoBehaviour
     {
         [SerializeField] private Vector2 angle;
 

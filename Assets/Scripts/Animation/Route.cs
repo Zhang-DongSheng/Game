@@ -28,7 +28,7 @@ namespace Game.Animation
             {
                 case Status.Run:
                     {
-                        step += speed * Time.deltaTime;
+                        step += speed * delta;
 
                         for (int i = index; i < count; i++)
                         {
