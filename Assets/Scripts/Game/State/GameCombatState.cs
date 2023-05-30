@@ -9,6 +9,8 @@ namespace Game.State
     /// </summary>
     public class GameCombatState : IGameState
     {
+        protected readonly int sceneIndex = 2;
+
         public void OnCreate()
         {
             
@@ -20,7 +22,16 @@ namespace Game.State
 
             UILoading.Instance.Open();
 
-            RuntimeManager.Instance.StartCoroutine(LoadSceneAsync(2));
+            var scene = SceneManager.GetActiveScene();
+
+            if (scene != null && scene.buildIndex == sceneIndex)
+            {
+                UIQuickEntry.OpenSingle(UIPanel.UIMMORPG);
+            }
+            else
+            {
+                RuntimeManager.Instance.StartCoroutine(LoadSceneAsync(sceneIndex));
+            }
         }
 
         public void OnExit()

@@ -14,6 +14,8 @@ namespace Game.State
     /// </summary>
     public class GameLobbyState : IGameState
     {
+        protected readonly int sceneIndex = 1;
+
         public void OnCreate()
         {
 
@@ -21,7 +23,20 @@ namespace Game.State
 
         public void OnEnter()
         {
-            RuntimeManager.Instance.StartCoroutine(LoadSceneAsync(1));
+            UIManager.Instance.CloseAll(true);
+
+            UILoading.Instance.Open();
+
+            var scene = SceneManager.GetActiveScene();
+
+            if (scene != null && scene.buildIndex == sceneIndex)
+            {
+                UIQuickEntry.OpenSingle(UIPanel.UIMain);
+            }
+            else
+            {
+                RuntimeManager.Instance.StartCoroutine(LoadSceneAsync(sceneIndex));
+            }
         }
 
         public void OnExit()

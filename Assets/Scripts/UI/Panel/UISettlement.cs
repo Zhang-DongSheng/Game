@@ -10,19 +10,17 @@ namespace Game.UI
     {
         protected override void OnUpdate(float delta)
         {
-            
+
         }
 
         public override void Refresh(UIParameter paramter)
         {
-            
+
         }
 
         public override bool Back()
         {
-            GameStateController.Instance.EnterState<GameLobbyState>();
-
-            return base.Back();
+            GameStateController.Instance.EnterState<GameLobbyState>(); return false;
         }
     }
 }
