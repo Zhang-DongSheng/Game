@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Game.State
 {
+    /// <summary>
+    /// 登录账号
+    /// </summary>
     public class GameLoginState : IGameState
     {
         public void OnCreate()

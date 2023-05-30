@@ -1,11 +1,10 @@
 ﻿using Game.Resource;
 using Game.State;
-using Game.UI;
 using UnityEngine;
 
 namespace Game
 {
-    public class GameController : MonoBehaviour
+    public class GameController : MonoSingleton<GameController>
     {
         private void Awake()
         {

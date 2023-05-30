@@ -1,3 +1,4 @@
+using Game.State;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,13 @@ namespace Game.UI
         public override void Refresh(UIParameter paramter)
         {
             
+        }
+
+        public override bool Back()
+        {
+            GameStateController.Instance.EnterState<GameLobbyState>();
+
+            return base.Back();
         }
     }
 }

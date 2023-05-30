@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 
 namespace Game.State
 {
+    /// <summary>
+    /// 游戏战斗
+    /// </summary>
     public class GameCombatState : IGameState
     {
         public void OnCreate()
@@ -17,7 +20,7 @@ namespace Game.State
 
             UILoading.Instance.Open();
 
-            RuntimeManager.Instance.StartCoroutine(LoadSceneAsync(1));
+            RuntimeManager.Instance.StartCoroutine(LoadSceneAsync(2));
         }
 
         public void OnExit()

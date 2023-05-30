@@ -60,7 +60,7 @@ namespace Game.Model
 #if UNITY_EDITOR
                         if (Input.GetMouseButtonDown(0) && !IsPointerOverGameObject())
                         {
-                            OnMouseEnter(Input.mousePosition, true); drag = true;
+                            OnMouseEnter0(Input.mousePosition); drag = true;
                         }
                         else if (drag && Input.GetMouseButton(0))
                         {
@@ -82,7 +82,7 @@ namespace Game.Model
                                     case TouchPhase.Began:
                                         if (!drag && !EventSystem.current.IsPointerOverGameObject(touch.fingerId))
                                         {
-                                            OnMouseEnter(touch.position);
+                                            OnMouseEnter0(touch.position);
                                             fingerId = touch.fingerId;
                                             drag = true;
                                         }
@@ -127,7 +127,7 @@ namespace Game.Model
             }
         }
 
-        private void OnMouseEnter(Vector3 position, bool x)
+        private void OnMouseEnter0(Vector3 position)
         {
             _point = position;
         }

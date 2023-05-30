@@ -1,4 +1,5 @@
 using Game.Model;
+using Game.State;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,7 +51,9 @@ namespace Game.UI
 
         private void OnClickCrouch()
         {
-            PlayerController.Instance.Crouch();
+            //PlayerController.Instance.Crouch();
+
+            GameStateController.Instance.EnterState<GameSettlementState>();
         }
 
         private void OnClickAttack()

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Game.State
 {
+    /// <summary>
+    /// 游戏闪屏
+    /// </summary>
     public class GameSplashState : IGameState
     {
         public void OnCreate()

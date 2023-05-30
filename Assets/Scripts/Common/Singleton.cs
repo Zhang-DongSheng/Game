@@ -45,9 +45,22 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    protected virtual void Initialize() 
+    protected virtual void Initialize()
     {
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    protected virtual void Release()
+    {
+        GameObject.Destroy(_instance.gameObject);
+    }
+
+    public void Dispose()
+    {
+        if (_instance != null)
+        {
+            Release();
+        }
     }
 
     private void OnDestroy()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Game.State
 {
+    /// <summary>
+    /// 游戏结算
+    /// </summary>
     public class GameSettlementState : IGameState
     {
         public void OnCreate()
@@ -15,7 +19,7 @@ namespace Game.State
 
         public void OnEnter()
         {
-
+            UIManager.Instance.Open(UIPanel.UISettlement);
         }
 
         public void OnExit()
