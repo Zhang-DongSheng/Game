@@ -16,9 +16,11 @@ namespace UnityEditor.Window
 
         private readonly string[] menu = new string[] { "Create", "Modify" };
 
-        private UIPanel panel;
-
         private string content;
+
+        private bool exist;
+
+        private UIPanel panel;
 
         private readonly UIInformation information = new UIInformation();
         [MenuItem("Game/UI")]
@@ -104,7 +106,7 @@ namespace UnityEditor.Window
                 {
                     UnityEngine.Debuger.LogError(Author.Resource, "Prefab or Script is null!");
                 }
-                AddOrReplaceUIInformation();
+                CreateUIInformation();
             }
         }
 
@@ -118,20 +120,22 @@ namespace UnityEditor.Window
 
                 var info = asset.list.Find(x => x.panel == panel);
 
-                if (info != null)
+                exist = info != null;
+
+                if (exist)
                 {
                     information.Copy(info);
                 }
                 else
                 {
-                    information.panel = panel;
+                    information.Copy(UIInformation.Default(panel));
                 }
             }
             RefreshUIInformation();
 
-            if (GUILayout.Button(LanuageManager.Get("Modify")))
+            if (GUILayout.Button(exist ? LanuageManager.Get("Modify") : LanuageManager.Get("Create")))
             {
-                ModifyUIInformation();
+                AddOrReplaceUIInformation();
             }
         }
 
@@ -200,13 +204,13 @@ namespace UnityEditor.Window
             GUILayout.EndVertical();
         }
 
-        private void AddOrReplaceUIInformation()
+        private void CreateUIInformation()
         {
             var asset = AssetDatabase.LoadAssetAtPath<DataUI>("Assets/Package/Data/DataUI.asset");
 
             if (asset.list.Exists(x => x.panel.ToString() == content))
             {
-                
+
             }
             else
             {
@@ -217,25 +221,25 @@ namespace UnityEditor.Window
                 clone.panel = Enum.Parse<UIPanel>(content);
 
                 asset.list.Add(clone);
-
-                AssetDatabase.SaveAssets();
             }
-            AssetDatabase.Refresh();
+            AssetDatabase.SaveAssets(); AssetDatabase.Refresh();
         }
 
-        private void ModifyUIInformation()
+        private void AddOrReplaceUIInformation()
         {
             var asset = AssetDatabase.LoadAssetAtPath<DataUI>("Assets/Package/Data/DataUI.asset");
 
             int index = asset.list.FindIndex(x => x.panel == information.panel);
 
-            if (index > -1) 
+            if (index > -1)
             {
                 asset.list[index].Copy(information);
-
-                AssetDatabase.SaveAssets();
             }
-            AssetDatabase.Refresh();
+            else
+            {
+                asset.list.Add(information);
+            }
+            AssetDatabase.SaveAssets(); AssetDatabase.Refresh();
         }
     }
 }

@@ -111,3 +111,24 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIIntroduce.prefab
     destroy: 0
+  - panel: 17
+    layer: 2
+    type: 1
+    name: UISetting
+    order: 0
+    path: Package/Prefab/UI/Panel/UISetting.prefab
+    destroy: 0
+  - panel: 18
+    layer: 2
+    type: 1
+    name: UIMMORPG
+    order: 0
+    path: Package/Prefab/UI/Panel/UIMMORPG.prefab
+    destroy: 0
+  - panel: 19
+    layer: 2
+    type: 1
+    name: UISettlement
+    order: 0
+    path: Package/Prefab/UI/Panel/UISettlement.prefab
+    destroy: 0

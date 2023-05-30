@@ -21,5 +21,6 @@ namespace Game.UI
 		UIIntroduce,
 		UISetting,
 		UIMMORPG,
+		UISettlement,
 	}
 }
