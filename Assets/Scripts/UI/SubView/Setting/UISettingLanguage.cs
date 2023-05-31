@@ -1,3 +1,4 @@
+using Data;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace Game.UI
                     item.callback = OnClick;
                     items.Add(item);
                 }
-                items[index].Refresh((int)language);
+                items[index++].Refresh((int)language);
             }
             count = items.Count;
 
@@ -33,8 +34,14 @@ namespace Game.UI
         }
 
         private void OnClick(int index)
-        { 
-            
+        {
+            int count = items.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                items[i].Select(index);
+            }
+            LanguageManager.Instance.Switch((Language)index);
         }
     }
 }

@@ -31,9 +31,14 @@ namespace Game.UI
             }
         }
 
-        protected override void OnUpdate(float delta)
+        public override void Refresh(UIParameter parameter)
         {
-            Debuger.Log(Author.Script, "Set");
+            int count = views.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                views[i].Refresh();
+            }
         }
 
         private void OnClickTab(int index)

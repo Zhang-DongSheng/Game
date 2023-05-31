@@ -17,7 +17,7 @@ namespace Game.UI
 
         private bool active;
 
-        public void Refresh(int index)
+        public virtual void Refresh(int index)
         {
             this.index = index;
 
@@ -28,7 +28,7 @@ namespace Game.UI
             SetActive(true);
         }
 
-        public void Select(int index)
+        public virtual void Select(int index)
         {
             active = this.index.Equals(index);
 
