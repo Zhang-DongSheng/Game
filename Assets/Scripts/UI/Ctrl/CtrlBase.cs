@@ -174,8 +174,10 @@ namespace Game.UI
 
                 status = Status.Display;
             }
-            catch
+            catch (Exception e)
             {
+                Debuger.LogError(Author.UI, e.Message);
+
                 status = Status.Error;
             }
         }

@@ -2,6 +2,7 @@ using Data;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -9,7 +10,16 @@ namespace Game.UI
     {
         [SerializeField] private PrefabTemplate prefab;
 
+        [SerializeField] private Button btnConfirm;
+
+        private int index;
+
         private readonly List<ItemLanguage> items = new List<ItemLanguage>();
+
+        protected override void OnAwake()
+        {
+            btnConfirm.onClick.AddListener(OnClickConfirm);
+        }
 
         public override void Refresh()
         {
@@ -20,20 +30,22 @@ namespace Game.UI
                 if (index >= items.Count)
                 {
                     var item = prefab.Create<ItemLanguage>();
-                    item.callback = OnClick;
+                    item.callback = OnClickLanguage;
                     items.Add(item);
                 }
                 items[index++].Refresh((int)language);
             }
+            this.index = (int)LanguageManager.Instance.Current;
+
             count = items.Count;
 
             for (int i = 0; i < count; i++)
             {
-                items[index].Select((int)LanguageManager.Instance.Current);
+                items[i].Select(this.index);
             }
         }
 
-        private void OnClick(int index)
+        private void OnClickLanguage(int index)
         {
             int count = items.Count;
 
@@ -41,6 +53,11 @@ namespace Game.UI
             {
                 items[i].Select(index);
             }
+            this.index = index;
+        }
+
+        private void OnClickConfirm()
+        {
             LanguageManager.Instance.Switch((Language)index);
         }
     }

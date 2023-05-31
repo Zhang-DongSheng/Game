@@ -78,7 +78,6 @@ namespace Game.UI
                     }
                     break;
             }
-            Debuger.Log(Author.UI, information.panel.ToString());
         }
 
         private void Default()

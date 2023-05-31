@@ -171,7 +171,11 @@ namespace Game.UI
             }
             else if (Back(UIType.Panel, 1, out int index))
             {
-                _records[UIType.Panel][index].Open();
+                var ctrl = _records[UIType.Panel][index];
+
+                _records[UIType.Panel].RemoveAt(index);
+
+                ctrl.Open();
             }
             else
             {
