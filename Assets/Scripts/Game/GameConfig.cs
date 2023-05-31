@@ -1,5 +1,4 @@
-﻿using Data;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game
 {
@@ -26,8 +25,6 @@ namespace Game
         }
 
         public static string Version = Application.version;
-
-        public static DataText.Language Language = DataText.Language.Chinese;
     }
 
     public enum AppMode

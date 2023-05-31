@@ -4,8 +4,7 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    [DisallowMultipleComponent]
-    [RequireComponent(typeof(Text)), ExecuteInEditMode]
+    [DisallowMultipleComponent, RequireComponent(typeof(Text))]
     public class TextBind : MonoBehaviour
     {
         [SerializeField] private string content;
@@ -16,7 +15,12 @@ namespace Game.UI
 
         private void Awake()
         {
-            SetText(content);
+            EventManager.Register(EventKey.Language, OnLanguageChange);
+        }
+
+        private void OnDestroy()
+        {
+            EventManager.Unregister(EventKey.Language, OnLanguageChange);
         }
 
         private void OnValidate()
@@ -24,9 +28,14 @@ namespace Game.UI
             SetText(content);
         }
 
+        private void OnLanguageChange(EventMessageArgs args)
+        {
+            SetText(content);
+        }
+
         public void SetText(string content, bool language = true)
         {
-            if (m_content.Equals(content)) return;
+            if (m_content == content) return;
 
             m_content = this.content = content;
 
@@ -34,7 +43,7 @@ namespace Game.UI
                 m_text = GetComponent<Text>();
             if (language)
             {
-                m_text.SetText(TextManager.Instance.Get(content));
+                m_text.SetText(LanguageManager.Instance.Get(content));
             }
             else
             {

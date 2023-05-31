@@ -46,7 +46,7 @@ namespace UnityEditor
             items.Add(new ItemInformation()
             {
                 name = "”Ô—‘",
-                type = typeof(DataText).ToString(),
+                type = typeof(Language).ToString(),
                 select = false,
             });
             items.Add(new ItemInformation()
@@ -215,15 +215,15 @@ namespace UnityEditor
 
             if (string.IsNullOrEmpty(content)) return;
 
-            DataText data = Load<DataText>();
+            //Dictionary data = Load<Dictionary>();
 
-            Debuger.Assert(data != null, "∂‡”Ô—‘DBŒ™ø’");
+            //Debuger.Assert(data != null, "∂‡”Ô—‘DBŒ™ø’");
 
-            if (data == null) return;
+            //if (data == null) return;
 
-            data.Set(content);
+            //data.Set(content);
 
-            Save(data);
+            //Save(data);
         }
 
         private void LoadDataSprite()
@@ -359,7 +359,7 @@ namespace UnityEditor
             {
                 LoadDataUI();
             }
-            else if (information.type == typeof(DataText).ToString())
+            else if (information.type == typeof(Language).ToString())
             {
                 LoadDataText();
             }

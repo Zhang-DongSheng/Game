@@ -14,7 +14,12 @@ namespace Game
 
         public Action callback;
 
-        public void Init() { Ready(); Begin(); }
+        public void Init()
+        {
+            Ready();
+
+            Begin();
+        }
 
         public void Enter()
         {

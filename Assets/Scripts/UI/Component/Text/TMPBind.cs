@@ -4,8 +4,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    [DisallowMultipleComponent]
-    [RequireComponent(typeof(TextMeshProUGUI)), ExecuteInEditMode]
+    [DisallowMultipleComponent, RequireComponent(typeof(TextMeshProUGUI))]
     public class TMPBind : MonoBehaviour
     {
         [SerializeField] private string content;
@@ -16,10 +15,20 @@ namespace Game.UI
 
         private void Awake()
         {
-            SetText(content);
+            EventManager.Register(EventKey.Language, OnLanguageChange);
+        }
+
+        private void OnDestroy()
+        {
+            EventManager.Unregister(EventKey.Language, OnLanguageChange);
         }
 
         private void OnValidate()
+        {
+            SetText(content);
+        }
+
+        private void OnLanguageChange(EventMessageArgs args)
         {
             SetText(content);
         }
@@ -34,7 +43,7 @@ namespace Game.UI
                 m_text = GetComponent<TextMeshProUGUI>();
             if (language)
             {
-                m_text.SetText(TextManager.Instance.Get(content));
+                m_text.SetText(LanguageManager.Instance.Get(content));
             }
             else
             {

@@ -50,7 +50,7 @@ namespace Game
             }
         }
 
-        protected override void OnDestroy()
+        protected override void OnRelease()
         {
             // 未注册函数调用，不需要调用基类
             RenderTexture.ReleaseTemporary(Texture);

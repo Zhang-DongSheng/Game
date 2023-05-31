@@ -1,26 +1,12 @@
 using Game;
 using LitJson;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Data
 {
-    public class DataText : DataBase
+    public class DataLanguage : DataBase
     {
-        public enum Language
-        {
-            Chinese,
-            English,
-            Japanese,
-        }
-        [Serializable]
-        public class Word
-        {
-            public string key;
-
-            public string value;
-        }
         public Language language;
 
         public string icon;
@@ -41,9 +27,8 @@ namespace Data
             return key;
         }
 
-        public override void Set(string content)
+        public void Format(string content)
         {
-            base.Set(content);
             // 一定要记得去掉最后一行的逗号
             JsonData json = JsonMapper.ToObject(content);
 
@@ -69,10 +54,19 @@ namespace Data
                 Debuger.LogError(Author.Data, "多语言解析失败");
             }
         }
+    }
+    [System.Serializable]
+    public class Word
+    {
+        public string key;
 
-        public override void Clear()
-        {
-            words = new List<Word>();
-        }
+        public string value;
+    }
+
+    public enum Language
+    {
+        Chinese,
+        English,
+        Japanese,
     }
 }

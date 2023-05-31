@@ -18,10 +18,8 @@ namespace Game.UI
             EventManager.Register(EventKey.Reddot, Refresh);
         }
 
-        protected override void OnDestroy()
+        protected override void OnRelease()
         {
-            base.OnDestroy();
-
             EventManager.Unregister(EventKey.Reddot, Refresh);
         }
 

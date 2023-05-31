@@ -3,7 +3,10 @@ using UnityEngine;
 
 namespace UnityEditor
 {
-    //[CreateAssetMenu(fileName = "Lanuage", menuName = "New Lanuage")]
+    /// <summary>
+    /// ±‡º≠∆˜∂‡”Ô—‘
+    /// </summary>
+    /// [CreateAssetMenu(fileName = "Lanuage", menuName = "New Lanuage")]
     public class LanuageData : ScriptableObject
     {
         public List<LanuageInformation> list;

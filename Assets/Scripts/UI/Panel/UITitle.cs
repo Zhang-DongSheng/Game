@@ -22,7 +22,7 @@ namespace Game.UI
             btnSetting.onClick.AddListener(OnClickSetting);
         }
 
-        protected override void OnDestroy()
+        protected override void OnRelease()
         {
             EventManager.Unregister(EventKey.OpenPanel, Refresh);
         }

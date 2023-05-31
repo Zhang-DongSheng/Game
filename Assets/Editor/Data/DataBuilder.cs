@@ -1,5 +1,4 @@
 ﻿using Data;
-using Game.UI;
 using System.IO;
 using UnityEngine;
 
@@ -20,10 +19,10 @@ namespace UnityEditor
         {
             Create<DataUI>();
         }
-        [MenuItem("Data/Create/Text")]
+        [MenuItem("Data/Create/Language")]
         protected static void Create_Text()
         {
-            Create<DataText>();
+            Create<DataLanguage>();
         }
         [MenuItem("Data/Create/Sprite")]
         protected static void Create_Sprite()
@@ -39,19 +38,17 @@ namespace UnityEditor
 
         public static void Create<T>() where T : ScriptableObject
         {
-            string file = typeof(T).Name;
+            Create<T>(string.Format("{0}/{1}.asset", PATH, typeof(T).Name));
+        }
 
-            string path = string.Format("{0}/{1}.asset", PATH, file);
-
+        public static void Create<T>(string path) where T : ScriptableObject
+        {
             if (AssetDatabase.LoadAssetAtPath(path, typeof(Object))) return;
 
             ScriptableObject script = ScriptableObject.CreateInstance<T>();
-            path = string.Format("{0}/{1}", Application.dataPath, PATH.Remove(0, 7));
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-            path = string.Format("{0}/{1}.asset", PATH, file);
+            string folder = string.Format("{0}/{1}", Application.dataPath, Path.GetDirectoryName(path).Remove(0, 7));
+            if (Directory.Exists(folder) == false)
+                Directory.CreateDirectory(folder);
             AssetDatabase.CreateAsset(script, path);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();

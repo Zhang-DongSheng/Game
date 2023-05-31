@@ -7,6 +7,8 @@ namespace Data
 {
     public class DataManager : Singleton<DataManager>
     {
+        private readonly string path = "Package/Data";
+
         private readonly Dictionary<string, DataBase> m_data = new Dictionary<string, DataBase>();
 
         public T Load<T>() where T : DataBase
@@ -19,7 +21,27 @@ namespace Data
             }
             else
             {
-                T asset = ResourceManager.Load<T>(string.Format("Package/Data/{0}.asset", key));
+                T asset = ResourceManager.Load<T>(string.Format("{0}/{1}.asset", path, key));
+
+                if (asset != null)
+                {
+                    m_data.Add(key, asset);
+                }
+                return asset;
+            }
+        }
+
+        public T Load<T>(string path) where T : DataBase
+        {
+            string key = typeof(T).Name;
+
+            if (m_data.ContainsKey(key))
+            {
+                return m_data[key] as T;
+            }
+            else
+            {
+                T asset = ResourceManager.Load<T>(string.Format("{0}/{1}.asset", path, key));
 
                 if (asset != null)
                 {
@@ -41,7 +63,7 @@ namespace Data
             {
                 try
                 {
-                    ResourceManager.LoadAsync(string.Format("Package/Data/{0}.asset", key), (value) =>
+                    ResourceManager.LoadAsync(string.Format("{0}/{1}.asset", path, key), (value) =>
                     {
                         if (!m_data.ContainsKey(key))
                         {

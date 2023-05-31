@@ -1,6 +1,7 @@
 ﻿using Game.Resource;
 using Game.State;
 using UnityEngine;
+using System.Collections;
 
 namespace Game
 {
@@ -18,6 +19,11 @@ namespace Game
         }
 
         private void Start()
+        {
+            StartCoroutine(Initialize());
+        }
+
+        private new IEnumerator Initialize()
         {
             LoginLogic.Instance.Init();
 
@@ -37,7 +43,7 @@ namespace Game
 
             GameStateController.Instance.Init();
 
-            // 这边等3s闪屏然后进入Loading界面...
+            yield return new WaitForSeconds(3);
 
             ScheduleLogic.Instance.callback = () =>
             {
