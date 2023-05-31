@@ -30,12 +30,12 @@ namespace Game.UI
 
         private void OnLanguageChange(EventMessageArgs args)
         {
-            SetText(content);
+            SetText(content, true, true);
         }
 
-        public void SetText(string content, bool language = true)
+        public void SetText(string content, bool language = true, bool force = false)
         {
-            if (m_content == content) return;
+            if (m_content == content && !force) return;
 
             m_content = this.content = content;
 
