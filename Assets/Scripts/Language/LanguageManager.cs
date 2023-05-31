@@ -1,16 +1,13 @@
 using Data;
-using Game.Resource;
 using UnityEngine;
 
 namespace Game
 {
     public class LanguageManager : Singleton<LanguageManager>
     {
-        private readonly string path = "Package/Text";
-
         private Language language = Language.Chinese;
 
-        private DataLanguage dictionary;
+        private Dictionary dictionary;
 
         public string Get(string key)
         {
@@ -37,17 +34,16 @@ namespace Game
         {
             if (async)
             {
-                
+                DataManager.Instance.LoadAsync<DataLanguage>((asset) =>
+                {
+                    dictionary = asset.Get(language);
+                });
             }
             else
             {
-                ResourceManager.LoadAsync(string.Format("{0}/language_{1}.txt", path, language), (value) =>
-                {
-                    if (value is TextAsset asset)
-                    {
-                        dictionary = JsonUtility.FromJson<DataLanguage>(asset.text);
-                    }
-                });
+                var asset = DataManager.Instance.Load<DataLanguage>();
+
+                dictionary = asset.Get(language);
             }
         }
 
@@ -64,6 +60,4 @@ namespace Game
 
         public Language Current {  get { return this.language; } }
     }
-
-    
 }

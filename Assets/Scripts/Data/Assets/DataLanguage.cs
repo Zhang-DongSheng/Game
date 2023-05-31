@@ -1,5 +1,6 @@
 using Game;
 using LitJson;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,28 +8,25 @@ namespace Data
 {
     public class DataLanguage : DataBase
     {
-        public Language language;
+        public List<Dictionary> dictionaries;
 
-        public string icon;
-
-        public string font;
-
-        public List<Word> words = new List<Word>();
-
-        public string Get(string key)
+        public Dictionary Get(Language language)
         {
-            for (int i = 0; i < words.Count; i++)
+            int count = dictionaries.Count;
+
+            for (int i = 0; i < count; i++)
             {
-                if (words[i].key == key)
+                if (dictionaries[i].language == language)
                 {
-                    return words[i].value;
+                    return dictionaries[i];
                 }
             }
-            return key;
+            return count > 0 ? dictionaries[0] : null;
         }
 
-        public void Format(string content)
+        public override void Set(string content)
         {
+            base.Set(content);
             // 一定要记得去掉最后一行的逗号
             JsonData json = JsonMapper.ToObject(content);
 
@@ -36,17 +34,25 @@ namespace Data
             {
                 JsonData list = json.GetJson("list");
 
-                string language = this.language.ToString().ToLower();
-
-                int count = list.Count;
-
-                for (int i = 0; i < count; i++)
+                foreach (var language in Enum.GetValues(typeof(Language)))
                 {
-                    words.Add(new Word()
+                    Dictionary dictionary = new Dictionary()
                     {
-                        key = list[i].GetString("key"),
-                        value = list[i].GetString(language)
-                    });
+                        language = (Language)language,
+                    };
+                    int count = list.Count;
+
+                    string key = language.ToString().ToLower();
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        dictionary.words.Add(new Word()
+                        {
+                            key = list[i].GetString("key"),
+                            value = list[i].GetString(key)
+                        });
+                    }
+                    dictionaries.Add(dictionary);
                 }
             }
             else
@@ -54,19 +60,10 @@ namespace Data
                 Debuger.LogError(Author.Data, "多语言解析失败");
             }
         }
-    }
-    [System.Serializable]
-    public class Word
-    {
-        public string key;
 
-        public string value;
-    }
-
-    public enum Language
-    {
-        Chinese,
-        English,
-        Japanese,
+        public override void Clear()
+        {
+            dictionaries.Clear();
+        }
     }
 }

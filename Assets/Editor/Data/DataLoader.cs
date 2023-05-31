@@ -46,7 +46,7 @@ namespace UnityEditor
             items.Add(new ItemInformation()
             {
                 name = "”Ô—‘",
-                type = typeof(Language).ToString(),
+                type = typeof(DataLanguage).ToString(),
                 select = false,
             });
             items.Add(new ItemInformation()
@@ -201,7 +201,7 @@ namespace UnityEditor
             Save(data);
         }
 
-        private void LoadDataText()
+        private void LoadDataLanguage()
         {
             string path = string.Format("{0}/{1}", PATH, "language.json");
 
@@ -215,15 +215,15 @@ namespace UnityEditor
 
             if (string.IsNullOrEmpty(content)) return;
 
-            //Dictionary data = Load<Dictionary>();
+            DataLanguage data = Load<DataLanguage>();
 
-            //Debuger.Assert(data != null, "∂‡”Ô—‘DBŒ™ø’");
+            Debuger.Assert(data != null, "∂‡”Ô—‘DBŒ™ø’");
 
-            //if (data == null) return;
+            if (data == null) return;
 
-            //data.Set(content);
+            data.Set(content);
 
-            //Save(data);
+            Save(data);
         }
 
         private void LoadDataSprite()
@@ -359,9 +359,9 @@ namespace UnityEditor
             {
                 LoadDataUI();
             }
-            else if (information.type == typeof(Language).ToString())
+            else if (information.type == typeof(DataLanguage).ToString())
             {
-                LoadDataText();
+                LoadDataLanguage();
             }
             else if (information.type == typeof(DataSprite).ToString())
             {
