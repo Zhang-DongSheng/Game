@@ -1,5 +1,6 @@
 using Data;
 using Game;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,6 +8,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace UnityEditor
 {
@@ -241,7 +243,62 @@ namespace UnityEditor
 			return builder.ToString();
 		}
 
-		public static string ToXML(DataTable table)
+        public static string ToJson(ExcelWorksheet sheet)
+        {
+            if (sheet == null) return string.Empty;
+
+            var array = sheet.Cells.Value as object[,];
+
+            row = array.GetLength(0);
+
+            column = array.GetLength(1);
+
+			builder.Clear();
+			builder.Append("{\r\n");
+			builder.Append("\"data\"");
+			builder.Append(":\"");
+			builder.Append(sheet.Name);
+			builder.Append("\",\r\n");
+			builder.Append("\"list\"");
+			builder.Append(":");
+			builder.Append("[\r\n");
+			for (int i = 2; i < row; i++)
+			{
+				builder.Append("\t{\r\n");
+
+				for (int j = 0; j < column; j++)
+				{
+					builder.Append("\t");
+					builder.Append(string.Format("\"{0}\"", array[0, j]));
+					builder.Append(":");
+
+					string key = array[1, j].ToString().ToLower();
+
+
+                    switch (key)
+					{
+						case "int":
+						case "long":
+						case "bool":
+						case "byte":
+						case "float":
+						case "double":
+							builder.Append(string.Format("{0}", array[i, j]));
+							break;
+						default:
+							builder.Append(string.Format("\"{0}\"", array[i, j]));
+							break;
+					}
+					builder.Append(j + 1 == column ? "\r\n" : ",\r\n");
+				}
+				builder.Append(i + 1 == row ? "\t}\r\n" : "\t},\r\n");
+			}
+			builder.Append("]\r\n");
+			builder.Append("}");
+			return builder.ToString();
+		}
+
+        public static string ToXML(DataTable table)
 		{
 			if (!Enter(table)) return string.Empty;
 
@@ -316,7 +373,7 @@ namespace UnityEditor
 			return row > 2 && column > 1;
 		}
 
-		public struct ExcelColumn
+        public struct ExcelColumn
 		{
 			public string name;
 

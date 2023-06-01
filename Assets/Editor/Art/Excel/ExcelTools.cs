@@ -343,7 +343,7 @@ namespace UnityEditor
 			{
 				if (source[i].select)
 				{
-					try
+					//try
 					{
 						ExcelUtility excel = new ExcelUtility(source[i].path);
 
@@ -366,14 +366,14 @@ namespace UnityEditor
 								break;
 						}
 					}
-					catch (Exception e)
-					{
-						Debug.LogError(e.Message);
-					}
-					finally
-					{
+					//catch (Exception e)
+					//{
+					//	Debug.LogError(e.Message);
+					//}
+					//finally
+					//{
 
-					}
+					//}
 				}
 				AssetDatabase.Refresh();
 			}

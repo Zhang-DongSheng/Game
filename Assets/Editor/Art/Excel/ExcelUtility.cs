@@ -1,13 +1,15 @@
-﻿using Excel;
+﻿using OfficeOpenXml;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Text;
+using UnityEngine;
 
 namespace UnityEditor
 {
     public class ExcelUtility
 	{
-		private readonly DataSet m_dataSet;
+		private readonly ExcelWorksheets m_sheets;
 
 		private readonly Encoding UTF8 = new UTF8Encoding(false);
 
@@ -17,9 +19,9 @@ namespace UnityEditor
 			{
 				using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read))
 				{
-					IExcelDataReader reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+					ExcelPackage package = new ExcelPackage(stream);
 
-					m_dataSet = reader.AsDataSet();
+					m_sheets = package.Workbook.Worksheets;
 				};
 			}
 			else
@@ -30,28 +32,31 @@ namespace UnityEditor
 
 		public void ConvertToJson(string path)
 		{
-			string content = ExcelConvert.ToJson(m_dataSet.Tables[0]);
+			foreach (var sheet in m_sheets)
+			{
+                string content = ExcelConvert.ToJson(sheet);
 
-			File.WriteAllText(path, content, UTF8);
+                File.WriteAllText(path, content, UTF8);
+            }
 		}
 
 		public void ConvertToCSV(string path)
 		{
-			string content = ExcelConvert.ToCSV(m_dataSet.Tables[0]);
+			string content = ExcelConvert.ToCSV(null);
 
 			File.WriteAllText(path, content, UTF8);
 		}
 
 		public void ConvertToXml(string path)
 		{
-			string content = ExcelConvert.ToXML(m_dataSet.Tables[0]);
+			string content = ExcelConvert.ToXML(null);
 
 			File.WriteAllText(path, content, UTF8);
 		}
 
 		public void CreateAsset()
 		{
-			ExcelConvert.CreateAsset(m_dataSet.Tables[0]);
+			ExcelConvert.CreateAsset(null);
 		}
 	}
 }

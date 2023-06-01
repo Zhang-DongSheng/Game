@@ -18,124 +18,118 @@ MonoBehaviour:
     font: 
     words:
     - key: 10001
-      value: "\u4E2D\u658710001"
+      value: "\u786E\u8BA4"
     - key: 10002
-      value: "\u4E2D\u658710002"
+      value: "\u53D6\u6D88"
     - key: 10003
-      value: "\u4E2D\u658710003"
+      value: "\u8FD4\u56DE"
     - key: 10004
-      value: "\u4E2D\u658710004"
+      value: "\u672A\u5B8C\u6210"
     - key: 10005
-      value: "\u4E2D\u658710005"
+      value: "\u5DF2\u5B8C\u6210"
     - key: 10006
-      value: "\u4E2D\u658710006"
+      value: "\u53EF\u9886\u53D6"
     - key: 10007
-      value: "\u4E2D\u658710007"
+      value: "\u5DF2\u9886\u53D6"
     - key: 10008
-      value: "\u4E2D\u658710008"
+      value: "\u8FDB\u5165"
     - key: 10009
-      value: "\u4E2D\u658710009"
-    - key: 10010
-      value: "\u4E2D\u658710010"
-    - key: 10011
-      value: "\u4E2D\u658710011"
-    - key: 10012
-      value: "\u4E2D\u658710012"
-    - key: 10013
-      value: "\u4E2D\u658710013"
-    - key: 10014
-      value: "\u4E2D\u658710014"
-    - key: 10015
-      value: "\u4E2D\u658710015"
-    - key: 10016
-      value: "\u4E2D\u658710016"
-    - key: 10017
-      value: "\u4E2D\u658710017"
-    - key: 10018
-      value: "\u4E2D\u658710018"
-    - key: 10019
-      value: "\u4E2D\u658710019"
+      value: "\u9000\u51FA"
+    - key: 10101
+      value: "\u4ED3\u5E93"
+    - key: 10102
+      value: "\u90AE\u4EF6"
+    - key: 10103
+      value: "\u6D3B\u52A8"
+    - key: 10104
+      value: "\u5546\u5E97"
+    - key: 10105
+      value: "\u8BBE\u7F6E"
+    - key: 10106
+      value: "\u6218\u6597"
+    - key: 10201
+      value: "\u91D1\u5E01"
+    - key: 10202
+      value: "\u94BB\u77F3"
+    - key: 10203
+      value: "\u4EE3\u5E01"
   - language: 1
     icon: 
     font: 
     words:
     - key: 10001
-      value: Test10001
+      value: Confirm
     - key: 10002
-      value: Test10002
+      value: Cancel
     - key: 10003
-      value: Test10003
+      value: Back
     - key: 10004
-      value: Test10004
+      value: Undone
     - key: 10005
-      value: Test10005
+      value: Done
     - key: 10006
-      value: Test10006
+      value: Available
     - key: 10007
-      value: Test10007
+      value: Claimed
     - key: 10008
-      value: Test10008
+      value: Enter
     - key: 10009
-      value: Test10009
-    - key: 10010
-      value: Test10010
-    - key: 10011
-      value: Test10011
-    - key: 10012
-      value: Test10012
-    - key: 10013
-      value: Test10013
-    - key: 10014
-      value: Test10014
-    - key: 10015
-      value: Test10015
-    - key: 10016
-      value: Test10016
-    - key: 10017
-      value: Test10017
-    - key: 10018
-      value: Test10018
-    - key: 10019
-      value: Test10019
+      value: Exit
+    - key: 10101
+      value: Warehouse
+    - key: 10102
+      value: Mail
+    - key: 10103
+      value: Activity
+    - key: 10104
+      value: Store
+    - key: 10105
+      value: Setting
+    - key: 10106
+      value: Fighting
+    - key: 10201
+      value: Gold
+    - key: 10202
+      value: Diamond
+    - key: 10203
+      value: Coin
   - language: 2
     icon: 
     font: 
     words:
     - key: 10001
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910001"
+      value: "\u8A8D\u3081\u308B"
     - key: 10002
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910002"
+      value: "\u53D6\u6D88\u3057"
     - key: 10003
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910003"
+      value: "\u5E30\u308B\uFF0E\u623B\u308B"
     - key: 10004
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910004"
+      value: "\u672A\u5B8C\u6210"
     - key: 10005
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910005"
+      value: "\u5DF2\u5B8C\u6210"
     - key: 10006
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910006"
+      value: "\u3046\u3051\u3068\u308C\u308B"
     - key: 10007
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910007"
+      value: "\u5DF2\u9886\u53D6"
     - key: 10008
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910008"
+      value: "\u5165\u308B\uFF0E\u9032\u51FA\u3059\u308B"
     - key: 10009
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910009"
-    - key: 10010
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910010"
-    - key: 10011
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910011"
-    - key: 10012
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910012"
-    - key: 10013
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910013"
-    - key: 10014
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910014"
-    - key: 10015
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910015"
-    - key: 10016
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910016"
-    - key: 10017
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910017"
-    - key: 10018
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910018"
-    - key: 10019
-      value: "\u30C6\u30B9\u30C8\u3057\u307E\u305910019"
+      value: "\u7ACB\u3061\u53BB\u308B"
+    - key: 10101
+      value: "\u5009\u5EAB "
+    - key: 10102
+      value: "\u90F5\u4FBF\u7269"
+    - key: 10103
+      value: "\u524D\u591C\u796D"
+    - key: 10104
+      value: "\u5E97"
+    - key: 10105
+      value: "\u5099\u3048\u4ED8\u3051"
+    - key: 10106
+      value: "\u6226\u95D8\u3059\u308B\uFF0E\u6226\u3046"
+    - key: 10201
+      value: "\u91D1\u8CA8 "
+    - key: 10202
+      value: "\u30C0\u30A4\u30E4 "
+    - key: 10203
+      value: "\u3057\u308B\u3057 "
