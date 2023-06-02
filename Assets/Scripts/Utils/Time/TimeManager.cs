@@ -1,3 +1,4 @@
+using Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,8 +8,6 @@ namespace Game
 {
     public sealed class TimeManager : MonoSingleton<TimeManager>
     {
-        private const string KEY = "game_total_time";
-
         private readonly Dictionary<string, Stopwatch> watch = new Dictionary<string, Stopwatch>();
 
         private readonly Dictionary<string, TimeHandler> handlers = new Dictionary<string, TimeHandler>();
@@ -23,11 +22,7 @@ namespace Game
 
         private void Awake()
         {
-            if (Int64.TryParse(PlayerPrefs.GetString(KEY), out long time))
-            {
-                Duration = time;
-            }
-            Duration += (long)Time.time;
+            Duration = GlobalVariables.Get<long>(Const.TOTAL_TIME) + (long)Time.time;
         }
 
         private void Update()
@@ -76,7 +71,7 @@ namespace Game
 
         private void OnApplicationQuit()
         {
-            PlayerPrefs.SetString(KEY, Duration.ToString());
+            GlobalVariables.Set(Const.TOTAL_TIME, Duration);
         }
 
         private void OnDestroy()

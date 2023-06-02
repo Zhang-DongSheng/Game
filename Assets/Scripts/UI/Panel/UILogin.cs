@@ -1,5 +1,4 @@
 using Data;
-using Game.State;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,7 +55,7 @@ namespace Game.UI
 
         private void Initialize()
         {
-            remember = GlobalVariables.Get<bool>(Const.REMEMBERPASSWORD);
+            remember = GlobalVariables.Get<bool>(Const.PASSWORD_REMEMBER);
 
             automatic = GlobalVariables.Get<bool>(Const.AUTOMATICLOGIN);
 
@@ -130,7 +129,7 @@ namespace Game.UI
                     tog_automatic.isOn = false;
                 }
             }
-            GlobalVariables.Set(Const.REMEMBERPASSWORD, remember);
+            GlobalVariables.Set(Const.PASSWORD_REMEMBER, remember);
         }
 
         private void OnValueChangedAutomatic(bool isOn)

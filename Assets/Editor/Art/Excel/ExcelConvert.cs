@@ -8,7 +8,6 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace UnityEditor
 {
@@ -20,95 +19,95 @@ namespace UnityEditor
 
 		private static readonly StringBuilder builder = new StringBuilder();
 
-        public static void CreateAsset(DataTable table)
-        {
-            if (!Enter(table)) return;
+		public static void CreateAsset(DataTable table)
+		{
+			if (!Enter(table)) return;
 
-            if (CreateOrUpdateCSharp(table))
-            {
-                Debug.LogError("Create Scripte! Please Try Again!!!");
-                return;
-            }
-            try
-            {
-                string script = string.Format("Data{0}", table.TableName);
+			if (CreateOrUpdateCSharp(table))
+			{
+				Debug.LogError("Create Scripte! Please Try Again!!!");
+				return;
+			}
+			try
+			{
+				string script = string.Format("Data{0}", table.TableName);
 
-                string path = string.Format("Assets/Package/Data/{0}.asset", script);
+				string path = string.Format("Assets/Package/Data/{0}.asset", script);
 
-                Assembly assembly = typeof(DataBase).Assembly;
+				Assembly assembly = typeof(DataBase).Assembly;
 
-                Type TA = assembly.GetType(string.Format("Data.Data{0}", table.TableName));
+				Type TA = assembly.GetType(string.Format("Data.Data{0}", table.TableName));
 
-                if (File.Exists(path))
-                {
-                    File.Delete(path);
-                }
-                ScriptableObject asset = ScriptableObject.CreateInstance(script);
+				if (File.Exists(path))
+				{
+					File.Delete(path);
+				}
+				ScriptableObject asset = ScriptableObject.CreateInstance(script);
 
-                asset.name = script;
+				asset.name = script;
 
-                Type TI = assembly.GetType(string.Format("Data.{0}Information", table.TableName));
+				Type TI = assembly.GetType(string.Format("Data.{0}Information", table.TableName));
 
-                object list = TI.GenerateCollection();
+				object list = TI.GenerateCollection();
 
-                for (int i = 2; i < row; i++)
-                {
-                    object target = Activator.CreateInstance(TI);
+				for (int i = 2; i < row; i++)
+				{
+					object target = Activator.CreateInstance(TI);
 
-                    for (int j = 0; j < column; j++)
-                    {
-                        var field = TI.GetField(table.Rows[0][j].ToString(), BindingFlags.Instance | BindingFlags.Public);
+					for (int j = 0; j < column; j++)
+					{
+						var field = TI.GetField(table.Rows[0][j].ToString(), BindingFlags.Instance | BindingFlags.Public);
 
-                        object value;
+						object value;
 
-                        switch (table.Rows[1][j].ToString())
-                        {
-                            case "int[]":
-                                {
-                                    if (!table.Rows[i][j].ToString().TryParseArrayInt(out int[] array_int))
-                                    {
+						switch (table.Rows[1][j].ToString())
+						{
+							case "int[]":
+								{
+									if (!table.Rows[i][j].ToString().TryParseArrayInt(out int[] array_int))
+									{
 
-                                    }
-                                    value = array_int;
-                                }
-                                break;
-                            case "float[]":
-                                {
-                                    if (!table.Rows[i][j].ToString().TryParseArrayFloat(out float[] array_float))
-                                    {
+									}
+									value = array_int;
+								}
+								break;
+							case "float[]":
+								{
+									if (!table.Rows[i][j].ToString().TryParseArrayFloat(out float[] array_float))
+									{
 
-                                    }
-                                    value = array_float;
-                                }
-                                break;
-                            case "DateTime":
-                                {
-                                    if (!table.Rows[i][j].ToString().TryParseDateTime(out DateTime time))
-                                    {
+									}
+									value = array_float;
+								}
+								break;
+							case "DateTime":
+								{
+									if (!table.Rows[i][j].ToString().TryParseDateTime(out DateTime time))
+									{
 
-                                    }
-                                    value = time;
-                                }
-                                break;
-                            default:
-                                value = Convert.ChangeType(table.Rows[i][j], field.FieldType);
-                                break;
-                        }
-                        field.SetValue(target, value);
-                    }
-                    list.Call("Add", new object[] { target });
-                }
-                asset.SetMember("list", list);
+									}
+									value = time;
+								}
+								break;
+							default:
+								value = Convert.ChangeType(table.Rows[i][j], field.FieldType);
+								break;
+						}
+						field.SetValue(target, value);
+					}
+					list.Call("Add", new object[] { target });
+				}
+				asset.SetMember("list", list);
 
-                AssetDatabase.CreateAsset(asset, path);
+				AssetDatabase.CreateAsset(asset, path);
 
-                AssetDatabase.Refresh();
-            }
-            catch (Exception e)
-            {
-                Debuger.LogException(Author.Data, e);
-            }
-        }
+				AssetDatabase.Refresh();
+			}
+			catch (Exception e)
+			{
+				Debuger.LogException(Author.Data, e);
+			}
+		}
 
 		public static bool CreateOrUpdateCSharp(DataTable table)
 		{
@@ -196,62 +195,18 @@ namespace UnityEditor
 
 			AssetDatabase.Refresh();
 		}
-        /// <summary>
-        /// 转Json，一定要记得去掉最后一行的逗号, LitJson无法转译
-        /// </summary>
-        public static string ToJson(DataTable table)
+		/// <summary>
+		/// 转Json，一定要记得去掉最后一行的逗号, LitJson无法转译
+		/// </summary>
+		public static string ToJson(ExcelWorksheet sheet)
 		{
-            if (!Enter(table)) return string.Empty;
+			if (sheet == null) return string.Empty;
 
-			builder.Clear();
-			builder.Append("{\r\n");
-			builder.Append("\"data\"");
-			builder.Append(":\"");
-			builder.Append(table.TableName);
-			builder.Append("\",\r\n");
-			builder.Append("\"list\"");
-			builder.Append(":");
-			builder.Append("[\r\n");
-			for (int i = 2; i < row; i++)
-			{
-				builder.Append("\t{\r\n");
-				for (int j = 0; j < column; j++)
-				{
-					builder.Append("\t");
-					builder.Append(string.Format("\"{0}\"", table.Rows[0][j]));
-					builder.Append(":");
-					switch (table.Rows[1][j].ToString().ToLower())
-					{
-						case "int":
-                        case "long":
-                        case "bool":
-                        case "byte":
-                        case "float":
-						case "double":
-                            builder.Append(string.Format("{0}", table.Rows[i][j]));
-                            break;
-						default:
-                            builder.Append(string.Format("\"{0}\"", table.Rows[i][j]));
-                            break;
-                    }
-					builder.Append(j + 1 == column ? "\r\n" : ",\r\n");
-				}
-				builder.Append(i + 1 == row ? "\t}\r\n" : "\t},\r\n");
-			}
-			builder.Append("]\r\n");
-			builder.Append("}");
-			return builder.ToString();
-		}
+			var array = sheet.Cells.Value as object[,];
 
-        public static string ToJson(ExcelWorksheet sheet)
-        {
-            if (sheet == null) return string.Empty;
+			row = array.GetLength(0);
 
-            var array = sheet.Cells.Value as object[,];
-
-            row = array.GetLength(0);
-
-            column = array.GetLength(1);
+			column = array.GetLength(1);
 
 			builder.Clear();
 			builder.Append("{\r\n");
@@ -271,11 +226,8 @@ namespace UnityEditor
 					builder.Append("\t");
 					builder.Append(string.Format("\"{0}\"", array[0, j]));
 					builder.Append(":");
-
 					string key = array[1, j].ToString().ToLower();
-
-
-                    switch (key)
+					switch (key)
 					{
 						case "int":
 						case "long":
@@ -298,9 +250,15 @@ namespace UnityEditor
 			return builder.ToString();
 		}
 
-        public static string ToXML(DataTable table)
+		public static string ToXML(ExcelWorksheet sheet)
 		{
-			if (!Enter(table)) return string.Empty;
+			if (sheet == null) return string.Empty;
+
+			var array = sheet.Cells.Value as object[,];
+
+			row = array.GetLength(0);
+
+			column = array.GetLength(1);
 
 			builder.Clear();
 			builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
@@ -313,31 +271,16 @@ namespace UnityEditor
 				builder.Append("\r\n");
 				for (int j = 0; j < column; j++)
 				{
-					builder.Append("\t\t<" + table.Rows[0][j].ToString() + ">");
-					builder.Append(table.Rows[i][j].ToString());
-					builder.Append("</" + table.Rows[0][j].ToString() + ">");
+					builder.Append("\t\t<" + array[0, j].ToString() + ">");
+					builder.Append(array[i, j].ToString());
+					builder.Append("</" + array[0, j].ToString() + ">");
 					builder.Append("\r\n");
 				}
-				builder.Append("  </Row>");
+				builder.Append("\t</Row>");
 				builder.Append("\r\n");
 			}
 			builder.Append("</Table>");
 
-			return builder.ToString();
-		}
-
-		public static string ToCSV(DataTable table)
-		{
-			if (!Enter(table)) return string.Empty;
-
-			for (int i = 0; i < row; i++)
-			{
-				for (int j = 0; j < column; j++)
-				{
-					builder.Append(table.Rows[i][j] + ",");
-				}
-				builder.Append("\r\n");
-			}
 			return builder.ToString();
 		}
 
@@ -373,7 +316,7 @@ namespace UnityEditor
 			return row > 2 && column > 1;
 		}
 
-        public struct ExcelColumn
+		public struct ExcelColumn
 		{
 			public string name;
 

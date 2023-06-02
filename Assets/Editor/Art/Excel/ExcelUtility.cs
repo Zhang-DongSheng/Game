@@ -1,9 +1,6 @@
 ﻿using OfficeOpenXml;
-using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Text;
-using UnityEngine;
 
 namespace UnityEditor
 {
@@ -42,21 +39,25 @@ namespace UnityEditor
 
 		public void ConvertToCSV(string path)
 		{
-			string content = ExcelConvert.ToCSV(null);
-
-			File.WriteAllText(path, content, UTF8);
+            
 		}
 
 		public void ConvertToXml(string path)
 		{
-			string content = ExcelConvert.ToXML(null);
+            foreach (var sheet in m_sheets)
+            {
+                string content = ExcelConvert.ToXML(sheet);
 
-			File.WriteAllText(path, content, UTF8);
-		}
+                File.WriteAllText(path, content, UTF8);
+            }
+        }
 
 		public void CreateAsset()
 		{
-			ExcelConvert.CreateAsset(null);
+            foreach (var sheet in m_sheets)
+            {
+                ExcelConvert.CreateAsset(null);
+            }
 		}
 	}
 }

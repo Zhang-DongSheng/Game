@@ -107,7 +107,7 @@ namespace Game
                     ResourceUpdate.Instance.Direction(ResourceConfig.Loading);
                     break;
                 case Schedule.Language:
-                    Update(Schedule.Language);
+                    LanguageManager.Instance.Initialize();
                     break;
                 case Schedule.BlockedText:
                     Update(Schedule.BlockedText);

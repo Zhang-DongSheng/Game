@@ -337,13 +337,13 @@ namespace UnityEditor
 			if (Directory.Exists(outputFolder)) { }
 			else
 			{
-                Directory.CreateDirectory(outputFolder);
-            }
+				Directory.CreateDirectory(outputFolder);
+			}
 			for (int i = 0; i < source.Count; i++)
 			{
 				if (source[i].select)
 				{
-					//try
+					try
 					{
 						ExcelUtility excel = new ExcelUtility(source[i].path);
 
@@ -366,14 +366,14 @@ namespace UnityEditor
 								break;
 						}
 					}
-					//catch (Exception e)
-					//{
-					//	Debug.LogError(e.Message);
-					//}
-					//finally
-					//{
+					catch (Exception e)
+					{
+						Debug.LogError(e.Message);
+					}
+					finally
+					{
 
-					//}
+					}
 				}
 				AssetDatabase.Refresh();
 			}

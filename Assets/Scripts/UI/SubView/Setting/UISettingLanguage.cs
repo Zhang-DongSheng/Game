@@ -35,7 +35,7 @@ namespace Game.UI
                 }
                 items[index++].Refresh((int)language);
             }
-            this.index = (int)LanguageManager.Instance.Current;
+            this.index = (int)LanguageManager.Instance.language;
 
             count = items.Count;
 

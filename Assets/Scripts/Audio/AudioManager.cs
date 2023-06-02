@@ -51,7 +51,7 @@ namespace Game.Audio
 
         public void PlayEffect(string sound)
         {
-            Play(AudioEnum.Effect, sound, false);
+            Play(AudioEnum.Sound, sound, false);
         }
 
         public void Play(AudioEnum key, string sound, bool loop = false)

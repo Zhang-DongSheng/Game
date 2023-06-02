@@ -5,9 +5,16 @@ namespace Game
 {
     public class LanguageManager : Singleton<LanguageManager>
     {
-        private Language language = Language.Chinese;
-
         private Dictionary dictionary;
+
+        public Language language { get; private set; }
+
+        public void Initialize()
+        {
+            language = GlobalVariables.Get<Language>(Const.LANGUAGE);
+
+            ScheduleLogic.Instance.Update(Schedule.Language);
+        }
 
         public string Get(string key)
         {
@@ -30,7 +37,41 @@ namespace Game
             }
         }
 
-        public void Load(Language language, bool async)
+        public string GetByParameter(string key, params object[] parameters)
+        {
+            if (dictionary != null)
+            {
+                return string.Format(dictionary.Get(key), parameters);
+            }
+            else
+            {
+                Load(language, false);
+
+                if (dictionary != null)
+                {
+                    return string.Format(dictionary.Get(key), parameters);
+                }
+                else
+                {
+                    return string.Format(key, parameters);
+                }
+            }
+        }
+
+        public void Switch(Language language)
+        {
+            if (this.language == language) return;
+
+            this.language = language;
+
+            Load(language, true);
+
+            GlobalVariables.Set(Const.LANGUAGE, language);
+
+            EventManager.Post(EventKey.Language);
+        }
+
+        private void Load(Language language, bool async)
         {
             if (async)
             {
@@ -46,18 +87,5 @@ namespace Game
                 dictionary = asset.Get(language);
             }
         }
-
-        public void Switch(Language language)
-        {
-            if (this.language == language) return;
-
-            this.language = language;
-
-            Load(language, true);
-
-            EventManager.Post(EventKey.Language);
-        }
-
-        public Language Current {  get { return this.language; } }
     }
 }

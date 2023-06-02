@@ -131,11 +131,15 @@ namespace Data
             {
                 try
                 {
-                    if (typeof(T).IsValueType)
+                    if (typeof(T).IsEnum)
+                    {
+                        return (T)Enum.Parse(typeof(T), value);
+                    }
+                    else if (typeof(T).IsValueType)
                     {
                         return (T)Convert.ChangeType(value, typeof(T));
                     }
-                    else if (typeof(T).Name == "String")
+                    else if (typeof(T).Equals(typeof(string)))
                     {
                         return (T)(object)value;
                     }

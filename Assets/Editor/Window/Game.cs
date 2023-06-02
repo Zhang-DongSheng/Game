@@ -54,7 +54,7 @@ namespace UnityEditor.Window
         {
             content = GUILayout.TextField(content);
 
-            if (GUILayout.Button(LanuageManager.Get("Create")))
+            if (GUILayout.Button("Create"))
             {
                 if (string.IsNullOrEmpty(content)) return;
 
@@ -77,7 +77,7 @@ namespace UnityEditor.Window
                 ShowNotification("模板创建完成");
             }
 
-            if (GUILayout.Button(LanuageManager.Get("Reference")))
+            if (GUILayout.Button("Reference"))
             {
                 string path = string.Format("Assets/{0}{1}.prefab", PREFAB, content);
 
@@ -133,7 +133,7 @@ namespace UnityEditor.Window
             }
             RefreshUIInformation();
 
-            if (GUILayout.Button(exist ? LanuageManager.Get("Modify") : LanuageManager.Get("Create")))
+            if (GUILayout.Button(exist ? "Modify" : "Create"))
             {
                 AddOrReplaceUIInformation();
             }
@@ -147,7 +147,7 @@ namespace UnityEditor.Window
             {
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Label(LanuageManager.Get("Panel"), GUILayout.Width(width));
+                    GUILayout.Label("Panel", GUILayout.Width(width));
 
                     GUILayout.Label(information.panel.ToString());
                 }
@@ -155,7 +155,7 @@ namespace UnityEditor.Window
 
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Label(LanuageManager.Get("Layer"), GUILayout.Width(width));
+                    GUILayout.Label("Layer", GUILayout.Width(width));
 
                     information.layer = (UILayer)EditorGUILayout.EnumPopup(information.layer);
                 }
@@ -163,7 +163,7 @@ namespace UnityEditor.Window
 
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Label(LanuageManager.Get("Type"), GUILayout.Width(width));
+                    GUILayout.Label("Type", GUILayout.Width(width));
 
                     information.type = (UIType)EditorGUILayout.EnumPopup(information.type);
                 }
@@ -171,7 +171,7 @@ namespace UnityEditor.Window
 
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Label(LanuageManager.Get("Name"), GUILayout.Width(width));
+                    GUILayout.Label("Name", GUILayout.Width(width));
 
                     information.name = EditorGUILayout.TextField(information.name);
                 }
@@ -179,7 +179,7 @@ namespace UnityEditor.Window
 
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Label(LanuageManager.Get("Record"), GUILayout.Width(width));
+                    GUILayout.Label("Record", GUILayout.Width(width));
 
                     information.destroy = GUILayout.Toggle(information.destroy, string.Empty);
                 }
@@ -187,7 +187,7 @@ namespace UnityEditor.Window
 
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Label(LanuageManager.Get("Order"), GUILayout.Width(width));
+                    GUILayout.Label("Order", GUILayout.Width(width));
 
                     information.order = EditorGUILayout.IntField(information.order);
                 }
@@ -195,7 +195,7 @@ namespace UnityEditor.Window
 
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Label(LanuageManager.Get("Path"), GUILayout.Width(width));
+                    GUILayout.Label("Path", GUILayout.Width(width));
 
                     information.path = EditorGUILayout.TextField(information.path);
                 }

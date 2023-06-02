@@ -1,3 +1,4 @@
+using Data;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,9 +28,9 @@ namespace Game.Audio
 
             key = ae.ToString();
 
-            mute = PlayerPrefs.GetInt(string.Format("{0}_MUTE", key)) == 1;
+            mute = GlobalVariables.Get<bool>(string.Format("{0}_{1}", Const.AUDIO_Mute, key));
 
-            volume = PlayerPrefs.GetFloat(string.Format("{0}_VOLUME", key));
+            volume = GlobalVariables.Get<float>(string.Format("{0}_{1}", Const.AUDIO_VOLUME, key));
 
             source.volume = volume;
 
@@ -40,7 +41,7 @@ namespace Game.Audio
         {
             source.mute = mute;
 
-            PlayerPrefs.SetInt(string.Format("{0}_MUTE", key), mute ? 1 : 0);
+            GlobalVariables.Set(string.Format("{0}_{1}", Const.AUDIO_Mute, key), mute);
         }
 
         public void SetVolume(float volume)
@@ -49,14 +50,14 @@ namespace Game.Audio
 
             source.volume = volume;
 
-            PlayerPrefs.SetFloat(string.Format("{0}_VOLUME", key), volume);
+            GlobalVariables.Set(string.Format("{0}_{1}", Const.AUDIO_VOLUME, key), volume);
         }
     }
 
     public enum AudioEnum
     {
         Music,
-        Effect,
+        Sound,
         Special,
     }
 }
