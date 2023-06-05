@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game.Pool
 {
-    public class PoolObject : MonoBehaviour
+    public class PoolObject : ItemBase
     {
         public bool recycle;
 
@@ -18,21 +18,18 @@ namespace Game.Pool
             SetActive(true);
         }
 
-        public virtual void OnRecycle()
+        public virtual void OnRecycle(Transform parent)
         {
+            //transform.SetParent(parent);
+
             SetActive(false);
         }
 
-        public virtual void OnDestory()
+        public virtual void OnRemove()
         {
-            GameObject.Destroy(gameObject);
-        }
-
-        public virtual void SetActive(bool active)
-        {
-            if (gameObject && gameObject.activeSelf != active)
-            {
-                gameObject.SetActive(active);
+            if (gameObject)
+            { 
+                GameObject.Destroy(gameObject);
             }
         }
 

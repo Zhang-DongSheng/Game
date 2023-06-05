@@ -1,4 +1,5 @@
 ﻿using Game.Attribute;
+using Game.Pool;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -65,7 +66,12 @@ namespace Game.Test
 
         public void OnClickButton(float index)
         {
-            Debug.LogError("成功调用" + index);
+            string path = "Package/Prefab/Model/Bullet/Bullet.prefab";
+
+            for (int i = 0; i < (int)index; i++)
+            {
+                PoolManager.Instance.Pop(path);
+            }
         }
 
         private async System.Threading.Tasks.Task StartAsync()
