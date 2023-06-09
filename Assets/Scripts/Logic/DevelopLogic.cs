@@ -14,6 +14,8 @@ namespace Game
 
         private readonly List<string> messages = new List<string>();
 
+        private WaitUntil wait;
+
         private bool record = true;
 
         public void Initialize()
@@ -22,6 +24,10 @@ namespace Game
 
             record = true;
 
+            wait = new WaitUntil(() =>
+            {
+                return !record;
+            });
             RuntimeManager.Instance.StartCoroutine(RecordProfiler());
         }
 
@@ -72,13 +78,13 @@ namespace Game
         private IEnumerator RecordProfiler()
         {
             Profiler.logFile = string.Format("{0}/{1}-{2}.data", Application.persistentDataPath, DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss"), "profiler"); ;
+
             Profiler.enabled = true;
+
             Profiler.enableBinaryLog = true;
 
-            while (record)
-            {
-                yield return new WaitForEndOfFrame();
-            }
+            yield return wait;
+
             Profiler.enableBinaryLog = false;
 
             yield return null;
