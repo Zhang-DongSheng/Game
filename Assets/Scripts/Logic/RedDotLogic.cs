@@ -9,9 +9,14 @@ namespace Game
     {
         private readonly Dictionary<ReddotKey, Reddot> _reddots = new Dictionary<ReddotKey, Reddot>();
 
-        public void Init()
+        public void Initialize()
         {
             NetworkEventManager.Register(NetworkEventKey.Reddot, OnReceivedInformation);
+        }
+
+        public void Release()
+        {
+            NetworkEventManager.Unregister(NetworkEventKey.Reddot, OnReceivedInformation);
         }
 
         #region Function
@@ -61,7 +66,7 @@ namespace Game
         #region Request
         public void RequestInformation()
         {
-
+            ScheduleLogic.Instance.Update(Schedule.Reddot);
         }
         #endregion
 

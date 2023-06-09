@@ -8,9 +8,14 @@ namespace Game
     {
         public User user { get; private set; }
 
-        public void Init()
+        public void Initialize()
         {
             NetworkEventManager.Register(NetworkEventKey.User, OnReceivedInformation);
+        }
+
+        public void Release()
+        {
+            NetworkEventManager.Unregister(NetworkEventKey.User, OnReceivedInformation);
         }
 
         #region Request

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,26 +10,30 @@ namespace Game.Pool
 
         private readonly Transform parent;
 
+        private readonly Func<string, GameObject> create;
+
         private readonly Stack<PoolObject> m_stack = new Stack<PoolObject>();
 
-        private readonly PoolReference m_reference = new PoolReference(30, 1);
+        private readonly PoolReference m_reference = new PoolReference(PoolCinfig.Sample, PoolCinfig.Interval);
 
         private int number, capacity;
 
-        public PoolElement(string key ,Transform parent)
+        public PoolElement(string key, Transform parent, Func<string, GameObject> create)
         {
             this.key = key;
 
-            this.capacity = 10;
-
             this.parent = parent;
+
+            this.create = create;
+
+            this.capacity = PoolCinfig.Min;
         }
 
         public void Detection()
         {
             m_reference.Update(Time.deltaTime, number);
 
-            capacity = Mathf.Clamp(m_reference.Reference, 10, 100);
+            capacity = Mathf.Clamp(m_reference.Reference, PoolCinfig.Min, PoolCinfig.Max);
 
             if (m_stack.Count > capacity)
             {
@@ -40,13 +45,9 @@ namespace Game.Pool
         {
             number++;
 
-            GameObject prefab = Game.Resource.ResourceManager.Load<GameObject>(key);
+            var instance = create.Invoke(key);
 
-            Debuger.Assert(prefab != null, string.Format("PoolObject Error. Load is Null: {0}", key));
-
-            GameObject instance = GameObject.Instantiate(prefab);
-
-            instance.name = prefab.name;
+            if (instance == null) return null;
 
             if (!instance.TryGetComponent(out PoolObject component))
             {

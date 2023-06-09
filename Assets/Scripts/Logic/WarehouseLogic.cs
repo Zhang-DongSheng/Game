@@ -21,21 +21,14 @@ namespace Game
             get { return _props; }
         }
 
-        public void Init()
+        public void Initialize()
         {
             NetworkEventManager.Register(NetworkEventKey.Warehouse, OnReceivedInformation);
+        }
 
-            DataProp data = DataManager.Instance.Load<DataProp>();
-
-            for (int i = 0; i < data.props.Count; i++)
-            {
-                _props.Add(new Prop()
-                {
-                    identification = (uint)i,
-                    number = 999,
-                    parallelism = data.props[i].primary,
-                });
-            }
+        public void Release()
+        {
+            NetworkEventManager.Unregister(NetworkEventKey.Warehouse, OnReceivedInformation);
         }
 
         public List<Prop> Column(int index)
@@ -103,14 +96,28 @@ namespace Game
         #region Request
         public void RequestInformation()
         {
+            OnReceivedInformation(null);
 
+            ScheduleLogic.Instance.Update(Schedule.Bag);
         }
         #endregion
 
         #region Receive
         private void OnReceivedInformation(NetworkEventHandle handle)
         {
+            _props.Clear();
 
+            DataProp data = DataManager.Instance.Load<DataProp>();
+
+            for (int i = 0; i < data.props.Count; i++)
+            {
+                _props.Add(new Prop()
+                {
+                    identification = (uint)i,
+                    number = 999,
+                    parallelism = data.props[i].primary,
+                });
+            }
         }
         #endregion
     }

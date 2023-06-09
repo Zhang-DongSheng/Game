@@ -84,7 +84,6 @@ namespace Game.UI
                 {
                     GlobalVariables.Set(Const.PASSWORD, password);
                 }
-                UILoading.Instance.Open();
             }
             else
             {

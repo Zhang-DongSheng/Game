@@ -68,6 +68,10 @@ namespace Game
 
                 canvas.blocksRaycasts = state;
             }
+            else
+            {
+                transform.localScale = state ? Vector3.one : Vector3.zero;
+            }
         }
     }
 }

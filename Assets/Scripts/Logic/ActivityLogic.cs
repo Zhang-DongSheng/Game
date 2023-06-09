@@ -6,9 +6,14 @@ namespace Game
     {
         private readonly List<PopupPanel> panels = new List<PopupPanel>();
 
-        public void Init()
+        public void Initialize()
         {
             NetworkEventManager.Register(NetworkEventKey.Activity, OnReceivedInformation);
+        }
+
+        public void Release()
+        {
+            NetworkEventManager.Unregister(NetworkEventKey.Activity, OnReceivedInformation);
         }
 
         #region Function
@@ -61,7 +66,7 @@ namespace Game
         #region Request
         public void RequestInformation()
         {
-
+            ScheduleLogic.Instance.Update(Schedule.Activity);
         }
         #endregion
 

@@ -48,6 +48,11 @@ namespace Game.Model
             SwitchWeapon(1);
         }
 
+        public override void Crouch()
+        {
+
+        }
+
         public override void Attack()
         {
             Trigger("attack1");

@@ -9,7 +9,12 @@ namespace Game
 
         private TaskInformation task;
 
-        public void Init()
+        public void Initialize()
+        {
+
+        }
+
+        public void Release()
         {
 
         }

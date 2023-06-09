@@ -14,11 +14,16 @@ namespace Game
 
         public Action callback;
 
-        public void Init()
+        public void Initialize()
         {
             Ready();
 
             Begin();
+        }
+
+        public void Release()
+        {
+
         }
 
         public void Enter()
@@ -113,19 +118,19 @@ namespace Game
                     Update(Schedule.BlockedText);
                     break;
                 case Schedule.Bag:
-                    Update(Schedule.Bag);
+                    WarehouseLogic.Instance.RequestInformation();
                     break;
                 case Schedule.Mail:
                     Update(Schedule.Mail);
                     break;
                 case Schedule.Reddot:
-                    Update(Schedule.Reddot);
+                    ReddotLogic.Instance.RequestInformation();
                     break;
                 case Schedule.Shop:
-                    Update(Schedule.Shop);
+                    ShopLogic.Instance.RequestInformation();
                     break;
                 case Schedule.Activity:
-                    Update(Schedule.Activity);
+                    ActivityLogic.Instance.RequestInformation();
                     break;
                 case Schedule.Count:
                     Update(Schedule.Count, ScheduleStatus.Complete);

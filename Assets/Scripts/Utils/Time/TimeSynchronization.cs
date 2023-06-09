@@ -30,11 +30,6 @@ namespace Game
 
         public Action action;
 
-        private void Awake()
-        {
-            DontDestroyOnLoad(gameObject);
-        }
-
         private void Start()
         {
             Synchronization(); day = Now.DayOfYear;

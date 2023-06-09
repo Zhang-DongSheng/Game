@@ -1,95 +1,67 @@
+using Game.Resource;
 using UnityEngine;
 
 namespace Game.Model
 {
-    public class PlayerController : MonoSingleton<PlayerController>
+    public class PlayerController : Singleton<PlayerController>
     {
-        [SerializeField] private Transform m_target;
+        private Player player;
 
-        [SerializeField] private Player m_player;
+        private Quaternion rotation;
 
-        private Vector2 vector = new Vector2();
+        private Vector3 direction = new Vector3(0, 0, 0);
 
-        private void Start()
+        public void SwitchPlayer(string name)
         {
-            if (m_player == null)
-            {
-                InitPlayer();
-            }
-        }
+            GameObject prefab = ResourceManager.Load<GameObject>(name);
 
-        private void Update()
-        {
-            vector.x = Input.GetAxis("Horizontal") * 10f;
+            var clone = GameObject.Instantiate(prefab);
 
-            vector.y = Input.GetAxis("Vertical") * 10f;
+            player = clone.GetComponent<Player>();
 
-            if (vector != Vector2.zero)
-            {
-                Move(vector);
-            }
-        }
-
-        public void InitPlayer()
-        {
-            
+            player.Born();
         }
 
         public void Move(Vector2 vector)
         {
-            if (Vector2.zero.Equals(vector))
+            if (vector.x == 0 && vector.y == 0)
                 return;
+            direction.Set(vector.x, 0, vector.y);
 
-            float speed = Vector3.Distance(Vector2.zero, vector);
+            rotation = Quaternion.LookRotation(direction, Vector3.up);
 
-            Vector3 dir = vector.Vector2To3();
+            player.Move(direction);
 
-            Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
+            player.Raotate(rotation);
 
-            m_target.rotation = Quaternion.Lerp(m_target.rotation, rotation, Time.deltaTime * PlayerConfig.Rotate);
-
-            m_target.Translate(Vector3.forward * Time.deltaTime * speed);
-
-            if (speed > 10)
+            if (vector.magnitude > 10)
             {
-                Player.Run();
+                player.Run();
             }
             else
             {
-                Player.Walk();
+                player.Walk();
             }
         }
 
         public void Jump()
         {
-            Player.Jump();
+            player.Jump();
         }
 
         public void Crouch()
         {
-
+            player.Crouch();
         }
 
         public void Attack()
         {
-            Player.Attack();
+            player.Attack();
         }
 
         public void ReleaseSkill(int index)
         {
-            Player.ReleaseSkill(index);
-        }
-
-        public Player Player
-        {
-            get
-            {
-                return m_player;
-            }
-            set
-            {
-                m_player = value;
-            }
+            player.ReleaseSkill(index);
         }
     }
 }

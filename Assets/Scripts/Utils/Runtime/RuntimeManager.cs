@@ -45,6 +45,14 @@ namespace Game
             }
         }
 
+        private void OnGUI()
+        {
+            if (events.TryGetValue(RuntimeEvent.GUI, out FunctionBySingle function))
+            {
+                function?.Invoke(0);
+            }
+        }
+
         private IEnumerator Execute(Action action, YieldInstruction yield)
         {
             yield return yield;

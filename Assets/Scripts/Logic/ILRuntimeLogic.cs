@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 
 namespace Game
 {
-    public class ILRuntimeLogic : MonoSingleton<ILRuntimeLogic>, ILogic
+    public class ILRuntimeLogic : Singleton<ILRuntimeLogic>, ILogic
     {
         public const string KEY = "HotFix/Hotfix";
 
@@ -16,11 +16,11 @@ namespace Game
 
         private ILRuntime.Runtime.Enviorment.AppDomain appdomain;
 
-        public void Init()
+        public void Initialize()
         {
             if (Application.isPlaying)
             {
-                StartCoroutine(LoadILRuntime());
+                RuntimeManager.Instance.StartCoroutine(LoadILRuntime());
             }
         }
 
@@ -96,7 +96,7 @@ namespace Game
         private void OnILRuntimeInitialized()
         {
 #if UNITY_EDITOR || UNITY_ANDROID || UNITY_IPHONE
-            //appdomain.UnityMainThreadID = Thread.CurrentThread.ManagedThreadId;
+            appdomain.UnityMainThreadID = Thread.CurrentThread.ManagedThreadId;
 #endif
             appdomain.RegisterCrossBindingAdaptor(new MonoBehaviourAdapter());
 
@@ -167,7 +167,7 @@ namespace Game
             }
         }
 
-        private void OnDestroy()
+        public void Release()
         {
             for (int i = 0; i < stream.Length; i++)
             {

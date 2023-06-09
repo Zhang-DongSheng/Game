@@ -8,20 +8,40 @@ namespace Game
     {
         private readonly List<Counter> cabinets = new List<Counter>();
 
-        public void Init()
+        public void Initialize()
         {
             NetworkEventManager.Register(NetworkEventKey.Shop, OnReceivedInformation);
         }
 
+        public void Release()
+        {
+            NetworkEventManager.Unregister(NetworkEventKey.Shop, OnReceivedInformation);
+        }
+
         public Counter Get(CounterCategory category)
         {
-            Counter counter = cabinets.Find(x => x.category == category);
+            return cabinets.Find(x => x.category == category);
+        }
 
-            if (counter == null)
+        #region Request
+        public void RequestInformation()
+        {
+            OnReceivedInformation(null);
+
+            ScheduleLogic.Instance.Update(Schedule.Shop);
+        }
+        #endregion
+
+        #region Receive
+        private void OnReceivedInformation(NetworkEventHandle handle)
+        {
+            cabinets.Clear();
+
+            foreach (var category in Enum.GetValues(typeof(CounterCategory)))
             {
-                counter = new Counter()
+                var counter = new Counter()
                 {
-                    category = category,
+                    category = (CounterCategory)category,
                     name = category.ToString(),
                     time = -1,
                     commodities = new List<Commodity>()
@@ -51,20 +71,6 @@ namespace Game
                 }
                 cabinets.Add(counter);
             }
-            return counter;
-        }
-
-        #region Request
-        public void RequestInformation()
-        {
-
-        }
-        #endregion
-
-        #region Receive
-        private void OnReceivedInformation(NetworkEventHandle handle)
-        {
-
         }
         #endregion
     }

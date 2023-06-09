@@ -25,20 +25,22 @@ namespace Game
 
         private new IEnumerator Initialize()
         {
-            LoginLogic.Instance.Init();
+            LoginLogic.Instance.Initialize();
 
-            WarehouseLogic.Instance.Init();
+            WarehouseLogic.Instance.Initialize();
 
-            ShopLogic.Instance.Init();
+            ShopLogic.Instance.Initialize();
 
-            TaskLogic.Instance.Init();
+            TaskLogic.Instance.Initialize();
 
-            ActivityLogic.Instance.Init();
+            ActivityLogic.Instance.Initialize();
 
-            ReddotLogic.Instance.Init();
+            ReddotLogic.Instance.Initialize();
 #if HOTFIX
-            ILRuntimeLogic.Instance.Init();
+            ILRuntimeLogic.Instance.Initialize();
 #endif
+            DevelopLogic.Instance.Initialize();
+
             ResourceManager.Initialize(ResourceConfig.Loading);
 
             GameStateController.Instance.Init();
@@ -49,7 +51,17 @@ namespace Game
             {
                 GameStateController.Instance.EnterState<GameLoginState>();
             };
-            ScheduleLogic.Instance.Init();
+            ScheduleLogic.Instance.Initialize();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                DevelopLogic.Instance.Break();
+
+                Debuger.Log(Author.File, "日志保存成功");
+            }
         }
     }
 }

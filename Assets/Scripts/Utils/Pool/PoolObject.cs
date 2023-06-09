@@ -20,8 +20,14 @@ namespace Game.Pool
 
         public virtual void OnRecycle(Transform parent)
         {
-            //transform.SetParent(parent);
-
+            try
+            {
+                transform.SetParent(parent);
+            }
+            catch
+            { 
+                
+            }
             SetActive(false);
         }
 

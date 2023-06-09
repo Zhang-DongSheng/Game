@@ -37,7 +37,11 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
                 if (_instance == null)
                 {
-                    _instance = new GameObject(typeof(T).Name).AddComponent<T>();
+                    string name = string.Format("[{0}]", typeof(T).Name);
+
+                    var bind = new GameObject(name);
+
+                    _instance = bind.AddComponent<T>();
                 }
                 _instance.GetComponent<MonoSingleton<T>>().Initialize();
             }
