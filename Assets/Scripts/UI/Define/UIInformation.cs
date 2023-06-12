@@ -39,7 +39,7 @@ namespace Game.UI
             destroy = source.destroy;
         }
 
-        public static UIInformation Default(UIPanel panel)
+        public static UIInformation New(UIPanel panel)
         {
             return new UIInformation()
             {

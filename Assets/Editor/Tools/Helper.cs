@@ -9,7 +9,7 @@ namespace UnityEditor
     {
         private static int pictureIndex;
 
-        [MenuItem("Tools/OpenMainScene &Q")]
+        [MenuItem("Game/OpenMainScene &Q")]
         protected static void OpenMainScene()
         {
             string[] scenes = EditorBuildSettingsScene.GetActiveSceneList(EditorBuildSettings.scenes);

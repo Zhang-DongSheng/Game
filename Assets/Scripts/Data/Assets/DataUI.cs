@@ -19,7 +19,7 @@ namespace Data
                     }
                 }
             }
-            return UIInformation.Default(panel);
+            return UIInformation.New(panel);
         }
     }
 }

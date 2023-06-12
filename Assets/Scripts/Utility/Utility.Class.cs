@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using UnityEditor;
 using UnityEngine;
 
 namespace Game
@@ -115,6 +114,24 @@ namespace Game
                     }
                 }
                 return children;
+            }
+
+            public static bool Compare<T>(object x, object y)
+            {
+                if (x == null && y == null) return true;
+
+                if (x == null || y == null) return false;
+
+                var fields = typeof(T).GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+                foreach (var field in fields)
+                {
+                    if (!field.GetValue(x).Equals(field.GetValue(y)))
+                    {
+                        return false;
+                    }
+                }
+                return true;
             }
 
             public static string GetPath(Type type)
