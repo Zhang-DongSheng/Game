@@ -13,6 +13,8 @@ namespace Game
             Register(RuntimeEvent.Update, OnUpdate);
 
             Register(RuntimeEvent.LateUpdate, OnLateUpdate);
+
+            Register(RuntimeEvent.LowMemory, OnLowMemory);
         }
 
         protected void OnDestroy()
@@ -24,6 +26,8 @@ namespace Game
             Unregister(RuntimeEvent.Update, OnUpdate);
 
             Unregister(RuntimeEvent.LateUpdate, OnLateUpdate);
+
+            Unregister(RuntimeEvent.LowMemory, OnLowMemory);
         }
 
         protected virtual void OnAwake()
@@ -42,6 +46,11 @@ namespace Game
         }
 
         protected virtual void OnLateUpdate(float delta)
+        {
+
+        }
+
+        protected virtual void OnLowMemory(float delta)
         {
 
         }

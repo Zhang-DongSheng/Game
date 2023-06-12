@@ -30,13 +30,5 @@ namespace Game
                 }
             }
         }
-
-        private void SetActive(GameObject go, bool active)
-        {
-            if (go != null && go.activeSelf != active)
-            {
-                go.SetActive(active);
-            }
-        }
     }
 }

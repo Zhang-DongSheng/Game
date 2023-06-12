@@ -24,6 +24,8 @@ namespace Game
 
             public static Encoding FileEncoding(string path)
             {
+                if (!File.Exists(path)) return UTF8;
+
                 var buffer = new byte[4];
 
                 using (var file = new FileStream(path, FileMode.Open, FileAccess.Read))

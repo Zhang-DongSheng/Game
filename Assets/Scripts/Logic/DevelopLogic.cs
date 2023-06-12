@@ -10,13 +10,13 @@ namespace Game
 {
     public class DevelopLogic : Singleton<DevelopLogic>, ILogic
     {
-        private readonly StringBuilder builder = new StringBuilder();
-
-        private readonly List<string> messages = new List<string>();
+        private bool record = true;
 
         private WaitUntil wait;
 
-        private bool record = true;
+        private readonly StringBuilder builder = new StringBuilder();
+
+        private readonly List<string> messages = new List<string>();
 
         public void Initialize()
         {

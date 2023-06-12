@@ -7,15 +7,11 @@ namespace Game
 {
     public class GameController : MonoSingleton<GameController>
     {
+        [SerializeField] private GameSetting setting;
+
         private void Awake()
         {
-            Screen.sleepTimeout = SleepTimeout.NeverSleep;
-
-            Application.runInBackground = true;
-
-            QualitySettings.vSyncCount = 0;
-
-            Application.targetFrameRate = 60;
+            setting.Initialize();
         }
 
         private void Start()

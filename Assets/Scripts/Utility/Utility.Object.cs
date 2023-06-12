@@ -11,22 +11,21 @@ namespace Game
         {
             public static void Unload(UnityEngine.Object asset)
             {
-                if (asset == null)
-                {
-                    return;
-                }
-                else if (asset is Shader)
-                {
-                    return;
-                }
+                if (asset == null) return;
+
+                if (asset is Shader) return;
 
                 if (asset is AssetBundle bundle)
                 {
                     bundle.Unload(true);
                 }
-                else if (asset is GameObject || asset is Component)
+                else if (asset is UnityEngine.GameObject)
                 {
                     UnityEngine.Object.Destroy(asset);
+                }
+                else if (asset is Component component)
+                {
+                    UnityEngine.Object.Destroy(component.gameObject);
                 }
                 else
                 {

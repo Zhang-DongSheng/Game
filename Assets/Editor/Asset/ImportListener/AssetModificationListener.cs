@@ -1,4 +1,5 @@
 using Game;
+using Google.Protobuf.WellKnownTypes;
 using System.IO;
 using System.Text;
 
@@ -31,13 +32,9 @@ namespace UnityEditor.Listener
 
         private static void ScriptEncoding(string path)
         {
-            Encoding encoding = Utility.Encode.FileEncoding(path);
-
-            Encoding UTF8 = new UTF8Encoding(false);
-
-            if (encoding != UTF8)
+            if (File.Exists(path))
             {
-                File.WriteAllText(path, File.ReadAllText(path), UTF8);
+                File.WriteAllText(path, File.ReadAllText(path), new UTF8Encoding(false));
             }
         }
     }

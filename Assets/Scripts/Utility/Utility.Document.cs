@@ -39,6 +39,33 @@ namespace Game
                 }
             }
 
+            public static void CreateDirectoryByFile(string path, bool delete = false)
+            {
+                try
+                {
+                    FileInfo file = new FileInfo(path);
+
+                    DirectoryInfo directory = file.Directory;
+
+                    if (directory.Exists)
+                    {
+                        if (delete)
+                        {
+                            directory.Delete();
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    Directory.CreateDirectory(directory.FullName);
+                }
+                catch (Exception e)
+                {
+                    Debuger.LogException(Author.File, e);
+                }
+            }
+
             public static bool Exist(string path)
             {
                 if (Directory.Exists(path))
@@ -185,7 +212,7 @@ namespace Game
                 }
                 else if (File.Exists(src))
                 {
-                    CreateDirectory(Path.GetDirectoryName(dst));
+                    CreateDirectoryByFile(dst);
 
                     File.Copy(src, dst, true);
                 }
@@ -193,15 +220,15 @@ namespace Game
 
             public static void Move(string src, string dst)
             {
-                if (Directory.Exists(src))
+                if (File.Exists(src))
                 {
-                    Directory.Move(src, dst);
-                }
-                else if (File.Exists(src))
-                {
-                    CreateDirectory(Path.GetDirectoryName(dst));
+                    CreateDirectoryByFile(dst);
 
                     File.Move(src, dst);
+                }
+                else if (Directory.Exists(src))
+                {
+                    Directory.Move(src, dst);
                 }
             }
 
