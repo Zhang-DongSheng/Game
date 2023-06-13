@@ -12,11 +12,11 @@ namespace UnityEngine.UI
     {
         [SerializeField] private Direction direction;
 
+        [SerializeField, Range(0, 360)] private float rotation;
+
         [SerializeField] private Color fade = Color.white;
 
-        private Color pigment;
-
-        private Vector2 topLeft, topRight, bottomLeft, bottomRight;
+        private readonly Vector2[] points = new Vector2[4];
 
         private readonly List<UIVertex> m_vertexs = new List<UIVertex>();
 
@@ -30,80 +30,69 @@ namespace UnityEngine.UI
 
             float height = GetComponent<RectTransform>().rect.height / 2f;
 
-            topLeft = new Vector2(width * -1, height);
+            points[0] = new Vector2(width * -1, height);
 
-            topRight = new Vector2(width, height);
+            points[1] = new Vector2(width, height);
 
-            bottomLeft = new Vector2(width * -1, height * -1);
+            points[2] = new Vector2(width * -1, height * -1);
 
-            bottomRight = new Vector2(width, height * -1);
+            points[3] = new Vector2(width, height * -1);
 
-            m_vertexs.Add(AddUIVertex(topLeft, Corner.TopLeft));
+            m_vertexs.Add(NewVertex(points[0]));
 
-            m_vertexs.Add(AddUIVertex(topRight, Corner.TopRight));
+            m_vertexs.Add(NewVertex(points[1]));
 
-            m_vertexs.Add(AddUIVertex(bottomLeft, Corner.LowerLeft));
+            m_vertexs.Add(NewVertex(points[2]));
 
-            m_vertexs.Add(AddUIVertex(bottomRight, Corner.LowerRight));
+            m_vertexs.Add(NewVertex(points[1]));
 
-            m_vertexs.Add(AddUIVertex(bottomLeft, Corner.LowerLeft));
+            m_vertexs.Add(NewVertex(points[2]));
 
-            m_vertexs.Add(AddUIVertex(topRight, Corner.TopRight));
+            m_vertexs.Add(NewVertex(points[3]));
 
             helper.AddUIVertexTriangleStream(m_vertexs);
         }
 
-        private UIVertex AddUIVertex(Vector2 position, Corner corner)
+        private UIVertex NewVertex(Vector2 position)
         {
-            switch (direction)
+            Color GetColor(Vector2 position)
             {
-                case Direction.Horizontal:
-                    switch (corner)
-                    {
-                        case Corner.TopLeft:
-                        case Corner.LowerLeft:
-                            pigment = base.color;
-                            break;
-                        default:
-                            pigment = fade;
-                            break;
-                    }
-                    break;
-                case Direction.Vertical:
-                    switch (corner)
-                    {
-                        case Corner.TopLeft:
-                        case Corner.TopRight:
-                            pigment = base.color;
-                            break;
-                        default:
-                            pigment = fade;
-                            break;
-                    }
-                    break;
-                case Direction.Custom:
-                    switch (corner)
-                    {
-                        case Corner.TopLeft:
-                            pigment = base.color;
-                            break;
-                        case Corner.LowerRight:
-                            pigment = fade;
-                            break;
-                        default:
-                            pigment = Color.Lerp(base.color, fade, 0.5f);
-                            break;
-                    }
-                    break;
-                default:
-                    pigment = base.color;
-                    break;
-            }
+                switch (direction)
+                {
+                    case Direction.Vertical:
+                        return position.y > 0 ? color : fade;
+                    case Direction.Horizontal:
+                        return position.x < 0 ? color : fade;
+                    case Direction.Custom:
+                        {
+                            float angle = Vector2.SignedAngle(position, Vector2.up);
 
+                            if (angle > 0)
+                            {
+                                angle %= 360;
+                            }
+                            else
+                            {
+                                while (angle < 0)
+                                {
+                                    angle += 360;
+                                }
+                            }
+                            angle = Mathf.Abs(angle - rotation);
+
+                            if (angle > 180)
+                            {
+                                angle = 360 - angle;
+                            }
+                            return Color.Lerp(color, fade, angle / 180f);
+                        }
+                }
+                return color;
+            }
             return new UIVertex()
             {
                 position = position,
-                color = pigment,
+                color = GetColor(position),
             };
         }
     }
