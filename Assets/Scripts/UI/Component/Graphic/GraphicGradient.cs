@@ -1,4 +1,5 @@
 using Game.UI;
+using System.Collections.Generic;
 
 namespace UnityEngine.UI
 {
@@ -9,76 +10,106 @@ namespace UnityEngine.UI
     [RequireComponent(typeof(Graphic))]
     public class GraphicGradient : BaseMeshEffect
     {
-        public Direction direction;
+        [SerializeField] private Direction direction;
 
-        public GradientStyle style;
+        [SerializeField] private Color from = Color.white;
 
-        public Color from = Color.white;
+        [SerializeField] private Color to = Color.white;
 
-        public Color to = Color.white;
+        [SerializeField] private bool local;
 
-        public float rotation;
+        [SerializeField, Range(0, 360)] private float rotation;
+
+        private float top, bottom, height;
 
         private UIVertex vertex = new UIVertex();
 
-        public override void ModifyMesh(VertexHelper vh)
+        private readonly List<UIVertex> m_vertexs = new List<UIVertex>();
+
+        public override void ModifyMesh(VertexHelper helper)
         {
             if (!isActiveAndEnabled)
                 return;
-
-            var rect = default(Rect);
-
-            switch (style)
+            int count = helper.currentVertCount;
+            if (count == 0)
+                return;
+            helper.GetUIVertexStream(m_vertexs);
+            if (local)
             {
-                case GradientStyle.Rect:
-                    rect = graphic.rectTransform.rect;
-                    break;
-                case GradientStyle.Split:
-                    rect.Set(0, 0, 1, 1);
-                    break;
-                case GradientStyle.Fit:
+                for (int i = 0; i < count; i++)
+                {
+                    helper.PopulateUIVertex(ref vertex, i);
+                    switch (direction)
                     {
-                        // Fit to contents.
-                        rect.xMin = rect.yMin = float.MaxValue;
-                        rect.xMax = rect.yMax = float.MinValue;
-                        for (var i = 0; i < vh.currentVertCount; i++)
+                        case Direction.Vertical:
+                            vertex.color *= (i % 4 == 0 || (i - 3) % 4 == 0) ? from : to;
+                            break;
+                        case Direction.Horizontal:
+                            vertex.color *= (i % 4 == 0 || (i - 1) % 4 == 0) ? from : to;
+                            break;
+                        case Direction.Custom:
+                            {
+                                float angle = Vector2.SignedAngle(vertex.position, Vector2.up);
+
+                                if (angle > 0)
+                                {
+                                    angle %= 360;
+                                }
+                                else
+                                {
+                                    while (angle < 0)
+                                    {
+                                        angle += 360;
+                                    }
+                                }
+                                angle = Mathf.Abs(angle - rotation);
+
+                                if (angle > 180)
+                                {
+                                    angle = 360 - angle;
+                                }
+                                vertex.color *= Color.Lerp(from, to, angle / 180f);
+                            }
+                            break;
+                    }
+                    helper.SetUIVertex(vertex, i);
+                }
+            }
+            else
+            {
+                switch (direction)
+                {
+                    case Direction.Horizontal:
                         {
-                            vh.PopulateUIVertex(ref vertex, i);
-                            rect.xMin = Mathf.Min(rect.xMin, vertex.position.x);
-                            rect.yMin = Mathf.Min(rect.yMin, vertex.position.y);
-                            rect.xMax = Mathf.Max(rect.xMax, vertex.position.x);
-                            rect.yMax = Mathf.Max(rect.yMax, vertex.position.y);
+                            top = m_vertexs[0].position.x;
+                            bottom = m_vertexs[count - 1].position.x;
+                            height = top - bottom;
+
+                            for (int i = 0; i < count; i++)
+                            {
+                                helper.PopulateUIVertex(ref vertex, i);
+                                vertex.color *= Color.Lerp(to, from, (vertex.position.x - bottom) / height);
+                                helper.SetUIVertex(vertex, i);
+                            }
                         }
                         break;
-                    }
+                    case Direction.Vertical:
+                        {
+                            top = m_vertexs[0].position.y;
+                            bottom = m_vertexs[count - 1].position.y;
+                            height = top - bottom;
+
+                            for (int i = 0; i < count; i++)
+                            {
+                                helper.PopulateUIVertex(ref vertex, i);
+                                vertex.color *= Color.Lerp(to, from, (vertex.position.y - bottom) / height);
+                                helper.SetUIVertex(vertex, i);
+                            }
+                        }
+                        break;
+                    default: goto case Direction.Horizontal;
+                }
             }
-
-            // Gradient rotation.
-            var rad = rotation * Mathf.Deg2Rad;
-
-            var dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
-
-            var localMatrix = new Matrix2x3(rect, dir.x, dir.y);
-
-            for (var i = 0; i < vh.currentVertCount; i++)
-            {
-                vh.PopulateUIVertex(ref vertex, i);
-
-                Vector2 normalizedPos = localMatrix * vertex.position;
-
-                Color color = Color.LerpUnclamped(from, to, normalizedPos.y);
-
-                vertex.color *= color;
-
-                vh.SetUIVertex(vertex, i);
-            }
-        }
-
-        public enum GradientStyle
-        {
-            Rect,
-            Fit,
-            Split,
         }
     }
 }
