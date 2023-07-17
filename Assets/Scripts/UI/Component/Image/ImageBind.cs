@@ -4,34 +4,32 @@ using UnityEngine.UI;
 namespace Game.UI
 {
     [ExecuteInEditMode]
-    [DisallowMultipleComponent]
-    [RequireComponent(typeof(Image))]
+    [DisallowMultipleComponent, RequireComponent(typeof(Image))]
     public class ImageBind : MonoBehaviour
     {
-        public string content;
+        [SerializeField] private string content;
 
-        private Image m_image;
+        private Image _image;
 
         private void Awake()
         {
             SetSprite(content);
         }
 
-        public void SetSprite(string content, bool native = false)
+        private void OnValidate()
+        {
+            SetSprite(content);
+        }
+
+        public void SetSprite(string content)
         {
             if (this.content.Equals(content)) return;
 
             this.content = content;
 
-            if (m_image == null)
-                m_image = GetComponent<Image>();
-
-            m_image.sprite = SpriteHelper.Instance.GetSprite(content);
-
-            if (native)
-            {
-                m_image.SetNativeSize();
-            }
+            if (_image == null)
+                _image = GetComponent<Image>();
+            _image.sprite = SpriteHelper.Instance.GetSprite(content);
         }
     }
 }

@@ -9,9 +9,9 @@ namespace Game.UI
     {
         [SerializeField] private string content;
 
-        private string m_content;
+        [SerializeField] private bool language = true;
 
-        private Text m_text;
+        private Text _text;
 
         private void Awake()
         {
@@ -25,29 +25,32 @@ namespace Game.UI
 
         private void OnValidate()
         {
-            SetText(content);
+            SetText(content, language);
         }
 
         private void OnLanguageChange(EventMessageArgs args)
         {
-            SetText(content);
+            SetText(content, language);
         }
 
         public void SetText(string content, bool language = true)
         {
-            if (m_content == content) return;
+            if (this.content == content && this.language == language) return;
 
-            m_content = this.content = content;
+            this.content = content;
 
-            if (m_text == null)
-                m_text = GetComponent<Text>();
+            this.language = language;
+
+            if (_text == null)
+                _text = GetComponent<Text>();
+            //  «∑Ò «∂‡”Ô—‘
             if (language)
             {
-                m_text.SetText(LanguageManager.Instance.Get(content));
+                _text.SetText(LanguageManager.Instance.Get(content));
             }
             else
             {
-                m_text.SetText(content);
+                _text.SetText(content);
             }
         }
 
