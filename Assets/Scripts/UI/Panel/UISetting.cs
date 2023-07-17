@@ -47,7 +47,7 @@ namespace Game.UI
 
             for (int i = 0; i < count; i++)
             {
-                SetActive(views[i], i == index);
+                views[i].SetActive(i == index);
             }
         }
     }

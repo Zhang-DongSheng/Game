@@ -26,7 +26,7 @@ namespace Game.UI
             if (m_image == null)
                 m_image = GetComponent<Image>();
 
-            m_image.sprite = SpriteManager.Instance.GetSprite(content);
+            m_image.sprite = SpriteHelper.Instance.GetSprite(content);
 
             if (native)
             {

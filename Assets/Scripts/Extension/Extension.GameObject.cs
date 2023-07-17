@@ -1,80 +1,60 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game
 {
     public static partial class Extension
     {
-        public static void PlayAnimator(this GameObject go, string name, State state = State.Play)
+        public static void SetActive(this GameObject go, bool active, VisibleType visible)
         {
-            Animator animator = go.GetComponentInChildren<Animator>();
+            if (go == null) return;
 
-            if (animator != null)
+            switch (visible)
             {
-                switch (state)
-                {
-                    case State.Play:
-                        animator.Play(name);
-                        break;
-                    case State.Pause:
-                    case State.Stop:
-                        animator.Play("");
-                        break;
-                }
-            }
-        }
-
-        public static void PlayAnimation(this GameObject go, string name = null, State state = State.Play)
-        {
-            UnityEngine.Animation animation = go.GetComponentInChildren<UnityEngine.Animation>();
-
-            if (animation != null)
-            {
-                if (string.IsNullOrEmpty(name))
-                {
-                    name = animation.clip.name;
-                }
-                switch (state)
-                {
-                    case State.Play:
+                case VisibleType.Active:
+                    {
+                        if (go.activeSelf != active)
                         {
-                            if (animation.isPlaying && animation.IsPlaying(name)) { }
-                            else
-                            {
-                                animation.Play(name);
-                            }
+                            go.SetActive(active);
                         }
-                        break;
-                    case State.Pause:
-                    case State.Stop:
+                    }
+                    break;
+                case VisibleType.Alpha:
+                    {
+                        if (go.TryGetComponent(out CanvasGroup canvas))
                         {
-                            if (animation.isPlaying && animation.IsPlaying(name))
-                            {
-                                animation.Stop();
-                            }
+                            canvas.alpha = active ? 1 : 0;
                         }
-                        break;
-                }
-            }
-        }
+                        else if (go.TryGetComponent(out Graphic graphic))
+                        {
+                            var color = graphic.color;
 
-        public static void PlayEffect(this GameObject go, State state = State.Play)
-        {
-            ParticleSystem[] particles = go.GetComponentsInChildren<ParticleSystem>();
+                            color.a = active ? 1 : 0;
 
-            for (int i = 0; i < particles.Length; i++)
-            {
-                switch (state)
-                {
-                    case State.Play:
-                        particles[i].Play();
-                        break;
-                    case State.Pause:
-                        particles[i].Pause();
-                        break;
-                    case State.Stop:
-                        particles[i].Stop();
-                        break;
-                }
+                            graphic.color = color;
+                        }
+                        else if (go.TryGetComponent(out Renderer renderer))
+                        {
+                            var color = renderer.material.GetColor("_Color");
+
+                            color.a = active ? 1 : 0;
+
+                            renderer.material.SetColor("_Color", color);
+                        }
+                    }
+                    break;
+                case VisibleType.Scale:
+                    {
+                        if (active)
+                        {
+                            go.transform.localScale.Set(1, 1, 1);
+                        }
+                        else
+                        {
+                            go.transform.localScale.Set(0, 0, 0);
+                        }
+                    }
+                    break;
             }
         }
     }

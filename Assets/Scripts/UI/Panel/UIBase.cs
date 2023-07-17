@@ -56,34 +56,9 @@ namespace Game.UI
 
         public void SetActive(bool active)
         {
-            SetActive(this.gameObject, active);
-        }
-
-        public void SetActive(GameObject go, bool active)
-        {
-            if (go != null && go.activeSelf != active)
+            if (gameObject != null && gameObject.activeSelf != active)
             {
-                go.SetActive(active);
-            }
-        }
-
-        public void SetActive(Component component, bool active)
-        {
-            if (component != null)
-            {
-                SetActive(component.gameObject, active);
-            }
-        }
-
-        public void ShowOrHide(bool state)
-        {
-            if (TryGetComponent(out CanvasGroup canvas))
-            {
-                canvas.alpha = state ? 1 : 0;
-
-                canvas.interactable = state;
-
-                canvas.blocksRaycasts = state;
+                gameObject.SetActive(active);
             }
         }
 

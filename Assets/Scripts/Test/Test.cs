@@ -1,4 +1,5 @@
-﻿using Game.Attribute;
+﻿using Data.Serializable;
+using Game.Attribute;
 using Game.Pool;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +8,7 @@ namespace Game.Test
 {
     public class Test : ItemBase
     {
-        public GameObject target;
+        public UnityParameter target;
 
         [SerializeField] private Vector3 position;
         [Button("OnClickButton")]

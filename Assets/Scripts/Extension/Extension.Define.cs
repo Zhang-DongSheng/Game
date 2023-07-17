@@ -33,11 +33,11 @@ namespace Game
             Z,
         }
 
-        public enum State
+        public enum VisibleType
         {
-            Play,
-            Pause,
-            Stop,
+            Active,
+            Alpha,
+            Scale,
         }
     }
 
