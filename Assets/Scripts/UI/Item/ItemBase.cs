@@ -49,29 +49,5 @@ namespace Game
                 go.SetActive(active);
             }
         }
-
-        protected virtual void SetActive(Component component, bool active)
-        {
-            if (component != null)
-            {
-                SetActive(component.gameObject, active);
-            }
-        }
-
-        protected virtual void ShowOrHide(bool state)
-        {
-            if (TryGetComponent(out CanvasGroup canvas))
-            {
-                canvas.alpha = state ? 1 : 0;
-
-                canvas.interactable = state;
-
-                canvas.blocksRaycasts = state;
-            }
-            else
-            {
-                transform.localScale = state ? Vector3.one : Vector3.zero;
-            }
-        }
     }
 }

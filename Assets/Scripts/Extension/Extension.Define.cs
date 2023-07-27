@@ -37,6 +37,7 @@ namespace Game
         {
             Active,
             Alpha,
+            Cull,
             Scale,
         }
     }

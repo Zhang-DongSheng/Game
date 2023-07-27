@@ -8,8 +8,6 @@ namespace Game.Test
 {
     public class Test : ItemBase
     {
-        public UnityParameter target;
-
         [SerializeField] private Vector3 position;
         [Button("OnClickButton")]
         public float index;
@@ -32,7 +30,7 @@ namespace Game.Test
 
             this.delta.y = Input.GetAxis("Vertical");
             
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 OnClick(0);
             }
@@ -54,7 +52,11 @@ namespace Game.Test
         /// </summary>
         public void OnClick(int code)
         {
-            
+            Debuger.Log(Author.Test, "点击测试" + code);
+
+            bool active = code == 1;
+
+            gameObject.SetActive(active, Extension.VisibleType.Cull);
         }
         /// <summary>
         /// 菜单栏测试

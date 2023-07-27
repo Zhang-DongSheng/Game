@@ -43,15 +43,23 @@ namespace Game
                         }
                     }
                     break;
+                case VisibleType.Cull:
+                    {
+                        if (go.TryGetComponent(out CanvasRenderer renderer))
+                        {
+                            renderer.cull = !active;
+                        }
+                    }
+                    break;
                 case VisibleType.Scale:
                     {
                         if (active)
                         {
-                            go.transform.localScale.Set(1, 1, 1);
+                            go.transform.localScale = Vector3.one;
                         }
                         else
                         {
-                            go.transform.localScale.Set(0, 0, 0);
+                            go.transform.localScale = Vector3.zero;
                         }
                     }
                     break;
