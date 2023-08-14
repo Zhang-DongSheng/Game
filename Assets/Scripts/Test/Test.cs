@@ -1,6 +1,4 @@
-﻿using Data.Serializable;
-using Game.Attribute;
-using Game.Pool;
+﻿using Game.Attribute;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,11 +11,6 @@ namespace Game.Test
         public float index;
 
         private Vector2 delta;
-
-        private void OnDrawGizmos()
-        {
-            
-        }
 
         private void Start()
         {
@@ -52,11 +45,7 @@ namespace Game.Test
         /// </summary>
         public void OnClick(int code)
         {
-            Debuger.Log(Author.Test, "点击测试" + code);
-
-            bool active = code == 1;
-
-            gameObject.SetActive(active, Extension.VisibleType.Cull);
+            
         }
         /// <summary>
         /// 菜单栏测试
@@ -69,12 +58,7 @@ namespace Game.Test
 
         public void OnClickButton(float index)
         {
-            string path = "Package/Prefab/Model/Bullet/Bullet.prefab";
-
-            for (int i = 0; i < (int)index; i++)
-            {
-                PoolManager.Instance.Pop(path);
-            }
+            
         }
 
         private async System.Threading.Tasks.Task StartAsync()

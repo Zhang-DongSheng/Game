@@ -1,0 +1,214 @@
+fileFormatVersion: 2
+guid: 982ac8978252df24e9ef8c6362fc2bf7
+timeCreated: 1582123515
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: ball_l
+    100002: ball_r
+    100004: calf_l
+    100006: calf_r
+    100008: calf_twist_01_l
+    100010: calf_twist_01_r
+    100012: clavicle_l
+    100014: clavicle_r
+    100016: foot_l
+    100018: foot_r
+    100020: Gang_Fem_07_Mesh
+    100022: //RootNode
+    100024: hand_l
+    100026: hand_r
+    100028: head
+    100030: ik_foot_l
+    100032: ik_foot_r
+    100034: ik_foot_root
+    100036: ik_hand_gun
+    100038: ik_hand_l
+    100040: ik_hand_r
+    100042: ik_hand_root
+    100044: index_01_l
+    100046: index_01_r
+    100048: index_02_l
+    100050: index_02_r
+    100052: index_03_l
+    100054: index_03_r
+    100056: lowerarm_l
+    100058: lowerarm_r
+    100060: lowerarm_twist_01_l
+    100062: lowerarm_twist_01_r
+    100064: middle_01_l
+    100066: middle_01_r
+    100068: middle_02_l
+    100070: middle_02_r
+    100072: middle_03_l
+    100074: middle_03_r
+    100076: neck_01
+    100078: pelvis
+    100080: pinky_01_l
+    100082: pinky_01_r
+    100084: pinky_02_l
+    100086: pinky_02_r
+    100088: pinky_03_l
+    100090: pinky_03_r
+    100092: ring_01_l
+    100094: ring_01_r
+    100096: ring_02_l
+    100098: ring_02_r
+    100100: ring_03_l
+    100102: ring_03_r
+    100104: root
+    100106: spine_01
+    100108: spine_02
+    100110: spine_03
+    100112: thigh_l
+    100114: thigh_r
+    100116: thigh_twist_01_l
+    100118: thigh_twist_01_r
+    100120: thumb_01_l
+    100122: thumb_01_r
+    100124: thumb_02_l
+    100126: thumb_02_r
+    100128: thumb_03_l
+    100130: thumb_03_r
+    100132: upperarm_l
+    100134: upperarm_r
+    100136: upperarm_twist_01_l
+    100138: upperarm_twist_01_r
+    400000: ball_l
+    400002: ball_r
+    400004: calf_l
+    400006: calf_r
+    400008: calf_twist_01_l
+    400010: calf_twist_01_r
+    400012: clavicle_l
+    400014: clavicle_r
+    400016: foot_l
+    400018: foot_r
+    400020: Gang_Fem_07_Mesh
+    400022: //RootNode
+    400024: hand_l
+    400026: hand_r
+    400028: head
+    400030: ik_foot_l
+    400032: ik_foot_r
+    400034: ik_foot_root
+    400036: ik_hand_gun
+    400038: ik_hand_l
+    400040: ik_hand_r
+    400042: ik_hand_root
+    400044: index_01_l
+    400046: index_01_r
+    400048: index_02_l
+    400050: index_02_r
+    400052: index_03_l
+    400054: index_03_r
+    400056: lowerarm_l
+    400058: lowerarm_r
+    400060: lowerarm_twist_01_l
+    400062: lowerarm_twist_01_r
+    400064: middle_01_l
+    400066: middle_01_r
+    400068: middle_02_l
+    400070: middle_02_r
+    400072: middle_03_l
+    400074: middle_03_r
+    400076: neck_01
+    400078: pelvis
+    400080: pinky_01_l
+    400082: pinky_01_r
+    400084: pinky_02_l
+    400086: pinky_02_r
+    400088: pinky_03_l
+    400090: pinky_03_r
+    400092: ring_01_l
+    400094: ring_01_r
+    400096: ring_02_l
+    400098: ring_02_r
+    400100: ring_03_l
+    400102: ring_03_r
+    400104: root
+    400106: spine_01
+    400108: spine_02
+    400110: spine_03
+    400112: thigh_l
+    400114: thigh_r
+    400116: thigh_twist_01_l
+    400118: thigh_twist_01_r
+    400120: thumb_01_l
+    400122: thumb_01_r
+    400124: thumb_02_l
+    400126: thumb_02_r
+    400128: thumb_03_l
+    400130: thumb_03_r
+    400132: upperarm_l
+    400134: upperarm_r
+    400136: upperarm_twist_01_l
+    400138: upperarm_twist_01_r
+    4300000: Gang_Fem_07_Mesh
+    9500000: //RootNode
+    13700000: Gang_Fem_07_Mesh
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
