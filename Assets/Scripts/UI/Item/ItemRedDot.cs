@@ -7,9 +7,9 @@ namespace Game.UI
     {
         [SerializeField] private GameObject target;
 
-        [SerializeField] private ReddotKey main;
+        [SerializeField] private int main;
 
-        [SerializeField] private List<ReddotKey> list;
+        [SerializeField] private List<int> list;
 
         private bool active;
 
@@ -40,9 +40,9 @@ namespace Game.UI
             SetActive(target, active);
         }
 
-        public void UpdeteRedDotKey(params ReddotKey[] keys)
+        public void UpdeteRedDotKey(params int[] keys)
         {
-            main = ReddotKey.None; list.Clear();
+            main = -1; list.Clear();
 
             switch (keys.Length)
             {

@@ -7,7 +7,9 @@ namespace Game
 {
     public class ReddotLogic : Singleton<ReddotLogic>, ILogic
     {
-        private readonly Dictionary<ReddotKey, Reddot> _reddots = new Dictionary<ReddotKey, Reddot>();
+        private const string TODAY = "today";
+
+        private readonly List<Reddot> _reddots = new List<Reddot>();
 
         public void Initialize()
         {
@@ -19,16 +21,15 @@ namespace Game
             NetworkEventManager.Unregister(NetworkEventKey.Reddot, OnReceivedInformation);
         }
 
-        #region Function
-        public bool Trigger(params ReddotKey[] keys)
+        public bool Trigger(params int[] keys)
         {
             bool active = false;
 
             for (int i = 0; i < keys.Length; i++)
             {
-                if (keys[i] == ReddotKey.None) continue;
+                var reddot = _reddots.Find(x => x.key == keys[i]);
 
-                if (_reddots.ContainsKey(keys[i]) && _reddots[keys[i]].active)
+                if (reddot != null && reddot.active)
                 {
                     active = true;
                     break;
@@ -37,31 +38,30 @@ namespace Game
             return active;
         }
 
-        public void Update(ReddotKey key, bool value)
+        public void Update(int key, bool value)
         {
-            if (_reddots.ContainsKey(key))
+            int index = _reddots.FindIndex(x => x.key == key);
+
+            if (index > -1)
             {
                 _reddots[key].active = value;
             }
             else
             {
-                _reddots.Add(key, new Reddot() { active = value });
+                _reddots.Add(new Reddot() { active = value });
             }
             EventManager.Post(EventKey.Reddot, new EventMessageArgs());
         }
 
-        public void Today(ReddotKey key)
+        public void Today(int key)
         {
-            string index = string.Format("red_{0}", key);
-
-            if (GlobalVariables.Get<int>(index) != DateTime.UtcNow.DayOfYear)
+            if (GlobalVariables.Get<int>(TODAY) != DateTime.UtcNow.DayOfYear)
             {
-                GlobalVariables.Set(index, DateTime.UtcNow.DayOfYear);
+                GlobalVariables.Set(TODAY, DateTime.UtcNow.DayOfYear);
 
                 Update(key, true);
             }
         }
-        #endregion
 
         #region Request
         public void RequestInformation()
@@ -80,12 +80,10 @@ namespace Game
 
     public class Reddot
     {
-        public bool active;
-    }
+        public int key;
 
-    public enum ReddotKey
-    {
-        None,
-        Test,
+        public int value;
+
+        public bool active;
     }
 }

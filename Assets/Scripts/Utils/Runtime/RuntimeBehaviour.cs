@@ -6,8 +6,6 @@ namespace Game
     {
         protected void Awake()
         {
-            OnAwake();
-
             Register(RuntimeEvent.FixedUpdate, OnFixedUpdate);
 
             Register(RuntimeEvent.Update, OnUpdate);
@@ -15,12 +13,12 @@ namespace Game
             Register(RuntimeEvent.LateUpdate, OnLateUpdate);
 
             Register(RuntimeEvent.LowMemory, OnLowMemory);
+
+            OnAwake();
         }
 
         protected void OnDestroy()
         {
-            OnRelease();
-
             Unregister(RuntimeEvent.FixedUpdate, OnFixedUpdate);
 
             Unregister(RuntimeEvent.Update, OnUpdate);
@@ -28,6 +26,8 @@ namespace Game
             Unregister(RuntimeEvent.LateUpdate, OnLateUpdate);
 
             Unregister(RuntimeEvent.LowMemory, OnLowMemory);
+
+            OnRelease();
         }
 
         protected virtual void OnAwake()
