@@ -6,19 +6,21 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Profiling;
 
-namespace Game
+namespace Game.Develop
 {
-    public class DevelopLogic : Singleton<DevelopLogic>, ILogic
+    public class DevelopController : MonoSingleton<DevelopController>
     {
         private bool record = true;
 
         private WaitUntil wait;
 
+        private DevelopView view;
+
         private readonly StringBuilder builder = new StringBuilder();
 
         private readonly List<string> messages = new List<string>();
 
-        public void Initialize()
+        protected override void Initialize()
         {
             Application.logMessageReceived += OnLogMessageReceived;
 
@@ -31,18 +33,33 @@ namespace Game
             RuntimeManager.Instance.StartCoroutine(RecordProfiler());
         }
 
-        public void Release()
+        protected override void Release()
         {
             Application.logMessageReceived -= OnLogMessageReceived;
         }
 
-        public void Begain(string name)
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                DisplayDevelop();
+            }
+        }
+
+        public static void BeginSample(string name)
         {
             Profiler.BeginSample(name);
         }
 
-        public void End()
+        public static void EndSample()
         {
+            Profiler.EndSample();
+        }
+
+        public static void ExtractSample(string name, Action action)
+        {
+            Profiler.BeginSample(name);
+            action?.Invoke();
             Profiler.EndSample();
         }
 
@@ -88,6 +105,22 @@ namespace Game
             Profiler.enableBinaryLog = false;
 
             yield return null;
+        }
+
+        private void DisplayDevelop()
+        {
+            if (view != null)
+            {
+                view.SetActive(true);
+            }
+            else
+            {
+                GameObject target = new GameObject("view");
+
+                target.transform.parent = transform;
+
+                view = target.AddComponent<DevelopView>();
+            }
         }
     }
 }

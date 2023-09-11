@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Game
+﻿namespace Game
 {
     public class GameConfig
     {
@@ -11,7 +9,7 @@ namespace Game
 
     public enum GameMode
     {
-        Developing,
+        Develop,
         QA,
         Release
     }

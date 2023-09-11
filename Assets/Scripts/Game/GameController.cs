@@ -32,10 +32,8 @@ namespace Game
             ActivityLogic.Instance.Initialize();
 
             ReddotLogic.Instance.Initialize();
-#if HOTFIX
+
             ILRuntimeLogic.Instance.Initialize();
-#endif
-            DevelopLogic.Instance.Initialize();
 
             ResourceManager.Initialize(ResourceConfig.Loading);
 
@@ -48,16 +46,6 @@ namespace Game
                 GameStateController.Instance.EnterState<GameLoginState>();
             };
             ScheduleLogic.Instance.Initialize();
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                DevelopLogic.Instance.Break();
-
-                Debuger.Log(Author.File, "日志保存成功");
-            }
         }
     }
 }

@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 
 namespace MonoHook.Test
 {
-    //[InitializeOnLoad]
+    [InitializeOnLoad]
     public class BuildMainWindowTitle_Hook_Test
     {
         private static MethodHook _hook;

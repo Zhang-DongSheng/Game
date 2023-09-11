@@ -115,6 +115,44 @@ namespace Game
             }
             return false;
         }
+        /// <summary>
+        /// Œª÷√
+        /// </summary>
+        public static ListRange Range<T>(this IEnumerable<T> source, T value)
+        {
+            if (source == null) return ListRange.Outside;
+
+            int count = 0, index = -1;
+
+            using (var enumerator = source.GetEnumerator())
+            {
+                if (enumerator.MoveNext())
+                {
+                    if (enumerator.Current.Equals(value))
+                    {
+                        index = count;
+                    }
+                    count++;
+                }
+            }
+            // ≈–∂œ
+            if (index == -1)
+            {
+                return ListRange.Outside;
+            }
+            else if (index == 0)
+            {
+                return ListRange.First;
+            }
+            else if (index == count - 1)
+            {
+                return ListRange.Last;
+            }
+            else
+            {
+                return ListRange.Inside;
+            }
+        }
         #endregion
 
         #region Array

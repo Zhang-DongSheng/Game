@@ -40,6 +40,17 @@ namespace Game
             Cull,
             Scale,
         }
+
+        public enum ListRange
+        {
+            First,
+
+            Last,
+
+            Inside,
+
+            Outside,
+        }
     }
 
     public delegate bool Match<X, Y>(X x, Y y);

@@ -1,0 +1,61 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Game.Develop
+{
+    public class DevelopView : MonoBehaviour
+    {
+        private string[] menu;
+
+        private int index;
+
+        private readonly List<DevelopBase> develops = new List<DevelopBase>();
+
+        private void Awake()
+        {
+            develops.Add(new DevelopAsset());
+
+            develops.Add(new DevelopLog());
+
+            develops.Add(new DevelopScript());
+
+            develops.Add(new DevelopSystem());
+
+            int count = develops.Count;
+
+            menu = new string[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                menu[i] = develops[i].Name;
+            }
+        }
+
+        private void OnGUI()
+        {
+            if (GUI.Button(new Rect(Screen.width - 100, 0, 100, 100), "X"))
+            {
+                SetActive(false);
+            }
+            index = GUI.Toolbar(new Rect(0, 0, Screen.width - 100, 100), index, menu, DevelopConfig.title);
+
+            if (index > -1)
+            {
+                develops[index].Refresh();
+            }
+        }
+
+        public void SetActive(bool active)
+        {
+            SetActive(gameObject, active);
+        }
+
+        public void SetActive(GameObject go, bool active)
+        {
+            if (go != null && go.activeSelf != active)
+            {
+                go.SetActive(active);
+            }
+        }
+    }
+}
