@@ -16,7 +16,15 @@ namespace Game.Develop
 
         public override void Refresh()
         {
-            
+            GUILayout.Label("1");
+
+            GUILayout.Label("2");
+
+            GUILayout.Label("3");
+
+            GUILayout.Label("4");
+
+            GUILayout.Button("5");
         }
 
         public override string Name => "Asset";

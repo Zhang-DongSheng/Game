@@ -28,8 +28,14 @@ namespace Game.Develop
         }
 
         private void RefreshLine(string key, string value)
-        { 
-            
+        {
+            GUILayout.BeginHorizontal();
+            {
+                GUILayout.Label(key, GUILayout.Width(DevelopConfig.WIDTH_KEY));
+
+                GUILayout.Label(value, GUILayout.ExpandWidth(true));
+            }
+            GUILayout.EndHorizontal();
         }
 
         public override string Name => "System";

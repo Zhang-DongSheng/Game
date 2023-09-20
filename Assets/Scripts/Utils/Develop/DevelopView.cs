@@ -49,11 +49,15 @@ namespace Game.Develop
             {
                 Close();
             }
-            index = GUI.Toolbar(new Rect(0, 0, Screen.width - 100, 100), index, menu, DevelopConfig.title);
+            index = GUI.Toolbar(new Rect(0, 0, Screen.width - 100, 100), index, menu);
 
             if (index > -1)
             {
-                develops[index].Refresh();
+                GUILayout.BeginArea(new Rect(1, 100, Screen.width, Screen.height - 100));
+                {
+                    develops[index].Refresh();
+                }
+                GUILayout.EndArea();
             }
         }
 
