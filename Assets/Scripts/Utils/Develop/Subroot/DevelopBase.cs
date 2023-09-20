@@ -1,15 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Game.Develop
 {
     public abstract class DevelopBase
     {
-        public abstract string Name { get; }
+        protected Vector2 scroll;
+
+        public abstract void Initialize();
 
         public abstract void Refresh();
+
+        public virtual void Register()
+        {
+
+        }
+
+        public virtual void Unregister()
+        {
+
+        }
+
+        public abstract string Name { get; }
     }
 }

@@ -21,6 +21,10 @@ namespace Game.Develop
 
             develops.Add(new DevelopSystem());
 
+            foreach (var view in develops)
+            {
+                view.Register();
+            }
             int count = develops.Count;
 
             menu = new string[count];
@@ -31,11 +35,19 @@ namespace Game.Develop
             }
         }
 
+        private void OnDestroy()
+        {
+            foreach (var view in develops)
+            {
+                view.Unregister();
+            }
+        }
+
         private void OnGUI()
         {
             if (GUI.Button(new Rect(Screen.width - 100, 0, 100, 100), "X"))
             {
-                SetActive(false);
+                Close();
             }
             index = GUI.Toolbar(new Rect(0, 0, Screen.width - 100, 100), index, menu, DevelopConfig.title);
 
@@ -45,17 +57,14 @@ namespace Game.Develop
             }
         }
 
-        public void SetActive(bool active)
+        public void Open()
         {
-            SetActive(gameObject, active);
+            gameObject.SetActive(true);
         }
 
-        public void SetActive(GameObject go, bool active)
+        public void Close()
         {
-            if (go != null && go.activeSelf != active)
-            {
-                go.SetActive(active);
-            }
+            gameObject.SetActive(false);
         }
     }
 }

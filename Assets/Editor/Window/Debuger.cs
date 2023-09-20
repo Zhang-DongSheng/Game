@@ -83,21 +83,25 @@ namespace UnityEditor.Window
             {
                 GUILayout.Label(key, GUILayout.Width(50));
 
-                if (!int.TryParse(GUILayout.TextField(list.Count.ToString()), out int count))
+                if (int.TryParse(GUILayout.TextField(list.Count.ToString()), out int count))
+                {
+                    count = Mathf.Clamp(count, 0, 30);
+                }
+                else
                 {
                     count = 0;
                 }
-
+                // 删除
                 if (GUILayout.Button("-", GUILayout.Width(30)))
                 {
                     count--;
                 }
-
+                // 添加
                 if (GUILayout.Button("+", GUILayout.Width(30)))
                 {
                     count++;
                 }
-
+                // 刷新
                 if (list.Count != count)
                 {
                     if (list.Count < count)

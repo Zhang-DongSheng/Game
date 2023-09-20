@@ -3,16 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Game.Develop
 {
     public class DevelopSystem : DevelopBase
     {
-        public override string Name => "System";
-
-        public override void Refresh()
+        public override void Initialize()
         {
 
         }
+
+        public override void Refresh()
+        {
+            GUILayout.BeginVertical();
+            {
+                scroll = GUILayout.BeginScrollView(scroll);
+                {
+                    RefreshLine("name", SystemInfo.deviceName);
+                }
+                GUILayout.EndScrollView();
+            }
+            GUILayout.EndVertical();
+        }
+
+        private void RefreshLine(string key, string value)
+        { 
+            
+        }
+
+        public override string Name => "System";
     }
 }

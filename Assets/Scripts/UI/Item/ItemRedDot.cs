@@ -7,9 +7,7 @@ namespace Game.UI
     {
         [SerializeField] private GameObject target;
 
-        [SerializeField] private int main;
-
-        [SerializeField] private List<int> list;
+        [SerializeField] private List<int> list = new List<int>() { -1 };
 
         private bool active;
 
@@ -35,27 +33,16 @@ namespace Game.UI
 
         private void Refresh()
         {
-            active = ReddotLogic.Instance.Trigger(main) || ReddotLogic.Instance.Trigger(list.ToArray());
+            active = ReddotLogic.Instance.Trigger(list.ToArray());
 
             SetActive(target, active);
         }
 
         public void UpdeteRedDotKey(params int[] keys)
         {
-            main = -1; list.Clear();
+            list.Clear();
 
-            switch (keys.Length)
-            {
-                case 0:
-                    break;
-                case 1:
-                    main = keys[0];
-                    break;
-                default:
-                    list.AddRange(keys);
-                    break;
-            }
-            Refresh();
+            list.AddRange(keys); Refresh();
         }
     }
 }

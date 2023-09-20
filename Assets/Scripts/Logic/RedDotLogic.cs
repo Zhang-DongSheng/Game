@@ -1,5 +1,3 @@
-using Data;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +5,6 @@ namespace Game
 {
     public class ReddotLogic : Singleton<ReddotLogic>, ILogic
     {
-        private const string TODAY = "today";
-
         private readonly List<Reddot> _reddots = new List<Reddot>();
 
         public void Initialize()
@@ -29,7 +25,7 @@ namespace Game
             {
                 var reddot = _reddots.Find(x => x.key == keys[i]);
 
-                if (reddot != null && reddot.active)
+                if (reddot != null && reddot.value > 0)
                 {
                     active = true;
                     break;
@@ -38,29 +34,19 @@ namespace Game
             return active;
         }
 
-        public void Update(int key, bool value)
+        public void Update(int key, int value)
         {
             int index = _reddots.FindIndex(x => x.key == key);
 
             if (index > -1)
             {
-                _reddots[key].active = value;
+                _reddots[key].value = value;
             }
             else
             {
-                _reddots.Add(new Reddot() { active = value });
+                _reddots.Add(new Reddot(key, value));
             }
             EventManager.Post(EventKey.Reddot, new EventMessageArgs());
-        }
-
-        public void Today(int key)
-        {
-            if (GlobalVariables.Get<int>(TODAY) != DateTime.UtcNow.DayOfYear)
-            {
-                GlobalVariables.Set(TODAY, DateTime.UtcNow.DayOfYear);
-
-                Update(key, true);
-            }
         }
 
         #region Request
@@ -82,8 +68,15 @@ namespace Game
     {
         public int key;
 
+        public int type;
+
         public int value;
 
-        public bool active;
+        public Reddot(int key, int value)
+        {
+            this.key = key;
+
+            this.value = value;
+        }
     }
 }

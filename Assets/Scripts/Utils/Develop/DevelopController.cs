@@ -111,7 +111,7 @@ namespace Game.Develop
         {
             if (view != null)
             {
-                view.SetActive(true);
+                view.Open();
             }
             else
             {
