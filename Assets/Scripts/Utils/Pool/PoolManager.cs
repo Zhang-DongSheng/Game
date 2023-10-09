@@ -1,4 +1,4 @@
-using Game.Resource;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,23 +15,36 @@ namespace Game.Pool
                 element.Detection();
             }
         }
+        /// <summary>
+        /// 注册【必需】
+        /// </summary>
+        public void Register(string key, Func<string, GameObject> create)
+        {
+            if (string.IsNullOrEmpty(key)) return;
 
+            if (m_pool.ContainsKey(key))
+            {
+                Debuger.LogError(Author.Resource, "pool exist the same key : " + key);
+            }
+            else
+            {
+                m_pool.Add(key, new PoolElement(key, create));
+            }
+        }
+        /// <summary>
+        /// 取出
+        /// </summary>
         public PoolObject Pop(string key)
         {
             if (m_pool.ContainsKey(key))
             {
-                if (m_pool[key].Count > 0)
-                {
-                    return m_pool[key].Pop();
-                }
+                return m_pool[key].Pop();
             }
-            else
-            {
-                m_pool.Add(key, new PoolElement(key, transform, Create));
-            }
-            return m_pool[key].Create();
+            return null;
         }
-
+        /// <summary>
+        /// 存入
+        /// </summary>
         public void Push(string key, PoolObject value)
         {
             if (m_pool.ContainsKey(key))
@@ -40,46 +53,36 @@ namespace Game.Pool
             }
             else
             {
-                var element = new PoolElement(key, transform, Create);
-
-                element.Push(value);
-
-                m_pool.Add(key, element);
+                Debuger.LogWarning(Author.Resource, "can't exist pool : " + key);
             }
         }
-
-        public void Clear(string key)
+        /// <summary>
+        /// 清除
+        /// </summary>
+        public void Clear(string key, bool remove = false)
         {
             if (string.IsNullOrEmpty(key)) return;
 
             if (m_pool.ContainsKey(key))
             {
-                while (m_pool[key].Count > 0)
+                m_pool[key].Clear();
+
+                if (remove)
                 {
-                    m_pool[key].Clear();
+                    m_pool.Remove(key);
                 }
-                m_pool.Remove(key);
             }
         }
-
-        public GameObject Create(string path)
+        /// <summary>
+        /// 清空
+        /// </summary>
+        public void Clear()
         {
-            var prefab = ResourceManager.Load<GameObject>(path);
-
-            return GameObject.Instantiate<GameObject>(prefab);
+            foreach (var element in m_pool.Values)
+            {
+                element.Clear();
+            }
+            m_pool.Clear();
         }
-    }
-    /// <summary>
-    /// 对象池常量
-    /// </summary>
-    public static class PoolCinfig
-    {
-        public const int Min = 10;
-
-        public const int Max = 100;
-
-        public const int Sample = 30;
-
-        public const float Interval = 1;
     }
 }

@@ -4,9 +4,9 @@ namespace Game.Pool
 {
     public class PoolObject : ItemBase
     {
-        public bool recycle;
+        [SerializeField] private bool recycle;
 
-        public string key { get; private set; }
+        private string key;
 
         public virtual void OnCreate(string key)
         {
