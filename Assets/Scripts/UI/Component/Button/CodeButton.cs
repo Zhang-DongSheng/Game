@@ -7,13 +7,23 @@ namespace UnityEngine
     {
         [SerializeField] private KeyCode key;
 
-        [SerializeField] private string value;
+        [SerializeField] private string button;
 
         private void Update()
         {
-            if (Input.GetKeyDown(key) || (!string.IsNullOrEmpty(value) && Input.GetButtonDown(value)))
+            if (key != KeyCode.None)
             {
-                ExecuteEvents.Execute(this.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
+                if (Input.GetKeyDown(key))
+                {
+                    ExecuteEvents.Execute(this.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
+                }
+            }
+            else if (!string.IsNullOrEmpty(button))
+            {
+                if (Input.GetButtonDown(button))
+                {
+                    ExecuteEvents.Execute(this.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
+                }
             }
         }
     }
