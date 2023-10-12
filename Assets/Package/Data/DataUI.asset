@@ -22,7 +22,7 @@ MonoBehaviour:
     destroy: 0
   - panel: 101
     layer: 1
-    type: 0
+    type: 1
     name: UIMain
     order: 0
     path: Package/Prefab/UI/Panel/UIMain.prefab
@@ -36,7 +36,7 @@ MonoBehaviour:
     destroy: 0
   - panel: 103
     layer: 3
-    type: 1
+    type: 3
     name: UITitle
     order: 0
     path: Package/Prefab/UI/Panel/UITitle.prefab
@@ -54,6 +54,13 @@ MonoBehaviour:
     name: UIWarehouse
     order: 0
     path: Package/Prefab/UI/Panel/UIWarehouse.prefab
+    destroy: 0
+  - panel: 106
+    layer: 2
+    type: 1
+    name: UIMail
+    order: 0
+    path: Package/Prefab/UI/Panel/UIMail.prefab
     destroy: 0
   - panel: 107
     layer: 2
@@ -85,14 +92,14 @@ MonoBehaviour:
     destroy: 0
   - panel: 111
     layer: 2
-    type: 0
+    type: 1
     name: UISetting
     order: 0
     path: Package/Prefab/UI/Panel/UISetting.prefab
     destroy: 0
   - panel: 301
     layer: 3
-    type: 1
+    type: 2
     name: UIConfirm
     order: 0
     path: Package/Prefab/UI/Panel/UIConfirm.prefab
@@ -120,7 +127,7 @@ MonoBehaviour:
     destroy: 0
   - panel: 305
     layer: 3
-    type: 1
+    type: 2
     name: UIIntroduce
     order: 0
     path: Package/Prefab/UI/Panel/UIIntroduce.prefab
@@ -145,4 +152,11 @@ MonoBehaviour:
     name: UIMiniMap
     order: 0
     path: Package/Prefab/UI/Panel/UIMiniMap.prefab
+    destroy: 0
+  - panel: 1004
+    layer: 2
+    type: 1
+    name: UISettlement
+    order: 0
+    path: Package/Prefab/UI/Panel/UISettlement.prefab
     destroy: 0

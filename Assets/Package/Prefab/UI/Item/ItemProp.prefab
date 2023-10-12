@@ -58,7 +58,7 @@ MonoBehaviour:
     imgIcon: {fileID: 1960312445677907661}
     imgQuality: {fileID: 7842988621469964350}
   m_config:
-    click: 0
+    click: 1
 --- !u!1 &1092923129034270589
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,17 +21,12 @@ namespace Game.UI
             EventManager.Unregister(EventKey.Reddot, Refresh);
         }
 
-        private void Start()
-        {
-            Refresh();
-        }
-
         private void Refresh(EventMessageArgs args)
         {
             Refresh();
         }
 
-        private void Refresh()
+        public void Refresh()
         {
             active = ReddotLogic.Instance.Trigger(list.ToArray());
 

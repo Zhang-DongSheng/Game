@@ -46,6 +46,14 @@ namespace Game.UI
             SetActive(this.gameObject, active);
         }
 
+        protected virtual void SetActive(Component component, bool active)
+        {
+            if (component != null)
+            {
+                SetActive(component.gameObject, active);
+            }
+        }
+
         protected virtual void SetActive(GameObject go, bool active)
         {
             if (go != null && go.activeSelf != active)

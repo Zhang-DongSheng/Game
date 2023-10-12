@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,21 +6,25 @@ namespace Game.UI
 {
     public class UITitle : UIBase
     {
-        [SerializeField] private Button btnBack;
+        [SerializeField] private Button player;
 
-        [SerializeField] private Button btnShop;
+        [SerializeField] private Button back;
 
-        [SerializeField] private Button btnSetting;
+        [SerializeField] private Text title;
+
+        [SerializeField] private Button setting;
+
+        [SerializeField] private List<ItemCurrency> currencies;
 
         protected override void OnAwake()
         {
             EventManager.Register(EventKey.OpenPanel, Refresh);
 
-            btnBack.onClick.AddListener(OnClickBack);
+            player.onClick.AddListener(OnClickPlayer);
 
-            btnShop.onClick.AddListener(OnClickShop);
+            back.onClick.AddListener(OnClickBack);
 
-            btnSetting.onClick.AddListener(OnClickSetting);
+            setting.onClick.AddListener(OnClickSetting);
         }
 
         protected override void OnRelease()
@@ -37,6 +42,8 @@ namespace Game.UI
             if (args[0] is UIInformation information)
             {
                 Refresh(information);
+
+                RefreshCurrencies(information);
             }
         }
 
@@ -46,59 +53,59 @@ namespace Game.UI
 
             if (information.type != UIType.Panel) return;
 
-            Default();
+            title.text = information.panel.ToString();
+
+            SetActive(player, information.panel == UIPanel.UIMain);
+
+            SetActive(setting, information.panel == UIPanel.UIMain);
+
+            SetActive(back, information.panel != UIPanel.UIMain);
 
             switch (information.panel)
             {
-                case UIPanel.UIReward:
+                case UIPanel.UIMain:
                     { 
                         // ȫ������
                     }
                     break;
-                case UIPanel.UIMain:
-                    {
-                        btnShop.SetActive(true);
-
-                        btnSetting.SetActive(true);
-                    }
-                    break;
                 case UIPanel.UIShop:
                     {
-                        btnBack.SetActive(true);
+
                     }
                     break;
                 default:
                     {
-                        btnShop.SetActive(true);
 
-                        btnBack.SetActive(true);
                     }
                     break;
             }
         }
 
-        private void Default()
+        private void RefreshCurrencies(UIInformation information)
         {
-            btnShop.SetActive(false);
+            int count = Mathf.Clamp(0, 0, currencies.Count);
 
-            btnBack.SetActive(false);
+            for(int i = 0;i<count;i++)
+            {
+                currencies[i].Refresh();
+            }
 
-            btnSetting.SetActive(false);
+
         }
 
-        private void OnClickShop()
+        private void OnClickPlayer()
         {
-            UIQuickEntry.Open(UIPanel.UIShop);
-        }
-
-        private void OnClickSetting()
-        {
-            UIQuickEntry.Open(UIPanel.UISetting);
+            UIQuickEntry.Open(UIPanel.UIPlayer);
         }
 
         private void OnClickBack()
         {
             UIManager.Instance.Back();
+        }
+
+        private void OnClickSetting()
+        {
+            UIQuickEntry.Open(UIPanel.UISetting);
         }
     }
 }

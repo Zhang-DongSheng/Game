@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: 
+  language: 1
 --- !u!1 &1154432640220535459
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,6 +438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: Type
+  language: 1
 --- !u!1 &3009099847630053117
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,6 +660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: 
+  language: 1
 --- !u!1 &5016550776251086027
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,7 +817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 3
-  type: 1
+  type: 2
   order: 0
   imgIcon: {fileID: 4582001359556771957}
   imgQuality: {fileID: 8834809162286436010}
@@ -916,6 +919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: Name
+  language: 1
 --- !u!1 &6047723762516489122
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,6 +1014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: Description
+  language: 1
 --- !u!1 &6194439069696967923
 GameObject:
   m_ObjectHideFlags: 0
@@ -1104,6 +1109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: 
+  language: 1
 --- !u!1 &7489165138793167746
 GameObject:
   m_ObjectHideFlags: 0
