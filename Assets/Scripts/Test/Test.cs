@@ -1,7 +1,4 @@
 ﻿using Game.Attribute;
-using MonoHook;
-using System.Reflection;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,21 +45,7 @@ namespace Game.Test
         /// </summary>
         public void OnClick(int code)
         {
-            Type type = typeof(TestClass).Assembly.GetType("Game.Test.TestClass");
-
-            var flag = BindingFlags.Instance | BindingFlags.Public;
-
-            MethodInfo a = type.GetMethod("Print1", flag);
-
-            MethodInfo b = type.GetMethod("Print2", flag);
-
-            MethodHook _hook = new MethodHook(a, b, null);
-
-            _hook.Install();
-
-            TestClass test = new TestClass();
-
-            test.Print1();
+            
         }
         /// <summary>
         /// 菜单栏测试

@@ -175,7 +175,7 @@ namespace UnityEditor
                         break;
                     default:
                         {
-                            string path = string.Format("{0}/{1}.prefab", UIConfig.Prefab, panel);
+                            string path = string.Format("{0}/{1}.prefab", UIDefine.Prefab, panel);
 
                             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/" + path);
 
