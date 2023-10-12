@@ -14,121 +14,135 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   list:
   - panel: 1
+    layer: 2
+    type: 0
+    name: UILogin
+    order: 0
+    path: Package/Prefab/UI/Panel/UILogin.prefab
+    destroy: 0
+  - panel: 101
     layer: 1
-    type: 1
+    type: 0
     name: UIMain
     order: 0
     path: Package/Prefab/UI/Panel/UIMain.prefab
     destroy: 0
-  - panel: 2
-    layer: 2
-    type: 1
-    name: UILogin
-    order: 0
-    path: Package/Prefab/UI/Panel/UILogin.prefab
-    destroy: 1
-  - panel: 4
-    layer: 4
-    type: 3
-    name: UITips
-    order: 0
-    path: Package/Prefab/UI/Panel/UITips.prefab
-    destroy: 0
-  - panel: 5
-    layer: 4
-    type: 3
-    name: UITitle
-    order: 9
-    path: Package/Prefab/UI/Panel/UITitle.prefab
-    destroy: 0
-  - panel: 6
-    layer: 4
-    type: 1
-    name: UINotice
-    order: 0
-    path: Package/Prefab/UI/Panel/UINotice.prefab
-    destroy: 0
-  - panel: 7
-    layer: 3
-    type: 2
-    name: UIConfirm
-    order: 0
-    path: Package/Prefab/UI/Panel/UIConfirm.prefab
-    destroy: 0
-  - panel: 8
-    layer: 4
-    type: 2
-    name: UIHorseLamp
-    order: 0
-    path: Package/Prefab/UI/Panel/UIHorseLamp.prefab
-    destroy: 0
-  - panel: 9
-    layer: 2
-    type: 1
-    name: UIWarehouse
-    order: 0
-    path: Package/Prefab/UI/Panel/UIWarehouse.prefab
-    destroy: 0
-  - panel: 11
-    layer: 2
-    type: 1
-    name: UIShop
-    order: 0
-    path: Package/Prefab/UI/Panel/UIShop.prefab
-    destroy: 1
-  - panel: 12
-    layer: 2
-    type: 2
-    name: UIReward
-    order: 0
-    path: Package/Prefab/UI/Panel/UIReward.prefab
-    destroy: 0
-  - panel: 13
-    layer: 2
-    type: 1
-    name: UIActivity
-    order: 0
-    path: Package/Prefab/UI/Panel/UIActivity.prefab
-    destroy: 0
-  - panel: 14
-    layer: 2
-    type: 1
-    name: UILotteryDraw
-    order: 0
-    path: Package/Prefab/UI/Panel/UILotteryDraw.prefab
-    destroy: 0
-  - panel: 15
+  - panel: 102
     layer: 2
     type: 1
     name: UITest
     order: 0
     path: Package/Prefab/UI/Panel/UITest.prefab
     destroy: 0
-  - panel: 16
+  - panel: 103
     layer: 3
-    type: 2
-    name: UIIntroduce
+    type: 1
+    name: UITitle
     order: 0
-    path: Package/Prefab/UI/Panel/UIIntroduce.prefab
+    path: Package/Prefab/UI/Panel/UITitle.prefab
     destroy: 0
-  - panel: 17
+  - panel: 104
+    layer: 4
+    type: 1
+    name: UIWaiting
+    order: 0
+    path: Package/Prefab/UI/Panel/UIWaiting.prefab
+    destroy: 0
+  - panel: 105
     layer: 2
     type: 1
+    name: UIWarehouse
+    order: 0
+    path: Package/Prefab/UI/Panel/UIWarehouse.prefab
+    destroy: 0
+  - panel: 107
+    layer: 2
+    type: 1
+    name: UIPlayer
+    order: 0
+    path: Package/Prefab/UI/Panel/UIPlayer.prefab
+    destroy: 0
+  - panel: 108
+    layer: 2
+    type: 1
+    name: UIShop
+    order: 0
+    path: Package/Prefab/UI/Panel/UIShop.prefab
+    destroy: 0
+  - panel: 109
+    layer: 3
+    type: 1
+    name: UIReward
+    order: 0
+    path: Package/Prefab/UI/Panel/UIReward.prefab
+    destroy: 0
+  - panel: 110
+    layer: 2
+    type: 1
+    name: UIActivity
+    order: 0
+    path: Package/Prefab/UI/Panel/UIActivity.prefab
+    destroy: 0
+  - panel: 111
+    layer: 2
+    type: 0
     name: UISetting
     order: 0
     path: Package/Prefab/UI/Panel/UISetting.prefab
     destroy: 0
-  - panel: 18
-    layer: 2
+  - panel: 301
+    layer: 3
     type: 1
-    name: UIMMORPG
+    name: UIConfirm
     order: 0
-    path: Package/Prefab/UI/Panel/UIMMORPG.prefab
+    path: Package/Prefab/UI/Panel/UIConfirm.prefab
     destroy: 0
-  - panel: 19
+  - panel: 302
+    layer: 4
+    type: 3
+    name: UIBubble
+    order: 0
+    path: Package/Prefab/UI/Panel/UIBubble.prefab
+    destroy: 0
+  - panel: 303
+    layer: 4
+    type: 2
+    name: UINotice
+    order: 0
+    path: Package/Prefab/UI/Panel/UINotice.prefab
+    destroy: 0
+  - panel: 304
+    layer: 4
+    type: 2
+    name: UIHorseLamp
+    order: 0
+    path: Package/Prefab/UI/Panel/UIHorseLamp.prefab
+    destroy: 0
+  - panel: 305
+    layer: 3
+    type: 1
+    name: UIIntroduce
+    order: 0
+    path: Package/Prefab/UI/Panel/UIIntroduce.prefab
+    destroy: 0
+  - panel: 1001
+    layer: 1
+    type: 1
+    name: UIGame
+    order: 0
+    path: Package/Prefab/UI/Panel/UIGame.prefab
+    destroy: 0
+  - panel: 1002
     layer: 2
     type: 1
-    name: UISettlement
+    name: UIGameSetting
     order: 0
-    path: Package/Prefab/UI/Panel/UISettlement.prefab
+    path: Package/Prefab/UI/Panel/UIGameSetting.prefab
+    destroy: 0
+  - panel: 1003
+    layer: 1
+    type: 3
+    name: UIMiniMap
+    order: 0
+    path: Package/Prefab/UI/Panel/UIMiniMap.prefab
     destroy: 0

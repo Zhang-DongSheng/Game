@@ -29,8 +29,6 @@ namespace Game.UI
             btnCombat.onClick.AddListener(OnClickCombat);
 
             btnActivity.onClick.AddListener(OnClickActivity);
-
-            btnLotteryDraw.onClick.AddListener(OnClickLotteryDraw);
         }
 
         private void Start()
@@ -50,7 +48,7 @@ namespace Game.UI
 
         private void OnClickNew()
         {
-            UIQuickEntry.OpenUITips("功能正在开发中");
+            UIQuickEntry.OpenUINotice("功能正在开发中");
         }
 
         private void OnClickCombat()
@@ -61,11 +59,6 @@ namespace Game.UI
         private void OnClickActivity()
         {
             UIQuickEntry.Open(UIPanel.UIActivity);
-        }
-
-        private void OnClickLotteryDraw()
-        {
-            UIQuickEntry.Open(UIPanel.UILotteryDraw);
         }
     }
 }

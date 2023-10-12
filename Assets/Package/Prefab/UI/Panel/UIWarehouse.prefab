@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1604707867558810623
 RectTransform:
   m_ObjectHideFlags: 0
@@ -122,7 +122,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2331890871206528837}
-  - component: {fileID: 3802174689185425300}
+  - component: {fileID: 6614584554016950869}
   m_Layer: 5
   m_Name: ItemTab
   m_TagString: Untagged
@@ -152,7 +152,7 @@ RectTransform:
   m_AnchoredPosition: {x: -954.9999, y: 382.49994}
   m_SizeDelta: {x: 250, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3802174689185425300
+--- !u!114 &6614584554016950869
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1631168700878601883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b762813696d1a01488075dd186a64bb8, type: 3}
+  m_Script: {fileID: 11500000, guid: 566ff7425b6f08a498ada26a5124499e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   background:
@@ -816,6 +816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 2
+  type: 1
   order: 0
   m_menu: {fileID: 2265437949413378623}
   m_content: {fileID: 4221500908108690750}

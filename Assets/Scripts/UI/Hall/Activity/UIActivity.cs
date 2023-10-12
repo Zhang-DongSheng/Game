@@ -5,7 +5,7 @@ namespace Game.UI
 {
     public class UIActivity : UIBase
     {
-        [SerializeField] private UIMenu m_menu;
+        [SerializeField] private ItemToggleGroup m_menu;
 
         [SerializeField] private List<UIActivityBase> m_activities;
 

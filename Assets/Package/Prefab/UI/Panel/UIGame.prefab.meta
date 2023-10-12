@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: f8563b77fae56cd498df5179d9ab89ef
+guid: 55aad2d69188ea541bb113fc070178d0
 PrefabImporter:
   externalObjects: {}
   userData: 
-  assetBundleName: package/prefab/ui/item/itemcell
+  assetBundleName: package/prefab/ui/panel/uigame
   assetBundleVariant: 

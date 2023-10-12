@@ -8,9 +8,11 @@ namespace Game.UI
 {
     public class UISettlement : UIBase
     {
-        protected override void OnUpdate(float delta)
-        {
+        [SerializeField] private Button btnClose;
 
+        protected override void OnAwake()
+        {
+            btnClose.onClick.AddListener(OnClickClose);
         }
 
         public override void Refresh(UIParameter paramter)
@@ -18,9 +20,14 @@ namespace Game.UI
 
         }
 
+        protected override void OnClickClose()
+        {
+            GameStateController.Instance.EnterState<GameLobbyState>();
+        }
+
         public override bool Back()
         {
-            GameStateController.Instance.EnterState<GameLobbyState>(); return false;
+            OnClickClose(); return false;
         }
     }
 }

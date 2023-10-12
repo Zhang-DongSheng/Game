@@ -6,7 +6,7 @@ namespace Game.UI
 {
     public class UIShop : UIBase
     {
-        [SerializeField] private UIMenu m_menu;
+        [SerializeField] private ItemToggleGroup m_menu;
 
         [SerializeField] private List<UIShopBase> m_shops;
 

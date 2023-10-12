@@ -45,14 +45,6 @@ namespace Game.UI
             });
         }
 
-        public static void OpenUITips(string tips)
-        {
-            Open(UIPanel.UITips, new UIParameter()
-            {
-                ["tips"] = tips,
-            });
-        }
-
         public static void OpenUIHorseLamp(string message, float time = -1)
         {
             Open(UIPanel.UIHorseLamp, new UIParameter()

@@ -5,7 +5,7 @@ namespace Game.UI
 {
     public class UIWarehouse : UIBase
     {
-        [SerializeField] private UIMenu m_menu;
+        [SerializeField] private ItemToggleGroup m_menu;
 
         [SerializeField] private UIWarehouseContent m_content;
 

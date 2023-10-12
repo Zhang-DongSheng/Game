@@ -3,10 +3,7 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    /// <summary>
-    /// �齱��ת��
-    /// </summary>
-    public class UILotteryDraw : UIActivityBase
+    public class UIActivityLotteryDraw : UIActivityBase
     {
         [SerializeField] private Transform target;
 

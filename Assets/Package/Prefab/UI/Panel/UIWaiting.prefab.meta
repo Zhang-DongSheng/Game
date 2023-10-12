@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 730af15036b28c94e9ab04e6c2838c5e
+guid: 51c33ff1d54b70948b0a6d4d3213bf22
 PrefabImporter:
   externalObjects: {}
   userData: 
-  assetBundleName: package/prefab/model/bullet/bullet
+  assetBundleName: package/prefab/ui/panel/uiwaiting
   assetBundleVariant: 

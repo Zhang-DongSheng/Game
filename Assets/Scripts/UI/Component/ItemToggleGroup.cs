@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class UIMenu : ItemBase
+    public class ItemToggleGroup : ItemBase
     {
         public PrefabTemplateBehaviour prefab;
 

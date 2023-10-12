@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class UIMMORPG : UIBase
+    public class UIGame : UIBase
     {
         [SerializeField] private UIJoyStick stick;
 

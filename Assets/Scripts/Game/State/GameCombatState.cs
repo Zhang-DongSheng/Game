@@ -26,7 +26,7 @@ namespace Game.State
 
             if (scene != null && scene.buildIndex == sceneIndex)
             {
-                UIQuickEntry.OpenSingle(UIPanel.UIMMORPG);
+                UIQuickEntry.OpenSingle(UIPanel.UIGame);
             }
             else
             {
@@ -48,7 +48,7 @@ namespace Game.State
         { 
             yield return SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
 
-            UIManager.Instance.Open(UIPanel.UIMMORPG);
+            UIManager.Instance.Open(UIPanel.UIGame);
         }
     }
 }

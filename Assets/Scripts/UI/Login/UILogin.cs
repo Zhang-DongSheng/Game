@@ -142,11 +142,11 @@ namespace Game.UI
         {
             if (string.IsNullOrEmpty(account))
             {
-                UIQuickEntry.OpenUITips("账号不能为空");
+                UIQuickEntry.OpenUINotice("账号不能为空");
             }
             else if (string.IsNullOrEmpty(password))
             {
-                UIQuickEntry.OpenUITips("密码不能为空");
+                UIQuickEntry.OpenUINotice("密码不能为空");
             }
             else
             {
