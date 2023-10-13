@@ -15,7 +15,7 @@ MonoBehaviour:
   list:
   - panel: 1
     layer: 2
-    type: 0
+    type: 1
     name: UILogin
     order: 0
     path: Package/Prefab/UI/Panel/UILogin.prefab
@@ -42,7 +42,7 @@ MonoBehaviour:
     path: Package/Prefab/UI/Panel/UITitle.prefab
     destroy: 0
   - panel: 104
-    layer: 4
+    layer: 5
     type: 1
     name: UIWaiting
     order: 0
@@ -77,8 +77,8 @@ MonoBehaviour:
     path: Package/Prefab/UI/Panel/UIShop.prefab
     destroy: 0
   - panel: 109
-    layer: 3
-    type: 1
+    layer: 4
+    type: 2
     name: UIReward
     order: 0
     path: Package/Prefab/UI/Panel/UIReward.prefab
@@ -97,6 +97,13 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UISetting.prefab
     destroy: 0
+  - panel: 112
+    layer: 2
+    type: 1
+    name: UITask
+    order: 0
+    path: Package/Prefab/UI/Panel/UITask.prefab
+    destroy: 0
   - panel: 301
     layer: 3
     type: 2
@@ -113,14 +120,14 @@ MonoBehaviour:
     destroy: 0
   - panel: 303
     layer: 4
-    type: 2
+    type: 4
     name: UINotice
     order: 0
     path: Package/Prefab/UI/Panel/UINotice.prefab
     destroy: 0
   - panel: 304
     layer: 4
-    type: 2
+    type: 4
     name: UIHorseLamp
     order: 0
     path: Package/Prefab/UI/Panel/UIHorseLamp.prefab

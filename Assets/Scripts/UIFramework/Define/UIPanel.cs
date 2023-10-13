@@ -16,6 +16,7 @@ namespace Game.UI
 		UIReward,
         UIActivity,
         UISetting,
+        UITask,
 
         UIConfirm = 301,
         UIBubble = 302,

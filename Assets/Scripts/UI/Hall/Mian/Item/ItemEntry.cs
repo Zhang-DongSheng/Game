@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,7 +27,14 @@ namespace Game.UI
 
         protected virtual void OnClick()
         {
-            UIQuickEntry.Open(panel);
+            if (panel == UIPanel.None)
+            {
+                UIQuickEntry.OpenUINotice("新功能开发中！敬请期待");
+            }
+            else
+            {
+                UIQuickEntry.Open(panel);
+            }
         }
     }
 }

@@ -161,8 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10409af8eb3111340a6ad8291ba63492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layer: 3
-  type: 1
+  layer: 4
+  type: 2
   order: 0
   prefab: {fileID: 3451189398726275846}
   title: {fileID: 709854309868806716}

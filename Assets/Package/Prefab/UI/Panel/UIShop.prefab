@@ -1576,7 +1576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59675363365cb134da89f48eb77f4da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  category: 1
+  shopID: 102
   prefab: {fileID: 2789908265454221677}
 --- !u!1 &2864186532245952802
 GameObject:
@@ -2082,7 +2082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dec8e3f3e31e6d478fdffe73d4fe6fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  category: 2
+  shopID: 103
   prefab: {fileID: 104824365833497588}
 --- !u!1 &3715330455543988310
 GameObject:
@@ -2135,7 +2135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59675363365cb134da89f48eb77f4da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  category: 0
+  shopID: 101
   prefab: {fileID: 2190488634403541383}
 --- !u!1 &4023424885614387482
 GameObject:

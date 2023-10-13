@@ -1,4 +1,3 @@
-using Data;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,32 +14,47 @@ namespace Game.UI
             m_menu.callback = OnClickTab;
         }
 
-        private void Start()
+        public override void Refresh(UIParameter parameter)
         {
-            m_menu.Initialize(3);
+            List<int> _shops = new List<int>();
 
-            m_menu.Select(0, true);
-        }
-
-        public void Refresh(int index)
-        {
-            UIShopBase shop = m_shops.Find(x => x.Equal((CounterCategory)index));
-
-            if (shop != null)
-            {
-                shop.Refresh(ShopLogic.Instance.Get((CounterCategory)index));
-            }
             int count = m_shops.Count;
 
             for (int i = 0; i < count; i++)
             {
-                m_shops[i].SetActive(m_shops[i].Equal((CounterCategory)index));
+                if (ShopLogic.Instance.Exists(m_shops[i].shopID))
+                {
+                    _shops.Add(m_shops[i].shopID);
+                }
+            }
+            m_menu.Refresh(_shops.ToArray());
+
+            m_menu.Select(0, true);
+
+            Refresh();
+        }
+
+        public void Refresh()
+        {
+            int count = m_shops.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (ShopLogic.Instance.Exists(m_shops[i].shopID))
+                {
+                    m_shops[i].Refresh();
+                }
             }
         }
 
         private void OnClickTab(int index)
         {
-            Refresh(index);
+            int count = m_shops.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                m_shops[i].SetActive(m_shops[i].Equal(index));
+            }
         }
     }
 }

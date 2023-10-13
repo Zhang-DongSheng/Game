@@ -12,17 +12,6 @@ namespace Game.UI
 
         private PropInformation information;
 
-        public void Refresh(Currency currency)
-        {
-            information = DataManager.Instance.Load<DataProp>().Get((int)currency.currency);
-
-            Refresh(information);
-
-            m_prop.txtNumber.SetText(currency.number);
-
-            SetActive(true);
-        }
-
         public void Refresh(Prop prop)
         {
             information = DataManager.Instance.Load<DataProp>().Get(prop.parallelism);

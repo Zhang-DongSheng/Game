@@ -55,42 +55,27 @@ namespace Game.UI
 
             title.text = information.panel.ToString();
 
-            SetActive(player, information.panel == UIPanel.UIMain);
+            bool main = information.panel == UIPanel.UIMain;
 
-            SetActive(setting, information.panel == UIPanel.UIMain);
+            SetActive(player, main);
 
-            SetActive(back, information.panel != UIPanel.UIMain);
+            SetActive(setting, main);
 
-            switch (information.panel)
-            {
-                case UIPanel.UIMain:
-                    { 
-                        // ȫ������
-                    }
-                    break;
-                case UIPanel.UIShop:
-                    {
-
-                    }
-                    break;
-                default:
-                    {
-
-                    }
-                    break;
-            }
+            SetActive(back, !main);
         }
 
         private void RefreshCurrencies(UIInformation information)
         {
-            int count = Mathf.Clamp(0, 0, currencies.Count);
+            int count = Mathf.Clamp(1, 0, currencies.Count);
 
-            for(int i = 0;i<count;i++)
+            for (int i = 0; i < count; i++)
             {
                 currencies[i].Refresh();
             }
-
-
+            for (int i = count; i < currencies.Count; i++)
+            {
+                currencies[i].SetActive(false);
+            }
         }
 
         private void OnClickPlayer()

@@ -5,16 +5,9 @@ namespace Game
 {
     public class WarehouseLogic : Singleton<WarehouseLogic>, ILogic
     {
-        private readonly List<Currency> _currencies = new List<Currency>();
-
         private readonly List<Prop> _props = new List<Prop>();
 
-        private readonly List<Prop> _column = new List<Prop>();
-
-        public List<Currency> Currencies
-        {
-            get { return _currencies; }
-        }
+        private readonly List<Prop> _variables = new List<Prop>();
 
         public List<Prop> Props
         {
@@ -31,9 +24,9 @@ namespace Game
             NetworkEventManager.Unregister(NetworkEventKey.Warehouse, OnReceivedInformation);
         }
 
-        public List<Prop> Column(int index)
+        public List<Prop> GetPropsByCategory(int category)
         {
-            _column.Clear();
+            _variables.Clear();
 
             DataProp data = DataManager.Instance.Load<DataProp>();
 
@@ -45,35 +38,15 @@ namespace Game
             {
                 prop = data.Get(_props[i].parallelism);
 
-                if (prop != null && prop.category == index)
+                if (prop != null && prop.category == category)
                 {
-                    _column.Add(_props[i]);
+                    _variables.Add(_props[i]);
                 }
             }
-            return _column;
+            return _variables;
         }
 
-        #region Function
-        public void RenovateCurrency(CurrencyEnum currency, int number)
-        {
-            if (_currencies.Exists(x => x.currency == currency))
-            {
-                for (int i = 0; i < _currencies.Count; i++)
-                {
-                    if (_currencies[i].currency == currency)
-                    {
-                        _currencies[i].number = number;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                _currencies.Add(new Currency(currency, number));
-            }
-        }
-
-        public void RenovateProp(Prop prop)
+        public void Renovate(Prop prop)
         {
             if (_props.Exists(x => x.identification == prop.identification))
             {
@@ -91,7 +64,6 @@ namespace Game
                 _props.Add(prop);
             }
         }
-        #endregion
 
         #region Request
         public void RequestInformation()

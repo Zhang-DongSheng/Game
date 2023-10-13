@@ -1,3 +1,4 @@
+using FSM;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,9 +17,16 @@ namespace Game.UI
 
         public void Initialize(int count)
         {
+            
+        }
+
+        public void Refresh(params int[] parameter)
+        {
             toggles.Clear();
 
             toggles.AddRange(GetComponentsInChildren<ItemToggle>());
+
+            count = parameter.Length;
 
             for (int i = 0; i < count; i++)
             {
@@ -28,46 +36,6 @@ namespace Game.UI
                     toggle.callback = OnClick;
                     toggles.Add(toggle);
                 }
-                toggles[i].Refresh(i);
-            }
-            for (int i = count; i < toggles.Count; i++)
-            {
-                toggles[i].SetActive(false);
-            }
-        }
-
-        public void Refresh()
-        {
-            toggles.Clear();
-
-            toggles.AddRange(GetComponentsInChildren<ItemToggle>());
-
-            count = toggles.Count;
-
-            for (int i = 0; i < count; i++)
-            {
-                toggles[i].callback = OnClick;
-                // Refresh Item
-                toggles[i].Refresh(i);
-            }
-        }
-
-        public void Refresh(params int[] parameter)
-        {
-            toggles.Clear();
-
-            toggles.AddRange(GetComponentsInChildren<ItemToggle>());
-
-            count = toggles.Count;
-
-            for (int i = 0; i < count; i++)
-            {
-                toggles[i].callback = OnClick;
-            }
-            count = parameter.Length;
-
-            for (int i = 0; i < count; i++)
-            {
                 toggles[i].Refresh(parameter[i]);
             }
             for (int i = count; i < toggles.Count; i++)
@@ -84,7 +52,7 @@ namespace Game.UI
             {
                 toggles[i].Select(index);
             }
-            // Invoke Method
+
             if (invoke)
             {
                 callback?.Invoke(index);

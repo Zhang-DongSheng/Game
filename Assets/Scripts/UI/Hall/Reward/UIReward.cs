@@ -55,18 +55,6 @@ namespace Game.UI
 
                 yield return wait;
             }
-            count = reward.currencies != null ? reward.currencies.Count : 0;
-
-            for (int i = 0; i < count; i++)
-            {
-                if (index >= items.Count)
-                {
-                    items.Add(prefab.Create<ItemReward>());
-                }
-                items[index++].Refresh(reward.currencies[i]);
-
-                yield return wait;
-            }
             yield return null;
         }
 

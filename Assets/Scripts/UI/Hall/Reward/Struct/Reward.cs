@@ -8,8 +8,6 @@ namespace Data
     {
         public string title;
 
-        public List<Currency> currencies;
-
         public List<Prop> props;
     }
 }

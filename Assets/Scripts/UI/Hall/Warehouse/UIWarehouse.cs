@@ -20,7 +20,9 @@ namespace Game.UI
 
         private void Start()
         {
-            m_menu.Initialize(3);
+            var list = WarehouseConfig.cate;
+
+            m_menu.Refresh(list.ToArray());
 
             m_menu.Select(0, true);
         }

@@ -6,8 +6,6 @@ namespace Data
     {
         public uint identification;
 
-        public List<Currency> currencies;
-
         public List<Prop> props;
 
         public Status status;

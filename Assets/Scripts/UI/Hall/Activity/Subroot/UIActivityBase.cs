@@ -7,8 +7,18 @@ using System.Threading.Tasks;
 
 namespace Game.UI
 {
-    public class UIActivityBase : ItemBase
+    public abstract class UIActivityBase : ItemBase
     {
+        public int activityID;
 
+        public virtual void Refresh()
+        { 
+            
+        }
+
+        public bool Equal(int activity)
+        {
+            return this.activityID == activity;
+        }
     }
 }

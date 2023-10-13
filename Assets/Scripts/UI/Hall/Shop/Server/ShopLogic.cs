@@ -6,7 +6,7 @@ namespace Game
 {
     public class ShopLogic : Singleton<ShopLogic>, ILogic
     {
-        private readonly List<Counter> cabinets = new List<Counter>();
+        private readonly List<Shop> _shops = new List<Shop>();
 
         public void Initialize()
         {
@@ -18,9 +18,14 @@ namespace Game
             NetworkEventManager.Unregister(NetworkEventKey.Shop, OnReceivedInformation);
         }
 
-        public Counter Get(CounterCategory category)
+        public bool Exists(int shop)
         {
-            return cabinets.Find(x => x.category == category);
+            return _shops.Exists(x => x.shop == shop);
+        }
+
+        public Shop Get(int shop)
+        {
+            return _shops.Find(x => x.shop == shop);
         }
 
         #region Request
@@ -35,14 +40,16 @@ namespace Game
         #region Receive
         private void OnReceivedInformation(NetworkEventHandle handle)
         {
-            cabinets.Clear();
+            var array = new List<int>() { 101, 102, 103 };
 
-            foreach (var category in Enum.GetValues(typeof(CounterCategory)))
+            _shops.Clear();
+
+            foreach (var shop in array)
             {
-                var counter = new Counter()
+                var counter = new Shop() 
                 {
-                    category = (CounterCategory)category,
-                    name = category.ToString(),
+                    shop = shop,
+                    name = shop.ToString(),
                     time = -1,
                     commodities = new List<Commodity>()
                 };
@@ -69,7 +76,7 @@ namespace Game
                         status = Status.Available
                     });
                 }
-                cabinets.Add(counter);
+                _shops.Add(counter);
             }
         }
         #endregion

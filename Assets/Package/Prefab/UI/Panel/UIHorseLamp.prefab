@@ -338,7 +338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 4
-  type: 2
+  type: 4
   order: 0
   prefab: {fileID: 0}
   animator: {fileID: 738239531875837994}

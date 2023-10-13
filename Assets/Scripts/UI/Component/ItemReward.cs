@@ -15,12 +15,5 @@ namespace Game.UI
 
             SetActive(true);
         }
-
-        public void Refresh(Currency currency)
-        {
-            m_prop.Refresh(currency);
-
-            SetActive(true);
-        }
     }
 }

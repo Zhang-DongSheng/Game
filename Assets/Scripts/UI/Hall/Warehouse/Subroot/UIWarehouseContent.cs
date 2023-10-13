@@ -15,7 +15,7 @@ namespace Game.UI
 
         public void Refresh(int index)
         {
-            var column = WarehouseLogic.Instance.Column(index);
+            var column = WarehouseLogic.Instance.GetPropsByCategory(index);
 
             int count = column.Count;
 

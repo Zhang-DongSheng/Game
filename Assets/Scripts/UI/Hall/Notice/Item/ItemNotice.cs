@@ -4,21 +4,21 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class ItemTips : ItemBase
+    public class ItemNotice : ItemBase
     {
         [SerializeField] private CanvasGroup canvas;
 
+        [SerializeField, Range(0.1f, 100)] private float speed = 1f;
+
+        [SerializeField] private float interval = 5f;
+
         [SerializeField] private Text tips;
-
-        [SerializeField, Range(0.1f, 10f)] private float interval = 3f;
-
-        [SerializeField, Range(0.1f, 99f)] private float speed = 10f;
 
         [SerializeField] private Style style;
 
-        private float timer;
-
         private Vector3 position;
+
+        private float timer;
 
         public bool Active { get; private set; }
 

@@ -14,6 +14,12 @@ namespace Game
             NetworkEventManager.Unregister(NetworkEventKey.Activity, OnReceivedInformation);
         }
 
+        public bool IsOpen(int activityID)
+        {
+            return true;
+        }
+
+
         #region Request
         public void RequestInformation()
         {
@@ -27,5 +33,7 @@ namespace Game
 
         }
         #endregion
+
+
     }
 }

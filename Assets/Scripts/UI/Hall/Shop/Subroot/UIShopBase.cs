@@ -6,15 +6,17 @@ namespace Game.UI
 {
     public abstract class UIShopBase : ItemBase
     {
-        [SerializeField] protected CounterCategory category;
+        public int shopID;
 
         [SerializeField] protected PrefabTemplateBehaviour prefab;
 
         protected readonly List<ItemCommodity> commodities = new List<ItemCommodity>();
 
-        public virtual void Refresh(Counter cabinet)
+        public virtual void Refresh()
         {
-            int count = cabinet.commodities.Count;
+            var shop = ShopLogic.Instance.Get(shopID);
+
+            int count = shop.commodities.Count;
 
             for (int i = 0; i < count; i++)
             {
@@ -22,7 +24,7 @@ namespace Game.UI
                 {
                     commodities.Add(prefab.Create<ItemCommodity>());
                 }
-                commodities[i].Refresh(cabinet.commodities[i]);
+                commodities[i].Refresh(shop.commodities[i]);
             }
             for (int i = count; i < commodities.Count; i++)
             {
@@ -30,9 +32,9 @@ namespace Game.UI
             }
         }
 
-        public bool Equal(CounterCategory category)
+        public bool Equal(int shop)
         {
-            return this.category == category;
+            return this.shopID == shop;
         }
     }
 }

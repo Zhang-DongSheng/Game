@@ -16,14 +16,43 @@ namespace Game.UI
 
         public override void Refresh(UIParameter parameter)
         {
-            m_menu.Initialize(3);
+            List<int> _activities = new List<int>();
+
+            int count = m_activities.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (ActivityLogic.Instance.IsOpen(m_activities[i].activityID))
+                {
+                    _activities.Add(m_activities[i].activityID);
+                }
+            }
+            m_menu.Refresh(_activities.ToArray());
 
             m_menu.Select(0, true);
         }
 
+        public void Refresh()
+        {
+            int count = m_activities.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (ActivityLogic.Instance.IsOpen(m_activities[i].activityID))
+                {
+                    m_activities[i].Refresh();
+                }
+            }
+        }
+
         private void OnClickTab(int index)
         {
-            Debug.LogError(index);
+            int count = m_activities.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                m_activities[i].SetActive(m_activities[i].Equal(index));
+            }
         }
     }
 }
