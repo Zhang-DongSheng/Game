@@ -2,6 +2,7 @@
 using Game.State;
 using UnityEngine;
 using System.Collections;
+using Game.UI;
 
 namespace Game
 {
@@ -23,19 +24,25 @@ namespace Game
         {
             LoginLogic.Instance.Initialize();
 
-            WarehouseLogic.Instance.Initialize();
+            SettingLogic.Instance.Initialize();
 
-            ShopLogic.Instance.Initialize();
+            PlayerLogic.Instance.Initialize();
+
+            WarehouseLogic.Instance.Initialize();
 
             TaskLogic.Instance.Initialize();
 
+            ShopLogic.Instance.Initialize();
+
             ActivityLogic.Instance.Initialize();
+
+            NoticeLogic.Instance.Initialize();
 
             ReddotLogic.Instance.Initialize();
 
             ILRuntimeLogic.Instance.Initialize();
 
-            ResourceManager.Initialize(ResourceConfig.Loading);
+            ResourceManager.Initialize(setting.Loading);
 
             GameStateController.Instance.Init();
 

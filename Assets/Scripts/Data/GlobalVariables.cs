@@ -69,6 +69,11 @@ namespace Data
             }
         }
 
+        public static bool Exists(string key)
+        {
+            return variables.ContainsKey(key);
+        }
+
         public static void Save()
         {
             string path = string.Format("{0}/{1}", Application.persistentDataPath, "globalvariables");

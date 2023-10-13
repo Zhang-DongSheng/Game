@@ -95,7 +95,7 @@ namespace Game
 
         private void OnILRuntimeInitialized()
         {
-#if UNITY_EDITOR || UNITY_ANDROID || UNITY_IPHONE
+#if DEBUG && !NO_PROFILER
             appdomain.UnityMainThreadID = Thread.CurrentThread.ManagedThreadId;
 #endif
             appdomain.RegisterCrossBindingAdaptor(new MonoBehaviourAdapter());

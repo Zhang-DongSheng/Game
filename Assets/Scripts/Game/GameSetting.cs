@@ -1,4 +1,5 @@
 using Data;
+using Game.Resource;
 using UnityEngine;
 
 namespace Game
@@ -9,6 +10,8 @@ namespace Game
         [SerializeField] private GameMode _mode;
 
         [SerializeField] private Language _language;
+
+        [SerializeField] private LoadingType _loading;
 
         [SerializeField] private bool _sleep = false;
 
@@ -25,6 +28,8 @@ namespace Game
             GameMode = _mode;
 
             Language = _language;
+
+            Loading = _loading;
 
             Sleep = _sleep;
 
@@ -46,6 +51,8 @@ namespace Game
             set
             {
                 _mode = value;
+
+                GameConfig.Mode = value;
             }
         }
 
@@ -58,6 +65,25 @@ namespace Game
             set
             {
                 _language = value;
+
+                if (GlobalVariables.Exists(Const.LANGUAGE) == false)
+                {
+                    GlobalVariables.Set(Const.LANGUAGE, value);
+                }
+            }
+        }
+
+        public LoadingType Loading
+        {
+            get
+            {
+                return _loading;
+            }
+            set
+            {
+                _loading = value;
+
+                ResourceConfig.Loading = value;
             }
         }
 

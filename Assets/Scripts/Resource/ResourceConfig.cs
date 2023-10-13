@@ -12,11 +12,11 @@ namespace Game.Resource
 
         public const string Manifest = "dependencies";
 
+        public static LoadingType Loading = LoadingType.AssetBundle;
+
         public static readonly string CloudResources = string.Format("{0}/{1}/{2}", Utility.Path.Project, AssetBundle, Platform);
 
         public static readonly string LocalResources = string.Format("{0}/{1}", Application.persistentDataPath, AssetBundle);
-
-        public static LoadingType Loading = LoadingType.AssetDatabase;
 
         public static string Path(LoadingType type, string path)
         {
