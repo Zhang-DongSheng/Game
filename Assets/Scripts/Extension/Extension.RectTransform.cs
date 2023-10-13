@@ -197,5 +197,33 @@ namespace Game
 
             transform.localScale = Vector3.one;
         }
+        /// <summary>
+        /// 调整位置
+        /// </summary>
+        public static void AdjustPosition(this RectTransform transform, Vector2 position, RectTransform parent)
+        {
+            var space = new Vector2(parent.rect.width, parent.rect.height) * 0.5f;
+
+            var cell = new Vector2(transform.rect.width, transform.rect.height) * 0.5f;
+
+            if (position.x + cell.x > space.x)
+            {
+                position.x = space.x - cell.x;
+            }
+            else if (position.x - cell.x < -space.x)
+            {
+                position.x = -space.x + cell.x;
+            }
+
+            if (position.y + cell.y > space.y)
+            {
+                position.y = space.y - cell.y;
+            }
+            else if (position.y - cell.y < -space.y)
+            {
+                position.y = -space.y + cell.y;
+            }
+            transform.anchoredPosition = position;
+        }
     }
 }

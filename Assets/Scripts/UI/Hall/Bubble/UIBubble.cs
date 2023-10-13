@@ -37,8 +37,20 @@ namespace Game.UI
 
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(background, point, camera, out Vector2 position))
             {
-                content.anchoredPosition = position;
+
             }
+            // Æ«ÒÆ
+            var offset = new Vector2(0, content.rect.height * 0.5f + 50);
+
+            if (position.y > 0)
+            {
+                position -= offset;
+            }
+            else
+            {
+                position += offset;
+            }
+            content.AdjustPosition(position, background);
         }
     }
 }
