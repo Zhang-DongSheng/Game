@@ -1,6 +1,7 @@
 using Data;
 using Game.Resource;
 using System;
+using UnityEngine;
 
 namespace Game.UI
 {
@@ -61,11 +62,12 @@ namespace Game.UI
             });
         }
 
-        public static void UpdateUITitle(UIInformation information)
+        public static void OpenUIBubble(Transform transform, string message)
         {
-            Open(UIPanel.UIReward, new UIParameter()
+            Open(UIPanel.UIBubble, new UIParameter()
             {
-                ["info"] = information,
+                ["transform"] = transform,
+                ["value"] = message,
             });
         }
 

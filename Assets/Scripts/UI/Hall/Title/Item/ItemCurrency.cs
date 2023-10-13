@@ -25,10 +25,7 @@ namespace Game.UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            UIQuickEntry.Open(UIPanel.UIBubble, new UIParameter()
-            {
-                ["value"] = ""
-            });
+            UIQuickEntry.OpenUIBubble(transform, "À´Ô´Î´Öª£¡");
         }
 
         private void OnClickSource()

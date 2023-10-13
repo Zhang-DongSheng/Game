@@ -66,7 +66,7 @@ namespace Game.UI
 
         private void RefreshCurrencies(UIInformation information)
         {
-            int count = Mathf.Clamp(1, 0, currencies.Count);
+            int count = Mathf.Clamp(2, 0, currencies.Count);
 
             for (int i = 0; i < count; i++)
             {

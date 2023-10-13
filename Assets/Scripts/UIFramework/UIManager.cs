@@ -245,6 +245,8 @@ namespace Game.UI
             }
         }
 
+        public Canvas Canvas => canvas;
+
         public CtrlBase Current { get; private set; }
     }
 
