@@ -18,8 +18,6 @@ namespace Game.UI
 
         public override void Refresh(UIParameter parameter)
         {
-            UIQuickEntry.Open(UIPanel.UITitle);
-
             foreach (var entry in entries)
             {
                 entry.Refresh();

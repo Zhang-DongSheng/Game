@@ -6,6 +6,8 @@ namespace Game
     {
         protected void Awake()
         {
+            OnAwake();
+
             Register(RuntimeEvent.FixedUpdate, OnFixedUpdate);
 
             Register(RuntimeEvent.Update, OnUpdate);
@@ -14,11 +16,13 @@ namespace Game
 
             Register(RuntimeEvent.LowMemory, OnLowMemory);
 
-            OnAwake();
+            OnRegister();
         }
 
         protected void OnDestroy()
         {
+            OnUnregister();
+
             Unregister(RuntimeEvent.FixedUpdate, OnFixedUpdate);
 
             Unregister(RuntimeEvent.Update, OnUpdate);
@@ -33,6 +37,11 @@ namespace Game
         protected virtual void OnAwake()
         {
 
+        }
+
+        protected virtual void OnRegister()
+        {
+            
         }
 
         protected virtual void OnUpdate(float delta)
@@ -55,9 +64,14 @@ namespace Game
 
         }
 
+        protected virtual void OnUnregister()
+        {
+            
+        }
+
         protected virtual void OnRelease()
         {
-
+            
         }
 
         protected void Register(RuntimeEvent key, FunctionBySingle function)

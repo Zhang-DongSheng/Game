@@ -11,12 +11,12 @@ namespace Game.UI
 
         private bool active;
 
-        protected override void OnAwake()
+        protected override void OnRegister()
         {
             EventManager.Register(EventKey.Reddot, Refresh);
         }
 
-        protected override void OnRelease()
+        protected override void OnUnregister()
         {
             EventManager.Unregister(EventKey.Reddot, Refresh);
         }

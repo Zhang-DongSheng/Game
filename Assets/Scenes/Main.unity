@@ -285,6 +285,7 @@ MonoBehaviour:
   setting:
     _mode: 0
     _language: 0
+    _loading: 2
     _sleep: 0
     _background: 1
     _vSync: 0

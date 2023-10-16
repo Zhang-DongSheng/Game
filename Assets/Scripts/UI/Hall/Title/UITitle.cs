@@ -18,8 +18,6 @@ namespace Game.UI
 
         protected override void OnAwake()
         {
-            EventManager.Register(EventKey.OpenPanel, Refresh);
-
             player.onClick.AddListener(OnClickPlayer);
 
             back.onClick.AddListener(OnClickBack);
@@ -27,14 +25,19 @@ namespace Game.UI
             setting.onClick.AddListener(OnClickSetting);
         }
 
-        protected override void OnRelease()
+        protected override void OnRegister()
+        {
+            EventManager.Register(EventKey.OpenPanel, Refresh);
+        }
+
+        protected override void OnUnregister()
         {
             EventManager.Unregister(EventKey.OpenPanel, Refresh);
         }
 
         public override void Refresh(UIParameter parameter)
         {
-            
+            Refresh(UIManager.Instance.Current.information);
         }
 
         private void Refresh(EventMessageArgs args)
@@ -42,14 +45,14 @@ namespace Game.UI
             if (args[0] is UIInformation information)
             {
                 Refresh(information);
-
-                RefreshCurrencies(information);
             }
         }
 
         private void Refresh(UIInformation information)
         {
             if (information == null) return;
+
+            RefreshCurrencies(information);
 
             if (information.type != UIType.Panel) return;
 

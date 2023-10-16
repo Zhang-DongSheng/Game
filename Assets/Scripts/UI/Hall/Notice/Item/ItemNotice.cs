@@ -24,6 +24,8 @@ namespace Game.UI
 
         protected override void OnUpdate(float delta)
         {
+            if (!isActiveAndEnabled) return;
+
             timer += delta;
 
             if (timer > interval)
