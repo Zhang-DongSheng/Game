@@ -19,11 +19,6 @@ namespace Game
 
         private Coroutine coroutine;
 
-        private void OnDisable()
-        {
-            coroutine = null;
-        }
-
         public void Shake()
         {
             if (coroutine != null)

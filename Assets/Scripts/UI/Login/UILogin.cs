@@ -38,19 +38,19 @@ namespace Game.UI
             btn_login.onClick.AddListener(OnClickLogin);
         }
 
-        private void Start()
-        {
-            Initialize();
-        }
-
-        private void OnEnable()
+        protected override void OnRegister()
         {
             EventManager.Register(EventKey.Login, OnReceivedLogin);
         }
 
-        private void OnDisable()
+        protected override void OnUnregister()
         {
             EventManager.Unregister(EventKey.Login, OnReceivedLogin);
+        }
+
+        private void Start()
+        {
+            Initialize();
         }
 
         private void Initialize()

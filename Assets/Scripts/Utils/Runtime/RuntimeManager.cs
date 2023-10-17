@@ -51,14 +51,6 @@ namespace Game
             }
         }
 
-        private void OnGUI()
-        {
-            if (events.TryGetValue(RuntimeEvent.GUI, out FunctionBySingle function))
-            {
-                function?.Invoke(0);
-            }
-        }
-
         private void OnLowMemory()
         {
             if (events.TryGetValue(RuntimeEvent.LowMemory, out FunctionBySingle function))

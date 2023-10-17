@@ -40,17 +40,12 @@ namespace Game.Audio
             }
         }
 
-        private void OnEnable()
+        protected override void OnVisible(bool active)
         {
-            if (trigger == AudioTrigger.Active)
+            if (active && trigger == AudioTrigger.Active)
             {
                 Play();
             }
-        }
-
-        private void OnValidate()
-        {
-            
         }
 
         public void Play()

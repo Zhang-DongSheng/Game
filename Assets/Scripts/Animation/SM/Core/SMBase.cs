@@ -41,19 +41,11 @@ namespace Game.SM
             Init();
         }
 
-        private void OnEnable()
+        protected override void OnVisible(bool active)
         {
-            if (enable)
+            if (active && enable)
             {
                 Begin();
-            }
-        }
-
-        private void OnValidate()
-        {
-            if (!Application.isPlaying)
-            {
-                Transition(step);
             }
         }
 
@@ -110,6 +102,14 @@ namespace Game.SM
             else
             {
                 return Mathf.Clamp01(Config.ONE - step);
+            }
+        }
+
+        private void OnValidate()
+        {
+            if (!Application.isPlaying)
+            {
+                Transition(step);
             }
         }
 

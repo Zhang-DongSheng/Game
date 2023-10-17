@@ -25,8 +25,8 @@ namespace Game.Pool
                 transform.SetParent(parent);
             }
             catch
-            { 
-                
+            {
+
             }
             SetActive(false);
         }
@@ -34,13 +34,15 @@ namespace Game.Pool
         public virtual void OnRemove()
         {
             if (gameObject)
-            { 
+            {
                 GameObject.Destroy(gameObject);
             }
         }
 
-        protected virtual void OnDisable()
+        protected override void OnVisible(bool active)
         {
+            if (active) return;
+
             if (recycle)
             {
                 PoolManager.Instance.Push(key, this);

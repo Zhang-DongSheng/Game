@@ -36,7 +36,7 @@ namespace Game
 
             ActivityLogic.Instance.Initialize();
 
-            NoticeLogic.Instance.Initialize();
+            NotificationLogic.Instance.Initialize();
 
             ReddotLogic.Instance.Initialize();
 

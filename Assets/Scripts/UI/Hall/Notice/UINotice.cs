@@ -13,6 +13,13 @@ namespace Game.UI
 
         private readonly List<ItemNotice> items = new List<ItemNotice>();
 
+        public override void Refresh(UIParameter paramter)
+        {
+            string value = paramter.Get<string>("notice");
+
+            NotificationLogic.Instance.Push(Notification.Notice, value);
+        }
+
         protected override void OnAwake()
         {
             timer = interval;
@@ -28,35 +35,23 @@ namespace Game.UI
             }
         }
 
-        public override void Refresh(UIParameter paramter)
-        {
-            string value = paramter.Get<string>("notice");
-
-            NoticeLogic.Instance.Push(value);
-        }
-
         private void Execute()
         {
-            if (NoticeLogic.Instance.Empty) return;
+            if (NotificationLogic.Instance.Empty(Notification.Notice)) return;
 
             timer = 0;
 
-            string content = NoticeLogic.Instance.Pop();
+            string content = NotificationLogic.Instance.Pop(Notification.Notice);
 
-            var item = items.Find(x => x.Active == false);
+            var item = items.Find(x => !x.isActiveAndEnabled);
 
-            if (item != null)
-            {
-                item.Startup(content);
-            }
-            else
+            if (item == null)
             {
                 item = prefab.Create<ItemNotice>();
 
-                item.Startup(content);
-
                 items.Add(item);
             }
+            item.Refresh(content);
         }
     }
 }

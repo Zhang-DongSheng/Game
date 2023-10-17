@@ -1,6 +1,6 @@
+using Game.SM;
 using System.Collections.Generic;
 using UnityEngine;
-using Game.SM;
 
 namespace Game.UI
 {
@@ -11,123 +11,115 @@ namespace Game.UI
     {
         [SerializeField] private PrefabTemplateBehaviour prefab;
 
-        [SerializeField] private SMSize animator;
+        [SerializeField] private SMSize show;
 
-        private NoticeStatus status;
+        [SerializeField] private SMSize hide;
 
-        private int nextID;
+        private State state = State.Idle;
 
-        private readonly List<string> message = new List<string>();
+        private float timer = 0;
+
+        private float next, complete;
 
         private readonly List<ItemHorseLamp> items = new List<ItemHorseLamp>();
 
-        private void OnEnable()
+        public override void Refresh(UIParameter paramter)
         {
-            animator.onCompleted.RemoveAllListeners();
-            animator.Begin();
+            string value = paramter.Get<string>("message");
+
+            NotificationLogic.Instance.Push(Notification.HorseLamp, value);
+
+            switch (state)
+            {
+                case State.Idle:
+                    {
+                        show.Begin();
+                    }
+                    break;
+                case State.Complete:
+                    {
+
+                    }
+                    break;
+            }
+        }
+
+        protected override void OnAwake()
+        {
+            show.onCompleted.AddListener(() =>
+            {
+                state = State.Display;
+            });
+            hide.onCompleted.AddListener(() =>
+            {
+                state = State.Idle; OnClickClose();
+            });
+        }
+
+        protected override void OnVisible(bool active)
+        {
+            if (active)
+            {
+                show.Begin();
+            }
         }
 
         protected override void OnUpdate(float delta)
         {
-            switch (status)
+            timer += delta;
+
+            switch (state)
             {
-                case NoticeStatus.Compute:
-                    Compute();
+                case State.Display:
+                    {
+                        if (timer > complete)
+                        {
+                            Complete();
+                        }
+                        else if (timer > next)
+                        {
+                            Execute();
+                        }
+                    }
                     break;
-                case NoticeStatus.Transition:
-                    Transition();
-                    break;
-                case NoticeStatus.Completed:
-                    Completed();
-                    break;
             }
         }
 
-        public override void Refresh(UIParameter paramter)
+        private void Execute()
         {
-            if (paramter == null) return;
+            if (NotificationLogic.Instance.Empty(Notification.HorseLamp)) return;
 
-            message.Add(paramter.Get<string>("message"));
+            state = State.Display;
 
-            if (status == NoticeStatus.None)
+            string content = NotificationLogic.Instance.Pop(Notification.HorseLamp);
+
+            var item = items.Find(x => !x.isActiveAndEnabled);
+
+            if (item == null)
             {
-                status = NoticeStatus.Compute;
+                item = prefab.Create<ItemHorseLamp>();
             }
+            item.Refresh(content);
+
+            timer = 0;
+
+            next = item.Next;
+
+            complete = item.Duration;
         }
 
-        private void Compute()
+        private void Complete()
         {
-            if (message.Count > 0)
-            {
-                ItemHorseLamp item = prefab.Create<ItemHorseLamp>();
+            state = State.Complete;
 
-                item.ID = NextID;
-
-                item.next = Next;
-
-                item.completed = Completed;
-
-                item.Init(message[0], UIDefine.ScreenHalfWidth);
-
-                items.Add(item);
-
-                message.RemoveAt(0);
-
-                status = NoticeStatus.Transition;
-            }
+            hide.Begin();
         }
 
-        private void Next()
-        {
-            Compute();
+        enum State
+        { 
+            Idle,
+            Display,
+            Complete,
         }
-
-        private void Completed(int ID)
-        {
-            int index = items.FindIndex(x => x.ID == ID);
-
-            if (index != -1)
-            {
-                GameObject.Destroy(items[index].gameObject);
-                items.RemoveAt(index);
-            }
-
-            if (items.Count == 0)
-            {
-                status = NoticeStatus.Completed;
-            }
-        }
-
-        private void Transition()
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                items[i].Transition();
-            }
-        }
-
-        private void Completed()
-        {
-            status = NoticeStatus.None;
-
-            animator.onCompleted.AddListener(() =>
-            {
-                OnClickClose();
-            });
-            animator.Begin(false);
-        }
-
-        private int NextID
-        {
-            get { return nextID++; }
-        }
-    }
-
-    enum NoticeStatus
-    {
-        None,
-        Compute,
-        Transition,
-        Completed,
     }
 }

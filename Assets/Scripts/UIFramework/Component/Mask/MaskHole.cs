@@ -2,11 +2,11 @@ namespace UnityEngine.UI
 {
     public class MaskHole : Mask
     {
-        public override bool IsRaycastLocationValid(Vector2 sp, Camera eventCamera)
+        public override bool IsRaycastLocationValid(Vector2 point, Camera camera)
         {
             if (!isActiveAndEnabled)
                 return true;
-            return !RectTransformUtility.RectangleContainsScreenPoint(rectTransform, sp, eventCamera);
+            return !RectTransformUtility.RectangleContainsScreenPoint(rectTransform, point, camera);
         }
     }
 }

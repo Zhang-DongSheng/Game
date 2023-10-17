@@ -19,20 +19,16 @@ namespace Game.Model
 
         private float step;
 
-        private void OnEnable()
+        protected override void OnVisible(bool active)
         {
-            progress = 0f;
+            if (active)
+            {
+                progress = 0f;
 
-            position = origination;
+                position = origination;
 
-            transform.localPosition = position;
-        }
-
-        private void OnValidate()
-        {
-            if (Application.isPlaying) return;
-
-            origination = transform.localPosition;
+                transform.localPosition = position;
+            }
         }
 
         protected override void OnUpdate(float delta)
@@ -46,6 +42,13 @@ namespace Game.Model
             position = Vector3.LerpUnclamped(origination, destination, step);
 
             transform.localPosition = position;
+        }
+
+        private void OnValidate()
+        {
+            if (Application.isPlaying) return;
+
+            origination = transform.localPosition;
         }
     }
 }

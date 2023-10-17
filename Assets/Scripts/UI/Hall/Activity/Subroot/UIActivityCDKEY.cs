@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// ¶Ò»»Âë
+    /// </summary>
     public class UIActivityCDKEY : UIActivityBase
     {
         

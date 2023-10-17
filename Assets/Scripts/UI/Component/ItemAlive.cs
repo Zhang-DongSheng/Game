@@ -10,11 +10,11 @@ namespace Game.UI
 
         private bool active;
 
-        private void OnEnable()
+        protected override void OnVisible(bool active)
         {
             timer = 0;
-            
-            active = true;
+
+            this.active = active;
         }
 
         protected override void OnUpdate(float delta)
@@ -25,15 +25,13 @@ namespace Game.UI
 
                 if (timer > interval)
                 {
-                    active = false;
-
-                    SetActive(active);
+                    SetActive(false);
                 }
             }
         }
 
         public void StartUp()
-        { 
+        {
             SetActive(true);
         }
     }

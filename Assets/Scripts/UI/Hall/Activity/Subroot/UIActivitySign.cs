@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// Ç©µ½
+    /// </summary>
     public class UIActivitySign : UIActivityBase
     {
         

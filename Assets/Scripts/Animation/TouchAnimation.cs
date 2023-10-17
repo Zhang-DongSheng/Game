@@ -46,6 +46,14 @@ namespace Game
                 graphic = GetComponent<Graphic>();
         }
 
+        protected override void OnVisible(bool active)
+        {
+            if (active)
+            {
+                Default();
+            }
+        }
+
         protected override void OnUpdate(float delta)
         {
             if (play)
@@ -76,19 +84,6 @@ namespace Game
             }
         }
 
-        private void OnEnable()
-        {
-            Default();
-        }
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (!Application.isPlaying)
-            {
-                Transition(step);
-            }
-        }
-#endif
         public void OnPointerEnter(PointerEventData eventData)
         {
             switch (touchType)
@@ -140,6 +135,14 @@ namespace Game
                 case TouchType.Through:
                     forward = false;
                     break;
+            }
+        }
+
+        private void OnValidate()
+        {
+            if (!Application.isPlaying)
+            {
+                Transition(step);
             }
         }
 

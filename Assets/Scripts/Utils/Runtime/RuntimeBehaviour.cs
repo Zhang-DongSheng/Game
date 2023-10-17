@@ -1,12 +1,22 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
 {
     public abstract class RuntimeBehaviour : MonoBehaviour
     {
+        private readonly List<RuntimeEvent> _events = new List<RuntimeEvent>();
+
         protected void Awake()
         {
             OnAwake();
+
+            OnRegister();
+        }
+
+        protected virtual void OnEnable()
+        {
+            OnVisible(true);
 
             Register(RuntimeEvent.FixedUpdate, OnFixedUpdate);
 
@@ -15,23 +25,13 @@ namespace Game
             Register(RuntimeEvent.LateUpdate, OnLateUpdate);
 
             Register(RuntimeEvent.LowMemory, OnLowMemory);
-
-            OnRegister();
         }
 
-        protected void OnDestroy()
+        protected virtual void OnDisable()
         {
-            OnUnregister();
+            Unregister();
 
-            Unregister(RuntimeEvent.FixedUpdate, OnFixedUpdate);
-
-            Unregister(RuntimeEvent.Update, OnUpdate);
-
-            Unregister(RuntimeEvent.LateUpdate, OnLateUpdate);
-
-            Unregister(RuntimeEvent.LowMemory, OnLowMemory);
-
-            OnRelease();
+            OnVisible(false);
         }
 
         protected virtual void OnAwake()
@@ -41,6 +41,11 @@ namespace Game
 
         protected virtual void OnRegister()
         {
+            
+        }
+
+        protected virtual void OnVisible(bool active)
+        { 
             
         }
 
@@ -78,16 +83,48 @@ namespace Game
         {
             if (this.Override(function.Method.Name))
             {
+                if (_events.Contains(key))
+                {
+                    return;
+                }
+                else
+                {
+                    _events.Add(key);
+                }
                 RuntimeManager.Instance.Register(key, function);
             }
         }
 
-        protected void Unregister(RuntimeEvent key, FunctionBySingle function)
+        protected void Unregister()
         {
-            if (this.Override(function.Method.Name))
+            foreach(var key in _events)
             {
-                RuntimeManager.Instance.Unregister(key, function);
+                switch (key)
+                { 
+                    case RuntimeEvent.FixedUpdate:
+                        RuntimeManager.Instance.Unregister(key, OnFixedUpdate);
+                        break;
+                    case RuntimeEvent.Update:
+                        RuntimeManager.Instance.Unregister(key, OnUpdate);
+                        break;
+                    case RuntimeEvent.LateUpdate:
+                        RuntimeManager.Instance.Unregister(key, OnLateUpdate);
+                        break;
+                    case RuntimeEvent.LowMemory:
+                        RuntimeManager.Instance.Unregister(key, OnLowMemory);
+                        break;
+                }
             }
+            _events.Clear();
+        }
+
+        protected void OnDestroy()
+        {
+            OnUnregister();
+
+            Unregister();
+
+            OnRelease();
         }
     }
 }

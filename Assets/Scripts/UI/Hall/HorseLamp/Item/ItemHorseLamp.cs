@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,88 +5,42 @@ namespace Game.UI
 {
     public class ItemHorseLamp : ItemBase
     {
-        public Action next;
-
-        public Action<int> completed;
-
         [SerializeField] private RectTransform rect;
 
         [SerializeField] private Text text;
 
-        [SerializeField] private float speed;
+        [SerializeField] private float duration = 5;
 
-        [SerializeField] private int min;
+        [SerializeField] private float stay = 1;
 
         private float origin, destination, point;
 
         private Vector2 position;
 
-        private NoticeStatus status;
+        private State state;
 
-        public int ID { get; set; }
-
-        public float Init(string content, float screen, float space = 100)
+        protected override void OnUpdate(float delta)
         {
-            status = NoticeStatus.First;
+            
+        }
 
+        public void Refresh(string content)
+        {
             text.text = content;
 
-            float width = Mathf.Max(text.preferredWidth, min);
-
-            origin = screen + space;
-
-            point = screen - width;
-
-            destination = (screen + width + space) * -1;
-
-            this.position = new Vector2(origin, 0);
-
-            Adapt(position, width);
-
-            status = NoticeStatus.Next;
-
-            return width;
+            SetActive(true);
         }
 
-        public void Transition()
+        public float Next => duration - (duration - stay) * 0.5f;
+
+        public float Duration => duration;
+
+        enum State
         {
-            position += Time.deltaTime * speed * Vector2.right * -1;
-
-            SetPosition(position);
-
-            switch (status)
-            {
-                case NoticeStatus.Next:
-                    if (position.x < point)
-                    {
-                        next?.Invoke();
-
-                        status = NoticeStatus.Final;
-                    }
-                    break;
-                case NoticeStatus.Final:
-                    if (position.x < destination)
-                    {
-                        completed?.Invoke(ID);
-
-                        status = NoticeStatus.End;
-                    }
-                    break;
-            }
-        }
-
-        private void Adapt(Vector2 position, float width)
-        {
-            SetPosition(position);
-
-            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
-        }
-
-        enum NoticeStatus
-        {
-            First,
-            Next,
-            Final,
+            Start,
+            From,
+            Stay,
+            To,
             End,
         }
     }
