@@ -48,7 +48,7 @@ namespace Game.UI
         {
             show.onCompleted.AddListener(() =>
             {
-                state = State.Display;
+                state = State.Idle; Execute();
             });
             hide.onCompleted.AddListener(() =>
             {
@@ -89,8 +89,6 @@ namespace Game.UI
         {
             if (NotificationLogic.Instance.Empty(Notification.HorseLamp)) return;
 
-            state = State.Display;
-
             string content = NotificationLogic.Instance.Pop(Notification.HorseLamp);
 
             var item = items.Find(x => !x.isActiveAndEnabled);
@@ -101,11 +99,13 @@ namespace Game.UI
             }
             item.Refresh(content);
 
-            timer = 0;
+            complete = item.Duration;
 
             next = item.Next;
 
-            complete = item.Duration;
+            timer = 0;
+
+            state = State.Display;
         }
 
         private void Complete()
