@@ -769,7 +769,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2450026795948690826}
   - component: {fileID: 3455407443402708260}
-  - component: {fileID: 2265437949413378623}
   - component: {fileID: 3677209023833225737}
   m_Layer: 5
   m_Name: UIWarehouse
@@ -818,22 +817,9 @@ MonoBehaviour:
   layer: 2
   type: 1
   order: 0
-  m_menu: {fileID: 2265437949413378623}
+  m_menu: {fileID: 1523638452611043120}
   m_content: {fileID: 4221500908108690750}
   m_introduce: {fileID: 2573436257859180939}
---- !u!114 &2265437949413378623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6961720152490573580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19dbea0ae690ebe4698b00001994c05a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 15450348955099284}
 --- !u!114 &3677209023833225737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1211,6 +1197,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8186720669755921012}
+  - component: {fileID: 1523638452611043120}
   m_Layer: 5
   m_Name: Top
   m_TagString: Untagged
@@ -1239,3 +1226,16 @@ RectTransform:
   m_AnchoredPosition: {x: -210, y: -150}
   m_SizeDelta: {x: -420, y: 150}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &1523638452611043120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9088498418475953275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19dbea0ae690ebe4698b00001994c05a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 15450348955099284}

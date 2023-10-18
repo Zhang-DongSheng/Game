@@ -225,5 +225,18 @@ namespace Game
             }
             transform.anchoredPosition = position;
         }
+        /// <summary>
+        /// 获取UI节点大小
+        /// </summary>
+        public static Vector2 GetCanvasSize(this RectTransform transform)
+        { 
+            var canvas = transform.GetComponentInParent<Canvas>();
+
+            if (canvas != null) 
+            {
+                return canvas.GetComponent<RectTransform>().rect.size;
+            }
+            return transform.rect.size;
+        }
     }
 }

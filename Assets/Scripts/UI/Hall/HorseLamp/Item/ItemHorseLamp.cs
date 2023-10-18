@@ -137,7 +137,7 @@ namespace Game.UI
         {
             text.text = content;
 
-            width = target.rect.width + GetComponentInParent<RectTransform>().rect.width;
+            width = target.rect.width + target.GetCanvasSize().x;
 
             width *= 0.5f;
 

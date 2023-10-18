@@ -29,7 +29,7 @@ namespace Game.UI
         {
             if (panel == UIPanel.None)
             {
-                UIQuickEntry.OpenUIHorseLamp("新功能开发中！敬请期待");
+                UIQuickEntry.OpenUINotice("新功能开发中！敬请期待");
             }
             else
             {

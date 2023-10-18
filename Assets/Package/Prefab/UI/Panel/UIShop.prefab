@@ -451,6 +451,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 244573485880313961}
+  - component: {fileID: 2482891942347539736}
   m_Layer: 5
   m_Name: Top
   m_TagString: Untagged
@@ -479,6 +480,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -150}
   m_SizeDelta: {x: 0, y: 150}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &2482891942347539736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925806865046255206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19dbea0ae690ebe4698b00001994c05a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 3586135648443745075}
 --- !u!1 &1025840210717068359
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,7 +737,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5834918246665656215}
   - component: {fileID: 1811526443817405944}
-  - component: {fileID: 2032003419216088902}
   - component: {fileID: 3677344531433530054}
   m_Layer: 5
   m_Name: UIShop
@@ -771,24 +784,11 @@ MonoBehaviour:
   layer: 2
   type: 1
   order: 0
-  m_menu: {fileID: 2032003419216088902}
+  m_menu: {fileID: 2482891942347539736}
   m_shops:
   - {fileID: 4416014837798576251}
   - {fileID: 7826067531557962064}
   - {fileID: 1749046376872729136}
---- !u!114 &2032003419216088902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1325477488799163665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19dbea0ae690ebe4698b00001994c05a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 3586135648443745075}
 --- !u!114 &3677344531433530054
 MonoBehaviour:
   m_ObjectHideFlags: 0
