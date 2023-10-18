@@ -286,7 +286,6 @@ namespace IFix.Editor
 
             if (hasSomethingToDo)
             {
-
                 var core_path = "./Assets/Plugins/IFix.Core.dll";
                 var assembly_path = string.Format("./Library/{0}/{1}.dll", targetAssembliesFolder, assembly);
                 var patch_path = string.Format("./{0}.ill.bytes", assembly);
@@ -304,13 +303,10 @@ namespace IFix.Editor
                     }
                     catch { }
                 }
-
                 CallIFix(args);
             }
-
             File.Delete(processCfgPath);
         }
-
         /// <summary>
         /// 对injectAssemblys里的程序集进行注入，然后备份
         /// </summary>
@@ -833,9 +829,8 @@ namespace IFix.Editor
             List<string> args = new List<string>() { "-patch", corePath, assemblyCSharpPath, "null",
                 processCfgPath, patchPath };
 
-            foreach (var path in
-                (from asm in AppDomain.CurrentDomain.GetAssemblies()
-                    select Path.GetDirectoryName(asm.ManifestModule.FullyQualifiedName)).Distinct())
+            foreach (var path in (from asm in AppDomain.CurrentDomain.GetAssemblies()
+                                  select Path.GetDirectoryName(asm.ManifestModule.FullyQualifiedName)).Distinct())
             {
                 try
                 {
@@ -851,7 +846,6 @@ namespace IFix.Editor
 
             AssetDatabase.Refresh();
         }
-
         [MenuItem("InjectFix/Fix", false, 2)]
         public static void Patch()
         {
@@ -871,7 +865,6 @@ namespace IFix.Editor
             }
             EditorUtility.ClearProgressBar();
         }
-
 #if UNITY_2018_3_OR_NEWER
         [MenuItem("InjectFix/Fix(Android)", false, 3)]
         public static void CompileToAndroid()
@@ -887,7 +880,6 @@ namespace IFix.Editor
             }
             EditorUtility.ClearProgressBar();
         }
-
         [MenuItem("InjectFix/Fix(IOS)", false, 4)]
         public static void CompileToIOS()
         {

@@ -1,4 +1,5 @@
 ﻿using Game.Attribute;
+using Game.Resource;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,8 @@ namespace Game.Test
 
         private void Start()
         {
+            IFixLogic.Instance.Initialize();
+
             var _ = StartAsync();
         }
 
@@ -43,9 +46,12 @@ namespace Game.Test
         /// <summary>
         /// 点击测试
         /// </summary>
+        [IFix.Patch]
         public void OnClick(int code)
         {
-            
+            var content = code;
+
+            Debuger.LogError(Author.Test, content);
         }
         /// <summary>
         /// 菜单栏测试
@@ -55,10 +61,12 @@ namespace Game.Test
         {
             
         }
-
+        //[IFix.Patch]
         public void OnClickButton(float index)
         {
-            
+            var content = index;
+
+            Debuger.LogError(Author.Test, content);
         }
 
         private async System.Threading.Tasks.Task StartAsync()

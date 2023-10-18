@@ -26,27 +26,27 @@ namespace IFix
     {
 
     }
-
     //默认执行原生代码，能切换到解析执行，必须放在标记了Configure的类里
     [AttributeUsage(AttributeTargets.Property)]
     public class IFixAttribute : Attribute
     {
-    }
 
+    }
     //生成反向（解析调用原生）封装器，加速调用性能
     [AttributeUsage(AttributeTargets.Property)]
     public class ReverseWrapperAttribute : Attribute
     {
+
     }
 
     [AttributeUsage(AttributeTargets.Method)]
     public class FilterAttribute : Attribute
     {
+
     }
 
     public static class Configure
     {
-        //
         public static Dictionary<string, List<KeyValuePair<object, int>>> GetConfigureByTags(List<string> tags)
         {
             var types = from assembly in AppDomain.CurrentDomain.GetAssemblies()
@@ -158,7 +158,6 @@ namespace IFix
                     where type.IsDefined(tagType, false)
                     select type
                     );
-
         }
     }
 }
