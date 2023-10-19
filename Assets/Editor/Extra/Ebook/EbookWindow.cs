@@ -26,7 +26,7 @@ namespace UnityEditor.Window
 
         private bool select = false;
 
-        [MenuItem("Application/Ebook")]
+        [MenuItem("Extra/Ebook")]
         protected static void Open()
         {
             Open<EbookWindow>("电子书");

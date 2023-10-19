@@ -11,7 +11,7 @@ namespace UnityEditor.Window
 
         private Process process;
 
-        [MenuItem("Application/Picture")]
+        [MenuItem("Extra/Picture")]
         protected static void Open()
         {
             Open<PictureSimpleToDetail>("Í¼Æ¬×ª¸ßÇå");

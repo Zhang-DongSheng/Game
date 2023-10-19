@@ -16,7 +16,7 @@ namespace UnityEditor.Window
 
         private readonly List<ExApplication> applications = new List<ExApplication>();
 
-        [MenuItem("Application/Extra")]
+        [MenuItem("Extra/Application")]
         protected static void Open()
         {
             Open<ExternalApplication>("第三方应用");

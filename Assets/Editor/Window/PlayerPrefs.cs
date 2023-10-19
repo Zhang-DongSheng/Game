@@ -15,7 +15,7 @@ namespace UnityEditor.Window
 
 		private PlayerPrefPair[] m_data;
 
-		[MenuItem("Edit/PlayerPrefs")]
+		[MenuItem("Edit/PlayerPrefsPriview")]
 		protected static void Open()
 		{
 			Open<PlayerPrefs>("本地化数据");
@@ -83,7 +83,7 @@ namespace UnityEditor.Window
 #if UNITY_5_5_OR_NEWER
 				Microsoft.Win32.RegistryKey registryKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\Unity\\UnityEditor\\" + companyName + "\\" + productName);
 #else
-            Microsoft.Win32.RegistryKey registryKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\" + companyName + "\\" + productName);
+				Microsoft.Win32.RegistryKey registryKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\" + companyName + "\\" + productName);
 #endif
 				if (registryKey != null)
 				{
