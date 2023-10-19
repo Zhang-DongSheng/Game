@@ -14,34 +14,85 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atlases:
   - primary: 0
+    name: altas_head
+    path: Package/Atlas/altas_head.spriteatlas
+    sprites:
+    - ui_player_head_1
+    - ui_player_head_2
+    - ui_player_head_12
+    - ui_player_head_4
+    - ui_player_head_6
+    - ui_player_head_7
+    - ui_player_head_11
+    - ui_player_head_5
+    - ui_player_head_3
+    - ui_player_head_10
+    - ui_player_head_9
+    - ui_player_head_8
+  - primary: 0
     name: atlas_common
     path: Package/Atlas/atlas_common.spriteatlas
     sprites:
+    - Basic Outline - Stroke 16px (300ppu)
+    - Rounded Outline - Stroke 16px
+    - Basic Outline - Stroke 12px (300ppu)
+    - Basic Outline - Stroke 18px (300ppu)
+    - Rounded Circle (600ppu)
+    - quality_4
+    - quality_6
+    - quality_2
+    - Basic Filled (300ppu)
+    - Basic Outline - Stroke 4px (125ppu)
+    - Rounded Outline - Stroke 10px
+    - quality_3
+    - Basic Outline - Stroke 10px (300ppu)
+    - Rounded Outline - Stroke 5px
     - Rounded Circle Shadow (200ppu)
     - background_2
     - Vertical Shadow
+    - GUI Skin - Button Normal
+    - Rounded Outline - Stroke 12px
+    - quality_1
     - Square Shadow (200ppu)
+    - Circle Outline - Stroke 10px (x64)
+    - Basic Filled - Modal Tab Button (300ppu)
+    - Basic Outline - Stroke 4px (300ppu)
+    - Basic Outline - Stroke 8px (300ppu)
     - background_4
+    - Circle Filled - x256
+    - Rounded Filled (300ppu)
     - button_1
     - Rounded Circle Shadow (400ppu)
     - background_1
     - Horizontal Shadow
+    - Circle Filled - x64
+    - Rounded Circle Outline - Stroke 8px (300ppu)
     - Rounded Circle Shadow (150ppu)
+    - quality_5
+    - GUI Skin - Button Pressed
+    - Circle Outline Dash - Stroke 3px
     - background_3
   - primary: 0
     name: atlas_currency
     path: Package/Atlas/atlas_currency.spriteatlas
     sprites:
-    - gold
-    - coin
+    - coin_3
+    - coin_2
     - diamond
+    - glod
+    - coin_1
   - primary: 0
     name: atlas_emoji
     path: Package/Atlas/atlas_emoji.spriteatlas
     sprites: []
   - primary: 0
-    name: atlas_prop_dress
-    path: Package/Atlas/atlas_prop_dress.spriteatlas
+    name: atlas_main
+    path: Package/Atlas/atlas_main.spriteatlas
+    sprites:
+    - ui_mian_back
+  - primary: 0
+    name: atlas_prop_clothing
+    path: Package/Atlas/atlas_prop_clothing.spriteatlas
     sprites:
     - "\u6C49\u670D"
     - "\u8FDE\u8863\u88D9"
@@ -73,18 +124,5 @@ MonoBehaviour:
     - quality_3
     - quality_1
     - quality_5
-  - primary: 0
-    name: atlas_widget
-    path: Package/Atlas/atlas_widget.spriteatlas
-    sprites:
-    - "\u5E2E\u52A9"
-    - "\u641C\u7D22"
-    - "\u6CE8\u610F"
-    - "\u9501"
-    - "\u53D1\u5E03"
-    - "\u8FD4\u56DE"
-    - "\u4FE1\u606F"
-    - "\u5237\u65B0"
-    - "\u64A4\u9500"
   sprites: []
   textures: []

@@ -6,11 +6,9 @@ namespace Game.UI
 {
     public class UITitle : UIBase
     {
-        [SerializeField] private Button player;
+        [SerializeField] private UITitlePlayer player;
 
-        [SerializeField] private Button back;
-
-        [SerializeField] private Text title;
+        [SerializeField] private UITitleBack back;
 
         [SerializeField] private Button setting;
 
@@ -18,10 +16,6 @@ namespace Game.UI
 
         protected override void OnAwake()
         {
-            player.onClick.AddListener(OnClickPlayer);
-
-            back.onClick.AddListener(OnClickBack);
-
             setting.onClick.AddListener(OnClickSetting);
         }
 
@@ -52,19 +46,25 @@ namespace Game.UI
         {
             if (information == null) return;
 
-            RefreshCurrencies(information);
-
             if (information.type != UIType.Panel) return;
 
-            title.text = information.panel.ToString();
+            RefreshCurrencies(information);
 
             bool main = information.panel == UIPanel.UIMain;
 
-            SetActive(player, main);
+            if (main)
+            {
+                player.Refresh(information);
 
+                back.SetActive(false);
+            }
+            else
+            {
+                player.SetActive(false);
+
+                back.Refresh(information);
+            }
             SetActive(setting, main);
-
-            SetActive(back, !main);
         }
 
         private void RefreshCurrencies(UIInformation information)
@@ -79,16 +79,6 @@ namespace Game.UI
             {
                 currencies[i].SetActive(false);
             }
-        }
-
-        private void OnClickPlayer()
-        {
-            UIQuickEntry.Open(UIPanel.UIPlayer);
-        }
-
-        private void OnClickBack()
-        {
-            UIManager.Instance.Back();
         }
 
         private void OnClickSetting()

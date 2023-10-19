@@ -1,4 +1,5 @@
 using Game;
+using LitJson;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +9,8 @@ namespace Data
 {
     public static class GlobalVariables
     {
+        private static readonly string path = string.Format("{0}/{1}", Application.persistentDataPath, "globalvariables");
+
         private static readonly Dictionary<string, string> variables = new Dictionary<string, string>();
 
         private static readonly object _lock = new object();
@@ -15,23 +18,28 @@ namespace Data
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void RuntimeInitialized()
         {
-            string path = string.Format("{0}/{1}", Application.persistentDataPath, "globalvariables");
-
             using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
             {
                 StreamReader reader = new StreamReader(stream);
 
-                string line = reader.ReadLine();
-
-                while (!string.IsNullOrEmpty(line))
+                try
                 {
-                    string[] paramter = line.Split('|');
+                    JsonData json = JsonMapper.ToObject(reader.ReadToEnd());
 
-                    if (paramter.Length == 2)
+                    int count = json.Count;
+
+                    for (int i = 0; i < count; i++)
                     {
-                        variables.Add(paramter[0], Utility.Cryptogram.Decrypt(paramter[1]));
+                        string key = json[i].GetString("key");
+
+                        string value = json[i].GetString("value");
+
+                        variables.Add(key, Utility.Cryptogram.Decrypt(value));
                     }
-                    line = reader.ReadLine();
+                }
+                catch (Exception e)
+                {
+                    Debuger.LogException(Author.Data, e);
                 }
                 reader.Dispose();
             }
@@ -76,18 +84,17 @@ namespace Data
 
         public static void Save()
         {
-            string path = string.Format("{0}/{1}", Application.persistentDataPath, "globalvariables");
+            JsonData json = new JsonData();
 
-            using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate))
+            foreach (var pair in variables)
             {
-                StreamWriter writer = new StreamWriter(stream);
-
-                foreach (var value in variables)
+                json.Add(new JsonData()
                 {
-                    writer.WriteLine(string.Format("{0}|{1}", value.Key, Utility.Cryptogram.Encrypt(value.Value)));
-                }
-                writer.Flush(); writer.Dispose();
+                    ["key"] = pair.Key,
+                    ["value"] = Utility.Cryptogram.Encrypt(pair.Value)
+                });
             }
+            File.WriteAllText(path, json.ToJson());
         }
 
         public static void Dispose()

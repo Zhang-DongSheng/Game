@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: atlas_currency
+  m_Name: atlas_main
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -32,23 +32,15 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: aaf1d2b2a1a7ade4bbe0ace3f1323666, type: 3}
+    - {fileID: 102900000, guid: 41875494f011f3640b33f67cb317c94b, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 5528f211016c5fc4aaef8e330723caa2, type: 3}
-  - {fileID: 21300000, guid: b973bff11e35c764fa7fa3992582fe33, type: 3}
-  - {fileID: 21300000, guid: d58e68936fa69dd40918fd8789808c6c, type: 3}
-  - {fileID: 21300000, guid: e0eeb42649aa6a34e83e729e7e3130e2, type: 3}
-  - {fileID: 21300000, guid: 15b9e4eaf6ec9f04186992e586c29659, type: 3}
+  - {fileID: 21300000, guid: 3ba0716c21d4d6b4c8807eba58b1b840, type: 3}
   m_PackedSpriteNamesToIndex:
-  - coin_3
-  - coin_2
-  - diamond
-  - glod
-  - coin_1
+  - ui_mian_back
   m_RenderDataMap: {}
-  m_Tag: atlas_currency
+  m_Tag: atlas_main
   m_IsVariant: 0

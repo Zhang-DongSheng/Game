@@ -20,7 +20,31 @@ SpriteAtlas:
       readable: 0
       crunchedCompression: 0
       sRGB: 1
-    platformSettings: []
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 47
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 3
+      m_BuildTarget: iPhone
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 50
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
       serializedVersion: 2
       padding: 4
@@ -32,35 +56,90 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: af4978cb234e1024cac9006ee4039ea2, type: 3}
-    - {fileID: 102900000, guid: 5f3f962a8973dfd40aee2d816386cb33, type: 3}
+    - {fileID: 102900000, guid: 18c608822b7b5064b823f50f5d01d9cc, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 2ae02f309e37a7b468a607a66bbc4e6d, type: 3}
+  - {fileID: 21300000, guid: eaea90a025355c14b871008ae1ab621c, type: 3}
+  - {fileID: 21300000, guid: de5e4751c3719944aa6704fc67511221, type: 3}
+  - {fileID: 21300000, guid: cc399a618123056498d011bef46ef430, type: 3}
+  - {fileID: 21300000, guid: a1f0628111b762a4ba22cea2c8d05a7a, type: 3}
+  - {fileID: 21300000, guid: e00250a115dfd7d489a76658ac8ec6f8, type: 3}
+  - {fileID: 21300000, guid: 58f940b1a6fc09a4e96f372b2e13f4e3, type: 3}
+  - {fileID: 21300000, guid: e91f96626bfcbdc4e9f85e5a97195c21, type: 3}
+  - {fileID: 21300000, guid: f38987b2f12030947bea58483e18ce1a, type: 3}
+  - {fileID: 21300000, guid: c8a47b132ee4eff48bfeb344ad857e12, type: 3}
+  - {fileID: 21300000, guid: c09c98233e3767545acc1ae234af060c, type: 3}
+  - {fileID: 21300000, guid: cbe7a574e7b7f8643a847fa33943f94d, type: 3}
+  - {fileID: 21300000, guid: 4859a9b48155b404492c5e59833bdea8, type: 3}
+  - {fileID: 21300000, guid: c04a63d54069e8f4bac378fe7ab6026c, type: 3}
   - {fileID: 21300000, guid: 53376d46aa93495498e77d97f3dd13b2, type: 3}
   - {fileID: 21300000, guid: f01608766d7146747b7af65d62d69611, type: 3}
   - {fileID: 21300000, guid: 4588d5e6aeea92d4b86bd1e976c99baf, type: 3}
+  - {fileID: 21300000, guid: d88b03a7da3ddc84b882c452fd42f025, type: 3}
+  - {fileID: 21300000, guid: ff3d95e7e84ef024a998874a1a7b4479, type: 3}
+  - {fileID: 21300000, guid: 3ad6a888d34447447b2e8475a948e423, type: 3}
   - {fileID: 21300000, guid: 5a2cc1793ca8c1e4381df95290d5022a, type: 3}
+  - {fileID: 21300000, guid: 5e9e4e8984cc68e4aa19df6bf330fb48, type: 3}
+  - {fileID: 21300000, guid: def0b999bf90eaf48ad972dc8f98df24, type: 3}
+  - {fileID: 21300000, guid: 7f61a1a97b4bba64fbfb788af1cea9e6, type: 3}
+  - {fileID: 21300000, guid: 5c49ef3a1a4460b4ca3a969124efb7fa, type: 3}
   - {fileID: 21300000, guid: c2170acaf65944b4584cb2f47e3849f4, type: 3}
+  - {fileID: 21300000, guid: c26a820b2129e2f4eb122efd27df5339, type: 3}
+  - {fileID: 21300000, guid: 5765424b27ee5f8408478922c82d99a2, type: 3}
   - {fileID: 21300000, guid: 131f14cb7eab9f046933dc474659192a, type: 3}
   - {fileID: 21300000, guid: 446fd45c600b6e84c9b7d1b9982cc3f4, type: 3}
   - {fileID: 21300000, guid: d61c8b5c0808780478374c2adb46f748, type: 3}
   - {fileID: 21300000, guid: 390f1c7c5c2f9714d8458c01651acdcf, type: 3}
+  - {fileID: 21300000, guid: 5dd3dd8c7d3872841aae89a3539bb5ef, type: 3}
+  - {fileID: 21300000, guid: 94ed127db6c44634db6082daf3b3ce2e, type: 3}
   - {fileID: 21300000, guid: 0755a77d5bd80d94eaba57a2d5d0f55e, type: 3}
+  - {fileID: 21300000, guid: 6b7d680e376717948897eac93f456e18, type: 3}
+  - {fileID: 21300000, guid: 55df7c0e2aab60c438ae7184c5438d25, type: 3}
+  - {fileID: 21300000, guid: 24de22fe090ea2a4b932c13f1b3be37d, type: 3}
   - {fileID: 21300000, guid: bf72860f2411d0447af5ba88824a06f3, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Basic Outline - Stroke 16px (300ppu)
+  - Rounded Outline - Stroke 16px
+  - Basic Outline - Stroke 12px (300ppu)
+  - Basic Outline - Stroke 18px (300ppu)
+  - Rounded Circle (600ppu)
+  - quality_4
+  - quality_6
+  - quality_2
+  - Basic Filled (300ppu)
+  - Basic Outline - Stroke 4px (125ppu)
+  - Rounded Outline - Stroke 10px
+  - quality_3
+  - Basic Outline - Stroke 10px (300ppu)
+  - Rounded Outline - Stroke 5px
   - Rounded Circle Shadow (200ppu)
   - background_2
   - Vertical Shadow
+  - GUI Skin - Button Normal
+  - Rounded Outline - Stroke 12px
+  - quality_1
   - Square Shadow (200ppu)
+  - Circle Outline - Stroke 10px (x64)
+  - Basic Filled - Modal Tab Button (300ppu)
+  - Basic Outline - Stroke 4px (300ppu)
+  - Basic Outline - Stroke 8px (300ppu)
   - background_4
+  - Circle Filled - x256
+  - Rounded Filled (300ppu)
   - button_1
   - Rounded Circle Shadow (400ppu)
   - background_1
   - Horizontal Shadow
+  - Circle Filled - x64
+  - Rounded Circle Outline - Stroke 8px (300ppu)
   - Rounded Circle Shadow (150ppu)
+  - quality_5
+  - GUI Skin - Button Pressed
+  - Circle Outline Dash - Stroke 3px
   - background_3
   m_RenderDataMap: {}
   m_Tag: atlas_common

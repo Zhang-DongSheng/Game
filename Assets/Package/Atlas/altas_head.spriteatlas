@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: altas_head
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 47
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 3
+      m_BuildTarget: iPhone
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 50
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 6d0b65a21092e994481082731c7865b2, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: eb249c32b3ccbc440bbd764edc664713, type: 3}
+  - {fileID: 21300000, guid: e5edab42ac8485541a0a2761f9ca4f7e, type: 3}
+  - {fileID: 21300000, guid: a60723e2894b4b4458ca7be8f460fb19, type: 3}
+  - {fileID: 21300000, guid: 0ecb9de4b051db447a13b8bbb78e980b, type: 3}
+  - {fileID: 21300000, guid: df0c3e277e948d94aa4133cf0d6708aa, type: 3}
+  - {fileID: 21300000, guid: c902aa5803ffbb34ca2899008a015d24, type: 3}
+  - {fileID: 21300000, guid: 16328d88f424a554abc226897687ab62, type: 3}
+  - {fileID: 21300000, guid: 35f8831a9d3efe746aa65e894b1aa544, type: 3}
+  - {fileID: 21300000, guid: 24080e7bb908ead40b2d951901d15a7b, type: 3}
+  - {fileID: 21300000, guid: 0d73f9bb18b9e47458ee2aee2e50c67a, type: 3}
+  - {fileID: 21300000, guid: 93f4f23e674658e4abdfabfcdbd1eb7f, type: 3}
+  - {fileID: 21300000, guid: 1772dbde8cf2c014b91875f09d7269eb, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - ui_player_head_1
+  - ui_player_head_2
+  - ui_player_head_12
+  - ui_player_head_4
+  - ui_player_head_6
+  - ui_player_head_7
+  - ui_player_head_11
+  - ui_player_head_5
+  - ui_player_head_3
+  - ui_player_head_10
+  - ui_player_head_9
+  - ui_player_head_8
+  m_RenderDataMap: {}
+  m_Tag: altas_head
+  m_IsVariant: 0
