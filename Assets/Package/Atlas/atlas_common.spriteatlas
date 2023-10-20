@@ -64,6 +64,7 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: 2ae02f309e37a7b468a607a66bbc4e6d, type: 3}
   - {fileID: 21300000, guid: eaea90a025355c14b871008ae1ab621c, type: 3}
+  - {fileID: 21300000, guid: 131f24f0623ac284ca6fde0f1c021538, type: 3}
   - {fileID: 21300000, guid: de5e4751c3719944aa6704fc67511221, type: 3}
   - {fileID: 21300000, guid: cc399a618123056498d011bef46ef430, type: 3}
   - {fileID: 21300000, guid: a1f0628111b762a4ba22cea2c8d05a7a, type: 3}
@@ -73,11 +74,15 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f38987b2f12030947bea58483e18ce1a, type: 3}
   - {fileID: 21300000, guid: c8a47b132ee4eff48bfeb344ad857e12, type: 3}
   - {fileID: 21300000, guid: c09c98233e3767545acc1ae234af060c, type: 3}
+  - {fileID: 21300000, guid: 4a8a71a3eb1da9b4f9b3a777c9d6cc6c, type: 3}
+  - {fileID: 21300000, guid: 46b310b34b89ad044b96192518259df2, type: 3}
   - {fileID: 21300000, guid: cbe7a574e7b7f8643a847fa33943f94d, type: 3}
+  - {fileID: 21300000, guid: 94446b948985b2d42a6dd53f4b500ec5, type: 3}
   - {fileID: 21300000, guid: 4859a9b48155b404492c5e59833bdea8, type: 3}
   - {fileID: 21300000, guid: c04a63d54069e8f4bac378fe7ab6026c, type: 3}
   - {fileID: 21300000, guid: 53376d46aa93495498e77d97f3dd13b2, type: 3}
   - {fileID: 21300000, guid: f01608766d7146747b7af65d62d69611, type: 3}
+  - {fileID: 21300000, guid: c05826c6a35fa3742904624ca5fb6751, type: 3}
   - {fileID: 21300000, guid: 4588d5e6aeea92d4b86bd1e976c99baf, type: 3}
   - {fileID: 21300000, guid: d88b03a7da3ddc84b882c452fd42f025, type: 3}
   - {fileID: 21300000, guid: ff3d95e7e84ef024a998874a1a7b4479, type: 3}
@@ -88,8 +93,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7f61a1a97b4bba64fbfb788af1cea9e6, type: 3}
   - {fileID: 21300000, guid: 5c49ef3a1a4460b4ca3a969124efb7fa, type: 3}
   - {fileID: 21300000, guid: c2170acaf65944b4584cb2f47e3849f4, type: 3}
+  - {fileID: 21300000, guid: 5ce30ecabbb958e439841f9de7ee63c2, type: 3}
   - {fileID: 21300000, guid: c26a820b2129e2f4eb122efd27df5339, type: 3}
   - {fileID: 21300000, guid: 5765424b27ee5f8408478922c82d99a2, type: 3}
+  - {fileID: 21300000, guid: feabccab69c4b7a4f97f9b2c98bf0edd, type: 3}
   - {fileID: 21300000, guid: 131f14cb7eab9f046933dc474659192a, type: 3}
   - {fileID: 21300000, guid: 446fd45c600b6e84c9b7d1b9982cc3f4, type: 3}
   - {fileID: 21300000, guid: d61c8b5c0808780478374c2adb46f748, type: 3}
@@ -104,6 +111,7 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - Basic Outline - Stroke 16px (300ppu)
   - Rounded Outline - Stroke 16px
+  - ui_turn_on
   - Basic Outline - Stroke 12px (300ppu)
   - Basic Outline - Stroke 18px (300ppu)
   - Rounded Circle (600ppu)
@@ -113,11 +121,15 @@ SpriteAtlas:
   - Basic Filled (300ppu)
   - Basic Outline - Stroke 4px (125ppu)
   - Rounded Outline - Stroke 10px
+  - ui_commom_tips
+  - ui_toggle_on
   - quality_3
+  - ui_commom_right
   - Basic Outline - Stroke 10px (300ppu)
   - Rounded Outline - Stroke 5px
   - Rounded Circle Shadow (200ppu)
   - background_2
+  - ui_commom_error
   - Vertical Shadow
   - GUI Skin - Button Normal
   - Rounded Outline - Stroke 12px
@@ -128,8 +140,10 @@ SpriteAtlas:
   - Basic Outline - Stroke 4px (300ppu)
   - Basic Outline - Stroke 8px (300ppu)
   - background_4
+  - ui_toggle_off
   - Circle Filled - x256
   - Rounded Filled (300ppu)
+  - ui_turn_of
   - button_1
   - Rounded Circle Shadow (400ppu)
   - background_1
