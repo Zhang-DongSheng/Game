@@ -1,6 +1,7 @@
 using Game;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor.Game;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,8 +39,21 @@ namespace UnityEditor.Window
 
         public override void Initialise()
         {
-            list = Finder.LoadFiles(Application.dataPath, "*.prefab");
+            list.Clear();
 
+            var prefabs = AssetDatabase.FindAssets("t:prefab");
+
+            int count = prefabs.Length;
+
+            for (int i = 0; i < count; i++)
+            {
+                list.Add(new ItemFile()
+                {
+                    name = Path.GetFileNameWithoutExtension(prefabs[i]),
+                    asset = prefabs[i],
+                    order = 0,
+                });
+            }
             _list = new string[list.Count];
 
             for (int i = 0; i < list.Count; i++)

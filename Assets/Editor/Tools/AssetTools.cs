@@ -40,25 +40,5 @@ namespace UnityEditor
 
             EditorUtility.OpenWithDefaultApp(path);
         }
-
-        public static List<T> FindAssetsByType<T>() where T : Object
-        {
-            List<T> assets = new List<T>();
-
-            var guids = AssetDatabase.FindAssets($"t:{typeof(T)}");
-
-            for (int i = 0, count = guids.Length; i < count; ++i)
-            {
-                var path = AssetDatabase.GUIDToAssetPath(guids[i]);
-
-                T asset = AssetDatabase.LoadAssetAtPath<T>(path);
-
-                if (asset != null)
-                {
-                    assets.Add(asset);
-                }
-            }
-            return assets;
-        }
     }
 }

@@ -84,7 +84,7 @@ namespace UnityEditor.Window
         {
             GUILayout.BeginHorizontal();
             {
-                cell.select = GUILayout.Toggle(cell.select, string.Empty);
+                cell.select = GUILayout.Toggle(cell.select, string.Empty, GUILayout.Width(50));
 
                 GUILayout.Label(cell.type.Name);
 

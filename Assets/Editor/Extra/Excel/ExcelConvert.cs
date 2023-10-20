@@ -127,9 +127,9 @@ namespace UnityEditor
 
 				for (int i = 0; i < list.Count; i++)
 				{
-					if (T.GetField(list[i].name) == null || T.GetField(list[i].name).FieldType.Name != CodeUtils.OfficialName(list[i].type))
+					if (T.GetField(list[i].name) == null || T.GetField(list[i].name).FieldType.Name != OfficialName(list[i].type))
 					{
-						Debuger.LogWarning(Author.Data, $"Type: {T.GetField(list[i].name).FieldType.Name} != {CodeUtils.OfficialName(list[i].type)}");
+						Debuger.LogWarning(Author.Data, $"Type: {T.GetField(list[i].name).FieldType.Name} != {OfficialName(list[i].type)}");
 						modify = true;
 						break;
 					}
@@ -316,7 +316,51 @@ namespace UnityEditor
 			return row > 2 && column > 1;
 		}
 
-		public struct ExcelColumn
+        public static string OfficialName(string type)
+        {
+            if (string.IsNullOrEmpty(type)) return string.Empty;
+
+            switch (type)
+            {
+                case "bool":
+                    return typeof(bool).Name;
+                case "byte":
+                    return typeof(byte).Name;
+                case "int":
+                    return typeof(int).Name;
+                case "float":
+                    return typeof(float).Name;
+                case "double":
+                    return typeof(double).Name;
+                case "long":
+                    return typeof(long).Name;
+                case "string":
+                    return typeof(string).Name;
+                case "DateTime":
+                    return typeof(DateTime).Name;
+                case "int[]":
+                    return string.Format("{0}[]", typeof(int).Name);
+                case "float[]":
+                    return string.Format("{0}[]", typeof(float).Name);
+                case "long[]":
+                    return string.Format("{0}[]", typeof(long).Name);
+                default:
+                    {
+                        try
+                        {
+                            return Type.GetType(type, true).Name;
+                        }
+                        catch (Exception e)
+                        {
+                            Debuger.LogException(Author.Data, e);
+                        }
+                    }
+                    break;
+            }
+            return type;
+        }
+
+        public struct ExcelColumn
 		{
 			public string name;
 

@@ -6,7 +6,7 @@ using UnityEngine.U2D;
 
 namespace UnityEditor.Window
 {
-	public class PrefabCopy : CustomWindow
+	public class CopyPrefab : CustomWindow
 	{
 		private readonly float LINE = 30f;
 
@@ -23,7 +23,7 @@ namespace UnityEditor.Window
 		[MenuItem("Assets/CopyPrefab", priority = 0)]
 		protected static void Open()
 		{
-			Open<PrefabCopy>("预制体拷贝");
+			Open<CopyPrefab>("预制体拷贝");
 		}
 		[MenuItem("Assets/CopyPrefab", true, priority = 0)]
 		protected static bool Detection()

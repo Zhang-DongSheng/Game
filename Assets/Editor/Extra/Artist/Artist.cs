@@ -10,7 +10,7 @@ namespace UnityEditor.Window
 		private readonly List<ArtistBase> artists = new List<ArtistBase>();
 
 		private string[] options = new string[1] { "NONE" };
-		[MenuItem("Game/Artist")]
+		[MenuItem("Extra/Artist")]
 		protected static void Open()
 		{
 			Open<Artist>("Artist");
