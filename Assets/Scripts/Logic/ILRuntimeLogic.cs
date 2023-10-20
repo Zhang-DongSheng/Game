@@ -10,7 +10,7 @@ namespace Game
 {
     public class ILRuntimeLogic : Singleton<ILRuntimeLogic>, ILogic
     {
-        public const string KEY = "HotFix/Hotfix";
+        public const string path = "HotFix/Hotfix";
 
         private readonly MemoryStream[] stream = new MemoryStream[2];
 
@@ -18,10 +18,7 @@ namespace Game
 
         public void Initialize()
         {
-            if (Application.isPlaying)
-            {
-                RuntimeManager.Instance.StartCoroutine(LoadILRuntime());
-            }
+            RuntimeManager.Instance.StartCoroutine(LoadILRuntime());
         }
 
         private IEnumerator LoadILRuntime()
@@ -31,7 +28,7 @@ namespace Game
             byte[] _dll = null, _pdb = null;
 
             #region DLL
-            string url = string.Format("{0}/{1}.dll", Application.streamingAssetsPath, KEY);
+            string url = string.Format("{0}/{1}.dll", Application.streamingAssetsPath, path);
 
             UnityWebRequest request = UnityWebRequest.Get(url);
 
@@ -55,7 +52,7 @@ namespace Game
             #endregion
 
             #region PDB
-            url = string.Format("{0}/{1}.pdb", Application.streamingAssetsPath, KEY);
+            url = string.Format("{0}/{1}.pdb", Application.streamingAssetsPath, path);
 
             request = UnityWebRequest.Get(url);
 
@@ -91,6 +88,8 @@ namespace Game
                 Debug.LogException(e);
             }
             OnILRuntimeInitialized();
+
+            ScheduleLogic.Instance.Update(Schedule.Hotfix);
         }
 
         private void OnILRuntimeInitialized()

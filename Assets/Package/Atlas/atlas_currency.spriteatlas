@@ -47,7 +47,7 @@ SpriteAtlas:
   - coin_3
   - coin_2
   - diamond
-  - glod
+  - gold
   - coin_1
   m_RenderDataMap: {}
   m_Tag: atlas_currency

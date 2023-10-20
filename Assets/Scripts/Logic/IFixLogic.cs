@@ -21,11 +21,6 @@ namespace Game
             Load();
         }
 
-        public void Release()
-        {
-
-        }
-
         private void Load()
         {
             VirtualMachine.Info = (s) => UnityEngine.Debug.Log(s);
@@ -40,6 +35,11 @@ namespace Game
                 }
             }
             UnityEngine.Debug.Log("loaded patch, using " + sw.ElapsedMilliseconds + " ms");
+        }
+
+        public void Release()
+        {
+        
         }
     }
 }

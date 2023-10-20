@@ -69,15 +69,25 @@ namespace Game.UI
 
         private void RefreshCurrencies(UIInformation information)
         {
-            int count = Mathf.Clamp(2, 0, currencies.Count);
+            var list = new List<int>() { 101, 102, 103 };
+
+            int count = Mathf.Clamp(list.Count, 0, currencies.Count);
 
             for (int i = 0; i < count; i++)
             {
-                currencies[i].Refresh();
+                currencies[i].Refresh(list[i]);
             }
             for (int i = count; i < currencies.Count; i++)
             {
                 currencies[i].SetActive(false);
+            }
+            // 特殊界面处理
+            if (information.panel == UIPanel.UIShop)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    currencies[i].HiddenSource();
+                }
             }
         }
 

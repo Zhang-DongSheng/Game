@@ -1,5 +1,4 @@
 using Game.Resource;
-using Game.UI;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,6 +51,7 @@ namespace Game
         {
             Add(Schedule.Config);
             Add(Schedule.Resource);
+            Add(Schedule.Hotfix);
             Add(Schedule.Language);
             Add(Schedule.BlockedText);
         }
@@ -110,6 +110,12 @@ namespace Game
                     break;
                 case Schedule.Resource:
                     ResourceUpdate.Instance.Direction(ResourceConfig.Loading);
+                    break;
+                case Schedule.Hotfix:
+                    {
+                        IFixLogic.Instance.Initialize();
+                        ILRuntimeLogic.Instance.Initialize();
+                    }
                     break;
                 case Schedule.Language:
                     LanguageManager.Instance.Initialize();
@@ -206,6 +212,10 @@ namespace Game
         /// ÓïÑÔ°ü
         /// </summary>
         Language,
+        /// <summary>
+        /// ÈÈÐÞ¸´
+        /// </summary>
+        Hotfix,
         /// <summary>
         /// ÆÁ±Î×Ö
         /// </summary>

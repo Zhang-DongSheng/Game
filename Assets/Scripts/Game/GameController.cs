@@ -40,10 +40,6 @@ namespace Game
 
             ReddotLogic.Instance.Initialize();
 
-            IFixLogic.Instance.Initialize();
-
-            ILRuntimeLogic.Instance.Initialize();
-
             ResourceManager.Initialize(setting.Loading);
 
             GameStateController.Instance.Init();

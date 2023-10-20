@@ -31,7 +31,7 @@ MonoBehaviour:
     description: null
   - primary: 103
     name: "\u4EE3\u5E01"
-    icon: coin
+    icon: coin_1
     quality: 3
     category: 99
     price: 50

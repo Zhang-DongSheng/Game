@@ -79,7 +79,7 @@ MonoBehaviour:
     - coin_3
     - coin_2
     - diamond
-    - glod
+    - gold
     - coin_1
   - primary: 0
     name: atlas_emoji
@@ -88,8 +88,7 @@ MonoBehaviour:
   - primary: 0
     name: atlas_main
     path: Package/Atlas/atlas_main.spriteatlas
-    sprites:
-    - ui_mian_back
+    sprites: []
   - primary: 0
     name: atlas_prop_clothing
     path: Package/Atlas/atlas_prop_clothing.spriteatlas
@@ -124,5 +123,11 @@ MonoBehaviour:
     - quality_3
     - quality_1
     - quality_5
+  - primary: 0
+    name: atlas_title
+    path: Package/Atlas/atlas_title.spriteatlas
+    sprites:
+    - ui_title_setting
+    - ui_title_back
   sprites: []
   textures: []

@@ -65,6 +65,22 @@ namespace Game
             }
         }
 
+        public Prop GetProp(int propID)
+        {
+            return _props.Find(x => x.identification == propID);
+        }
+
+        public uint GetPropNumber(int propID)
+        {
+            var prop = _props.Find(x => x.identification == propID);
+
+            if (prop != null)
+            {
+                return prop.number;
+            }
+            return 0;
+        }
+
         #region Request
         public void RequestInformation()
         {

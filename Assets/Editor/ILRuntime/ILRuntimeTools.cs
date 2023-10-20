@@ -44,7 +44,7 @@ namespace UnityEditor
         {
             ILRuntime.Runtime.Enviorment.AppDomain domain = new ILRuntime.Runtime.Enviorment.AppDomain();
 
-            string path = string.Format("{0}/{1}.dll", Application.streamingAssetsPath, ILRuntimeLogic.KEY);
+            string path = string.Format("{0}/{1}.dll", Application.streamingAssetsPath, ILRuntimeLogic.path);
 
             using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {

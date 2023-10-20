@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: atlas_main
+  m_Name: atlas_title
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -32,13 +32,17 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: 41875494f011f3640b33f67cb317c94b, type: 3}
+    - {fileID: 102900000, guid: 745c28fa56a63c144b916d600f58b3a8, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: d012711014ff3c549b03d8b513e11b93, type: 3}
+  - {fileID: 21300000, guid: 3ba0716c21d4d6b4c8807eba58b1b840, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - ui_title_setting
+  - ui_title_back
   m_RenderDataMap: {}
-  m_Tag: atlas_main
+  m_Tag: atlas_title
   m_IsVariant: 0

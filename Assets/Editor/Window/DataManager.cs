@@ -13,7 +13,7 @@ namespace UnityEditor.Window
 {
     public class DataManager : CustomWindow
     {
-        private const string source = "Assets/Art";
+        private const string source = "Assets/Art/Excel";
 
         private const string asset = "Assets/Package/Data";
 
