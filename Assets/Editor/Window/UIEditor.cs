@@ -1,12 +1,9 @@
 using Data;
-using Game;
 using Game.UI;
 using System;
-using System.IO;
 using System.Reflection;
 using UnityEditor.Game;
 using UnityEngine;
-using UnityEngine.UI;
 using Utility = Game.Utility;
 
 namespace UnityEditor.Window
@@ -73,7 +70,7 @@ namespace UnityEditor.Window
                 }
                 string path = string.Format("Assets/{0}{1}.cs", SCRIPT, content);
 
-                ScriptHandler.Create(path);
+                ScriptUtils.Create(path);
 
                 AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
 
@@ -81,11 +78,11 @@ namespace UnityEditor.Window
 
                 path = string.Format("Assets/{0}{1}.prefab", PREFAB, content);
 
-                GameObject prefab = CreateUGUI(path);
+                GameObject prefab = PrefabUtils.CreateUGUI(path);
 
                 AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
 
-                ScriptHandler.Modify(typeof(UIPanel), content);
+                ScriptUtils.Modify(typeof(UIPanel), content);
 
                 AssetDatabase.Refresh();
 
@@ -256,32 +253,6 @@ namespace UnityEditor.Window
                 asset.list.Add(information);
             }
             AssetDatabase.SaveAssets(); AssetDatabase.Refresh();
-        }
-
-        public static GameObject CreateUGUI(string path)
-        {
-            string extension = Path.GetExtension(path);
-
-            string name = Path.GetFileNameWithoutExtension(path);
-
-            GameObject entity = new GameObject(name, typeof(RectTransform));
-
-            entity.GetComponent<RectTransform>().SetFull();
-
-            var child = new GameObject("Background", typeof(RectTransform),
-                typeof(CanvasRenderer),
-                typeof(Image));
-            child.transform.SetParent(entity.transform, false);
-
-            child.GetComponent<RectTransform>().SetFull();
-
-            GameObject prefab = PrefabUtility.SaveAsPrefabAsset(entity, path, out bool success);
-
-            GameObject.DestroyImmediate(entity);
-
-            PrefabUtility.SavePrefabAsset(prefab);
-
-            return prefab;
         }
     }
 }

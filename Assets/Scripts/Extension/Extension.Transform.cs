@@ -91,10 +91,12 @@ namespace Game
         /// <summary>
         /// 初始化
         /// </summary>
-        public static void Default(this Transform transform)
+        public static void Reset(this Transform transform)
         {
             transform.position = Vector3.zero;
+
             transform.rotation = Quaternion.identity;
+
             transform.localScale = Vector3.one;
         }
         /// <summary>
