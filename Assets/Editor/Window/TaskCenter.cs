@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UnityEditor.Window
 {
-    public class TaskManager : CustomWindow
+    public class TaskCenter : CustomWindow
     {
         private TaskData task;
 
@@ -18,7 +18,7 @@ namespace UnityEditor.Window
         [MenuItem("Window/Task")]
         protected static void Open()
         {
-            Open<TaskManager>("任务中心");
+            Open<TaskCenter>("任务中心");
         }
 
         protected override void Initialise()

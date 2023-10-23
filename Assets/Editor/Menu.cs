@@ -1,15 +1,16 @@
-﻿using System.IO;
+﻿using Game;
+using System.IO;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace UnityEditor
 {
-    public class Helper
+    public class Menu
     {
         private static int pictureIndex;
 
-        [MenuItem("Game/OpenMainScene &Q")]
+        [MenuItem("Tools/OpenMainScene &Q")]
         protected static void OpenMainScene()
         {
             string[] scenes = EditorBuildSettingsScene.GetActiveSceneList(EditorBuildSettings.scenes);
@@ -55,6 +56,40 @@ namespace UnityEditor
         protected static void OpenConsoleFile()
         {
             OpenFile(Application.consoleLogPath);
+        }
+        [MenuItem("Assets/Copy Path Pro", priority = 19)]
+        internal static void CopyPath()
+        {
+            if (Selection.activeObject != null)
+            {
+                string path = AssetDatabase.GetAssetPath(Selection.activeObject);
+
+                path = Utility.Path.UnityToSystem(path);
+
+                path = path.Replace("\\", "/");
+
+                GUIUtility.systemCopyBuffer = path;
+
+                if (EditorWindow.focusedWindow != null)
+                {
+                    EditorWindow.focusedWindow.ShowNotification(new GUIContent("路径复制成功！"));
+                }
+                else
+                {
+                    Debuger.Log(Author.File, "路径复制成功！");
+                }
+            }
+        }
+        [MenuItem("Assets/Open HotFix Project", priority = 900)]
+        internal static void OpenHotFixProject()
+        {
+            string folder = "ILRuntime/Hotfix~";
+
+            string file = "Hotfix";
+
+            string path = string.Format("{0}/{1}/{2}.sln", Application.dataPath, folder, file);
+
+            EditorUtility.OpenWithDefaultApp(path);
         }
 
         protected static void OpenFolder(string path)
