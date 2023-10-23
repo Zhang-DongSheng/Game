@@ -1,5 +1,4 @@
 using Game;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityEditor
@@ -29,7 +28,7 @@ namespace UnityEditor
                 }
             }
         }
-        [MenuItem("Assets/Open HotFix Project", priority = 101)]
+        [MenuItem("Assets/Open HotFix Project", priority = 110)]
         internal static void OpenHotFixProject()
         {
             string folder = "ILRuntime/Hotfix~";

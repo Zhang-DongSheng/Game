@@ -1,9 +1,12 @@
 using Data;
+using Game;
 using Game.UI;
 using System;
+using System.IO;
 using System.Reflection;
 using UnityEditor.Game;
 using UnityEngine;
+using UnityEngine.UI;
 using Utility = Game.Utility;
 
 namespace UnityEditor.Window
@@ -12,7 +15,7 @@ namespace UnityEditor.Window
     {
         private const float WIDTH = 100;
 
-        private const string SCRIPT = "Scripts/UI/Panel/";
+        private const string SCRIPT = "Scripts/UI/Hall/";
 
         private const string PREFAB = "Package/Prefab/UI/Panel/";
 
@@ -64,17 +67,23 @@ namespace UnityEditor.Window
             {
                 if (string.IsNullOrEmpty(content)) return;
 
+                if (content.StartsWith("UI") == false)
+                {
+                    content = string.Format("UI{0}", content);
+                }
                 string path = string.Format("Assets/{0}{1}.cs", SCRIPT, content);
 
                 ScriptHandler.Create(path);
 
-                AssetDatabase.ImportAsset(path);
+                AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+
+                AssetDatabase.Refresh();
 
                 path = string.Format("Assets/{0}{1}.prefab", PREFAB, content);
 
-                PrefabHandler.CreateUGUI(path);
+                GameObject prefab = CreateUGUI(path);
 
-                AssetDatabase.ImportAsset(path);
+                AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
 
                 ScriptHandler.Modify(typeof(UIPanel), content);
 
@@ -247,6 +256,32 @@ namespace UnityEditor.Window
                 asset.list.Add(information);
             }
             AssetDatabase.SaveAssets(); AssetDatabase.Refresh();
+        }
+
+        public static GameObject CreateUGUI(string path)
+        {
+            string extension = Path.GetExtension(path);
+
+            string name = Path.GetFileNameWithoutExtension(path);
+
+            GameObject entity = new GameObject(name, typeof(RectTransform));
+
+            entity.GetComponent<RectTransform>().SetFull();
+
+            var child = new GameObject("Background", typeof(RectTransform),
+                typeof(CanvasRenderer),
+                typeof(Image));
+            child.transform.SetParent(entity.transform, false);
+
+            child.GetComponent<RectTransform>().SetFull();
+
+            GameObject prefab = PrefabUtility.SaveAsPrefabAsset(entity, path, out bool success);
+
+            GameObject.DestroyImmediate(entity);
+
+            PrefabUtility.SavePrefabAsset(prefab);
+
+            return prefab;
         }
     }
 }

@@ -213,7 +213,7 @@ namespace UnityEditor.Window
 
                     for (int i = 0; i < components.Length; i++)
                     {
-                        PrefabHandler.Replace(components[i], component.to);
+                        Replace(components[i], component.to);
                     }
                 }
                 PrefabUtility.SavePrefabAsset(prefab); indexPrefab.Execute();
@@ -322,6 +322,15 @@ namespace UnityEditor.Window
                 }
             }
             GUILayout.EndVertical();
+        }
+
+        private void Replace(UnityEngine.Object from, MonoScript to)
+        {
+            var target = from as MonoBehaviour;
+            var so = new SerializedObject(target);
+            so.Update();
+            so.FindProperty("m_Script").objectReferenceValue = to;
+            so.ApplyModifiedProperties();
         }
 
         private void Missing(params string[] files)

@@ -16,8 +16,6 @@ namespace UnityEditor.Game
 
         public static Object CreateFromTemplate(string path, string template)
         {
-            string extension = Path.GetExtension(path);
-
             string name = Path.GetFileNameWithoutExtension(path);
 
             string full = Path.GetFullPath(path);
@@ -34,12 +32,12 @@ namespace UnityEditor.Game
                 {
                     case null:
                         {
-                            source = "Editor/Game/Template/001_CS_UIPanel.txt";
+                            source = "Editor/Extra/Script/Template/001_CS_UIPanel.txt";
                         }
                         break;
                     default:
                         {
-                            source = "Editor/Game/Template/001_CS_UIPanel.txt";
+                            source = "Editor/Extra/Script/Template/001_CS_UIPanel.txt";
                         }
                         break;
                 }
@@ -82,7 +80,9 @@ namespace UnityEditor.Game
                 {
                     list[index++] = v.ToString();
                 }
-                if (list.AllExist(parameters)) return; 
+                if (list.AllExist(parameters)) return;
+
+                builder.AppendLine("// don't modify, this is auto editor!");
 
                 builder.AppendLine("namespace Game.UI");
 
