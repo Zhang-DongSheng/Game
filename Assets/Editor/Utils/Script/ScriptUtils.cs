@@ -1,5 +1,6 @@
 using Game;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace UnityEditor.Game
             }
             else
             {
-                string source = string.Empty;
+                string source = "Editor/Utils/Script/Template/001_CS_UIPanel.txt";
 
                 switch (template)
                 {
@@ -35,13 +36,7 @@ namespace UnityEditor.Game
                             source = "Editor/Utils/Script/Template/001_CS_UIPanel.txt";
                         }
                         break;
-                    default:
-                        {
-                            source = "Editor/Utils/Script/Template/001_CS_UIPanel.txt";
-                        }
-                        break;
                 }
-
                 try
                 {
                     source = string.Format("{0}/{1}", Application.dataPath, source);
@@ -64,56 +59,67 @@ namespace UnityEditor.Game
             }
         }
 
-        public static void Modify(Type script, params string[] parameters)
+        public static void ModifyEnum(Type script, params string[] parameters)
         {
+            if (!script.IsEnum) return;
+
+            if (parameters == null || parameters.Length == 0) return;
+
             StringBuilder builder = new StringBuilder();
 
-            if (script.IsEnum)
+            string key; int value = 0;
+
+            Dictionary<string, int> directory = new Dictionary<string, int>();
+
+            foreach (var e in Enum.GetValues(script))
             {
-                var array = Enum.GetValues(script);
+                key = e.ToString(); value = (int)e;
 
-                string[] list = new string[array.Length];
-
-                int index = 0;
-
-                foreach (var v in array)
+                if (directory.ContainsKey(key) || directory.ContainsValue(value))
                 {
-                    list[index++] = v.ToString();
+                    Debuger.LogError(Author.UI, "exist the same key!");
                 }
-                if (list.AllExist(parameters)) return;
-
-                builder.AppendLine("// don't modify, this is auto editor!");
-
-                builder.AppendLine("namespace Game.UI");
-
-                builder.AppendLine("{");
-
-                builder.Append("\tpublic enum ");
-
-                builder.AppendLine(script.Name);
-
-                builder.AppendLine("\t{");
-
-                foreach (var item in list)
+                else
                 {
-                    builder.Append("\t\t");
-                    builder.Append(item);
-                    builder.AppendLine(",");
+                    directory.Add(key, value);
                 }
-                // ×·¼ÓÔÚºó±ß
-                foreach (var item in parameters)
-                {
-                    if (list.Exist(item))
-                    {
-                        continue;
-                    }
-                    builder.Append("\t\t");
-                    builder.Append(item);
-                    builder.AppendLine(",");
-                }
-                builder.AppendLine("\t}");
-                builder.AppendLine("}");
             }
+            int length = parameters.Length;
+
+            for (int i = 0; i < length; i++)
+            {
+                if (directory.ContainsKey(parameters[i]))
+                {
+                    Debuger.LogError(Author.UI, "exist the same key!");
+                }
+                else
+                {
+                    directory.Add(parameters[i], ++value);
+                }
+            }
+            builder.AppendLine("// Don't modify, this is automatically generated");
+
+            builder.AppendLine("namespace Game.UI");
+
+            builder.AppendLine("{");
+
+            builder.Append("\tpublic enum ");
+
+            builder.AppendLine(script.Name);
+
+            builder.AppendLine("\t{");
+
+            foreach (var item in directory)
+            {
+                builder.Append("\t\t");
+                builder.Append(item.Key);
+                builder.Append(" = ");
+                builder.Append(item.Value);
+                builder.AppendLine(",");
+            }
+            builder.AppendLine("\t}");
+
+            builder.AppendLine("}");
 
             var path = Utility.Class.GetPath(script);
 
