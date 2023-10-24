@@ -1,4 +1,4 @@
- using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -20,8 +20,6 @@ namespace UnityEditor.Window
         private readonly Input inputShader = new Input();
 
         private readonly List<Object> assets = new List<Object>();
-
-        public override string Name => "Assets";
 
         public override void Initialise()
         {
@@ -412,5 +410,7 @@ namespace UnityEditor.Window
                 Debug.LogError(string.Format("{0} The code is super long", name), textAsset);
             }
         }
+
+        public override string Name => "Assets";
     }
 }

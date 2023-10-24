@@ -1,4 +1,6 @@
-﻿namespace Game
+﻿using System.Collections.Generic;
+
+namespace Game
 {
     public static partial class Utility
     {
@@ -29,6 +31,17 @@
                     return (T)System.Enum.Parse(typeof(T), key);
                 }
                 return default(T);
+            }
+
+            public static List<T> GetList<T>() where T : System.Enum
+            {
+                var list = new List<T>();
+
+                foreach (var e in System.Enum.GetValues(typeof(T)))
+                {
+                    list.Add((T)e);
+                }
+                return list;
             }
         }
     }

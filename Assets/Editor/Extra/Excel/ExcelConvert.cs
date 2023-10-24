@@ -90,7 +90,7 @@ namespace UnityEditor
 								}
 								break;
 							default:
-								value = Convert.ChangeType(table.Rows[i][j], field.FieldType);
+								value = System.Convert.ChangeType(table.Rows[i][j], field.FieldType);
 								break;
 						}
 						field.SetValue(target, value);

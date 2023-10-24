@@ -30,7 +30,7 @@ namespace Data
             {
                 try
                 {
-                    return (T)Convert.ChangeType(value, typeof(T));
+                    return (T)System.Convert.ChangeType(value, typeof(T));
                 }
                 catch
                 {

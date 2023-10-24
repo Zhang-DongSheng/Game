@@ -66,7 +66,7 @@ namespace Game
             {
                 _language = value;
 
-                if (GlobalVariables.Exists(Const.LANGUAGE) == false)
+                if (GlobalVariables.Get<Language>(Const.LANGUAGE) != value)
                 {
                     GlobalVariables.Set(Const.LANGUAGE, value);
                 }

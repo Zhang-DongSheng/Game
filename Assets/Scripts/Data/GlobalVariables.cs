@@ -104,7 +104,7 @@ namespace Data
 
         private static string Parse(object value)
         {
-            if (Convert.IsDBNull(value))
+            if (System.Convert.IsDBNull(value))
             {
                 return string.Empty;
             }
@@ -149,7 +149,7 @@ namespace Data
                     }
                     else if (typeof(T).IsValueType)
                     {
-                        return (T)Convert.ChangeType(value, typeof(T));
+                        return (T)System.Convert.ChangeType(value, typeof(T));
                     }
                     else if (typeof(T).Equals(typeof(string)))
                     {

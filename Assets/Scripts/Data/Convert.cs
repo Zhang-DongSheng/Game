@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Data
 {
-    public static class DataConvert
+    public static class Convert
     {
         public static byte[] Serialize<T>(T target) where T : class
         {

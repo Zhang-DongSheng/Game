@@ -17,8 +17,6 @@ namespace UnityEditor.Window
 
         private readonly Index indexMenu = new Index();
 
-        private List<ItemFile> list;
-
         private string[] _list;
 
         private ItemFile file;
@@ -26,6 +24,8 @@ namespace UnityEditor.Window
         private GameObject prefab;
 
         private Vector2 scroll = new Vector2();
+
+        private readonly List<ItemFile> items = new List<ItemFile>();
 
         private readonly List<Object> dependencies = new List<Object>();
 
@@ -35,35 +35,33 @@ namespace UnityEditor.Window
 
         private readonly ComponentInformation component = new ComponentInformation();
 
-        public override string Name => "Prefab";
-
         public override void Initialise()
         {
-            list.Clear();
+            items.Clear();
 
-            var prefabs = AssetDatabase.FindAssets("t:prefab");
+            var assets = AssetDatabase.FindAssets("t:prefab");
 
-            int count = prefabs.Length;
-
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < assets.Length; i++)
             {
-                list.Add(new ItemFile()
+                string path = AssetDatabase.GUIDToAssetPath(assets[i]);
+
+                items.Add(new ItemFile()
                 {
-                    name = Path.GetFileNameWithoutExtension(prefabs[i]),
-                    asset = prefabs[i],
+                    name = Path.GetFileNameWithoutExtension(path),
+                    asset = path,
                     order = 0,
                 });
             }
-            _list = new string[list.Count];
+            _list = new string[items.Count];
 
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < items.Count; i++)
             {
-                _list[i] = list[i].name;
+                _list[i] = items[i].name;
             }
 
             indexPrefab.action = (index) =>
             {
-                file = list[index];
+                file = items[index];
 
                 dependencies.Clear();
 
@@ -414,5 +412,7 @@ namespace UnityEditor.Window
                 Clear,
             }
         }
+
+        public override string Name => "Prefab";
     }
 }

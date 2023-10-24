@@ -32,12 +32,12 @@ namespace UnityEditor.Game
                 {
                     case null:
                         {
-                            source = "Editor/Extra/Script/Template/001_CS_UIPanel.txt";
+                            source = "Editor/Utils/Script/Template/001_CS_UIPanel.txt";
                         }
                         break;
                     default:
                         {
-                            source = "Editor/Extra/Script/Template/001_CS_UIPanel.txt";
+                            source = "Editor/Utils/Script/Template/001_CS_UIPanel.txt";
                         }
                         break;
                 }

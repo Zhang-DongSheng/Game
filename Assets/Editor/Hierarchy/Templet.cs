@@ -1,3 +1,4 @@
+using Game;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,16 +6,19 @@ namespace UnityEditor.Hierarchy
 {
     class Templet
     {
-        protected const string UIMENU = "GameObject/UI/Extension/";
-        #region UGUI
-        [MenuItem(UIMENU + "Button/AlphaButton")]
+        protected const string EXTENSION = "GameObject/UI/Extension/";
+
+        protected const string TEMPLATE = "GameObject/UI/Templet/";
+
+        #region UGUI Extension
+        [MenuItem(EXTENSION + "Button/AlphaButton")]
         protected static void CreateAlphaButton()
         {
             GameObject go = CreateGameObject("AlphaButton", true);
 
             var component = go.AddComponent<AlphaButton>();
         }
-        [MenuItem(UIMENU + "Button/ButtonPro")]
+        [MenuItem(EXTENSION + "Button/ButtonPro")]
         protected static void CreateButtonPro()
         {
             GameObject go = CreateGameObject("ButtonPro", true);
@@ -25,84 +29,84 @@ namespace UnityEditor.Hierarchy
 
             var component = go.AddComponent<ButtonPro>();
         }
-        [MenuItem(UIMENU + "Button/CodeButton")]
+        [MenuItem(EXTENSION + "Button/CodeButton")]
         protected static void CreateCodeButton()
         {
             GameObject go = CreateGameObject("CodeButton", true);
 
             var component = go.AddComponent<CodeButton>();
         }
-        [MenuItem(UIMENU + "Button/EmptyButton")]
+        [MenuItem(EXTENSION + "Button/EmptyButton")]
         protected static void CreateEmptyButton()
         {
             GameObject go = CreateGameObject("EmptyButton", true);
 
             var component = go.AddComponent<EmptyButton>();
         }
-        [MenuItem(UIMENU + "Button/PolygonImageButton")]
+        [MenuItem(EXTENSION + "Button/PolygonImageButton")]
         protected static void CreatePolygonImageButton()
         {
             GameObject go = CreateGameObject("PolygonImageButton", true);
 
             var component = go.AddComponent<PolygonImageButton>();
         }
-        [MenuItem(UIMENU + "Button/PolygonSpriteButton")]
+        [MenuItem(EXTENSION + "Button/PolygonSpriteButton")]
         protected static void CreatePolygonSpriteButton()
         {
             GameObject go = CreateGameObject("PolygonSpriteButton", true);
 
             var component = go.AddComponent<PolygonSpriteButton>();
         }
-        [MenuItem(UIMENU + "Graphic/Circle/Circle")]
+        [MenuItem(EXTENSION + "Graphic/Circle/Circle")]
         protected static void CreateCircleCircle()
         {
             GameObject go = CreateGameObject("Circle", true);
 
             var component = go.AddComponent<Circle>();
         }
-        [MenuItem(UIMENU + "Graphic/Circle/CirclePro")]
+        [MenuItem(EXTENSION + "Graphic/Circle/CirclePro")]
         protected static void CreateCircleCirclePro()
         {
             GameObject go = CreateGameObject("CirclePro", true);
 
             var component = go.AddComponent<CirclePro>();
         }
-        [MenuItem(UIMENU + "Graphic/Circle/Squircle")]
+        [MenuItem(EXTENSION + "Graphic/Circle/Squircle")]
         protected static void CreateCircleSquircle()
         {
             GameObject go = CreateGameObject("Squircle", true);
 
             var component = go.AddComponent<Squircle>();
         }
-        [MenuItem(UIMENU + "Graphic/Polygon")]
+        [MenuItem(EXTENSION + "Graphic/Polygon")]
         protected static void CreatePolygon()
         {
             GameObject go = CreateGameObject("Polygon", true);
 
             var component = go.AddComponent<Polygon>();
         }
-        [MenuItem(UIMENU + "Graphic/Curve")]
+        [MenuItem(EXTENSION + "Graphic/Curve")]
         protected static void CreateGraphicCurve()
         {
             GameObject go = CreateGameObject("GraphicCurve", true);
 
             var component = go.AddComponent<GraphicCurve>();
         }
-        [MenuItem(UIMENU + "Graphic/Gradient")]
+        [MenuItem(EXTENSION + "Graphic/Gradient")]
         protected static void CreateGraphicGradient()
         {
             GameObject go = CreateGameObject("GraphicGradient", true);
 
             var component = go.AddComponent<GraphicColorMixed>();
         }
-        [MenuItem(UIMENU + "Graphic/Mirror")]
+        [MenuItem(EXTENSION + "Graphic/Mirror")]
         protected static void CreateGraphicMirror()
         {
             GameObject go = CreateGameObject("GraphicMirror", true);
 
             var component = go.AddComponent<GraphicMirror>();
         }
-        [MenuItem(UIMENU + "Image/Fade")]
+        [MenuItem(EXTENSION + "Image/Fade")]
         protected static void CreateImageFade()
         {
             GameObject go = CreateGameObject("ImageFade", true);
@@ -110,49 +114,49 @@ namespace UnityEditor.Hierarchy
             var component = go.AddComponent<ImageFade>();
         }
 
-        [MenuItem(UIMENU + "Scroll/InfiniteLoopScrollList")]
+        [MenuItem(EXTENSION + "Scroll/InfiniteLoopScrollList")]
         protected static void CreateInfiniteLoopScrollList()
         {
             GameObject go = CreateGameObject("InfiniteLoopScrollList", true);
 
             var component = go.AddComponent<InfiniteLoopScrollList>();
         }
-        [MenuItem(UIMENU + "Slider/SliderHelper")]
+        [MenuItem(EXTENSION + "Slider/SliderHelper")]
         protected static void CreateSliderHelper()
         {
             GameObject go = CreateGameObject("SliderHelper", true);
 
             var component = go.AddComponent<SliderHelper>();
         }
-        [MenuItem(UIMENU + "Toggle/ToggleDrag")]
+        [MenuItem(EXTENSION + "Toggle/ToggleDrag")]
         protected static void CreateToggleDrag()
         {
             GameObject go = CreateGameObject("ToggleDrag", true);
 
             var component = go.AddComponent<ToggleDrag>();
         }
-        [MenuItem(UIMENU + "Toggle/ToggleGroupHelper")]
+        [MenuItem(EXTENSION + "Toggle/ToggleGroupHelper")]
         protected static void CreateToggleGroupHelper()
         {
             GameObject go = CreateGameObject("ToggleDrag", true);
 
             var component = go.AddComponent<ToggleGroupHelper>();
         }
-        [MenuItem(UIMENU + "Range/Number")]
+        [MenuItem(EXTENSION + "Range/Number")]
         protected static void CreateRangeNumber()
         {
             GameObject go = CreateGameObject("RangeNumber", true);
 
             var component = go.AddComponent<RangeNumber>();
         }
-        [MenuItem(UIMENU + "Range/Panel")]
+        [MenuItem(EXTENSION + "Range/Panel")]
         protected static void CreateRangePanel()
         {
             GameObject go = CreateGameObject("RangePanel", true);
 
             var component = go.AddComponent<RangePlane>();
         }
-        [MenuItem(UIMENU + "Particle/UIParticle")]
+        [MenuItem(EXTENSION + "Particle/UIParticle")]
         protected static void CreateUIParticle()
         {
             GameObject go = CreateGameObject("Particle", true);
@@ -160,11 +164,26 @@ namespace UnityEditor.Hierarchy
             var component = go.AddComponent<UIParticleSystem>();
         }
         #endregion
+
+        #region Template
+        [MenuItem(TEMPLATE + "Background")]
+        public static GameObject CreateBackground()
+        {
+            var background = CreateGameObject("background", true);
+
+            var imgage = background.AddComponent<Image>();
+
+            imgage.color = new Color(0, 0, 0, 0.8f);
+
+            imgage.rectTransform.SetFull();
+
+            return background;
+        }
+        #endregion
+
         private static GameObject CreateGameObject(string name, bool ugui = false)
         {
             GameObject go = new GameObject(name);
-
-            Selection.activeGameObject = go;
 
             go.transform.SetParent(Parent(ugui));
 
@@ -175,6 +194,8 @@ namespace UnityEditor.Hierarchy
             go.transform.localScale = Vector3.one;
 
             go.layer = ugui ? 5 : 0;
+
+            Selection.activeGameObject = go;
 
             if (ugui)
             {

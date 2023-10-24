@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7928f5da8c124494f9cc7aa1cba0191b, type: 3}
   m_Name: DataCommodity
   m_EditorClassIdentifier: 
+  commodities:
+  - primary: 0
+  - primary: 0

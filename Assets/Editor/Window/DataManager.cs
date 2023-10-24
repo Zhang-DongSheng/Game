@@ -141,6 +141,10 @@ namespace UnityEditor.Window
             }
         }
 
+        #region Config
+
+        #endregion
+
         #region Loading
         private void Create(Type type)
         {
@@ -158,11 +162,11 @@ namespace UnityEditor.Window
         {
             if (type == typeof(DataConfig))
             {
-                LoadConfig();
+                Loading<DataConfig>("config.json");
             }
             else if (type == typeof(DataLanguage))
             {
-                LoadLanguage();
+                Loading<DataLanguage>("language.json");
             }
             else if (type == typeof(DataSprite))
             {
@@ -174,15 +178,15 @@ namespace UnityEditor.Window
             }
             else if (type == typeof(DataProp))
             {
-                LoadProp();
+                Loading<DataProp>("prop.json");
             }
             else if (type == typeof(DataCommodity))
             {
-                LoadCommodity();
+                Loading<DataCommodity>("commodity.json");
             }
             else if (type == typeof(DataTask))
             {
-                LoadTask();
+                Loading<DataTask>("task.json");
             }
             else
             {
@@ -191,38 +195,9 @@ namespace UnityEditor.Window
             Reloading();
         }
 
-        private void LoadConfig()
-        {
-            string path = string.Format("{0}/{1}", source, "config.json");
-
-            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
-
-            Debug.Assert(asset != null, string.Format("{0} is null", path));
-
-            if (asset == null) return;
-
-            string content = asset.text;
-
-            if (string.IsNullOrEmpty(content)) return;
-
-            DataConfig data = Load<DataConfig>();
-
-            Debug.Assert(data != null, "����DBΪ��");
-
-            if (data == null) return;
-
-            data.Set(content);
-
-            Save(data);
-        }
-
         private void LoadUI()
         {
             DataUI data = Load<DataUI>();
-
-            Debug.Assert(data != null, "UI DBΪ��");
-
-            if (data == null) return;
 
             data.list = new List<UIInformation>();
 
@@ -257,31 +232,6 @@ namespace UnityEditor.Window
                         break;
                 }
             }
-            Save(data);
-        }
-
-        private void LoadLanguage()
-        {
-            string path = string.Format("{0}/{1}", source, "language.json");
-
-            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
-
-            Debug.Assert(asset != null, string.Format("{0} is null", path));
-
-            if (asset == null) return;
-
-            string content = asset.text;
-
-            if (string.IsNullOrEmpty(content)) return;
-
-            DataLanguage data = Load<DataLanguage>();
-
-            Debug.Assert(data != null, "������DBΪ��");
-
-            if (data == null) return;
-
-            data.Set(content);
-
             Save(data);
         }
 
@@ -333,9 +283,9 @@ namespace UnityEditor.Window
             Save(data);
         }
 
-        private void LoadProp()
+        private void Loading<T>(string source) where T : DataBase
         {
-            string path = string.Format("{0}/{1}", source, "prop.json");
+            string path = string.Format("Assets/Art/Excel/{0}", source);
 
             var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
 
@@ -347,57 +297,9 @@ namespace UnityEditor.Window
 
             if (string.IsNullOrEmpty(content)) return;
 
-            DataProp data = Load<DataProp>();
+            T data = Load<T>();
 
-            Debug.Assert(data != null, "����DBΪ��");
-
-            if (data == null) return;
-
-            data.Set(content);
-            Save(data);
-        }
-
-        private void LoadCommodity()
-        {
-            string path = string.Format("{0}/{1}", source, "commodity.json");
-
-            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
-
-            Debug.Assert(asset != null, string.Format("{0} is null", path));
-
-            if (asset == null) return;
-
-            string content = asset.text;
-
-            if (string.IsNullOrEmpty(content)) return;
-
-            DataCommodity data = Load<DataCommodity>();
-
-            Debug.Assert(data != null, "��ƷDBΪ��");
-
-            if (data == null) return;
-
-            data.Set(content);
-            Save(data);
-        }
-
-        private void LoadTask()
-        {
-            string path = string.Format("{0}/{1}", source, "task.json");
-
-            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
-
-            Debug.Assert(asset != null, string.Format("{0} is null", path));
-
-            if (asset == null) return;
-
-            string content = asset.text;
-
-            if (string.IsNullOrEmpty(content)) return;
-
-            DataTask data = Load<DataTask>();
-
-            Debug.Assert(data != null, "����DBΪ��");
+            Debug.Assert(data != null, string.Format("Load DB_{0} error", typeof(T).Name));
 
             if (data == null) return;
 
