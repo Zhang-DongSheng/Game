@@ -65,6 +65,7 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             Release();
         }
+        _instance = null;
     }
 
     private void OnDestroy()

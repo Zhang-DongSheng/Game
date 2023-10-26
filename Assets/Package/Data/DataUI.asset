@@ -90,14 +90,14 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIActivity.prefab
     destroy: 0
-  - panel: 111
+  - panel: 1
     layer: 2
     type: 1
     name: UISetting
     order: 0
     path: Package/Prefab/UI/Panel/UISetting.prefab
     destroy: 0
-  - panel: 112
+  - panel: 10
     layer: 2
     type: 1
     name: UITask
@@ -166,4 +166,11 @@ MonoBehaviour:
     name: UISettlement
     order: 0
     path: Package/Prefab/UI/Panel/UISettlement.prefab
+    destroy: 0
+  - panel: 4
+    layer: 2
+    type: 1
+    name: UITitle
+    order: 0
+    path: Package/Prefab/UI/Panel/UITitle.prefab
     destroy: 0

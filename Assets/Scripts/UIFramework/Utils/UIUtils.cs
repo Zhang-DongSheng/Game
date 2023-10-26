@@ -1,3 +1,4 @@
+using Game.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,26 @@ namespace UnityEngine.UI
 {
     public class UIUtils
     {
-        public bool ScreentPointToUGUIPosition(Canvas canvas, RectTransform parent, Vector2 point, out Vector2 position)
+        public static Vector2 ScreentPointToUGUIPosition(Vector2 position)
+        {
+            position.x -= UIDefine.ScreenHalfWidth;
+
+            position.y -= UIDefine.ScreenHalfHeight;
+
+            position.x *= UIDefine.ScreenWidthRatio;
+
+            position.y *= UIDefine.ScreenHeightRatio;
+
+            return position;
+        }
+
+        public static bool ScreenPointToLocalPointInRectangle(Canvas canvas, RectTransform parent, Vector2 point, out Vector2 position)
         {
             if (canvas == null)
             {
                 position = Vector2.zero; return false;
             }
+            // Unity API
             if (canvas.renderMode == RenderMode.ScreenSpaceCamera && canvas.worldCamera != null)
             {
                 return RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, point, canvas.worldCamera, out position);

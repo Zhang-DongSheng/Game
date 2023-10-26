@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Game.State
 {
-    public class GameStateController : Singleton<GameStateController>
+    public sealed class GameStateController : Singleton<GameStateController>
     {
         private readonly List<IGameState> _states = new List<IGameState>();
 
-        public IGameState Current { get; private set; }
+        public IGameState current { get; private set; }
 
         public void Init()
         {
@@ -17,21 +17,21 @@ namespace Game.State
 
         public void EnterState<T>() where T : IGameState
         {
-            if (Current != null)
+            if (current != null)
             {
-                if (Current.GetType() == typeof(T)) return;
+                if (current.GetType() == typeof(T)) return;
 
-                Current.OnExit();
+                current.OnExit();
 
-                Current = GetState<T>();
+                current = GetState<T>();
 
-                Current.OnEnter();
+                current.OnEnter();
             }
             else
             {
-                Current = GetState<T>();
+                current = GetState<T>();
 
-                Current.OnEnter();
+                current.OnEnter();
             }
         }
 

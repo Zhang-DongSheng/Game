@@ -33,17 +33,24 @@ namespace Game
 
             OnVisible(false);
         }
-
+        /// <summary>
+        /// 唤醒
+        /// </summary>
         protected virtual void OnAwake()
         {
 
         }
-
+        /// <summary>
+        /// 注册事件
+        /// </summary>
         protected virtual void OnRegister()
         {
             
         }
-
+        /// <summary>
+        /// 显示隐藏
+        /// </summary>
+        /// <param name="active">显隐</param>
         protected virtual void OnVisible(bool active)
         { 
             
@@ -63,17 +70,23 @@ namespace Game
         {
 
         }
-
+        /// <summary>
+        /// 低内存
+        /// </summary>
         protected virtual void OnLowMemory(float delta)
         {
 
         }
-
+        /// <summary>
+        /// 注销事件
+        /// </summary>
         protected virtual void OnUnregister()
         {
             
         }
-
+        /// <summary>
+        /// 释放
+        /// </summary>
         protected virtual void OnRelease()
         {
             

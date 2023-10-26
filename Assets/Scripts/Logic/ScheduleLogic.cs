@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class ScheduleLogic : Singleton<ScheduleLogic>, ILogic
+    public class ScheduleLogic : Singleton<ScheduleLogic>
     {
         private readonly List<ScheduleData> schedule = new List<ScheduleData>();
 
@@ -18,11 +18,6 @@ namespace Game
             Ready();
 
             Begin();
-        }
-
-        public void Release()
-        {
-
         }
 
         public void Enter()

@@ -23,6 +23,10 @@ namespace Game.UI
             {
                 CanvasScaler scale = canvas.GetComponent<CanvasScaler>();
 
+                var resolution = new Vector2(UIDefine.ResolutionWidth, UIDefine.ResolutionHeight);
+
+                scale.referenceResolution = resolution;
+
                 if (UIDefine.ScreenRatio > UIDefine.ResolutionRatio)
                 {
                     scale.matchWidthOrHeight = 1;

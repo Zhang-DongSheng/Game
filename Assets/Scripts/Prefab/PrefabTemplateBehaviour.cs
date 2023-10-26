@@ -3,10 +3,18 @@ namespace UnityEngine
     /// <summary>
     /// 预制体实例组件
     /// </summary>
-    [DisallowMultipleComponent]
+    [ExecuteInEditMode, DisallowMultipleComponent]
     public class PrefabTemplateBehaviour : MonoBehaviour
     {
         public PrefabTemplate template;
+
+        private void Awake()
+        {
+            if (template == null)
+                template = new PrefabTemplate();
+            if (template.parent == null)
+                template.parent = transform;
+        }
 
         public GameObject Create()
         {

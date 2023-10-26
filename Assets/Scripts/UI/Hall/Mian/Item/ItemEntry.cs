@@ -1,3 +1,4 @@
+using Game.State;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,13 +28,23 @@ namespace Game.UI
 
         protected virtual void OnClick()
         {
-            if (panel == UIPanel.None)
+            switch (panel)
             {
-                UIQuickEntry.OpenUINotice("新功能开发中！敬请期待");
-            }
-            else
-            {
-                UIQuickEntry.Open(panel);
+                case UIPanel.None:
+                    {
+                        UIQuickEntry.OpenUINotice("新功能开发中！敬请期待");
+                    }
+                    break;
+                case UIPanel.UIDeploy:
+                    {
+                        GameStateController.Instance.EnterState<GameDeployState>();
+                    }
+                    break;
+                default:
+                    {
+                        UIQuickEntry.Open(panel);
+                    }
+                    break;
             }
         }
     }
