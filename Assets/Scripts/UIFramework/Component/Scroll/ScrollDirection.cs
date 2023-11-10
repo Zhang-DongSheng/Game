@@ -42,7 +42,7 @@ namespace UnityEngine.UI
             {
                 // 内容小于空间大小，就在起始位置
             }
-            else if (index == 1)
+            else if (index == 0)
             {
                 // 第一个奖励就在起点不动了
             }
