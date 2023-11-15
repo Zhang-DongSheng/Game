@@ -30,6 +30,8 @@ namespace UnityEngine.UI
         {
             scroll = GetComponent<ScrollRect>();
 
+            scroll.decelerationRate = 0;
+
             scroll.horizontal = true;
         }
 
@@ -41,14 +43,14 @@ namespace UnityEngine.UI
             {
                 case Status.Move:
                     {
-                        progress += Time.deltaTime * scroll.elasticity;
+                        progress += Time.deltaTime * scroll.scrollSensitivity;
+
+                        position.x = Mathf.Lerp(position.x, destination.x, progress);
 
                         if (progress > 1)
                         {
-                            status = Status.Complete;
+                            position.x = destination.x; status = Status.Complete;
                         }
-                        position.x = Mathf.Lerp(position.x, destination.x, progress);
-
                         scroll.content.anchoredPosition = position;
                     }
                     break;
@@ -58,7 +60,7 @@ namespace UnityEngine.UI
             }
         }
 
-        private IEnumerator FixedPosition(int index)
+        private IEnumerator FixedPosition(int index, bool immediately)
         {
             yield return new WaitForEndOfFrame();
 
@@ -95,7 +97,18 @@ namespace UnityEngine.UI
 
             progress = 0;
 
-            status = Status.Move;
+            if (immediately)
+            {
+                position.x = destination.x;
+
+                scroll.content.anchoredPosition = position;
+
+                status = Status.Complete;
+            }
+            else
+            {
+                status = Status.Move;
+            }
         }
         [ContextMenu("ÉÏÒ»¸ö")]
         public void Prev()
@@ -122,7 +135,20 @@ namespace UnityEngine.UI
 
             if (index >= count) return;
 
-            StartCoroutine(FixedPosition(index));
+            onValueChanged?.Invoke(index);
+
+            StartCoroutine(FixedPosition(index, false));
+        }
+
+        public void DirectionImmediately(int index)
+        {
+            int count = scroll.content.childCount;
+
+            if (index >= count) return;
+
+            onValueChanged?.Invoke(index);
+
+            StartCoroutine(FixedPosition(index, true));
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -156,7 +182,7 @@ namespace UnityEngine.UI
         }
 
         enum Status
-        { 
+        {
             Idle,
             Move,
             Complete,
