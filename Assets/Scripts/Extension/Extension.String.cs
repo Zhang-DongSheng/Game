@@ -57,7 +57,7 @@ namespace Game
 
                 if (i >= index && count-- > 0)
                 {
-                    if (value > 96 && value < 123)
+                    if (value >= Utility.ASCii.LOWERCASEMIN && value <= Utility.ASCii.LOWERCASEMAX)
                     {
                         value = Convert.ToChar(value - 32);
                     }
@@ -81,7 +81,7 @@ namespace Game
 
                 if (i >= index && count-- > 0)
                 {
-                    if (value > 64 && value < 91)
+                    if (value >= Utility.ASCii.UPPERCASEMIN && value <= Utility.ASCii.UPPERCASEMAX)
                     {
                         value = Convert.ToChar(value + 32);
                     }

@@ -1,5 +1,6 @@
 ﻿using Game.Attribute;
 using Game.Resource;
+using ILRuntime.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,7 +40,9 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            
+            string value = paramters[0];
+
+            Debug.LogError(Utility.String.GetFloat(value));
         }
         /// <summary>
         /// 点击测试
