@@ -172,6 +172,33 @@ namespace Game
                 }
                 return value;
             }
+            /// <summary>
+            /// Çó½ø¶È
+            /// </summary>
+            public static float Progress(float min, float max, float value)
+            {
+                if (max > min)
+                {
+                    if (value <= min)
+                    {
+                        return 0;
+                    }
+                    else if (value >= max)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        value -= min;
+
+                        return value / (max - min);
+                    }
+                }
+                else
+                {
+                    return -1;
+                }
+            }
         }
     }
 }

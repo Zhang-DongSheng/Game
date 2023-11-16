@@ -135,13 +135,6 @@ namespace UnityEditor.Hierarchy
 
             var component = go.AddComponent<ToggleDrag>();
         }
-        [MenuItem(EXTENSION + "Toggle/ToggleGroupHelper")]
-        protected static void CreateToggleGroupHelper()
-        {
-            GameObject go = CreateGameObject("ToggleDrag", true);
-
-            var component = go.AddComponent<ToggleGroupHelper>();
-        }
         [MenuItem(EXTENSION + "Range/Number")]
         protected static void CreateRangeNumber()
         {
