@@ -4,14 +4,15 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    [DisallowMultipleComponent, RequireComponent(typeof(Text))]
+    [DisallowMultipleComponent]
+    [RequireComponent(typeof(Text))]
     public class TextBind : MonoBehaviour
     {
         [SerializeField] private string content;
 
-        [SerializeField] private bool language = true;
+        private Text _component;
 
-        private Text _text;
+        private string _content;
 
         private void Awake()
         {
@@ -23,52 +24,62 @@ namespace Game.UI
             EventManager.Unregister(EventKey.Language, OnLanguageChange);
         }
 
+        private void OnEnable()
+        {
+            SetText(content, false);
+        }
+
         private void OnValidate()
         {
-            SetText(content, language);
+            SetText(content, false);
         }
 
         private void OnLanguageChange(EventMessageArgs args)
         {
-            SetText(content, language);
+            SetText(content, true);
         }
 
-        public void SetText(string content, bool language = true)
+        public void SetText(string content, bool force = false)
         {
-            if (this.content == content && this.language == language) return;
+            if (string.IsNullOrEmpty(content)) return;
 
-            this.content = content;
+            if (_content == content && !force) return;
 
-            this.language = language;
+            _content = content;
 
-            if (_text == null)
-                _text = GetComponent<Text>();
-            //  «∑Ò «∂‡”Ô—‘
-            if (language)
-            {
-                _text.SetText(LanguageManager.Instance.Get(content));
-            }
-            else
-            {
-                _text.SetText(content);
-            }
+            if (_component == null)
+                _component = GetComponent<Text>();
+            _component.SetText(LanguageManager.Instance.Get(content));
         }
 
         public void SetText(int value)
         {
-            SetText(value.ToString(), false);
+            SetTextImmediately(value.ToString());
         }
 
         public void SetText(float value, int digits = -1)
         {
             if (digits > -1)
             {
-                SetText(string.Format("{0}", Math.Round(value, digits)), false);
+                SetTextImmediately(string.Format("{0}", Math.Round(value, digits)));
             }
             else
             {
-                SetText(string.Format("{0}", value), false);
+                SetTextImmediately(string.Format("{0}", value));
             }
+        }
+
+        public void SetTextImmediately(string content)
+        {
+            this.content = string.Empty;
+
+            if (_content == content) return;
+
+            _content = content;
+
+            if (_component == null)
+                _component = GetComponent<Text>();
+            _component.SetText(content);
         }
     }
 }

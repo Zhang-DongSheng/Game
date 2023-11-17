@@ -109,6 +109,7 @@ namespace Game
                 case Schedule.Hotfix:
                     {
                         IFixLogic.Instance.Initialize();
+
                         ILRuntimeLogic.Instance.Initialize();
                     }
                     break;

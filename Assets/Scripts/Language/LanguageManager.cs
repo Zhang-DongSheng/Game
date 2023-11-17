@@ -5,70 +5,52 @@ namespace Game
 {
     public class LanguageManager : Singleton<LanguageManager>
     {
-        private Dictionary dictionary;
+        private LanguageInformation information;
 
-        public Language language { get; private set; }
+        private Language language;
 
         public void Initialize()
         {
             language = GlobalVariables.Get<Language>(Const.LANGUAGE);
 
+            Load(language, false);
+
             ScheduleLogic.Instance.Update(Schedule.Language);
         }
 
-        public string Get(string key)
-        {
-            if (dictionary != null)
-            {
-                return dictionary.Get(key);
-            }
-            else
-            {
-                Load(language, false);
-
-                if (dictionary != null)
-                {
-                    return dictionary.Get(key);
-                }
-                else
-                {
-                    return key;
-                }
-            }
-        }
-
-        public string GetByParameter(string key, params object[] parameters)
-        {
-            if (dictionary != null)
-            {
-                return string.Format(dictionary.Get(key), parameters);
-            }
-            else
-            {
-                Load(language, false);
-
-                if (dictionary != null)
-                {
-                    return string.Format(dictionary.Get(key), parameters);
-                }
-                else
-                {
-                    return string.Format(key, parameters);
-                }
-            }
-        }
-
-        public void Switch(Language language)
+        public void Refresh(Language language)
         {
             if (this.language == language) return;
 
             this.language = language;
 
-            Load(language, true);
-
             GlobalVariables.Set(Const.LANGUAGE, language);
 
-            EventManager.Post(EventKey.Language);
+            Load(language, true);
+        }
+
+        public string Get(string key)
+        {
+            if (information != null)
+            {
+                return information.dictionary.Get(key);
+            }
+            else
+            {
+                return key;
+            }
+        }
+
+        public string GetByParameter(string key, params object[] parameters)
+        {
+            if (information != null)
+            {
+                return string.Format(information.dictionary.Get(key), parameters);
+            }
+            else
+            {
+                return string.Format(key, parameters);
+            }
         }
 
         private void Load(Language language, bool async)
@@ -77,15 +59,32 @@ namespace Game
             {
                 DataManager.Instance.LoadAsync<DataLanguage>((asset) =>
                 {
-                    dictionary = asset.Get(language);
+                    if (asset != null)
+                    {
+                        information = asset.Get(language);
+                    }
+                    else
+                    {
+                        Debuger.LogError(Author.Data, "Language Data is Error");
+                    }
+                    EventManager.Post(EventKey.Language);
                 });
             }
             else
             {
                 var asset = DataManager.Instance.Load<DataLanguage>();
 
-                dictionary = asset.Get(language);
+                if (asset != null)
+                {
+                    information = asset.Get(language);
+                }
+                else
+                {
+                    Debuger.LogError(Author.Data, "Language Data is Error");
+                }
             }
         }
+
+        public Language Language { get { return language; } }
     }
 }

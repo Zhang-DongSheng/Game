@@ -12,124 +12,148 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7613810cd08e98443966b91223b79ba2, type: 3}
   m_Name: DataLanguage
   m_EditorClassIdentifier: 
-  dictionaries:
+  languages:
   - language: 0
-    icon: 
+    icon: language_chinese
     font: 
-    words:
-    - key: 10001
-      value: "\u786E\u8BA4"
-    - key: 10002
-      value: "\u53D6\u6D88"
-    - key: 10003
-      value: "\u8FD4\u56DE"
-    - key: 10004
-      value: "\u672A\u5B8C\u6210"
-    - key: 10005
-      value: "\u5DF2\u5B8C\u6210"
-    - key: 10006
-      value: "\u53EF\u9886\u53D6"
-    - key: 10007
-      value: "\u5DF2\u9886\u53D6"
-    - key: 10008
-      value: "\u8FDB\u5165"
-    - key: 10009
-      value: "\u9000\u51FA"
-    - key: 10101
-      value: "\u4ED3\u5E93"
-    - key: 10102
-      value: "\u90AE\u4EF6"
-    - key: 10103
-      value: "\u6D3B\u52A8"
-    - key: 10104
-      value: "\u5546\u5E97"
-    - key: 10105
-      value: "\u8BBE\u7F6E"
-    - key: 10106
-      value: "\u6218\u6597"
-    - key: 10201
-      value: "\u91D1\u5E01"
-    - key: 10202
-      value: "\u94BB\u77F3"
-    - key: 10203
-      value: "\u4EE3\u5E01"
+    url: 
+    dictionary:
+      words:
+      - key: 10001
+        value: "\u786E\u8BA4"
+      - key: 10002
+        value: "\u53D6\u6D88"
+      - key: 10003
+        value: "\u8FD4\u56DE"
+      - key: 10004
+        value: "\u672A\u5B8C\u6210"
+      - key: 10005
+        value: "\u5DF2\u5B8C\u6210"
+      - key: 10006
+        value: "\u53EF\u9886\u53D6"
+      - key: 10007
+        value: "\u5DF2\u9886\u53D6"
+      - key: 10008
+        value: "\u8FDB\u5165"
+      - key: 10009
+        value: "\u9000\u51FA"
+      - key: 10101
+        value: "\u4ED3\u5E93"
+      - key: 10102
+        value: "\u90AE\u4EF6"
+      - key: 10103
+        value: "\u6D3B\u52A8"
+      - key: 10104
+        value: "\u5546\u5E97"
+      - key: 10105
+        value: "\u8BBE\u7F6E"
+      - key: 10106
+        value: "\u4EFB\u52A1"
+      - key: 10107
+        value: "\u961F\u5217"
+      - key: 10108
+        value: "\u65B0"
+      - key: 10109
+        value: "\u6218\u6597"
+      - key: 10201
+        value: "\u91D1\u5E01"
+      - key: 10202
+        value: "\u94BB\u77F3"
+      - key: 10203
+        value: "\u4EE3\u5E01"
   - language: 1
-    icon: 
+    icon: language_english
     font: 
-    words:
-    - key: 10001
-      value: Confirm
-    - key: 10002
-      value: Cancel
-    - key: 10003
-      value: Back
-    - key: 10004
-      value: Undone
-    - key: 10005
-      value: Done
-    - key: 10006
-      value: Available
-    - key: 10007
-      value: Claimed
-    - key: 10008
-      value: Enter
-    - key: 10009
-      value: Exit
-    - key: 10101
-      value: Warehouse
-    - key: 10102
-      value: Mail
-    - key: 10103
-      value: Activity
-    - key: 10104
-      value: Store
-    - key: 10105
-      value: Setting
-    - key: 10106
-      value: Fighting
-    - key: 10201
-      value: Gold
-    - key: 10202
-      value: Diamond
-    - key: 10203
-      value: Coin
+    url: 
+    dictionary:
+      words:
+      - key: 10001
+        value: Confirm
+      - key: 10002
+        value: Cancel
+      - key: 10003
+        value: Back
+      - key: 10004
+        value: Undone
+      - key: 10005
+        value: Done
+      - key: 10006
+        value: Available
+      - key: 10007
+        value: Claimed
+      - key: 10008
+        value: Enter
+      - key: 10009
+        value: Exit
+      - key: 10101
+        value: Warehouse
+      - key: 10102
+        value: Mail
+      - key: 10103
+        value: Activity
+      - key: 10104
+        value: Store
+      - key: 10105
+        value: Setting
+      - key: 10106
+        value: Task
+      - key: 10107
+        value: List
+      - key: 10108
+        value: New
+      - key: 10109
+        value: Fighting
+      - key: 10201
+        value: Gold
+      - key: 10202
+        value: Diamond
+      - key: 10203
+        value: Coin
   - language: 2
-    icon: 
+    icon: language_japanese
     font: 
-    words:
-    - key: 10001
-      value: "\u8A8D\u3081\u308B"
-    - key: 10002
-      value: "\u53D6\u6D88\u3057"
-    - key: 10003
-      value: "\u5E30\u308B\uFF0E\u623B\u308B"
-    - key: 10004
-      value: "\u672A\u5B8C\u6210"
-    - key: 10005
-      value: "\u5DF2\u5B8C\u6210"
-    - key: 10006
-      value: "\u3046\u3051\u3068\u308C\u308B"
-    - key: 10007
-      value: "\u5DF2\u9886\u53D6"
-    - key: 10008
-      value: "\u5165\u308B\uFF0E\u9032\u51FA\u3059\u308B"
-    - key: 10009
-      value: "\u7ACB\u3061\u53BB\u308B"
-    - key: 10101
-      value: "\u5009\u5EAB "
-    - key: 10102
-      value: "\u90F5\u4FBF\u7269"
-    - key: 10103
-      value: "\u524D\u591C\u796D"
-    - key: 10104
-      value: "\u5E97"
-    - key: 10105
-      value: "\u5099\u3048\u4ED8\u3051"
-    - key: 10106
-      value: "\u6226\u95D8\u3059\u308B\uFF0E\u6226\u3046"
-    - key: 10201
-      value: "\u91D1\u8CA8 "
-    - key: 10202
-      value: "\u30C0\u30A4\u30E4 "
-    - key: 10203
-      value: "\u3057\u308B\u3057 "
+    url: 
+    dictionary:
+      words:
+      - key: 10001
+        value: "\u8A8D\u3081\u308B"
+      - key: 10002
+        value: "\u53D6\u6D88\u3057"
+      - key: 10003
+        value: "\u5E30\u308B\uFF0E\u623B\u308B"
+      - key: 10004
+        value: "\u672A\u5B8C\u6210"
+      - key: 10005
+        value: "\u5DF2\u5B8C\u6210"
+      - key: 10006
+        value: "\u3046\u3051\u3068\u308C\u308B"
+      - key: 10007
+        value: "\u5DF2\u9886\u53D6"
+      - key: 10008
+        value: "\u5165\u308B\uFF0E\u9032\u51FA\u3059\u308B"
+      - key: 10009
+        value: "\u7ACB\u3061\u53BB\u308B"
+      - key: 10101
+        value: "\u5009\u5EAB "
+      - key: 10102
+        value: "\u90F5\u4FBF\u7269"
+      - key: 10103
+        value: "\u524D\u591C\u796D"
+      - key: 10104
+        value: "\u5E97"
+      - key: 10105
+        value: "\u5099\u3048\u4ED8\u3051"
+      - key: 10106
+        value: "\u65E0"
+      - key: 10107
+        value: "\u65E0"
+      - key: 10108
+        value: "\u65E0"
+      - key: 10109
+        value: "\u6226\u95D8\u3059\u308B\uFF0E\u6226\u3046"
+      - key: 10201
+        value: "\u91D1\u8CA8 "
+      - key: 10202
+        value: "\u30C0\u30A4\u30E4 "
+      - key: 10203
+        value: "\u3057\u308B\u3057 "

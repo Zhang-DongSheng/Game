@@ -8,20 +8,20 @@ namespace Data
 {
     public class DataLanguage : DataBase
     {
-        public List<Dictionary> dictionaries;
+        public List<LanguageInformation> languages;
 
-        public Dictionary Get(Language language)
+        public LanguageInformation Get(Language language)
         {
-            int count = dictionaries.Count;
+            int count = languages.Count;
 
             for (int i = 0; i < count; i++)
             {
-                if (dictionaries[i].language == language)
+                if (languages[i].language == language)
                 {
-                    return dictionaries[i];
+                    return languages[i];
                 }
             }
-            return count > 0 ? dictionaries[0] : null;
+            return count > 0 ? languages[0] : null;
         }
 
         public override void Set(string content)
@@ -36,9 +36,11 @@ namespace Data
 
                 foreach (var language in Enum.GetValues(typeof(Language)))
                 {
-                    Dictionary dictionary = new Dictionary()
+                    LanguageInformation information = new LanguageInformation()
                     {
                         language = (Language)language,
+                        icon = string.Format("language_{0}", language.ToString().ToLower()),
+                        dictionary = new Dictionary(),
                     };
                     int count = list.Count;
 
@@ -46,13 +48,13 @@ namespace Data
 
                     for (int i = 0; i < count; i++)
                     {
-                        dictionary.words.Add(new Word()
+                        information.dictionary.words.Add(new Word()
                         {
                             key = list[i].GetString("key"),
                             value = list[i].GetString(key)
                         });
                     }
-                    dictionaries.Add(dictionary);
+                    languages.Add(information);
                 }
             }
             else
@@ -63,7 +65,7 @@ namespace Data
 
         public override void Clear()
         {
-            dictionaries.Clear();
+            languages.Clear();
         }
     }
 }

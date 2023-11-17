@@ -40,18 +40,24 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            string value = paramters[0];
+            var q1 = new Vector3(1, 0, 1);
 
-            Debug.LogError(Utility.String.GetFloat(value));
+            var q2 = Quaternion.Euler(0, 150, 0);
+
+            var v = q2 * q1;
+
+            Debuger.Log(Author.Test, v);
+
+            Debuger.Log(Author.Test, q1.magnitude);
+
+            Debuger.Log(Author.Test, v.magnitude);
         }
         /// <summary>
         /// 点击测试
         /// </summary>
         public void OnClick(int code)
         {
-            var content = code;
 
-            Debuger.LogError(Author.Test, content);
         }
         /// <summary>
         /// 菜单栏测试

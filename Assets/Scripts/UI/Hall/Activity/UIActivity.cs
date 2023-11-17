@@ -29,7 +29,7 @@ namespace Game.UI
             }
             m_menu.Refresh(_activities.ToArray());
 
-            m_menu.Select(0, true);
+            m_menu.Select(_activities[0], true);
         }
 
         public void Refresh()

@@ -65,63 +65,84 @@
 	"japanese":"立ち去る"
 	},
 	{
-	"ID":11,
+	"ID":10,
 	"key":10101,
 	"chinese":"仓库",
 	"english":"Warehouse",
 	"japanese":"倉庫 "
 	},
 	{
-	"ID":12,
+	"ID":11,
 	"key":10102,
 	"chinese":"邮件",
 	"english":"Mail",
 	"japanese":"郵便物"
 	},
 	{
-	"ID":13,
+	"ID":12,
 	"key":10103,
 	"chinese":"活动",
 	"english":"Activity",
 	"japanese":"前夜祭"
 	},
 	{
-	"ID":14,
+	"ID":13,
 	"key":10104,
 	"chinese":"商店",
 	"english":"Store",
 	"japanese":"店"
 	},
 	{
-	"ID":15,
+	"ID":14,
 	"key":10105,
 	"chinese":"设置",
 	"english":"Setting",
 	"japanese":"備え付け"
 	},
 	{
-	"ID":16,
+	"ID":15,
 	"key":10106,
+	"chinese":"任务",
+	"english":"Task",
+	"japanese":"无"
+	},
+	{
+	"ID":16,
+	"key":10107,
+	"chinese":"队列",
+	"english":"List",
+	"japanese":"无"
+	},
+	{
+	"ID":17,
+	"key":10108,
+	"chinese":"新",
+	"english":"New",
+	"japanese":"无"
+	},
+	{
+	"ID":18,
+	"key":10109,
 	"chinese":"战斗",
 	"english":"Fighting",
 	"japanese":"戦闘する．戦う"
 	},
 	{
-	"ID":17,
+	"ID":19,
 	"key":10201,
 	"chinese":"金币",
 	"english":"Gold",
 	"japanese":"金貨 "
 	},
 	{
-	"ID":18,
+	"ID":20,
 	"key":10202,
 	"chinese":"钻石",
 	"english":"Diamond",
 	"japanese":"ダイヤ "
 	},
 	{
-	"ID":19,
+	"ID":21,
 	"key":10203,
 	"chinese":"代币",
 	"english":"Coin",

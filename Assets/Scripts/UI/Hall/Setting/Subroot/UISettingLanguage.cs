@@ -1,4 +1,3 @@
-using Data;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,7 +24,7 @@ namespace Game.UI
         {
             int count, index = 0;
 
-            foreach (var language in Enum.GetValues(typeof(Data.Language)))
+            foreach (var language in Enum.GetValues(typeof(Language)))
             {
                 if (index >= items.Count)
                 {
@@ -35,7 +34,7 @@ namespace Game.UI
                 }
                 items[index++].Refresh((int)language);
             }
-            this.index = (int)LanguageManager.Instance.language;
+            this.index = (int)LanguageManager.Instance.Language;
 
             count = items.Count;
 
@@ -58,7 +57,7 @@ namespace Game.UI
 
         private void OnClickConfirm()
         {
-            LanguageManager.Instance.Switch((Language)index);
+            LanguageManager.Instance.Refresh((Language)index);
         }
     }
 }

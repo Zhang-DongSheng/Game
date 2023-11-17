@@ -7,10 +7,6 @@ namespace Game
     [System.Serializable]
     public class GameSetting
     {
-        [SerializeField] private GameMode _mode;
-
-        [SerializeField] private Language _language;
-
         [SerializeField] private LoadingType _loading;
 
         [SerializeField] private bool _sleep = false;
@@ -25,10 +21,6 @@ namespace Game
 
         public void Initialize()
         {
-            GameMode = _mode;
-
-            Language = _language;
-
             Loading = _loading;
 
             Sleep = _sleep;
@@ -40,37 +32,6 @@ namespace Game
             FrameRate = _frameRate;
 
             TimeScale = _timeScale;
-        }
-
-        public GameMode GameMode
-        {
-            get
-            {
-                return _mode;
-            }
-            set
-            {
-                _mode = value;
-
-                GameConfig.Mode = value;
-            }
-        }
-
-        public Language Language
-        {
-            get
-            {
-                return _language;
-            }
-            set
-            {
-                _language = value;
-
-                if (GlobalVariables.Get<Language>(Const.LANGUAGE) != value)
-                {
-                    GlobalVariables.Set(Const.LANGUAGE, value);
-                }
-            }
         }
 
         public LoadingType Loading

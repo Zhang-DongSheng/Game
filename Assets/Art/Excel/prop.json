@@ -24,7 +24,7 @@
 	{
 	"ID":103,
 	"name":"代币",
-	"icon":"coin_1",
+	"icon":"coin",
 	"category":99,
 	"quality":3,
 	"price":50,
