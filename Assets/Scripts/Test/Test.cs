@@ -1,6 +1,6 @@
 ﻿using Game.Attribute;
-using Game.Resource;
-using ILRuntime.Runtime;
+using Game.UI;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +8,8 @@ namespace Game.Test
 {
     public class Test : ItemBase
     {
+        [SerializeField] private GameObject target;
+
         [SerializeField] private Vector3 position;
         [Button("OnClickButton")]
         public float index;
