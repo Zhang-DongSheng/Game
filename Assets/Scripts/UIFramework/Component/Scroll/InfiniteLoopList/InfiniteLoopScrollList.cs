@@ -433,7 +433,6 @@ namespace UnityEngine.UI
             {
                 this.source.Add(source[i]);
             }
-
             Initialize();
         }
 

@@ -1,5 +1,6 @@
 ﻿using Game.Attribute;
 using Game.UI;
+using IronForce2.UI;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -59,7 +60,14 @@ namespace Game.Test
         /// </summary>
         public void OnClick(int code)
         {
+            var list = target.GetComponent<ListLayoutGroup>();
 
+            var data = Enumerable.Range(0, 20).ToList();
+
+            list.SetData<SText, int>(data, (index, item, data) =>
+            {
+                item.Refresh(data.ToString());
+            });
         }
         /// <summary>
         /// 菜单栏测试
