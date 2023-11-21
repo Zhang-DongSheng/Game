@@ -3,174 +3,117 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.UI.GridLayoutGroup;
 
 namespace IronForce2.UI
 {
     [RequireComponent(typeof(RectTransform))]
     public class ListLayoutGroup : LayoutGroup
     {
-        public enum Corner
-        {
-            UpperLeft = 0,
-            UpperRight = 1,
-            LowerLeft = 2,
-            LowerRight = 3
-
-        }
-
-        public enum Axis
-        {
-            Horizontal = 0,
-            Vertical = 1
-
-        }
-
-        public enum Constraint
-        {
-            FixedColumnCount = 0,
-            FixedRowCount = 1
-
-        }
+        public Action<Vector2> onDragHandler;
 
         [SerializeField] protected Corner m_StartCorner = Corner.UpperLeft;
-
         public Corner startCorner { get { return m_StartCorner; } set { SetProperty(ref m_StartCorner, value); } }
 
-
-        [SerializeField] protected Vector2 m_CellScale = new Vector2(1, 1);
-
-        public Vector2 cellScale { get { return m_CellScale; } set { SetProperty(ref m_CellScale, value); } }
-
-
         [SerializeField] protected Vector2 m_CellSize = new Vector2(100, 100);
-
         public Vector2 cellSize { get { return m_CellSize; } set { SetProperty(ref m_CellSize, value); } }
 
         [SerializeField] protected Vector2 m_Spacing = Vector2.zero;
-
         public Vector2 spacing { get { return m_Spacing; } set { SetProperty(ref m_Spacing, value); } }
 
-
-        [SerializeField] protected int m_ConstraintCount = 2;
-
-
-        public int constraintCount { get { return m_ConstraintCount; } set { SetProperty(ref m_ConstraintCount, Mathf.Max(1, value)); } }
-
-        public Axis m_scrollDirection = Axis.Horizontal;
-
-        protected Constraint m_Constraint = Constraint.FixedColumnCount;
-        [SerializeField] protected bool m_autoSetConstraint = true;
-
-        [SerializeField] Constraint m_dataConstraint = Constraint.FixedColumnCount;
-        public Constraint DataConstraint
+        [SerializeField] Constraint m_constraint = Constraint.Flexible;
+        public Constraint Constraint
         {
             get
             {
-                return m_dataConstraint;
+                return m_constraint;
             }
             set
             {
-                SetProperty(ref m_dataConstraint, value);
+                SetProperty(ref m_constraint, value);
             }
         }
-        public ScrollRect m_scrollRect;
 
-        [HideInInspector]
-        public List<object> m_dataList = new List<object>();
+        [SerializeField] protected int m_ConstraintCount = 2;
+        public int constraintCount { get { return m_ConstraintCount; } set { SetProperty(ref m_ConstraintCount, Mathf.Max(1, value)); } }
 
-        [HideInInspector]
-        public List<object> m_cacheList = new List<object>();
-
-        private int displayListCount = 0;
-
-        private System.Action<int, GameObject, object> m_setContentHandler = null;
-
-        [SerializeField]
-        private MonoBehaviour m_objectTemplate;
-
-        private List<int> m_indexList = new List<int>();
-
-        //private Vector2 m_dragDirection = Vector2.zero;
-
-        private bool m_endlessScroll = false;
-
-        public LayoutGroup layoutGroup;
-
-        public Action<Vector2> onDragHandler;
-        public MonoBehaviour objectTemplate
+        [SerializeField] private GameObject m_template;
+        public GameObject template
         {
+            get
+            {
+                return m_template;
+            }
             set
             {
-                if (m_objectTemplate != null || value == null)
+                if (m_template != null || value == null)
                     return;
-                m_objectTemplate = value;
-                var rect = m_objectTemplate.GetComponent<RectTransform>();
+                m_template = value;
+                var rect = m_template.GetComponent<RectTransform>();
                 rect.anchorMin = Vector2.up;
                 rect.anchorMax = Vector2.up;
                 rect.sizeDelta = cellSize;
-                rect.localScale = cellScale;
             }
-            get
+        }
+
+        private ScrollRect m_scrol;
+
+        private Action<int, GameObject, object> m_handler;
+
+        private int displayListCount = 0;
+
+        private bool m_endlessScroll = false;
+
+        private readonly List<int> m_indexes = new List<int>();
+
+        private readonly List<object> m_list = new List<object>();
+
+        public void SetData<P, D>(ICollection<D> data, Action<int, P, D> callback) where P : MonoBehaviour
+        {
+            if (m_template == null)
             {
-                return m_objectTemplate;
+                Debug.LogError("Template is null !");
+                return;
             }
-        }
-
-        public void OnDestroy()
-        {
-            clearNodeList();
-
-
-            m_dataList.Clear();
-            m_cacheList.Clear();
-            m_indexList.Clear();
-
-            m_setContentHandler = null;
-            m_objectTemplate = null;
-            layoutGroup = null;
-            onDragHandler = null;
-        }
-
-#if UNITY_EDITOR
-        protected override void OnValidate()
-        {
-            base.OnValidate();
-            constraintCount = constraintCount;
-        }
-#endif
-
-        private Vector2 GetScrollRectSize()
-        {
-            return m_scrollRect.GetComponent<RectTransform>().rect.size;
-        }
-
-        protected override void Awake()
-        {
-            base.Awake();
-            setScrollRect();
-        }
-
-        public void setScrollRect()
-        {
-            m_scrollRect = GetComponentInParent<ScrollRect>();
-            if (m_scrollRect == null)
+            if (!CheckScrollRect())
             {
-                m_scrollRect = GetComponentInParent<ScrollRect>();
+                return;
             }
-
-            if (m_scrollRect != null)
-            {
-                m_scrollDirection = m_scrollRect.vertical ? Axis.Vertical : Axis.Horizontal;
-                m_scrollRect.onValueChanged.AddListener(OnDrag);
-            }
+            SetDataSub(data, callback);
         }
 
-        private bool IsEndlessScroll()
+        public void SetData<P, D>(P prefab, ICollection<D> data, Action<int, P, D> callback) where P : MonoBehaviour
         {
-            return m_scrollRect.movementType == ScrollRect.MovementType.Unrestricted;
+            if (!CheckScrollRect())
+            {
+                return;
+            }
+            if (prefab != m_template)
+            {
+                Clear();
+            }
+            m_template = null;
+            template = prefab.gameObject;
+            m_handler = null;
+            m_scrol.normalizedPosition = Vector2.up;
+
+            SetDataSub(data, callback);
         }
 
-        public void clearNodeList()
+        public void ScrollMoveTo(int index, Action moveDoneCallback = null)
+        {
+            if (index < 0 || index >= m_list.Count || !gameObject.activeInHierarchy)
+                return;
+            StartCoroutine(_ScrollMoveTo(index, moveDoneCallback));
+        }
+
+        public void ForceUpdateContent()
+        {
+            m_indexes.Clear();
+            OnDrag(Vector2.zero);
+        }
+
+        public void Clear()
         {
             if (rectTransform.childCount > 0)
             {
@@ -183,275 +126,24 @@ namespace IronForce2.UI
                 while (goList.Count > 0)
                 {
                     var go = goList[goList.Count - 1];
-                    GameObject.Destroy( go);
+                    GameObject.Destroy(go);
                     goList.RemoveAt(goList.Count - 1);
                 }
 
                 goList = null;
             }
-
-            m_dataList.Clear();
-            m_cacheList.Clear();
-            objectTemplate = null;
-        }
-
-        public void SetData<P, D>(P itemPrefab, ICollection<D> dataList, System.Action<int, P, D> setContentHandler) where P : MonoBehaviour
-        {
-            if (itemPrefab != m_objectTemplate)
-            {
-                clearNodeList();
-            }
-            m_objectTemplate = null;
-            objectTemplate = itemPrefab;
-            m_setContentHandler = null;
-
-            if (m_scrollRect == null)
-            {
-                setScrollRect();
-            }
-
-
-            if (m_scrollRect != null)
-            {
-                m_scrollRect.normalizedPosition = Vector2.up;
-                SetDataSub<P, D>(dataList, setContentHandler);
-            }
-            else
-            {
-                Debug.LogError("tran=" + transform + "的ScrollRect为空");
-            }
-        }
-
-        public void ILSetData(MonoBehaviour itemPrefab, int count, System.Action<int, MonoBehaviour> setContentHandler)
-        {
-            if (itemPrefab != m_objectTemplate)
-            {
-                clearNodeList();
-            }
-            m_objectTemplate = null;
-            objectTemplate = itemPrefab;
-            m_setContentHandler = null;
-
-            if (m_scrollRect == null)
-            {
-                setScrollRect();
-            }
-
-
-            if (m_scrollRect != null)
-            {
-                m_scrollRect.normalizedPosition = Vector2.up;
-                ILSetDataSub(count, setContentHandler);
-            }
-            else
-            {
-                Debug.LogError("tran=" + transform + "的ScrollRect为空");
-            }
-        }
-
-        public void SetData<P, D>(ICollection<D> dataList, Action<int, P, D> setContentHandler) where P : MonoBehaviour
-        {
-            if (m_objectTemplate == null)
-            {
-                Debug.LogError("template is null !");
-                return;
-            }
-            SetDataSub<P, D>(dataList, setContentHandler);
-        }
-
-        public void SetDataSub<P, D>(ICollection<D> dataList, System.Action<int, P, D> setContentHandler)where P : MonoBehaviour
-        {
-            m_dataList.Clear();
-            if (dataList != null && dataList.Count > 0)
-            {
-                var enu = dataList.GetEnumerator();
-                while (enu.MoveNext())
-                {
-                    m_dataList.Add(enu.Current);
-                }
-            }
-
-            if (setContentHandler == null)
-                m_setContentHandler = null;
-            else
-                m_setContentHandler = (index, go, data) =>
-                {
-
-                    var dt = (D)data;
-                    var item = go.GetComponent<P>();
-                    item.name = "item_" + index;
-
-                    if (setContentHandler != null)
-                    {
-                        setContentHandler.Invoke(index, item, dt);
-                    }
-                };
-            m_scrollRect.vertical = (m_scrollDirection == Axis.Vertical);
-            m_scrollRect.horizontal = (m_scrollDirection == Axis.Horizontal);
-            m_Constraint = m_scrollRect.vertical ? Constraint.FixedColumnCount : Constraint.FixedRowCount;
-            if (!m_autoSetConstraint && m_Constraint != m_dataConstraint)
-            {
-                m_cacheList.Clear();
-                m_cacheList.AddRange(m_dataList);
-                int lineCount = m_cacheList.Count / constraintCount;
-                for (int i = 0; i < m_cacheList.Count; ++i)
-                {
-                    int x = i / constraintCount;
-                    int y = i % constraintCount;
-                    m_dataList[i] = m_cacheList[y * lineCount + x];
-                }
-            }
-            if (m_scrollRect.horizontal)
-                displayListCount = Mathf.CeilToInt(GetScrollRectSize().x / (cellSize.x + spacing.x)) + 1;
-            else
-                displayListCount = Mathf.CeilToInt(GetScrollRectSize().y / (cellSize.y + spacing.y)) + 1;
-
-            int count = displayListCount * constraintCount;
-            if (dataList != null && dataList.Count < count)
-            {
-                count = dataList.Count;
-            }
-
-            for (int i = rectTransform.childCount; i < count; ++i)
-            {
-                var obj = AddChild(rectTransform, m_objectTemplate);
-                SetActive(obj, true);
-            }
-
-            ForceUpdateContent();
-            SetDirty();
-        }
-
-        public void ILSetDataSub(int _count, System.Action<int, MonoBehaviour> setContentHandler)
-        {
-            m_dataList.Clear();
-
-            if (_count > 0)
-            {
-                for(int i=0; i<_count; i++)
-                {
-                    m_dataList.Add(i);
-                }
-            }
-
-            if (setContentHandler == null)
-                m_setContentHandler = null;
-            else
-                m_setContentHandler = (index, go, data) =>
-                {
-                    var item = go.GetComponent<MonoBehaviour>();
-                    item.name = "item_" + index;
-
-                    if (setContentHandler != null)
-                    {
-                        setContentHandler.Invoke(index, item);
-                    }
-                };
-            m_scrollRect.vertical = (m_scrollDirection == Axis.Vertical);
-            m_scrollRect.horizontal = (m_scrollDirection == Axis.Horizontal);
-            m_Constraint = m_scrollRect.vertical ? Constraint.FixedColumnCount : Constraint.FixedRowCount;
-            if (!m_autoSetConstraint && m_Constraint != m_dataConstraint)
-            {
-                m_cacheList.Clear();
-                m_cacheList.AddRange(m_dataList);
-                int lineCount = m_cacheList.Count / constraintCount;
-                for (int i = 0; i < m_cacheList.Count; ++i)
-                {
-                    int x = i / constraintCount;
-                    int y = i % constraintCount;
-                    m_dataList[i] = m_cacheList[y * lineCount + x];
-                }
-            }
-            if (m_scrollRect.horizontal)
-                displayListCount = Mathf.CeilToInt(GetScrollRectSize().x / (cellSize.x + spacing.x)) + 1;
-            else
-                displayListCount = Mathf.CeilToInt(GetScrollRectSize().y / (cellSize.y + spacing.y)) + 1;
-
-            int count = displayListCount * constraintCount;
-            if (_count < count)
-            {
-                count = _count;
-            }
-
-            for (int i = rectTransform.childCount; i < count; ++i)
-            {
-                var obj = AddChild(rectTransform, m_objectTemplate);
-                SetActive(obj, true);
-            }
-
-            ForceUpdateContent();
-            SetDirty();
-        }
-
-
-        public void ForceUpdateContent()
-        {
-            m_indexList.Clear();
-            OnDrag(Vector2.zero);
-        }
-
-        protected virtual void OnDrag(Vector2 vec)
-        {
-            //m_dragDirection = vec;
-            m_endlessScroll = IsEndlessScroll();
-            SetLayoutHorizontal();
-            SetLayoutVertical();
-            if (onDragHandler != null)
-                onDragHandler.Invoke(vec);
-        }
-
-        public int GetMaxListCount()
-        {
-            if (m_dataList == null || m_dataList.Count == 0)
-                return 0;
-            return Mathf.CeilToInt(m_dataList.Count / (float)m_ConstraintCount - 0.001f);
-        }
-        public int GetStartIndex()
-        {
-            if (m_dataList == null || m_dataList.Count == 0)
-                return 0;
-            Vector2 anchorPosition = rectTransform.anchoredPosition;
-
-            if (layoutGroup != null)
-            {
-                anchorPosition += layoutGroup.GetComponent<RectTransform>().anchoredPosition;
-            }
-
-            anchorPosition.x *= -1;
-            //anchorPosition.x -= (m_dragDirection.x > 0 ? 1 : 2) * (cellSize.x + spacing.x) / 2;
-            //anchorPosition.y -= (m_dragDirection.y > 0 ? 1 : 2) * (cellSize.y + spacing.y) / 2;
-            int index = 0;
-
-            anchorPosition.x -= padding.left;
-            anchorPosition.y -= padding.top;
-
-            switch (m_scrollRect.vertical)
-            {
-                case true:
-                    index = (int)(anchorPosition.y / (cellSize.y + spacing.y)) * constraintCount;
-                    break;
-                case false:
-                    index = (int)(anchorPosition.x / (cellSize.x + spacing.x)) * constraintCount;
-                    break;
-            }
-
-            if (!m_endlessScroll)
-            {
-                if (index < 0)
-                    index = 0;
-                if (index >= m_dataList.Count)
-                    index = 0;
-            }
-            return index;
+            m_list.Clear();
         }
 
         public override void CalculateLayoutInputHorizontal()
         {
             base.CalculateLayoutInputHorizontal();
 
-            int minColumns = 0;
-            int preferredColumns = 0;
-            if (m_Constraint == Constraint.FixedColumnCount)
+            int minColumns;
+
+            int preferredColumns;
+
+            if (m_constraint == Constraint.FixedColumnCount)
             {
                 minColumns = preferredColumns = m_ConstraintCount;
             }
@@ -468,7 +160,7 @@ namespace IronForce2.UI
         public override void CalculateLayoutInputVertical()
         {
             int minRows = 0;
-            if (m_Constraint == Constraint.FixedColumnCount)
+            if (m_constraint == Constraint.FixedColumnCount)
             {
                 minRows = GetMaxListCount();
             }
@@ -481,12 +173,6 @@ namespace IronForce2.UI
             SetLayoutInputForAxis(minSpace, minSpace, -1, 1);
         }
 
-/***
-        internal void SetData1<T1, T2>(T1 backItem, List<SubTankObj> rightList, Action<int, T1, T2> p)
-        {
-            throw new NotImplementedException();
-        }
-**/
         public override void SetLayoutHorizontal()
         {
             SetCellsAlongAxis(0);
@@ -497,12 +183,130 @@ namespace IronForce2.UI
             SetCellsAlongAxis(1);
         }
 
-        //return true if index of current item changed
+        protected virtual void OnDrag(Vector2 vec)
+        {
+            m_endlessScroll = IsEndlessScroll();
+            SetLayoutHorizontal();
+            SetLayoutVertical();
+            if (onDragHandler != null)
+                onDragHandler.Invoke(vec);
+        }
+
         private int GetActualIndex(int startIndex, int index)
         {
             var count = rectTransform.childCount;
             return ((startIndex + (startIndex >= 0 ? (count - index - 1) : -index)) / count * count + index);
         }
+
+        private int GetMaxListCount()
+        {
+            if (m_list == null || m_list.Count == 0)
+                return 0;
+            return Mathf.CeilToInt((float)m_list.Count / m_ConstraintCount);
+        }
+
+        private int GetStartIndex()
+        {
+            if (m_list == null || m_list.Count == 0)
+                return 0;
+            Vector2 anchorPosition = rectTransform.anchoredPosition;
+
+            anchorPosition.x *= -1;
+
+            int index = 0;
+
+            anchorPosition.x -= padding.left;
+            anchorPosition.y -= padding.top;
+
+            switch (m_scrol.vertical)
+            {
+                case true:
+                    index = (int)(anchorPosition.y / (cellSize.y + spacing.y)) * constraintCount;
+                    break;
+                case false:
+                    index = (int)(anchorPosition.x / (cellSize.x + spacing.x)) * constraintCount;
+                    break;
+            }
+
+            if (!m_endlessScroll)
+            {
+                if (index < 0)
+                    index = 0;
+                if (index >= m_list.Count)
+                    index = 0;
+            }
+            return index;
+        }
+
+        private Vector2 GetScrollRectSize()
+        {
+            return m_scrol.GetComponent<RectTransform>().rect.size;
+        }
+
+        private bool CheckScrollRect()
+        {
+            if (m_scrol != null) return true;
+
+            m_scrol = GetComponentInParent<ScrollRect>();
+
+            if (m_scrol == null)
+            {
+                Debug.LogError("ScrollRect is null !");
+                return false;
+            }
+            m_scrol.onValueChanged.AddListener(OnDrag);
+
+            return true;
+        }
+
+        private bool IsEndlessScroll()
+        {
+            return m_scrol.movementType == ScrollRect.MovementType.Unrestricted;
+        }
+
+        private void SetDataSub<P, D>(ICollection<D> data, Action<int, P, D> callback) where P : MonoBehaviour
+        {
+            m_list.Clear();
+            if (data != null && data.Count > 0)
+            {
+                var enu = data.GetEnumerator();
+                while (enu.MoveNext())
+                {
+                    m_list.Add(enu.Current);
+                }
+            }
+
+            if (callback == null)
+                m_handler = null;
+            else
+                m_handler = (index, go, data) =>
+                {
+                    var item = go.GetComponent<P>();
+                    item.name = "item_" + index;
+                    callback?.Invoke(index, item, (D)data);
+                };
+
+            if (m_scrol.horizontal)
+                displayListCount = Mathf.CeilToInt(GetScrollRectSize().x / (cellSize.x + spacing.x)) + 1;
+            else
+                displayListCount = Mathf.CeilToInt(GetScrollRectSize().y / (cellSize.y + spacing.y)) + 1;
+
+            int count = displayListCount * constraintCount;
+
+            if (data != null && data.Count < count)
+            {
+                count = data.Count;
+            }
+            for (int i = rectTransform.childCount; i < count; ++i)
+            {
+                var obj = AddChild(rectTransform, m_template);
+                SetActive(obj.transform, true);
+            }
+            ForceUpdateContent();
+
+            SetDirty();
+        }
+
         private void SetCellsAlongAxis(int axis)
         {
             // Normally a Layout Controller should only set horizontal values when invoked for the horizontal axis
@@ -525,7 +329,7 @@ namespace IronForce2.UI
                     rect.anchorMin = Vector2.up;
                     rect.anchorMax = Vector2.up;
                     rect.sizeDelta = cellSize;
-                    rect.localScale = cellScale;
+                    rect.localScale = Vector3.one;
                 }
                 return;
             }
@@ -535,12 +339,12 @@ namespace IronForce2.UI
 
             int cellCountX = 1;
             int cellCountY = 1;
-            if (m_Constraint == Constraint.FixedColumnCount)
+            if (m_constraint == Constraint.FixedColumnCount)
             {
                 cellCountX = m_ConstraintCount;
                 cellCountY = Mathf.CeilToInt(rectTransform.childCount / (float)cellCountX - 0.001f);
             }
-            else if (m_Constraint == Constraint.FixedRowCount)
+            else if (m_constraint == Constraint.FixedRowCount)
             {
                 cellCountY = m_ConstraintCount;
                 cellCountX = Mathf.CeilToInt(rectTransform.childCount / (float)cellCountY - 0.001f);
@@ -562,17 +366,24 @@ namespace IronForce2.UI
             int cornerY = (int)startCorner / 2;
 
             int cellsPerMainAxis, actualCellCountX, actualCellCountY;
-            if (m_scrollDirection == Axis.Vertical)
+
+            if (m_constraint == Constraint.FixedColumnCount)
             {
                 cellsPerMainAxis = cellCountX;
                 actualCellCountX = Mathf.Clamp(cellCountX, 1, rectTransform.childCount);
-                actualCellCountY = Mathf.Clamp(cellCountY, 1, Mathf.CeilToInt(rectTransform.childCount / (float)cellsPerMainAxis));
+                actualCellCountY = Mathf.Clamp(cellCountY, 1, Mathf.CeilToInt((float)rectTransform.childCount / cellsPerMainAxis));
+            }
+            else if (m_constraint == Constraint.FixedRowCount)
+            {
+                cellsPerMainAxis = cellCountY;
+                actualCellCountY = Mathf.Clamp(cellCountY, 1, rectTransform.childCount);
+                actualCellCountX = Mathf.Clamp(cellCountX, 1, Mathf.CeilToInt((float)rectTransform.childCount / cellsPerMainAxis));
             }
             else
             {
                 cellsPerMainAxis = cellCountY;
                 actualCellCountY = Mathf.Clamp(cellCountY, 1, rectTransform.childCount);
-                actualCellCountX = Mathf.Clamp(cellCountX, 1, Mathf.CeilToInt(rectTransform.childCount / (float)cellsPerMainAxis));
+                actualCellCountX = Mathf.Clamp(cellCountX, 1, Mathf.CeilToInt((float)rectTransform.childCount / cellsPerMainAxis));
             }
 
             Vector2 requiredSpace = new Vector2(
@@ -591,29 +402,29 @@ namespace IronForce2.UI
                 int positionX;
                 int positionY;
                 int actualIndex = GetActualIndex(startIndex, i - constraintCount);
-                int recycleIndex = m_endlessScroll ? actualIndex % m_dataList.Count : actualIndex;
+                int recycleIndex = m_endlessScroll ? actualIndex % m_list.Count : actualIndex;
                 if (actualIndex < 0)
                     actualIndex -= constraintCount - 1;
-                if (i >= m_indexList.Count)
+                if (i >= m_indexes.Count)
                 {
-                    m_indexList.Add(actualIndex);
+                    m_indexes.Add(actualIndex);
                     changed = true;
                 }
                 else
-                    changed = (m_indexList[i] != actualIndex);
-                m_indexList[i] = actualIndex;
+                    changed = (m_indexes[i] != actualIndex);
+                m_indexes[i] = actualIndex;
                 if (!changed)
                     continue;
                 while (recycleIndex < 0)
-                    recycleIndex += m_dataList.Count;
+                    recycleIndex += m_list.Count;
                 var child = (RectTransform)(rectTransform.GetChild(i));
-                if (recycleIndex >= m_dataList.Count)
+                if (recycleIndex >= m_list.Count)
                 {
                     SetActive(child, false);
                     continue;
                 }
                 SetActive(child, true);
-                if (m_scrollDirection == Axis.Vertical)
+                if (m_constraint == Constraint.FixedColumnCount)
                 {
                     positionX = Mathf.Abs(actualIndex) % cellsPerMainAxis;
                     positionY = actualIndex / cellsPerMainAxis;
@@ -628,149 +439,40 @@ namespace IronForce2.UI
                     positionX = actualCellCountX - 1 - positionX;
                 if (cornerY == 1)
                     positionY = actualCellCountY - 1 - positionY;
-                if (m_setContentHandler != null && changed)
+                if (m_handler != null && changed)
                 {
-                    m_setContentHandler.Invoke(recycleIndex, child.gameObject, m_dataList[recycleIndex]);
+                    m_handler.Invoke(recycleIndex, child.gameObject, m_list[recycleIndex]);
                 }
                 SetChildAlongAxis(child, 0, startOffset.x + (cellSize[0] + spacing[0]) * positionX, cellSize[0]);
                 SetChildAlongAxis(child, 1, startOffset.y + (cellSize[1] + spacing[1]) * positionY, cellSize[1]);
             }
         }
 
-        public int GetIndexDistance(int index, int actualIndex)
+        private GameObject AddChild(Transform parent, GameObject prefab)
         {
-            while (actualIndex < 0)
-                actualIndex += m_indexList.Count;
-            return index - actualIndex;
+            var clone = GameObject.Instantiate(prefab, parent);
+
+            clone.transform.localPosition = Vector3.zero;
+
+            clone.transform.localRotation = Quaternion.identity;
+
+            clone.transform.localScale = Vector3.one;
+
+            return clone;
         }
 
-        public void GetXYIndex(int dataIndex, int firstIndex, out int xIndex, out int yIndex)
-        {
-            xIndex = dataIndex % constraintCount - firstIndex % constraintCount;
-            yIndex = dataIndex / constraintCount - firstIndex / constraintCount;
-        }
-
-        public Vector3 GetItemPosition(int dataIndex)
-        {
-            if (m_indexList.Count == 0)
-                return Vector3.zero;
-            int firstIndex = -1;
-            for (int i = 0; i < rectTransform.childCount; ++i)
-            {
-                if (rectTransform.GetChild(i).gameObject.activeSelf)
-                {
-                    firstIndex = i;
-                    break;
-                }
-            }
-            if (firstIndex < 0)
-                return Vector3.zero;
-            //int indexDistance = GetIndexDistance (dataIndex, m_indexList [firstIndex]);
-            int xIndexDistance;
-            int yIndexDistance;
-            GetXYIndex(dataIndex, m_indexList[firstIndex], out xIndexDistance, out yIndexDistance);
-
-            var pos = rectTransform.GetChild(firstIndex).GetComponent<RectTransform>().anchoredPosition3D;
-
-            pos.x += xIndexDistance * (cellSize.x + spacing.x);
-            pos.y -= yIndexDistance * (cellSize.y + spacing.y);
-
-            return pos;
-
-        }
-
-        public Vector3 GetItemPositionInScroll(int dataIndex)
-        {
-            return GetItemPosition(dataIndex) + rectTransform.anchoredPosition3D;
-        }
-
-        /// <summary>
-        /// 跳转至数据下标处 待测试
-        /// </summary>
-        /// <param name="dataIndex"></param>
-        public void TurnToIndex(int dataIndex)
-        {
-            if (m_dataList == null || m_dataList.Count - 1 < dataIndex || layoutGroup == null)
-                return;
-
-            rectTransform.anchoredPosition = GetItemPositionInScroll(dataIndex);
-        }
-
-        private T AddChild<T>(Transform parent, T prefab) where T : Component
-        {
-            var go = GameObject.Instantiate(prefab, parent);
-
-            go.transform.localPosition = Vector3.zero;
-
-            go.transform.localRotation = Quaternion.identity;
-
-            go.transform.localScale = Vector3.one;
-
-            return go.GetComponent<T>();
-        }
-
-        public void ScrollMoveTo(int index, System.Action moveDoneCallback = null)
-        {
-            if (index < 0 || index >= m_dataList.Count || !gameObject.activeInHierarchy)
-                return;
-            StartCoroutine(_ScrollMoveTo(index, moveDoneCallback));
-        }
-        public void ScrollMoveTo(object data, System.Action moveDoneCallback = null)
-        {
-            if (!gameObject.activeInHierarchy)
-            {
-                return;
-            }
-            ScrollMoveTo(m_dataList.FindIndex((d) => { return data.Equals(d); }), moveDoneCallback);
-        }
-        private Vector3 GetItemPosLeftUp(int dataIndex)
-        {
-            int line = dataIndex / constraintCount;
-            Rect contentRect = rectTransform.rect;
-            //起始点就是content的左上角的点
-            Vector2 startPos = new Vector2(contentRect.xMin, contentRect.yMax);
-            //取得item左上角的位置
-            if (m_scrollRect.horizontal)
-            {
-                startPos.x += padding.left;
-                startPos.x += line * (cellSize.x + spacing.x);
-            }
-            else
-            {
-                //非水平方向按照竖直方向处理
-                startPos.y += padding.top;
-                startPos.y += line * (cellSize.y + spacing.y);
-            }
-            return startPos;
-        }
-
-        public void SetActive(Component component, bool active)
-        {
-            if (component == null) return;
-
-            var go = component.gameObject;
-
-            if (go != null && go.activeSelf != active)
-            { 
-                go.SetActive(active);
-            }
-        }
-
-        /// <summary>
-        /// UI的更新是在LateUpdate中执行，所以必须等待到这一帧结束以后，才会更改scrollRect的content的size
-        /// </summary>
-        IEnumerator _ScrollMoveTo(int index, System.Action moveDoneCallback = null)
+        private IEnumerator _ScrollMoveTo(int index, Action callback = null)
         {
             yield return new WaitForEndOfFrame();
 
             Vector3 itemPos = GetItemPosLeftUp(index);
 
             float vContent = 0, vViewport = 0, delta = 0, threshold = 0, targetPos;
-            if (m_scrollRect.horizontal)
+            if (m_scrol.horizontal)
             {
                 //水平方向
                 vContent = rectTransform.rect.width;
-                vViewport = m_scrollRect.viewport != null ? m_scrollRect.viewport.rect.width : m_scrollRect.GetComponent<RectTransform>().rect.width;
+                vViewport = m_scrol.viewport != null ? m_scrol.viewport.rect.width : m_scrol.GetComponent<RectTransform>().rect.width;
                 delta = itemPos.x - rectTransform.anchoredPosition.x;
                 targetPos = itemPos.x;
             }
@@ -778,7 +480,7 @@ namespace IronForce2.UI
             {
                 //非水平方向 当做竖直方向处理
                 vContent = rectTransform.rect.height;
-                vViewport = m_scrollRect.viewport != null ? m_scrollRect.viewport.rect.height : m_scrollRect.GetComponent<RectTransform>().rect.height;
+                vViewport = m_scrol.viewport != null ? m_scrol.viewport.rect.height : m_scrol.GetComponent<RectTransform>().rect.height;
                 delta = rectTransform.anchoredPosition.y - itemPos.y;
                 targetPos = itemPos.y;
             }
@@ -795,19 +497,54 @@ namespace IronForce2.UI
                 normalizedPos = 1 / threshold * targetPos;
             }
             normalizedPos = Mathf.Clamp01(normalizedPos);
-            if (m_scrollRect.horizontal)
-                m_scrollRect.horizontalNormalizedPosition = normalizedPos;
+            if (m_scrol.horizontal)
+                m_scrol.horizontalNormalizedPosition = normalizedPos;
             else
-                m_scrollRect.verticalNormalizedPosition = 1 - normalizedPos;
-            if (moveDoneCallback != null)
+                m_scrol.verticalNormalizedPosition = 1 - normalizedPos;
+            if (callback != null)
             {
-                moveDoneCallback();
+                callback();
             }
         }
-    }
 
-    public interface IListItem<D>
-    {
-        void SetData(D data);
+        private Vector3 GetItemPosLeftUp(int dataIndex)
+        {
+            int line = dataIndex / constraintCount;
+            Rect contentRect = rectTransform.rect;
+            //起始点就是content的左上角的点
+            Vector2 startPos = new Vector2(contentRect.xMin, contentRect.yMax);
+            //取得item左上角的位置
+            if (m_scrol.horizontal)
+            {
+                startPos.x += padding.left;
+                startPos.x += line * (cellSize.x + spacing.x);
+            }
+            else
+            {
+                //非水平方向按照竖直方向处理
+                startPos.y += padding.top;
+                startPos.y += line * (cellSize.y + spacing.y);
+            }
+            return startPos;
+        }
+
+        private void SetActive(Component component, bool active)
+        {
+            if (component == null) return;
+
+            var go = component.gameObject;
+
+            if (go != null && go.activeSelf != active)
+            {
+                go.SetActive(active);
+            }
+        }
+
+        protected override void OnDestroy()
+        {
+            Clear();
+            m_list.Clear();
+            m_indexes.Clear();
+        }
     }
 }
