@@ -99,19 +99,19 @@ namespace UnityEditor.Window
 
                 if (app.active)
                 {
-                    if (GUILayout.Button("关闭"))
+                    if (GUILayout.Button(ToLanguage("Close")))
                     {
                         app.Close();
                     }
 
-                    if (GUILayout.Button("退出"))
+                    if (GUILayout.Button(ToLanguage("Exit")))
                     {
                         app.Kill();
                     }
                 }
                 else
                 {
-                    if (GUILayout.Button("打开"))
+                    if (GUILayout.Button(ToLanguage("Open")))
                     {
                         app.Startup(); application = app;
                     }

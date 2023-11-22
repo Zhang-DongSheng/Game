@@ -75,6 +75,11 @@ namespace UnityEditor.Window
                 return base.position.height;
             }
         }
+
+        protected string ToLanguage(string key)
+        {
+            return LanguageManager.Instance.GetWorld(key);
+        }
     }
     [System.Serializable]
     public class Index

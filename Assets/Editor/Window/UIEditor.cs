@@ -60,7 +60,7 @@ namespace UnityEditor.Window
 
             content = GUILayout.TextField(content);
 
-            if (GUILayout.Button("Create"))
+            if (GUILayout.Button(ToLanguage("Create")))
             {
                 if (string.IsNullOrEmpty(content)) return;
 
@@ -128,7 +128,7 @@ namespace UnityEditor.Window
                 }
                 else
                 {
-                    if (GUILayout.Button("Modify"))
+                    if (GUILayout.Button(ToLanguage("Modify")))
                     {
                         AddOrReplaceUIInformation();
                     }
@@ -137,7 +137,7 @@ namespace UnityEditor.Window
             }
             else
             {
-                if (GUILayout.Button("Create"))
+                if (GUILayout.Button(ToLanguage("Create")))
                 {
                     AddOrReplaceUIInformation();
                 }
@@ -159,7 +159,7 @@ namespace UnityEditor.Window
 
             if (!relevance)
             {
-                if (GUILayout.Button("Reference"))
+                if (GUILayout.Button(ToLanguage("Reference")))
                 {
                     var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(string.Format("Assets/{0}", information.path));
 

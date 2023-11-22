@@ -1,8 +1,6 @@
-﻿using Codice.CM.SEIDInfo;
-using Data;
+﻿using Data;
 using Game;
 using Game.UI;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,8 +11,6 @@ namespace UnityEditor.Window
 {
     public class DataManager : CustomWindow
     {
-        private const string source = "Assets/Art/Excel";
-
         private const string asset = "Assets/Package/Data";
 
         private readonly string[] _menu = new string[] { "配置", "加载", "同步", "其他" };
@@ -59,7 +55,60 @@ namespace UnityEditor.Window
 
         private void RefreshConfig()
         {
+            bool lockFrame = QualitySettings.vSyncCount > 0;
 
+            GUILayout.BeginHorizontal();
+            {
+                GUILayout.Label(ToLanguage("Frame"), GUILayout.Width(100));
+
+                lockFrame = GUILayout.Toggle(lockFrame, string.Empty);
+
+                QualitySettings.vSyncCount = lockFrame ? 1 : 0;
+            }
+            GUILayout.EndHorizontal();
+
+            if (lockFrame)
+            {
+                GUILayout.BeginHorizontal();
+                {
+                    GUILayout.Label(ToLanguage("Frame"), GUILayout.Width(100));
+
+                    Application.targetFrameRate = EditorGUILayout.IntField(Application.targetFrameRate);
+                }
+                GUILayout.EndHorizontal();
+            }
+
+            GUILayout.BeginHorizontal();
+            {
+                GUILayout.Label(ToLanguage("Sleep"), GUILayout.Width(100));
+
+                bool sleep = Screen.sleepTimeout == SleepTimeout.NeverSleep;
+
+                sleep = GUILayout.Toggle(sleep, string.Empty);
+
+                Screen.sleepTimeout = sleep ? SleepTimeout.NeverSleep : SleepTimeout.SystemSetting;
+            }
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            {
+                GUILayout.Label(ToLanguage("Background"), GUILayout.Width(100));
+
+                bool background = Application.runInBackground;
+
+                background = GUILayout.Toggle(background, string.Empty);
+
+                Application.runInBackground = background;
+            }
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            {
+                GUILayout.Label(ToLanguage("Time"), GUILayout.Width(100));
+
+                Time.timeScale = EditorGUILayout.FloatField(Time.timeScale);
+            }
+            GUILayout.EndHorizontal();
         }
 
         private void RefreshLoading()
@@ -73,6 +122,17 @@ namespace UnityEditor.Window
                     for (int i = 0; i < count; i++)
                     {
                         RefreshLoading(_cells[i]);
+                    }
+
+                    if (GUILayout.Button(ToLanguage("Loading")))
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            if (_cells[i].asset && _cells[i].select)
+                            {
+                                Load(_cells[i].type);
+                            }
+                        }
                     }
                 }
                 GUILayout.EndScrollView();
@@ -90,14 +150,14 @@ namespace UnityEditor.Window
 
                 if (cell.asset)
                 {
-                    if (GUILayout.Button("加载", GUILayout.Width(200)))
+                    if (GUILayout.Button(ToLanguage("Loading"), GUILayout.Width(200)))
                     {
                         Load(cell.type);
                     }
                 }
                 else
                 {
-                    if (GUILayout.Button("创建", GUILayout.Width(200)))
+                    if (GUILayout.Button(ToLanguage("Create"), GUILayout.Width(200)))
                     {
                         Create(cell.type);
                     }

@@ -145,12 +145,12 @@ namespace UnityEditor.Window
 
                 GUILayout.BeginVertical();
                 {
-                    if (GUILayout.Button("转换", GUILayout.Height(50)))
+                    if (GUILayout.Button(ToLanguage("Convert"), GUILayout.Height(50)))
                     {
                         Composition();
                     }
 
-                    if (GUILayout.Button("转码"))
+                    if (GUILayout.Button(ToLanguage("Encoding")))
                     {
                         Convert();
                     }
@@ -160,12 +160,12 @@ namespace UnityEditor.Window
                         Select();
                     }
 
-                    if (GUILayout.Button("目录"))
+                    if (GUILayout.Button(ToLanguage("Folder")))
                     {
                         OpenFolder(input.value);
                     }
 
-                    if (GUILayout.Button("刷新"))
+                    if (GUILayout.Button(ToLanguage("Refresh")))
                     {
                         Redirect();
                     }
@@ -179,7 +179,7 @@ namespace UnityEditor.Window
         {
             GUI.enabled = Enable("Download");
 
-            if (GUILayout.Button("下载"))
+            if (GUILayout.Button(ToLanguage("Download")))
             {
                 Enable("Download", false);
 

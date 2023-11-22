@@ -41,7 +41,7 @@ namespace UnityEditor.Window
                 {
                     GUILayout.Label("File", GUILayout.Width(50));
 
-                    if (GUILayout.Button(inputFile.value))
+                    if (GUILayout.Button(inputFile.value)) 
                     {
                         inputFile.value = EditorUtility.OpenFilePanel("Md5", "", "");
                     }

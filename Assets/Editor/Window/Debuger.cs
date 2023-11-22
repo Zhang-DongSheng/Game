@@ -65,7 +65,7 @@ namespace UnityEditor.Window
             }
             GUILayout.EndHorizontal();
 
-            if (GUILayout.Button("测试", GUILayout.Height(36)))
+            if (GUILayout.Button(ToLanguage("Test"), GUILayout.Height(36)))
             {
                 logs.Clear();
 

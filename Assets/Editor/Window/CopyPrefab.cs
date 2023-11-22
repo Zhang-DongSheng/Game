@@ -156,7 +156,7 @@ namespace UnityEditor.Window
 
 						GUILayout.Box(string.Empty, GUILayout.ExpandHeight(true), GUILayout.Width(3));
 
-						if (GUILayout.Button("复制", GUILayout.ExpandHeight(true), GUILayout.Width(150)))
+						if (GUILayout.Button(ToLanguage("Copy"), GUILayout.ExpandHeight(true), GUILayout.Width(150)))
 						{
 							Copy();
 						}

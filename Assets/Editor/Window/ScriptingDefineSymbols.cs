@@ -41,7 +41,7 @@ namespace UnityEditor.Window
                         {
                             GUILayout.Label(defines[i]);
 
-                            if (GUILayout.Button("ÒÆ³ý", GUILayout.Width(100)))
+                            if (GUILayout.Button(ToLanguage("Remove"), GUILayout.Width(100)))
                             {
                                 Remove(i);
                             }
@@ -55,7 +55,7 @@ namespace UnityEditor.Window
                 {
                     input.value = GUILayout.TextField(input.value);
 
-                    if (GUILayout.Button("Ìí¼Ó", GUILayout.Width(100)))
+                    if (GUILayout.Button(ToLanguage("Add"), GUILayout.Width(100)))
                     {
                         Add(input.value);
                     }
@@ -64,7 +64,7 @@ namespace UnityEditor.Window
             }
             GUILayout.EndVertical();
 
-            if (GUILayout.Button("±£´æ"))
+            if (GUILayout.Button(ToLanguage("Save")))
             {
                 Save();
             }

@@ -7,6 +7,7 @@ namespace UnityEngine
     public enum Author
     {
         None,
+        Editor,
         Device,
         Test,
         Script,
@@ -25,6 +26,7 @@ namespace UnityEngine
         public static readonly Dictionary<Author, LogType> authors = new Dictionary<Author, LogType>()
         {
             { Author.None,     LogType.Exception },
+            { Author.Editor,   LogType.Exception },
             { Author.Device,   LogType.Exception },
             { Author.File,     LogType.Exception },
             { Author.Script,   LogType.Log },

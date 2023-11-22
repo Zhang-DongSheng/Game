@@ -8,12 +8,7 @@ namespace Game
 {
     public class GameController : MonoSingleton<GameController>
     {
-        [SerializeField] private GameSetting setting;
-
-        private void Awake()
-        {
-            setting.Initialize();
-        }
+        [SerializeField] private GameMode mode;
 
         private void Start()
         {
@@ -40,8 +35,15 @@ namespace Game
 
             ReddotLogic.Instance.Initialize();
 
-            ResourceManager.Initialize(setting.Loading);
-
+            switch (mode)
+            {
+                case GameMode.Develop:
+                    ResourceManager.Initialize(LoadingType.AssetDatabase);
+                    break;
+                default:
+                    ResourceManager.Initialize(LoadingType.AssetBundle);
+                    break;
+            }
             GameStateController.Instance.Init();
 
             yield return new WaitForSeconds(3);

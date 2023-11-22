@@ -191,7 +191,7 @@ namespace UnityEditor.Window
 
                     input_source = GUILayout.TextField(input_source);
 
-                    if (GUILayout.Button("Refresh", GUILayout.Width(100)))
+                    if (GUILayout.Button(ToLanguage("Refresh"), GUILayout.Width(100)))
                     {
                         if (folder_source.Count > 0)
                         {
@@ -214,12 +214,12 @@ namespace UnityEditor.Window
 
                     GUILayout.BeginVertical(GUILayout.Width(100));
                     {
-                        if (GUILayout.Button("生成[AssetBundle]", GUILayout.Height(30)))
+                        if (GUILayout.Button(ToLanguage("生成[AssetBundle]"), GUILayout.Height(30)))
                         {
                             BuildAssetBundle();
                         }
 
-                        if (GUILayout.Button("全选"))
+                        if (GUILayout.Button(ToLanguage("Select All")))
                         {
                             for (int i = 0; i < items.Count; i++)
                             {
@@ -227,7 +227,7 @@ namespace UnityEditor.Window
                             }
                         }
 
-                        if (GUILayout.Button("反选"))
+                        if (GUILayout.Button(ToLanguage("Cancel")))
                         {
                             for (int i = 0; i < items.Count; i++)
                             {
@@ -235,12 +235,12 @@ namespace UnityEditor.Window
                             }
                         }
 
-                        if (GUILayout.Button("资源文件夹"))
+                        if (GUILayout.Button(ToLanguage("Assets Folder")))
                         {
                             OpenFolder(SourcePath);
                         }
 
-                        if (GUILayout.Button("Bundle文件夹"))
+                        if (GUILayout.Button(ToLanguage("Bundle文件夹")))
                         {
                             OpenFolder(AssetBundlePath);
                         }
@@ -286,7 +286,7 @@ namespace UnityEditor.Window
 
                     input_assetbundle = GUILayout.TextField(input_assetbundle);
 
-                    if (GUILayout.Button("Refresh", GUILayout.Width(100)))
+                    if (GUILayout.Button(ToLanguage("Refresh"), GUILayout.Width(100)))
                     {
                         if (folder_assetbundle.Count > 0)
                         {
@@ -309,13 +309,13 @@ namespace UnityEditor.Window
 
                     GUILayout.BeginVertical(GUILayout.Width(100));
                     {
-                        if (GUILayout.Button("上传", GUILayout.Height(60)))
+                        if (GUILayout.Button(ToLanguage("Upload"), GUILayout.Height(60)))
                         {
                             Record(HistoryPath, string.Empty, items);
                             Upload();
                         }
 
-                        if (GUILayout.Button("全选"))
+                        if (GUILayout.Button(ToLanguage("Select All")))
                         {
                             for (int i = 0; i < items.Count; i++)
                             {
@@ -323,7 +323,7 @@ namespace UnityEditor.Window
                             }
                         }
 
-                        if (GUILayout.Button("反选"))
+                        if (GUILayout.Button(ToLanguage("Cancel")))
                         {
                             for (int i = 0; i < items.Count; i++)
                             {
@@ -331,12 +331,12 @@ namespace UnityEditor.Window
                             }
                         }
 
-                        if (GUILayout.Button("预览Md5"))
+                        if (GUILayout.Button(ToLanguage("Preview") + "md5"))
                         {
                             OpenFileMd5();
                         }
 
-                        if (GUILayout.Button("更新Md5"))
+                        if (GUILayout.Button(ToLanguage("Update") + "md5"))
                         {
                             UploadMd5();
                         }
@@ -381,7 +381,7 @@ namespace UnityEditor.Window
 
         private void RefreshUIOther()
         {
-            if (GUILayout.Button("联系我们"))
+            if (GUILayout.Button(ToLanguage("联系我们")))
             {
                 Application.OpenURL("https://www.baidu.com");
             }

@@ -63,7 +63,7 @@ namespace UnityEditor.Window
                             break;
                         case 1:
                             {
-                                if (GUILayout.Button("空方法检测"))
+                                if (GUILayout.Button(ToLanguage("空方法检测")))
                                 {
                                     EmptyFunction();
                                 }

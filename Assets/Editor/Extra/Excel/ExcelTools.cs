@@ -121,7 +121,7 @@ namespace UnityEditor
 						}
 					}
 
-					if (GUILayout.Button("刷新", GUILayout.Width(100)))
+					if (GUILayout.Button(ToLanguage("Refresh"), GUILayout.Width(100)))
 					{
 						inputFolder = input_inputFolder; Load();
 					}
@@ -166,7 +166,7 @@ namespace UnityEditor
 					{
 						GUILayout.Space(20);
 
-						if (GUILayout.Button("生成资源"))
+						if (GUILayout.Button(ToLanguage("Build")))
 						{
 							CreateAsset();
 						}
@@ -174,18 +174,18 @@ namespace UnityEditor
 						{
 							index_format = EditorGUILayout.Popup(index_format, text_format);
 
-							if (GUILayout.Button("转换"))
+							if (GUILayout.Button(ToLanguage("Convert")))
 							{
 								Convert();
 							}
 						}
 						GUILayout.EndHorizontal();
 
-						if (GUILayout.Button("输入文件夹"))
+						if (GUILayout.Button(ToLanguage("Input Folder")))
 						{
 							OpenFolder(inputFolder);
 						}
-						if (GUILayout.Button("输出文件夹"))
+						if (GUILayout.Button(ToLanguage("Output Folder")))
 						{
 							OpenFolder(outputFolder);
 						}
@@ -222,7 +222,7 @@ namespace UnityEditor
 					}
 				}
 
-				if (GUILayout.Button("保存", GUILayout.Width(100)))
+				if (GUILayout.Button(ToLanguage("Save"), GUILayout.Width(100)))
 				{
 					outputFolder = input_outputFolder;
 				}
@@ -232,7 +232,7 @@ namespace UnityEditor
 
 		private void RefreshUIOther()
 		{
-			if (GUILayout.Button("联系我们"))
+			if (GUILayout.Button(ToLanguage("联系我们")))
 			{
 				Application.OpenURL("https://www.baidu.com");
 			}

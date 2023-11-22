@@ -170,7 +170,7 @@ namespace UnityEditor.Window
 
         private void RefreshComponent()
         {
-            if (GUILayout.Button("Detection component references"))
+            if (GUILayout.Button(ToLanguage("Detection component references")))
             {
                 if (indexPrefab.value == 0) { }
                 else
@@ -189,7 +189,7 @@ namespace UnityEditor.Window
             }
             GUILayout.EndHorizontal();
 
-            if (GUILayout.Button("modify"))
+            if (GUILayout.Button(ToLanguage("Modify")))
             {
                 GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(file.asset);
 
@@ -226,7 +226,7 @@ namespace UnityEditor.Window
 
                 graphic.raycast = EditorGUILayout.Toggle("Trigger", graphic.raycast);
 
-                if (GUILayout.Button("Modify"))
+                if (GUILayout.Button(ToLanguage("Modify")))
                 {
                     GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(file.asset);
 
@@ -269,7 +269,7 @@ namespace UnityEditor.Window
                         }
                         break;
                 }
-                if (GUILayout.Button("Modify"))
+                if (GUILayout.Button(ToLanguage("Modify")))
                 {
                     GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(file.asset);
 

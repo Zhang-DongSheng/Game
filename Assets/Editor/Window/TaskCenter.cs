@@ -83,7 +83,7 @@ namespace UnityEditor.Window
                     {
                         RefreshWrite(task);
 
-                        if (GUILayout.Button("新加", GUILayout.Width(100), GUILayout.ExpandHeight(true)))
+                        if (GUILayout.Button(ToLanguage("New"), GUILayout.Width(100), GUILayout.ExpandHeight(true)))
                         {
                             task.mode = Mode.Display;
 
@@ -104,11 +104,11 @@ namespace UnityEditor.Window
 
                         GUILayout.BeginVertical(GUILayout.Width(100));
                         {
-                            if (GUILayout.Button("保存"))
+                            if (GUILayout.Button(ToLanguage("Save")))
                             {
                                 task.mode = Mode.Display; Save();
                             }
-                            if (GUILayout.Button("删除"))
+                            if (GUILayout.Button(ToLanguage("Delete")))
                             {
                                 this.task.Remove(task.identification); Save();
                             }
@@ -120,7 +120,7 @@ namespace UnityEditor.Window
                     {
                         RefreshRead(task);
 
-                        if (GUILayout.Button("修改"))
+                        if (GUILayout.Button(ToLanguage("Modify")))
                         {
                             task.mode = Mode.Editor;
                         }
@@ -135,11 +135,11 @@ namespace UnityEditor.Window
             {
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Button("名称:", options[0]);
+                    GUILayout.Button(ToLanguage("Name"), options[0]);
 
                     GUILayout.Label(task.name, options[1]);
 
-                    GUILayout.Button("状态:", options[0]);
+                    GUILayout.Button(ToLanguage("State"), options[0]);
 
                     GUILayout.Label(string.Format("{0}", task.status), options[1]);
 
@@ -147,7 +147,7 @@ namespace UnityEditor.Window
                     {
                         case Status.Develop:
                             {
-                                GUILayout.Button("进度:", options[0]);
+                                GUILayout.Button(ToLanguage("Progress"), options[0]);
 
                                 GUILayout.Label(string.Format("{0}%", task.progress), options[1]);
                             }
@@ -158,7 +158,7 @@ namespace UnityEditor.Window
 
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Button("描述:", options[0]);
+                    GUILayout.Button(ToLanguage("Description"), options[0]);
 
                     GUILayout.Label(task.description, GUILayout.ExpandHeight(true));
                 }
@@ -173,7 +173,7 @@ namespace UnityEditor.Window
             {
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Button("名称:", options[0]);
+                    GUILayout.Button(ToLanguage("Name"), options[0]);
 
                     task.name = GUILayout.TextField(task.name, options[1]);
 
@@ -181,7 +181,7 @@ namespace UnityEditor.Window
                     {
                         case Mode.Editor:
                             {
-                                GUILayout.Button("状态:", options[0]);
+                                GUILayout.Button(ToLanguage("State"), options[0]);
 
                                 task.status = (Status)EditorGUILayout.EnumPopup(task.status, options[1]);
 
@@ -189,7 +189,7 @@ namespace UnityEditor.Window
                                 {
                                     case Status.Develop:
                                         {
-                                            GUILayout.Button("进度:", options[0]);
+                                            GUILayout.Button(ToLanguage("Progress"), options[0]);
 
                                             GUILayout.Label(string.Format("{0}%", task.progress), GUILayout.Width(100));
 
@@ -197,8 +197,8 @@ namespace UnityEditor.Window
                                         }
                                         break;
                                     case Status.Fail:
-                                        { 
-                                            
+                                        {
+
                                         }
                                         break;
                                 }
@@ -210,7 +210,7 @@ namespace UnityEditor.Window
 
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Button("描述:", options[0]);
+                    GUILayout.Button(ToLanguage("Description"), options[0]);
 
                     task.description = GUILayout.TextField(task.description, GUILayout.ExpandHeight(true));
                 }

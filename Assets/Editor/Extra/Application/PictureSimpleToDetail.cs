@@ -26,7 +26,7 @@ namespace UnityEditor.Window
                 input.value = EditorUtility.OpenFilePanelWithFilters("Í¼Æ¬Ñ¡Ôñ", Application.dataPath, new string[] { "Image files", "png,jpg,jpeg" });
             }
 
-            if (GUILayout.Button("Simple To Detail"))
+            if (GUILayout.Button(ToLanguage("Simple To Detail")))
             {
                 if (string.IsNullOrEmpty(input.value)) return;
 

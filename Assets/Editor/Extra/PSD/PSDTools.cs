@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor.Window;
 using UnityEngine;
 
 namespace UnityEditor
 {
-	public class PsdTools : EditorWindow
-	{
+	public class PsdTools : CustomWindow
+    {
 		private const string Extension = ".psd";
 
 		private const string InputPath = "Source/Psd";
@@ -32,8 +33,6 @@ namespace UnityEditor
 
 		private string input_outputFolder;
 
-		private Vector2 scroll;
-
 		private int search;
 
 		private int searchNode;
@@ -51,52 +50,43 @@ namespace UnityEditor
 		[MenuItem("Extra/PSD")]
 		protected static void Open()
 		{
-			PsdTools window = EditorWindow.GetWindow<PsdTools>();
-			window.titleContent = new GUIContent("PSD 导出工具");
-			window.minSize = new Vector2(500, 200);
-			window.Init();
-			window.Show();
+			Open<PsdTools>("PSD 导出工具");
 		}
 
-		public void Init()
-		{
-			input_inputFolder = Path.Combine(Utility.Path.Project, InputPath);
+        protected override void Initialise()
+        {
+            input_inputFolder = Path.Combine(Utility.Path.Project, InputPath);
 
-			inputFolder = input_inputFolder;
+            inputFolder = input_inputFolder;
 
-			input_outputFolder = OutputPath;
+            input_outputFolder = OutputPath;
 
-			outputFolder = input_outputFolder;
+            outputFolder = input_outputFolder;
 
-			LoadSource();
-		}
+            LoadSource();
+        }
 
-		private void OnSelectionChange()
-		{
-			Show(); LoadSource(); Repaint();
-		}
+        protected override void Refresh()
+        {
+            index_view = GUILayout.Toolbar(index_view, text_view);
 
-		private void OnGUI()
-		{
-			index_view = GUILayout.Toolbar(index_view, text_view);
-
-			GUILayout.BeginArea(new Rect(20, 30, Screen.width - 40, Screen.height - 50));
-			{
-				switch (index_view)
-				{
-					case 0:
-						RefreshUIPSD();
-						break;
-					case 1:
-						RefreshUISetting();
-						break;
-					default:
-						RefreshUIOther();
-						break;
-				}
-			}
-			GUILayout.EndArea();
-		}
+            GUILayout.BeginArea(new Rect(20, 30, Screen.width - 40, Screen.height - 50));
+            {
+                switch (index_view)
+                {
+                    case 0:
+                        RefreshUIPSD();
+                        break;
+                    case 1:
+                        RefreshUISetting();
+                        break;
+                    default:
+                        RefreshUIOther();
+                        break;
+                }
+            }
+            GUILayout.EndArea();
+        }
 
 		private void RefreshUIPSD()
 		{
@@ -200,27 +190,27 @@ namespace UnityEditor
 
 					GUILayout.BeginVertical(GUILayout.Width(100));
 					{
-						if (GUILayout.Button("转换", GUILayout.Height(40)))
+						if (GUILayout.Button(ToLanguage("Convert"), GUILayout.Height(40)))
 						{
 							Convert();
 						}
 
-						if (GUILayout.Button("全选"))
+						if (GUILayout.Button(ToLanguage("Select All")))
 						{
 							Select(true);
 						}
 
-						if (GUILayout.Button("反选"))
+						if (GUILayout.Button(ToLanguage("Cancel")))
 						{
 							Select(false);
 						}
 
-						if (GUILayout.Button("输入路径"))
+						if (GUILayout.Button(ToLanguage("Input Folder")))
 						{
 							OpenFolder(inputFolder);
 						}
 
-						if (GUILayout.Button("输出路径"))
+						if (GUILayout.Button(ToLanguage("Output Folder")))
 						{
 							OpenFolder(Path.Combine(Application.dataPath, outputFolder));
 						}
@@ -261,7 +251,7 @@ namespace UnityEditor
 					}
 				}
 
-				if (GUILayout.Button("保存", GUILayout.Width(100)))
+				if (GUILayout.Button(ToLanguage("Save"), GUILayout.Width(100)))
 				{
 					outputFolder = input_outputFolder;
 				}
@@ -271,13 +261,18 @@ namespace UnityEditor
 
 		private void RefreshUIOther()
 		{
-			if (GUILayout.Button("联系我们"))
+			if (GUILayout.Button(ToLanguage("联系我们")))
 			{
 				Application.OpenURL("https://www.baidu.com");
 			}
 		}
 
-		private void LoadSource()
+        private void OnSelectionChange()
+        {
+            Show(); LoadSource(); Repaint();
+        }
+
+        private void LoadSource()
 		{
 			source.Clear();
 
@@ -415,7 +410,7 @@ namespace UnityEditor
 				Debug.LogError("No Directory: " + path);
 			}
 		}
-	}
+    }
 
 	public class FileItem
 	{

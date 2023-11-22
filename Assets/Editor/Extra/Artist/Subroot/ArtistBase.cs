@@ -10,6 +10,11 @@ namespace UnityEditor.Window
 
         public abstract void Refresh();
 
+        public virtual string ToLanguage(string key)
+        { 
+            return LanguageManager.Instance.GetWorld(key);
+        }
+
         public virtual void ShowNotification(string message)
         {
             Artist artist = EditorWindow.GetWindow<Artist>();
