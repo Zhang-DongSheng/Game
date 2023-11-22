@@ -75,9 +75,23 @@ namespace Game
         /// <summary>
         /// 保留指定小数位
         /// </summary>
-        public static float Round(float value, int digit)
+        public static float Round(this float value, int digit)
         {
             return (float)Math.Round(value, digit);
+        }
+        /// <summary>
+        /// 是否大于
+        /// </summary>
+        public static bool MoreThan<T>(this T source, T target) where T : IComparable<T>
+        {
+            return source.CompareTo(target) > 0;
+        }
+        /// <summary>
+        /// 是否小于
+        /// </summary>
+        public static bool LessThan<T>(this T source, T target) where T : IComparable<T>
+        {
+            return source.CompareTo(target) < 0;
         }
     }
 }

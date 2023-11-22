@@ -1,7 +1,5 @@
 ﻿using Game.Attribute;
-using Game.UI;
-using IronForce2.UI;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,31 +41,18 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            var q1 = new Vector3(1, 0, 1);
+            var list = new List<int>(100);
 
-            var q2 = Quaternion.Euler(0, 150, 0);
+            list.Fill(1, 30);
 
-            var v = q2 * q1;
-
-            Debuger.Log(Author.Test, v);
-
-            Debuger.Log(Author.Test, q1.magnitude);
-
-            Debuger.Log(Author.Test, v.magnitude);
+            Debug.LogError(string.Join(',', list));
         }
         /// <summary>
         /// 点击测试
         /// </summary>
         public void OnClick(int code)
         {
-            var list = target.GetComponent<ListLayoutGroup>();
-
-            var data = Enumerable.Range(0, 20).ToList();
-
-            list.SetData<SText, int>(data, (index, item, data) =>
-            {
-                item.Refresh(data.ToString());
-            });
+            
         }
         /// <summary>
         /// 菜单栏测试

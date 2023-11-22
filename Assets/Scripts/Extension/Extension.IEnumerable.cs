@@ -225,5 +225,43 @@ namespace Game
             return exist;
         }
         #endregion
+
+        #region IList
+        public static void Swap<T>(this IList<T> list, int index, int to)
+        {
+            if (index == to)
+                return;
+            if (list.Count > index && list.Count > to)
+            {
+                var temp = list[index];
+                list[index] = list[to];
+                list[to] = temp;
+            }
+        }
+        /// <summary>
+        /// Моід
+        /// </summary>
+        public static void Fill<T>(this IList<T> list, T value, int count = -1)
+        {
+            if (count == -1)
+            {
+                count = list.Count;
+
+                for (int i = 0; i < count; i++)
+                {
+                    list[i] = value;
+                }
+            }
+            else
+            {
+                list.Clear();
+
+                for (int i = 0; i < count; i++)
+                {
+                    list.Add(value);
+                }
+            }
+        }
+        #endregion
     }
 }

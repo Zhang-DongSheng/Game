@@ -1,6 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Game
 {
@@ -11,55 +12,81 @@ namespace Game
         /// </summary>
         public static class Sort
         {
-            public static List<T> MergeSort<T>(List<T> source) where T : IComparer
+            public static IList<T> SortList<T>(IList<T> collection, Comparer<T> comparer, int type = 0)
             {
-                return _MergeSort(source, 0, source.Count - 1);
-            }
+                int count = collection.Count;
 
-            public static List<T> ShellSort<T>(List<T> source) where T : IComparer
-            {
-                return _ShellSort(source, 2);
-            }
+                if (count < 2) return collection;
 
-            public static List<T> BubbleSort<T>(List<T> source) where T : IComparer
-            {
-                return _BubbleSort(source);
+                switch (type)
+                {
+                    case 0:
+                        return _MergeSort(collection, 0, count - 1, comparer);
+                    case 1:
+                        return _ShellSort(collection, comparer);
+                    case 2:
+                        return _BubbleSort(collection, comparer);
+                    case 3:
+                        return _InsertionSort(collection, comparer);
+                    case 4:
+                        return _SelectionSort(collection, comparer);
+                    case 5:
+                        return _QuickSort(collection, 0, count - 1, comparer);
+                    case 6:
+                        return _RadixSort(collection, comparer);
+                    case 7:
+                        return _HeapSort(collection, comparer);
+                    case 8:
+                        return _CombSort(collection, comparer);
+                    case 9:
+                        return _GnomeSort(collection, comparer);
+                    case 10:
+                        return _OddEvenSort(collection, comparer);
+                    case 11:
+                        return _CycleSort(collection, comparer);
+                    default:
+                        return collection;
+                }
             }
-
-            public static List<T> InsertionSort<T>(List<T> source) where T : IComparer
+            /// <summary>
+            /// 排序By整数
+            /// </summary>
+            public static IList<int> SortIntList(IList<int> collection, int type = 0)
             {
-                return _InsertionSort(source);
-            }
+                int count = collection.Count;
 
-            public static List<T> SelectionSort<T>(List<T> source) where T : IComparer
-            {
-                return _SelectionSort(source);
-            }
+                if (count < 2) return collection;
 
-            public static List<T> QuickSort<T>(List<T> source) where T : IComparer
-            {
-                return _QuickSort(source, 0, source.Count - 1);
+                switch (type)
+                {
+                    case 12:
+                        return _BucketSort(collection);
+                    case 13:
+                        return _PigeonHoleSort(collection);
+                    default:
+                        return SortList(collection, Comparer<int>.Default, type);
+                }
             }
             /// <summary>
             /// 归并排序(o(n㏒n))
             /// </summary>
-            private static List<T> _MergeSort<T>(List<T> source, int min, int max) where T : IComparer
+            private static List<T> _MergeSort<T>(IList<T> collection, int min, int max, Comparer<T> comparer)
             {
-                if (min == max) return new List<T>() { source[min] };
+                if (min == max) return new List<T>() { collection[min] };
 
                 List<T> list = new List<T>();
 
                 int middle = (min + max) / 2;
 
-                List<T> left = _MergeSort(source, min, middle);
+                List<T> left = _MergeSort(collection, min, middle, comparer);
 
-                List<T> right = _MergeSort(source, middle + 1, max);
+                List<T> right = _MergeSort(collection, middle + 1, max, comparer);
 
                 int l = 0, r = 0;
 
                 while (true)
                 {
-                    if (left[l].Compare(left[l], right[r]) < 0)
+                    if (comparer.Compare(left[l], right[r]) < 0)
                     {
                         list.Add(left[l]);
 
@@ -78,83 +105,84 @@ namespace Game
                         }
                     }
                 }
-
                 return list;
             }
             /// <summary>
             /// 希尔排序(o(n¹.¼))
             /// </summary>
-            private static List<T> _ShellSort<T>(List<T> source, int number) where T : IComparer
+            private static IList<T> _ShellSort<T>(IList<T> collection, Comparer<T> comparer)
             {
-                int gap = source.Count / number;
+                int count = collection.Count;
+
+                int gap = count / 2;
 
                 while (gap >= 1)
                 {
-                    for (int i = gap; i < source.Count; i++)
+                    for (int i = gap; i < count; i++)
                     {
-                        for (int j = i; j >= gap && source[j].Compare(source[j], source[j - gap]) < 0; j -= gap)
+                        for (int j = i; j >= gap && comparer.Compare(collection[j], collection[j - gap]) < 0; j -= gap)
                         {
-                            Swap(source, j, j - gap);
+                            Swap(collection, j, j - gap);
                         }
                     }
-                    gap /= number;
+                    gap /= 2;
                 }
-
-                return source;
+                return collection;
             }
             /// <summary>
             /// 冒泡排序(o(n²))
             /// </summary>
-            private static List<T> _BubbleSort<T>(List<T> source) where T : IComparer
+            private static IList<T> _BubbleSort<T>(IList<T> collection, Comparer<T> comparer)
             {
-                for (int i = 0; i < source.Count; i++)
+                int count = collection.Count;
+
+                for (int i = 0; i < count; i++)
                 {
-                    for (int j = i + 1; j < source.Count; j++)
+                    for (int j = i + 1; j < count; j++)
                     {
-                        if (source[i].Compare(source[i], source[j]) < 0)
+                        if (comparer.Compare(collection[i], collection[j]) < 0)
                         {
-                            Swap(source, i, j);
+                            Swap(collection, i, j);
                         }
                     }
                 }
-                return source;
+                return collection;
             }
             /// <summary>
             /// 插入排序(o(n²))
             /// </summary>
-            private static List<T> _InsertionSort<T>(List<T> source) where T : IComparer
+            private static IList<T> _InsertionSort<T>(IList<T> collection, Comparer<T> comparer)
             {
                 int index;
 
-                for (int i = 0; i < source.Count; i++)
+                for (int i = 0; i < collection.Count; i++)
                 {
-                    T temp = source[i];
+                    T temp = collection[i];
 
                     index = i;
 
-                    for (; index > 0 && temp.Compare(temp, source[index - 1]) < 0; index--)
+                    for (; index > 0 && comparer.Compare(temp, collection[index - 1]) < 0; index--)
                     {
-                        source[index] = source[index - 1];
+                        collection[index] = collection[index - 1];
                     }
-                    source[index] = temp;
+                    collection[index] = temp;
                 }
-
-                return source;
+                return collection;
             }
             /// <summary>
             /// 选择排序(o(n²))
             /// </summary>
-            private static List<T> _SelectionSort<T>(List<T> source) where T : IComparer
+            private static IList<T> _SelectionSort<T>(IList<T> collection, Comparer<T> comparer)
             {
-                int index;
+                int index, count = collection.Count;
 
-                for (int i = 0; i < source.Count; i++)
+                for (int i = 0; i < count; i++)
                 {
                     index = i;
 
-                    for (int j = i + 1; j < source.Count; j++)
+                    for (int j = i + 1; j < count; j++)
                     {
-                        if (source[index].Compare(source[index], source[j]) > 0)
+                        if (comparer.Compare(collection[index], collection[j]) > 0)
                         {
                             index = j;
                         }
@@ -162,20 +190,19 @@ namespace Game
 
                     if (index != i)
                     {
-                        Swap(source, index, i);
+                        Swap(collection, index, i);
                     }
                 }
-
-                return source;
+                return collection;
             }
             /// <summary>
             /// 快速排序(o(n㏒n))
             /// </summary>
-            private static List<T> _QuickSort<T>(List<T> source, int left, int right) where T : IComparer
+            private static IList<T> _QuickSort<T>(IList<T> collection, int left, int right, Comparer<T> comparer)
             {
                 if (left >= right) return null;
 
-                T temp = source[left];
+                T temp = collection[left];
 
                 int i = left, j = right;
 
@@ -183,88 +210,292 @@ namespace Game
                 {
                     while (i < j)
                     {
-                        while (i < j && temp.Compare(temp, source[j]) < 0)
+                        while (i < j && comparer.Compare(temp, collection[j]) < 0)
                         {
                             j--;
                         }
-
                         if (i == j) break;
 
-                        source[i++] = source[j];
+                        collection[i++] = collection[j];
 
-                        while (i < j && temp.Compare(temp, source[i]) > 0)
+                        while (i < j && comparer.Compare(temp, collection[i]) > 0)
                         {
                             i++;
                         }
-
                         if (i == j) break;
 
-                        source[j--] = source[i];
+                        collection[j--] = collection[i];
                     }
+                    collection[i] = temp;
 
-                    source[i] = temp;
+                    _QuickSort(collection, left, i - 1, comparer);
 
-                    _QuickSort(source, left, i - 1);
-
-                    _QuickSort(source, i + 1, right);
+                    _QuickSort(collection, i + 1, right, comparer);
                 }
                 catch (Exception e)
                 {
                     throw new Exception(e.Message);
                 }
-
-                return source;
+                return collection;
             }
             /// <summary>
             /// 基数排序
             /// </summary>
-            private static List<T> _RadixSort<T>(List<T> source) where T : IComparer
+            private static IList<T> _RadixSort<T>(IList<T> collection, Comparer<T> comparer)
             {
-                return source;
+                return collection;
+            }
+            /// <summary>
+            /// 堆排序
+            /// </summary>
+            private static IList<T> _HeapSort<T>(IList<T> collection, Comparer<T> comparer)
+            {
+                int last = collection.Count - 1;
+
+                for (int node = last / 2; node >= 0; --node)
+                {
+                    _HeapSortMinHeapify(collection, node, last, comparer);
+                }
+                while (last >= 0)
+                {
+                    collection.Swap(0, last);
+                    last--;
+                    _HeapSortMinHeapify(collection, 0, last, comparer);
+                }
+                return collection;
+            }
+            /// <summary>
+            /// 堆排序 of Max
+            /// </summary>
+            private static void _HeapSortMaxHeapify<T>(IList<T> collection, int nodeIndex, int lastIndex, Comparer<T> comparer)
+            {
+                // assume left(i) and right(i) are max-heaps
+                int left = (nodeIndex * 2) + 1;
+                int right = left + 1;
+                int largest = nodeIndex;
+
+                // If collection[left] > collection[nodeIndex]
+                if (left <= lastIndex && comparer.Compare(collection[left], collection[nodeIndex]) > 0)
+                    largest = left;
+
+                // If collection[right] > collection[largest]
+                if (right <= lastIndex && comparer.Compare(collection[right], collection[largest]) > 0)
+                    largest = right;
+
+                // Swap and heapify
+                if (largest != nodeIndex)
+                {
+                    collection.Swap(nodeIndex, largest);
+                    _HeapSortMaxHeapify(collection, largest, lastIndex, comparer);
+                }
+            }
+            /// <summary>
+            /// 堆排序 of Min
+            /// </summary>
+            private static void _HeapSortMinHeapify<T>(IList<T> collection, int nodeIndex, int lastIndex, Comparer<T> comparer)
+            {
+                // assume left(i) and right(i) are max-heaps
+                int left = (nodeIndex * 2) + 1;
+                int right = left + 1;
+                int smallest = nodeIndex;
+                // If collection[left] > collection[nodeIndex]
+                if (left <= lastIndex && comparer.Compare(collection[left], collection[nodeIndex]) < 0)
+                    smallest = left;
+                // If collection[right] > collection[largest]
+                if (right <= lastIndex && comparer.Compare(collection[right], collection[smallest]) < 0)
+                    smallest = right;
+                // Swap and heapify
+                if (smallest != nodeIndex)
+                {
+                    collection.Swap(nodeIndex, smallest);
+                    _HeapSortMinHeapify(collection, smallest, lastIndex, comparer);
+                }
+            }
+            /// <summary>
+            /// 梳子排序
+            /// </summary>
+            private static IList<T> _CombSort<T>(IList<T> collection, Comparer<T> comparer)
+            {
+                double gap = collection.Count;
+                bool swaps = true;
+                while (gap > 1 || swaps)
+                {
+                    gap /= 1.247330950103979;
+                    if (gap < 1) { gap = 1; }
+                    int i = 0;
+                    swaps = false;
+                    while (i + gap < collection.Count)
+                    {
+                        int igap = i + (int)gap;
+                        if (comparer.Compare(collection[i], collection[igap]) < 0)
+                        {
+                            collection.Swap(i, igap);
+                            swaps = true;
+                        }
+                        i++;
+                    }
+                }
+                return collection;
+            }
+            /// <summary>
+            /// 侏儒排序
+            /// </summary>
+            private static IList<T> _GnomeSort<T>(IList<T> collection, Comparer<T> comparer)
+            {
+                int index = 1;
+
+                while (index < collection.Count)
+                {
+                    if (comparer.Compare(collection[index], collection[index - 1]) <= 0)
+                    {
+                        index++;
+                    }
+                    else
+                    {
+                        collection.Swap(index, index - 1);
+
+                        if (index > 1)
+                        {
+                            index--;
+                        }
+                    }
+                }
+                return collection;
+            }
+            /// <summary>
+            /// 奇偶排序
+            /// </summary>
+            private static IList<T> _OddEvenSort<T>(IList<T> collection, Comparer<T> comparer)
+            {
+                bool sorted = false;
+                while (!sorted)
+                {
+                    sorted = true;
+                    for (var i = 1; i < collection.Count - 1; i += 2)
+                    {
+                        if (comparer.Compare(collection[i], collection[i + 1]) < 0)
+                        {
+                            collection.Swap(i, i + 1);
+                            sorted = false;
+                        }
+                    }
+                    for (var i = 0; i < collection.Count - 1; i += 2)
+                    {
+                        if (comparer.Compare(collection[i], collection[i + 1]) < 0)
+                        {
+                            collection.Swap(i, i + 1);
+                            sorted = false;
+                        }
+                    }
+                }
+                return collection;
+            }
+            /// <summary>
+            /// 圈排序
+            /// </summary>
+            private static IList<T> _CycleSort<T>(IList<T> collection, Comparer<T> comparer)
+            {
+                int count = collection.Count;
+
+                for (int i = 0; i < count; i++)
+                {
+                    T item = collection[i];
+                    int position = i;
+                    do
+                    {
+                        int to = 0;
+                        for (int j = 0; j < count; j++)
+                        {
+                            if (j != i && comparer.Compare(collection[j], item) < 0)
+                            {
+                                to++;
+                            }
+                        }
+
+                        if (position != to)
+                        {
+                            while (position != to && comparer.Compare(item, collection[to]) == 0)
+                            {
+                                to++;
+                            }
+                            T temp = collection[to];
+                            collection[to] = item;
+                            item = temp;
+                            position = to;
+                        }
+                    } while (position != i);
+                }
+                return collection;
             }
             /// <summary>
             /// 桶排序
             /// </summary>
-            private static List<T> _BucketSort<T>(List<T> source) where T : IComparer
+            private static IList<int> _BucketSort(IList<int> collection)
             {
-                //for (int i = 0; i < source.Count; i++)
-                //{
-                //    for (int j = i + 1; j < source.Count; j++)
-                //    {
-                //        if (source[i].Compare(source[i], source[j]) < 0)
-                //        {
-                //            Swap(source, i, j);
-                //        }
-                //    }
-                //}
-                return source;
-            }
+                int max = collection.Max();
 
-            private static void Swap<T>(List<T> list, int x, int y)
+                int min = collection.Min();
+
+                List<int>[] bucket = new List<int>[max - min + 1];
+
+                for (int i = 0; i < bucket.Length; i++)
+                {
+                    bucket[i] = new List<int>();
+                }
+                foreach (var i in collection)
+                {
+                    bucket[i - min].Add(i);
+                }
+
+                int index = 0;
+
+                foreach (List<int> i in bucket)
+                {
+                    if (i.Count > 0)
+                    {
+                        foreach (int j in i)
+                        {
+                            collection[index] = j;
+                            index++;
+                        }
+                    }
+                }
+                return collection;
+            }
+            /// <summary>
+            /// 鸽巢排序
+            /// </summary>
+            private static IList<int> _PigeonHoleSort(IList<int> collection)
+            {
+                int min = collection.Min();
+                int max = collection.Max();
+                int size = max - min + 1;
+                int[] holes = new int[size];
+                foreach (int x in collection)
+                {
+                    holes[x - min]++;
+                }
+                int i = 0;
+                for (int count = size - 1; count >= 0; count--)
+                {
+                    while (holes[count]-- > 0)
+                    {
+                        collection[i] = count + min;
+                        i++;
+                    }
+                }
+                return collection;
+            }
+            /// <summary>
+            /// 交换
+            /// </summary>
+            private static void Swap<T>(IList<T> list, int x, int y)
             {
                 T temp = list[x];
 
                 list[x] = list[y];
 
                 list[y] = temp;
-            }
-
-            class SortStruct : IComparer
-            {
-                public int ID;
-
-                public int index;
-
-                public int order;
-
-                public int Compare(object x, object y)
-                {
-                    SortStruct x1 = x as SortStruct;
-
-                    SortStruct y1 = y as SortStruct;
-
-                    return x1.ID > y1.ID ? 1 : -1;
-                }
             }
         }
     }
