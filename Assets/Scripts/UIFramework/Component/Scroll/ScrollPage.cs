@@ -6,19 +6,25 @@ namespace UnityEngine.UI
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(ScrollRect))]
-    public class ScrollPage : MonoBehaviour, IBeginDragHandler, IEndDragHandler
+    public class ScrollPage : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         private ScrollRect scroll;
+
+        [SerializeField] private bool spring;
+
+        [SerializeField] private float dynamics = 300f;
 
         private float space, capacity;
 
         private float progress;
 
-        private int index;
+        private int index, current;
 
         private bool draging;
 
         private Status status;
+
+        private Vector2 delta;
 
         private Vector2 position;
 
@@ -30,9 +36,9 @@ namespace UnityEngine.UI
         {
             scroll = GetComponent<ScrollRect>();
 
-            scroll.decelerationRate = 0;
-
             scroll.horizontal = true;
+
+            scroll.inertia = false;
         }
 
         private void Update()
@@ -135,6 +141,8 @@ namespace UnityEngine.UI
 
             if (index >= count) return;
 
+            current = index;
+
             onValueChanged?.Invoke(index);
 
             StartCoroutine(FixedPosition(index, false));
@@ -155,7 +163,14 @@ namespace UnityEngine.UI
         {
             draging = true;
 
+            delta = Vector2.zero;
+
             status = Status.Idle;
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            delta += eventData.delta;
         }
 
         public void OnEndDrag(PointerEventData eventData)
@@ -166,7 +181,9 @@ namespace UnityEngine.UI
 
             float min = center, current;
 
-            for (int i = 0; i < scroll.content.childCount; i++)
+            int count = scroll.content.childCount;
+
+            for (int i = 0; i < count; i++)
             {
                 if (scroll.content.GetChild(i).TryGetComponent(out RectTransform target))
                 {
@@ -177,6 +194,19 @@ namespace UnityEngine.UI
                         min = current; index = i;
                     }
                 }
+            }
+            // Goto
+            if (spring && index == this.current)
+            {
+                if (delta.x > dynamics)
+                {
+                    index = Mathf.Max(index - 1, 0);
+                }
+                else if (delta.x < -dynamics)
+                {
+                    index = Mathf.Min(index + 1, count - 1);
+                }
+                Debug.LogError(delta.x);
             }
             Direction(index);
         }
