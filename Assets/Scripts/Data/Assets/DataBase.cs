@@ -9,7 +9,7 @@ namespace Data
     {
         public virtual void Set(string content)
         {
-            Clear();
+            
         }
 
         public virtual void Clear()
