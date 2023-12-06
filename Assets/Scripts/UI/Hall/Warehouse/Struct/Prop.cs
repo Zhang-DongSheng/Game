@@ -8,8 +8,8 @@ namespace Data
     {
         public uint identification;
 
-        public uint number;
-
         public uint parallelism;
+
+        public uint number;
     }
 }

@@ -56,7 +56,15 @@ namespace Game.UI
 
         private void OnClickSource()
         {
-            UIQuickEntry.OpenUINotice("来源未知！");
+            switch (coin)
+            {
+                case 101:
+                    UIQuickEntry.Open(UIPanel.UIShop);
+                    break;
+                default:
+                    UIQuickEntry.OpenUINotice("来源未知！");
+                    break;
+            }
         }
     }
 }

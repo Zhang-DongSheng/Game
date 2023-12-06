@@ -39,6 +39,7 @@ namespace Game
         private void Today()
         {
             Add(Schedule.Shop);
+            Add(Schedule.Task);
             Add(Schedule.Activity);
         }
 
@@ -123,7 +124,7 @@ namespace Game
                     WarehouseLogic.Instance.RequestInformation();
                     break;
                 case Schedule.Mail:
-                    Update(Schedule.Mail);
+                    MailLogic.Instance.RequestMails();
                     break;
                 case Schedule.Reddot:
                     ReddotLogic.Instance.RequestInformation();
@@ -133,6 +134,9 @@ namespace Game
                     break;
                 case Schedule.Activity:
                     ActivityLogic.Instance.RequestInformation();
+                    break;
+                case Schedule.Task:
+                    TaskLogic.Instance.RequestTasks();
                     break;
                 case Schedule.Count:
                     Update(Schedule.Count, ScheduleStatus.Complete);
@@ -236,6 +240,10 @@ namespace Game
         /// 活动
         /// </summary>
         Activity,
+        /// <summary>
+        /// 任务
+        /// </summary>
+        Task,
         /// <summary>
         /// 数量
         /// </summary>

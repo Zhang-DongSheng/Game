@@ -29,6 +29,8 @@ namespace Game
 
             ShopLogic.Instance.Initialize();
 
+            MailLogic.Instance.Initialize();
+
             ActivityLogic.Instance.Initialize();
 
             NotificationLogic.Instance.Initialize();

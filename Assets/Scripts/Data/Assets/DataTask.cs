@@ -6,7 +6,7 @@ namespace Data
     {
         public List<TaskInformation> tasks = new List<TaskInformation>();
 
-        public TaskInformation Get(int key, bool quick = false)
+        public TaskInformation Get(uint key)
         {
             return tasks.Find(x => x.primary == key);
         }
