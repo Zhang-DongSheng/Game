@@ -121,13 +121,6 @@ namespace UnityEditor.Hierarchy
 
             var component = go.AddComponent<InfiniteLoopScrollList>();
         }
-        [MenuItem(EXTENSION + "Slider/SliderHelper")]
-        protected static void CreateSliderHelper()
-        {
-            GameObject go = CreateGameObject("SliderHelper", true);
-
-            var component = go.AddComponent<SliderHelper>();
-        }
         [MenuItem(EXTENSION + "Toggle/ToggleDrag")]
         protected static void CreateToggleDrag()
         {

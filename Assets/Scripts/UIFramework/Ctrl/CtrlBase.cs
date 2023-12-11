@@ -48,7 +48,7 @@ namespace Game.UI
                     }
                     break;
                 case Status.Loading:
-                    Debuger.LogWarning(Author.UI, string.Format("The panel of [{0}] is loading...", information.panel));
+                    Debuger.LogWarning(Author.UI, string.Format("The panel of [{0}] is loading...", information.name));
                     break;
                 case Status.Display:
                     {
@@ -59,7 +59,7 @@ namespace Game.UI
                     }
                     break;
                 case Status.Error:
-                    Debuger.LogError(Author.UI, string.Format("The panel of [{0}] resource was not found!", information.panel));
+                    Debuger.LogError(Author.UI, string.Format("The panel of [{0}] resource was not found!", information.name));
                     break;
             }
         }

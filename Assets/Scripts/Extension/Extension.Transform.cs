@@ -182,6 +182,31 @@ namespace Game
             return null;
         }
         /// <summary>
+        /// 子节点数量
+        /// </summary>
+        public static int ChildrenCount(this Transform transform, bool includeInactive = false)
+        {
+            int count = 0;
+
+            if (includeInactive)
+            {
+                count = transform.childCount;
+            }
+            else
+            {
+                int index = transform.childCount;
+
+                while (index-- > 0)
+                {
+                    if (transform.GetChild(index).gameObject.activeSelf)
+                    {
+                        count++;
+                    }
+                }
+            }
+            return count;
+        }
+        /// <summary>
         /// 目标全路径
         /// </summary>
         public static string FullName(this Transform transform)

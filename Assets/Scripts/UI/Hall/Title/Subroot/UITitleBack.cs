@@ -16,7 +16,7 @@ namespace Game.UI
 
         public void Refresh(UIInformation information)
         {
-            title.text = information.panel.ToString();
+            title.text = information.name;
 
             SetActive(true);
         }

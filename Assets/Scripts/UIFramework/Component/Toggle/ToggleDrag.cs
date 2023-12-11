@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace UnityEngine.UI
 {
-    public class ToggleDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerDownHandler
+    public class ToggleDrag : MonoBehaviour,IBeginDragHandler , IDragHandler, IEndDragHandler
     {
         [SerializeField] private RectTransform target;
 
@@ -60,10 +60,17 @@ namespace UnityEngine.UI
             }
         }
 
-        public void OnDrag(PointerEventData eventData)
+        public void OnBeginDrag(PointerEventData eventData)
         {
             status = Status.Drag;
 
+            shift = Vector2.zero;
+
+            position = target.anchoredPosition;
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
             shift += eventData.delta;
 
             position += eventData.delta;
@@ -103,13 +110,6 @@ namespace UnityEngine.UI
                 }
             }
             Finish(index);
-        }
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            shift = Vector2.zero;
-
-            position = target.anchoredPosition;
         }
 
         public void OnClick(int index)

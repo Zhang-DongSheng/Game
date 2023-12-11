@@ -70,15 +70,15 @@ namespace Game.UI
             }
         }
 
-        public void Open(UIPanel panel, bool async = false)
+        public void Open(UIPanel key, bool async = false)
         {
             try
             {
-                if (!_panels.ContainsKey(panel))
+                if (!_panels.ContainsKey(key))
                 {
-                    _panels.Add(panel, new CtrlBase(panel));
+                    _panels.Add(key, new CtrlBase(key));
                 }
-                _panels[panel].Open(async);
+                _panels[key].Open(async);
             }
             catch (Exception e)
             {
@@ -86,26 +86,26 @@ namespace Game.UI
             }
         }
 
-        public void Parameter(UIPanel panel, UIParameter paramter)
+        public void Parameter(UIPanel key, UIParameter paramter)
         {
-            if (_panels.ContainsKey(panel))
+            if (_panels.ContainsKey(key))
             {
-                _panels[panel].Paramter(paramter);
+                _panels[key].Paramter(paramter);
             }
             else
             {
-                _panels.Add(panel, new CtrlBase(panel));
+                _panels.Add(key, new CtrlBase(key));
                 {
-                    _panels[panel].Paramter(paramter);
+                    _panels[key].Paramter(paramter);
                 }
             }
         }
 
-        public void Close(UIPanel panel, bool destroy = false)
+        public void Close(UIPanel key, bool destroy = false)
         {
-            if (_panels.ContainsKey(panel))
+            if (_panels.ContainsKey(key))
             {
-                _panels[panel].Close(destroy);
+                _panels[key].Close(destroy);
             }
         }
 
@@ -198,16 +198,13 @@ namespace Game.UI
             return false;
         }
 
-        public bool TryGetCtrl(UIPanel panel, out CtrlBase ctrl)
+        public bool TryGetCtrl(UIPanel key, out CtrlBase ctrl)
         {
-            if (_panels.ContainsKey(panel))
+            if (_panels.TryGetValue(key, out ctrl))
             {
-                ctrl = _panels[panel]; return true;
+                return true;
             }
-            else
-            {
-                ctrl = null; return false;
-            }
+            return false;
         }
 
         public Transform GetParent(UILayer layer)
