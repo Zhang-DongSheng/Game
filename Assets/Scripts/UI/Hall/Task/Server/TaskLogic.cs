@@ -24,14 +24,14 @@ namespace Game
 
         public void RequestTasks()
         {
-            int count = 5;
+            int count = 9;
 
             for (int i = 0; i < count; i++)
             {
                 _tasks.Add(new Task()
                 {
                     identification = 10000 + (uint)i,
-                    parallelism = (uint)i,
+                    parallelism = (uint)i + 1,
                     progress = 0,
                     status = Status.Undone,
                 });

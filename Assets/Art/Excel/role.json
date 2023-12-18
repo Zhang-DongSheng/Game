@@ -1,0 +1,29 @@
+{
+"data":"Sheet1",
+"list":[
+	{
+	"ID":1,
+	"name":"Alice",
+	"age":18,
+	"gender":"False",
+	"model":"role_model_01",
+	"description":"玩家1"
+	},
+	{
+	"ID":2,
+	"name":"Judy",
+	"age":19,
+	"gender":"False",
+	"model":"role_model_02",
+	"description":"玩家2"
+	},
+	{
+	"ID":3,
+	"name":"Green",
+	"age":21,
+	"gender":"True",
+	"model":"role_model_03",
+	"description":"玩家3"
+	}
+]
+}

@@ -1,4 +1,5 @@
-﻿using Game.Attribute;
+﻿using Data;
+using Game.Attribute;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -60,7 +61,28 @@ namespace Game.Test
         [ContextMenu("OnClick")]
         public void OnClickContextMenu()
         {
-            
+            var rew = new List<RewardInformation>();
+
+            for (int i = 0; i < 3; i++)
+            {
+                rew.Add(new RewardInformation()
+                {
+                    propID = (uint)i,
+                    amount = 990 + i,
+                });
+            }
+
+
+            var r = new RewardInformation()
+            {
+                propID = (uint)1,
+                amount = 990,
+            };
+
+
+            string v = JsonUtility.ToJson(r);
+
+            Debug.LogError(v);
         }
 
         public void OnClickButton(float index)

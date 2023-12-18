@@ -142,13 +142,6 @@ namespace UnityEditor.Hierarchy
 
             var component = go.AddComponent<RangePlane>();
         }
-        [MenuItem(EXTENSION + "Particle/UIParticle")]
-        protected static void CreateUIParticle()
-        {
-            GameObject go = CreateGameObject("Particle", true);
-
-            var component = go.AddComponent<UIParticleSystem>();
-        }
         #endregion
 
         #region Template

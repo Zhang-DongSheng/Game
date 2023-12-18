@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace Game
@@ -68,10 +69,8 @@ namespace Game
 
         public void Register(RuntimeEvent key, FunctionBySingle value)
         {
-            if (value is null)
-            {
-                return;
-            }
+            if (value is null) return;
+
             if (events.ContainsKey(key))
             {
                 if (events[key] != null)
@@ -95,10 +94,8 @@ namespace Game
 
         public void Unregister(RuntimeEvent key, FunctionBySingle value)
         {
-            if (value is null)
-            {
-                return;
-            }
+            if (value is null) return;
+
             if (events.ContainsKey(key))
             {
                 if (events[key] != null)

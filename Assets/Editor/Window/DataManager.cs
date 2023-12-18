@@ -248,6 +248,10 @@ namespace UnityEditor.Window
             {
                 Loading<DataTask>("task.json");
             }
+            else if (type == typeof(DataActivity))
+            {
+                Loading<DataActivity>("activity.json");
+            }
             else
             {
                 Debug.LogError("当前数据类型未定义，请主动添加 - " + type.Name);
@@ -329,12 +333,12 @@ namespace UnityEditor.Window
                         if (sprites[i] != null)
                         {
                             int length = sprites[i].name.Length;
-                            // ɾ����β(Clone)
+                            // name whitout(Clone)
                             atlas.sprites.Add(sprites[i].name.Substring(0, length - 7));
                         }
                         else
                         {
-                            Debug.LogError($"{asset.name}�ĵ�{i}��ͼƬ��������");
+                            Debug.LogError($"{asset.name} Atlas[{i}] is null!");
                         }
                     }
                     data.atlases.Add(atlas);

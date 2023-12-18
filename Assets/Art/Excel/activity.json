@@ -1,0 +1,32 @@
+{
+"data":"Sheet1",
+"list":[
+	{
+	"ID":1,
+	"type":1,
+	"name":"首充",
+	"timeLimit":"False",
+	"beginTime":0,
+	"endTime":0,
+	"description":"首次充值"
+	},
+	{
+	"ID":2,
+	"type":1,
+	"name":"抽奖",
+	"timeLimit":"True",
+	"beginTime":1701360000,
+	"endTime":1703952000,
+	"description":"转盘抽奖"
+	},
+	{
+	"ID":3,
+	"type":1,
+	"name":"新年大礼包",
+	"timeLimit":"True",
+	"beginTime":1701360000,
+	"endTime":1703952000,
+	"description":"礼包"
+	}
+]
+}

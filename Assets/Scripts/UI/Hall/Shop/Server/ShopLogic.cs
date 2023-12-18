@@ -1,5 +1,4 @@
 using Data;
-using System;
 using System.Collections.Generic;
 
 namespace Game
@@ -46,7 +45,7 @@ namespace Game
 
             foreach (var shop in array)
             {
-                var counter = new Shop() 
+                var counter = new Shop()
                 {
                     shop = shop,
                     name = shop.ToString(),
@@ -54,25 +53,12 @@ namespace Game
                     commodities = new List<Commodity>()
                 };
 
-                for (int i = 0; i < UnityEngine.Random.Range(5, 20); i++)
+                for (int i = 0; i < UnityEngine.Random.Range(1, 10); i++)
                 {
                     counter.commodities.Add(new Commodity()
                     {
-                        props = new List<Prop>()
-                        {
-                            new Prop()
-                            {
-                                identification = 10001,
-                                number = 1,
-                                parallelism = (uint)UnityEngine.Random.Range(10001,10020),
-                            }
-                        },
-                        cost = new Cost()
-                        {
-                            consume = Consume.Currency,
-                            coin = 101,
-                            number = UnityEngine.Random.Range(50, 100),
-                        },
+                        identification = 1000 + (uint)i,
+                        primary = 1000 + (uint)i,
                         status = Status.Available
                     });
                 }

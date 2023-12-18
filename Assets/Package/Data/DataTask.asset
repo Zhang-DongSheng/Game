@@ -12,4 +12,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4298712bcb419489cb91c9ba034dae, type: 3}
   m_Name: DataTask
   m_EditorClassIdentifier: 
-  tasks: []
+  tasks:
+  - primary: 1
+    name: "\u4EFB\u52A11"
+    type: 1
+    icon: 
+    parameter:
+    - 1
+    description: "\u4EFB\u52A11"
+  - primary: 2
+    name: "\u4EFB\u52A12"
+    type: 2
+    icon: 
+    parameter:
+    - 1
+    description: "\u4EFB\u52A12"
+  - primary: 3
+    name: "\u4EFB\u52A13"
+    type: 3
+    icon: 
+    parameter:
+    - 1
+    description: "\u4EFB\u52A13"
+  - primary: 4
+    name: "\u4EFB\u52A14"
+    type: 3
+    icon: 
+    parameter:
+    - 1
+    description: "\u4EFB\u52A14"
+  - primary: 5
+    name: "\u4EFB\u52A15"
+    type: 4
+    icon: 
+    parameter:
+    - 1
+    description: "\u4EFB\u52A15"
+  - primary: 6
+    name: "\u4EFB\u52A16"
+    type: 5
+    icon: 
+    parameter:
+    - 1
+    description: "\u4EFB\u52A16"
+  - primary: 7
+    name: "\u4EFB\u52A17"
+    type: 5
+    icon: 
+    parameter:
+    - 1
+    description: "\u4EFB\u52A17"
+  - primary: 8
+    name: "\u4EFB\u52A18"
+    type: 5
+    icon: 
+    parameter:
+    - 1
+    description: "\u4EFB\u52A18"
+  - primary: 9
+    name: "\u4EFB\u52A19"
+    type: 5
+    icon: 
+    parameter:
+    - 1
+    description: "\u4EFB\u52A19"

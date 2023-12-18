@@ -230,13 +230,17 @@ namespace UnityEditor
 					switch (key)
 					{
 						case "int":
-						case "long":
-						case "bool":
+                        case "uint":
+                        case "long":
 						case "byte":
 						case "float":
-						case "double":
-							builder.Append(string.Format("{0}", array[i, j]));
+                        case "short":
+                        case "double":
+                            builder.Append(string.Format("{0}", array[i, j]));
 							break;
+						case "json":
+                            builder.Append(string.Format("{0}", array[i, j]));
+                            break;
 						default:
 							builder.Append(string.Format("\"{0}\"", array[i, j]));
 							break;

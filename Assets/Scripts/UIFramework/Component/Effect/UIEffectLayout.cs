@@ -4,6 +4,9 @@ using UnityEngine.Rendering;
 
 namespace UnityEngine.UI
 {
+    /// <summary>
+    /// UI粒子自动布局设置sortingOrder，根据Canvas
+    /// </summary>
     [RequireComponent(typeof(Transform))]
     public class UIEffectLayout : MonoBehaviour
     {
@@ -67,6 +70,7 @@ namespace UnityEngine.UI
         public void Refresh()
         {
             SetOrder();
+
             SetLighteness(lighteness);
         }
 
@@ -86,25 +90,13 @@ namespace UnityEngine.UI
             SetActive(this.active && ctrlActive);
         }
 
-        private void GetCanvas(Transform target)
-        {
-            canvas = null; Transform root = target;
-
-            while (root != null)
-            {
-                canvas = root.GetComponent<Canvas>();
-                if (canvas != null) break;
-                root = root.parent;
-            }
-        }
-
         private void SetOrder()
         {
             if (!auto) return;
 
             int order = 0;
 
-            GetCanvas(target.transform);
+            canvas = target.GetComponentInParent<Canvas>();
 
             if (canvas != null)
             {

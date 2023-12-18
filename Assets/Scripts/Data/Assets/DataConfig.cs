@@ -1,6 +1,4 @@
 using Game;
-using LitJson;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,27 +41,12 @@ namespace Data
         public override void Set(string content)
         {
             base.Set(content);
-            // 一定要记得去掉最后一行的逗号
-            JsonData json = JsonMapper.ToObject(content);
 
-            if (json.ContainsKey("list"))
+            int count = m_list.Count;
+
+            for (int i = 0; i < count; i++)
             {
-                JsonData list = json.GetJson("list");
-
-                int count = list.Count;
-
-                for (int i = 0; i < count; i++)
-                {
-                    config.Add(new ConfigInformation()
-                    {
-                        key = list[i].GetString("key"),
-                        value = list[i].GetString("value")
-                    });
-                }
-            }
-            else
-            {
-                Debuger.LogError(Author.Data, "配置DB解析失败");
+                config.Add(m_list[i].GetType<ConfigInformation>());
             }
         }
 

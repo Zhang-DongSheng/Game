@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace Data
 {
     public class Prop
@@ -10,6 +6,22 @@ namespace Data
 
         public uint parallelism;
 
-        public uint number;
+        public int amount;
+
+        public Prop(uint identification, uint parallelism, int amount)
+        {
+            this.identification = identification;
+
+            this.parallelism = parallelism;
+
+            this.amount = amount;
+        }
+
+        public Prop(RewardInformation reward)
+        {
+            parallelism = reward.propID;
+
+            amount = reward.amount;
+        }
     }
 }

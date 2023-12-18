@@ -1,3 +1,5 @@
+using Game;
+using LitJson;
 using UnityEngine;
 
 namespace Data
@@ -7,14 +9,27 @@ namespace Data
     /// </summary>
     public abstract class DataBase : ScriptableObject
     {
+        protected JsonData m_list = null;
+
         public virtual void Set(string content)
         {
-            
+            Clear();
+            // 一定要记得去掉最后一行的逗号
+            var json = JsonMapper.ToObject(content);
+
+            if (json.ContainsKey("list"))
+            {
+                m_list = json.GetJson("list");
+            }
+            else
+            {
+                Debuger.LogError(Author.Data, string.Format("json con't have list! in {0}", this.name));
+            }
         }
 
         public virtual void Clear()
-        { 
-            
+        {
+
         }
         [ContextMenu("Save")]
         protected void MenuSave()

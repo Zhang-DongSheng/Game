@@ -178,6 +178,10 @@ namespace Game.UI
             {
                 Debuger.LogError(Author.UI, e.Message);
 
+                if (view != null)
+                {
+                    view.Exit();
+                }
                 status = Status.Error;
             }
         }

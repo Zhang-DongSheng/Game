@@ -9,17 +9,26 @@ namespace Game.UI
 
         [SerializeField] private TextBind txtNumber;
 
-        public void Refresh(Cost cost)
+        protected int coin;
+
+        protected float amount;
+
+        public void Refresh(int coin, int amount)
         {
-            if (cost == null) return;
+            this.coin = coin;
 
-            if (cost.consume == Consume.Recharge) return;
+            this.amount = amount;
 
-            PropInformation prop = DataManager.Instance.Load<DataProp>().Get(cost.coin);
+            Refresh();
+        }
+
+        protected void Refresh()
+        {
+            PropInformation prop = DataManager.Instance.Load<DataProp>().Get(coin);
 
             imgIcon.SetSprite(prop.icon);
 
-            txtNumber.SetText(cost.number);
+            txtNumber.SetText(amount);
         }
     }
 }

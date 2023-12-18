@@ -70,13 +70,13 @@ namespace Game
             return _props.Find(x => x.identification == propID);
         }
 
-        public uint GetPropNumber(int propID)
+        public int GetPropNumber(int propID)
         {
             var prop = _props.Find(x => x.identification == propID);
 
             if (prop != null)
             {
-                return prop.number;
+                return prop.amount;
             }
             return 0;
         }
@@ -99,12 +99,7 @@ namespace Game
 
             for (int i = 0; i < data.props.Count; i++)
             {
-                _props.Add(new Prop()
-                {
-                    identification = (uint)i,
-                    number = 999,
-                    parallelism = data.props[i].primary,
-                });
+                _props.Add(new Prop((uint)i, data.props[i].primary, 999));
             }
         }
         #endregion

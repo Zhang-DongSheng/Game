@@ -26,22 +26,32 @@ namespace Game.UI
         {
             this.commodity = commodity;
 
-            m_prop.Refresh(commodity.props[0]);
+            var table = DataManager.Instance.Load<DataCommodity>().Get(commodity.primary);
 
-            m_cost.Refresh(commodity.cost);
+            if (table == null) return;
+
+            m_prop.Refresh(table.rewards[0]);
+
+            m_cost.Refresh(table.cost, table.price);
 
             m_status.Refresh(commodity.status);
         }
 
         private void OnClick()
         {
-            UIQuickEntry.OpenUIConfirm("Tips", "ȷ�Ϲ�����Ʒ", () =>
+            UIQuickEntry.OpenUIConfirm("Tips", "Confirm", () =>
             {
-                UIQuickEntry.OpenUIReward(new Reward()
+                var reward = new Reward()
                 {
-                    title = "����ɹ�",
-                    props = new List<Prop>(commodity.props)
-                });
+                    props = new List<Prop>()
+                };
+                var table = DataManager.Instance.Load<DataCommodity>().Get(commodity.primary);
+
+                for (int i = 0; i < table.rewards.Count; i++)
+                {
+                    reward.props.Add(new Prop(table.rewards[i]));
+                }
+                UIQuickEntry.OpenUIReward(reward);
             });
         }
     }

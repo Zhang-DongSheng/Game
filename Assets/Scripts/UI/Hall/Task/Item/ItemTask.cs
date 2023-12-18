@@ -19,7 +19,7 @@ namespace Game.UI
         {
             var table = DataManager.Instance.Load<DataTask>().Get(task.parallelism);
 
-            text.text = table != null ? table.description : "null";
+            text.text = table != null ? table.description : "null " + task.parallelism;
 
             status.Refresh(task.status);
         }

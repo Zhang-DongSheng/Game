@@ -14,25 +14,34 @@ namespace Game.UI
 
         public void Refresh(Prop prop)
         {
-            information = DataManager.Instance.Load<DataProp>().Get(prop.parallelism);
+            Refresh(prop.parallelism, prop.amount);
+        }
 
-            Refresh(information);
+        public void Refresh(RewardInformation reward)
+        {
+            Refresh(reward.propID, reward.amount);
+        }
 
-            m_prop.txtNumber.SetText(prop.number);
+        public void Refresh(uint propID, int amount = 0)
+        {
+            information = DataManager.Instance.Load<DataProp>().Get(propID);
+
+            Refresh();
+
+            m_prop.txtNumber.SetText(amount);
 
             SetActive(true);
         }
 
-        protected void Refresh(PropInformation prop)
+        protected void Refresh()
         {
-            if (prop != null)
-            {
-                m_prop.txtName.SetText(prop.name);
+            if (information == null) return;
 
-                m_prop.imgIcon.SetSprite(prop.icon);
+            m_prop.txtName.SetText(information.name);
 
-                m_prop.imgQuality.SetSprite(string.Format("quality_{0}", (int)prop.quality));
-            }
+            m_prop.imgIcon.SetSprite(information.icon);
+
+            m_prop.imgQuality.SetSprite(string.Format("quality_{0}", information.quality));
         }
 
         public void OnPointerClick(PointerEventData eventData)

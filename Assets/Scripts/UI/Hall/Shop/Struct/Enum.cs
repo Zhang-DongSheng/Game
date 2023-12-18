@@ -3,15 +3,15 @@ namespace Data
     public enum Status
     {
         /// <summary>
-        /// δ���
+        /// 未完成
         /// </summary>
         Undone,
         /// <summary>
-        /// ����ȡ
+        /// 可领取
         /// </summary>
         Available,
         /// <summary>
-        /// ����ȡ
+        /// 已领取
         /// </summary>
         Claimed,
     }

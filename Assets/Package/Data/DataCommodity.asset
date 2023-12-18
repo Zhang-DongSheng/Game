@@ -13,5 +13,91 @@ MonoBehaviour:
   m_Name: DataCommodity
   m_EditorClassIdentifier: 
   commodities:
-  - primary: 0
-  - primary: 0
+  - primary: 1001
+    name: "\u5546\u54C11"
+    cost: 101
+    price: 10
+    purchase: 0
+    rewards:
+    - propID: 10001
+      amount: 1
+    - propID: 10002
+      amount: 1
+    description: "\u5546\u54C11"
+  - primary: 1002
+    name: "\u5546\u54C12"
+    cost: 102
+    price: 100
+    purchase: 0
+    rewards:
+    - propID: 10001
+      amount: 1
+    - propID: 10002
+      amount: 2
+    description: "\u5546\u54C12"
+  - primary: 1003
+    name: "\u5546\u54C13"
+    cost: 101
+    price: 100
+    purchase: 0
+    rewards:
+    - propID: 10001
+      amount: 1
+    - propID: 10002
+      amount: 3
+    description: "\u5546\u54C13"
+  - primary: 1004
+    name: "\u5546\u54C14"
+    cost: 102
+    price: 100
+    purchase: 0
+    rewards:
+    - propID: 10001
+      amount: 1
+    - propID: 10002
+      amount: 4
+    description: "\u5546\u54C14"
+  - primary: 1005
+    name: "\u5546\u54C15"
+    cost: 101
+    price: 100
+    purchase: 0
+    rewards:
+    - propID: 10001
+      amount: 1
+    - propID: 10002
+      amount: 5
+    description: "\u5546\u54C15"
+  - primary: 1006
+    name: "\u5546\u54C16"
+    cost: 102
+    price: 100
+    purchase: 0
+    rewards:
+    - propID: 10001
+      amount: 1
+    - propID: 10002
+      amount: 6
+    description: "\u5546\u54C16"
+  - primary: 1007
+    name: "\u5546\u54C17"
+    cost: 10001
+    price: 0
+    purchase: 1
+    rewards:
+    - propID: 10001
+      amount: 1
+    - propID: 10002
+      amount: 7
+    description: "\u5546\u54C17"
+  - primary: 1008
+    name: "\u5546\u54C18"
+    cost: 102
+    price: 100
+    purchase: 0
+    rewards:
+    - propID: 10001
+      amount: 1
+    - propID: 10002
+      amount: 8
+    description: "\u5546\u54C18"

@@ -32,6 +32,11 @@ namespace UnityEditor
             ScreenCapture.CaptureScreenshot(pic_name);
             AssetDatabase.Refresh();
         }
+        [MenuItem("Tools/Folder/Project")]
+        protected static void OpenProjectFolder()
+        {
+            OpenFolder(Application.dataPath.Substring(0, Application.dataPath.Length - 7));
+        }
         [MenuItem("Tools/Folder/Data")]
         protected static void OpenDataFolder()
         {
