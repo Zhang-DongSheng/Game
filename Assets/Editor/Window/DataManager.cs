@@ -222,11 +222,11 @@ namespace UnityEditor.Window
         {
             if (type == typeof(DataConfig))
             {
-                Loading<DataConfig>("config.json");
+                Loading<DataConfig>("config");
             }
             else if (type == typeof(DataLanguage))
             {
-                Loading<DataLanguage>("language.json");
+                Loading<DataLanguage>("language");
             }
             else if (type == typeof(DataSprite))
             {
@@ -238,19 +238,19 @@ namespace UnityEditor.Window
             }
             else if (type == typeof(DataProp))
             {
-                Loading<DataProp>("prop.json");
+                Loading<DataProp>("prop");
             }
             else if (type == typeof(DataCommodity))
             {
-                Loading<DataCommodity>("commodity.json");
+                Loading<DataCommodity>("commodity");
             }
             else if (type == typeof(DataTask))
             {
-                Loading<DataTask>("task.json");
+                Loading<DataTask>("task");
             }
             else if (type == typeof(DataActivity))
             {
-                Loading<DataActivity>("activity.json");
+                Loading<DataActivity>("activity");
             }
             else
             {
@@ -349,7 +349,17 @@ namespace UnityEditor.Window
 
         private void Loading<T>(string source) where T : DataBase
         {
-            string path = string.Format("Assets/Art/Excel/{0}", source);
+            string project = Application.dataPath.Substring(0, Application.dataPath.Length - 7);
+
+            string input = string.Format("{0}/Source/Excel/{1}.xlsx", project, source);
+
+            string output = string.Format("{0}/Assets/Art/Excel/{1}.json", project, source);
+
+            ExcelUtility excel = new ExcelUtility(input);
+
+            excel.ConvertToJson(output);
+
+            string path = string.Format("Assets/Art/Excel/{0}.json", source);
 
             var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
 

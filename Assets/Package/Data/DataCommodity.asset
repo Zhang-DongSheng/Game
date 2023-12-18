@@ -21,8 +21,6 @@ MonoBehaviour:
     rewards:
     - propID: 10001
       amount: 1
-    - propID: 10002
-      amount: 1
     description: "\u5546\u54C11"
   - primary: 1002
     name: "\u5546\u54C12"
@@ -30,10 +28,8 @@ MonoBehaviour:
     price: 100
     purchase: 0
     rewards:
-    - propID: 10001
-      amount: 1
     - propID: 10002
-      amount: 2
+      amount: 1
     description: "\u5546\u54C12"
   - primary: 1003
     name: "\u5546\u54C13"
@@ -41,10 +37,8 @@ MonoBehaviour:
     price: 100
     purchase: 0
     rewards:
-    - propID: 10001
+    - propID: 10003
       amount: 1
-    - propID: 10002
-      amount: 3
     description: "\u5546\u54C13"
   - primary: 1004
     name: "\u5546\u54C14"
@@ -52,10 +46,8 @@ MonoBehaviour:
     price: 100
     purchase: 0
     rewards:
-    - propID: 10001
+    - propID: 10004
       amount: 1
-    - propID: 10002
-      amount: 4
     description: "\u5546\u54C14"
   - primary: 1005
     name: "\u5546\u54C15"
@@ -63,10 +55,8 @@ MonoBehaviour:
     price: 100
     purchase: 0
     rewards:
-    - propID: 10001
+    - propID: 10005
       amount: 1
-    - propID: 10002
-      amount: 5
     description: "\u5546\u54C15"
   - primary: 1006
     name: "\u5546\u54C16"
@@ -74,10 +64,8 @@ MonoBehaviour:
     price: 100
     purchase: 0
     rewards:
-    - propID: 10001
+    - propID: 10006
       amount: 1
-    - propID: 10002
-      amount: 6
     description: "\u5546\u54C16"
   - primary: 1007
     name: "\u5546\u54C17"
@@ -85,10 +73,8 @@ MonoBehaviour:
     price: 0
     purchase: 1
     rewards:
-    - propID: 10001
+    - propID: 10007
       amount: 1
-    - propID: 10002
-      amount: 7
     description: "\u5546\u54C17"
   - primary: 1008
     name: "\u5546\u54C18"
@@ -96,8 +82,6 @@ MonoBehaviour:
     price: 100
     purchase: 0
     rewards:
-    - propID: 10001
+    - propID: 10008
       amount: 1
-    - propID: 10002
-      amount: 8
     description: "\u5546\u54C18"

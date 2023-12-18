@@ -43,7 +43,6 @@ namespace UnityEditor
 
 		private readonly List<ItemFile> source = new List<ItemFile>();
 
-		[MenuItem("Extra/Excel")]
 		protected static void Open()
 		{
 			Open<ExcelTools>("表格工具");

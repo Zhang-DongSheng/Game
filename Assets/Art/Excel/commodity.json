@@ -7,7 +7,7 @@
 	"cost":101,
 	"price":10,
 	"purchase":0,
-	"rewards":[[10001,1],[10002,1]],
+	"rewards":[[10001,1]],
 	"description":"商品1"
 	},
 	{
@@ -16,7 +16,7 @@
 	"cost":102,
 	"price":100,
 	"purchase":0,
-	"rewards":[[10001,1],[10002,2]],
+	"rewards":[[10002,1]],
 	"description":"商品2"
 	},
 	{
@@ -25,7 +25,7 @@
 	"cost":101,
 	"price":100,
 	"purchase":0,
-	"rewards":[[10001,1],[10002,3]],
+	"rewards":[[10003,1]],
 	"description":"商品3"
 	},
 	{
@@ -34,7 +34,7 @@
 	"cost":102,
 	"price":100,
 	"purchase":0,
-	"rewards":[[10001,1],[10002,4]],
+	"rewards":[[10004,1]],
 	"description":"商品4"
 	},
 	{
@@ -43,7 +43,7 @@
 	"cost":101,
 	"price":100,
 	"purchase":0,
-	"rewards":[[10001,1],[10002,5]],
+	"rewards":[[10005,1]],
 	"description":"商品5"
 	},
 	{
@@ -52,7 +52,7 @@
 	"cost":102,
 	"price":100,
 	"purchase":0,
-	"rewards":[[10001,1],[10002,6]],
+	"rewards":[[10006,1]],
 	"description":"商品6"
 	},
 	{
@@ -61,7 +61,7 @@
 	"cost":10001,
 	"price":0,
 	"purchase":1,
-	"rewards":[[10001,1],[10002,7]],
+	"rewards":[[10007,1]],
 	"description":"商品7"
 	},
 	{
@@ -70,7 +70,7 @@
 	"cost":102,
 	"price":100,
 	"purchase":0,
-	"rewards":[[10001,1],[10002,8]],
+	"rewards":[[10008,1]],
 	"description":"商品8"
 	}
 ]
