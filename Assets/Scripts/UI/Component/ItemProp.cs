@@ -1,4 +1,5 @@
 using Data;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,6 +7,8 @@ namespace Game.UI
 {
     public class ItemProp : ItemBase, IPointerClickHandler
     {
+        public Action<uint> callback;
+
         [SerializeField] private UIPropBase m_prop;
 
         [SerializeField] private UIPropConfig m_config;
@@ -51,6 +54,10 @@ namespace Game.UI
                 var parameter = new UIParameter();
                 parameter.AddOrReplace("prop", information);
                 UIQuickEntry.Open(UIPanel.UIIntroduce, parameter);
+            }
+            else
+            {
+                callback?.Invoke(information.primary);
             }
         }
         [System.Serializable]

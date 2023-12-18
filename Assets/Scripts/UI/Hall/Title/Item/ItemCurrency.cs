@@ -13,7 +13,7 @@ namespace Game.UI
 
         [SerializeField] private Button source;
 
-        protected int coin;
+        protected uint coin;
 
         protected override void OnAwake()
         {
@@ -25,7 +25,7 @@ namespace Game.UI
             Refresh(coin);
         }
 
-        public void Refresh(int coin)
+        public void Refresh(uint coin)
         {
             this.coin = coin;
 

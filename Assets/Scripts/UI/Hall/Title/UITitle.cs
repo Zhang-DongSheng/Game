@@ -69,7 +69,7 @@ namespace Game.UI
 
         private void RefreshCurrencies(UIInformation information)
         {
-            var list = new List<int>() { 101, 102, 103 };
+            var list = new List<uint>() { 101, 102, 103 };
 
             int count = Mathf.Clamp(list.Count, 0, currencies.Count);
 

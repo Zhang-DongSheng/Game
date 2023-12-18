@@ -65,12 +65,12 @@ namespace Game
             }
         }
 
-        public Prop GetProp(int propID)
+        public Prop GetProp(uint propID)
         {
             return _props.Find(x => x.identification == propID);
         }
 
-        public int GetPropNumber(int propID)
+        public int GetPropNumber(uint propID)
         {
             var prop = _props.Find(x => x.identification == propID);
 

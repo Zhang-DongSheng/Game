@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using static UnityEngine.UI.GridLayoutGroup;
 
-namespace IronForce2.UI
+namespace UnityEngine.UI
 {
     [RequireComponent(typeof(RectTransform))]
     public class ListLayoutGroup : LayoutGroup

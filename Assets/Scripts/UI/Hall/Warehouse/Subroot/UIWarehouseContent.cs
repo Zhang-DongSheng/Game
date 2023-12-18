@@ -1,7 +1,7 @@
 using Data;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -9,9 +9,11 @@ namespace Game.UI
     {
         public Action<Prop> callback;
 
-        [SerializeField] private PrefabTemplateBehaviour prefab;
+        [SerializeField] private ListLayoutGroup layout;
 
-        private readonly List<ItemProp> items = new List<ItemProp>();
+        [SerializeField] private ItemPropInWarehouse prefab;
+
+        private uint select;
 
         public void Refresh(int index)
         {
@@ -19,24 +21,19 @@ namespace Game.UI
 
             int count = column.Count;
 
-            for (int i = 0; i < count; i++)
+            layout.SetData(prefab, column, (index, item, prop) =>
             {
-                if (i >= items.Count)
-                {
-                    ItemProp item = prefab.Create<ItemProp>();
-                    items.Add(item);
-                }
-                items[i].Refresh(column[i]);
-            }
-            for (int i = count; i < items.Count; i++)
-            {
-                items[i].SetActive(false);
-            }
+                item.Refresh(column[index], OnClickProp, select);
+            });
         }
 
         private void OnClickProp(Prop prop)
         {
+            select = prop.identification;
+
             callback?.Invoke(prop);
+
+            layout.ForceUpdateContent();
         }
     }
 }
