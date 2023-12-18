@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class UIShopDiamond : UIShopBase
+    public class UIShopPackage : UIShopBase
     {
         
     }

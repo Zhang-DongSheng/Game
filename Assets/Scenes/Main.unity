@@ -282,15 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738bfa924d12f0945b141fd085a87650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setting:
-    _mode: 0
-    _language: 0
-    _loading: 2
-    _sleep: 0
-    _background: 1
-    _vSync: 0
-    _frameRate: 60
-    _timeScale: 1
+  mode: 0
 --- !u!1 &673946445
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,6 +481,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3902422860213839388, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 46c8ed023b2af4e7ea0f578d3178c2d5, type: 3}
+    - target: {fileID: 3902422860213839388, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3902422860213839388, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3902422860213839388, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4247776859653888030, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -532,6 +540,22 @@ PrefabInstance:
     - target: {fileID: 4247776859653888030, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948618811781562088, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 286
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948618811781562088, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 387
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948618811781562088, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948618811781562088, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 9113432105825483985, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
       propertyPath: m_RootOrder

@@ -53,12 +53,12 @@ namespace Game
                     commodities = new List<Commodity>()
                 };
 
-                for (int i = 0; i < UnityEngine.Random.Range(1, 10); i++)
+                for (int i = 0; i < UnityEngine.Random.Range(5, 10); i++)
                 {
                     counter.commodities.Add(new Commodity()
                     {
                         identification = 1000 + (uint)i,
-                        primary = 1000 + (uint)i,
+                        primary = 1001 + (uint)i,
                         status = Status.Available
                     });
                 }

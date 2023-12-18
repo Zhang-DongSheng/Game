@@ -170,7 +170,9 @@ namespace Game.UI
 
                 rect.Reset(); rect.SetFull();
 
-                view.Init(information.panel); Show();
+                view.Init(information.panel);
+
+                Show();
 
                 status = Status.Display;
             }
@@ -178,10 +180,8 @@ namespace Game.UI
             {
                 Debuger.LogError(Author.UI, e.Message);
 
-                if (view != null)
-                {
-                    view.Exit();
-                }
+                Hide();
+
                 status = Status.Error;
             }
         }
@@ -199,7 +199,10 @@ namespace Game.UI
 
         protected virtual void Hide()
         {
-            view.Exit();
+            if (view != null)
+            {
+                view.Exit();
+            }
         }
 
         public bool active { get; private set; }

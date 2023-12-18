@@ -1,12 +1,16 @@
-using Data;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.UI
 {
     public abstract class UIShopBase : ItemBase
     {
         public int shopID;
+
+        [SerializeField] protected RectTransform root;
+
+        [SerializeField] protected RectTransform content;
 
         [SerializeField] protected PrefabTemplateBehaviour prefab;
 
@@ -30,11 +34,13 @@ namespace Game.UI
             {
                 commodities[i].SetActive(false);
             }
+            LayoutRebuilder.ForceRebuildLayoutImmediate(content);
+
+            root.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, content.rect.width);
+
+            SetActive(true);
         }
 
-        public bool Equal(int shop)
-        {
-            return this.shopID == shop;
-        }
+        public RectTransform RectTransform => root;
     }
 }
