@@ -415,13 +415,13 @@ namespace UnityEditor.Window
 
             string src = string.Format("{0}/ILRuntime/Hotfix~/bin/Debug/{1}.dll", Application.dataPath, key);
 
-            string dst = string.Format("{0}/HotFix/{1}.dll", Application.streamingAssetsPath, key);
+            string dst = string.Format("{0}/ILRuntime/{1}.dll", Application.streamingAssetsPath, key);
 
             Replace(src, dst);
 
             src = string.Format("{0}/ILRuntime/Hotfix~/bin/Debug/{1}.pdb", Application.dataPath, key);
 
-            dst = string.Format("{0}/HotFix/{1}.pdb", Application.streamingAssetsPath, key);
+            dst = string.Format("{0}/ILRuntime/{1}.pdb", Application.streamingAssetsPath, key);
 
             Replace(src, dst);
 
@@ -436,7 +436,7 @@ namespace UnityEditor.Window
 
             if (File.Exists(src))
             {
-                string dst = string.Format("{0}/Package/IFix/{1}", Application.dataPath, key);
+                string dst = string.Format("{0}/IFix/{1}", Application.streamingAssetsPath, key);
 
                 Replace(src, dst);
 

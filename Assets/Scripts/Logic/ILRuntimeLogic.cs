@@ -10,7 +10,7 @@ namespace Game
 {
     public class ILRuntimeLogic : Singleton<ILRuntimeLogic>, ILogic
     {
-        public const string path = "HotFix/Hotfix";
+        public const string path = "ILRuntime/Hotfix";
 
         private readonly MemoryStream[] stream = new MemoryStream[2];
 

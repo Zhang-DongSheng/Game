@@ -1,16 +1,15 @@
-using Game.Resource;
 using IFix.Core;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Game
 {
     public class IFixLogic : Singleton<IFixLogic>, ILogic
     {
-        private const string Folder = "Package/IFix";
-
         private readonly List<string> _assemblies = new List<string>()
         {
             "Assembly-CSharp.patch.bytes",
@@ -18,20 +17,36 @@ namespace Game
 
         public void Initialize()
         {
-            Load();
+            RuntimeManager.Instance.StartCoroutine(Load());
         }
 
-        private void Load()
+        private IEnumerator Load()
         {
             VirtualMachine.Info = (s) => UnityEngine.Debug.Log(s);
             var sw = Stopwatch.StartNew();
             foreach (var assembly in _assemblies)
             {
-                var patch = ResourceManager.Load<TextAsset>(string.Format("{0}/{1}", Folder, assembly));
-                if (patch != null)
+                string url = string.Format("{0}/IFix/{1}", Application.streamingAssetsPath, assembly);
+
+                var request = UnityWebRequest.Get(url);
+
+                yield return request.SendWebRequest();
+
+                if (string.IsNullOrEmpty(request.error))
                 {
-                    Debuger.Log(Author.Resource, $"loading {assembly} ...");
-                    PatchManager.Load(new MemoryStream(patch.bytes));
+                    switch (request.result)
+                    {
+                        case UnityWebRequest.Result.Success:
+                            {
+                                Debuger.Log(Author.Resource, $"loading {assembly} ...");
+                                PatchManager.Load(new MemoryStream(request.downloadHandler.data));
+                            }
+                            break;
+                    }
+                }
+                else
+                {
+                    Debuger.LogError(Author.Data, request.error);
                 }
             }
             UnityEngine.Debug.Log("loaded patch, using " + sw.ElapsedMilliseconds + " ms");
@@ -39,7 +54,7 @@ namespace Game
 
         public void Release()
         {
-        
+            
         }
     }
 }

@@ -44,3 +44,5 @@ D:\Project\Game\Assets\ILRuntime\Hotfix~\obj\Debug\Hotfix.csproj.CoreCompileInpu
 D:\Project\Game\Assets\ILRuntime\Hotfix~\obj\Debug\Hotfix.csproj.CopyComplete
 D:\Project\Game\Assets\ILRuntime\Hotfix~\obj\Debug\Hotfix.dll
 D:\Project\Game\Assets\ILRuntime\Hotfix~\obj\Debug\Hotfix.pdb
+D:\Project\Game\Assets\ILRuntime\Hotfix~\bin\Debug\Unity.Mathematics.dll
+D:\Project\Game\Assets\ILRuntime\Hotfix~\bin\Debug\Unity.Mathematics.pdb
