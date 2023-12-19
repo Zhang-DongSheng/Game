@@ -8,6 +8,8 @@ namespace Game.UI
     /// </summary>
     public class UIActivityLotteryDraw : UIActivityBase
     {
+        [SerializeField] private AnimationListener animator;
+
         [SerializeField] private Button button;
 
         protected override void OnAwake()
@@ -15,9 +17,14 @@ namespace Game.UI
             button.onClick.AddListener(OnClick);
         }
 
-        private void OnClick()
+        private void DisplayRewards()
         {
             UIQuickEntry.OpenUIHorseLamp("收到大奖XXXXX,祝贺玩家YYYYY");
+        }
+
+        private void OnClick()
+        {
+            animator.Play(DisplayRewards);
         }
     }
 }

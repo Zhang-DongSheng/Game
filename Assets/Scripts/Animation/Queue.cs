@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Game.Animation
+namespace Game
 {
     /// <summary>
     /// 行动队列

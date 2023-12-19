@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Game.Animation
+namespace Game
 {
     public class Fly : ItemBase
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.Animation
+namespace Game
 {
     public class Follower : ItemBase
     {

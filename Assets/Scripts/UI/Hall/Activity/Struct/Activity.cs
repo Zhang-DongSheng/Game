@@ -8,6 +8,10 @@ namespace Game.UI
 {
     public class Activity
     {
+        public uint activityID;
 
+        public long start;
+
+        public long end;
     }
 }
