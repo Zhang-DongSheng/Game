@@ -9,14 +9,14 @@ namespace Game.UI
 {
     public abstract class UIActivityBase : ItemBase
     {
-        public int activityID;
+        public uint activityID;
 
         public virtual void Refresh()
         { 
             
         }
 
-        public bool Equal(int activity)
+        public bool Equal(uint activity)
         {
             return this.activityID == activity;
         }

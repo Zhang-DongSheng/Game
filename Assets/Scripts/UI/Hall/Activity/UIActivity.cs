@@ -24,7 +24,7 @@ namespace Game.UI
             {
                 if (ActivityLogic.Instance.IsOpen(m_activities[i].activityID))
                 {
-                    _activities.Add(m_activities[i].activityID);
+                    _activities.Add((int)m_activities[i].activityID);
                 }
             }
             m_menu.Refresh(_activities.ToArray());
@@ -51,7 +51,7 @@ namespace Game.UI
 
             for (int i = 0; i < count; i++)
             {
-                m_activities[i].SetActive(m_activities[i].Equal(index));
+                m_activities[i].SetActive(m_activities[i].Equal((uint)index));
             }
         }
     }
