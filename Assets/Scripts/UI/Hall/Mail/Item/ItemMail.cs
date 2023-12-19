@@ -7,31 +7,37 @@ namespace Game.UI
 {
     public class ItemMail : ItemBase
     {
-        public Action<Mail> callback;
+        [SerializeField] private Text title;
 
-        [SerializeField] private Text text;
+        [SerializeField] private GameObject m_reddot;
+
+        [SerializeField] private GameObject m_select;
 
         [SerializeField] private Button button;
 
-        private Mail m_mail;
+        private Action<Mail> _callback;
+
+        private Mail _mail;
 
         protected override void OnRegister()
         {
             button.onClick.AddListener(OnClick);
         }
 
-        public void Refresh(Mail mail)
+        public void Refresh(Mail mail, uint select, Action<Mail> callback)
         {
-            m_mail = mail;
+            _mail = mail;
 
-            text.text = mail.content;
+            _callback = callback;
 
-            SetActive(true);
+            title.text = mail.content;
+
+            SetActive(m_select, mail.ID == select);
         }
 
         private void OnClick()
         {
-            callback?.Invoke(m_mail);
+            _callback?.Invoke(_mail);
         }
     }
 }

@@ -639,7 +639,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u786E\u8BA4"
+  m_Text: 10001
 --- !u!114 &4549279456946997331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1479,7 +1479,7 @@ MonoBehaviour:
   m_item: {fileID: 9134644388743052001}
   m_reddot: {fileID: 0}
   m_select: {fileID: 6710167988671065824}
-  m_button: {fileID: 5042918246566003111}
+  button: {fileID: 5042918246566003111}
 --- !u!1 &7253155517226774610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1993,7 +1993,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 832348884276974275, guid: 926a2cbffa9069945bc49951deb7fe40, type: 3}
       propertyPath: m_Text
-      value: "\u786E\u8BA4"
+      value: 10001
       objectReference: {fileID: 0}
     - target: {fileID: 7323643337393786141, guid: 926a2cbffa9069945bc49951deb7fe40, type: 3}
       propertyPath: m_Pivot.x

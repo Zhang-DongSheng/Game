@@ -21,9 +21,9 @@ namespace Game.UI
 
             int count = column.Count;
 
-            layout.SetData(prefab, column, (index, item, prop) =>
+            layout.SetData(prefab, column, (index, item, data) =>
             {
-                item.Refresh(column[index], OnClickProp, select);
+                item.Refresh(data, select, OnClickProp);
             });
         }
 

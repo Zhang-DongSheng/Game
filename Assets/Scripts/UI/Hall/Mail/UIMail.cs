@@ -1,18 +1,20 @@
 using Data;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.UI
 {
     public class UIMail : UIBase
     {
-        [SerializeField] private PrefabTemplateBehaviour prefab;
+        [SerializeField] private ListLayoutGroup layout;
+
+        [SerializeField] private ItemMail prefab;
 
         [SerializeField] private UIMailContent content;
 
         [SerializeField] private GameObject empty;
 
-        private readonly List<ItemMail> items = new List<ItemMail>();
+        private uint select;
 
         public override void Refresh(UIParameter parameter)
         {
@@ -20,20 +22,10 @@ namespace Game.UI
 
             int count = Mathf.Min(list.Count, 99);
 
-            for (int i = 0; i < count; i++)
+            layout.SetData(prefab, list, (index, item, data) =>
             {
-                if (i >= items.Count)
-                {
-                    var item = prefab.Create<ItemMail>();
-                    item.callback = OnClickMail;
-                    items.Add(item);
-                }
-                items[i].Refresh(list[i]);
-            }
-            for (int i = count; i < items.Count; i++)
-            {
-                items[i].SetActive(false);
-            }
+                item.Refresh(data, select, OnClickMail);
+            });
             // Ìø×ª
             if (count > 0)
             {
@@ -48,7 +40,11 @@ namespace Game.UI
 
         private void OnClickMail(Mail mail)
         {
+            select = mail.ID;
+
             content.Refresh(mail);
+
+            layout.ForceUpdateContent();
         }
     }
 }

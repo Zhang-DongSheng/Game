@@ -13,7 +13,7 @@ namespace Game.UI
 
         [SerializeField] private GameObject m_select;
 
-        [SerializeField] private Button m_button;
+        [SerializeField] private Button button;
 
         private Action<Prop> _callback;
 
@@ -21,10 +21,10 @@ namespace Game.UI
 
         protected override void OnAwake()
         {
-            m_button.onClick.AddListener(OnClick);
+            button.onClick.AddListener(OnClick);
         }
 
-        public void Refresh(Prop prop, Action<Prop> callback, uint select)
+        public void Refresh(Prop prop, uint select, Action<Prop> callback)
         {
             _prop = prop;
 

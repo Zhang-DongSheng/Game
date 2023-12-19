@@ -29,7 +29,8 @@ namespace Game
             for (int i = 0; i < count; i++)
             { 
                 _mails.Add(new Mail()
-                { 
+                {
+                    ID = (uint)i,
                     content = i.ToString(),
                 });
             }
