@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text;
+using Utility = Game.Utility;
 
 namespace UnityEditor.Listener
 {
@@ -32,7 +33,14 @@ namespace UnityEditor.Listener
         {
             if (File.Exists(path))
             {
-                File.WriteAllText(path, File.ReadAllText(path), new UTF8Encoding(false));
+                var encoding = Utility.Encode.FileEncoding(path);
+
+                var utf8 = new UTF8Encoding(false);
+
+                if (encoding != utf8 && encoding != Encoding.UTF8)
+                {
+                    Utility.Encode.Convert(path, encoding, utf8);
+                }
             }
         }
     }

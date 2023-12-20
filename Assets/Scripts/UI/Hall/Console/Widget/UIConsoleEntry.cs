@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AdaptivePerformance.VisualScripting;
 
 namespace Game.UI
 {
@@ -17,7 +11,7 @@ namespace Game.UI
 
         private void OnGUI()
         {
-            if (GUI.Button(new Rect(0, 0, 200, 50), "Console"))
+            if (GUI.Button(new Rect(500, 0, 200, 100), "Console"))
             {
                 UIQuickEntry.Open(UIPanel.UIConsole);
             }
