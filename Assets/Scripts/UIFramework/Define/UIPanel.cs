@@ -23,9 +23,10 @@ namespace Game.UI
 		UINotice = 303,
 		UIHorseLamp = 304,
 		UIIntroduce = 305,
-		UIGame = 1001,
+        UIConsole = 306,
+        UIGame = 1001,
 		UIGameSetting = 1002,
 		UIMiniMap = 1003,
 		UISettlement = 1004,
-	}
+    }
 }

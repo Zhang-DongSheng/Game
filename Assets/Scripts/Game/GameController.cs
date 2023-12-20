@@ -12,10 +12,10 @@ namespace Game
 
         private void Start()
         {
-            StartCoroutine(Initialize());
+            StartCoroutine(Laoding());
         }
 
-        private new IEnumerator Initialize()
+        private IEnumerator Laoding()
         {
             LoginLogic.Instance.Initialize();
 

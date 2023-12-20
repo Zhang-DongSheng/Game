@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace UnityEditor.Listener
 {
+    [InitializeOnLoad]
     class AssetPostListener : AssetPostprocessor
     {
         /// <summary>
@@ -10,6 +11,14 @@ namespace UnityEditor.Listener
         public void OnAssignMaterialModel(Material material, Renderer renderer)
         {
 
+        }
+        /// <summary>
+        /// 监听所有脚本编译完成
+        /// </summary>
+        [Callbacks.DidReloadScripts]
+        static void AllScriptsReloaded()
+        {
+            Debuger.Log(Author.Script, "AllScriptsReloaded");
         }
         /// <summary>
         /// 在完成任意数量的资源导入后（当资源进度条到达末尾时）调用此函数
