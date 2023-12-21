@@ -11,9 +11,9 @@ namespace Game.UI
 
         public static void Open(UIPanel panel, UIParameter parameter = null)
         {
-            UIManager.Instance.Parameter(panel, parameter);
+            UIManager.Instance.Parameter((int)panel, parameter);
             {
-                UIManager.Instance.Open(panel, async);
+                UIManager.Instance.Open((int)panel, async);
             }
         }
 
@@ -21,9 +21,9 @@ namespace Game.UI
         {
             UIManager.Instance.CloseAll();
 
-            UIManager.Instance.Parameter(panel, parameter);
+            UIManager.Instance.Parameter((int)panel, parameter);
             {
-                UIManager.Instance.Open(panel, async);
+                UIManager.Instance.Open((int)panel, async);
             }
         }
 
@@ -73,7 +73,7 @@ namespace Game.UI
 
         public static bool IsOpen(UIPanel panel)
         {
-            if (UIManager.Instance.TryGetCtrl(panel, out var ctrl))
+            if (UIManager.Instance.TryGetCtrl((int)panel, out var ctrl))
             {
                 return ctrl.active;
             }

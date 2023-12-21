@@ -102,23 +102,23 @@ namespace UnityEditor.Window
 
             if (panel == UIPanel.None) return;
 
-            if (information.panel != panel)
-            {
-                var asset = AssetDatabase.LoadAssetAtPath<DataUI>("Assets/Package/Data/DataUI.asset");
+            //if (information.panel != panel)
+            //{
+            //    var asset = AssetDatabase.LoadAssetAtPath<DataUI>("Assets/Package/Data/DataUI.asset");
 
-                source = asset.list.Find(x => x.panel == panel);
+            //    source = asset.list.Find(x => x.panel == panel);
 
-                if (source != null)
-                {
-                    information.Copy(source);
-                }
-                else
-                {
-                    information.Copy(UIInformation.New(panel));
-                }
-                relevance = false;
-            }
-            RefreshUIInformation();
+            //    if (source != null)
+            //    {
+            //        information.Copy(source);
+            //    }
+            //    else
+            //    {
+            //        information.Copy(UIInformation.New(panel));
+            //    }
+            //    relevance = false;
+            //}
+            //RefreshUIInformation();
 
             if (source != null)
             {
@@ -215,7 +215,7 @@ namespace UnityEditor.Window
                 {
                     GUILayout.Label("Order", GUILayout.Width(WIDTH));
 
-                    information.order = EditorGUILayout.IntField(information.order);
+                    information.order = (uint)EditorGUILayout.IntField((int)information.order);
                 }
                 GUILayout.EndHorizontal();
 
@@ -246,7 +246,7 @@ namespace UnityEditor.Window
 
             if (index > -1)
             {
-                asset.list[index].Copy(information);
+                //asset.list[index].Copy(information);
             }
             else
             {

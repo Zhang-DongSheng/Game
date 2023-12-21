@@ -3,15 +3,15 @@ namespace Game.UI
     [System.Serializable]
     public class UIInformation
     {
-        public UIPanel panel;
-
-        public UILayer layer;
+        public int panel;
 
         public UIType type;
 
-        public string name;
+        public UILayer layer;
 
-        public int order;
+        public uint order;
+
+        public string name;
 
         public string path;
 
@@ -19,28 +19,11 @@ namespace Game.UI
 
         public UIInformation() { }
 
-        public void Copy(UIInformation source)
-        {
-            panel = source.panel;
-
-            layer = source.layer;
-
-            type = source.type;
-
-            name = source.name;
-
-            order = source.order;
-
-            path = source.path;
-
-            destroy = source.destroy;
-        }
-
-        public static UIInformation New(UIPanel panel)
+        public static UIInformation Default(UIPanel panel)
         {
             return new UIInformation()
             {
-                panel = panel,
+                panel = (int)panel,
 
                 layer = UILayer.Window,
 
@@ -52,7 +35,7 @@ namespace Game.UI
 
                 order = 0,
 
-                path = string.Format("{0}/{1}.prefab", UIDefine.Prefab, panel.ToString())
+                path = string.Format("{0}/{1}.prefab", UIDefine.Prefab, panel)
             };
         }
     }

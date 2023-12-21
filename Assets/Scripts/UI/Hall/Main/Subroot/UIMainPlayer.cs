@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class UITitlePlayer : ItemBase
+    public class UIMainPlayer : ItemBase
     {
         [SerializeField] private ItemPlayerAvatar avatar;
 
@@ -16,11 +16,6 @@ namespace Game.UI
         protected override void OnAwake()
         {
             button.onClick.AddListener(OnClick);
-        }
-
-        public void Refresh(UIInformation information)
-        {
-            SetActive(true);
         }
 
         private void OnClick()

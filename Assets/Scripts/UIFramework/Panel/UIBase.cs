@@ -5,21 +5,28 @@ namespace Game.UI
     [DisallowMultipleComponent]
     public abstract class UIBase : RuntimeBehaviour
     {
-        protected UIPanel panel;
+        protected int panel;
 
         public UILayer layer = UILayer.Window;
 
         public UIType type = UIType.Panel;
 
-        public int order = 0;
+        public uint order = 0;
 
-        public virtual void Init(UIPanel panel)
+        public virtual void Init(int panel)
         {
             this.panel = panel;
         }
 
         public virtual void Enter()
         {
+            if (type == UIType.Panel)
+            {
+                UIQuickEntry.Open(UIPanel.UITitle, new UIParameter()
+                {
+                    ["panel"] = panel,
+                });
+            }
             SetActive(true);
         }
 

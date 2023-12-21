@@ -9,7 +9,7 @@ namespace Game.UI
     {
         private readonly List<Transform> _parents = new List<Transform>();
 
-        private readonly Dictionary<UIPanel, CtrlBase> _panels = new Dictionary<UIPanel, CtrlBase>();
+        private readonly Dictionary<int, CtrlBase> _panels = new Dictionary<int, CtrlBase>();
 
         private readonly Dictionary<UIType, List<CtrlBase>> _records = new Dictionary<UIType, List<CtrlBase>>();
 
@@ -70,7 +70,7 @@ namespace Game.UI
             }
         }
 
-        public void Open(UIPanel key, bool async = false)
+        public void Open(int key, bool async = false)
         {
             try
             {
@@ -86,7 +86,7 @@ namespace Game.UI
             }
         }
 
-        public void Parameter(UIPanel key, UIParameter paramter)
+        public void Parameter(int key, UIParameter paramter)
         {
             if (_panels.ContainsKey(key))
             {
@@ -101,7 +101,7 @@ namespace Game.UI
             }
         }
 
-        public void Close(UIPanel key, bool destroy = false)
+        public void Close(int key, bool destroy = false)
         {
             if (_panels.ContainsKey(key))
             {
@@ -198,7 +198,7 @@ namespace Game.UI
             return false;
         }
 
-        public bool TryGetCtrl(UIPanel key, out CtrlBase ctrl)
+        public bool TryGetCtrl(int key, out CtrlBase ctrl)
         {
             if (_panels.TryGetValue(key, out ctrl))
             {

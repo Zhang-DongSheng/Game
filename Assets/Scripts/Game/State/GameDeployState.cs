@@ -43,7 +43,7 @@ namespace Game.State
         {
             yield return SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
 
-            UIManager.Instance.Open(UIPanel.UIDeploy);
+            UIManager.Instance.Open((int)UIPanel.UIDeploy);
         }
     }
 }

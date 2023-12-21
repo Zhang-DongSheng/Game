@@ -265,7 +265,7 @@ namespace UnityEditor.Window
 
             data.list = new List<UIInformation>();
 
-            foreach (var panel in System.Enum.GetValues(typeof(UIPanel)))
+            foreach (var panel in Enum.GetValues(typeof(UIPanel)))
             {
                 switch ((UIPanel)panel)
                 {
@@ -283,7 +283,7 @@ namespace UnityEditor.Window
                             {
                                 data.list.Add(new UIInformation()
                                 {
-                                    panel = (UIPanel)panel,
+                                    panel = (int)panel,
                                     layer = view.layer,
                                     order = view.order,
                                     type = view.type,

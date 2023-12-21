@@ -14,7 +14,7 @@ namespace Game.UI
 
         private Status status;
 
-        public CtrlBase(UIPanel panel)
+        public CtrlBase(int panel)
         {
             var config = DataManager.Instance.Load<DataUI>();
 

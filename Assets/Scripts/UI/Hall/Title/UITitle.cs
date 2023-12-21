@@ -6,68 +6,34 @@ namespace Game.UI
 {
     public class UITitle : UIBase
     {
-        [SerializeField] private UITitlePlayer player;
+        [SerializeField] private Text title;
 
-        [SerializeField] private UITitleBack back;
-
-        [SerializeField] private Button setting;
+        [SerializeField] private Button button;
 
         [SerializeField] private List<ItemCurrency> currencies;
 
+        private UIPanel display;
+
         protected override void OnAwake()
         {
-            setting.onClick.AddListener(OnClickSetting);
-        }
-
-        protected override void OnRegister()
-        {
-            EventManager.Register(EventKey.OpenPanel, Refresh);
-        }
-
-        protected override void OnUnregister()
-        {
-            EventManager.Unregister(EventKey.OpenPanel, Refresh);
+            button.onClick.AddListener(OnClick);
         }
 
         public override void Refresh(UIParameter parameter)
         {
-            Refresh(UIManager.Instance.Current.information);
+            display = (UIPanel)parameter["panel"];
+
+            title.text = display.ToString();
+
+            RefreshCurrencies();
         }
 
-        private void Refresh(EventMessageArgs args)
+        public override void Enter()
         {
-            if (args[0] is UIInformation information)
-            {
-                Refresh(information);
-            }
+            SetActive(display != UIPanel.UIMain);
         }
 
-        private void Refresh(UIInformation information)
-        {
-            if (information == null) return;
-
-            if (information.type != UIType.Panel) return;
-
-            RefreshCurrencies(information);
-
-            bool main = information.panel == UIPanel.UIMain;
-
-            if (main)
-            {
-                player.Refresh(information);
-
-                back.SetActive(false);
-            }
-            else
-            {
-                player.SetActive(false);
-
-                back.Refresh(information);
-            }
-            SetActive(setting, main);
-        }
-
-        private void RefreshCurrencies(UIInformation information)
+        private void RefreshCurrencies()
         {
             var list = new List<uint>() { 101, 102, 103 };
 
@@ -82,7 +48,7 @@ namespace Game.UI
                 currencies[i].SetActive(false);
             }
             // 特殊界面处理
-            if (information.panel == UIPanel.UIShop)
+            if (display == UIPanel.UIShop)
             {
                 for (int i = 0; i < count; i++)
                 {
@@ -91,9 +57,9 @@ namespace Game.UI
             }
         }
 
-        private void OnClickSetting()
+        private void OnClick()
         {
-            UIQuickEntry.Open(UIPanel.UISetting);
+            UIManager.Instance.Back();
         }
     }
 }
