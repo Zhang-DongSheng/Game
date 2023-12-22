@@ -37,6 +37,8 @@ namespace Game
 
             ReddotLogic.Instance.Initialize();
 
+            MainLogic.Instance.Initialize();
+
             switch (mode)
             {
                 case GameMode.Develop:

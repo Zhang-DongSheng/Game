@@ -3479,6 +3479,10 @@ MonoBehaviour:
   - {fileID: 2654528241310671783}
   - {fileID: 3487019271736089169}
   - {fileID: 5498345752237697904}
+  currencies:
+  - {fileID: 1662970321592024819}
+  - {fileID: 4505523376368394237}
+  - {fileID: 3006287977074825754}
 --- !u!1 &3527004831963078830
 GameObject:
   m_ObjectHideFlags: 0

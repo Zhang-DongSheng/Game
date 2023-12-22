@@ -1,4 +1,5 @@
 using Data;
+using Game;
 using Game.UI;
 using System;
 using System.Reflection;
@@ -26,7 +27,7 @@ namespace UnityEditor.Window
 
         private UIInformation source;
 
-        private readonly UIInformation information = new UIInformation();
+        private UIInformation information = new UIInformation();
         [MenuItem("Game/UI Editor")]
         protected static void Open()
         {
@@ -78,7 +79,7 @@ namespace UnityEditor.Window
 
                 path = string.Format("Assets/{0}{1}.prefab", PREFAB, content);
 
-                GameObject prefab = PrefabUtils.CreateUGUI(path);
+                PrefabUtils.CreateUGUI(path);
 
                 AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
 
@@ -102,23 +103,38 @@ namespace UnityEditor.Window
 
             if (panel == UIPanel.None) return;
 
-            //if (information.panel != panel)
-            //{
-            //    var asset = AssetDatabase.LoadAssetAtPath<DataUI>("Assets/Package/Data/DataUI.asset");
+            if (information.panel != (int)panel)
+            {
+                var asset = AssetDatabase.LoadAssetAtPath<DataUI>("Assets/Package/Data/DataUI.asset");
 
-            //    source = asset.list.Find(x => x.panel == panel);
+                source = asset.list.Find(x => x.panel == (int)panel);
 
-            //    if (source != null)
-            //    {
-            //        information.Copy(source);
-            //    }
-            //    else
-            //    {
-            //        information.Copy(UIInformation.New(panel));
-            //    }
-            //    relevance = false;
-            //}
-            //RefreshUIInformation();
+                if (source != null)
+                {
+                    information = source.Clone();
+                }
+                else
+                {
+                    information = new UIInformation()
+                    {
+                        panel = (int)panel,
+
+                        layer = UILayer.Window,
+
+                        type = UIType.Panel,
+
+                        name = panel.ToString(),
+
+                        destroy = false,
+
+                        order = 0,
+
+                        path = string.Format("{0}/{1}.prefab", UIDefine.Prefab, panel)
+                    };
+                }
+                relevance = false;
+            }
+            RefreshUIInformation();
 
             if (source != null)
             {
@@ -246,13 +262,15 @@ namespace UnityEditor.Window
 
             if (index > -1)
             {
-                //asset.list[index].Copy(information);
+                asset.list[index] = information.Clone();
             }
             else
             {
                 asset.list.Add(information);
             }
-            AssetDatabase.SaveAssets(); AssetDatabase.Refresh();
+            AssetDatabase.SaveAssets();
+            
+            AssetDatabase.Refresh();
         }
     }
 }

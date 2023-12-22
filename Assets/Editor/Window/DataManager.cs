@@ -252,6 +252,10 @@ namespace UnityEditor.Window
             {
                 Loading<DataActivity>("activity");
             }
+            else if (type == typeof(DataRole))
+            {
+                Loading<DataRole>("role");
+            }
             else
             {
                 Debug.LogError("当前数据类型未定义，请主动添加 - " + type.Name);

@@ -1,3 +1,4 @@
+using Game.State;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,7 +31,13 @@ namespace Game.UI
 
         public override void Enter()
         {
-            SetActive(display != UIPanel.UIMain);
+            bool active = GameStateController.Instance.current is GameLobbyState;
+
+            if (active)
+            {
+                active = display != UIPanel.UIMain;
+            }
+            SetActive(active);
         }
 
         private void RefreshCurrencies()

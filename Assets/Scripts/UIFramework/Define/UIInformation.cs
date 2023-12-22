@@ -17,26 +17,9 @@ namespace Game.UI
 
         public bool destroy;
 
-        public UIInformation() { }
-
-        public static UIInformation Default(UIPanel panel)
+        public UIInformation()
         {
-            return new UIInformation()
-            {
-                panel = (int)panel,
-
-                layer = UILayer.Window,
-
-                type = UIType.Panel,
-
-                name = panel.ToString(),
-
-                destroy = false,
-
-                order = 0,
-
-                path = string.Format("{0}/{1}.prefab", UIDefine.Prefab, panel)
-            };
+        
         }
     }
 }

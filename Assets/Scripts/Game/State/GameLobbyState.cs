@@ -26,6 +26,8 @@ namespace Game.State
 
             if (scene != null && scene.buildIndex == sceneIndex)
             {
+                MainLogic.Instance.Relevance();
+
                 UIQuickEntry.OpenSingle(UIPanel.UIMain);
             }
             else
@@ -36,7 +38,7 @@ namespace Game.State
 
         public void OnExit()
         {
-
+            MainLogic.Instance.Clear();
         }
 
         public void OnStay()
@@ -47,6 +49,8 @@ namespace Game.State
         private IEnumerator LoadSceneAsync(int index)
         {
             yield return SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
+
+            MainLogic.Instance.Relevance();
 
             UIQuickEntry.OpenSingle(UIPanel.UIMain);
         }

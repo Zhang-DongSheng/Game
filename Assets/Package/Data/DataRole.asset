@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67736007719b67748ad0a60709fc8647, type: 3}
+  m_Name: DataRole
+  m_EditorClassIdentifier: 
+  roles:
+  - primary: 1
+    name: Alice
+    age: 18
+    sex: 0
+    quality: 3
+    attributes: 0100000003000000
+    path: Package/Prefab/Model/Role/model_1.prefab
+    description: "\u73A9\u5BB61"
+  - primary: 2
+    name: Judy
+    age: 19
+    sex: 0
+    quality: 3
+    attributes: 0100000004000000
+    path: Package/Prefab/Model/Role/model_2.prefab
+    description: "\u73A9\u5BB62"
+  - primary: 3
+    name: Green
+    age: 21
+    sex: 0
+    quality: 5
+    attributes: 0100000005000000
+    path: Package/Prefab/Model/Role/model_3.prefab
+    description: "\u73A9\u5BB63"
