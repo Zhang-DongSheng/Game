@@ -9,11 +9,11 @@ namespace Game.UI
 
         [SerializeField] private TextBind txtNumber;
 
-        protected int coin;
+        protected uint coin;
 
         protected float amount;
 
-        public void Refresh(int coin, int amount)
+        public void Refresh(uint coin, float amount)
         {
             this.coin = coin;
 
@@ -24,7 +24,7 @@ namespace Game.UI
 
         protected void Refresh()
         {
-            PropInformation prop = DataManager.Instance.Load<DataProp>().Get(coin);
+            PropInformation prop = DataProp.Get(coin);
 
             imgIcon.SetSprite(prop.icon);
 

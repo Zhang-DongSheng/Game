@@ -17,7 +17,7 @@ namespace Game.UI
 
         public void Refresh(Task task)
         {
-            var table = DataManager.Instance.Load<DataTask>().Get(task.parallelism);
+            var table = DataTask.Get(task.parallelism);
 
             text.text = table != null ? table.description : "null " + task.parallelism;
 

@@ -8,18 +8,24 @@ namespace Data
     {
         public List<LanguageInformation> languages = new List<LanguageInformation>();
 
-        public LanguageInformation Get(Language language)
+        public static LanguageInformation Get(Language language)
         {
-            int count = languages.Count;
+            var data = DataManager.Instance.Load<DataLanguage>();
 
-            for (int i = 0; i < count; i++)
+            if (data != null)
             {
-                if (languages[i].language == language)
+                int count = data.languages.Count;
+
+                for (int i = 0; i < count; i++)
                 {
-                    return languages[i];
+                    if (data.languages[i].language == language)
+                    {
+                        return data.languages[i];
+                    }
                 }
+                return count > 0 ? data.languages[0] : null;
             }
-            return count > 0 ? languages[0] : null;
+            return null;
         }
 
         public override void Set(string content)

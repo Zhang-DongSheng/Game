@@ -1,4 +1,3 @@
-using FSM;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,11 +13,6 @@ namespace Game.UI
         private int count;
 
         private readonly List<ItemToggle> toggles = new List<ItemToggle>();
-
-        public void Initialize(int count)
-        {
-            
-        }
 
         public void Refresh(params int[] parameter)
         {

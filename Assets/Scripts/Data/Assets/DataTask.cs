@@ -1,6 +1,7 @@
 using Game;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine.Networking.Types;
 
 namespace Data
 {
@@ -8,9 +9,15 @@ namespace Data
     {
         public List<TaskInformation> tasks = new List<TaskInformation>();
 
-        public TaskInformation Get(uint key)
+        public static TaskInformation Get(uint taskID)
         {
-            return tasks.Find(x => x.primary == key);
+            var data = DataManager.Instance.Load<DataTask>();
+
+            if (data != null)
+            {
+                return data.tasks.Find(x => x.primary == taskID);
+            }
+            return null;
         }
 
         public override void Set(string content)

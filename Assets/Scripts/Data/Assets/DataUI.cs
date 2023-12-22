@@ -7,17 +7,13 @@ namespace Data
     {
         public List<UIInformation> list = new List<UIInformation>();
 
-        public UIInformation Get(int panel)
+        public static UIInformation Get(int panel)
         {
-            if (list != null && list.Count > 0)
+            var data = DataManager.Instance.Load<DataUI>();
+
+            if (data != null)
             {
-                foreach (var information in list)
-                {
-                    if (information.panel == panel)
-                    {
-                        return information;
-                    }
-                }
+                return data.list.Find(x => x.panel == panel);
             }
             return null;
         }

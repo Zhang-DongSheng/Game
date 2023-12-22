@@ -61,7 +61,7 @@ namespace Game
                 {
                     if (asset != null)
                     {
-                        information = asset.Get(language);
+                        information = asset.languages.Find(x => x.language == language);
                     }
                     else
                     {
@@ -76,7 +76,7 @@ namespace Game
 
                 if (asset != null)
                 {
-                    information = asset.Get(language);
+                    information = asset.languages.Find(x => x.language == language);
                 }
                 else
                 {

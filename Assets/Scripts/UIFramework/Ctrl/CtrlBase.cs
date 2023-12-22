@@ -16,13 +16,11 @@ namespace Game.UI
 
         public CtrlBase(int panel)
         {
-            var config = DataManager.Instance.Load<DataUI>();
-
-            information = config.Get(panel);
+            information = DataUI.Get(panel);
 
             if (information == null)
             {
-                Debuger.LogError(Author.UI, "Config is Null!");
+                Debuger.LogError(Author.UI, string.Format("{0} Config is Null!", panel));
             }
         }
 

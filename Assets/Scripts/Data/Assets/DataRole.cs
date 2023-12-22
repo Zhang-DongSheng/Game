@@ -7,9 +7,15 @@ namespace Data
     {
         public List<RoleInformation> roles = new List<RoleInformation>();
 
-        public RoleInformation Get(uint ID)
+        public static RoleInformation Get(uint roleID)
         {
-            return roles.Find(x => x.primary == ID);
+            var data = DataManager.Instance.Load<DataRole>();
+
+            if (data != null)
+            {
+                return data.roles.Find(x => x.primary == roleID);
+            }
+            return null;
         }
 
         public override void Set(string content)

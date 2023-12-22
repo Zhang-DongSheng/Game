@@ -12,9 +12,7 @@ namespace Game.UI
 
         public Sprite GetSprite(string name)
         {
-            DataSprite data = DataManager.Instance.Load<DataSprite>();
-
-            AtlasInformation information = data.GetAtlas(name);
+            AtlasInformation information = DataSprite.GetAtlas(name);
 
             if (information == null) return null;
 

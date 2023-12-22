@@ -26,7 +26,7 @@ namespace Game.UI
         {
             this.commodity = commodity;
 
-            var table = DataManager.Instance.Load<DataCommodity>().Get(commodity.primary);
+            var table = DataCommodity.Get(commodity.primary);
 
             if (table == null) return;
 
@@ -45,7 +45,7 @@ namespace Game.UI
                 {
                     props = new List<Prop>()
                 };
-                var table = DataManager.Instance.Load<DataCommodity>().Get(commodity.primary);
+                var table = DataCommodity.Get(commodity.primary);
 
                 for (int i = 0; i < table.rewards.Count; i++)
                 {

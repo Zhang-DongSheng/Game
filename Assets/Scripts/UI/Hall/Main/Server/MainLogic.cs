@@ -30,7 +30,7 @@ namespace Game
         {
             if (display == null || model == null) return;
 
-            var table = DataManager.Instance.Load<DataRole>().Get(roleID);
+            var table = DataRole.Get(roleID);
 
             if (table == null) return;
 

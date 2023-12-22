@@ -27,7 +27,7 @@ namespace Game.UI
 
         public void Refresh(uint propID, int amount = 0)
         {
-            information = DataManager.Instance.Load<DataProp>().Get(propID);
+            information = DataProp.Get(propID);
 
             Refresh();
 

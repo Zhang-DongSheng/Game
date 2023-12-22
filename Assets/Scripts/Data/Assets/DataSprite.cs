@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine.Networking.Types;
 
 namespace Data
 {
@@ -10,13 +11,18 @@ namespace Data
 
         public List<TextureInformation> textures = new List<TextureInformation>();
 
-        public AtlasInformation GetAtlas(string sprite)
+        public static AtlasInformation GetAtlas(string sprite)
         {
-            foreach (var atlas in atlases)
+            var data = DataManager.Instance.Load<DataSprite>();
+
+            if (data != null)
             {
-                if (atlas.Exist(sprite))
+                foreach (var atlas in data.atlases)
                 {
-                    return atlas;
+                    if (atlas.Exist(sprite))
+                    {
+                        return atlas;
+                    }
                 }
             }
             return null;

@@ -7,9 +7,15 @@ namespace Data
     {
         public List<CommodityInformation> commodities = new List<CommodityInformation>();
 
-        public CommodityInformation Get(uint ID)
+        public static CommodityInformation Get(uint commodityID)
         {
-            return commodities.Find(x => x.primary == ID);
+            var data = DataManager.Instance.Load<DataCommodity>();
+
+            if (data != null)
+            {
+                return data.commodities.Find(x => x.primary == commodityID);
+            }
+            return null;
         }
 
         public override void Set(string content)
@@ -50,9 +56,9 @@ namespace Data
     {
         public string name;
 
-        public int cost;
+        public uint cost;
 
-        public int price;
+        public float price;
 
         public bool purchase;
 

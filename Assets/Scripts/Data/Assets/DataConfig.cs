@@ -8,19 +8,24 @@ namespace Data
     {
         public List<ConfigInformation> config = new List<ConfigInformation>();
 
-        public string Get(string key)
+        public static string Get(string key)
         {
-            for (int i = 0; i < config.Count; i++)
+            var data = DataManager.Instance.Load<DataConfig>();
+
+            if (data != null)
             {
-                if (config[i].key == key)
+                for (int i = 0; i < data.config.Count; i++)
                 {
-                    return config[i].value;
+                    if (data.config[i].key == key)
+                    {
+                        return data.config[i].value;
+                    }
                 }
             }
             return string.Empty;
         }
 
-        public T Get<T>(string key)
+        public static T Get<T>(string key)
         {
             string value = Get(key);
 

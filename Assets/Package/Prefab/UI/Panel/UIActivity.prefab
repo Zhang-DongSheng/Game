@@ -32667,7 +32667,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8607321042965742190}
-  - component: {fileID: 7976401681263844630}
+  - component: {fileID: 7628297107486098345}
   m_Layer: 5
   m_Name: ItemTab
   m_TagString: Untagged
@@ -32697,7 +32697,7 @@ RectTransform:
   m_AnchoredPosition: {x: -929.9999, y: 557.49994}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7976401681263844630
+--- !u!114 &7628297107486098345
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -32706,13 +32706,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 4723363192734006192}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 566ff7425b6f08a498ada26a5124499e, type: 3}
+  m_Script: {fileID: 11500000, guid: 884039cd70c74c049877971330883d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   background:
   - {fileID: 4531718198728914097}
   foreground:
   - {fileID: 4196153153582058092}
+  labels:
+  - {fileID: 8873202097619284699}
+  - {fileID: 3294537078652962324}
 --- !u!1 &4758621806801265919
 GameObject:
   m_ObjectHideFlags: 0

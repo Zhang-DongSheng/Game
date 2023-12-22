@@ -7,14 +7,15 @@ namespace Data
     {
         public List<PropInformation> props = new List<PropInformation>();
 
-        public PropInformation Get(int key, bool quick = false)
+        public static PropInformation Get(uint propID)
         {
-            return props.Find(x => x.primary == key);
-        }
+            var data = DataManager.Instance.Load<DataProp>();
 
-        public PropInformation Get(uint key, bool quick = false)
-        {
-            return props.Find(x => x.primary == key);
+            if (data != null)
+            {
+                return data.props.Find(x => x.primary == propID);
+            }
+            return null;
         }
 
         public override void Set(string content)

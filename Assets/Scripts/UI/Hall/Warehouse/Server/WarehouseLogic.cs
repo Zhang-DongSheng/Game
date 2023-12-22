@@ -28,15 +28,11 @@ namespace Game
         {
             _variables.Clear();
 
-            DataProp data = DataManager.Instance.Load<DataProp>();
-
-            PropInformation prop;
-
             int count = _props.Count;
 
             for (int i = 0; i < count; i++)
             {
-                prop = data.Get(_props[i].parallelism);
+                var prop = DataProp.Get(_props[i].parallelism);
 
                 if (prop != null && prop.category == category)
                 {

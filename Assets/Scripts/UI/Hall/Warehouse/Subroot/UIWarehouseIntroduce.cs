@@ -16,7 +16,7 @@ namespace Game.UI
         {
             m_item.Refresh(prop);
 
-            var table = DataManager.Instance.Load<DataProp>().Get(prop.parallelism);
+            var table = DataProp.Get(prop.parallelism);
 
             m_label.text = table.description;
         }

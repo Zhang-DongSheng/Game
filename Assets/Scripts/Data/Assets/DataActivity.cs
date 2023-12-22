@@ -8,6 +8,17 @@ namespace Data
     {
         public List<ActivityInformation> activitys = new List<ActivityInformation>();
 
+        public static ActivityInformation Get(uint activityID)
+        {
+            var data = DataManager.Instance.Load<DataActivity>();
+
+            if (data != null)
+            {
+                return data.activitys.Find(x => x.primary == activityID);
+            }
+            return null;
+        }
+
         public override void Set(string content)
         {
             base.Set(content);
@@ -32,6 +43,16 @@ namespace Data
     [Serializable]
     public class ActivityInformation : InformationBase
     {
+        public string name;
 
+        public uint type;
+
+        public long beginTime;
+
+        public long endTime;
+
+        public bool timeLimit;
+
+        public string description;
     }
 }

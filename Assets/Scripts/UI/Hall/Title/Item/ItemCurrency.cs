@@ -29,7 +29,7 @@ namespace Game.UI
         {
             this.coin = coin;
 
-            var table = DataManager.Instance.Load<DataProp>().Get(coin);
+            var table = DataProp.Get(coin);
 
             if (table == null) return;
 
