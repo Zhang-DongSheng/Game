@@ -1,9 +1,8 @@
-﻿using Data;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game.UI
 {
-    public class ItemActivityTab : ItemToggle
+    public class ItemSettingTab : ItemToggle
     {
         [SerializeField] private TextBind[] labels;
 
@@ -23,13 +22,19 @@ namespace Game.UI
 
         protected override string Content(int index)
         {
-            var table = DataActivity.Get((uint)index);
-
-            if (table != null)
+            switch (index) 
             {
-                return table.name;
+                case 0:
+                    return "基础";
+                case 1:
+                    return "声音";
+                case 2:
+                    return "多语言";
+                case 3:
+                    return "SDK";
+                default:
+                    return index.ToString();
             }
-            return base.Content(index);
         }
     }
 }

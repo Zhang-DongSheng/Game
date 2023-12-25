@@ -14,28 +14,77 @@ namespace Game.UI
 
         private readonly List<ItemToggle> toggles = new List<ItemToggle>();
 
-        public void Refresh(params int[] parameter)
+        private readonly List<ItemToggleKey> keys = new List<ItemToggleKey>();
+
+        private void Refresh()
         {
-            toggles.Clear();
+            this.toggles.Clear();
 
-            toggles.AddRange(GetComponentsInChildren<ItemToggle>());
+            this.toggles.AddRange(GetComponentsInChildren<ItemToggle>(true));
 
-            count = parameter.Length;
+            count = keys.Count;
 
             for (int i = 0; i < count; i++)
             {
                 if (i >= toggles.Count)
                 {
-                    var toggle = prefab.Create<ItemToggle>();
-                    toggle.callback = OnClick;
-                    toggles.Add(toggle);
+                    toggles.Add(prefab.Create<ItemToggle>());
                 }
-                toggles[i].Refresh(parameter[i]);
+                toggles[i].Refresh(keys[i]);
             }
             for (int i = count; i < toggles.Count; i++)
             {
                 toggles[i].SetActive(false);
             }
+        }
+
+        public void Refresh(params int[] parameter)
+        {
+            this.keys.Clear();
+
+            count = parameter.Length;
+
+            for (int i = 0; i < count; i++)
+            {
+                this.keys.Add(new ItemToggleKey()
+                {
+                    index = parameter[i],
+                    content = parameter[i].ToString(),
+                    callback = OnClick,
+                });
+            }
+            Refresh();
+        }
+
+        public void Refresh(List<int> list)
+        {
+            this.keys.Clear();
+
+            count = list.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                this.keys.Add(new ItemToggleKey()
+                {
+                    index = list[i],
+                    content = list[i].ToString(),
+                    callback = OnClick
+                });
+            }
+            Refresh();
+        }
+
+        public void Refresh(List<ItemToggleKey> keys)
+        {
+            this.keys.Clear();
+
+            this.keys.AddRange(keys);
+
+            foreach (var key in this.keys)
+            {
+                key.callback = OnClick;
+            }
+            Refresh();
         }
 
         public void Select(int index, bool invoke = false)
@@ -63,5 +112,14 @@ namespace Game.UI
             }
             callback?.Invoke(index);
         }
+    }
+    [Serializable]
+    public class ItemToggleKey
+    {
+        public int index;
+
+        public string content;
+
+        public Action<int> callback;
     }
 }

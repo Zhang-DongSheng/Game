@@ -1,20 +1,21 @@
-using Data;
-using TMPro;
 using UnityEngine;
 
 namespace Game.UI
 {
     public class ItemLanguage : ItemToggle
     {
-        [SerializeField] private TextMeshProUGUI txtLabel;
+        [SerializeField] private TextBind[] labels;
 
-        public override void Refresh(int index)
+        public override void Refresh(ItemToggleKey key)
         {
-            base.Refresh(index);
+            base.Refresh(key);
 
-            Language language = (Language)index;
+            int count = labels.Length;
 
-            txtLabel.text = language.ToString();
+            for (int i = 0; i < count; i++)
+            {
+                labels[i].SetText(content);
+            }
         }
     }
 }

@@ -1,34 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
     public class UISetting : UIBase
     {
-        [SerializeField] private List<Toggle> toggles;
+        [SerializeField] private ItemToggleGroup m_menu;
 
         [SerializeField] private List<UISettingBase> views;
 
         protected override void OnAwake()
         {
-            int count = toggles.Count;
+            m_menu.callback = OnClickTab;
 
-            for (int i = 0; i < count; i++)
-            {
-                int index = i;
+            m_menu.Refresh(0, 1, 2, 3);
 
-                if (toggles[i] != null)
-                {
-                    toggles[i].onValueChanged.AddListener((isOn) =>
-                    {
-                        if (isOn)
-                        {
-                            OnClickTab(index);
-                        }
-                    });
-                }
-            }
+            m_menu.Select(0, true);
         }
 
         public override void Refresh(UIParameter parameter)
@@ -49,6 +36,7 @@ namespace Game.UI
             {
                 views[i].SetActive(i == index);
             }
+            Debug.LogError("µã»÷");
         }
     }
 }

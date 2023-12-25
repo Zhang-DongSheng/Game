@@ -29,7 +29,10 @@ namespace Game.UI
             }
             m_menu.Refresh(_activities.ToArray());
 
-            m_menu.Select(_activities[0], true);
+            if (_activities.Count > 0)
+            {
+                m_menu.Select(_activities[0], true);
+            }
         }
 
         public void Refresh()

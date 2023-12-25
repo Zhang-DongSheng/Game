@@ -1,20 +1,21 @@
-﻿using Data;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace Game.UI
 {
     public class ItemShopTab : ItemToggle
     {
-        [SerializeField] private Text[] labels;
+        [SerializeField] private TextBind[] labels;
 
-        public override void Refresh(int index)
+        public override void Refresh(ItemToggleKey key)
         {
-            for (int i = 0; i < labels.Length; i++)
+            base.Refresh(key);
+
+            int count = labels.Length;
+
+            for (int i = 0; i < count; i++)
             {
-                labels[i].text = index.ToString();
+                labels[i].SetText(content);
             }
-            base.Refresh(index);
         }
     }
 }

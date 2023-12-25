@@ -7,51 +7,36 @@ namespace Game.UI
 {
     public class UISettingLanguage : UISettingBase
     {
-        [SerializeField] private PrefabTemplate prefab;
+        [SerializeField] private ItemToggleGroup m_menu;
 
-        [SerializeField] private Button btnConfirm;
+        [SerializeField] private Button button;
 
         private int index;
 
-        private readonly List<ItemLanguage> items = new List<ItemLanguage>();
-
         protected override void OnAwake()
         {
-            btnConfirm.onClick.AddListener(OnClickConfirm);
+            m_menu.callback = OnClickLanguage;
+
+            var list = new List<int>();
+
+            foreach (var value in Enum.GetValues(typeof(Language)))
+            {
+                list.Add((int)value);
+            }
+            m_menu.Refresh(list.ToArray());
+
+            button.onClick.AddListener(OnClickConfirm);
         }
 
         public override void Refresh()
         {
-            int count, index = 0;
-
-            foreach (var language in Enum.GetValues(typeof(Language)))
-            {
-                if (index >= items.Count)
-                {
-                    var item = prefab.Create<ItemLanguage>();
-                    item.callback = OnClickLanguage;
-                    items.Add(item);
-                }
-                items[index++].Refresh((int)language);
-            }
             this.index = (int)LanguageManager.Instance.Language;
 
-            count = items.Count;
-
-            for (int i = 0; i < count; i++)
-            {
-                items[i].Select(this.index);
-            }
+            m_menu.Select(index);
         }
 
         private void OnClickLanguage(int index)
         {
-            int count = items.Count;
-
-            for (int i = 0; i < count; i++)
-            {
-                items[i].Select(index);
-            }
             this.index = index;
         }
 

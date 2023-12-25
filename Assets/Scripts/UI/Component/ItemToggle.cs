@@ -7,19 +7,25 @@ namespace Game.UI
 {
     public class ItemToggle : ItemBase, IPointerClickHandler
     {
-        public Action<int> callback;
-
         [SerializeField] private List<GameObject> background;
 
         [SerializeField] private List<GameObject> foreground;
 
-        private int index, count;
+        protected Action<int> callback;
 
-        private bool active;
+        protected int index, count;
 
-        public virtual void Refresh(int index)
+        protected string content;
+
+        protected bool active;
+
+        public virtual void Refresh(ItemToggleKey key)
         {
-            this.index = index;
+            this.index = key.index;
+
+            content = key.content;
+
+            callback = key.callback;
 
             active = false;
 
@@ -44,6 +50,11 @@ namespace Game.UI
             {
                 SetActive(background[i], !active);
             }
+        }
+
+        protected virtual string Content(int index)
+        {
+            return content;
         }
 
         public void OnPointerClick(PointerEventData eventData)
