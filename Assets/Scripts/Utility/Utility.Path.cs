@@ -97,6 +97,19 @@ namespace Game
                 }
                 return path.Replace('\\', '/');
             }
+
+            public static string DirectoryEndWithSeparatorChar(string path)
+            {
+                if (path.EndsWith(System.IO.Path.DirectorySeparatorChar)) 
+                {
+                
+                }
+                else
+                {
+                    path += System.IO.Path.DirectorySeparatorChar;
+                }
+                return path;
+            }
             /// <summary>
             /// 获取远程格式的路径（带有file:// 或 http:// 前缀）
             /// </summary>

@@ -42,11 +42,11 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            var list = new List<int>(100);
+            string src = "D:/Project/Game/Source/Ebook";
 
-            list.Fill(1, 30);
+            string dst = "D:/Project/Game/Source/ebook.zip";
 
-            Debug.LogError(string.Join(',', list));
+            Utility.Zip.Compress(src, dst);
         }
         /// <summary>
         /// 点击测试
@@ -61,28 +61,7 @@ namespace Game.Test
         [ContextMenu("OnClick")]
         public void OnClickContextMenu()
         {
-            var rew = new List<RewardInformation>();
-
-            for (int i = 0; i < 3; i++)
-            {
-                rew.Add(new RewardInformation()
-                {
-                    propID = (uint)i,
-                    amount = 990 + i,
-                });
-            }
-
-
-            var r = new RewardInformation()
-            {
-                propID = (uint)1,
-                amount = 990,
-            };
-
-
-            string v = JsonUtility.ToJson(r);
-
-            Debug.LogError(v);
+            
         }
 
         public void OnClickButton(float index)
