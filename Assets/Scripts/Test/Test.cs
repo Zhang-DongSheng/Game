@@ -42,18 +42,20 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            string src = "D:/Project/Game/Source/Ebook";
-
-            string dst = "D:/Project/Game/Source/ebook.zip";
-
-            Utility.Zip.Compress(src, dst);
+            
         }
         /// <summary>
         /// 点击测试
         /// </summary>
         public void OnClick(int code)
         {
-            
+            var qr = Utility.QRCode.Create("i 123456", 1, 1);
+
+            var texture = Utility.Drawing.Texture2D(qr);
+
+            var component = target.GetComponent<Image>();
+
+            component.sprite = Utility.Drawing.Sprite(texture);
         }
         /// <summary>
         /// 菜单栏测试
@@ -73,7 +75,7 @@ namespace Game.Test
         {
             await System.Threading.Tasks.Task.Run(() =>
             {
-                Debuger.Log(Author.Test, "I'm fine!");
+                
             });
         }
     }
