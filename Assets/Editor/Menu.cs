@@ -85,7 +85,7 @@ namespace UnityEditor
                 }
             }
         }
-        [MenuItem("Assets/Open HotFix Project", priority = 900)]
+        [MenuItem("Assets/Open HotFix Project", priority = 999)]
         internal static void OpenHotFixProject()
         {
             string folder = "ILRuntime/Hotfix~";
