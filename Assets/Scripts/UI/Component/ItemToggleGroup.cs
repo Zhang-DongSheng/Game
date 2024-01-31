@@ -56,18 +56,16 @@ namespace Game.UI
             Refresh();
         }
 
-        public void Refresh(List<int> list)
+        public void Refresh<T>() where T : Enum
         {
             this.keys.Clear();
 
-            count = list.Count;
-
-            for (int i = 0; i < count; i++)
+            foreach (var e in Enum.GetValues(typeof(T)))
             {
                 this.keys.Add(new ItemToggleKey()
                 {
-                    index = list[i],
-                    content = list[i].ToString(),
+                    index = (int)e,
+                    content = e.ToString(),
                     callback = OnClick
                 });
             }

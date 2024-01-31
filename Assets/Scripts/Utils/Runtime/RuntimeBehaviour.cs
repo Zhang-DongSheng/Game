@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,13 +19,7 @@ namespace Game
         {
             OnVisible(true);
 
-            Register(RuntimeEvent.FixedUpdate, OnFixedUpdate);
-
-            Register(RuntimeEvent.Update, OnUpdate);
-
-            Register(RuntimeEvent.LateUpdate, OnLateUpdate);
-
-            Register(RuntimeEvent.LowMemory, OnLowMemory);
+            Register();
         }
 
         protected virtual void OnDisable()
@@ -45,15 +40,15 @@ namespace Game
         /// </summary>
         protected virtual void OnRegister()
         {
-            
+
         }
         /// <summary>
         /// œ‘ æ“˛≤ÿ
         /// </summary>
         /// <param name="active">œ‘“˛</param>
         protected virtual void OnVisible(bool active)
-        { 
-            
+        {
+
         }
 
         protected virtual void OnUpdate(float delta)
@@ -82,53 +77,60 @@ namespace Game
         /// </summary>
         protected virtual void OnUnregister()
         {
-            
+
         }
         /// <summary>
         ///  Õ∑≈
         /// </summary>
         protected virtual void OnRelease()
         {
-            
+
         }
 
-        protected void Register(RuntimeEvent key, FunctionBySingle function)
+        protected void Register()
         {
-            if (this.Override(function.Method.Name))
+            foreach (var e in Enum.GetValues(typeof(RuntimeEvent)))
             {
-                if (_events.Contains(key))
+                var key = (RuntimeEvent)e;
+
+                if (this.Override(string.Format("On{0}", key)))
                 {
-                    return;
+                    if (_events.Contains(key))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        _events.Add(key);
+                    }
+                    RuntimeManager.Instance.Register(key, Function(key));
                 }
-                else
-                {
-                    _events.Add(key);
-                }
-                RuntimeManager.Instance.Register(key, function);
             }
         }
 
         protected void Unregister()
         {
-            foreach(var key in _events)
+            foreach (var key in _events)
             {
-                switch (key)
-                { 
-                    case RuntimeEvent.FixedUpdate:
-                        RuntimeManager.Instance.Unregister(key, OnFixedUpdate);
-                        break;
-                    case RuntimeEvent.Update:
-                        RuntimeManager.Instance.Unregister(key, OnUpdate);
-                        break;
-                    case RuntimeEvent.LateUpdate:
-                        RuntimeManager.Instance.Unregister(key, OnLateUpdate);
-                        break;
-                    case RuntimeEvent.LowMemory:
-                        RuntimeManager.Instance.Unregister(key, OnLowMemory);
-                        break;
-                }
+                RuntimeManager.Instance.Unregister(key, Function(key));
             }
             _events.Clear();
+        }
+
+        protected Action<float> Function(RuntimeEvent runtime)
+        {
+            switch (runtime)
+            {
+                case RuntimeEvent.FixedUpdate:
+                    return OnFixedUpdate;
+                case RuntimeEvent.Update:
+                    return OnUpdate;
+                case RuntimeEvent.LateUpdate:
+                    return OnLateUpdate;
+                case RuntimeEvent.LowMemory:
+                    return OnLowMemory;
+                default: return null;
+            }
         }
 
         protected void OnDestroy()

@@ -1,4 +1,5 @@
 using Data;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,11 +22,9 @@ namespace Game.UI
 
         private void Start()
         {
-            var list = WarehouseConfig.cate;
+            m_menu.Refresh<WarehouseCategory>();
 
-            m_menu.Refresh(list.ToArray());
-
-            m_menu.Select(0, true);
+            m_menu.Select((int)WarehouseCategory.Consume, true);
         }
 
         private void OnClickTab(int index)

@@ -7,7 +7,7 @@ namespace Game
 {
     public sealed class RuntimeManager : MonoSingleton<RuntimeManager>
     {
-        private readonly Dictionary<RuntimeEvent, FunctionBySingle> events = new Dictionary<RuntimeEvent, FunctionBySingle>();
+        private readonly Dictionary<RuntimeEvent, Action<float>> events = new Dictionary<RuntimeEvent, Action<float>>();
 
         private readonly Dictionary<float, WaitForSeconds> seconds = new Dictionary<float, WaitForSeconds>();
 
@@ -24,12 +24,14 @@ namespace Game
 
         private void OnDestroy()
         {
+            events.Clear();
+
             Application.lowMemory -= OnLowMemory;
         }
 
         private void FixedUpdate()
         {
-            if (events.TryGetValue(RuntimeEvent.FixedUpdate, out FunctionBySingle function))
+            if (events.TryGetValue(RuntimeEvent.FixedUpdate, out Action<float> function))
             {
                 function?.Invoke(Time.fixedDeltaTime);
             }
@@ -37,7 +39,7 @@ namespace Game
 
         private void Update()
         {
-            if (events.TryGetValue(RuntimeEvent.Update, out FunctionBySingle function))
+            if (events.TryGetValue(RuntimeEvent.Update, out Action<float> function))
             {
                 function?.Invoke(Time.deltaTime);
             }
@@ -45,7 +47,7 @@ namespace Game
 
         private void LateUpdate()
         {
-            if (events.TryGetValue(RuntimeEvent.LateUpdate, out FunctionBySingle function))
+            if (events.TryGetValue(RuntimeEvent.LateUpdate, out Action<float> function))
             {
                 function?.Invoke(Time.deltaTime);
             }
@@ -53,7 +55,7 @@ namespace Game
 
         private void OnLowMemory()
         {
-            if (events.TryGetValue(RuntimeEvent.LowMemory, out FunctionBySingle function))
+            if (events.TryGetValue(RuntimeEvent.LowMemory, out Action<float> function))
             {
                 function?.Invoke(0);
             }
@@ -66,7 +68,7 @@ namespace Game
             action?.Invoke();
         }
 
-        public void Register(RuntimeEvent key, FunctionBySingle value)
+        public void Register(RuntimeEvent key, Action<float> value)
         {
             if (value is null) return;
 
@@ -91,7 +93,7 @@ namespace Game
             }
         }
 
-        public void Unregister(RuntimeEvent key, FunctionBySingle value)
+        public void Unregister(RuntimeEvent key, Action<float> value)
         {
             if (value is null) return;
 

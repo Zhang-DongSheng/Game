@@ -30,14 +30,14 @@ namespace Game.UI
 
             MainLogic.Instance.Display((uint)Random.Range(1, 4));
 
-            EventManager.Post(EventKey.Guidance, new EventMessageArgs()
-            {
-                [GuidanceConfig.Key] = new GuidanceInformation()
-                {
-                    guidanceID = guidance++
-                }
-            });
-            Debuger.LogError( Author.UI, "触发主界面窗口引导" + (guidance - 1));
+            //EventManager.Post(EventKey.Guidance, new EventMessageArgs()
+            //{
+            //    [GuidanceConfig.Key] = new GuidanceInformation()
+            //    {
+            //        guidanceID = guidance++
+            //    }
+            //});
+            //Debuger.LogError( Author.UI, "触发主界面窗口引导" + (guidance - 1));
         }
 
         private void RefreshCurrencies()

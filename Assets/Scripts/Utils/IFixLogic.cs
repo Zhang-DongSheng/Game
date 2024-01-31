@@ -38,11 +38,11 @@ namespace Game
                     {
                         case UnityWebRequest.Result.Success:
                             {
-                                Debuger.Log(Author.Resource, $"loading {assembly} ...");
                                 PatchManager.Load(new MemoryStream(request.downloadHandler.data));
                             }
                             break;
                     }
+                    Debuger.Log(Author.Resource, $"loading {assembly} ...");
                 }
                 else
                 {
@@ -52,9 +52,6 @@ namespace Game
             UnityEngine.Debug.Log("loaded patch, using " + sw.ElapsedMilliseconds + " ms");
         }
 
-        public void Release()
-        {
-            
-        }
+        public void Release() { }
     }
 }
