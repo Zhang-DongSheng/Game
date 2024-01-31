@@ -27,10 +27,7 @@ namespace Game.UI
             title.text = display.ToString();
 
             RefreshCurrencies();
-        }
 
-        public override void Enter()
-        {
             bool active = GameStateController.Instance.current is GameLobbyState;
 
             if (active)

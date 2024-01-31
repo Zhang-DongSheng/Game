@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Game.Guidance
+namespace Game.UI.Guidance
 {
-    public class GuidanceBase : MonoBehaviour
+    public abstract class ItemGuidanceBase : MonoBehaviour
     {
         public void SetActive(Component component, bool active)
         {

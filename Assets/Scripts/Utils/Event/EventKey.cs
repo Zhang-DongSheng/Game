@@ -15,4 +15,6 @@
     OpenPanel,
 
     ClosePanel,
+
+    Guidance,
 }

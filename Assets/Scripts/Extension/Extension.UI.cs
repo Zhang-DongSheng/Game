@@ -26,5 +26,27 @@ namespace Game
         {
             scroll.normalizedPosition = new Vector2(0, 0);
         }
+        /// <summary>
+        /// 提层
+        /// </summary>
+        public static void LiftUpLayer(this Transform transform)
+        {
+            var canvas = transform.AddOrReplaceComponent<Canvas>();
+
+            canvas.overrideSorting = true;
+            
+            canvas.sortingOrder = 100;
+
+            transform.AddOrReplaceComponent<GraphicRaycaster>();
+        }
+        /// <summary>
+        /// 降层
+        /// </summary>
+        public static void DownLayer(this Transform transform)
+        {
+            transform.RemoveComponent<GraphicRaycaster>();
+
+            transform.RemoveComponent<Canvas>();
+        }
     }
 }

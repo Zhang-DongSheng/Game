@@ -39,6 +39,8 @@ namespace Game
 
             MainLogic.Instance.Initialize();
 
+            GuidanceLogic.Instance.Initialize();
+
             switch (mode)
             {
                 case GameMode.Develop:

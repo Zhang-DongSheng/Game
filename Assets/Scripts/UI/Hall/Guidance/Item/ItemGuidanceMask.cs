@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.Guidance
+namespace Game.UI.Guidance
 {
     [ExecuteInEditMode]
     [RequireComponent(typeof(Image))]
-    public class GuidanceMask : GuidanceBase
+    public class ItemGuidanceMask : ItemGuidanceBase
     {
         public TextAnchor anchor;
 

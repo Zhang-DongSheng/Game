@@ -186,9 +186,9 @@ namespace Game.UI
 
         protected virtual void Show()
         {
-            view.Refresh(paramter);
-
             view.Enter();
+
+            view.Refresh(paramter);
 
             UIManager.Instance.Sort(view.layer, view.transform);
 

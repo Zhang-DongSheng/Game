@@ -35,9 +35,15 @@ namespace Game.UI
             SetActive(false);
         }
 
-        public virtual void Reopen() { }
+        public virtual void Reopen()
+        {
+        
+        }
 
-        public virtual void Refresh(UIParameter parameter) { }
+        public virtual void Refresh(UIParameter parameter)
+        {
+        
+        }
 
         public virtual bool Back()
         {

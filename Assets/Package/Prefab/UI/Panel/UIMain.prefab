@@ -641,7 +641,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4ED3\u5E93"
+  m_Text: 10101
 --- !u!114 &1398671475384451577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2155,7 +2155,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4EFB\u52A1"
+  m_Text: 10106
 --- !u!114 &818167995887863698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2216,6 +2216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5439118888250559122}
   - component: {fileID: 248326519614687724}
+  - component: {fileID: 7886887493336576367}
   m_Layer: 5
   m_Name: Entry_Shop
   m_TagString: Untagged
@@ -2262,6 +2263,19 @@ MonoBehaviour:
   button: {fileID: 7694823720331859201}
   mask: {fileID: 9144148392201309159}
   reddot: {fileID: 8828695135351739596}
+--- !u!114 &7886887493336576367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2567375502085457842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c1059c54716734cb81645c3f385aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guidanceID: 103
 --- !u!1 &2746468955127222120
 GameObject:
   m_ObjectHideFlags: 0
@@ -3401,7 +3415,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6D3B\u52A8"
+  m_Text: 10103
 --- !u!114 &5300352044391497867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3563,7 +3577,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5546\u5E97"
+  m_Text: 10104
 --- !u!114 &2693056736984635437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3855,6 +3869,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1112657141799470931}
   - component: {fileID: 6092278998772216097}
+  - component: {fileID: 2686641583117330243}
   m_Layer: 5
   m_Name: Entry_Warehouse
   m_TagString: Untagged
@@ -3901,6 +3916,19 @@ MonoBehaviour:
   button: {fileID: 1938405887184319246}
   mask: {fileID: 4959194708385096644}
   reddot: {fileID: 8105422851513892034}
+--- !u!114 &2686641583117330243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4044840098079550733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c1059c54716734cb81645c3f385aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guidanceID: 101
 --- !u!1 &4197989274861348552
 GameObject:
   m_ObjectHideFlags: 0
@@ -4033,6 +4061,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3332837922471734111}
   - component: {fileID: 2783351143201432936}
+  - component: {fileID: 5061314814335627731}
   m_Layer: 5
   m_Name: Entry_Activity
   m_TagString: Untagged
@@ -4079,6 +4108,19 @@ MonoBehaviour:
   button: {fileID: 2695065019827515953}
   mask: {fileID: 622467066837994298}
   reddot: {fileID: 2722917856731968612}
+--- !u!114 &5061314814335627731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4388342052355756331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c1059c54716734cb81645c3f385aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guidanceID: 111
 --- !u!1 &4431706534771632210
 GameObject:
   m_ObjectHideFlags: 0
@@ -4211,6 +4253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 499284002802993614}
   - component: {fileID: 7747406848870825058}
+  - component: {fileID: 8201872302733884415}
   m_Layer: 5
   m_Name: Entry_New
   m_TagString: Untagged
@@ -4257,6 +4300,19 @@ MonoBehaviour:
   button: {fileID: 4504165847113995054}
   mask: {fileID: 5737352920672447752}
   reddot: {fileID: 2238976140851810840}
+--- !u!114 &8201872302733884415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4502762421632300412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c1059c54716734cb81645c3f385aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guidanceID: 104
 --- !u!1 &4686907649593274009
 GameObject:
   m_ObjectHideFlags: 0
@@ -4890,6 +4946,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7193686317232258708}
   - component: {fileID: 2859152471152389202}
+  - component: {fileID: 5922542908081385415}
   m_Layer: 5
   m_Name: Entry_Task
   m_TagString: Untagged
@@ -4936,6 +4993,19 @@ MonoBehaviour:
   button: {fileID: 2917458581435975314}
   mask: {fileID: 2193274492533324906}
   reddot: {fileID: 1774511041977098866}
+--- !u!114 &5922542908081385415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5278870105951884445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c1059c54716734cb81645c3f385aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guidanceID: 110
 --- !u!1 &5304241526282605454
 GameObject:
   m_ObjectHideFlags: 0
@@ -6039,7 +6109,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6218\u6597"
+  m_Text: 10109
 --- !u!114 &2569177567072151696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6133,7 +6203,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u961F\u5217"
+  m_Text: 10107
 --- !u!114 &3012601083542137797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6599,6 +6669,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2774609145733308472}
   - component: {fileID: 2654528241310671783}
+  - component: {fileID: 5069092994335936875}
   m_Layer: 5
   m_Name: Entry_Deploy
   m_TagString: Untagged
@@ -6645,6 +6716,19 @@ MonoBehaviour:
   button: {fileID: 7698774166859921518}
   mask: {fileID: 7431826767940640901}
   reddot: {fileID: 4255792318518618138}
+--- !u!114 &5069092994335936875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7183767207365324645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c1059c54716734cb81645c3f385aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guidanceID: 102
 --- !u!1 &7226854424657412303
 GameObject:
   m_ObjectHideFlags: 0
@@ -7072,7 +7156,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u65B0"
+  m_Text: 10108
 --- !u!114 &161418614844569925
 MonoBehaviour:
   m_ObjectHideFlags: 0
