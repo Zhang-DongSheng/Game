@@ -17,13 +17,7 @@ namespace Game.UI
         {
             m_menu.callback = OnClickLanguage;
 
-            var list = new List<int>();
-
-            foreach (var value in Enum.GetValues(typeof(Language)))
-            {
-                list.Add((int)value);
-            }
-            m_menu.Refresh(list.ToArray());
+            m_menu.Refresh<Language>();
 
             button.onClick.AddListener(OnClickConfirm);
         }
@@ -42,7 +36,11 @@ namespace Game.UI
 
         private void OnClickConfirm()
         {
-            LanguageManager.Instance.Refresh((Language)index);
+            var language = (Language)index;
+
+            Debuger.LogError(Author.UI, "…Ë∂®”Ô—‘" + language);
+
+            LanguageManager.Instance.Update(language);
         }
     }
 }

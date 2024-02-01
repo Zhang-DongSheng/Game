@@ -18,7 +18,7 @@ namespace Game
             ScheduleLogic.Instance.Update(Schedule.Language);
         }
 
-        public void Refresh(Language language)
+        public void Update(Language language)
         {
             if (this.language == language) return;
 
