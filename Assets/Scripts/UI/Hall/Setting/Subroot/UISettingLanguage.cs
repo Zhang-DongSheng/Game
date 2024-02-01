@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,9 +36,9 @@ namespace Game.UI
         {
             var language = (Language)index;
 
-            Debuger.LogError(Author.UI, "设定语言" + language);
-
             LanguageManager.Instance.Update(language);
+
+            UIQuickEntry.OpenUINotice("语言成功为" + language);
         }
     }
 }

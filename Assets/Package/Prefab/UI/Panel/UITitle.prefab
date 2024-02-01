@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 1973407445497335664}
   - component: {fileID: 707551318544241245}
   - component: {fileID: 7368639531780434026}
+  - component: {fileID: 1559412741714114266}
   m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -225,6 +226,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: New Text
+--- !u!114 &1559412741714114266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709081208211893152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5e74d57c8a67124ca2353430c427c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: 
 --- !u!1 &1412201674110592542
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,7 +1000,7 @@ MonoBehaviour:
   layer: 3
   type: 3
   order: 0
-  title: {fileID: 7368639531780434026}
+  title: {fileID: 1559412741714114266}
   button: {fileID: 4930230542876071043}
   currencies:
   - {fileID: 4111151897225179327}

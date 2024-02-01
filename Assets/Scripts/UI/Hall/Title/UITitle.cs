@@ -7,7 +7,7 @@ namespace Game.UI
 {
     public class UITitle : UIBase
     {
-        [SerializeField] private Text title;
+        [SerializeField] private TextBind title;
 
         [SerializeField] private Button button;
 
@@ -24,9 +24,24 @@ namespace Game.UI
         {
             display = (UIPanel)parameter["panel"];
 
-            title.text = display.ToString();
+            switch (display)
+            {
+                case UIPanel.UIActivity:
+                    {
+                        title.SetText(display.ToString());
 
-            RefreshCurrencies();
+                        RefreshCurrencies(101, 102, 103);
+                    }
+                    break;
+                default:
+                    {
+                        title.SetText(display.ToString());
+
+                        RefreshCurrencies(101, 102, 103);
+                    }
+                    break;
+            }
+            RefreshDetection();
 
             bool active = GameStateController.Instance.current is GameLobbyState;
 
@@ -37,23 +52,26 @@ namespace Game.UI
             SetActive(active);
         }
 
-        private void RefreshCurrencies()
+        private void RefreshCurrencies(params uint[] coins)
         {
-            var list = new List<uint>() { 101, 102, 103 };
-
-            int count = Mathf.Clamp(list.Count, 0, currencies.Count);
+            int count = Mathf.Clamp(coins.Length, 0, currencies.Count);
 
             for (int i = 0; i < count; i++)
             {
-                currencies[i].Refresh(list[i]);
+                currencies[i].Refresh(coins[i]);
             }
             for (int i = count; i < currencies.Count; i++)
             {
                 currencies[i].SetActive(false);
             }
-            // 特殊界面处理
+        }
+
+        private void RefreshDetection()
+        {
             if (display == UIPanel.UIShop)
             {
+                int count = currencies.Count;
+
                 for (int i = 0; i < count; i++)
                 {
                     currencies[i].HiddenSource();

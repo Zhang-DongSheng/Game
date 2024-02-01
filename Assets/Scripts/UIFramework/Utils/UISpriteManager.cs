@@ -29,19 +29,11 @@ namespace Game.UI
 
                 if (atlas == null) return null;
 
-                Add(information.name, atlas);
+                atlases.Add(information.name, atlas);
 
                 return atlas.GetSprite(name);
             }
             return null;
-        }
-
-        private void Add(string key, SpriteAtlas atlas)
-        {
-            if (!atlases.ContainsKey(key))
-            {
-                atlases.Add(key, atlas);
-            }
         }
     }
 }

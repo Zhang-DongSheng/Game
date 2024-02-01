@@ -18,14 +18,14 @@ namespace Game.UI
         {
             EventManager.Register(EventKey.Progress, Refresh);
             // 打开UI后关闭界面
-            EventManager.Register(EventKey.OpenPanel, Complete);
+            EventManager.Register(EventKey.Open, Complete);
         }
 
         private void OnDisable()
         {
             EventManager.Unregister(EventKey.Progress, Refresh);
             // 打开UI后关闭界面
-            EventManager.Unregister(EventKey.OpenPanel, Complete);
+            EventManager.Unregister(EventKey.Open, Complete);
         }
 
         private void Refresh(EventMessageArgs args)

@@ -25,13 +25,13 @@ namespace Game.UI
             switch (index) 
             {
                 case 0:
-                    return "基础";
+                    return "10110";
                 case 1:
-                    return "声音";
+                    return "10111";
                 case 2:
-                    return "多语言";
+                    return "10115";
                 case 3:
-                    return "SDK";
+                    return "10116";
                 default:
                     return index.ToString();
             }

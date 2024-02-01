@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -8,7 +9,7 @@ namespace Game.UI
 
         [SerializeField] private TextBind txtKey;
 
-        [SerializeField] private TextBind txtValue;
+        [SerializeField] private Text txtValue;
 
         public void Refresh(int ID, float value, int type = 0)
         {
@@ -19,7 +20,7 @@ namespace Game.UI
         {
             txtKey.SetText(key);
 
-            txtValue.SetText(string.Format("{0}{1}", value, Unit(type)), false);
+            txtValue.SetText(string.Format("{0}{1}", value, Unit(type)));
         }
 
         public static string Unit(int type)

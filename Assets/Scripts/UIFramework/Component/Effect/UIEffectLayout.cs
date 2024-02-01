@@ -46,7 +46,7 @@ namespace UnityEngine.UI
 
             particles = target.GetComponentsInChildren<ParticleSystem>();
 
-            EventManager.Register(EventKey.EffectStatus, Notice);
+            EventManager.Register(EventKey.Effect, Notice);
         }
 
         private void OnEnable()
@@ -188,7 +188,7 @@ namespace UnityEngine.UI
 
         private void OnDestroy()
         {
-            EventManager.Unregister(EventKey.EffectStatus, Notice);
+            EventManager.Unregister(EventKey.Effect, Notice);
         }
     }
 }

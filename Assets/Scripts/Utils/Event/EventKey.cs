@@ -2,7 +2,7 @@
 {
     Test,
 
-    EffectStatus,
+    Effect,
 
     Reddot,
 
@@ -12,9 +12,11 @@
 
     Progress,
 
-    OpenPanel,
+    Complete,
 
-    ClosePanel,
+    Open,
+
+    Close,
 
     Guidance,
 }

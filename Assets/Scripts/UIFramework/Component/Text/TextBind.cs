@@ -24,62 +24,71 @@ namespace Game.UI
             EventManager.Unregister(EventKey.Language, OnLanguageChange);
         }
 
-        private void OnEnable()
+        private void Start()
         {
-            SetText(content, false);
+            SetTextImmediately(content);
         }
 
         private void OnValidate()
         {
-            SetText(content, false);
+            SetText(content);
         }
 
         private void OnLanguageChange(EventMessageArgs args)
         {
-            SetText(content, true);
+            if (string.IsNullOrEmpty(content))
+            {
+                return;
+            }
+            SetTextImmediately(content);
         }
 
-        public void SetText(string content, bool force = false)
+        public void SetText(string content)
         {
-            if (string.IsNullOrEmpty(content)) return;
+            if (this.content == content)
+            {
+                return;
+            }
+            this.content = content;
 
-            if (_content == content && !force) return;
-
-            _content = content;
-
-            if (_component == null)
-                _component = GetComponent<Text>();
-            _component.SetText(LanguageManager.Instance.Get(content));
+            SetTextImmediately(content);
         }
 
         public void SetText(int value)
         {
-            SetTextImmediately(value.ToString());
+            string key = value.ToString();
+
+            _content = LanguageManager.Instance.Get(key);
+
+            this.content = _content != key ? key : string.Empty;
+
+            if (_component == null)
+                _component = GetComponent<Text>();
+            _component.text = _content;
         }
 
         public void SetText(float value, int digits = -1)
         {
+            this.content = string.Empty;
+
             if (digits > -1)
             {
-                SetTextImmediately(string.Format("{0}", Math.Round(value, digits)));
+                _content = string.Format("{0}", Math.Round(value, digits));
             }
             else
             {
-                SetTextImmediately(string.Format("{0}", value));
+                _content = string.Format("{0}", value);
             }
-        }
-
-        public void SetTextImmediately(string content)
-        {
-            this.content = string.Empty;
-
-            if (_content == content) return;
-
-            _content = content;
-
             if (_component == null)
                 _component = GetComponent<Text>();
-            _component.SetText(content);
+            _component.text = _content;
+        }
+
+        protected void SetTextImmediately(string content)
+        {
+            if (_component == null)
+                _component = GetComponent<Text>();
+            _component.text = LanguageManager.Instance.Get(content);
         }
     }
 }

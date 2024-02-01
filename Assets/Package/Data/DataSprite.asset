@@ -33,51 +33,43 @@ MonoBehaviour:
     name: atlas_common
     path: Package/Atlas/atlas_common.spriteatlas
     sprites:
-    - Basic Outline - Stroke 16px (300ppu)
     - Rounded Outline - Stroke 16px
-    - ui_turn_on
-    - Basic Outline - Stroke 12px (300ppu)
-    - Basic Outline - Stroke 18px (300ppu)
-    - Rounded Circle (600ppu)
+    - ui_com_turn_on
     - quality_4
     - quality_6
-    - white
+    - square
     - quality_2
-    - Basic Filled (300ppu)
-    - Basic Outline - Stroke 4px (125ppu)
     - Rounded Outline - Stroke 10px
-    - ui_commom_tips
-    - ui_toggle_on
+    - ui_com_ellipsis
+    - ui_com_toggle_on
     - quality_3
-    - ui_commom_right
-    - Basic Outline - Stroke 10px (300ppu)
+    - ui_com_loading
     - Rounded Outline - Stroke 5px
-    - Rounded Circle Shadow (200ppu)
     - background_2
-    - ui_commom_error
     - Vertical Shadow
     - GUI Skin - Button Normal
     - Rounded Outline - Stroke 12px
+    - ui_com_sync
     - quality_1
     - Square Shadow (200ppu)
     - Circle Outline - Stroke 10px (x64)
-    - Basic Filled - Modal Tab Button (300ppu)
-    - Basic Outline - Stroke 4px (300ppu)
-    - Basic Outline - Stroke 8px (300ppu)
     - background_4
-    - ui_toggle_off
+    - ui_com_toggle_off
     - Circle Filled - x256
     - Rounded Filled (300ppu)
-    - ui_turn_of
+    - ui_com_check
+    - ui_com_turn_of
     - button_1
     - Rounded Circle Shadow (400ppu)
     - background_1
     - Horizontal Shadow
     - Circle Filled - x64
+    - ui_com_times
     - Rounded Circle Outline - Stroke 8px (300ppu)
-    - Rounded Circle Shadow (150ppu)
+    - ui_com_compress
     - quality_5
     - GUI Skin - Button Pressed
+    - ui_com_expand
     - Circle Outline Dash - Stroke 3px
     - background_3
   - primary: 994

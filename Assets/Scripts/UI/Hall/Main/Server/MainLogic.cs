@@ -35,8 +35,6 @@ namespace Game
             if (table == null) return;
 
             model.Display(table.path);
-
-            Debuger.LogError(Author.Resource, $"创建{table.name}");
         }
 
 
