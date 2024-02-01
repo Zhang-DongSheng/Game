@@ -6,7 +6,7 @@ using UnityEngine.U2D;
 
 namespace Game.UI
 {
-    public class SpriteHelper : Singleton<SpriteHelper>
+    public class UISpriteManager : Singleton<UISpriteManager>
     {
         private readonly Dictionary<string, SpriteAtlas> atlases = new Dictionary<string, SpriteAtlas>();
 

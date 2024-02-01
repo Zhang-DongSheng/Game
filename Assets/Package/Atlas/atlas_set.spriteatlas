@@ -51,11 +51,13 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 5a70bfd130f186a4b89fd0ead8cd7653, type: 3}
+  - {fileID: 21300000, guid: 0b722ef132803f04aa47d42151448af0, type: 3}
   - {fileID: 21300000, guid: 15334514bf7d9734c8fde3c58286c429, type: 3}
   - {fileID: 21300000, guid: 20fb87e815d28b14ca22c06f083b24aa, type: 3}
   - {fileID: 21300000, guid: d92e5d2988e8ccd45bafc1038125104d, type: 3}
   m_PackedSpriteNamesToIndex:
   - ui_set_forbid
+  - ui_set_slash
   - ui_set_music
   - ui_set_sound
   - ui_set_mute

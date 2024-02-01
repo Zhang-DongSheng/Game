@@ -55,6 +55,20 @@ MonoBehaviour:
         value: "\u65B0"
       - key: 10109
         value: "\u6218\u6597"
+      - key: 10110
+        value: "\u6E38\u620F"
+      - key: 10111
+        value: "\u58F0\u97F3"
+      - key: 10112
+        value: "\u97F3\u4E50"
+      - key: 10113
+        value: "\u97F3\u6548"
+      - key: 10114
+        value: "\u9759\u97F3"
+      - key: 10115
+        value: "\u591A\u8BED\u8A00"
+      - key: 10116
+        value: "\u6E20\u9053"
       - key: 10201
         value: "\u91D1\u5E01"
       - key: 10202
@@ -103,6 +117,20 @@ MonoBehaviour:
         value: New
       - key: 10109
         value: Fighting
+      - key: 10110
+        value: Game
+      - key: 10111
+        value: Sound
+      - key: 10112
+        value: Music
+      - key: 10113
+        value: Sound
+      - key: 10114
+        value: Mute
+      - key: 10115
+        value: Language
+      - key: 10116
+        value: SDK
       - key: 10201
         value: Gold
       - key: 10202
@@ -151,6 +179,20 @@ MonoBehaviour:
         value: "\u65E0"
       - key: 10109
         value: "\u6226\u95D8\u3059\u308B\uFF0E\u6226\u3046"
+      - key: 10110
+        value: "\u904A\u3073"
+      - key: 10111
+        value: "\u58F0"
+      - key: 10112
+        value: "\u97F3\u697D"
+      - key: 10113
+        value: "\u52B9\u679C\u97F3"
+      - key: 10114
+        value: "\u30DE\u30CA\u30FC\u30E2\u30FC\u30C9"
+      - key: 10115
+        value: "\u591A\u8A00\u8A9E\u30B7\u30B9\u30C6\u30E0"
+      - key: 10116
+        value: "\u3059\u3058"
       - key: 10201
         value: "\u91D1\u8CA8 "
       - key: 10202

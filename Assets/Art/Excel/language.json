@@ -129,20 +129,69 @@
 	},
 	{
 	"ID":19,
+	"key":10110,
+	"chinese":"游戏",
+	"english":"Game",
+	"japanese":"遊び"
+	},
+	{
+	"ID":20,
+	"key":10111,
+	"chinese":"声音",
+	"english":"Sound",
+	"japanese":"声"
+	},
+	{
+	"ID":21,
+	"key":10112,
+	"chinese":"音乐",
+	"english":"Music",
+	"japanese":"音楽"
+	},
+	{
+	"ID":22,
+	"key":10113,
+	"chinese":"音效",
+	"english":"Sound",
+	"japanese":"効果音"
+	},
+	{
+	"ID":23,
+	"key":10114,
+	"chinese":"静音",
+	"english":"Mute",
+	"japanese":"マナーモード"
+	},
+	{
+	"ID":24,
+	"key":10115,
+	"chinese":"多语言",
+	"english":"Language",
+	"japanese":"多言語システム"
+	},
+	{
+	"ID":25,
+	"key":10116,
+	"chinese":"渠道",
+	"english":"SDK",
+	"japanese":"すじ"
+	},
+	{
+	"ID":26,
 	"key":10201,
 	"chinese":"金币",
 	"english":"Gold",
 	"japanese":"金貨 "
 	},
 	{
-	"ID":20,
+	"ID":27,
 	"key":10202,
 	"chinese":"钻石",
 	"english":"Diamond",
 	"japanese":"ダイヤ "
 	},
 	{
-	"ID":21,
+	"ID":28,
 	"key":10203,
 	"chinese":"代币",
 	"english":"Coin",

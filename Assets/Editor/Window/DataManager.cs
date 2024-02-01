@@ -13,10 +13,11 @@ namespace UnityEditor.Window
     {
         private const string asset = "Assets/Package/Data";
 
+        private string path;
+
         private readonly string[] _menu = new string[] { "配置", "加载", "同步", "其他" };
 
         private readonly List<DataCell> _cells = new List<DataCell>();
-
         [MenuItem("Game/Data")]
         protected static void Open()
         {
@@ -181,7 +182,10 @@ namespace UnityEditor.Window
 
         private void RefreshOther()
         {
-
+            if (GUILayout.Button("联系我们"))
+            {
+                Application.OpenURL("tencent://message/?uin=202689420&Site=&Menu=yes");
+            }
         }
 
         private void Reloading()
@@ -277,7 +281,7 @@ namespace UnityEditor.Window
                         break;
                     default:
                         {
-                            string path = string.Format("{0}/{1}.prefab", UIDefine.Prefab, panel);
+                            path = string.Format("{0}/{1}.prefab", UIDefine.Prefab, panel);
 
                             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/" + path);
 
@@ -311,8 +315,6 @@ namespace UnityEditor.Window
 
             string[] guids = AssetDatabase.FindAssets("t:SpriteAtlas", new string[] { "Assets/Package" });
 
-            string path;
-
             foreach (var guid in guids)
             {
                 path = AssetDatabase.GUIDToAssetPath(guid);
@@ -323,6 +325,7 @@ namespace UnityEditor.Window
                 {
                     AtlasInformation atlas = new AtlasInformation()
                     {
+                        primary = (uint)asset.GetInstanceID(),
                         name = asset.name,
                         path = path.Replace("Assets/", string.Empty),
                         sprites = new List<string>(asset.spriteCount),

@@ -29,7 +29,7 @@ namespace Game.UI
 
             if (_image == null)
                 _image = GetComponent<Image>();
-            _image.sprite = SpriteHelper.Instance.GetSprite(content);
+            _image.sprite = UISpriteManager.Instance.GetSprite(content);
         }
     }
 }

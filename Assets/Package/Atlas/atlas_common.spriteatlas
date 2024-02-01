@@ -70,6 +70,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: a1f0628111b762a4ba22cea2c8d05a7a, type: 3}
   - {fileID: 21300000, guid: e00250a115dfd7d489a76658ac8ec6f8, type: 3}
   - {fileID: 21300000, guid: 58f940b1a6fc09a4e96f372b2e13f4e3, type: 3}
+  - {fileID: 21300000, guid: 231cd6b1927c320419758698a529bf36, type: 3}
   - {fileID: 21300000, guid: e91f96626bfcbdc4e9f85e5a97195c21, type: 3}
   - {fileID: 21300000, guid: f38987b2f12030947bea58483e18ce1a, type: 3}
   - {fileID: 21300000, guid: c8a47b132ee4eff48bfeb344ad857e12, type: 3}
@@ -117,6 +118,7 @@ SpriteAtlas:
   - Rounded Circle (600ppu)
   - quality_4
   - quality_6
+  - white
   - quality_2
   - Basic Filled (300ppu)
   - Basic Outline - Stroke 4px (125ppu)

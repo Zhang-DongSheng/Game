@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DataSprite
   m_EditorClassIdentifier: 
   atlases:
-  - primary: 0
+  - primary: 982
     name: altas_head
     path: Package/Atlas/altas_head.spriteatlas
     sprites:
@@ -29,7 +29,7 @@ MonoBehaviour:
     - ui_player_head_10
     - ui_player_head_9
     - ui_player_head_8
-  - primary: 0
+  - primary: 986
     name: atlas_common
     path: Package/Atlas/atlas_common.spriteatlas
     sprites:
@@ -41,6 +41,7 @@ MonoBehaviour:
     - Rounded Circle (600ppu)
     - quality_4
     - quality_6
+    - white
     - quality_2
     - Basic Filled (300ppu)
     - Basic Outline - Stroke 4px (125ppu)
@@ -79,7 +80,7 @@ MonoBehaviour:
     - GUI Skin - Button Pressed
     - Circle Outline Dash - Stroke 3px
     - background_3
-  - primary: 0
+  - primary: 994
     name: atlas_currency
     path: Package/Atlas/atlas_currency.spriteatlas
     sprites:
@@ -88,15 +89,16 @@ MonoBehaviour:
     - diamond
     - gold
     - coin_1
-  - primary: 0
+  - primary: 990
     name: atlas_emoji
     path: Package/Atlas/atlas_emoji.spriteatlas
     sprites: []
-  - primary: 0
+  - primary: 992
     name: atlas_main
     path: Package/Atlas/atlas_main.spriteatlas
-    sprites: []
-  - primary: 0
+    sprites:
+    - ui_main_mail
+  - primary: 988
     name: atlas_prop_clothing
     path: Package/Atlas/atlas_prop_clothing.spriteatlas
     sprites:
@@ -120,7 +122,7 @@ MonoBehaviour:
     - "\u4F11\u95F2\u88E4"
     - "\u8D85\u77ED\u88E4"
     - "\u886C\u886B"
-  - primary: 0
+  - primary: 984
     name: atlas_quality
     path: Package/Atlas/atlas_quality.spriteatlas
     sprites:
@@ -130,11 +132,18 @@ MonoBehaviour:
     - quality_3
     - quality_1
     - quality_5
-  - primary: 0
+  - primary: 4294796986
+    name: atlas_set
+    path: Package/Atlas/atlas_set.spriteatlas
+    sprites:
+    - ui_set_forbid
+    - ui_set_slash
+    - ui_set_music
+    - ui_set_sound
+    - ui_set_mute
+  - primary: 980
     name: atlas_title
     path: Package/Atlas/atlas_title.spriteatlas
     sprites:
     - ui_title_setting
     - ui_title_back
-  sprites: []
-  textures: []
