@@ -2,21 +2,21 @@
 {
     Test,
 
-    Effect,
-
-    Reddot,
-
-    Login,
-
-    Language,
-
-    Progress,
-
-    Complete,
-
     Open,
 
     Close,
 
+    Effect,
+
+    Reddot,
+
+    Progress,
+
     Guidance,
+
+    Currency,
+
+    Login,
+
+    Language,
 }

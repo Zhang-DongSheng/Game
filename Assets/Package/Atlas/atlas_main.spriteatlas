@@ -38,9 +38,21 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 308284be1593a0645a89ddb9d293ee75, type: 3}
+  - {fileID: 21300000, guid: d012711014ff3c549b03d8b513e11b93, type: 3}
+  - {fileID: 21300000, guid: a31c70029c7204442b071c2882427a32, type: 3}
+  - {fileID: 21300000, guid: 4ae738a22193c034c8028d0641eb4f31, type: 3}
+  - {fileID: 21300000, guid: 41a9907aae9547143a9bb0564b678e87, type: 3}
+  - {fileID: 21300000, guid: 3797456b7fa5093459c888d0e8364aad, type: 3}
+  - {fileID: 21300000, guid: 0ad29dcb76b0918409f4ca9871d79639, type: 3}
+  - {fileID: 21300000, guid: bca1164e79591454b8c9893ed97541b5, type: 3}
   m_PackedSpriteNamesToIndex:
+  - ui_main_set
+  - ui_main_activity
+  - ui_main_friend
+  - ui_main_store
   - ui_main_mail
+  - ui_main_task
+  - ui_main_notice
   m_RenderDataMap: {}
   m_Tag: atlas_main
   m_IsVariant: 0

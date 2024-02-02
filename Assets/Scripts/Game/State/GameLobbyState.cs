@@ -36,7 +36,7 @@ namespace Game.State
 
         public void OnExit()
         {
-            MainLogic.Instance.Clear();
+            ModelLogic.Instance.Clear();
         }
 
         public void OnStay()
@@ -53,7 +53,7 @@ namespace Game.State
 
         private void LoadUI()
         {
-            MainLogic.Instance.Relevance();
+            ModelLogic.Instance.Relevance();
 
             UIQuickEntry.OpenSingle(UIPanel.UIMain, callback: UILoading.Instance.Close);
         }

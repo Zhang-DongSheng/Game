@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   list:
   - panel: 1
-    type: 0
+    type: 1
     layer: 2
     order: 0
     name: UILogin
@@ -111,6 +111,27 @@ MonoBehaviour:
     name: UIDeploy
     path: Package/Prefab/UI/Panel/UIDeploy.prefab
     destroy: 0
+  - panel: 114
+    type: 1
+    layer: 2
+    order: 0
+    name: UIFriend
+    path: Package/Prefab/UI/Panel/UIFriend.prefab
+    destroy: 0
+  - panel: 115
+    type: 2
+    layer: 2
+    order: 0
+    name: UIProclamation
+    path: Package/Prefab/UI/Panel/UIProclamation.prefab
+    destroy: 0
+  - panel: 116
+    type: 1
+    layer: 2
+    order: 0
+    name: UICombatReadiness
+    path: Package/Prefab/UI/Panel/UICombatReadiness.prefab
+    destroy: 0
   - panel: 301
     type: 2
     layer: 3
@@ -146,6 +167,13 @@ MonoBehaviour:
     name: UIIntroduce
     path: Package/Prefab/UI/Panel/UIIntroduce.prefab
     destroy: 0
+  - panel: 306
+    type: 3
+    layer: 5
+    order: 0
+    name: UIGuidance
+    path: Package/Prefab/UI/Panel/UIGuidance.prefab
+    destroy: 0
   - panel: 1001
     type: 1
     layer: 1
@@ -173,11 +201,4 @@ MonoBehaviour:
     order: 0
     name: UISettlement
     path: Package/Prefab/UI/Panel/UISettlement.prefab
-    destroy: 0
-  - panel: 1005
-    type: 3
-    layer: 5
-    order: 0
-    name: UIGuidance
-    path: Package/Prefab/UI/Panel/UIGuidance.prefab
     destroy: 0

@@ -19,8 +19,6 @@ namespace Game
         {
             LoginLogic.Instance.Initialize();
 
-            SettingLogic.Instance.Initialize();
-
             PlayerLogic.Instance.Initialize();
 
             WarehouseLogic.Instance.Initialize();
@@ -35,9 +33,11 @@ namespace Game
 
             NotificationLogic.Instance.Initialize();
 
+            SettingLogic.Instance.Initialize();
+
             ReddotLogic.Instance.Initialize();
 
-            MainLogic.Instance.Initialize();
+            ModelLogic.Instance.Initialize();
 
             GuidanceLogic.Instance.Initialize();
 

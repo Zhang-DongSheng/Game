@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: atlas_title
+  m_Name: atlas_main_background
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -20,27 +20,39 @@ SpriteAtlas:
       readable: 0
       crunchedCompression: 0
       sRGB: 1
-    platformSettings: []
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 47
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
       serializedVersion: 2
       padding: 4
       blockOffset: 1
       allowAlphaSplitting: 0
-      enableRotation: 0
-      enableTightPacking: 0
+      enableRotation: 1
+      enableTightPacking: 1
       enableAlphaDilation: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: 745c28fa56a63c144b916d600f58b3a8, type: 3}
+    - {fileID: 2800000, guid: 62119b813e4d2d24995772d23ade5bc9, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 3ba0716c21d4d6b4c8807eba58b1b840, type: 3}
+  - {fileID: 21300000, guid: 62119b813e4d2d24995772d23ade5bc9, type: 3}
   m_PackedSpriteNamesToIndex:
-  - ui_title_back
+  - ui_main_background
   m_RenderDataMap: {}
-  m_Tag: atlas_title
+  m_Tag: atlas_main_background
   m_IsVariant: 0

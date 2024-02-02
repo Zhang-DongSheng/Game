@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class MainLogic : Singleton<MainLogic>, ILogic
+    public class ModelLogic : Singleton<ModelLogic>, ILogic
     {
         private ModelDisplay display;
 

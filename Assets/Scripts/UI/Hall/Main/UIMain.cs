@@ -1,23 +1,23 @@
 using Game.State;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
     public class UIMain : UIBase
     {
-        [SerializeField] private Button combat;
-
         [SerializeField] private List<ItemEntry> entries;
 
         [SerializeField] private List<ItemCurrency> currencies;
 
-        private int guidance = 100;
-
-        protected override void OnAwake()
+        protected override void OnRegister()
         {
-            combat.onClick.AddListener(OnClickCombat);
+            //EventManager.Register(EventKey.Currency)
+        }
+
+        protected override void OnUnregister()
+        {
+            
         }
 
         public override void Refresh(UIParameter parameter)
@@ -28,16 +28,7 @@ namespace Game.UI
             }
             RefreshCurrencies();
 
-            MainLogic.Instance.Display((uint)Random.Range(1, 4));
-
-            //EventManager.Post(EventKey.Guidance, new EventMessageArgs()
-            //{
-            //    [GuidanceConfig.Key] = new GuidanceInformation()
-            //    {
-            //        guidanceID = guidance++
-            //    }
-            //});
-            //Debuger.LogError( Author.UI, "触发主界面窗口引导" + (guidance - 1));
+            //ModelLogic.Instance.Display((uint)Random.Range(1, 4));
         }
 
         private void RefreshCurrencies()
@@ -54,11 +45,6 @@ namespace Game.UI
             {
                 currencies[i].SetActive(false);
             }
-        }
-
-        private void OnClickCombat()
-        {
-            GameStateController.Instance.EnterState<GameCombatState>();
         }
     }
 }
