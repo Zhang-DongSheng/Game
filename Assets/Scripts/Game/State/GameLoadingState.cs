@@ -15,7 +15,7 @@ namespace Game.State
 
         public void OnEnter()
         {
-            UILoading.Instance.Open();
+            
         }
 
         public void OnExit()

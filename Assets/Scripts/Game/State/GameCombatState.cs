@@ -13,7 +13,7 @@ namespace Game.State
 
         public void OnCreate()
         {
-            
+
         }
 
         public void OnEnter()
@@ -26,7 +26,7 @@ namespace Game.State
 
             if (scene != null && scene.buildIndex == sceneIndex)
             {
-                UIQuickEntry.OpenSingle(UIPanel.UIGame);
+                LoadUI();
             }
             else
             {
@@ -36,19 +36,24 @@ namespace Game.State
 
         public void OnExit()
         {
-            
+
         }
 
         public void OnStay()
         {
-            
+
         }
 
         private IEnumerator LoadSceneAsync(int index)
-        { 
+        {
             yield return SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
 
-            UIQuickEntry.OpenSingle(UIPanel.UIGame);
+            LoadUI();
+        }
+
+        private void LoadUI()
+        {
+            UIQuickEntry.OpenSingle(UIPanel.UIGame, callback: UILoading.Instance.Close);
         }
     }
 }

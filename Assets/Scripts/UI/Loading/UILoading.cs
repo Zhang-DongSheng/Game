@@ -17,15 +17,11 @@ namespace Game.UI
         private void OnEnable()
         {
             EventManager.Register(EventKey.Progress, Refresh);
-            // 打开UI后关闭界面
-            EventManager.Register(EventKey.Open, Complete);
         }
 
         private void OnDisable()
         {
             EventManager.Unregister(EventKey.Progress, Refresh);
-            // 打开UI后关闭界面
-            EventManager.Unregister(EventKey.Open, Complete);
         }
 
         private void Refresh(EventMessageArgs args)
@@ -33,11 +29,6 @@ namespace Game.UI
             step = args.Get<float>("progress");
 
             progress.value = step;
-        }
-
-        private void Complete(EventMessageArgs args)
-        {
-            Close();
         }
 
         private void OnValueChanged(float value)

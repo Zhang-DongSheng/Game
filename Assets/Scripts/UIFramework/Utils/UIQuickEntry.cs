@@ -9,21 +9,21 @@ namespace Game.UI
     {
         public static bool async = ResourceConfig.Loading == LoadingType.AssetBundle;
 
-        public static void Open(UIPanel panel, UIParameter parameter = null)
+        public static void Open(UIPanel panel, UIParameter parameter = null, Action callback = null)
         {
             UIManager.Instance.Parameter((int)panel, parameter);
             {
-                UIManager.Instance.Open((int)panel, async);
+                UIManager.Instance.Open((int)panel, async, callback);
             }
         }
 
-        public static void OpenSingle(UIPanel panel, UIParameter parameter = null)
+        public static void OpenSingle(UIPanel panel, UIParameter parameter = null, Action callback = null)
         {
             UIManager.Instance.CloseAll();
 
             UIManager.Instance.Parameter((int)panel, parameter);
             {
-                UIManager.Instance.Open((int)panel, async);
+                UIManager.Instance.Open((int)panel, async, callback);
             }
         }
 

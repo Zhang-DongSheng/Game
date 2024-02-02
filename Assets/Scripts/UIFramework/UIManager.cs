@@ -70,7 +70,7 @@ namespace Game.UI
             }
         }
 
-        public void Open(int key, bool async = false)
+        public void Open(int key, bool async = false, Action callback = null)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace Game.UI
                 {
                     _panels.Add(key, new CtrlBase(key));
                 }
-                _panels[key].Open(async);
+                _panels[key].Open(async, callback);
             }
             catch (Exception e)
             {
@@ -153,7 +153,6 @@ namespace Game.UI
                         Debuger.Log(Author.UI, string.Format("the panel of {0} is unrecord!", ctrl.information.name));
                         break;
                 }
-                EventManager.Post(EventKey.Open, new EventMessageArgs(ctrl.information));
             }
             else
             {
@@ -161,7 +160,6 @@ namespace Game.UI
                 {
                     _records[key].Remove(ctrl);
                 }
-                EventManager.Post(EventKey.Close);
             }
         }
 
@@ -177,7 +175,7 @@ namespace Game.UI
 
                 _records[UIType.Panel].RemoveAt(index);
 
-                ctrl.Open();
+                ctrl.Display(true);
             }
             else
             {

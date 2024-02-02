@@ -19,7 +19,7 @@ namespace Game.State
 
         public void OnEnter()
         {
-            UIQuickEntry.OpenSingle(UIPanel.UILogin);
+            UIQuickEntry.OpenSingle(UIPanel.UILogin, callback: UILoading.Instance.Close);
         }
 
         public void OnExit()

@@ -26,9 +26,7 @@ namespace Game.State
 
             if (scene != null && scene.buildIndex == sceneIndex)
             {
-                MainLogic.Instance.Relevance();
-
-                UIQuickEntry.OpenSingle(UIPanel.UIMain);
+                LoadUI();
             }
             else
             {
@@ -50,9 +48,14 @@ namespace Game.State
         {
             yield return SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
 
+            LoadUI();
+        }
+
+        private void LoadUI()
+        {
             MainLogic.Instance.Relevance();
 
-            UIQuickEntry.OpenSingle(UIPanel.UIMain);
+            UIQuickEntry.OpenSingle(UIPanel.UIMain, callback: UILoading.Instance.Close);
         }
     }
 }

@@ -14,6 +14,8 @@ namespace Game.UI
 
         private Status status;
 
+        private Action callback;
+
         public CtrlBase(int panel)
         {
             information = DataUI.Get(panel);
@@ -24,16 +26,11 @@ namespace Game.UI
             }
         }
 
-        public void Open()
+        public void Open(bool async, Action callback)
         {
-            Open(true);
-        }
+            this.callback = callback;
 
-        public void Open(bool async)
-        {
             this.active = true;
-
-            number++;
 
             switch (status)
             {
@@ -62,14 +59,9 @@ namespace Game.UI
             }
         }
 
-        public void Paramter(UIParameter paramter)
-        {
-            this.paramter = paramter;
-        }
-
         public void Close(bool destroy = false)
         {
-            active = false; number--;
+            active = false;
 
             if (view == null) return;
 
@@ -88,6 +80,11 @@ namespace Game.UI
             UIManager.Instance.Record(this);
         }
 
+        public void Paramter(UIParameter paramter)
+        {
+            this.paramter = paramter;
+        }
+
         public void Display(bool active)
         {
             if (this.active == active) return;
@@ -98,11 +95,11 @@ namespace Game.UI
 
             if (active)
             {
-                Show(); number++;
+                Show();
             }
             else
             {
-                Hide(); number--;
+                Hide();
             }
         }
 
@@ -190,9 +187,15 @@ namespace Game.UI
 
             view.Refresh(paramter);
 
+            number++;
+
+            callback?.Invoke(); callback = null;
+
             UIManager.Instance.Sort(view.layer, view.transform);
 
             UIManager.Instance.Record(this);
+
+            EventManager.Post(EventKey.Open, new EventMessageArgs(information));
         }
 
         protected virtual void Hide()
@@ -201,6 +204,9 @@ namespace Game.UI
             {
                 view.Exit();
             }
+            number--;
+
+            EventManager.Post(EventKey.Close, new EventMessageArgs(information));
         }
 
         public bool active { get; private set; }
