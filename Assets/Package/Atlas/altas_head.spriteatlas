@@ -62,31 +62,31 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: eb249c32b3ccbc440bbd764edc664713, type: 3}
-  - {fileID: 21300000, guid: e5edab42ac8485541a0a2761f9ca4f7e, type: 3}
-  - {fileID: 21300000, guid: a60723e2894b4b4458ca7be8f460fb19, type: 3}
-  - {fileID: 21300000, guid: 0ecb9de4b051db447a13b8bbb78e980b, type: 3}
-  - {fileID: 21300000, guid: df0c3e277e948d94aa4133cf0d6708aa, type: 3}
-  - {fileID: 21300000, guid: c902aa5803ffbb34ca2899008a015d24, type: 3}
-  - {fileID: 21300000, guid: 16328d88f424a554abc226897687ab62, type: 3}
-  - {fileID: 21300000, guid: 35f8831a9d3efe746aa65e894b1aa544, type: 3}
-  - {fileID: 21300000, guid: 24080e7bb908ead40b2d951901d15a7b, type: 3}
-  - {fileID: 21300000, guid: 0d73f9bb18b9e47458ee2aee2e50c67a, type: 3}
-  - {fileID: 21300000, guid: 93f4f23e674658e4abdfabfcdbd1eb7f, type: 3}
-  - {fileID: 21300000, guid: 1772dbde8cf2c014b91875f09d7269eb, type: 3}
+  - {fileID: 21300000, guid: 71b1aaa0fc43b104d929c2b11c8df93d, type: 3}
+  - {fileID: 21300000, guid: a95987b38f3ec5b488dc4235000f00fa, type: 3}
+  - {fileID: 21300000, guid: 43c683f3bb442124dae8557ed0678dfe, type: 3}
+  - {fileID: 21300000, guid: 5a5564453f53fe44287e74d6f0f6bb31, type: 3}
+  - {fileID: 21300000, guid: fe9e17b7b9ff5314a90bf684e2de0190, type: 3}
+  - {fileID: 21300000, guid: a8f2b9d7d23f8bf49a30865a79cb9c65, type: 3}
+  - {fileID: 21300000, guid: 48d6a8188f6c417479a1ed70e7e6c1e5, type: 3}
+  - {fileID: 21300000, guid: 05bbfd0dfbfb79e4dbc83984a87f07b4, type: 3}
+  - {fileID: 21300000, guid: 7531ac8ddaff0634c9bb14f034840a07, type: 3}
+  - {fileID: 21300000, guid: 2eaf210f294fac14ab103679259e5ec9, type: 3}
+  - {fileID: 21300000, guid: 6c8d153f1504bee488b4db8d29a57db5, type: 3}
+  - {fileID: 21300000, guid: 8b1200ff06d308e4bb31263eb41a0ec6, type: 3}
   m_PackedSpriteNamesToIndex:
-  - ui_player_head_1
-  - ui_player_head_2
-  - ui_player_head_12
-  - ui_player_head_4
-  - ui_player_head_6
-  - ui_player_head_7
-  - ui_player_head_11
-  - ui_player_head_5
-  - ui_player_head_3
-  - ui_player_head_10
-  - ui_player_head_9
-  - ui_player_head_8
+  - "\u7537\u751F-\u7D2B"
+  - "\u7537\u751F-\u9EC4"
+  - "\u5973\u751F-\u9752"
+  - "\u5973\u751F-\u6B27"
+  - "\u5973\u751F-\u7C89"
+  - "\u7537\u751F-\u9752"
+  - "\u5973\u751F-\u84DD"
+  - "\u5973\u751F-\u9EC4"
+  - "\u7537\u751F-\u7C89"
+  - "\u7537\u751F-\u6B27"
+  - "\u7537\u751F-\u84DD"
+  - "\u5973\u751F-\u7D2B"
   m_RenderDataMap: {}
   m_Tag: altas_head
   m_IsVariant: 0

@@ -53,8 +53,6 @@ namespace Game.State
 
         private void LoadUI()
         {
-            ModelLogic.Instance.Relevance();
-
             UIQuickEntry.OpenSingle(UIPanel.UIMain, callback: UILoading.Instance.Close);
         }
     }

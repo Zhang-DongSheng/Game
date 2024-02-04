@@ -5,7 +5,7 @@ namespace Game
     [RequireComponent(typeof(Camera))]
     public class CameraProjection : ItemBase
     {
-        [SerializeField] protected new Camera camera;
+        [SerializeField] protected Camera _camera;
 
         [SerializeField] protected Vector2 space = new Vector2(0.1f, 180);
 
@@ -19,26 +19,26 @@ namespace Game
         {
             Texture = RenderTexture.GetTemporary(resolution.x, resolution.y, 1);
 
-            if (camera == null && !TryGetComponent(out camera))
+            if (_camera == null && !TryGetComponent(out _camera))
             {
-                camera = gameObject.AddComponent<Camera>();
+                _camera = gameObject.AddComponent<Camera>();
             }
-            camera.targetTexture = Texture;
+            _camera.targetTexture = Texture;
         }
 
         public void Zoom(float value)
         {
-            if (camera.orthographic)
+            if (_camera.orthographic)
             {
-                camera.orthographicSize = value;
+                _camera.orthographicSize = value;
 
-                size.y = camera.orthographicSize * 2f;
+                size.y = _camera.orthographicSize * 2f;
 
                 size.x = size.y * Screen.width / Screen.height;
             }
             else
             {
-                camera.fieldOfView = Mathf.Clamp(value, space.x, space.y);
+                _camera.fieldOfView = Mathf.Clamp(value, space.x, space.y);
             }
         }
 

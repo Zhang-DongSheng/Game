@@ -13,5 +13,7 @@ namespace Game.UI
         public long start;
 
         public long end;
+
+        public bool limited;
     }
 }

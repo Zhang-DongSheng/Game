@@ -13,24 +13,31 @@ MonoBehaviour:
   m_Name: DataActivity
   m_EditorClassIdentifier: 
   activitys:
-  - primary: 1
-    name: "\u9996\u5145"
+  - primary: 101
+    name: "\u7B7E\u5230"
     type: 1
     beginTime: 0
     endTime: 0
     timeLimit: 0
-    description: "\u9996\u6B21\u5145\u503C"
-  - primary: 2
-    name: "\u62BD\u5956"
-    type: 1
+    description: "\u7B7E\u5230"
+  - primary: 102
+    name: "\u5151\u6362\u7801"
+    type: 2
     beginTime: 0
     endTime: 0
     timeLimit: 0
-    description: "\u8F6C\u76D8\u62BD\u5956"
-  - primary: 3
-    name: "\u65B0\u5E74\u5927\u793C\u5305"
-    type: 1
+    description: "\u5151\u6362\u7801"
+  - primary: 103
+    name: "\u8F6E\u76D8\u62BD\u5956"
+    type: 3
     beginTime: 0
     endTime: 0
     timeLimit: 0
-    description: "\u793C\u5305"
+    description: "\u8F6E\u76D8\u62BD\u5956"
+  - primary: 104
+    name: "\u5927\u79D8\u5B9D"
+    type: 4
+    beginTime: 0
+    endTime: 0
+    timeLimit: 0
+    description: "\u5927\u79D8\u5B9D"

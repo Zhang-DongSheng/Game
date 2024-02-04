@@ -9,7 +9,7 @@ namespace Game.Test
 {
     internal class TestCollider : MonoBehaviour
     {
-        [SerializeField] private new Rigidbody rigidbody;
+        [SerializeField] private Rigidbody _rigidbody;
 
         [SerializeField] private Vector3 vector;
 
@@ -23,14 +23,14 @@ namespace Game.Test
 
             vector.z = Input.GetAxis("Vertical");
 
-            rigidbody.AddForce(vector, ForceMode.Force);
+            _rigidbody.AddForce(vector, ForceMode.Force);
         }
 
         private void FixedUpdate()
         {
             if (!move) return;
 
-            rigidbody.MovePosition(position);
+            _rigidbody.MovePosition(position);
         }
 
         private void OnCollisionEnter(Collision collision)

@@ -8,7 +8,7 @@ namespace Game
 
         [SerializeField] private GameObject platform;
 
-        [SerializeField] private new Transform camera;
+        [SerializeField] private Transform _camera;
 
         [SerializeField] private Vector3 home;
 
@@ -101,7 +101,7 @@ namespace Game
 
             rotation.z = ZERO;
 
-            camera.eulerAngles = rotation;
+            _camera.eulerAngles = rotation;
 
             platform.transform.position = position;
 
@@ -147,7 +147,7 @@ namespace Game
 
             offset.z += distance * Mathf.Cos(angle.y * Mathf.Deg2Rad);
 
-            camera.localPosition = offset;
+            _camera.localPosition = offset;
 
             platform.transform.eulerAngles = Vector3.zero;
 
