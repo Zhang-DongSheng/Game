@@ -10,7 +10,7 @@ namespace UnityEditor.Inspector
 
         private readonly string label = "Value";
 
-        private float length;
+        private float width;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -18,24 +18,20 @@ namespace UnityEditor.Inspector
             {
                 EditorGUIUtility.labelWidth = 50;
 
-                length = position.width / 3f;
+                width = position.width / 3f - 5;
 
                 position.height = EditorGUIUtility.singleLineHeight;
 
-                rects[0] = new Rect(position)
+                int count = rects.Length;
+
+                for (int i = 0; i < count; i++)
                 {
-                    width = length,
-                };
-                rects[1] = new Rect(position)
-                {
-                    x = position.x + length + 5,
-                    width = length - 10,
-                };
-                rects[2] = new Rect(position)
-                {
-                    x = position.x + length * 2,
-                    width = length,
-                };
+                    rects[i] = new Rect(position)
+                    {
+                        x = position.x + i * width + Mathf.Clamp01(i) * 10,
+                        width = width,
+                    };
+                }
 
                 SerializedProperty sp_key = property.FindPropertyRelative("key");
                 SerializedProperty sp_type = property.FindPropertyRelative("type");

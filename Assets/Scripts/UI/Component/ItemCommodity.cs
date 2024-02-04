@@ -28,9 +28,9 @@ namespace Game.UI
 
             var table = DataCommodity.Get(commodity.primary);
 
-            if (table == null) return;
+            if (table == null || table.rewards.Count == 0) return;
 
-            m_prop.Refresh(table.rewards[0]);
+            m_prop.Refresh(table.rewards[0].x, (int)table.rewards[0].y);
 
             m_cost.Refresh(table.cost, table.price);
 
@@ -47,9 +47,11 @@ namespace Game.UI
                 };
                 var table = DataCommodity.Get(commodity.primary);
 
-                for (int i = 0; i < table.rewards.Count; i++)
+                int count = table.rewards.Count;
+
+                for (int i = 0; i < count; i++)
                 {
-                    reward.props.Add(new Prop(table.rewards[i]));
+                    reward.props.Add(new Prop(0, table.rewards[i].x, (int)table.rewards[i].y));
                 }
                 UIQuickEntry.OpenUIReward(reward);
             });

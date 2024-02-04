@@ -1,0 +1,44 @@
+﻿using Game;
+using UnityEngine;
+
+namespace UnityEditor.Inspector
+{
+    [CustomPropertyDrawer(typeof(IntInterval))]
+    class IntIntervalDrawer : PropertyDrawer
+    {
+        private readonly Rect[] rects = new Rect[2];
+
+        private float width;
+
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            using (new EditorGUI.PropertyScope(position, label, property))
+            {
+                EditorGUIUtility.labelWidth = 50;
+
+                position.height = EditorGUIUtility.singleLineHeight;
+
+                width = position.width * 0.5f - 5;
+
+                int count = rects.Length;
+
+                for (int i = 0; i < count; i++)
+                {
+                    rects[i] = new Rect(position)
+                    {
+                        x = position.x + i * width + Mathf.Max(i, 0) * 10,
+                        width = width,
+                    };
+                }
+
+                var x = property.FindPropertyRelative("origination");
+
+                var y = property.FindPropertyRelative("destination");
+
+                x.intValue = EditorGUI.IntField(rects[0], "origination", x.intValue);
+
+                y.intValue = EditorGUI.IntField(rects[1], "destination", y.intValue);
+            }
+        }
+    }
+}

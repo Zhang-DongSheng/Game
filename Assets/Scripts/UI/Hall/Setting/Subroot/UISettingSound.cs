@@ -19,11 +19,11 @@ namespace Game.UI
         {
             musicVolume.value = GlobalVariables.Get<float>(string.Format("{0}_{1}", Const.AUDIO_VOLUME, AudioEnum.Music));
 
-            musicMute.isOn = GlobalVariables.Get<bool>(string.Format("{0}_{1}", Const.AUDIO_Mute, AudioEnum.Music));
+            musicMute.isOn = GlobalVariables.Get<bool>(string.Format("{0}_{1}", Const.AUDIO_MUTE, AudioEnum.Music));
 
             soundVolume.value = GlobalVariables.Get<float>(string.Format("{0}_{1}", Const.AUDIO_VOLUME, AudioEnum.Sound));
 
-            soundMute.isOn = GlobalVariables.Get<bool>(string.Format("{0}_{1}", Const.AUDIO_Mute, AudioEnum.Sound));
+            soundMute.isOn = GlobalVariables.Get<bool>(string.Format("{0}_{1}", Const.AUDIO_MUTE, AudioEnum.Sound));
 
             musicVolume.onValueChanged.AddListener(OnValueChangedMusicVolume);
 

@@ -8,7 +8,7 @@ namespace Data
 
         public const string AUDIO_VOLUME = "AUDIO_VOLUME";
 
-        public const string AUDIO_Mute = "AUDIO_Mute";
+        public const string AUDIO_MUTE = "AUDIO_Mute";
 
         public const string ACCOUNT = "ACCOUNT";
 

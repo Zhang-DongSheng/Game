@@ -16,12 +16,5 @@ namespace Data
 
             this.amount = amount;
         }
-
-        public Prop(RewardInformation reward)
-        {
-            parallelism = reward.propID;
-
-            amount = reward.amount;
-        }
     }
 }

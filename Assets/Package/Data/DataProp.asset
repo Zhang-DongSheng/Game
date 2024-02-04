@@ -17,175 +17,175 @@ MonoBehaviour:
     name: "\u94BB\u77F3"
     icon: diamond
     quality: 3
-    category: 99
-    price: 10
+    category: 1
     source: -1
+    price: 10
     description: null
   - primary: 102
     name: "\u91D1\u5E01"
     icon: gold
-    quality: 3
-    category: 99
-    price: 1
+    quality: 2
+    category: 1
     source: -1
+    price: 1
     description: null
   - primary: 103
     name: "\u4EE3\u5E01"
-    icon: coin_1
-    quality: 3
-    category: 99
-    price: 50
+    icon: coin
+    quality: 4
+    category: 1
     source: -1
+    price: 50
     description: null
   - primary: 10001
     name: 10001
     icon: "\u6C49\u670D"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10002
     name: 10002
     icon: "\u80CC\u5E26\u88E4"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10003
     name: 10003
     icon: "\u5C0F\u897F\u670D"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10004
     name: 10004
     icon: "\u793C\u670D"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10005
     name: 10005
     icon: "\u9A6C\u7532"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10006
     name: 10006
     icon: "\u8D85\u77ED\u88D9"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10007
     name: 10007
     icon: "\u725B\u4ED4\u88E4"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10008
     name: 10008
     icon: "\u534A\u8EAB\u88D9"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10009
     name: 10009
     icon: "\u65D7\u888D"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10010
     name: 10010
     icon: "\u8FDE\u4F53\u88E4"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10011
     name: 10011
     icon: "\u536B\u8863"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10012
     name: 10012
     icon: "\u540A\u5E26\u88D9"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10013
     name: 10013
     icon: "Polo\u886B"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10014
     name: 10014
     icon: "\u5305\u81C0\u88D9"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10015
     name: 10015
     icon: "T\u6064"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10016
     name: 10016
     icon: "\u9614\u817F\u88E4"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10017
     name: 10017
     icon: "\u4F11\u95F2\u88E4"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10018
     name: 10018
     icon: "\u8D85\u77ED\u88E4"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null
   - primary: 10019
     name: 10019
     icon: "\u886C\u886B"
     quality: 1
-    category: 1
-    price: 100
+    category: 5
     source: -1
+    price: 100
     description: null

@@ -1,17 +1,8 @@
 using Data;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Audio
 {
-    public static class AudioConfig
-    {
-        public readonly static Dictionary<string, string> list = new Dictionary<string, string>()
-        {
-            { "test", "Audio/test" },
-        };
-    }
-
     public class AudioSourceInformation
     {
         public string key;
@@ -28,7 +19,7 @@ namespace Game.Audio
 
             key = ae.ToString();
 
-            mute = GlobalVariables.Get<bool>(string.Format("{0}_{1}", Const.AUDIO_Mute, key));
+            mute = GlobalVariables.Get<bool>(string.Format("{0}_{1}", Const.AUDIO_MUTE, key));
 
             volume = GlobalVariables.Get<float>(string.Format("{0}_{1}", Const.AUDIO_VOLUME, key));
 
@@ -41,7 +32,7 @@ namespace Game.Audio
         {
             source.mute = mute;
 
-            GlobalVariables.Set(string.Format("{0}_{1}", Const.AUDIO_Mute, key), mute);
+            GlobalVariables.Set(string.Format("{0}_{1}", Const.AUDIO_MUTE, key), mute);
         }
 
         public void SetVolume(float volume)

@@ -1,7 +1,5 @@
 using Game;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine.Networking.Types;
 
 namespace Data
 {
@@ -32,16 +30,16 @@ namespace Data
 
                 task.primary = m_list[i].GetUInt("ID");
 
-                task.rewards = new List<RewardInformation>();
+                task.rewards = new List<UIntPair>();
 
                 var rewards = m_list[i].GetJson("rewards");
 
                 for (int j = 0; j < rewards.Count; j++)
                 {
-                    task.rewards.Add(new RewardInformation()
+                    task.rewards.Add(new UIntPair()
                     {
-                        propID = uint.Parse(rewards[j][0].ToString()),
-                        amount = int.Parse(rewards[j][1].ToString()),
+                        x = uint.Parse(rewards[j][0].ToString()),
+                        y = uint.Parse(rewards[j][1].ToString()),
                     });
                 }
                 tasks.Add(task);
@@ -64,7 +62,7 @@ namespace Data
 
         public float[] parameter;
 
-        public List<RewardInformation> rewards;
+        public List<UIntPair> rewards;
 
         public string description;
     }

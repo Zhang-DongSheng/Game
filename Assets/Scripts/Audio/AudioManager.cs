@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace Game.Audio
 {
-    [RequireComponent(typeof(AudioListener))]
     public sealed class AudioManager : MonoSingleton<AudioManager>
     {
         private readonly Dictionary<AudioEnum, AudioSourceInformation> audios = new Dictionary<AudioEnum, AudioSourceInformation>();

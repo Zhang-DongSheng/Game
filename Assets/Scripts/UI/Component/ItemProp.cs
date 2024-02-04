@@ -20,11 +20,6 @@ namespace Game.UI
             Refresh(prop.parallelism, prop.amount);
         }
 
-        public void Refresh(RewardInformation reward)
-        {
-            Refresh(reward.propID, reward.amount);
-        }
-
         public void Refresh(uint propID, int amount = 0)
         {
             information = DataProp.Get(propID);

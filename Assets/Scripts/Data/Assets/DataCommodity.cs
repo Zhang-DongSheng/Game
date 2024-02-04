@@ -30,16 +30,16 @@ namespace Data
 
                 commodity.primary = m_list[i].GetUInt("ID");
 
-                commodity.rewards = new List<RewardInformation>();
+                commodity.rewards = new List<UIntPair>();
 
                 var rewards = m_list[i].GetJson("rewards");
 
                 for (int j = 0; j < rewards.Count; j++)
                 {
-                    commodity.rewards.Add(new RewardInformation()
+                    commodity.rewards.Add(new UIntPair()
                     {
-                        propID = uint.Parse(rewards[j][0].ToString()),
-                        amount = int.Parse(rewards[j][1].ToString()),
+                        x = uint.Parse(rewards[j][0].ToString()),
+                        y = uint.Parse(rewards[j][1].ToString()),
                     });
                 }
                 commodities.Add(commodity);
@@ -62,7 +62,7 @@ namespace Data
 
         public bool purchase;
 
-        public List<RewardInformation> rewards;
+        public List<UIntPair> rewards;
 
         public string description;
     }

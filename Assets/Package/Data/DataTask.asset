@@ -19,60 +19,87 @@ MonoBehaviour:
     icon: 
     parameter:
     - 1
+    rewards:
+    - x: 101
+      y: 1
     description: "\u4EFB\u52A11"
   - primary: 2
     name: "\u4EFB\u52A12"
     type: 2
     icon: 
     parameter:
-    - 1
+    - 2
+    rewards:
+    - x: 101
+      y: 2
     description: "\u4EFB\u52A12"
   - primary: 3
     name: "\u4EFB\u52A13"
     type: 3
     icon: 
     parameter:
-    - 1
+    - 3
+    rewards:
+    - x: 101
+      y: 3
     description: "\u4EFB\u52A13"
   - primary: 4
     name: "\u4EFB\u52A14"
     type: 3
     icon: 
     parameter:
-    - 1
+    - 4
+    rewards:
+    - x: 101
+      y: 4
     description: "\u4EFB\u52A14"
   - primary: 5
     name: "\u4EFB\u52A15"
     type: 4
     icon: 
     parameter:
-    - 1
+    - 5
+    rewards:
+    - x: 101
+      y: 5
     description: "\u4EFB\u52A15"
   - primary: 6
     name: "\u4EFB\u52A16"
     type: 5
     icon: 
     parameter:
-    - 1
+    - 6
+    rewards:
+    - x: 101
+      y: 6
     description: "\u4EFB\u52A16"
   - primary: 7
     name: "\u4EFB\u52A17"
     type: 5
     icon: 
     parameter:
-    - 1
+    - 7
+    rewards:
+    - x: 101
+      y: 7
     description: "\u4EFB\u52A17"
   - primary: 8
     name: "\u4EFB\u52A18"
     type: 5
     icon: 
     parameter:
-    - 1
+    - 8
+    rewards:
+    - x: 101
+      y: 8
     description: "\u4EFB\u52A18"
   - primary: 9
     name: "\u4EFB\u52A19"
     type: 5
     icon: 
     parameter:
-    - 1
+    - 9
+    rewards:
+    - x: 101
+      y: 9
     description: "\u4EFB\u52A19"

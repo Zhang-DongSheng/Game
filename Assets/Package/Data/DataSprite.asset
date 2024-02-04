@@ -13,23 +13,23 @@ MonoBehaviour:
   m_Name: DataSprite
   m_EditorClassIdentifier: 
   atlases:
-  - primary: 982
+  - primary: 986
     name: altas_head
     path: Package/Atlas/altas_head.spriteatlas
     sprites:
-    - ui_player_head_1
-    - ui_player_head_2
-    - ui_player_head_12
-    - ui_player_head_4
-    - ui_player_head_6
-    - ui_player_head_7
-    - ui_player_head_11
-    - ui_player_head_5
-    - ui_player_head_3
-    - ui_player_head_10
-    - ui_player_head_9
-    - ui_player_head_8
-  - primary: 986
+    - "\u7537\u751F-\u7D2B"
+    - "\u7537\u751F-\u9EC4"
+    - "\u5973\u751F-\u9752"
+    - "\u5973\u751F-\u6B27"
+    - "\u5973\u751F-\u7C89"
+    - "\u7537\u751F-\u9752"
+    - "\u5973\u751F-\u84DD"
+    - "\u5973\u751F-\u9EC4"
+    - "\u7537\u751F-\u7C89"
+    - "\u7537\u751F-\u6B27"
+    - "\u7537\u751F-\u84DD"
+    - "\u5973\u751F-\u7D2B"
+  - primary: 990
     name: atlas_common
     path: Package/Atlas/atlas_common.spriteatlas
     sprites:
@@ -71,7 +71,7 @@ MonoBehaviour:
     - ui_com_expand
     - Circle Outline Dash - Stroke 3px
     - background_3
-  - primary: 994
+  - primary: 1000
     name: atlas_currency
     path: Package/Atlas/atlas_currency.spriteatlas
     sprites:
@@ -80,16 +80,16 @@ MonoBehaviour:
     - diamond
     - gold
     - coin_1
-  - primary: 990
+  - primary: 996
     name: atlas_emoji
     path: Package/Atlas/atlas_emoji.spriteatlas
     sprites: []
-  - primary: 4294414198
+  - primary: 982
     name: atlas_login_background
     path: Package/Atlas/atlas_login_background.spriteatlas
     sprites:
     - ui_login_background
-  - primary: 992
+  - primary: 998
     name: atlas_main
     path: Package/Atlas/atlas_main.spriteatlas
     sprites:
@@ -100,12 +100,12 @@ MonoBehaviour:
     - ui_main_mail
     - ui_main_task
     - ui_main_notice
-  - primary: 4294472794
+  - primary: 994
     name: atlas_main_background
     path: Package/Atlas/atlas_main_background.spriteatlas
     sprites:
     - ui_main_background
-  - primary: 988
+  - primary: 992
     name: atlas_prop_clothing
     path: Package/Atlas/atlas_prop_clothing.spriteatlas
     sprites:
@@ -130,16 +130,6 @@ MonoBehaviour:
     - "\u8D85\u77ED\u88E4"
     - "\u886C\u886B"
   - primary: 984
-    name: atlas_quality
-    path: Package/Atlas/atlas_quality.spriteatlas
-    sprites:
-    - quality_4
-    - quality_6
-    - quality_2
-    - quality_3
-    - quality_1
-    - quality_5
-  - primary: 4294796986
     name: atlas_set
     path: Package/Atlas/atlas_set.spriteatlas
     sprites:
