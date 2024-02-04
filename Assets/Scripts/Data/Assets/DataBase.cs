@@ -11,7 +11,7 @@ namespace Data
     {
         protected JsonData m_list = null;
 
-        public virtual void Set(string content)
+        public virtual void Load(string content)
         {
             Clear();
             // 一定要记得去掉最后一行的逗号
@@ -25,6 +25,11 @@ namespace Data
             {
                 Debuger.LogError(Author.Data, string.Format("json con't have list! in {0}", this.name));
             }
+        }
+
+        public virtual void Detection()
+        { 
+            
         }
 
         public virtual void Clear()

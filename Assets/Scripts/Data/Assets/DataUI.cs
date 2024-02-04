@@ -1,5 +1,6 @@
 using Game.UI;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Data
 {
@@ -16,6 +17,30 @@ namespace Data
                 return data.list.Find(x => x.panel == panel);
             }
             return null;
+        }
+
+        public override void Detection()
+        {
+            var dic = new Dictionary<int, int>();
+
+            int count = list.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (dic.ContainsKey(list[i].panel))
+                {
+                    Debuger.LogError(Author.Data, "ui exist the same key:" + list[i].name);
+                }
+                else
+                {
+                    dic.Add(list[i].panel, 1);
+                }
+            }
+        }
+
+        public override void Clear()
+        {
+            list = new List<UIInformation>();
         }
     }
 }

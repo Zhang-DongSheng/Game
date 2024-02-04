@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.U2D;
+using UnityEngine.Video;
 
 namespace UnityEditor.Window
 {
@@ -236,6 +237,14 @@ namespace UnityEditor.Window
             {
                 LoadSprite();
             }
+            else if (type == typeof(DataAduio))
+            {
+                LoadAudio();
+            }
+            else if (type == typeof(DataVideo))
+            {
+                LoadVideo();
+            }
             else if (type == typeof(DataUI))
             {
                 LoadUI();
@@ -269,9 +278,7 @@ namespace UnityEditor.Window
 
         private void LoadUI()
         {
-            DataUI data = Load<DataUI>();
-
-            data.list = new List<UIInformation>();
+            var data = Load<DataUI>(); data.Clear();
 
             foreach (var panel in Enum.GetValues(typeof(UIPanel)))
             {
@@ -304,14 +311,14 @@ namespace UnityEditor.Window
                         break;
                 }
             }
+            data.Detection();
+
             Save(data);
         }
 
         private void LoadSprite()
         {
-            DataSprite data = Load<DataSprite>();
-
-            data.atlases = new List<AtlasInformation>();
+            var data = Load<DataSprite>(); data.Clear();
 
             string[] guids = AssetDatabase.FindAssets("t:SpriteAtlas", new string[] { "Assets/Package" });
 
@@ -351,6 +358,62 @@ namespace UnityEditor.Window
                     data.atlases.Add(atlas);
                 }
             }
+            data.Detection();
+
+            Save(data);
+        }
+
+        private void LoadAudio()
+        {
+            var data = Load<DataAduio>(); data.Clear();
+
+            string[] guids = AssetDatabase.FindAssets("t:AudioClip", new string[] { "Assets/Package" });
+
+            foreach (var guid in guids)
+            {
+                path = AssetDatabase.GUIDToAssetPath(guid);
+
+                var asset = AssetDatabase.LoadAssetAtPath<AudioClip>(path);
+
+                if (asset != null)
+                {
+                    data.list.Add(new AudioInformation()
+                    {
+                        primary = (uint)asset.GetInstanceID(),
+                        key = asset.name,
+                        path = path.Remove(0, 7),
+                    });
+                }
+            }
+            data.Detection();
+
+            Save(data);
+        }
+
+        private void LoadVideo()
+        {
+            var data = Load<DataVideo>(); data.Clear();
+
+            string[] guids = AssetDatabase.FindAssets("t:VideoClip", new string[] { "Assets/Package" });
+
+            foreach (var guid in guids)
+            {
+                path = AssetDatabase.GUIDToAssetPath(guid);
+
+                var asset = AssetDatabase.LoadAssetAtPath<VideoClip>(path);
+
+                if (asset != null)
+                {
+                    data.list.Add(new VideoInformation()
+                    {
+                        primary = (uint)asset.GetInstanceID(),
+                        key = asset.name,
+                        path = path.Remove(0, 7),
+                    });
+                }
+            }
+            data.Detection();
+
             Save(data);
         }
 
@@ -384,7 +447,7 @@ namespace UnityEditor.Window
 
             if (data == null) return;
 
-            data.Set(content);
+            data.Load(content);
 
             Save(data);
         }

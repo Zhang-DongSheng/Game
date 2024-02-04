@@ -1,18 +1,17 @@
+using Data;
+using Game.Resource;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Renewable;
-using UnityEngine.SceneManagement;
 
 namespace Game.Audio
 {
+    [RequireComponent(typeof(AudioListener))]
     public sealed class AudioManager : MonoSingleton<AudioManager>
     {
         private readonly Dictionary<AudioEnum, AudioSourceInformation> audios = new Dictionary<AudioEnum, AudioSourceInformation>();
 
         private readonly Dictionary<string, AudioClip> clips = new Dictionary<string, AudioClip>();
-
-        private AudioListener listener;
 
         private void Awake()
         {
@@ -36,12 +35,6 @@ namespace Game.Audio
                 }
                 audios.Add((AudioEnum)ae, new AudioSourceInformation((AudioEnum)ae, source));
             }
-            SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-
-        private void OnDestroy()
-        {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
         public void PlayMusic(string sound, bool loop = false)
@@ -62,23 +55,25 @@ namespace Game.Audio
             {
                 Play(key, clips[sound], loop);
             }
-            else if (AudioConfig.list.ContainsKey(sound))
-            {
-                AudioClip clip = Resources.Load<AudioClip>(AudioConfig.list[sound]);
-
-                Store(sound, clip); Play(key, clip, loop);
-            }
             else
             {
-                RenewableResource.Instance.Get(new RenewableRequest(sound), (handle) =>
-                {
-                    AudioClip clip = handle.Get<AudioClip>();
+                var data = DataAduio.Get(sound);
 
-                    Store(sound, clip); Play(key, clips[sound], loop);
-                }, () =>
+                if (data != null)
                 {
-                    Debuger.LogWarning(Author.Sound, $"{ sound }该音频未录入下载列表!");
-                });
+                    ResourceManager.LoadAsync(data.path, (asset) =>
+                    {
+                        AudioClip clip = asset as AudioClip;
+
+                        Store(sound, clip);
+
+                        Play(key, clip, loop);
+                    });
+                }
+                else
+                {
+                    Debuger.LogWarning(Author.Sound, $"{sound}该音频未录入下载列表!");
+                }
             }
         }
 
@@ -88,21 +83,25 @@ namespace Game.Audio
             {
                 PlayDelayed(key, clips[sound], delay);
             }
-            else if (AudioConfig.list.ContainsKey(sound))
-            {
-                AudioClip clip = Resources.Load<AudioClip>(AudioConfig.list[sound]);
-                Store(sound, clip); PlayDelayed(key, clip, delay);
-            }
             else
             {
-                RenewableResource.Instance.Get(new RenewableRequest(sound), (handle) =>
+                var data = DataAduio.Get(sound);
+
+                if (data != null)
                 {
-                    AudioClip clip = handle.Get<AudioClip>();
-                    Store(sound, clip); PlayDelayed(key, clip, delay);
-                }, () =>
+                    ResourceManager.LoadAsync(sound, (asset) =>
+                    {
+                        AudioClip clip = asset as AudioClip;
+
+                        Store(sound, clip);
+
+                        PlayDelayed(key, clip, delay);
+                    });
+                }
+                else
                 {
-                    Debuger.LogWarning(Author.Sound, $"{ sound }该音频未录入下载列表!");
-                });
+                    Debuger.LogWarning(Author.Sound, $"{sound}该音频未录入下载列表!");
+                }
             }
         }
 
@@ -144,16 +143,6 @@ namespace Game.Audio
             if (audios.ContainsKey(key))
             {
                 audios[key].SetMute(mute);
-            }
-        }
-
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            listener = GameObject.FindObjectOfType<AudioListener>();
-
-            if (listener == null)
-            {
-                Debuger.LogError(Author.Sound, "音频监听器未就绪！");
             }
         }
 

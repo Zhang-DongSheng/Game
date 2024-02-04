@@ -19,9 +19,9 @@ namespace Data
             return null;
         }
 
-        public override void Set(string content)
+        public override void Load(string content)
         {
-            base.Set(content);
+            base.Load(content);
 
             int count = m_list.Count;
 

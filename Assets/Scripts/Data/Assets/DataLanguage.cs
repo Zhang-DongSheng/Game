@@ -1,6 +1,7 @@
 using Game;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Data
 {
@@ -28,9 +29,9 @@ namespace Data
             return null;
         }
 
-        public override void Set(string content)
+        public override void Load(string content)
         {
-            base.Set(content);
+            base.Load(content);
 
             foreach (var language in Enum.GetValues(typeof(Language)))
             {
@@ -54,6 +55,30 @@ namespace Data
                     });
                 }
                 languages.Add(information);
+            }
+            Detection();
+        }
+
+        public override void Detection()
+        {
+            if (languages.Count == 0) return;
+
+            var words = languages[0].dictionary.words;
+
+            var dic = new Dictionary<string, int>();
+
+            int count = words.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (dic.ContainsKey(words[i].key))
+                {
+                    Debuger.LogError(Author.Data, "language exist the same key:" + words[i].key);
+                }
+                else
+                {
+                    dic.Add(words[i].key, 1);
+                }
             }
         }
 

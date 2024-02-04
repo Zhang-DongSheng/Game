@@ -1,3 +1,4 @@
+using Game.Audio;
 using Game.State;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,8 @@ namespace Game.UI
             RefreshCurrencies();
 
             //ModelLogic.Instance.Display((uint)Random.Range(1, 4));
+
+            AudioManager.Instance.PlayMusic("HITA - ×íºìç¯");
         }
 
         private void RefreshCurrencies()

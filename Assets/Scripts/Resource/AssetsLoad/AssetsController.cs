@@ -112,7 +112,6 @@ namespace Game.Resource
                         break;
                 }
             }
-
             if (loading >= 3) return;
 
             count = requests.Count;
