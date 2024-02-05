@@ -1,63 +1,58 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Model
 {
     public class ModelDisplay : ItemBase
     {
-        private const float MIN = 30, MAX = 100;
+        private readonly Dictionary<string, string> _paramters = new Dictionary<string, string>();
 
-        [SerializeField] private GameObject self;
+        private readonly Dictionary<string, Dictionary<string, SkinnedMeshRenderer>> _parts = new Dictionary<string, Dictionary<string, SkinnedMeshRenderer>>();
 
-        [SerializeField] private Transform eye;
-
-        [SerializeField] private Transform pedestal;
-
-        [SerializeField, Range(0.1f, 3)] private float speed = 1;
-
-        [SerializeField, Range(MIN, MAX)] private float zoom;
-
-        protected override void OnAwake()
+        public void Initialize(Transform target)
         {
+            _parts.Clear();
 
-        }
+            var parts = target.GetComponentsInChildren<SkinnedMeshRenderer>();
 
-        protected override void OnUpdate(float delta)
-        {
-            var x = Input.GetAxisRaw("Horizontal");
-
-            var y = Input.GetAxisRaw("Vertical");
-
-            if (x != 0 || y != 0)
+            foreach (var part in parts)
             {
-                Rotate(x);
+                string[] split = part.name.Split('-');
+
+                string key = split[0];
+
+                string index = split.Length > 1 ? split[1] : "-1";
+
+                if (_parts.ContainsKey(key))
+                {
+                    _parts[key].Add(index, part);
+                }
+                else
+                {
+                    _parts.Add(key, new Dictionary<string, SkinnedMeshRenderer>() { { index, part } });
+                }
             }
         }
 
-        public void Rotate(float angle)
+        public void Change(string part, string index, string skin)
         {
-            eye.Rotate(Vector3.up * speed * angle);
-        }
+            foreach (var parts in _parts)
+            {
+                if (parts.Key == part)
+                {
+                    foreach (var p in parts.Value)
+                    {
+                        bool active = p.Key == index;
 
-        public void Zoom(float value)
-        {
-            zoom += value;
-
-            zoom = Mathf.Clamp(zoom, MIN, MAX);
-        }
-
-        public void SetPedestal(GameObject target)
-        {
-            target.transform.SetParent(pedestal);
-        }
-
-        public void Show()
-        {
-            SetActive(self, true);
-        }
-
-        public void Hide()
-        {
-            SetActive(self, false);
+                        if (active)
+                        {
+                            
+                        }
+                        SetActive(p.Value, active);
+                    }
+                    break;
+                }
+            }
         }
     }
 }

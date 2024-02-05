@@ -73,6 +73,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: b138e7d3f0e8dac41811479cd85fff39, type: 3}
   - {fileID: 21300000, guid: cbe7a574e7b7f8643a847fa33943f94d, type: 3}
   - {fileID: 21300000, guid: a358e9d4870504e46b170f3c3c1c0c73, type: 3}
+  - {fileID: 21300000, guid: 458d0c65d331cac409566d681971f9e5, type: 3}
   - {fileID: 21300000, guid: c04a63d54069e8f4bac378fe7ab6026c, type: 3}
   - {fileID: 21300000, guid: f01608766d7146747b7af65d62d69611, type: 3}
   - {fileID: 21300000, guid: 4588d5e6aeea92d4b86bd1e976c99baf, type: 3}
@@ -82,6 +83,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 3ad6a888d34447447b2e8475a948e423, type: 3}
   - {fileID: 21300000, guid: 5a2cc1793ca8c1e4381df95290d5022a, type: 3}
   - {fileID: 21300000, guid: 5e9e4e8984cc68e4aa19df6bf330fb48, type: 3}
+  - {fileID: 21300000, guid: 53a11e5a95693f6408f1b2e415bc336f, type: 3}
   - {fileID: 21300000, guid: c2170acaf65944b4584cb2f47e3849f4, type: 3}
   - {fileID: 21300000, guid: c26a820b2129e2f4eb122efd27df5339, type: 3}
   - {fileID: 21300000, guid: 5765424b27ee5f8408478922c82d99a2, type: 3}
@@ -97,6 +99,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 1d29b0bd9f8a0e84f899abf6f9350f78, type: 3}
   - {fileID: 21300000, guid: 6b7d680e376717948897eac93f456e18, type: 3}
   - {fileID: 21300000, guid: 55df7c0e2aab60c438ae7184c5438d25, type: 3}
+  - {fileID: 21300000, guid: d0263e0e57442254e805c29a02a62ac3, type: 3}
   - {fileID: 21300000, guid: 5077db3ee5c7c3948a3077907b136ea4, type: 3}
   - {fileID: 21300000, guid: 24de22fe090ea2a4b932c13f1b3be37d, type: 3}
   - {fileID: 21300000, guid: bf72860f2411d0447af5ba88824a06f3, type: 3}
@@ -112,6 +115,7 @@ SpriteAtlas:
   - ui_com_toggle
   - quality_3
   - ui_com_loading
+  - ui_arrow_left
   - Rounded Outline - Stroke 5px
   - background_2
   - Vertical Shadow
@@ -121,6 +125,7 @@ SpriteAtlas:
   - quality_1
   - Square Shadow (200ppu)
   - Circle Outline - Stroke 10px (x64)
+  - ui_arrow_icon
   - background_4
   - Circle Filled - x256
   - Rounded Filled (300ppu)
@@ -136,6 +141,7 @@ SpriteAtlas:
   - ui_com_compress
   - quality_5
   - GUI Skin - Button Pressed
+  - ui_arrow_right
   - ui_com_expand
   - Circle Outline Dash - Stroke 3px
   - background_3

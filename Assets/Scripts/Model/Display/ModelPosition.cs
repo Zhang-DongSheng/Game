@@ -19,18 +19,6 @@ namespace Game.Model
 
         private float step;
 
-        protected override void OnVisible(bool active)
-        {
-            if (active)
-            {
-                progress = 0f;
-
-                position = origination;
-
-                transform.localPosition = position;
-            }
-        }
-
         protected override void OnUpdate(float delta)
         {
             progress += delta * speed;
@@ -39,16 +27,9 @@ namespace Game.Model
 
             step = curve.Evaluate(progress);
 
-            position = Vector3.LerpUnclamped(origination, destination, step);
+            position = Vector3.Lerp(origination, destination, step);
 
             transform.localPosition = position;
-        }
-
-        private void OnValidate()
-        {
-            if (Application.isPlaying) return;
-
-            origination = transform.localPosition;
         }
     }
 }

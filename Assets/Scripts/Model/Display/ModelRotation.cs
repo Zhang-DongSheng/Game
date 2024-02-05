@@ -7,20 +7,21 @@ namespace Game.Model
     {
         [SerializeField] private Transform target;
 
-        [SerializeField] private Vector3 rotation;
-
-        private Vector3 angle;
+        [SerializeField] private float speed = 1;
 
         protected override void OnUpdate(float delta)
         {
-            if (target == null) return;
+            var x = Input.GetAxisRaw("Horizontal");
 
-            angle = target.eulerAngles;
-
-            if (angle.x != rotation.x || angle.y != rotation.y || angle.z != rotation.z)
+            if (x != 0)
             {
-                target.eulerAngles = rotation;
+                Rotate(x);
             }
+        }
+
+        public void Rotate(float angle)
+        {
+            target.Rotate(Vector3.up, speed * angle);
         }
     }
 }

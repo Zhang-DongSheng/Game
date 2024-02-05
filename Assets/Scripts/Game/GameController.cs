@@ -37,8 +37,6 @@ namespace Game
 
             ReddotLogic.Instance.Initialize();
 
-            ModelLogic.Instance.Initialize();
-
             GuidanceLogic.Instance.Initialize();
 
             switch (mode)

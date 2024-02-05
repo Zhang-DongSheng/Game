@@ -44,4 +44,11 @@ namespace Game
 
         public Color y;
     }
+    [System.Serializable]
+    public class StringPair
+    {
+        public string x;
+
+        public string y;
+    }
 }

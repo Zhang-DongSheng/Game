@@ -29,7 +29,7 @@ namespace Game.UI
             }
             RefreshCurrencies();
 
-            //ModelLogic.Instance.Display((uint)Random.Range(1, 4));
+            ModelManager.Instance.Display("Package/Prefab/Model/Character/Female.prefab");
 
             AudioManager.Instance.PlayMusic("HITA - ×íºìç¯");
         }

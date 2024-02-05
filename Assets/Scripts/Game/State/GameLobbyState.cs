@@ -36,7 +36,7 @@ namespace Game.State
 
         public void OnExit()
         {
-            ModelLogic.Instance.Clear();
+            ModelManager.Instance.Clear();
         }
 
         public void OnStay()

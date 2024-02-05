@@ -7,15 +7,15 @@ namespace Game.UI
 {
     public class ItemSwitch : ItemBase, IPointerClickHandler
     {
-        public Action<bool> callback;
-
         [SerializeField] private List<GameObject> off;
 
         [SerializeField] private List<GameObject> on;
 
+        private bool active;
+
         private int count;
 
-        private bool active;
+        public Action<bool> onValueChanged;
 
         public void Initialize(bool active)
         {
@@ -44,7 +44,7 @@ namespace Game.UI
         {
             active = !active;
 
-            callback?.Invoke(active);
+            onValueChanged?.Invoke(active);
 
             Refresh(active);
         }
