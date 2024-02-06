@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DataVideo
   m_EditorClassIdentifier: 
   list:
-  - primary: 27522
+  - primary: 29092
     key: "404\u9519\u8BEF"
     path: "Package/Video/404\u9519\u8BEF.mp4"

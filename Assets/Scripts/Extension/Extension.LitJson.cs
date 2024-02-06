@@ -1,4 +1,5 @@
 using LitJson;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -142,6 +143,10 @@ namespace Game
                 {
                     result = (int)json[key] != 0;
                 }
+                else if (json[key].IsString)
+                {
+                    result = json[key].ToString().ToLower() == "true";
+                }
             }
             return result;
         }
@@ -281,7 +286,7 @@ namespace Game
 
             foreach (var field in fields)
             {
-                string key = field.Name.ToLower();
+                string key = field.Name;
 
                 if (field.FieldType == typeof(int))
                 {
@@ -317,7 +322,7 @@ namespace Game
                 }
                 else
                 {
-
+                    Debuger.LogWarning(Author.Data, "特殊类型特定处理");
                 }
             }
             return result;

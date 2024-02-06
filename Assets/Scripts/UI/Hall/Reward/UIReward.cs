@@ -66,7 +66,9 @@ namespace Game.UI
             }
             coroutine = null;
 
-            for (int i = 0; i < items.Count; i++)
+            int count = items.Count;
+
+            for (int i = 0; i < count; i++)
             {
                 items[i].SetActive(false);
             }

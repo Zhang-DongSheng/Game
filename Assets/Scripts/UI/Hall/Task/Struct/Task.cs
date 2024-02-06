@@ -7,5 +7,17 @@ namespace Data
 
         public float progress;
 
-        public Status status;    }
+        public Status status;        public Task()
+        {
+
+        }        public Task(TaskInformation task)
+        {
+            identification = 0;
+
+            parallelism = task.primary;
+
+            progress = 0;
+
+            status = Status.Undone;
+        }    }
 }

@@ -28,11 +28,11 @@ namespace Game
 
         private int day;
 
-        public Action action;
-
         private void Start()
         {
-            Synchronization(); day = Now.DayOfYear;
+            day = Now.DayOfYear;
+
+            Synchronization();
         }
 
         private void Update()
@@ -46,7 +46,9 @@ namespace Game
 
             if (day != Now.DayOfYear)
             {
-                day = Now.DayOfYear; Tomorrow();
+                day = Now.DayOfYear;
+
+                Tomorrow();
             }
         }
 
@@ -68,6 +70,8 @@ namespace Game
                 time = Convert.ToDateTime(value).ToUniversalTime();
             }
             second = 0;
+
+            Debuger.Log(Author.Device, "同步时间" + time);
         }
 
         private string SynchronizationServer()
@@ -95,15 +99,18 @@ namespace Game
             }
             finally
             {
-                if (request != null) { request.Abort(); }
-                if (response != null) { response.Close(); }
-                if (collection != null) { collection.Clear(); }
+                if (request != null)
+                    request.Abort();
+                if (response != null)
+                    response.Close();
+                if (collection != null)
+                    collection.Clear();
             }
         }
 
         private void Tomorrow()
         {
-            action?.Invoke();
+            EventManager.Post(EventKey.Day, new EventMessageArgs(day));
         }
 
         public DateTime Now
@@ -119,6 +126,13 @@ namespace Game
             span = Base.AddMilliseconds(ticks) - Now;
 
             return (float)span.TotalSeconds;
+        }
+
+        public bool InSide(long start, long end)
+        {
+            long now = Now.Ticks / 1000;
+
+            return start < now && end > now;
         }
     }
 }

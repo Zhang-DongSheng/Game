@@ -47,11 +47,11 @@ namespace Data
 
         public uint type;
 
+        public bool timeLimit;
+
         public long beginTime;
 
         public long endTime;
-
-        public bool timeLimit;
 
         public string description;
     }

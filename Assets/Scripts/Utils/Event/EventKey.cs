@@ -16,6 +16,10 @@
 
     Currency,
 
+    Day,
+
+    Task,
+
     Login,
 
     Language,

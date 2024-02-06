@@ -32,7 +32,7 @@ MonoBehaviour:
   - primary: 3
     name: Green
     age: 21
-    sex: 0
+    sex: 1
     quality: 5
     attributes: 0100000005000000
     path: Package/Prefab/Model/Role/model_3.prefab

@@ -1,5 +1,6 @@
 using Data;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game
 {
@@ -24,19 +25,34 @@ namespace Game
 
         public void RequestTasks()
         {
-            int count = 9;
+            var data = DataManager.Instance.Load<DataTask>();
+
+            int count = data.tasks.Count;
 
             for (int i = 0; i < count; i++)
             {
-                _tasks.Add(new Task()
+                _tasks.Add(new Task(data.tasks[i])
                 {
-                    identification = 10000 + (uint)i,
-                    parallelism = (uint)i + 1,
-                    progress = 0,
-                    status = Status.Undone,
+
                 });
             }
             ScheduleLogic.Instance.Update(Schedule.Task);
+        }
+
+        public void RequestGetTaskRewards(uint taskID)
+        {
+            var task = _tasks.Find(x => x.parallelism == taskID);
+
+            if (task != null)
+            {
+                task.status = Status.Claimed;
+            }
+            EventManager.Post(EventKey.Task);
+        }
+
+        public static void Goto(int type)
+        {
+            Debuger.Log(Author.UI, "ȥ" + type);
         }
     }
 }

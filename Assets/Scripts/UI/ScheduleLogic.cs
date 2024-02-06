@@ -15,41 +15,23 @@ namespace Game
 
         public void Initialize()
         {
-            Ready();
-
-            Begin();
-        }
-
-        public void Enter()
-        {
-            User();
-
-            Today();
-
-            Begin();
-        }
-
-        private void User()
-        {
-            Add(Schedule.Bag);
-            Add(Schedule.Mail);
-            Add(Schedule.Reddot);
-        }
-
-        private void Today()
-        {
-            Add(Schedule.Shop);
-            Add(Schedule.Task);
-            Add(Schedule.Activity);
-        }
-
-        private void Ready()
-        {
             Add(Schedule.Config);
             Add(Schedule.Resource);
             Add(Schedule.Hotfix);
             Add(Schedule.Language);
             Add(Schedule.BlockedText);
+            Begin();
+        }
+
+        public void Enter()
+        {
+            Add(Schedule.Bag);
+            Add(Schedule.Mail);
+            Add(Schedule.Reddot);
+            Add(Schedule.Shop);
+            Add(Schedule.Task);
+            Add(Schedule.Activity);
+            Begin();
         }
 
         private void Begin()
