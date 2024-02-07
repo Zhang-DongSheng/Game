@@ -1,6 +1,5 @@
 ﻿using Game.Model;
 using Game.Resource;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,14 +53,29 @@ namespace Game
             }
         }
 
-        public void Remove(string path)
+        public void Remove(string key)
         {
-            
+            foreach (var model in _models)
+            {
+                if (model.Key == key)
+                {
+                    GameObject.Destroy(model.Value);
+                    break;
+                }
+            }
+            _models.Remove(key);
         }
 
         public void Clear()
         {
-
+            foreach (var model in _models.Values)
+            {
+                if (model != null)
+                { 
+                    GameObject.Destroy(model);
+                }
+            }
+            _models.Clear();
         }
 
         private void DisplayModel(string key)
