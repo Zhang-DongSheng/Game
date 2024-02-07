@@ -10,11 +10,11 @@ namespace UnityEngine.UI
     [RequireComponent(typeof(Image))]
     public class ImageGif : MonoBehaviour
     {
-        [SerializeField] private Image component;
-
-        [SerializeField] private Texture2D source;
+        [SerializeField] private string path = "/Package/Atlas/Gif/giphy.gif";
 
         [SerializeField] private float speed = 5f;
+
+        private Image component;
 
         private readonly List<Sprite> sprites = new List<Sprite>();
 
@@ -24,12 +24,11 @@ namespace UnityEngine.UI
 
         private void Awake()
         {
-            if (component == null)
-                component = GetComponent<Image>();
+            component = GetComponent<Image>();
 
-            System.Drawing.Image image = System.Drawing.Image.FromFile(Application.dataPath + "/Package/Atlas/Gif/giphy.gif");
+            var buffer = File.ReadAllBytes(Application.dataPath + path);
 
-            ReloadGif(image);
+            ReloadingGif(buffer);
         }
 
         private void Update()
@@ -70,7 +69,7 @@ namespace UnityEngine.UI
                     graphic.DrawImage(image, Point.Empty);
                 }
                 Texture2D frameTexture2D = new Texture2D(framBitmap.Width, framBitmap.Height, TextureFormat.ARGB32, true);
-                
+
                 frameTexture2D.LoadImage(Bitmap2Byte(framBitmap));
 
                 var sprite = Sprite.Create(frameTexture2D, new Rect(0, 0, frameTexture2D.width, frameTexture2D.height), new Vector2(0.5f, 0.5f));
@@ -97,11 +96,13 @@ namespace UnityEngine.UI
             }
         }
 
-        public void SetGif(Texture2D texture)
+        public void ReloadingGif(byte[] buffer)
         {
-            this.source = texture;
-            // 想法转过去
-            //ReloadGif(image);
+            var stream = new MemoryStream(buffer);
+
+            var image = System.Drawing.Image.FromStream(stream);
+
+            ReloadGif(image);
         }
     }
 }
