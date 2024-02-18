@@ -33,9 +33,9 @@ namespace Game.Resource
 
             AssetsResponse assets = controller.Load(path);
 
-            if (assets != null && assets.Assets != null && assets.Assets.Length > 0)
+            if (assets != null && assets.MainAsset != null)
             {
-                return assets.Assets[0];
+                return assets.MainAsset;
             }
             return null;
         }
@@ -46,9 +46,9 @@ namespace Game.Resource
 
             AssetsResponse assets = controller.Load(path);
 
-            if (assets != null && assets.Assets != null && assets.Assets.Length > 0)
+            if (assets != null && assets.MainAsset != null)
             {
-                return assets.Assets[0] as T;
+                return assets.MainAsset as T;
             }
             return null;
         }
@@ -59,9 +59,9 @@ namespace Game.Resource
 
             controller.LoadAsync(path, (result) =>
             {
-                if (result != null && result.Assets != null && result.Assets.Length > 0)
+                if (result != null && result.MainAsset != null)
                 {
-                    callback?.Invoke(result.Assets[0]);
+                    callback?.Invoke(result.MainAsset);
                 }
                 else
                 {
@@ -76,9 +76,9 @@ namespace Game.Resource
 
             controller.LoadAsync(path, (result) =>
             {
-                if (result != null && result.Assets != null && result.Assets.Length > 0)
+                if (result != null && result.MainAsset != null)
                 {
-                    callback?.Invoke(result.Assets[0] as T);
+                    callback?.Invoke(result.MainAsset as T);
                 }
                 else
                 {
@@ -87,7 +87,7 @@ namespace Game.Resource
             });
         }
 
-        public static void UnLoadAsset(string name, bool isDestroy = false)
+        public static void UnLoadAsset(string name)
         {
             string path = ResourceConfig.Path(type, name);
 

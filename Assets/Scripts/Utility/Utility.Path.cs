@@ -38,7 +38,7 @@ namespace Game
             {
                 get
                 {
-                    return "Assets";
+                    return Define.ASSETS;
                 }
             }
 
@@ -46,7 +46,7 @@ namespace Game
             {
                 get
                 {
-                    return "Resources";
+                    return Define.RESOURCES;
                 }
             }
 
@@ -155,7 +155,7 @@ namespace Game
             /// <summary>
             /// 创建新文件
             /// </summary>
-            public static string New(string path)
+            public static string NewFile(string path)
             {
                 string directory = System.IO.Path.GetDirectoryName(path);
 

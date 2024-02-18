@@ -30,7 +30,7 @@ namespace UnityEditor.Window
             {
                 if (string.IsNullOrEmpty(input.value)) return;
 
-                string output = Utility.Path.New(input.value);
+                string output = Utility.Path.NewFile(input.value);
 
                 string arguments = string.Format("-i {0} -o {1}", input.value, output);
 

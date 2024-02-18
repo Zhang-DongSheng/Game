@@ -29,7 +29,7 @@ namespace UnityEditor.Ebook
 
             if (!File.Exists(input)) return;
 
-            string output = Utility.Path.New(input);
+            string output = Utility.Path.NewFile(input);
 
             if (File.Exists(output)) File.Delete(output);
 

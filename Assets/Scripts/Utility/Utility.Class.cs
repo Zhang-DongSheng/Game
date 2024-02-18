@@ -11,7 +11,7 @@ namespace Game
         /// <summary>
         /// ¿‡
         /// </summary>
-        public class Class
+        public static class Class
         {
             public static object Create(string name)
             {

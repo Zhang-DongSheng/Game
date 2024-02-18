@@ -9,7 +9,7 @@ namespace Game
         /// <summary>
         /// 屏幕捕获
         /// </summary>
-        public class Capture
+        public static class Capture
         {
             public static Texture2D Screenshot()
             {

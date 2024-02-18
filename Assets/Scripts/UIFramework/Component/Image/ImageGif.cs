@@ -1,8 +1,6 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
+using UnityEngine.Networking;
 
 namespace UnityEngine.UI
 {
@@ -10,7 +8,7 @@ namespace UnityEngine.UI
     [RequireComponent(typeof(Image))]
     public class ImageGif : MonoBehaviour
     {
-        [SerializeField] private string path = "/Package/Atlas/Gif/giphy.gif";
+        [SerializeField] private string path = "Package/Atlas/Gif/giphy.gif";
 
         [SerializeField] private float speed = 5f;
 
@@ -26,9 +24,26 @@ namespace UnityEngine.UI
         {
             component = GetComponent<Image>();
 
-            var buffer = File.ReadAllBytes(Application.dataPath + path);
+            string url = string.Format("{0}/{1}", Application.dataPath, path);
 
-            ReloadingGif(buffer);
+            StartCoroutine(Reload(url));
+        }
+
+        private IEnumerator Reload(string path)
+        {
+            var request = UnityWebRequest.Get(path);
+
+            yield return request.SendWebRequest();
+
+            var buffer = request.downloadHandler.data;
+
+            var image = Game.Utility.Image.Deserialize(buffer);
+
+            sprites.Clear();
+
+            sprites.AddRange(Game.Utility.Image.ImageToSprites(image));
+
+            count = sprites.Count;
         }
 
         private void Update()
@@ -48,61 +63,9 @@ namespace UnityEngine.UI
             }
         }
 
-        private void ReloadGif(System.Drawing.Image image)
+        private void OnDestroy()
         {
-            if (image == null) return;
-
             sprites.Clear();
-
-            FrameDimension frame = new FrameDimension(image.FrameDimensionsList[0]);
-
-            int framCount = image.GetFrameCount(frame);//获取维度帧数
-
-            for (int i = 0; i < framCount; ++i)
-            {
-                image.SelectActiveFrame(frame, i);
-
-                Bitmap framBitmap = new Bitmap(image.Width, image.Height);
-
-                using (System.Drawing.Graphics graphic = System.Drawing.Graphics.FromImage(framBitmap))
-                {
-                    graphic.DrawImage(image, Point.Empty);
-                }
-                Texture2D frameTexture2D = new Texture2D(framBitmap.Width, framBitmap.Height, TextureFormat.ARGB32, true);
-
-                frameTexture2D.LoadImage(Bitmap2Byte(framBitmap));
-
-                var sprite = Sprite.Create(frameTexture2D, new Rect(0, 0, frameTexture2D.width, frameTexture2D.height), new Vector2(0.5f, 0.5f));
-
-                sprites.Add(sprite);
-            }
-            count = sprites.Count;
-        }
-
-        private byte[] Bitmap2Byte(Bitmap bitmap)
-        {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                // 将bitmap 以png格式保存到流中
-                bitmap.Save(stream, ImageFormat.Png);
-                // 创建一个字节数组，长度为流的长度
-                byte[] data = new byte[stream.Length];
-                // 重置指针
-                stream.Seek(0, SeekOrigin.Begin);
-                // 从流读取字节块存入data中
-                stream.Read(data, 0, Convert.ToInt32(stream.Length));
-
-                return data;
-            }
-        }
-
-        public void ReloadingGif(byte[] buffer)
-        {
-            var stream = new MemoryStream(buffer);
-
-            var image = System.Drawing.Image.FromStream(stream);
-
-            ReloadGif(image);
         }
     }
 }

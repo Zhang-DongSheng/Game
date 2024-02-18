@@ -14,7 +14,7 @@ namespace UnityEditor.Ebook
 
                 string content = File.ReadAllText(path);
 
-                path = Utility.Path.New(path);
+                path = Utility.Path.NewFile(path);
 
                 File.WriteAllText(path, content, encoding);
             }

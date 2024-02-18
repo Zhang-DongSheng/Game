@@ -180,9 +180,14 @@ namespace Game.Resource
             yield return null;
         }
 
-        public void Unload(string path)
+        public void Unload(string key)
         {
+            if (caches.ContainsKey(key))
+            {
+                caches[key].Dispose();
 
+                caches.Remove(key);
+            }
         }
     }
 }

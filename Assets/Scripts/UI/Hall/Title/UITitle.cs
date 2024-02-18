@@ -43,8 +43,9 @@ namespace Game.UI
             }
             RefreshDetection();
 
-            bool active = GameStateController.Instance.current is GameLobbyState;
-
+            bool active = 
+                GameStateController.Instance.current is GameLobbyState ||
+                GameStateController.Instance.current is GameDeployState;
             if (active)
             {
                 active = display != UIPanel.UIMain;
