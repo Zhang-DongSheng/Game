@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738bfa924d12f0945b141fd085a87650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 0
+  mode: 1
 --- !u!1 &673946445
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,30 +478,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3164591566810095517, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1024
-      objectReference: {fileID: 0}
-    - target: {fileID: 3164591566810095517, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 1828
-      objectReference: {fileID: 0}
-    - target: {fileID: 3164591566810095517, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3164591566810095517, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3164591566810095517, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3164591566810095517, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3766323152958190448, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -510,14 +486,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UILoading
       objectReference: {fileID: 0}
-    - target: {fileID: 3801746520713602354, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7109308205829967498, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: bb65087d6d1b3424aba08e74dfd04494, type: 3}
     - target: {fileID: 9113432105825483985, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
       propertyPath: m_Pivot.x
       value: 0
