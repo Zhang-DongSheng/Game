@@ -10,6 +10,11 @@ namespace Game
     {
         [SerializeField] private GameMode mode;
 
+        private void Awake()
+        {
+            DontDestroyOnLoad(this);
+        }
+
         private void Start()
         {
             StartCoroutine(Laoding());
@@ -57,6 +62,21 @@ namespace Game
                 GameStateController.Instance.EnterState<GameLoginState>();
             };
             ScheduleLogic.Instance.Initialize();
+        }
+
+        private void OnApplicationPause(bool pause)
+        {
+            Debuger.LogError(Author.Script, "应用程序切换后台" + pause);
+        }
+
+        private void OnApplicationQuit()
+        {
+            Debuger.LogError(Author.Script, "应用程序退出");
+        }
+
+        private void OnDestroy()
+        {
+            ResourceManager.UnLoadAllAsset();
         }
     }
 }

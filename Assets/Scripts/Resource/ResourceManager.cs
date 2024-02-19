@@ -92,6 +92,15 @@ namespace Game.Resource
             string path = ResourceConfig.Path(type, name);
 
             controller.Unload(path);
+
+            GC.Collect();
+        }
+
+        public static void UnLoadAllAsset()
+        {
+            controller.Unload();
+
+            GC.Collect();
         }
     }
 }

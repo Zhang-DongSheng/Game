@@ -189,5 +189,14 @@ namespace Game.Resource
                 caches.Remove(key);
             }
         }
+
+        public void Unload()
+        {
+            foreach (var cache in caches.Values)
+            {
+                cache.Dispose();
+            }
+            caches.Clear();
+        }
     }
 }
