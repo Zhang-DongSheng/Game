@@ -23,7 +23,9 @@ namespace Game
         private IEnumerator Load()
         {
             VirtualMachine.Info = (s) => UnityEngine.Debug.Log(s);
+
             var sw = Stopwatch.StartNew();
+
             foreach (var assembly in _assemblies)
             {
                 string url = string.Format("{0}/IFix/{1}", Application.streamingAssetsPath, assembly);

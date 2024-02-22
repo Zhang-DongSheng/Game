@@ -32,6 +32,16 @@
 	"description":"null"
 	},
 	{
+	"ID":99999,
+	"name":"金本位",
+	"icon":"coin",
+	"category":3,
+	"quality":1,
+	"price":1,
+	"source":-1,
+	"description":"价值基本单位"
+	},
+	{
 	"ID":10001,
 	"name":"汉服",
 	"icon":"汉服",

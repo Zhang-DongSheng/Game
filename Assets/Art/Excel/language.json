@@ -3,196 +3,196 @@
 "list":[
 	{
 	"ID":1,
-	"key":10001,
+	"key":"10001",
 	"chinese":"确认",
 	"english":"Confirm",
 	"japanese":"認める"
 	},
 	{
 	"ID":2,
-	"key":10002,
+	"key":"10002",
 	"chinese":"取消",
 	"english":"Cancel",
 	"japanese":"取消し"
 	},
 	{
 	"ID":3,
-	"key":10003,
+	"key":"10003",
 	"chinese":"返回",
 	"english":"Back",
 	"japanese":"帰る．戻る"
 	},
 	{
 	"ID":4,
-	"key":10004,
+	"key":"10004",
 	"chinese":"未完成",
 	"english":"Undone",
 	"japanese":"未完成"
 	},
 	{
 	"ID":5,
-	"key":10005,
+	"key":"10005",
 	"chinese":"已完成",
 	"english":"Done",
 	"japanese":"已完成"
 	},
 	{
 	"ID":6,
-	"key":10006,
+	"key":"10006",
 	"chinese":"可领取",
 	"english":"Available",
 	"japanese":"うけとれる"
 	},
 	{
 	"ID":7,
-	"key":10007,
+	"key":"10007",
 	"chinese":"已领取",
 	"english":"Claimed",
 	"japanese":"已领取"
 	},
 	{
 	"ID":8,
-	"key":10008,
+	"key":"10008",
 	"chinese":"进入",
 	"english":"Enter",
 	"japanese":"入る．進出する"
 	},
 	{
 	"ID":9,
-	"key":10009,
+	"key":"10009",
 	"chinese":"退出",
 	"english":"Exit",
 	"japanese":"立ち去る"
 	},
 	{
 	"ID":10,
-	"key":10101,
+	"key":"10101",
 	"chinese":"仓库",
 	"english":"Warehouse",
 	"japanese":"倉庫 "
 	},
 	{
 	"ID":11,
-	"key":10102,
+	"key":"10102",
 	"chinese":"邮件",
 	"english":"Mail",
 	"japanese":"郵便物"
 	},
 	{
 	"ID":12,
-	"key":10103,
+	"key":"10103",
 	"chinese":"活动",
 	"english":"Activity",
 	"japanese":"前夜祭"
 	},
 	{
 	"ID":13,
-	"key":10104,
+	"key":"10104",
 	"chinese":"商店",
 	"english":"Store",
 	"japanese":"店"
 	},
 	{
 	"ID":14,
-	"key":10105,
+	"key":"10105",
 	"chinese":"设置",
 	"english":"Setting",
 	"japanese":"備え付け"
 	},
 	{
 	"ID":15,
-	"key":10106,
+	"key":"10106",
 	"chinese":"任务",
 	"english":"Task",
 	"japanese":"无"
 	},
 	{
 	"ID":16,
-	"key":10107,
+	"key":"10107",
 	"chinese":"队列",
 	"english":"List",
 	"japanese":"无"
 	},
 	{
 	"ID":17,
-	"key":10108,
+	"key":"10108",
 	"chinese":"新",
 	"english":"New",
 	"japanese":"无"
 	},
 	{
 	"ID":18,
-	"key":10109,
+	"key":"10109",
 	"chinese":"战斗",
 	"english":"Fighting",
 	"japanese":"戦闘する．戦う"
 	},
 	{
 	"ID":19,
-	"key":10110,
+	"key":"10110",
 	"chinese":"游戏",
 	"english":"Game",
 	"japanese":"遊び"
 	},
 	{
 	"ID":20,
-	"key":10111,
+	"key":"10111",
 	"chinese":"声音",
 	"english":"Sound",
 	"japanese":"声"
 	},
 	{
 	"ID":21,
-	"key":10112,
+	"key":"10112",
 	"chinese":"音乐",
 	"english":"Music",
 	"japanese":"音楽"
 	},
 	{
 	"ID":22,
-	"key":10113,
+	"key":"10113",
 	"chinese":"音效",
 	"english":"Sound",
 	"japanese":"効果音"
 	},
 	{
 	"ID":23,
-	"key":10114,
+	"key":"10114",
 	"chinese":"静音",
 	"english":"Mute",
 	"japanese":"マナーモード"
 	},
 	{
 	"ID":24,
-	"key":10115,
+	"key":"10115",
 	"chinese":"多语言",
 	"english":"Language",
 	"japanese":"多言語システム"
 	},
 	{
 	"ID":25,
-	"key":10116,
+	"key":"10116",
 	"chinese":"渠道",
 	"english":"SDK",
 	"japanese":"すじ"
 	},
 	{
 	"ID":26,
-	"key":10201,
+	"key":"10201",
 	"chinese":"金币",
 	"english":"Gold",
 	"japanese":"金貨 "
 	},
 	{
 	"ID":27,
-	"key":10202,
+	"key":"10202",
 	"chinese":"钻石",
 	"english":"Diamond",
 	"japanese":"ダイヤ "
 	},
 	{
 	"ID":28,
-	"key":10203,
+	"key":"10203",
 	"chinese":"代币",
 	"english":"Coin",
 	"japanese":"しるし "

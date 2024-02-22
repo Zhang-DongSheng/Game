@@ -9,26 +9,6 @@ namespace Data
     {
         public List<LanguageInformation> list = new List<LanguageInformation>();
 
-        public static LanguageInformation Get(Language language)
-        {
-            var data = DataManager.Instance.Load<DataLanguage>();
-
-            if (data != null)
-            {
-                int count = data.list.Count;
-
-                for (int i = 0; i < count; i++)
-                {
-                    if (data.list[i].language == language)
-                    {
-                        return data.list[i];
-                    }
-                }
-                return count > 0 ? data.list[0] : null;
-            }
-            return null;
-        }
-
         public override void Load(string content)
         {
             base.Load(content);

@@ -7,13 +7,22 @@ namespace Data
     {
         public List<PropInformation> list = new List<PropInformation>();
 
-        public static PropInformation Get(uint propID)
+        public DataHelper helper = new DataHelper();
+
+        public static PropInformation Get(uint propID, bool quick = true)
         {
             var data = DataManager.Instance.Load<DataProp>();
 
             if (data != null)
             {
-                return data.list.Find(x => x.primary == propID);
+                if (quick)
+                {
+                    return data.helper.Get(data.list, propID);
+                }
+                else
+                {
+                    return data.list.Find(x => x.primary == propID);
+                }
             }
             return null;
         }
@@ -32,6 +41,7 @@ namespace Data
 
                 list.Add(prop);
             }
+            helper.Divide(list);
         }
 
         public override void Clear()

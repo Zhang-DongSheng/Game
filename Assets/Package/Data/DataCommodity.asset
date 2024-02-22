@@ -21,6 +21,8 @@ MonoBehaviour:
     rewards:
     - x: 10001
       y: 1
+    - x: 10002
+      y: 1
     description: "\u5546\u54C11"
   - primary: 1002
     name: "\u5546\u54C12"
@@ -30,15 +32,19 @@ MonoBehaviour:
     rewards:
     - x: 10002
       y: 1
+    - x: 10002
+      y: 2
     description: "\u5546\u54C12"
   - primary: 1003
     name: "\u5546\u54C13"
     cost: 101
-    price: 100
+    price: 50
     purchase: 0
     rewards:
     - x: 10003
       y: 1
+    - x: 10002
+      y: 3
     description: "\u5546\u54C13"
   - primary: 1004
     name: "\u5546\u54C14"
@@ -48,40 +54,50 @@ MonoBehaviour:
     rewards:
     - x: 10004
       y: 1
+    - x: 10002
+      y: 4
     description: "\u5546\u54C14"
   - primary: 1005
     name: "\u5546\u54C15"
     cost: 101
-    price: 100
+    price: 150
     purchase: 0
     rewards:
     - x: 10005
       y: 1
+    - x: 10002
+      y: 5
     description: "\u5546\u54C15"
   - primary: 1006
     name: "\u5546\u54C16"
     cost: 102
-    price: 100
+    price: 200
     purchase: 0
     rewards:
     - x: 10006
       y: 1
+    - x: 10002
+      y: 6
     description: "\u5546\u54C16"
   - primary: 1007
     name: "\u5546\u54C17"
     cost: 10001
-    price: 0
+    price: 250
     purchase: 1
     rewards:
     - x: 10007
       y: 1
+    - x: 10002
+      y: 7
     description: "\u5546\u54C17"
   - primary: 1008
     name: "\u5546\u54C18"
     cost: 102
-    price: 100
+    price: 300
     purchase: 0
     rewards:
     - x: 10008
       y: 1
+    - x: 10002
+      y: 8
     description: "\u5546\u54C18"

@@ -201,7 +201,7 @@ namespace UnityEditor.Window
                 {
                     type = type,
                     asset = Exist(type),
-                    select = false,
+                    select = true,
                 });
             }
         }
@@ -273,7 +273,6 @@ namespace UnityEditor.Window
             {
                 Debug.LogError("当前数据类型未定义，请主动添加 - " + type.Name);
             }
-            Reloading();
         }
 
         private void LoadUI()
