@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7928f5da8c124494f9cc7aa1cba0191b, type: 3}
   m_Name: DataCommodity
   m_EditorClassIdentifier: 
-  commodities:
+  list:
   - primary: 1001
     name: "\u5546\u54C11"
     cost: 101

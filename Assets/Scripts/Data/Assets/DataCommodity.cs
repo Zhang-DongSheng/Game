@@ -5,7 +5,7 @@ namespace Data
 {
     public class DataCommodity : DataBase
     {
-        public List<CommodityInformation> commodities = new List<CommodityInformation>();
+        public List<CommodityInformation> list = new List<CommodityInformation>();
 
         public static CommodityInformation Get(uint commodityID)
         {
@@ -13,7 +13,7 @@ namespace Data
 
             if (data != null)
             {
-                return data.commodities.Find(x => x.primary == commodityID);
+                return data.list.Find(x => x.primary == commodityID);
             }
             return null;
         }
@@ -42,13 +42,13 @@ namespace Data
                         y = uint.Parse(rewards[j][1].ToString()),
                     });
                 }
-                commodities.Add(commodity);
+                list.Add(commodity);
             }
         }
 
         public override void Clear()
         {
-            commodities = new List<CommodityInformation>();
+            list = new List<CommodityInformation>();
         }
     }
     [System.Serializable]

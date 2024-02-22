@@ -5,7 +5,7 @@ namespace Data
 {
     public class DataTask : DataBase
     {
-        public List<TaskInformation> tasks = new List<TaskInformation>();
+        public List<TaskInformation> list = new List<TaskInformation>();
 
         public static TaskInformation Get(uint taskID)
         {
@@ -13,7 +13,7 @@ namespace Data
 
             if (data != null)
             {
-                return data.tasks.Find(x => x.primary == taskID);
+                return data.list.Find(x => x.primary == taskID);
             }
             return null;
         }
@@ -42,13 +42,13 @@ namespace Data
                         y = uint.Parse(rewards[j][1].ToString()),
                     });
                 }
-                tasks.Add(task);
+                list.Add(task);
             }
         }
 
         public override void Clear()
         {
-            tasks = new List<TaskInformation>();
+            list = new List<TaskInformation>();
         }
     }
     [System.Serializable]

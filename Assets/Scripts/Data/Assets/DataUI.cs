@@ -43,4 +43,21 @@ namespace Data
             list = new List<UIInformation>();
         }
     }
+    [System.Serializable]
+    public class UIInformation : InformationBase
+    {
+        public string name;
+
+        public int panel;
+
+        public UIType type;
+
+        public UILayer layer;
+
+        public uint order;
+
+        public string path;
+
+        public bool destroy;
+    }
 }

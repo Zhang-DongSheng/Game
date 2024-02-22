@@ -93,9 +93,9 @@ namespace Game
 
             DataProp data = DataManager.Instance.Load<DataProp>();
 
-            for (int i = 0; i < data.props.Count; i++)
+            for (int i = 0; i < data.list.Count; i++)
             {
-                _props.Add(new Prop((uint)i, data.props[i].primary, 999));
+                _props.Add(new Prop((uint)i, data.list[i].primary, 999));
             }
         }
         #endregion

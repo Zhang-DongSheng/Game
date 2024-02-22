@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738bfa924d12f0945b141fd085a87650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 1
+  mode: 0
 --- !u!1 &673946445
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,6 +569,14 @@ PrefabInstance:
     - target: {fileID: 9113432105825483985, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9124091817187663576, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
+      propertyPath: path
+      value: Gif/giphy.gif
+      objectReference: {fileID: 0}
+    - target: {fileID: 9124091817187663576, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
+      propertyPath: speed
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}

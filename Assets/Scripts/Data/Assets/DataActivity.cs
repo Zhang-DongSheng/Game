@@ -6,7 +6,7 @@ namespace Data
 {
     public class DataActivity : DataBase
     {
-        public List<ActivityInformation> activitys = new List<ActivityInformation>();
+        public List<ActivityInformation> list;
 
         public static ActivityInformation Get(uint activityID)
         {
@@ -14,7 +14,7 @@ namespace Data
 
             if (data != null)
             {
-                return data.activitys.Find(x => x.primary == activityID);
+                return data.list.Find(x => x.activityID == activityID);
             }
             return null;
         }
@@ -31,21 +31,21 @@ namespace Data
 
                 activity.primary = m_list[i].GetUInt("ID");
 
-                activitys.Add(activity);
+                list.Add(activity);
             }
         }
 
         public override void Clear()
         {
-            activitys = new List<ActivityInformation>();
+            list = new List<ActivityInformation>();
         }
     }
     [Serializable]
     public class ActivityInformation : InformationBase
     {
-        public string name;
+        public uint activityID;
 
-        public uint type;
+        public string name;
 
         public bool timeLimit;
 

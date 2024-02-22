@@ -46,22 +46,22 @@ namespace Game
 
             var data = DataManager.Instance.Load<DataActivity>();
 
-            int count = data.activitys.Count;
+            int count = data.list.Count;
 
             Debuger.Log(Author.Test, "活动数量" + count);
 
             for (int i = 0; i < count; i++)
             {
-                if (data.activitys[i].timeLimit)
+                if (data.list[i].timeLimit)
                 {
-                    if (TimeSynchronization.Instance.InSide(data.activitys[i].beginTime, data.activitys[i].endTime))
+                    if (TimeSynchronization.Instance.InSide(data.list[i].beginTime, data.list[i].endTime))
                     {
-                        _activities.Add(new Activity(data.activitys[i]));
+                        _activities.Add(new Activity(data.list[i]));
                     }
                 }
                 else
                 {
-                    _activities.Add(new Activity(data.activitys[i]));
+                    _activities.Add(new Activity(data.list[i]));
                 }
             }
             ScheduleLogic.Instance.Update(Schedule.Activity);

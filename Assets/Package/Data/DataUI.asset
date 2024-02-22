@@ -13,192 +13,219 @@ MonoBehaviour:
   m_Name: DataUI
   m_EditorClassIdentifier: 
   list:
-  - panel: 1
+  - primary: 27916
+    name: UILogin
+    panel: 1
     type: 0
     layer: 2
     order: 0
-    name: UILogin
     path: Package/Prefab/UI/Panel/UILogin.prefab
     destroy: 0
-  - panel: 101
+  - primary: 28098
+    name: UIMain
+    panel: 101
     type: 1
     layer: 1
     order: 0
-    name: UIMain
     path: Package/Prefab/UI/Panel/UIMain.prefab
     destroy: 0
-  - panel: 102
+  - primary: 29064
+    name: UITest
+    panel: 102
     type: 1
     layer: 2
     order: 0
-    name: UITest
     path: Package/Prefab/UI/Panel/UITest.prefab
     destroy: 0
-  - panel: 103
+  - primary: 29136
+    name: UITitle
+    panel: 103
     type: 3
     layer: 3
     order: 0
-    name: UITitle
     path: Package/Prefab/UI/Panel/UITitle.prefab
     destroy: 0
-  - panel: 104
+  - primary: 29344
+    name: UIWaiting
+    panel: 104
     type: 1
     layer: 5
     order: 0
-    name: UIWaiting
     path: Package/Prefab/UI/Panel/UIWaiting.prefab
     destroy: 0
-  - panel: 105
+  - primary: 29374
+    name: UIWarehouse
+    panel: 105
     type: 1
     layer: 2
     order: 0
-    name: UIWarehouse
     path: Package/Prefab/UI/Panel/UIWarehouse.prefab
     destroy: 0
-  - panel: 106
+  - primary: 29684
+    name: UIMail
+    panel: 106
     type: 1
     layer: 2
     order: 0
-    name: UIMail
     path: Package/Prefab/UI/Panel/UIMail.prefab
     destroy: 0
-  - panel: 107
+  - primary: 29826
+    name: UIPlayer
+    panel: 107
     type: 1
     layer: 2
     order: 0
-    name: UIPlayer
     path: Package/Prefab/UI/Panel/UIPlayer.prefab
     destroy: 0
-  - panel: 108
+  - primary: 30162
+    name: UIShop
+    panel: 108
     type: 1
     layer: 2
     order: 0
-    name: UIShop
     path: Package/Prefab/UI/Panel/UIShop.prefab
     destroy: 0
-  - panel: 109
+  - primary: 30766
+    name: UIReward
+    panel: 109
     type: 2
     layer: 4
     order: 0
-    name: UIReward
     path: Package/Prefab/UI/Panel/UIReward.prefab
     destroy: 0
-  - panel: 110
+  - primary: 30872
+    name: UIActivity
+    panel: 110
     type: 1
     layer: 2
     order: 0
-    name: UIActivity
     path: Package/Prefab/UI/Panel/UIActivity.prefab
     destroy: 0
-  - panel: 111
+  - primary: 31956
+    name: UISetting
+    panel: 111
     type: 1
     layer: 2
     order: 0
-    name: UISetting
     path: Package/Prefab/UI/Panel/UISetting.prefab
     destroy: 0
-  - panel: 112
+  - primary: 32552
+    name: UITask
+    panel: 112
     type: 1
     layer: 2
     order: 0
-    name: UITask
     path: Package/Prefab/UI/Panel/UITask.prefab
     destroy: 0
-  - panel: 113
+  - primary: 32718
+    name: UIDeploy
+    panel: 113
     type: 1
     layer: 1
     order: 0
-    name: UIDeploy
     path: Package/Prefab/UI/Panel/UIDeploy.prefab
     destroy: 0
-  - panel: 114
+  - primary: 32814
+    name: UIFriend
+    panel: 114
     type: 1
     layer: 2
     order: 0
-    name: UIFriend
     path: Package/Prefab/UI/Panel/UIFriend.prefab
     destroy: 0
-  - panel: 115
+  - primary: 32830
+    name: UIProclamation
+    panel: 115
     type: 2
     layer: 2
     order: 0
-    name: UIProclamation
     path: Package/Prefab/UI/Panel/UIProclamation.prefab
     destroy: 0
-  - panel: 116
+  - primary: 32904
+    name: UICombatReadiness
+    panel: 116
     type: 1
     layer: 2
     order: 0
-    name: UICombatReadiness
     path: Package/Prefab/UI/Panel/UICombatReadiness.prefab
     destroy: 0
-  - panel: 301
+  - primary: 32942
+    name: UIConfirm
+    panel: 301
     type: 2
     layer: 3
     order: 0
-    name: UIConfirm
     path: Package/Prefab/UI/Panel/UIConfirm.prefab
     destroy: 0
-  - panel: 302
+  - primary: 33038
+    name: UIBubble
+    panel: 302
     type: 3
     layer: 4
     order: 0
-    name: UIBubble
     path: Package/Prefab/UI/Panel/UIBubble.prefab
     destroy: 0
-  - panel: 303
+  - primary: 33076
+    name: UINotice
+    panel: 303
     type: 4
     layer: 4
     order: 0
-    name: UINotice
     path: Package/Prefab/UI/Panel/UINotice.prefab
     destroy: 0
-  - panel: 304
+  - primary: 33120
+    name: UIHorseLamp
+    panel: 304
     type: 4
     layer: 4
     order: 0
-    name: UIHorseLamp
     path: Package/Prefab/UI/Panel/UIHorseLamp.prefab
     destroy: 0
-  - panel: 305
+  - primary: 33188
+    name: UIIntroduce
+    panel: 305
     type: 2
     layer: 3
     order: 0
-    name: UIIntroduce
     path: Package/Prefab/UI/Panel/UIIntroduce.prefab
     destroy: 0
-  - panel: 306
+  - primary: 33320
+    name: UIGuidance
+    panel: 306
     type: 3
     layer: 5
     order: 0
-    name: UIGuidance
     path: Package/Prefab/UI/Panel/UIGuidance.prefab
     destroy: 0
-  - panel: 1001
+  - primary: 33374
+    name: UIGame
+    panel: 1001
     type: 1
     layer: 1
     order: 0
-    name: UIGame
     path: Package/Prefab/UI/Panel/UIGame.prefab
     destroy: 0
-  - panel: 1002
+  - primary: 33640
+    name: UIGameSetting
+    panel: 1002
     type: 1
     layer: 2
     order: 0
-    name: UIGameSetting
     path: Package/Prefab/UI/Panel/UIGameSetting.prefab
     destroy: 0
-  - panel: 1003
+  - primary: 33668
+    name: UIMiniMap
+    panel: 1003
     type: 3
     layer: 1
     order: 0
-    name: UIMiniMap
     path: Package/Prefab/UI/Panel/UIMiniMap.prefab
     destroy: 0
-  - panel: 1004
+  - primary: 33696
+    name: UISettlement
+    panel: 1004
     type: 1
     layer: 2
     order: 0
-    name: UISettlement
     path: Package/Prefab/UI/Panel/UISettlement.prefab
     destroy: 0

@@ -6,7 +6,7 @@ namespace Data
 {
     public class DataConfig : DataBase
     {
-        public List<ConfigInformation> config = new List<ConfigInformation>();
+        public List<ConfigInformation> list;
 
         public static string Get(string key)
         {
@@ -14,11 +14,11 @@ namespace Data
 
             if (data != null)
             {
-                for (int i = 0; i < data.config.Count; i++)
+                for (int i = 0; i < data.list.Count; i++)
                 {
-                    if (data.config[i].key == key)
+                    if (data.list[i].key == key)
                     {
-                        return data.config[i].value;
+                        return data.list[i].value;
                     }
                 }
             }
@@ -37,7 +37,7 @@ namespace Data
                 }
                 catch
                 {
-                    Debuger.LogError(Author.Data, string.Format("[{0}]类型转换失败，数据不为{1}", key, typeof(T).ToString()));
+                    Debuger.LogError(Author.Data, string.Format("{0} Convert To {1} Fail!", key, typeof(T).ToString()));
                 }
             }
             return default;
@@ -51,13 +51,32 @@ namespace Data
 
             for (int i = 0; i < count; i++)
             {
-                config.Add(m_list[i].GetType<ConfigInformation>());
+                list.Add(m_list[i].GetType<ConfigInformation>());
+            }
+        }
+
+        public override void Detection()
+        {
+            var dic = new Dictionary<string, int>();
+
+            int count = list.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (dic.ContainsKey(list[i].key))
+                {
+                    Debuger.LogError(Author.Data, "config exist the same key:" + list[i].key);
+                }
+                else
+                {
+                    dic.Add(list[i].key, 1);
+                }
             }
         }
 
         public override void Clear()
         {
-            config = new List<ConfigInformation>();
+            list = new List<ConfigInformation>();
         }
     }
     [System.Serializable]

@@ -51,4 +51,11 @@ namespace Game
 
         public string y;
     }
+    [System.Serializable]
+    public class Pair<T> where T : class
+    {
+        public T x;
+
+        public T y;
+    }
 }

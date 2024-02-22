@@ -8,7 +8,7 @@ namespace UnityEngine.UI
     [RequireComponent(typeof(Image))]
     public class ImageGif : MonoBehaviour
     {
-        [SerializeField] private string path = "Package/Atlas/Gif/giphy.gif";
+        [SerializeField] private string path = "Gif/giphy.gif";
 
         [SerializeField] private float speed = 5f;
 
@@ -24,7 +24,7 @@ namespace UnityEngine.UI
         {
             component = GetComponent<Image>();
 
-            string url = string.Format("{0}/{1}", Application.dataPath, path);
+            string url = string.Format("{0}/{1}", Application.streamingAssetsPath, path);
 
             StartCoroutine(Reload(url));
         }

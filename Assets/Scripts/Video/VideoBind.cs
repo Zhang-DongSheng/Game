@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Game.Resource;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -37,16 +34,63 @@ namespace Game
             screen.texture = texture;
 
             m_video.targetTexture = texture;
+
+            if (m_video.playOnAwake)
+            {
+                Play();
+            }
         }
         [ContextMenu("Play")]
         public void Play()
         {
-            m_video.Play();
+            if (string.IsNullOrEmpty(url)) return;
+
+            string video = Path.GetFileNameWithoutExtension(url);
+
+            if (m_video.clip != null && m_video.clip.name == video)
+            {
+                if (m_video.isPlaying == false)
+                {
+                    m_video.Play();
+                }
+            }
+            else
+            {
+                if (m_video.isPlaying)
+                {
+                    m_video.Stop();
+                }
+                ResourceManager.LoadAsync<VideoClip>(url, (clip) =>
+                {
+                    m_video.clip = clip;
+
+                    m_video.Play();
+                });
+            }
+        }
+        [ContextMenu("Pause")]
+        public void Pause()
+        {
+            if (m_video.isPaused)
+            {
+                m_video.Play();
+            }
+            else
+            {
+                m_video.Pause();
+            }
         }
         [ContextMenu("Stop")]
         public void Stop()
         {
-            m_video.Stop();
+            if (m_video.isPlaying)
+            {
+                m_video.Stop();
+            }
+            else if (m_video.isPaused)
+            {
+                m_video.Stop();
+            }
         }
     }
 }

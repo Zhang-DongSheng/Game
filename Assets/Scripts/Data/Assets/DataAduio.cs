@@ -13,7 +13,7 @@ namespace Data
 
             if (data != null)
             {
-                return data.list.Find(x => x.key == key);
+                return data.list.Find(x => x.name == key);
             }
             return null;
         }
@@ -26,13 +26,13 @@ namespace Data
 
             for (int i = 0; i < count; i++)
             {
-                if (dic.ContainsKey(list[i].key))
+                if (dic.ContainsKey(list[i].name))
                 {
-                    Debuger.LogError(Author.Data, "audio exist the same key:" + list[i].key);
+                    Debuger.LogError(Author.Data, "audio exist the same key:" + list[i].name);
                 }
                 else
                 {
-                    dic.Add(list[i].key, 1);
+                    dic.Add(list[i].name, 1);
                 }
             }
         }
@@ -45,7 +45,7 @@ namespace Data
     [System.Serializable]
     public class AudioInformation : InformationBase
     {
-        public string key;
+        public string name;
 
         public string path;
     }

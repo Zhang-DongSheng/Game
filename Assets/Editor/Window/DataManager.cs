@@ -298,11 +298,12 @@ namespace UnityEditor.Window
                             {
                                 data.list.Add(new UIInformation()
                                 {
+                                    primary = (uint)Mathf.Abs(prefab.GetInstanceID()),
+                                    name = view.name,
                                     panel = (int)panel,
                                     layer = view.layer,
                                     order = view.order,
                                     type = view.type,
-                                    name = view.name,
                                     path = path,
                                     destroy = false
                                 });
@@ -355,7 +356,7 @@ namespace UnityEditor.Window
                             Debug.LogError($"{asset.name} Atlas[{i}] is null!");
                         }
                     }
-                    data.atlases.Add(atlas);
+                    data.list.Add(atlas);
                 }
             }
             data.Detection();
@@ -380,7 +381,7 @@ namespace UnityEditor.Window
                     data.list.Add(new AudioInformation()
                     {
                         primary = (uint)asset.GetInstanceID(),
-                        key = asset.name,
+                        name = asset.name,
                         path = path.Remove(0, 7),
                     });
                 }
@@ -407,7 +408,7 @@ namespace UnityEditor.Window
                     data.list.Add(new VideoInformation()
                     {
                         primary = (uint)asset.GetInstanceID(),
-                        key = asset.name,
+                        name = asset.name,
                         path = path.Remove(0, 7),
                     });
                 }

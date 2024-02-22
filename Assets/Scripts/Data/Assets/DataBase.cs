@@ -1,5 +1,6 @@
 using Game;
 using LitJson;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Data
@@ -10,6 +11,8 @@ namespace Data
     public abstract class DataBase : ScriptableObject
     {
         protected JsonData m_list = null;
+
+        protected readonly List<UIntPair> pairs = new List<UIntPair>();
 
         public virtual void Load(string content)
         {
@@ -30,6 +33,41 @@ namespace Data
         public virtual void Detection()
         { 
             
+        }
+
+        public virtual void Sort(List<InformationBase> list)
+        {
+            int count = list.Count;
+
+            list.Sort((x, y) =>
+            {
+                return x.primary.CompareTo(y.primary);
+            });
+        }
+
+        public virtual void Divide(List<InformationBase> list)
+        {
+            pairs.Clear();
+
+            Sort(list);
+
+            int step = 0, interval = 100;
+
+            int count = list.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (--step < 0)
+                {
+                    pairs.Add(new UIntPair()
+                    {
+                        x = list[i].primary,
+
+                        y = (uint)i
+                    });
+                    step = interval;
+                }
+            }
         }
 
         public virtual void Clear()

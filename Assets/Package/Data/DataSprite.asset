@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c3bfdc0caa275429243420b570f287, type: 3}
   m_Name: DataSprite
   m_EditorClassIdentifier: 
-  atlases:
+  list:
   - primary: 986
     name: altas_head
     path: Package/Atlas/altas_head.spriteatlas

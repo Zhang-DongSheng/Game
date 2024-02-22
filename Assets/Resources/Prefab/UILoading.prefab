@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090e08d4bb5e8f84aa1f21b0cc24a438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: /Package/Atlas/Gif/giphy.gif
+  path: Gif/giphy.gif
   speed: 5
 --- !u!1 &2817078503737122829
 GameObject:

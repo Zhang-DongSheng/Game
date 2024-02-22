@@ -5,7 +5,7 @@ namespace Data
 {
     public class DataSprite : DataBase
     {
-        public List<AtlasInformation> atlases = new List<AtlasInformation>();
+        public List<AtlasInformation> list = new List<AtlasInformation>();
 
         public static AtlasInformation GetAtlas(string sprite)
         {
@@ -13,7 +13,7 @@ namespace Data
 
             if (data != null)
             {
-                foreach (var atlas in data.atlases)
+                foreach (var atlas in data.list)
                 {
                     if (atlas.Exist(sprite))
                     {
@@ -28,7 +28,7 @@ namespace Data
         {
             var dic = new Dictionary<string, int>();
 
-            foreach (var atlas in atlases)
+            foreach (var atlas in list)
             {
                 int count = atlas.sprites.Count;
 
@@ -48,7 +48,7 @@ namespace Data
 
         public override void Clear()
         {
-            atlases = new List<AtlasInformation>();
+            list = new List<AtlasInformation>();
         }
     }
     [System.Serializable]

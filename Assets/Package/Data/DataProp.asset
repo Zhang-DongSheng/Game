@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a229ad47b5c5e6d44acbc01461b93b60, type: 3}
   m_Name: DataProp
   m_EditorClassIdentifier: 
-  props:
+  list:
   - primary: 101
     name: "\u94BB\u77F3"
     icon: diamond
@@ -38,154 +38,154 @@ MonoBehaviour:
     price: 50
     description: null
   - primary: 10001
-    name: 10001
+    name: "\u6C49\u670D"
     icon: "\u6C49\u670D"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10002
-    name: 10002
+    name: "\u80CC\u5E26\u88E4"
     icon: "\u80CC\u5E26\u88E4"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10003
-    name: 10003
+    name: "\u5C0F\u897F\u670D"
     icon: "\u5C0F\u897F\u670D"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10004
-    name: 10004
+    name: "\u793C\u670D"
     icon: "\u793C\u670D"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10005
-    name: 10005
+    name: "\u9A6C\u7532"
     icon: "\u9A6C\u7532"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10006
-    name: 10006
+    name: "\u8D85\u77ED\u88D9"
     icon: "\u8D85\u77ED\u88D9"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10007
-    name: 10007
+    name: "\u725B\u4ED4\u88E4"
     icon: "\u725B\u4ED4\u88E4"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10008
-    name: 10008
+    name: "\u534A\u8EAB\u88D9"
     icon: "\u534A\u8EAB\u88D9"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10009
-    name: 10009
+    name: "\u65D7\u888D"
     icon: "\u65D7\u888D"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10010
-    name: 10010
+    name: "\u8FDE\u4F53\u88E4"
     icon: "\u8FDE\u4F53\u88E4"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10011
-    name: 10011
+    name: "\u536B\u8863"
     icon: "\u536B\u8863"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10012
-    name: 10012
+    name: "\u540A\u5E26\u88D9"
     icon: "\u540A\u5E26\u88D9"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10013
-    name: 10013
+    name: "Polo\u886B"
     icon: "Polo\u886B"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10014
-    name: 10014
+    name: "\u5305\u81C0\u88D9"
     icon: "\u5305\u81C0\u88D9"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10015
-    name: 10015
+    name: "T\u6064"
     icon: "T\u6064"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10016
-    name: 10016
+    name: "\u9614\u817F\u88E4"
     icon: "\u9614\u817F\u88E4"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10017
-    name: 10017
+    name: "\u4F11\u95F2\u88E4"
     icon: "\u4F11\u95F2\u88E4"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10018
-    name: 10018
+    name: "\u8D85\u77ED\u88E4"
     icon: "\u8D85\u77ED\u88E4"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null
   - primary: 10019
-    name: 10019
+    name: "\u886C\u886B"
     icon: "\u886C\u886B"
     quality: 1
-    category: 5
+    category: 2
     source: -1
     price: 100
     description: null

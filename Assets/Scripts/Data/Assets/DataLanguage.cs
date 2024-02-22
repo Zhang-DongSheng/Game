@@ -7,7 +7,7 @@ namespace Data
 {
     public class DataLanguage : DataBase
     {
-        public List<LanguageInformation> languages = new List<LanguageInformation>();
+        public List<LanguageInformation> list = new List<LanguageInformation>();
 
         public static LanguageInformation Get(Language language)
         {
@@ -15,16 +15,16 @@ namespace Data
 
             if (data != null)
             {
-                int count = data.languages.Count;
+                int count = data.list.Count;
 
                 for (int i = 0; i < count; i++)
                 {
-                    if (data.languages[i].language == language)
+                    if (data.list[i].language == language)
                     {
-                        return data.languages[i];
+                        return data.list[i];
                     }
                 }
-                return count > 0 ? data.languages[0] : null;
+                return count > 0 ? data.list[0] : null;
             }
             return null;
         }
@@ -54,16 +54,16 @@ namespace Data
                         value = m_list[i].GetString(key)
                     });
                 }
-                languages.Add(information);
+                list.Add(information);
             }
             Detection();
         }
 
         public override void Detection()
         {
-            if (languages.Count == 0) return;
+            if (list.Count == 0) return;
 
-            var words = languages[0].dictionary.words;
+            var words = list[0].dictionary.words;
 
             var dic = new Dictionary<string, int>();
 
@@ -84,7 +84,7 @@ namespace Data
 
         public override void Clear()
         {
-            languages = new List<LanguageInformation>();
+            list = new List<LanguageInformation>();
         }
     }
 }

@@ -12,31 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385f1c312d57ae348b0abc997146ca9f, type: 3}
   m_Name: DataActivity
   m_EditorClassIdentifier: 
-  activitys:
-  - primary: 101
+  list:
+  - primary: 1
+    activityID: 101
     name: "\u7B7E\u5230"
-    type: 1
     timeLimit: 0
     beginTime: 0
     endTime: 0
     description: "\u7B7E\u5230"
-  - primary: 102
+  - primary: 2
+    activityID: 102
     name: "\u5151\u6362\u7801"
-    type: 2
     timeLimit: 0
     beginTime: 0
     endTime: 0
     description: "\u5151\u6362\u7801"
-  - primary: 103
+  - primary: 3
+    activityID: 103
     name: "\u8F6E\u76D8\u62BD\u5956"
-    type: 3
     timeLimit: 1
     beginTime: 1701360000
     endTime: 1703952000
     description: "\u8F6E\u76D8\u62BD\u5956"
-  - primary: 104
+  - primary: 4
+    activityID: 104
     name: "\u5927\u79D8\u5B9D"
-    type: 4
     timeLimit: 0
     beginTime: 0
     endTime: 0

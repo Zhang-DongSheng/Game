@@ -27,11 +27,11 @@ namespace Game
         {
             var data = DataManager.Instance.Load<DataTask>();
 
-            int count = data.tasks.Count;
+            int count = data.list.Count;
 
             for (int i = 0; i < count; i++)
             {
-                _tasks.Add(new Task(data.tasks[i])
+                _tasks.Add(new Task(data.list[i])
                 {
 
                 });

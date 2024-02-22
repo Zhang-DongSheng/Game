@@ -2,8 +2,8 @@
 "data":"Sheet1",
 "list":[
 	{
-	"ID":101,
-	"type":1,
+	"ID":1,
+	"activityID":101,
 	"name":"签到",
 	"timeLimit":"false",
 	"beginTime":0,
@@ -11,8 +11,8 @@
 	"description":"签到"
 	},
 	{
-	"ID":102,
-	"type":2,
+	"ID":2,
+	"activityID":102,
 	"name":"兑换码",
 	"timeLimit":"false",
 	"beginTime":0,
@@ -20,8 +20,8 @@
 	"description":"兑换码"
 	},
 	{
-	"ID":103,
-	"type":3,
+	"ID":3,
+	"activityID":103,
 	"name":"轮盘抽奖",
 	"timeLimit":"true",
 	"beginTime":1701360000,
@@ -29,8 +29,8 @@
 	"description":"轮盘抽奖"
 	},
 	{
-	"ID":104,
-	"type":4,
+	"ID":4,
+	"activityID":104,
 	"name":"大秘宝",
 	"timeLimit":"false",
 	"beginTime":0,

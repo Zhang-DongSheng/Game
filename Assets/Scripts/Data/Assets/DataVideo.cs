@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Video;
 
 namespace Data
 {
@@ -16,13 +15,13 @@ namespace Data
 
             for (int i = 0; i < count; i++)
             {
-                if (dic.ContainsKey(list[i].key))
+                if (dic.ContainsKey(list[i].name))
                 {
-                    Debuger.LogError(Author.Data, "video exist the same key:" + list[i].key);
+                    Debuger.LogError(Author.Data, "video exist the same key:" + list[i].name);
                 }
                 else
                 {
-                    dic.Add(list[i].key, 1);
+                    dic.Add(list[i].name, 1);
                 }
             }
         }
@@ -35,7 +34,7 @@ namespace Data
     [System.Serializable]
     public class VideoInformation : InformationBase
     {
-        public string key;
+        public string name;
 
         public string path;
     }

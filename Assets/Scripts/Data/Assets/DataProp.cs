@@ -5,7 +5,7 @@ namespace Data
 {
     public class DataProp : DataBase
     {
-        public List<PropInformation> props = new List<PropInformation>();
+        public List<PropInformation> list = new List<PropInformation>();
 
         public static PropInformation Get(uint propID)
         {
@@ -13,7 +13,7 @@ namespace Data
 
             if (data != null)
             {
-                return data.props.Find(x => x.primary == propID);
+                return data.list.Find(x => x.primary == propID);
             }
             return null;
         }
@@ -30,13 +30,13 @@ namespace Data
 
                 prop.primary = m_list[i].GetUInt("ID");
 
-                props.Add(prop);
+                list.Add(prop);
             }
         }
 
         public override void Clear()
         {
-            props = new List<PropInformation>();
+            list = new List<PropInformation>();
         }
     }
     [System.Serializable]
