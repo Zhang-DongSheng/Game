@@ -26,7 +26,7 @@ namespace Game.UI
 
         public static readonly float ScreenHeightRatio = ResolutionHeight / Screen.height;
 
-        public static readonly float ScreenRatio = Screen.width / (float)Screen.height;
+        public static readonly float ScreenRatio = (float)Screen.width / Screen.height;
     }
 
     public enum Axis

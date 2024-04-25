@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Model
 {
-    public class MovementArrowManager : ItemBase
+    public class MovementManager : ItemBase
     {
         public MovementArrow Indicator0;
 
@@ -97,4 +97,17 @@ namespace Game.Model
 			}
 		}
 	}
+
+    public enum MovementDirection
+    {
+        None,
+        Forward,
+        LeftForward,
+        RightForward,
+        Back,
+        LeftBack,
+        RightBack,
+        Clockwise,
+        Counterclockwise,
+    }
 }

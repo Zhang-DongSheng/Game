@@ -5,8 +5,6 @@ namespace Game.Model
 {
     public class ModelDisplay : ItemBase
     {
-        private readonly Dictionary<string, string> _paramters = new Dictionary<string, string>();
-
         private readonly Dictionary<string, Dictionary<string, SkinnedMeshRenderer>> _parts = new Dictionary<string, Dictionary<string, SkinnedMeshRenderer>>();
 
         public void Initialize(Transform target)
@@ -32,6 +30,11 @@ namespace Game.Model
                     _parts.Add(key, new Dictionary<string, SkinnedMeshRenderer>() { { index, part } });
                 }
             }
+        }
+
+        public void Refresh(ModelInformation information)
+        { 
+            
         }
 
         public void Change(string part, string index, string skin)

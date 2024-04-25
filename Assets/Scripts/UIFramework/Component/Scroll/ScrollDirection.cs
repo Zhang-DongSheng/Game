@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 
 namespace UnityEngine.UI
@@ -11,25 +12,21 @@ namespace UnityEngine.UI
 
         private Vector2 position;
 
-        private void Awake()
-        {
-            if (scroll == null)
-            {
-                scroll = GetComponent<ScrollRect>();
-            }
-        }
-
-        public void Direction(int index)
+        public void Direction(int index, Func<bool> condition = null)
         {
             int count = scroll.content.childCount;
 
             if (index >= count) return;
 
-            StartCoroutine(FixedPosition(index));
+            StartCoroutine(FixedPosition(index, condition));
         }
 
-        private IEnumerator FixedPosition(int index)
+        private IEnumerator FixedPosition(int index, Func<bool> condition)
         {
+            if (condition != null)
+            {
+                yield return new WaitUntil(condition);
+            }
             yield return new WaitForEndOfFrame();
 
             position = Vector2.zero;

@@ -12,7 +12,7 @@ namespace Game.UI
 
         protected override void OnVisible(bool active)
         {
-            timer = 0;
+            this.timer = 0;
 
             this.active = active;
         }

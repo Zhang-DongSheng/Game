@@ -7,6 +7,92 @@ namespace Game
 {
     public class ModelManager : MonoSingleton<ModelManager>
     {
+        [SerializeField] private Camera _camera;
+
+        [SerializeField] private List<ModelGroup> _groups = new List<ModelGroup>();
+
+        public void RefreshModel(ModelInformation model)
+        {
+            var group = _groups.Find(x => x.index == 1);
+
+            if (group == null) return;
+
+            int count = group.cells.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (group.cells[i] == null) continue;
+
+                var cell = group.cells[i];
+
+                if (model != null)
+                {
+                    if (cell.display == null)
+                    {
+                        cell.Create();
+                    }
+                    cell.display.Refresh(model);
+                }
+                else
+                {
+                    cell.Release();
+                }
+                cell.empty.SetActive(cell.display != null);
+            }
+        }
+
+        public void RefreshModels(int index, List<ModelInformation> list)
+        {
+            var group = _groups.Find(x => x.index == index);
+
+            if (group == null) return;
+
+            int count = group.cells.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (group.cells[i] == null) continue;
+
+                var cell = group.cells[i];
+
+                var model = list.Find(x => x.index == cell.index);
+
+                if (model != null)
+                {
+                    if (cell.display == null)
+                    {
+                        cell.Create();
+                    }
+                    cell.display.Refresh(model);
+                }
+                else
+                {
+                    cell.Release();
+                }
+                cell.empty.SetActive(cell.display != null);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         private readonly Dictionary<string, GameObject> _models = new Dictionary<string, GameObject>();
 
         public void Display(string path)
