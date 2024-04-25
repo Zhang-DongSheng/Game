@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Game.Model
 {
-    public class ModelGroup : MonoBehaviour
+    public class ModelDisplayGroup : MonoBehaviour
     {
         public string key;
 
         public int index;
 
-        public List<ModelCell> cells;
+        public List<ModelDisplayCell> cells;
     }
 }

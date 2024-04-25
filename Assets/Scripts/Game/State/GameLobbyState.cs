@@ -1,4 +1,5 @@
-﻿using Game.UI;
+﻿using Game.Model;
+using Game.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -36,7 +37,7 @@ namespace Game.State
 
         public void OnExit()
         {
-            ModelManager.Instance.Clear();
+            ModelDisplayManager.Instance.Clear();
         }
 
         public void OnStay()

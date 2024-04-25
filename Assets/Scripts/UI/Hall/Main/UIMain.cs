@@ -1,4 +1,5 @@
 using Game.Audio;
+using Game.Model;
 using Game.State;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,8 +30,12 @@ namespace Game.UI
             }
             RefreshCurrencies();
 
-            ModelManager.Instance.Display("Package/Prefab/Model/Character/Female.prefab");
+            ModelDisplayManager.Instance.SwitchGroup(1);
 
+            ModelDisplayManager.Instance.RefreshModel(new ModelDisplayInformation()
+            {
+                path = "Package/Prefab/Model/Character/Female.prefab"
+            });
             AudioManager.Instance.PlayMusic("HITA - ×íºìç¯");
         }
 

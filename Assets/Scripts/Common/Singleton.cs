@@ -37,39 +37,25 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
                 if (_instance == null)
                 {
-                    string name = string.Format("[{0}]", typeof(T).Name);
-
-                    var bind = new GameObject(name);
-
-                    _instance = bind.AddComponent<T>();
+                    _instance = new GameObject(string.Format("[{0}]", typeof(T).Name)).AddComponent<T>();
                 }
-                _instance.GetComponent<MonoSingleton<T>>().Initialize();
+                DontDestroyOnLoad(_instance.gameObject);
             }
             return _instance;
         }
     }
 
-    protected virtual void Initialize()
+    public virtual void Initialize()
     {
-        DontDestroyOnLoad(this.gameObject);
+        
     }
 
-    protected virtual void Release()
-    {
-        GameObject.Destroy(_instance.gameObject);
-    }
-
-    public void Dispose()
+    public virtual void Release()
     {
         if (_instance != null)
         {
-            Release();
+            GameObject.Destroy(_instance.gameObject);
         }
-        _instance = null;
-    }
-
-    private void OnDestroy()
-    {
         _instance = null;
     }
 }

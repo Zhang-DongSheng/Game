@@ -42,7 +42,7 @@ namespace Game.UI
 
         protected override void OnClickClose()
         {
-            DeployLogic.Instance.Dispose();
+            DeployLogic.Instance.Release();
 
             GameStateController.Instance.EnterState<GameLobbyState>();
         }
