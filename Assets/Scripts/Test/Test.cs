@@ -1,6 +1,4 @@
-﻿using Data;
-using Game.Attribute;
-using System.Collections.Generic;
+﻿using Game.Attribute;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,13 +47,7 @@ namespace Game.Test
         /// </summary>
         public void OnClick(int code)
         {
-            var qr = Utility.QRCode.Create("i 123456", 1, 1);
-
-            var texture = Utility.Drawing.Texture2D(qr);
-
-            var component = target.GetComponent<Image>();
-
-            component.sprite = Utility.Drawing.Sprite(texture);
+            
         }
         /// <summary>
         /// 菜单栏测试

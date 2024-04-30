@@ -21,39 +21,49 @@ namespace Game.UI
 
             if (canvas != null)
             {
+                if (canvas.worldCamera != null)
+                {
+                    canvas.worldCamera.transform.position = new Vector3(0, 0, -canvas.planeDistance);
+                }
                 CanvasScaler scale = canvas.GetComponent<CanvasScaler>();
 
-                var resolution = new Vector2(UIDefine.ResolutionWidth, UIDefine.ResolutionHeight);
-
-                scale.referenceResolution = resolution;
-
-                if (UIDefine.ScreenRatio > UIDefine.ResolutionRatio)
+                switch (scale.screenMatchMode)
                 {
-                    scale.matchWidthOrHeight = 1;
+                    case CanvasScaler.ScreenMatchMode.MatchWidthOrHeight:
+                        {
+                            float ratio = (float)Screen.width / Screen.height;
+
+                            float resolution = scale.referenceResolution.x / scale.referenceResolution.y;
+
+                            scale.matchWidthOrHeight = ratio > resolution ? 1 : 0;
+                        }
+                        break;
                 }
                 foreach (var layer in Enum.GetValues(typeof(UILayer)))
                 {
-                    GameObject parent = new GameObject(layer.ToString());
+                    GameObject child = new GameObject(layer.ToString());
 
-                    parent.transform.SetParent(canvas.transform);
+                    child.transform.SetParent(canvas.transform);
 
-                    parent.layer = LayerMask.NameToLayer("UI");
+                    child.transform.localPosition = Vector3.zero; ;
 
-                    RectTransform rect = parent.AddComponent<RectTransform>();
+                    child.layer = LayerMask.NameToLayer("UI");
 
-                    rect.Reset(); rect.SetFull();
+                    var _child = child.AddComponent<RectTransform>();
 
-                    _parents.Add(rect);
+                    _child.Reset(); _child.SetFull();
 
-                    Canvas _canvas = parent.AddComponent<Canvas>();
+                    _parents.Add(_child);
 
-                    parent.AddComponent<GraphicRaycaster>();
+                    var component = child.AddComponent<Canvas>();
 
-                    _canvas.pixelPerfect = true;
+                    component.pixelPerfect = true;
 
-                    _canvas.overrideSorting = true;
+                    component.overrideSorting = true;
 
-                    _canvas.sortingOrder = (int)layer * 10;
+                    component.sortingOrder = (int)layer * 10;
+
+                    child.AddComponent<GraphicRaycaster>();
                 }
             }
             else

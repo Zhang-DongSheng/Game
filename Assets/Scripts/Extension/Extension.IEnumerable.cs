@@ -135,7 +135,7 @@ namespace Game
                     count++;
                 }
             }
-            // ≈–∂œ
+            // compute
             if (index == -1)
             {
                 return ListRange.Outside;
@@ -227,14 +227,17 @@ namespace Game
         #endregion
 
         #region IList
-        public static void Swap<T>(this IList<T> list, int index, int to)
+        /// <summary>
+        /// Ωªªª
+        /// </summary>
+        public static void Swap<T>(this IList<T> list, int from, int to)
         {
-            if (index == to)
+            if (from == to)
                 return;
-            if (list.Count > index && list.Count > to)
+            if (list.Count > from && list.Count > to)
             {
-                var temp = list[index];
-                list[index] = list[to];
+                var temp = list[from];
+                list[from] = list[to];
                 list[to] = temp;
             }
         }
@@ -261,6 +264,48 @@ namespace Game
                     list.Add(value);
                 }
             }
+        }
+        /// <summary>
+        /// Ωÿ»°
+        /// </summary>
+        public static List<T> Truncate<T>(this IList<T> list, int index, int length)
+        {
+            var result = new List<T>(length);
+
+            int count = list.Count;
+
+            int start = 0;
+
+            int last = count - 1;
+
+            int right = length / 2;
+
+            int left = length % 2 == 0 ? right - 1 : right;
+
+            int offset;
+
+            if (index - left < start)
+            {
+                offset = start - index + left;
+            }
+            else if (index + right > last)
+            {
+                offset = last - index - right;
+            }
+            else
+            {
+                offset = 0;
+            }
+            // compute
+            for (int i = 0; i < count; i++)
+            {
+                if (i >= index - left + offset &&
+                    i <= index + right + offset)
+                {
+                    result.Add(list[i]);
+                }
+            }
+            return result;
         }
         #endregion
     }

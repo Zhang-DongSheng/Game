@@ -10,7 +10,9 @@ namespace Game.Model
         protected GameObject model;
 
         public void Refresh(ModelDisplayInformation information)
-        { 
+        {
+            if (this.information != null && this.information.Equals(information)) return;
+
             this.information = information;
 
             Load(information.path);
