@@ -8,7 +8,7 @@ namespace UnityEngine.UI
     [RequireComponent(typeof(Image))]
     public class ImageGif : MonoBehaviour
     {
-        [SerializeField] private string path = "Gif/giphy.gif";
+        [SerializeField] private string path = "Gif/wukelan.gif";
 
         [SerializeField] private float speed = 5f;
 

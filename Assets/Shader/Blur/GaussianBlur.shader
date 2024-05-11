@@ -108,13 +108,10 @@ Shader "Blur/Gaussian"
                 color += tex2D(_MainTex, float2(uv.x, uv.y + offset)) * 0.118318f;
                 // 右下
                 color += tex2D(_MainTex, float2(uv.x + offset, uv.y - offset)) * 0.0947416f;
-    
-    
 #if UNITY_TEXTURE_ALPHASPLIT_ALLOWED
                 if (_AlphaSplitEnabled)
                     color.a = tex2D(_AlphaTex, uv).r;
 #endif
-
                 return color;
             }
 
