@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DataSprite
   m_EditorClassIdentifier: 
   list:
-  - primary: 986
+  - primary: 990
     name: altas_head
     path: Package/Atlas/altas_head.spriteatlas
     sprites:
@@ -29,86 +29,92 @@ MonoBehaviour:
     - "\u7537\u751F-\u6B27"
     - "\u7537\u751F-\u84DD"
     - "\u5973\u751F-\u7D2B"
-  - primary: 988
-    name: atlas_common
-    path: Package/Atlas/atlas_common.spriteatlas
+  - primary: 992
+    name: atlas_common_normal
+    path: Package/Atlas/atlas_common_normal.spriteatlas
     sprites:
     - Rounded Outline - Stroke 16px
-    - ui_com_turn_on
-    - quality_4
-    - quality_6
-    - square
-    - quality_2
+    - background_square
     - Rounded Outline - Stroke 10px
-    - ui_com_ellipsis
-    - ui_com_toggle
-    - quality_3
-    - ui_com_loading
-    - ui_arrow_left
     - Rounded Outline - Stroke 5px
     - background_2
-    - Vertical Shadow
     - GUI Skin - Button Normal
     - Rounded Outline - Stroke 12px
-    - ui_com_sync
-    - quality_1
-    - Square Shadow (200ppu)
     - Circle Outline - Stroke 10px (x64)
-    - ui_arrow_icon
     - background_4
     - Circle Filled - x256
     - Rounded Filled (300ppu)
-    - ui_com_check
-    - ui_com_turn_of
     - button_1
-    - Rounded Circle Shadow (400ppu)
     - background_1
-    - Horizontal Shadow
     - Circle Filled - x64
-    - ui_com_times
     - Rounded Circle Outline - Stroke 8px (300ppu)
-    - ui_com_compress
-    - quality_5
     - GUI Skin - Button Pressed
-    - ui_arrow_right
-    - ui_com_expand
     - Circle Outline Dash - Stroke 3px
     - background_3
-  - primary: 998
+  - primary: 33640
+    name: atlas_common_other
+    path: Package/Atlas/atlas_common_other.spriteatlas
+    sprites:
+    - toggle_turn_off
+    - quality_4
+    - quality_6
+    - quality_2
+    - toggle_background
+    - quality_3
+    - arrow_left
+    - light_left
+    - quality_1
+    - light_square
+    - arrow_icon
+    - toggle_check
+    - toggle_turn_on
+    - light_circle
+    - light_bottom
+    - quality_5
+    - arrow_right
+  - primary: 33644
+    name: atlas_common_utils
+    path: Package/Atlas/atlas_common_utils.spriteatlas
+    sprites:
+    - utils_sleep
+    - utils_ellipsis
+    - utils_record
+    - utils_loading
+    - utils_search
+    - utils_sync
+    - utils_video
+    - utils_close
+    - utils_compress
+    - utils_expand
+  - primary: 1002
     name: atlas_currency
     path: Package/Atlas/atlas_currency.spriteatlas
     sprites:
-    - coin_3
-    - coin_2
-    - diamond
-    - gold
-    - coin_1
-  - primary: 994
+    - currency_coin_2
+    - currency_cup
+    - currency_coin_1
+    - currency_diamond
+    - currency_gold
+    - currency_coin_3
+    - currency_bill
+  - primary: 998
     name: atlas_emoji
     path: Package/Atlas/atlas_emoji.spriteatlas
     sprites: []
-  - primary: 982
-    name: atlas_login_background
-    path: Package/Atlas/atlas_login_background.spriteatlas
-    sprites:
-    - ui_login_background
-  - primary: 996
+  - primary: 1000
     name: atlas_main
     path: Package/Atlas/atlas_main.spriteatlas
     sprites:
-    - ui_main_set
-    - ui_main_activity
-    - ui_main_friend
-    - ui_main_store
-    - ui_main_mail
-    - ui_main_task
-    - ui_main_notice
-  - primary: 992
-    name: atlas_main_background
-    path: Package/Atlas/atlas_main_background.spriteatlas
-    sprites:
-    - ui_main_background
-  - primary: 990
+    - main_set
+    - main_activity
+    - main_friend
+    - main_shop
+    - main_chat
+    - main_mail
+    - main_task
+    - main_notice
+    - main_ranking
+  - primary: 994
     name: atlas_prop_clothing
     path: Package/Atlas/atlas_prop_clothing.spriteatlas
     sprites:
@@ -132,18 +138,34 @@ MonoBehaviour:
     - "\u4F11\u95F2\u88E4"
     - "\u8D85\u77ED\u88E4"
     - "\u886C\u886B"
-  - primary: 984
+  - primary: 988
     name: atlas_set
     path: Package/Atlas/atlas_set.spriteatlas
     sprites:
-    - ui_set_forbid
-    - ui_set_slash
-    - ui_set_music
-    - ui_set_sound
-    - ui_set_mute
-    - ui_set_vibrate
-  - primary: 980
+    - setting_forbid
+    - setting_slash
+    - setting_music
+    - setting_sound
+    - settingt_sound
+    - setting_mute
+    - setting_vibrate
+  - primary: 984
     name: atlas_title
     path: Package/Atlas/atlas_title.spriteatlas
     sprites:
-    - ui_title_back
+    - title_back
+  - primary: 4294961256
+    name: atlas_background_battle
+    path: Package/Atlas/Single/atlas_background_battle.spriteatlas
+    sprites:
+    - background_battle
+  - primary: 986
+    name: atlas_background_login
+    path: Package/Atlas/Single/atlas_background_login.spriteatlas
+    sprites:
+    - background_login
+  - primary: 996
+    name: atlas_background_main
+    path: Package/Atlas/Single/atlas_background_main.spriteatlas
+    sprites:
+    - background_main

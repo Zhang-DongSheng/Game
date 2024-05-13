@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DataUI
   m_EditorClassIdentifier: 
   list:
-  - primary: 27916
+  - primary: 29162
     name: UILogin
     panel: 1
     type: 0
@@ -21,7 +21,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UILogin.prefab
     destroy: 0
-  - primary: 28098
+  - primary: 29166
     name: UIMain
     panel: 101
     type: 1
@@ -29,7 +29,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIMain.prefab
     destroy: 0
-  - primary: 29064
+  - primary: 29188
     name: UITest
     panel: 102
     type: 1
@@ -37,7 +37,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UITest.prefab
     destroy: 0
-  - primary: 29136
+  - primary: 29190
     name: UITitle
     panel: 103
     type: 3
@@ -45,7 +45,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UITitle.prefab
     destroy: 0
-  - primary: 29344
+  - primary: 29192
     name: UIWaiting
     panel: 104
     type: 1
@@ -53,7 +53,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIWaiting.prefab
     destroy: 0
-  - primary: 29374
+  - primary: 29194
     name: UIWarehouse
     panel: 105
     type: 1
@@ -61,7 +61,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIWarehouse.prefab
     destroy: 0
-  - primary: 29684
+  - primary: 29164
     name: UIMail
     panel: 106
     type: 1
@@ -69,7 +69,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIMail.prefab
     destroy: 0
-  - primary: 29826
+  - primary: 29172
     name: UIPlayer
     panel: 107
     type: 1
@@ -77,7 +77,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIPlayer.prefab
     destroy: 0
-  - primary: 30162
+  - primary: 29184
     name: UIShop
     panel: 108
     type: 1
@@ -85,7 +85,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIShop.prefab
     destroy: 0
-  - primary: 30766
+  - primary: 29178
     name: UIReward
     panel: 109
     type: 2
@@ -93,7 +93,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIReward.prefab
     destroy: 0
-  - primary: 30872
+  - primary: 29138
     name: UIActivity
     panel: 110
     type: 1
@@ -101,7 +101,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIActivity.prefab
     destroy: 0
-  - primary: 31956
+  - primary: 29180
     name: UISetting
     panel: 111
     type: 1
@@ -109,7 +109,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UISetting.prefab
     destroy: 0
-  - primary: 32552
+  - primary: 29186
     name: UITask
     panel: 112
     type: 1
@@ -117,7 +117,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UITask.prefab
     destroy: 0
-  - primary: 32718
+  - primary: 29148
     name: UIDeploy
     panel: 113
     type: 1
@@ -125,7 +125,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIDeploy.prefab
     destroy: 0
-  - primary: 32814
+  - primary: 29150
     name: UIFriend
     panel: 114
     type: 1
@@ -133,7 +133,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIFriend.prefab
     destroy: 0
-  - primary: 32830
+  - primary: 29174
     name: UIProclamation
     panel: 115
     type: 2
@@ -141,7 +141,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIProclamation.prefab
     destroy: 0
-  - primary: 32904
+  - primary: 29144
     name: UICombatReadiness
     panel: 116
     type: 1
@@ -149,7 +149,31 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UICombatReadiness.prefab
     destroy: 0
-  - primary: 32942
+  - primary: 29176
+    name: UIRankingList
+    panel: 117
+    type: 1
+    layer: 2
+    order: 0
+    path: Package/Prefab/UI/Panel/UIRankingList.prefab
+    destroy: 0
+  - primary: 29142
+    name: UIClub
+    panel: 118
+    type: 1
+    layer: 2
+    order: 0
+    path: Package/Prefab/UI/Panel/UIClub.prefab
+    destroy: 0
+  - primary: 27818
+    name: UIChat
+    panel: 119
+    type: 3
+    layer: 3
+    order: 0
+    path: Package/Prefab/UI/Panel/UIChat.prefab
+    destroy: 0
+  - primary: 29146
     name: UIConfirm
     panel: 301
     type: 2
@@ -157,7 +181,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIConfirm.prefab
     destroy: 0
-  - primary: 33038
+  - primary: 29140
     name: UIBubble
     panel: 302
     type: 3
@@ -165,7 +189,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIBubble.prefab
     destroy: 0
-  - primary: 33076
+  - primary: 29170
     name: UINotice
     panel: 303
     type: 4
@@ -173,7 +197,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UINotice.prefab
     destroy: 0
-  - primary: 33120
+  - primary: 29158
     name: UIHorseLamp
     panel: 304
     type: 4
@@ -181,7 +205,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIHorseLamp.prefab
     destroy: 0
-  - primary: 33188
+  - primary: 29160
     name: UIIntroduce
     panel: 305
     type: 2
@@ -189,7 +213,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIIntroduce.prefab
     destroy: 0
-  - primary: 33320
+  - primary: 29156
     name: UIGuidance
     panel: 306
     type: 3
@@ -197,7 +221,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIGuidance.prefab
     destroy: 0
-  - primary: 33374
+  - primary: 29152
     name: UIGame
     panel: 1001
     type: 1
@@ -205,7 +229,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIGame.prefab
     destroy: 0
-  - primary: 33640
+  - primary: 29154
     name: UIGameSetting
     panel: 1002
     type: 1
@@ -213,7 +237,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIGameSetting.prefab
     destroy: 0
-  - primary: 33668
+  - primary: 29168
     name: UIMiniMap
     panel: 1003
     type: 3
@@ -221,7 +245,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/UIMiniMap.prefab
     destroy: 0
-  - primary: 33696
+  - primary: 29182
     name: UISettlement
     panel: 1004
     type: 1

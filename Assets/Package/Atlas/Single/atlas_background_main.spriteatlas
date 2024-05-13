@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: atlas_set
+  m_Name: atlas_background_main
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -38,33 +38,21 @@ SpriteAtlas:
       padding: 4
       blockOffset: 1
       allowAlphaSplitting: 0
-      enableRotation: 0
-      enableTightPacking: 0
+      enableRotation: 1
+      enableTightPacking: 1
       enableAlphaDilation: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: d9b9f6b28425450429bc45050555dcee, type: 3}
+    - {fileID: 2800000, guid: 62119b813e4d2d24995772d23ade5bc9, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 5a70bfd130f186a4b89fd0ead8cd7653, type: 3}
-  - {fileID: 21300000, guid: 0b722ef132803f04aa47d42151448af0, type: 3}
-  - {fileID: 21300000, guid: 7d8da242d4165644b83e98cc7303e5fa, type: 3}
-  - {fileID: 21300000, guid: 15334514bf7d9734c8fde3c58286c429, type: 3}
-  - {fileID: 21300000, guid: 20fb87e815d28b14ca22c06f083b24aa, type: 3}
-  - {fileID: 21300000, guid: d92e5d2988e8ccd45bafc1038125104d, type: 3}
-  - {fileID: 21300000, guid: a4c016cbf9c391049a95087e1526ab9e, type: 3}
+  - {fileID: 21300000, guid: 62119b813e4d2d24995772d23ade5bc9, type: 3}
   m_PackedSpriteNamesToIndex:
-  - setting_forbid
-  - setting_slash
-  - setting_music
-  - setting_sound
-  - settingt_sound
-  - setting_mute
-  - setting_vibrate
+  - background_main
   m_RenderDataMap: {}
-  m_Tag: atlas_set
+  m_Tag: atlas_background_main
   m_IsVariant: 0

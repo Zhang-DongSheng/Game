@@ -40,7 +40,7 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: 3ba0716c21d4d6b4c8807eba58b1b840, type: 3}
   m_PackedSpriteNamesToIndex:
-  - ui_title_back
+  - title_back
   m_RenderDataMap: {}
   m_Tag: atlas_title
   m_IsVariant: 0

@@ -41,18 +41,22 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d012711014ff3c549b03d8b513e11b93, type: 3}
   - {fileID: 21300000, guid: a31c70029c7204442b071c2882427a32, type: 3}
   - {fileID: 21300000, guid: 4ae738a22193c034c8028d0641eb4f31, type: 3}
-  - {fileID: 21300000, guid: 41a9907aae9547143a9bb0564b678e87, type: 3}
+  - {fileID: 21300000, guid: 1fd7dea4ff32d684cb101537c0d3f207, type: 3}
+  - {fileID: 21300000, guid: 021b97d69f78e88419821c01e95ea69d, type: 3}
   - {fileID: 21300000, guid: 3797456b7fa5093459c888d0e8364aad, type: 3}
   - {fileID: 21300000, guid: 0ad29dcb76b0918409f4ca9871d79639, type: 3}
   - {fileID: 21300000, guid: bca1164e79591454b8c9893ed97541b5, type: 3}
+  - {fileID: 21300000, guid: 34c7f46e46a9543408278e35af7832f5, type: 3}
   m_PackedSpriteNamesToIndex:
-  - ui_main_set
-  - ui_main_activity
-  - ui_main_friend
-  - ui_main_store
-  - ui_main_mail
-  - ui_main_task
-  - ui_main_notice
+  - main_set
+  - main_activity
+  - main_friend
+  - main_shop
+  - main_chat
+  - main_mail
+  - main_task
+  - main_notice
+  - main_ranking
   m_RenderDataMap: {}
   m_Tag: atlas_main
   m_IsVariant: 0

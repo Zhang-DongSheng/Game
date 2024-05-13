@@ -39,16 +39,20 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 5528f211016c5fc4aaef8e330723caa2, type: 3}
+  - {fileID: 21300000, guid: 4046b8c1c5bee344283f7c5dfceea47f, type: 3}
   - {fileID: 21300000, guid: b973bff11e35c764fa7fa3992582fe33, type: 3}
   - {fileID: 21300000, guid: d58e68936fa69dd40918fd8789808c6c, type: 3}
   - {fileID: 21300000, guid: e0eeb42649aa6a34e83e729e7e3130e2, type: 3}
   - {fileID: 21300000, guid: 15b9e4eaf6ec9f04186992e586c29659, type: 3}
+  - {fileID: 21300000, guid: 534f1b2e415b1944daff9f3e30fc4cf9, type: 3}
   m_PackedSpriteNamesToIndex:
-  - coin_3
-  - coin_2
-  - diamond
-  - gold
-  - coin_1
+  - currency_coin_2
+  - currency_cup
+  - currency_coin_1
+  - currency_diamond
+  - currency_gold
+  - currency_coin_3
+  - currency_bill
   m_RenderDataMap: {}
   m_Tag: atlas_currency
   m_IsVariant: 0

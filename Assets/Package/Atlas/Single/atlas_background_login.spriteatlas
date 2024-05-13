@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: atlas_login_background
+  m_Name: atlas_background_login
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -40,7 +40,7 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: da10acfaee9a8394f9e282686a899001, type: 3}
   m_PackedSpriteNamesToIndex:
-  - ui_login_background
+  - background_login
   m_RenderDataMap: {}
-  m_Tag: atlas_login_background
+  m_Tag: atlas_background_login
   m_IsVariant: 0

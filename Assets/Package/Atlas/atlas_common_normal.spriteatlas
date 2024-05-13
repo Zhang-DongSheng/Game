@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: atlas_common
+  m_Name: atlas_common_normal
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -56,95 +56,51 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: 18c608822b7b5064b823f50f5d01d9cc, type: 3}
+    - {fileID: 102900000, guid: af4978cb234e1024cac9006ee4039ea2, type: 3}
+    - {fileID: 102900000, guid: b79852ec62f739440ae0f1e346ddffde, type: 3}
+    - {fileID: 102900000, guid: 76769d58f667d794dab1edfd8aeff92f, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: eaea90a025355c14b871008ae1ab621c, type: 3}
-  - {fileID: 21300000, guid: 131f24f0623ac284ca6fde0f1c021538, type: 3}
-  - {fileID: 21300000, guid: e00250a115dfd7d489a76658ac8ec6f8, type: 3}
-  - {fileID: 21300000, guid: 58f940b1a6fc09a4e96f372b2e13f4e3, type: 3}
   - {fileID: 21300000, guid: 231cd6b1927c320419758698a529bf36, type: 3}
-  - {fileID: 21300000, guid: e91f96626bfcbdc4e9f85e5a97195c21, type: 3}
   - {fileID: 21300000, guid: c09c98233e3767545acc1ae234af060c, type: 3}
-  - {fileID: 21300000, guid: cf97b6831f15e344da9d84fd0ba759b8, type: 3}
-  - {fileID: 21300000, guid: b138e7d3f0e8dac41811479cd85fff39, type: 3}
-  - {fileID: 21300000, guid: cbe7a574e7b7f8643a847fa33943f94d, type: 3}
-  - {fileID: 21300000, guid: a358e9d4870504e46b170f3c3c1c0c73, type: 3}
-  - {fileID: 21300000, guid: 458d0c65d331cac409566d681971f9e5, type: 3}
   - {fileID: 21300000, guid: c04a63d54069e8f4bac378fe7ab6026c, type: 3}
   - {fileID: 21300000, guid: f01608766d7146747b7af65d62d69611, type: 3}
-  - {fileID: 21300000, guid: 4588d5e6aeea92d4b86bd1e976c99baf, type: 3}
   - {fileID: 21300000, guid: d88b03a7da3ddc84b882c452fd42f025, type: 3}
   - {fileID: 21300000, guid: ff3d95e7e84ef024a998874a1a7b4479, type: 3}
-  - {fileID: 21300000, guid: 1e0847f7d790f734bac65eb8511473d5, type: 3}
-  - {fileID: 21300000, guid: 3ad6a888d34447447b2e8475a948e423, type: 3}
-  - {fileID: 21300000, guid: 5a2cc1793ca8c1e4381df95290d5022a, type: 3}
   - {fileID: 21300000, guid: 5e9e4e8984cc68e4aa19df6bf330fb48, type: 3}
-  - {fileID: 21300000, guid: 53a11e5a95693f6408f1b2e415bc336f, type: 3}
   - {fileID: 21300000, guid: c2170acaf65944b4584cb2f47e3849f4, type: 3}
   - {fileID: 21300000, guid: c26a820b2129e2f4eb122efd27df5339, type: 3}
   - {fileID: 21300000, guid: 5765424b27ee5f8408478922c82d99a2, type: 3}
-  - {fileID: 21300000, guid: 94ce607b3a4c7874c9a98f3b1407ce54, type: 3}
-  - {fileID: 21300000, guid: feabccab69c4b7a4f97f9b2c98bf0edd, type: 3}
   - {fileID: 21300000, guid: 131f14cb7eab9f046933dc474659192a, type: 3}
-  - {fileID: 21300000, guid: 446fd45c600b6e84c9b7d1b9982cc3f4, type: 3}
   - {fileID: 21300000, guid: d61c8b5c0808780478374c2adb46f748, type: 3}
-  - {fileID: 21300000, guid: 390f1c7c5c2f9714d8458c01651acdcf, type: 3}
   - {fileID: 21300000, guid: 5dd3dd8c7d3872841aae89a3539bb5ef, type: 3}
-  - {fileID: 21300000, guid: e90d666d9883e884f831d06d65661a49, type: 3}
   - {fileID: 21300000, guid: 94ed127db6c44634db6082daf3b3ce2e, type: 3}
-  - {fileID: 21300000, guid: 1d29b0bd9f8a0e84f899abf6f9350f78, type: 3}
-  - {fileID: 21300000, guid: 6b7d680e376717948897eac93f456e18, type: 3}
   - {fileID: 21300000, guid: 55df7c0e2aab60c438ae7184c5438d25, type: 3}
-  - {fileID: 21300000, guid: d0263e0e57442254e805c29a02a62ac3, type: 3}
-  - {fileID: 21300000, guid: 5077db3ee5c7c3948a3077907b136ea4, type: 3}
   - {fileID: 21300000, guid: 24de22fe090ea2a4b932c13f1b3be37d, type: 3}
   - {fileID: 21300000, guid: bf72860f2411d0447af5ba88824a06f3, type: 3}
   m_PackedSpriteNamesToIndex:
   - Rounded Outline - Stroke 16px
-  - ui_com_turn_on
-  - quality_4
-  - quality_6
-  - square
-  - quality_2
+  - background_square
   - Rounded Outline - Stroke 10px
-  - ui_com_ellipsis
-  - ui_com_toggle
-  - quality_3
-  - ui_com_loading
-  - ui_arrow_left
   - Rounded Outline - Stroke 5px
   - background_2
-  - Vertical Shadow
   - GUI Skin - Button Normal
   - Rounded Outline - Stroke 12px
-  - ui_com_sync
-  - quality_1
-  - Square Shadow (200ppu)
   - Circle Outline - Stroke 10px (x64)
-  - ui_arrow_icon
   - background_4
   - Circle Filled - x256
   - Rounded Filled (300ppu)
-  - ui_com_check
-  - ui_com_turn_of
   - button_1
-  - Rounded Circle Shadow (400ppu)
   - background_1
-  - Horizontal Shadow
   - Circle Filled - x64
-  - ui_com_times
   - Rounded Circle Outline - Stroke 8px (300ppu)
-  - ui_com_compress
-  - quality_5
   - GUI Skin - Button Pressed
-  - ui_arrow_right
-  - ui_com_expand
   - Circle Outline Dash - Stroke 3px
   - background_3
   m_RenderDataMap: {}
-  m_Tag: atlas_common
+  m_Tag: atlas_common_normal
   m_IsVariant: 0
