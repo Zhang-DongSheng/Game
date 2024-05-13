@@ -69,6 +69,12 @@ MonoBehaviour:
         value: "\u591A\u8BED\u8A00"
       - key: 10116
         value: "\u6E20\u9053"
+      - key: 10117
+        value: "\u6392\u884C\u699C"
+      - key: 10118
+        value: "\u4F1A\u6240"
+      - key: 10119
+        value: "\u597D\u53CB"
       - key: 10201
         value: "\u91D1\u5E01"
       - key: 10202
@@ -131,6 +137,12 @@ MonoBehaviour:
         value: Language
       - key: 10116
         value: SDK
+      - key: 10117
+        value: RankingList
+      - key: 10118
+        value: Club
+      - key: 10119
+        value: Friends
       - key: 10201
         value: Gold
       - key: 10202
@@ -193,6 +205,12 @@ MonoBehaviour:
         value: "\u591A\u8A00\u8A9E\u30B7\u30B9\u30C6\u30E0"
       - key: 10116
         value: "\u3059\u3058"
+      - key: 10117
+        value: '?'
+      - key: 10118
+        value: '?'
+      - key: 10119
+        value: '?'
       - key: 10201
         value: "\u91D1\u8CA8 "
       - key: 10202

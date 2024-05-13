@@ -178,20 +178,41 @@
 	},
 	{
 	"ID":26,
+	"key":"10117",
+	"chinese":"排行榜",
+	"english":"RankingList",
+	"japanese":"?"
+	},
+	{
+	"ID":27,
+	"key":"10118",
+	"chinese":"会所",
+	"english":"Club",
+	"japanese":"?"
+	},
+	{
+	"ID":28,
+	"key":"10119",
+	"chinese":"好友",
+	"english":"Friends",
+	"japanese":"?"
+	},
+	{
+	"ID":29,
 	"key":"10201",
 	"chinese":"金币",
 	"english":"Gold",
 	"japanese":"金貨 "
 	},
 	{
-	"ID":27,
+	"ID":30,
 	"key":"10202",
 	"chinese":"钻石",
 	"english":"Diamond",
 	"japanese":"ダイヤ "
 	},
 	{
-	"ID":28,
+	"ID":31,
 	"key":"10203",
 	"chinese":"代币",
 	"english":"Coin",

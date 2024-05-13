@@ -18,6 +18,11 @@ namespace Game.UI
             button.onClick.AddListener(OnClick);
         }
 
+        public void Refresh()
+        {
+            //nickname.SetText()
+        }
+
         private void OnClick()
         {
             UIQuickEntry.Open(UIPanel.UIPlayer);

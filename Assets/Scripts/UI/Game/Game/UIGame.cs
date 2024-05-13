@@ -37,7 +37,7 @@ namespace Game.UI
                     skills[i].onClick.AddListener(() => OnClickSkill(index));
                 }
             }
-            PlayerController.Instance.SwitchPlayer("Package/Prefab/Model/Role/MODEL ANIMATION.prefab");
+            PlayerController.Instance.SwitchPlayer("Package/Prefab/Model/Character/Female.prefab");
         }
 
         private void OnMove(Vector2 vector)

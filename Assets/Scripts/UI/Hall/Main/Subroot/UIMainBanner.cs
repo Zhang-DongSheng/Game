@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace UnityEngine.UI
+namespace Game.UI
 {
     public class UIMainBanner : MonoBehaviour
     {

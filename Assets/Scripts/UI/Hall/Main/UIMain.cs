@@ -1,6 +1,5 @@
 using Game.Audio;
 using Game.Model;
-using Game.State;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,13 +7,24 @@ namespace Game.UI
 {
     public class UIMain : UIBase
     {
-        [SerializeField] private List<ItemEntry> entries;
+        [SerializeField] private UIMainPlayer player;
+
+        [SerializeField] private UIMainBanner banner;
 
         [SerializeField] private List<ItemCurrency> currencies;
 
+        private readonly List<ItemEntry> entries = new List<ItemEntry>();
+
+        protected override void OnAwake()
+        {
+            entries.Clear();
+
+            entries.AddRange(transform.GetComponentsInChildren<ItemEntry>(true));
+        }
+
         protected override void OnRegister()
         {
-            //EventManager.Register(EventKey.Currency)
+            
         }
 
         protected override void OnUnregister()

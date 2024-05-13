@@ -111,7 +111,7 @@ namespace UnityEditor.Window
 
                 if (source != null)
                 {
-                    information = source.Clone();
+                    information = new UIInformation(source);
                 }
                 else
                 {
@@ -119,9 +119,9 @@ namespace UnityEditor.Window
                     {
                         panel = (int)panel,
 
-                        layer = UILayer.Window,
-
                         type = UIType.Panel,
+
+                        layer = UILayer.Window,
 
                         name = panel.ToString(),
 
@@ -262,14 +262,14 @@ namespace UnityEditor.Window
 
             if (index > -1)
             {
-                asset.list[index] = information.Clone();
+                asset.list[index] = new UIInformation(information);
             }
             else
             {
                 asset.list.Add(information);
             }
             AssetDatabase.SaveAssets();
-            
+
             AssetDatabase.Refresh();
         }
     }

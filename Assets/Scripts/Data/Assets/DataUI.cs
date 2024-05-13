@@ -59,5 +59,27 @@ namespace Data
         public string path;
 
         public bool destroy;
+
+        public UIInformation()
+        {
+
+        }
+
+        public UIInformation(UIInformation information)
+        {
+            name = information.name;
+
+            panel = information.panel;
+
+            type = information.type;
+
+            layer = information.layer;
+
+            order = information.order;
+
+            path = information.path;
+
+            destroy = information.destroy;
+        }
     }
 }

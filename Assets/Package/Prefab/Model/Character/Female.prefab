@@ -112,9 +112,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3992724566760955395}
   - component: {fileID: 3992724566755269605}
-  - component: {fileID: 2803774398836397908}
-  - component: {fileID: 5635435223883070496}
-  - component: {fileID: 5018563299138100025}
   m_Layer: 0
   m_Name: Female
   m_TagString: Untagged
@@ -170,45 +167,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 1
---- !u!114 &2803774398836397908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3992724566761046563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc3ffcadc06a43e498c07f711982984a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5635435223883070496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3992724566761046563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41c9d06f720591c478dd862715dfb905, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 3992724566760955395}
-  speed: 1
---- !u!114 &5018563299138100025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3992724566761046563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5728cea1569404478382362f166d481, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 3992724566760955395}
 --- !u!1 &3992724566761046565
 GameObject:
   m_ObjectHideFlags: 0
