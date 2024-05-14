@@ -3,11 +3,23 @@ using UnityEngine;
 
 namespace Game.Model
 {
-    public class ModelDisplayManager : MonoSingleton<ModelDisplayManager>
+    public class ModelDisplayManager : MonoBehaviour
     {
+        public static ModelDisplayManager Instance { get; private set; }
+
         [SerializeField] private Camera _camera;
 
         [SerializeField] private List<ModelDisplayGroup> _groups = new List<ModelDisplayGroup>();
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+
+        private void OnDestroy()
+        {
+            Instance = null;
+        }
 
         public void RefreshModel(ModelDisplayInformation model)
         {

@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: Gif/wukelan.gif
-  speed: 10
+  speed: 20
 --- !u!1 &2817078503737122829
 GameObject:
   m_ObjectHideFlags: 0

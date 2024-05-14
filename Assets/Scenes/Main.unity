@@ -271,14 +271,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9124091817187663576, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
-      propertyPath: path
-      value: Gif/giphy.gif
-      objectReference: {fileID: 0}
-    - target: {fileID: 9124091817187663576, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
-      propertyPath: speed
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdf5bae7b637eae4ca8ae6109df05455, type: 3}
 --- !u!1001 &4450382493230382482
