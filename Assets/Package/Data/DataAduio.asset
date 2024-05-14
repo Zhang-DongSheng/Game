@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DataAduio
   m_EditorClassIdentifier: 
   list:
-  - primary: 27528
+  - primary: 28370
     name: "HITA - \u9189\u7EA2\u7EE1"
     path: "Package/Audio/HITA - \u9189\u7EA2\u7EE1.mp3"

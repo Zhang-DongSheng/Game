@@ -13,30 +13,38 @@ MonoBehaviour:
   m_Name: DataProp
   m_EditorClassIdentifier: 
   list:
+  - primary: 100
+    name: "\u57FA\u672C\u8D27\u5E01"
+    icon: currency_coin_2
+    quality: 1
+    category: 1
+    source: -1
+    price: 1
+    description: "\u8D27\u5E01\u57FA\u672C\u5355\u4F4D"
   - primary: 101
-    name: "\u94BB\u77F3"
-    icon: diamond
+    name: 10202
+    icon: currency_diamond
     quality: 3
     category: 1
     source: -1
     price: 10
-    description: null
+    description: "\u94BB\u77F3"
   - primary: 102
-    name: "\u91D1\u5E01"
-    icon: gold
+    name: 10201
+    icon: currency_gold
     quality: 2
     category: 1
     source: -1
     price: 1
-    description: null
+    description: "\u91D1\u5E01"
   - primary: 103
-    name: "\u4EE3\u5E01"
-    icon: coin
+    name: 10203
+    icon: currency_coin_1
     quality: 4
     category: 1
     source: -1
     price: 50
-    description: null
+    description: "\u4EE3\u5E01"
   - primary: 10001
     name: "\u6C49\u670D"
     icon: "\u6C49\u670D"
@@ -189,17 +197,9 @@ MonoBehaviour:
     source: -1
     price: 100
     description: null
-  - primary: 99999
-    name: "\u91D1\u672C\u4F4D"
-    icon: coin
-    quality: 1
-    category: 3
-    source: -1
-    price: 1
-    description: "\u4EF7\u503C\u57FA\u672C\u5355\u4F4D"
   helper:
     pairs:
-    - x: 101
+    - x: 100
       y: 0
     - x: 2147483647
       y: 23

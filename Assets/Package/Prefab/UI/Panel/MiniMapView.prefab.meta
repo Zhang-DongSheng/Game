@@ -3,5 +3,5 @@ guid: 3400440c2d13ccf47a497dbc8aadd34d
 PrefabImporter:
   externalObjects: {}
   userData: 
-  assetBundleName: package/prefab/ui/panel/uiminimap
+  assetBundleName: package/prefab/ui/panel/minimapview
   assetBundleVariant: 

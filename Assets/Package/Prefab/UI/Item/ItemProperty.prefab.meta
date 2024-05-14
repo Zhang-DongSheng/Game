@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 236a91cd87a902247bec41f8ce53adc7
+guid: b758f122fab8a754c99722d9c9826cfd
 PrefabImporter:
   externalObjects: {}
   userData: 
-  assetBundleName: package/prefab/ui/panel/playerview
+  assetBundleName: package/prefab/ui/item/itemproperty
   assetBundleVariant: 

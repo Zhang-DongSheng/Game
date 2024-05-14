@@ -13,24 +13,24 @@ MonoBehaviour:
   m_Name: DataVideo
   m_EditorClassIdentifier: 
   list:
-  - primary: 33728
+  - primary: 29196
     name: weather_cloudy-03
     path: Package/Video/weather_cloudy-03.mp4
-  - primary: 33730
+  - primary: 29198
     name: weather_cloudy-and-rainny
     path: Package/Video/weather_cloudy-and-rainny.mp4
-  - primary: 29062
+  - primary: 29200
     name: weather_light-snow
     path: Package/Video/weather_light-snow.mp4
-  - primary: 29060
+  - primary: 29202
     name: weather_night
     path: Package/Video/weather_night.mp4
-  - primary: 33732
+  - primary: 29204
     name: weather_rain
     path: Package/Video/weather_rain.mp4
-  - primary: 28912
+  - primary: 29206
     name: weather_sunny-day
     path: Package/Video/weather_sunny-day.mp4
-  - primary: 33734
+  - primary: 29208
     name: weather_thunder
     path: Package/Video/weather_thunder.mp4

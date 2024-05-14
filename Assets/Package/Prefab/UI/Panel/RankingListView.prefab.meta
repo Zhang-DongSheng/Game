@@ -3,5 +3,5 @@ guid: 80bcfad1baad23640a764233d6e715b0
 PrefabImporter:
   externalObjects: {}
   userData: 
-  assetBundleName: package/prefab/ui/panel/uirankinglist
+  assetBundleName: package/prefab/ui/panel/rankinglistview
   assetBundleVariant: 

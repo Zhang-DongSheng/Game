@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace Game.UI
@@ -16,9 +16,7 @@ namespace Game.UI
 
         private bool active;
 
-        private int count;
-
-        public Action<bool> onValueChanged;
+        public UnityEvent<bool> onValueChanged;
 
         public void Initialize(bool active)
         {
@@ -29,7 +27,7 @@ namespace Game.UI
 
         private void Refresh(bool active)
         {
-            count = on.Count;
+            int count = on.Count;
 
             for (int i = 0; i < count; i++)
             {

@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
-using System.Collections;
-using UnityEditor.Sprites;
-using FSM;
-
-namespace UnityEngine.UI
+﻿namespace UnityEngine.UI
 {
     [RequireComponent(typeof(Graphic))]
     public class UIShiny : MonoBehaviour

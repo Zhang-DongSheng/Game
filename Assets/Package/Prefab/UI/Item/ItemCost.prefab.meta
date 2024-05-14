@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 45c83dce55b54884cad1957267d97b8b
+guid: bf227ecdd314e894699575aff8a6f759
 PrefabImporter:
   externalObjects: {}
   userData: 
-  assetBundleName: package/prefab/ui/item/itemreward
+  assetBundleName: package/prefab/ui/item/itemcost
   assetBundleVariant: 

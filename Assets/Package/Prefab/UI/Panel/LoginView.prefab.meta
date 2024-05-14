@@ -3,5 +3,5 @@ guid: a5a2a6e07ef1b624585317f90dabcd96
 PrefabImporter:
   externalObjects: {}
   userData: 
-  assetBundleName: package/prefab/ui/panel/uilogin
+  assetBundleName: package/prefab/ui/panel/loginview
   assetBundleVariant: 

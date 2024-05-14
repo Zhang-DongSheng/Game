@@ -1,5 +1,6 @@
 using Data;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -7,7 +8,7 @@ namespace Game.UI
     {
         [SerializeField] private ImageBind imgIcon;
 
-        [SerializeField] private TextBind txtNumber;
+        [SerializeField] private Text txtNumber;
 
         protected uint coin;
 

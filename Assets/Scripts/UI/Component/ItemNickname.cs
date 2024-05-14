@@ -6,7 +6,7 @@ namespace Game.UI
     /// <summary>
     /// 昵称
     /// </summary>
-    public class ItemNickname
+    public class ItemNickname : ItemBase
     {
         [SerializeField] private Text nick;
 

@@ -2,44 +2,44 @@
 "data":"prop",
 "list":[
 	{
+	"ID":100,
+	"name":"基本货币",
+	"icon":"currency_coin_2",
+	"category":1,
+	"quality":1,
+	"price":1,
+	"source":-1,
+	"description":"货币基本单位"
+	},
+	{
 	"ID":101,
-	"name":"钻石",
-	"icon":"diamond",
+	"name":"10202",
+	"icon":"currency_diamond",
 	"category":1,
 	"quality":3,
 	"price":10,
 	"source":-1,
-	"description":"null"
+	"description":"钻石"
 	},
 	{
 	"ID":102,
-	"name":"金币",
-	"icon":"gold",
+	"name":"10201",
+	"icon":"currency_gold",
 	"category":1,
 	"quality":2,
 	"price":1,
 	"source":-1,
-	"description":"null"
+	"description":"金币"
 	},
 	{
 	"ID":103,
-	"name":"代币",
-	"icon":"coin",
+	"name":"10203",
+	"icon":"currency_coin_1",
 	"category":1,
 	"quality":4,
 	"price":50,
 	"source":-1,
-	"description":"null"
-	},
-	{
-	"ID":99999,
-	"name":"金本位",
-	"icon":"coin",
-	"category":3,
-	"quality":1,
-	"price":1,
-	"source":-1,
-	"description":"价值基本单位"
+	"description":"代币"
 	},
 	{
 	"ID":10001,

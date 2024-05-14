@@ -3,5 +3,5 @@ guid: e6b3c08432c719d499cb331a35f63d9e
 PrefabImporter:
   externalObjects: {}
   userData: 
-  assetBundleName: package/prefab/ui/panel/uigamesetting
+  assetBundleName: package/prefab/ui/panel/gamesettingview
   assetBundleVariant: 

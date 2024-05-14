@@ -7,7 +7,7 @@ namespace Game.UI
     {
         [SerializeField] private ItemAvatar avatar;
 
-        [SerializeField] private Text nickname;
+        [SerializeField] private ItemNickname nick;
 
         [SerializeField] private Text level;
 

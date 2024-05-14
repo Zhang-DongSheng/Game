@@ -16,7 +16,7 @@ namespace UnityEngine.UI
             }
             material.SetFloat("_Blur", blur);
         }
-
+#if UNITY_EDITOR
         protected override void OnValidate()
         {
             if (material != null)
@@ -24,7 +24,7 @@ namespace UnityEngine.UI
                 material.SetFloat("_Blur", blur);
             }
         }
-
+#endif
         public override Texture mainTexture => sprite == null ? s_WhiteTexture : sprite.texture;
     }
 }
