@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 
 namespace Game
 {
-    public class ILRuntimeLogic : Singleton<ILRuntimeLogic>, ILogic
+    public class ILRuntimeLogic : Singleton<ILRuntimeLogic>
     {
         public const string path = "ILRuntime/Hotfix";
 

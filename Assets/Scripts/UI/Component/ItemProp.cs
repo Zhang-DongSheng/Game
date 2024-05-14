@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// µÀ¾ß
+    /// </summary>
     public class ItemProp : ItemBase, IPointerClickHandler
     {
         public Action<uint> callback;
@@ -48,7 +51,7 @@ namespace Game.UI
             {
                 var parameter = new UIParameter();
                 parameter.AddOrReplace("prop", information);
-                UIQuickEntry.Open(UIPanel.UIIntroduce, parameter);
+                UIQuickEntry.Open(UIPanel.Introduce, parameter);
             }
             else
             {

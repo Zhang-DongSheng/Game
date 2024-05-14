@@ -13,10 +13,6 @@ namespace UnityEditor.Window
     {
         private const float WIDTH = 100;
 
-        private const string SCRIPT = "Scripts/UI/Hall/";
-
-        private const string PREFAB = "Package/Prefab/UI/Panel/";
-
         private readonly string[] menu = new string[] { "Create", "Modify" };
 
         private string content;
@@ -65,11 +61,7 @@ namespace UnityEditor.Window
             {
                 if (string.IsNullOrEmpty(content)) return;
 
-                if (content.StartsWith("UI") == false)
-                {
-                    content = string.Format("UI{0}", content);
-                }
-                string path = string.Format("Assets/{0}{1}.cs", SCRIPT, content);
+                string path = string.Format("Assets/Scripts/UI/Hall/{0}/{0}View.cs", content);
 
                 ScriptUtils.Create(path);
 
@@ -77,7 +69,7 @@ namespace UnityEditor.Window
 
                 AssetDatabase.Refresh();
 
-                path = string.Format("Assets/{0}{1}.prefab", PREFAB, content);
+                path = string.Format("Assets/{0}/{1}View.prefab", UIDefine.Prefab, content);
 
                 PrefabUtils.CreateUGUI(path);
 
@@ -167,7 +159,7 @@ namespace UnityEditor.Window
                 {
                     EditorGUILayout.HelpBox("未发现预制体资源！", MessageType.Error);
                 }
-                else if (asset.TryGetComponent(out UIBase view))
+                else if (asset.TryGetComponent(out ViewBase view))
                 {
                     relevance = true;
                 }

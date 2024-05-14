@@ -29,7 +29,7 @@ namespace Game.UI
 
         public static void OpenUIConfirm(string title, string message, Action confirm, Action cancel = null)
         {
-            Open(UIPanel.UIConfirm, new UIParameter()
+            Open(UIPanel.Confirm, new UIParameter()
             {
                 ["title"] = title,
                 ["message"] = message,
@@ -40,7 +40,7 @@ namespace Game.UI
 
         public static void OpenUINotice(string notice)
         {
-            Open(UIPanel.UINotice, new UIParameter()
+            Open(UIPanel.Notice, new UIParameter()
             {
                 ["notice"] = notice,
             });
@@ -48,7 +48,7 @@ namespace Game.UI
 
         public static void OpenUIHorseLamp(string message, float time = -1)
         {
-            Open(UIPanel.UIHorseLamp, new UIParameter()
+            Open(UIPanel.HorseLamp, new UIParameter()
             {
                 ["message"] = message,
             });
@@ -56,7 +56,7 @@ namespace Game.UI
 
         public static void OpenUIReward(Reward reward)
         {
-            Open(UIPanel.UIReward, new UIParameter()
+            Open(UIPanel.Reward, new UIParameter()
             {
                 ["reward"] = reward,
             });
@@ -64,7 +64,7 @@ namespace Game.UI
 
         public static void OpenUIBubble(Transform transform, string message)
         {
-            Open(UIPanel.UIBubble, new UIParameter()
+            Open(UIPanel.Bubble, new UIParameter()
             {
                 ["transform"] = transform,
                 ["value"] = message,

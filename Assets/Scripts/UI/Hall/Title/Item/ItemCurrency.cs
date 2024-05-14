@@ -59,7 +59,7 @@ namespace Game.UI
             switch (coin)
             {
                 case 101:
-                    UIQuickEntry.Open(UIPanel.UIShop);
+                    UIQuickEntry.Open(UIPanel.Shop);
                     break;
                 default:
                     UIQuickEntry.OpenUINotice("À´Ô´Î´Öª£¡");

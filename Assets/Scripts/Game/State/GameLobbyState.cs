@@ -54,7 +54,7 @@ namespace Game.State
 
         private void LoadUI()
         {
-            UIQuickEntry.OpenSingle(UIPanel.UIMain, callback: UILoading.Instance.Close);
+            UIQuickEntry.OpenSingle(UIPanel.Main, callback: UILoading.Instance.Close);
         }
     }
 }

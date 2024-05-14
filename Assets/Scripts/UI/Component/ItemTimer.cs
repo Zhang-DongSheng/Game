@@ -3,6 +3,9 @@ using UnityEngine.Events;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// ¼ÆÊ±Æ÷
+    /// </summary>
     public class ItemTimer : ItemBase
     {
         public float interval = 0;

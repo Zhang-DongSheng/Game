@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// 进度条
+    /// </summary>
     public class ItemSlider : ItemBase
     {
         private readonly Color alpha = new Color(0, 0, 0, 0);

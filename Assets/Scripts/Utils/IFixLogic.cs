@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 
 namespace Game
 {
-    public class IFixLogic : Singleton<IFixLogic>, ILogic
+    public class IFixLogic : Singleton<IFixLogic>
     {
         private readonly List<string> _assemblies = new List<string>()
         {
@@ -54,6 +54,9 @@ namespace Game
             UnityEngine.Debug.Log("loaded patch, using " + sw.ElapsedMilliseconds + " ms");
         }
 
-        public void Release() { }
+        public void Release()
+        {
+
+        }
     }
 }

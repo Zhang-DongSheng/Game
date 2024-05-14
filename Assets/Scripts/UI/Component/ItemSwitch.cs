@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// ¿ª¹Ø
+    /// </summary>
     public class ItemSwitch : ItemBase, IPointerClickHandler
     {
         [SerializeField] private List<GameObject> off;

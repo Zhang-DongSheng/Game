@@ -1,8 +1,10 @@
-using Data;
 using UnityEngine;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// ״̬
+    /// </summary>
     public class ItemStatus : ItemBase
     {
         [SerializeField] private GameObject undone;

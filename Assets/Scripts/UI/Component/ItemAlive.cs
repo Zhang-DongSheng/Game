@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// 自动隐藏组件
+    /// </summary>
     public class ItemAlive : ItemBase
     {
         [SerializeField] private float interval;
@@ -28,11 +31,6 @@ namespace Game.UI
                     SetActive(false);
                 }
             }
-        }
-
-        public void StartUp()
-        {
-            SetActive(true);
         }
     }
 }

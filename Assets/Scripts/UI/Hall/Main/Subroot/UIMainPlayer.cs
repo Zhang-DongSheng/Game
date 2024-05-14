@@ -5,7 +5,7 @@ namespace Game.UI
 {
     public class UIMainPlayer : ItemBase
     {
-        [SerializeField] private ItemPlayerAvatar avatar;
+        [SerializeField] private ItemAvatar avatar;
 
         [SerializeField] private Text nickname;
 
@@ -25,7 +25,7 @@ namespace Game.UI
 
         private void OnClick()
         {
-            UIQuickEntry.Open(UIPanel.UIPlayer);
+            UIQuickEntry.Open(UIPanel.Player);
         }
     }
 }

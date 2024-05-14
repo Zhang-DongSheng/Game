@@ -12,6 +12,12 @@ namespace UnityEditor.Game
     {
         public static Object Create(string path)
         {
+            string folder = Path.GetDirectoryName(path);
+
+            if (Directory.Exists(folder) == false)
+            {
+                Directory.CreateDirectory(folder);
+            }
             return CreateFromTemplate(path, null);
         }
 

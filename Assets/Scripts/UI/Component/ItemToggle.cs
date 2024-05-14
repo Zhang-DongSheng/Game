@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// ÇÐ»»°´Å¥
+    /// </summary>
     public class ItemToggle : ItemBase, IPointerClickHandler
     {
         [SerializeField] private List<GameObject> background;

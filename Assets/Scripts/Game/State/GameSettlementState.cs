@@ -19,7 +19,7 @@ namespace Game.State
 
         public void OnEnter()
         {
-            UIQuickEntry.Open(UIPanel.UISettlement);
+            UIQuickEntry.Open(UIPanel.Settlement);
         }
 
         public void OnExit()

@@ -1,9 +1,8 @@
 ﻿using Game.Resource;
 using Game.State;
-using UnityEngine;
-using System.Collections;
 using Game.UI;
-using Game.Model;
+using System.Collections;
+using UnityEngine;
 
 namespace Game
 {
@@ -24,8 +23,6 @@ namespace Game
         private IEnumerator Laoding()
         {
             UIManager.Instance.Initialize();
-
-            ModelDisplayManager.Instance.Initialize();
 
             LoginLogic.Instance.Initialize();
 

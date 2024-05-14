@@ -287,13 +287,13 @@ namespace UnityEditor.Window
                         break;
                     default:
                         {
-                            path = string.Format("{0}/{1}.prefab", UIDefine.Prefab, panel);
+                            path = string.Format("{0}/{1}View.prefab", UIDefine.Prefab, panel);
 
                             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/" + path);
 
                             if (prefab == null) continue;
 
-                            if (prefab.TryGetComponent(out UIBase view))
+                            if (prefab.TryGetComponent(out ViewBase view))
                             {
                                 data.list.Add(new UIInformation()
                                 {

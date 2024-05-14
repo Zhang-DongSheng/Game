@@ -10,7 +10,7 @@ namespace Game.UI.Guidance
     {
         public void Close()
         {
-            UIManager.Instance.Close((int)UIPanel.UIGuidance);
+            UIManager.Instance.Close((int)UIPanel.Guidance);
         }
     }
 }

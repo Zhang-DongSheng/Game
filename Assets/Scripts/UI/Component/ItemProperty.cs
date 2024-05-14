@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
+    /// <summary>
+    ///  Ù–‘’π æ
+    /// </summary>
     public class ItemProperty : ItemBase
     {
         [SerializeField] private ImageBind imgIcon;

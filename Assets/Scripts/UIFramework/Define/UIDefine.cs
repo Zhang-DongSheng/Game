@@ -31,23 +31,66 @@ namespace Game.UI
 
     public enum Axis
     {
+        /// <summary>
+        /// 横
+        /// </summary>
         Horizontal,
+        /// <summary>
+        /// 竖
+        /// </summary>
         Vertical,
     }
 
     public enum Direction
     {
         None,
+        /// <summary>
+        /// 横
+        /// </summary>
         Horizontal,
+        /// <summary>
+        /// 竖
+        /// </summary>
         Vertical,
+        /// <summary>
+        /// 自定义
+        /// </summary>
         Custom,
     }
 
     public enum Corner
     {
+        /// <summary>
+        /// 左上
+        /// </summary>
         TopLeft,
+        /// <summary>
+        /// 右上
+        /// </summary>
         TopRight,
+        /// <summary>
+        /// 左下
+        /// </summary>
         LowerLeft,
+        /// <summary>
+        /// 右下
+        /// </summary>
         LowerRight,
+    }
+
+    public enum Status
+    {
+        /// <summary>
+        /// 未完成
+        /// </summary>
+        Undone,
+        /// <summary>
+        /// 可领取
+        /// </summary>
+        Available,
+        /// <summary>
+        /// 已领取
+        /// </summary>
+        Claimed,
     }
 }

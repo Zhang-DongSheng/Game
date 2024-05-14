@@ -35,7 +35,7 @@ namespace Game.UI
                         UIQuickEntry.OpenUINotice("新功能开发中！敬请期待");
                     }
                     break;
-                case UIPanel.UIDeploy:
+                case UIPanel.Deploy:
                     {
                         GameStateController.Instance.EnterState<GameDeployState>();
                     }

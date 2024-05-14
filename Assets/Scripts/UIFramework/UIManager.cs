@@ -232,7 +232,7 @@ namespace Game.UI
         {
             panel.SetAsLastSibling();
 
-            List<UIBase> childs = GetParent(layer).GetComponentsInChildren<UIBase>(true).ToList();
+            List<ViewBase> childs = GetParent(layer).GetComponentsInChildren<ViewBase>(true).ToList();
 
             childs.Sort((a, b) =>
             {

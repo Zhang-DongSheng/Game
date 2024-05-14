@@ -1,3 +1,5 @@
+using Game.UI;
+
 namespace Data
 {
     public class Commodity
