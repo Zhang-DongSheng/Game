@@ -108,6 +108,27 @@ namespace UnityEngine
             Debug.LogException(exception);
         }
 
+        public static void LogNotifycation(Author author, string message)
+        {
+#if UNITY_EDITOR
+            if (UnityEditor.EditorWindow.focusedWindow != null)
+            {
+                var content = new GUIContent(Format(author, message));
+
+                UnityEditor.EditorWindow.focusedWindow.ShowNotification(content);
+            }
+#endif
+        }
+
+        public static void DisplayDialog(string content, Action<bool> callback)
+        {
+#if UNITY_EDITOR
+            var result = UnityEditor.EditorUtility.DisplayDialog("Dialog", content, "OK");
+
+            callback?.Invoke(result);
+#endif
+        }
+
         private static bool Pass(Author author, LogType level)
         {
             if (!DEBUG) return false;
