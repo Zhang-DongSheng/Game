@@ -119,7 +119,7 @@ namespace UnityEditor.Window
 
                         order = 0,
 
-                        path = string.Format("{0}/{1}.prefab", UIDefine.Prefab, panel)
+                        path = string.Format("{0}/{1}View.prefab", UIDefine.Prefab, panel)
                     };
                 }
                 relevance = false;

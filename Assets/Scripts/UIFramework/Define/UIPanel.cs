@@ -23,8 +23,8 @@ namespace Game.UI
 		CombatReadiness = 116,
 		RankingList = 117,
 		Club = 118,
-        Chat = 119,
-        Confirm = 301,
+		Chat = 119,
+		Confirm = 301,
 		Bubble = 302,
 		Notice = 303,
 		HorseLamp = 304,
@@ -34,5 +34,6 @@ namespace Game.UI
 		GameSetting = 1002,
 		MiniMap = 1003,
 		Settlement = 1004,
+		GluttonousSnake = 1005,
 	}
 }
