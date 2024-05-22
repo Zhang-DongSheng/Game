@@ -9,9 +9,9 @@ namespace Game.UI
 
         private Vector2 v = new Vector2(0, 0);
 
-        [SerializeField] private float speedMin = 1;
+        [SerializeField] private float speedMin = 50;
 
-        [SerializeField] private float speedMax = 10;
+        [SerializeField] private float speedMax = 100;
 
         [SerializeField] private ItemSnake snake;
 

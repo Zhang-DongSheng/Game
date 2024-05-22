@@ -53,7 +53,7 @@ namespace Game.UI
 
             count[1] = bodies.Count; length = 0;
 
-            float final = (count[1] + 2) * size;
+            float final = (count[1] + 1) * size;
 
             for (int i = count[0] - 1; i > -1; i--)
             {
