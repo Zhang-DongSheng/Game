@@ -128,6 +128,13 @@ namespace Game
             return Regex.IsMatch(str, @"^\d{17}[\d|X]|\d{15}$");
         }
         /// <summary>
+        /// 判断字符串是否包含中文
+        /// </summary>
+        public static bool IsChinese(this string str)
+        {
+            return Regex.IsMatch(str, @"[\u4e00-\u9fa5]");
+        }
+        /// <summary>
         /// 判断字符串是否存在双键数值
         /// </summary>
         public static bool IsContainsKey(this string str, string start, string end = null)

@@ -6,7 +6,7 @@ using System.Text;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace UnityEditor.Game
+namespace UnityEditor
 {
     public static class ScriptUtils
     {

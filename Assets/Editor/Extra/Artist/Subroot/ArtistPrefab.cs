@@ -2,7 +2,6 @@ using Game;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor.Game;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;

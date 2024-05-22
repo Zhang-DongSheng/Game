@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using Game;
 
 namespace UnityEditor.Window
 {
@@ -65,7 +66,11 @@ namespace UnityEditor.Window
                             {
                                 if (GUILayout.Button(ToLanguage("空方法检测")))
                                 {
-                                    EmptyFunction();
+                                    DetectionEmptyFunction();
+                                }
+                                if (GUILayout.Button(ToLanguage("中文检测")))
+                                {
+                                    DetectionChinese();
                                 }
                             }
                             break;
@@ -128,7 +133,7 @@ namespace UnityEditor.Window
             GUILayout.EndHorizontal();
         }
 
-        public void FindUnreferencedShader()
+        private void FindUnreferencedShader()
         {
             List<string> shaders = new List<string>();
 
@@ -186,7 +191,7 @@ namespace UnityEditor.Window
             }
         }
 
-        public void FindReferenceShader()
+        private void FindReferenceShader()
         {
             List<string> shaders = new List<string>();
 
@@ -223,7 +228,7 @@ namespace UnityEditor.Window
             }
         }
 
-        public void FindMaterialOfReferenceShader(string shader)
+        private void FindMaterialOfReferenceShader(string shader)
         {
             string[] guids = AssetDatabase.FindAssets("t:Material", folders);
 
@@ -247,7 +252,7 @@ namespace UnityEditor.Window
             }
         }
 
-        public void EmptyFunction()
+        private void DetectionEmptyFunction()
         {
             string[] guids = AssetDatabase.FindAssets("t:TextAsset", folders);
 
@@ -294,7 +299,57 @@ namespace UnityEditor.Window
             }
         }
 
-        public void Powerof2(params string[] folders)
+        private void DetectionChinese()
+        {
+            var scripts = new List<string>();
+
+            var files = Directory.GetFiles(Application.dataPath, "*.cs", SearchOption.AllDirectories);
+
+            foreach (var file in files)
+            {
+                using (FileStream stream = new FileStream(file, FileMode.Open))
+                {
+                    StreamReader reader = new StreamReader(stream);
+
+                    while (!reader.EndOfStream)
+                    {
+                        string line = reader.ReadLine();
+
+                        line = line.Trim();
+
+                        if (string.IsNullOrEmpty(line))
+                        {
+
+                        }
+                        else if (line.StartsWith("//"))
+                        {
+
+                        }
+                        else if (line.StartsWith("Debug"))
+                        {
+
+                        }
+                        else if (line.IsChinese())
+                        {
+                            scripts.Add(file); break;
+                        }
+                    }
+                    reader.Dispose();
+                }
+            }
+
+            foreach (var script in scripts)
+            {
+                var path = Game.Utility.Path.SystemToUnity(script);
+
+                var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
+
+                Debug.LogError(path, asset);
+            }
+            Debug.LogWarning(string.Format("{0} Files {1} exists Chinese", files.Length, scripts.Count));
+        }
+
+        private void Powerof2(params string[] folders)
         {
             string[] guids = AssetDatabase.FindAssets("t:Texture2D", folders);
 
@@ -327,7 +382,7 @@ namespace UnityEditor.Window
             }
         }
 
-        public void Overflow(string filter, params string[] folders)
+        private void Overflow(string filter, params string[] folders)
         {
             if (folders == null || folders.Length == 0) return;
 

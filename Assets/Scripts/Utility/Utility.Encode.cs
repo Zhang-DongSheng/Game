@@ -24,20 +24,19 @@ namespace Game
 
             public static Encoding FileEncoding(string path)
             {
-                if (!File.Exists(path)) return UTF8;
+                var encoding = Encoding.Default;
 
-                var buffer = new byte[4];
+                if (!File.Exists(path)) return encoding;
 
-                using (var file = new FileStream(path, FileMode.Open, FileAccess.Read))
+                using (FileStream stream = new FileStream(path, FileMode.Open))
                 {
-                    file.Read(buffer, 0, 4);
+                    StreamReader reader = new StreamReader(stream);
+
+                    encoding = reader.CurrentEncoding;
+
+                    reader.Dispose();
                 }
-                if (buffer[0] == 0x2b && buffer[1] == 0x2f && buffer[2] == 0x76) return Encoding.UTF7;
-                if (buffer[0] == 0xef && buffer[1] == 0xbb && buffer[2] == 0xbf) return Encoding.UTF8;
-                if (buffer[0] == 0xff && buffer[1] == 0xfe) return Encoding.Unicode;
-                if (buffer[0] == 0xfe && buffer[1] == 0xff) return Encoding.BigEndianUnicode;
-                if (buffer[0] == 0 && buffer[1] == 0 && buffer[2] == 0xfe && buffer[3] == 0xff) return Encoding.UTF32;
-                return Encoding.ASCII;
+                return encoding;
             }
 
             public static void Convert(string path, Encoding src, Encoding dst)
