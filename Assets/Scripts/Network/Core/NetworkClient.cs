@@ -82,7 +82,7 @@ namespace Game.Network
                     {
                         lock (officer.stack)
                         {
-                            socket.Send(Convert.ToBytes(officer.stack.Pop()));
+                            socket.Send(Data.Convert.StringToBytes(officer.stack.Pop()));
                         }
                     }
                 }

@@ -1,6 +1,6 @@
 @echo off
 for %%i in (*.proto) do (
- 	protoc --csharp_out=./ %%i
+ 	_protoc --csharp_out=output %%i
 	echo From %%i To %%~ni.cs Successfuly!
 )
 pause

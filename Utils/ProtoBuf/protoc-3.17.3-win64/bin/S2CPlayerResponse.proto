@@ -1,0 +1,10 @@
+syntax = "proto3";
+package protobuf;
+
+message S2CPlayerResponse
+{
+	string nick = 1;
+	int32 head = 2;
+	int32 frame = 3;
+	int32 age = 4;
+}

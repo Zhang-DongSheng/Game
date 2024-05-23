@@ -2,6 +2,7 @@ using Data;
 using Game.Network;
 using Game.State;
 using Game.UI;
+using Protobuf;
 using UnityEngine;
 
 namespace Game
@@ -23,13 +24,18 @@ namespace Game
         #region Request
         public void RequestInformation(string account, string password)
         {
-            RawMessage message = new RawMessage();
+            RawMessage raw = new RawMessage();
 
-            message.key = (int)NetworkMessageKey.User;
+            raw.key = (int)NetworkMessageKey.User;
 
-            message.content = account + "/" + password;
+            raw.message = new C2SLoginRequest()
+            {
+                Account = account,
+                Password = password
+            };
+            raw.content = ProtoBufUtils.Serialize(raw.message);
 
-            string content = JsonUtility.ToJson(message);
+            string content = JsonUtility.ToJson(raw);
 
             Network.NetworkManager.Instance.Send(content);
         }

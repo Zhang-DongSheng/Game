@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -200,14 +201,17 @@ namespace Game
 
                     for (int i = 0; i < directories.Length; i++)
                     {
-                        CreateDirectory(Path.Replace(directories[i].FullName, src, dst));
-                    }
+                        string path = Path.Replace(directories[i].FullName, src, dst);
 
+                        CreateDirectory(path);
+                    }
                     FileInfo[] files = directory.GetFiles("*", SearchOption.AllDirectories);
 
                     for (int i = 0; i < directories.Length; i++)
                     {
-                        File.Copy(files[i].FullName, Path.Replace(files[i].FullName, src, dst), true);
+                        string path = Path.Replace(files[i].FullName, src, dst);
+
+                        File.Copy(files[i].FullName, path, true);
                     }
                 }
                 else if (File.Exists(src))

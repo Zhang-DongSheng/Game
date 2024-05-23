@@ -179,6 +179,11 @@ namespace UnityEditor.Window
             {
                 SynchronizateIFix();
             }
+
+            if (GUILayout.Button("同步ProtoBuf"))
+            {
+                SynchronizateProtoBuf();
+            }
         }
 
         private void RefreshOther()
@@ -514,7 +519,35 @@ namespace UnityEditor.Window
             }
             else
             {
-                Debug.LogError("文件不存在！" + src);
+                ShowNotification("文件不存在！" + src);
+            }
+        }
+
+        private void SynchronizateProtoBuf()
+        {
+            string root = Application.dataPath;
+
+            string key = "Utils/ProtoBuf/protoc-3.17.3-win64/bin/output";
+
+            string src = string.Format("{0}/{1}", root.Substring(0, root.Length - 7), key);
+
+            if (Directory.Exists(src))
+            {
+                string dst = string.Format("{0}/Scripts/Data/Proto", root);
+
+                if (Directory.Exists(dst))
+                {
+                    Directory.Delete(dst, true);
+                }
+                Utility.Document.Move(src, dst);
+
+                AssetDatabase.Refresh();
+
+                ShowNotification("同步完成！");
+            }
+            else
+            {
+                Debug.LogError("资源不存在！" + src);
             }
         }
 

@@ -7,6 +7,8 @@ namespace Data
 {
     public static class Convert
     {
+        static readonly Encoding encoding = new UTF8Encoding(false);
+
         public static byte[] Serialize<T>(T target) where T : class
         {
             using (MemoryStream stream = new MemoryStream())
@@ -26,12 +28,12 @@ namespace Data
             }
         }
 
-        public static string SerializeToJson<T>(T target)
+        public static string ToJson<T>(T target)
         {
             return JsonUtility.ToJson(target);
         }
 
-        public static T DeserializeFromJson<T>(string json)
+        public static T FromJson<T>(string json)
         {
             if (!string.IsNullOrEmpty(json))
             {
@@ -40,14 +42,14 @@ namespace Data
             return default;
         }
 
-        public static byte[] StringToByte(string value)
+        public static byte[] StringToBytes(string value)
         {
-            return Encoding.Default.GetBytes(value);
+            return encoding.GetBytes(value);
         }
 
-        public static string ByteToString(byte[] buffer)
+        public static string BytesToString(byte[] buffer)
         {
-            return Encoding.Default.GetString(buffer);
+            return encoding.GetString(buffer);
         }
     }
 }
