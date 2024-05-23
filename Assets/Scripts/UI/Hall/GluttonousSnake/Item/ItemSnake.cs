@@ -9,13 +9,15 @@ namespace Game.UI
 
         [SerializeField] private PrefabTemplate prefab;
 
-        [SerializeField, Range(1, 100)] private float size = 10;
+        [SerializeField, Range(1, 100)] private float size = 50;
+
+        [SerializeField, Range(0, 10)] private float step = 1;
 
         private Vector2 direction = new Vector2(1, 0);
 
         private bool alive = false;
 
-        private float length;
+        private float length, magnitude;
 
         private float speed = 1;
 
@@ -37,7 +39,7 @@ namespace Game.UI
 
             vector = direction * delta * speed;
 
-            length = vector.magnitude;
+            magnitude += vector.magnitude;
 
             position += vector;
 
@@ -47,8 +49,12 @@ namespace Game.UI
 
             target.rotation = Quaternion.Euler(rotation);
 
-            snakes.Add(new SnakeInformation(position, rotation.z, length));
+            if (magnitude > step)
+            {
+                snakes.Add(new SnakeInformation(position, rotation.z, magnitude));
 
+                magnitude = 0;
+            }
             count[0] = snakes.Count;
 
             count[1] = bodies.Count; length = 0;
