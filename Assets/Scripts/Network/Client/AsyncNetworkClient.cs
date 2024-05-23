@@ -93,7 +93,7 @@ namespace Game.Network
             {
                 Retry();
             }
-            byte[] buffer = Data.Convert.StringToBytes(value);
+            byte[] buffer = NetworkConvert.ToBytes(value);
 
             socket.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, SendCallback, null);
         }

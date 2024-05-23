@@ -24,20 +24,12 @@ namespace Game
         #region Request
         public void RequestInformation(string account, string password)
         {
-            RawMessage raw = new RawMessage();
-
-            raw.key = (int)NetworkMessageKey.User;
-
-            raw.message = new C2SLoginRequest()
+            var msg = new C2SLoginRequest()
             {
                 Account = account,
                 Password = password
             };
-            raw.content = ProtoBufUtils.Serialize(raw.message);
-
-            string content = JsonUtility.ToJson(raw);
-
-            Network.NetworkManager.Instance.Send(content);
+            Network.NetworkManager.Instance.Send((int)NetworkMessageKey.User, msg);
         }
         #endregion
 

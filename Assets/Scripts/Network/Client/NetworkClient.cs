@@ -24,14 +24,12 @@ namespace Game.Network
 
                 officer.receiver = new Thread(Receive)
                 {
-                    Name = "Unity Receive",
                     IsBackground = true,
                 };
                 officer.receiver.Start();
 
                 officer.sender = new Thread(Send)
                 {
-                    Name = "Unity Send",
                     IsBackground = true,
                 };
                 officer.sender.Start();
@@ -82,7 +80,7 @@ namespace Game.Network
                     {
                         lock (officer.stack)
                         {
-                            socket.Send(Data.Convert.StringToBytes(officer.stack.Pop()));
+                            socket.Send(NetworkConvert.ToBytes(officer.stack.Pop()));
                         }
                     }
                 }

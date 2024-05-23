@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Google.Protobuf;
 using UnityEngine;
 
 namespace Game.Network
@@ -30,27 +28,38 @@ namespace Game.Network
 
         private void Receive(byte[] buffer)
         {
-            string content = Convert.ToString(buffer);
+            string content = NetworkConvert.ToString(buffer);
 
             try
             {
-                var msg = JsonUtility.FromJson<RawMessage>(content);
+                var raw = JsonUtility.FromJson<RawMessage>(content);
 
-                Debuger.Log(Author.Network, msg.content);
+                raw.content = Utility.Cryptogram.Decrypt(raw.content);
 
-                NetworkMessageManager.Instance.PostEvent(msg);
+                //raw.message = NetworkConvert.Deserialize<IMessage>(msg);
+
+                Debuger.Log(Author.Network, raw.content);
+
+                NetworkMessageManager.Instance.PostEvent(raw);
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 Debuger.LogException(Author.Network, e);
             }
         }
 
-        public void Send(string value)
+        public void Send(int key, IMessage message)
         {
             if (client != null)
             {
-                client.Send(value);
+                var msg = NetworkConvert.Serialize(message);
+
+                var raw = new RawMessage()
+                {
+                    key = key,
+                    content = Utility.Cryptogram.Encrypt(msg),
+                };
+                client.Send(JsonUtility.ToJson(raw));
             }
         }
 
