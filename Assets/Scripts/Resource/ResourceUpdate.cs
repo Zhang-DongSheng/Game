@@ -178,7 +178,7 @@ namespace Game.Resource
 
                 this.md5 = md5;
 
-                if (Utility.Md5.ComputeFile(path) != md5)
+                if (Utility.MD5.ComputeFile(path) != md5)
                 {
                     status = Status.Ready;
                 }

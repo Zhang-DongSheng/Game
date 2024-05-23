@@ -11,22 +11,22 @@ namespace ILRuntime.Game.UI
     {
         private void Awake()
         {
-            Debuger.Log("启动");
+            //Debuger.Log("启动");
         }
 
         private void Start()
         {
-            Debuger.Log("开始");
+            //Debuger.Log("开始");
         }
 
         private void Update()
         {
-            Debuger.LogWarning("更新");
+            //Debuger.LogWarning("更新");
         }
 
         private void Destroy()
         {
-            Debuger.LogError("销毁");
+            //Debuger.LogError("销毁");
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Game.Resource;
 using Game.State;
 using Game.UI;
+using System;
 using System.Collections;
+using System.Threading;
 using UnityEngine;
 
 namespace Game
@@ -22,6 +24,8 @@ namespace Game
 
         private IEnumerator Laoding()
         {
+            NetworkMessageManager.Instance.Initialize();
+
             UIManager.Instance.Initialize();
 
             LoginLogic.Instance.Initialize();
@@ -59,6 +63,8 @@ namespace Game
 
             yield return new WaitForSeconds(3);
 
+            Network.NetworkManager.Instance.Connection();
+
             ScheduleLogic.Instance.callback = () =>
             {
                 GameStateController.Instance.EnterState<GameLoginState>();
@@ -68,7 +74,7 @@ namespace Game
 
         private void OnApplicationPause(bool pause)
         {
-            Debuger.LogError(Author.Script, "应用程序切换后台" + pause);
+            Debuger.LogWarning(Author.Script, "应用程序切换后台" + pause);
         }
 
         private void OnApplicationQuit()
@@ -78,6 +84,8 @@ namespace Game
 
         private void OnDestroy()
         {
+            Network.NetworkManager.Instance.Close();
+
             ResourceManager.UnLoadAllAsset();
         }
     }

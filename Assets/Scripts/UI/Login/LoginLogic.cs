@@ -1,4 +1,5 @@
 using Data;
+using Game.Network;
 using Game.State;
 using Game.UI;
 using UnityEngine;
@@ -11,23 +12,31 @@ namespace Game
 
         protected override void OnRegister()
         {
-            NetworkEventManager.Register(NetworkEventKey.User, OnReceivedInformation);
+            NetworkMessageManager.Instance.Register(NetworkMessageKey.User, OnReceivedInformation);
         }
 
         protected override void OnUnregister()
         {
-            NetworkEventManager.Unregister(NetworkEventKey.User, OnReceivedInformation);
+            NetworkMessageManager.Instance.Unregister(NetworkMessageKey.User, OnReceivedInformation);
         }
 
         #region Request
         public void RequestInformation(string account, string password)
         {
-            OnReceivedInformation(null);
+            RawMessage message = new RawMessage();
+
+            message.key = (int)NetworkMessageKey.User;
+
+            message.content = account + "/" + password;
+
+            string content = JsonUtility.ToJson(message);
+
+            Network.NetworkManager.Instance.Send(content);
         }
         #endregion
 
         #region Receive
-        private void OnReceivedInformation(NetworkEventHandle handle)
+        private void OnReceivedInformation(object handle)
         {
             EventMessageArgs args = new EventMessageArgs();
 

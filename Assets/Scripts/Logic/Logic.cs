@@ -14,7 +14,7 @@ namespace Game.UI
             get
             {
                 if (_instance == null)
-                { 
+                {
                     _instance = new T();
                 }
                 return _instance;
@@ -23,22 +23,22 @@ namespace Game.UI
 
         public virtual void Initialize()
         {
-            
+            OnRegister();
         }
 
         public virtual void Release()
-        { 
-            
+        {
+            OnUnregister();
         }
 
-        protected virtual void OnRegister() 
+        protected virtual void OnRegister()
         {
-        
+
         }
 
         protected virtual void OnUnregister()
-        { 
-            
+        {
+
         }
     }
 }

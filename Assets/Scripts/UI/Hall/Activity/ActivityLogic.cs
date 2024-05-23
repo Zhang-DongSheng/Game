@@ -11,12 +11,12 @@ namespace Game
 
         protected override void OnRegister()
         {
-            NetworkEventManager.Register(NetworkEventKey.Activity, OnReceivedInformation);
+            NetworkMessageManager.Instance.Register(NetworkMessageKey.Activity, OnReceivedInformation);
         }
 
         protected override void OnUnregister()
         {
-            NetworkEventManager.Unregister(NetworkEventKey.Activity, OnReceivedInformation);
+            NetworkMessageManager.Instance.Unregister(NetworkMessageKey.Activity, OnReceivedInformation);
         }
 
         public bool IsOpen(uint activityID)
@@ -40,7 +40,7 @@ namespace Game
         #endregion
 
         #region Receive
-        private void OnReceivedInformation(NetworkEventHandle handle)
+        private void OnReceivedInformation(object handle)
         {
             _activities.Clear();
 

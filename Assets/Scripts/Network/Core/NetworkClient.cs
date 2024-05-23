@@ -24,12 +24,14 @@ namespace Game.Network
 
                 officer.receiver = new Thread(Receive)
                 {
+                    Name = "Unity Receive",
                     IsBackground = true,
                 };
                 officer.receiver.Start();
 
                 officer.sender = new Thread(Send)
                 {
+                    Name = "Unity Send",
                     IsBackground = true,
                 };
                 officer.sender.Start();
@@ -56,8 +58,9 @@ namespace Game.Network
 
                     onReceive?.Invoke(result);
                 }
-                catch (ThreadAbortException)
+                catch (ThreadAbortException e)
                 {
+                    Debug.LogException(e);
                     break;
                 }
                 catch (Exception e)

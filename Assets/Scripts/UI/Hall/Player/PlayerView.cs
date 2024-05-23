@@ -5,8 +5,6 @@ namespace Game.UI
 {
     public class PlayerView : ViewBase
     {
-        private readonly string character = "Package/Prefab/Model/Character/Female.prefab";
-
         [SerializeField] private ItemStep hair;
 
         [SerializeField] private ItemStep face;

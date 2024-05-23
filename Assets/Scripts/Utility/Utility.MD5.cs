@@ -12,7 +12,7 @@ namespace Game
         /// <summary>
         /// 信息摘要算法
         /// </summary>
-        public static class Md5
+        public static class MD5
         {
             private static readonly StringBuilder builder = new StringBuilder();
 

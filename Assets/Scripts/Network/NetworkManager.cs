@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,11 +30,20 @@ namespace Game.Network
 
         private void Receive(byte[] buffer)
         {
-            NetworkEventHandle handle = new NetworkEventHandle()
+            string content = Convert.ToString(buffer);
+
+            try
             {
-                buffer = buffer,
-            };
-            NetworkEventManager.PostEvent(NetworkEventKey.Test, handle);
+                var msg = JsonUtility.FromJson<RawMessage>(content);
+
+                Debuger.Log(Author.Network, msg.content);
+
+                NetworkMessageManager.Instance.PostEvent(msg);
+            }
+            catch (Exception e)
+            {
+                Debuger.LogException(Author.Network, e);
+            }
         }
 
         public void Send(string value)

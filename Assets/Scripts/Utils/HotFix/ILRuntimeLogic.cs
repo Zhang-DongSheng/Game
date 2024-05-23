@@ -101,23 +101,23 @@ namespace Game
 
             CLRRedirection();
 
-            string KEY = "¾²Ì¬µ÷ÓÃ";
+            string KEY = "ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½";
 
             switch (KEY)
             {
-                case "¾²Ì¬µ÷ÓÃ":
+                case "ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½":
                     {
                         appdomain.Invoke("ILRuntime.Game.Program", "Initialize", null);
                     }
                     break;
-                case "ÊµÀýµ÷ÓÃ":
+                case "Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½":
                     {
                         object script = appdomain.Instantiate("ILRuntime.Main");
 
                         appdomain.Invoke("ILRuntime.Game.Main", "Test", script);
                     }
                     break;
-                case "·´Éäµ÷ÓÃ":
+                case "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½":
                     {
                         var script = appdomain.LoadedTypes["ILRuntime.Game.Main"];
 

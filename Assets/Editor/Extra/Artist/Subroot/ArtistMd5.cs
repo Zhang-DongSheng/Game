@@ -31,7 +31,7 @@ namespace UnityEditor.Window
                         }
                         else
                         {
-                            message = Utility.Md5.ComputeContent(inputString.value);
+                            message = Utility.MD5.ComputeContent(inputString.value);
                         }
                     }
                 }
@@ -48,7 +48,7 @@ namespace UnityEditor.Window
                     // Compute File Md5
                     if (GUILayout.Button("Confirm", GUILayout.Width(60)))
                     {
-                        message = Utility.Md5.ComputeFile(inputFile.value);
+                        message = Utility.MD5.ComputeFile(inputFile.value);
                     }
                 }
                 GUILayout.EndHorizontal();

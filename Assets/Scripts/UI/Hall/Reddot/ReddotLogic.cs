@@ -1,4 +1,5 @@
 using Game.UI;
+using Google.Protobuf;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,12 +11,12 @@ namespace Game
 
         protected override void OnRegister()
         {
-            NetworkEventManager.Register(NetworkEventKey.Reddot, OnReceivedInformation);
+            NetworkMessageManager.Instance.Register(NetworkMessageKey.Reddot, OnReceivedInformation);
         }
 
         protected override void OnUnregister()
         {
-            NetworkEventManager.Unregister(NetworkEventKey.Reddot, OnReceivedInformation);
+            NetworkMessageManager.Instance.Unregister(NetworkMessageKey.Reddot, OnReceivedInformation);
         }
 
         public bool Trigger(params int[] keys)
@@ -58,7 +59,7 @@ namespace Game
         #endregion
 
         #region Receive
-        private void OnReceivedInformation(NetworkEventHandle handle)
+        private void OnReceivedInformation(object handle)
         {
 
         }

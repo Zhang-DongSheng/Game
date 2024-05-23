@@ -1,6 +1,7 @@
 ﻿using Game.Model;
 using Game.UI;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Game.State
@@ -19,18 +20,28 @@ namespace Game.State
 
         public void OnEnter()
         {
-            UIManager.Instance.CloseAll(true);
+            Debuger.Log(Author.Script, "进入大厅");
 
-            UILoading.Instance.Open();
+            //UIManager.Instance.CloseAll(true);
+
+            //UILoading.Instance.Open();
 
             var scene = SceneManager.GetActiveScene();
 
             if (scene != null && scene.buildIndex == sceneIndex)
             {
+
+                Debuger.Log(Author.Script, "进入大厅3");
+
+
                 LoadUI();
             }
             else
             {
+
+                Debuger.Log(Author.Script, "进入大厅2");
+
+
                 RuntimeManager.Instance.StartCoroutine(LoadSceneAsync(sceneIndex));
             }
         }

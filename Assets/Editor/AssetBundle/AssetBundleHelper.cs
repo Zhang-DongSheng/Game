@@ -93,7 +93,7 @@ namespace UnityEditor
 
                     if (key == ResourceConfig.Record) continue;
 
-                    string value = Utility.Md5.ComputeFile(files[i].FullName);
+                    string value = Utility.MD5.ComputeFile(files[i].FullName);
 
                     content += string.Format("{0}|{1}\n\r", key, value);
                 }

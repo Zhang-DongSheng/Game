@@ -12,12 +12,12 @@ namespace Game
 
         protected override void OnRegister()
         {
-            NetworkEventManager.Register(NetworkEventKey.Warehouse, OnReceivedInformation);
+            NetworkMessageManager.Instance.Register(NetworkMessageKey.Warehouse, OnReceivedInformation);
         }
 
         protected override void OnUnregister()
         {
-            NetworkEventManager.Unregister(NetworkEventKey.Warehouse, OnReceivedInformation);
+            NetworkMessageManager.Instance.Unregister(NetworkMessageKey.Warehouse, OnReceivedInformation);
         }
 
         public List<Prop> GetPropsByCategory(int category)
@@ -83,7 +83,7 @@ namespace Game
         #endregion
 
         #region Receive
-        private void OnReceivedInformation(NetworkEventHandle handle)
+        private void OnReceivedInformation(object handle)
         {
             _props.Clear();
 

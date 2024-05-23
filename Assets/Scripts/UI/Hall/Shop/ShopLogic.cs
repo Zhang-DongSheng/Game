@@ -10,12 +10,12 @@ namespace Game
 
         protected override void OnRegister()
         {
-            NetworkEventManager.Register(NetworkEventKey.Shop, OnReceivedInformation);
+            NetworkMessageManager.Instance.Register(NetworkMessageKey.Shop, OnReceivedInformation);
         }
 
         protected override void OnUnregister()
         {
-            NetworkEventManager.Unregister(NetworkEventKey.Shop, OnReceivedInformation);
+            NetworkMessageManager.Instance.Unregister(NetworkMessageKey.Shop, OnReceivedInformation);
         }
 
         public bool Exists(int shop)
@@ -38,7 +38,7 @@ namespace Game
         #endregion
 
         #region Receive
-        private void OnReceivedInformation(NetworkEventHandle handle)
+        private void OnReceivedInformation(object handle)
         {
             var array = new List<int>() { 101, 102, 103 };
 

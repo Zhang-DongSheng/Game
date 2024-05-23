@@ -41,8 +41,8 @@ D:\Project\Game\Assets\ILRuntime\Hotfix~\bin\Debug\ILRuntime.pdb
 D:\Project\Game\Assets\ILRuntime\Hotfix~\bin\Debug\Unity.VisualScripting.Core.pdb
 D:\Project\Game\Assets\ILRuntime\Hotfix~\obj\Debug\Hotfix.csproj.AssemblyReference.cache
 D:\Project\Game\Assets\ILRuntime\Hotfix~\obj\Debug\Hotfix.csproj.CoreCompileInputs.cache
-D:\Project\Game\Assets\ILRuntime\Hotfix~\obj\Debug\Hotfix.csproj.CopyComplete
 D:\Project\Game\Assets\ILRuntime\Hotfix~\obj\Debug\Hotfix.dll
 D:\Project\Game\Assets\ILRuntime\Hotfix~\obj\Debug\Hotfix.pdb
 D:\Project\Game\Assets\ILRuntime\Hotfix~\bin\Debug\Unity.Mathematics.dll
 D:\Project\Game\Assets\ILRuntime\Hotfix~\bin\Debug\Unity.Mathematics.pdb
+D:\Project\Game\Assets\ILRuntime\Hotfix~\obj\Debug\Hotfix.csproj.Up2Date
