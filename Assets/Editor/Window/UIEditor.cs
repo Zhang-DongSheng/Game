@@ -73,7 +73,7 @@ namespace UnityEditor.Window
 
                 AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
 
-                ScriptUtils.ModifyEnum(typeof(UIPanel), content);
+                ScriptUtils.ModifyEnum(typeof(UIPanel), true, content);
 
                 AssetDatabase.Refresh();
 

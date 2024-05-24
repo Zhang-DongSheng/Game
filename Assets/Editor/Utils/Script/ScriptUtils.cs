@@ -65,7 +65,7 @@ namespace UnityEditor
             }
         }
 
-        public static void ModifyEnum(Type script, params string[] parameters)
+        public static void ModifyEnum(Type script, bool addtive, params string[] parameters)
         {
             if (!script.IsEnum) return;
 
@@ -77,17 +77,20 @@ namespace UnityEditor
 
             Dictionary<string, int> directory = new Dictionary<string, int>();
 
-            foreach (var e in Enum.GetValues(script))
+            if (addtive)
             {
-                key = e.ToString(); value = (int)e;
+                foreach (var e in Enum.GetValues(script))
+                {
+                    key = e.ToString(); value = (int)e;
 
-                if (directory.ContainsKey(key) || directory.ContainsValue(value))
-                {
-                    Debuger.LogError(Author.UI, "exist the same key!");
-                }
-                else
-                {
-                    directory.Add(key, value);
+                    if (directory.ContainsKey(key) || directory.ContainsValue(value))
+                    {
+                        Debuger.LogError(Author.UI, "exist the same key!");
+                    }
+                    else
+                    {
+                        directory.Add(key, value);
+                    }
                 }
             }
             int length = parameters.Length;
@@ -122,6 +125,78 @@ namespace UnityEditor
                 builder.Append(" = ");
                 builder.Append(item.Value);
                 builder.AppendLine(",");
+            }
+            builder.AppendLine("\t}");
+
+            builder.AppendLine("}");
+
+            var path = Utility.Class.GetPath(script);
+
+            if (string.IsNullOrEmpty(path)) return;
+
+            File.WriteAllText(path, builder.ToString());
+
+            AssetDatabase.Refresh();
+        }
+
+        public static void ModifyDefine(Type script, bool addtive, params string[] parameters)
+        {
+            if (parameters == null || parameters.Length == 0) return;
+
+            StringBuilder builder = new StringBuilder();
+
+            string key; int value = 0;
+
+            Dictionary<string, int> directory = new Dictionary<string, int>();
+
+            if (addtive)
+            {
+                foreach (var field in script.GetFields())
+                {
+                    key = field.Name; value = (int)field.GetRawConstantValue();
+
+                    if (directory.ContainsKey(key) || directory.ContainsValue(value))
+                    {
+                        Debuger.LogError(Author.UI, "exist the same key!");
+                    }
+                    else
+                    {
+                        directory.Add(key, value);
+                    }
+                }
+            }
+            int length = parameters.Length;
+
+            for (int i = 0; i < length; i++)
+            {
+                if (directory.ContainsKey(parameters[i]))
+                {
+                    Debuger.LogError(Author.UI, "exist the same key!");
+                }
+                else
+                {
+                    directory.Add(parameters[i], ++value);
+                }
+            }
+            builder.AppendLine("// Don't modify, this is automatically generated");
+
+            builder.AppendLine("namespace Game.Network");
+
+            builder.AppendLine("{");
+
+            builder.Append("\tpublic static class ");
+
+            builder.AppendLine(script.Name);
+
+            builder.AppendLine("\t{");
+
+            foreach (var item in directory)
+            {
+                builder.Append("\t\tpublic const int ");
+                builder.Append(item.Key);
+                builder.Append(" = ");
+                builder.Append(item.Value);
+                builder.AppendLine(";");
             }
             builder.AppendLine("\t}");
 

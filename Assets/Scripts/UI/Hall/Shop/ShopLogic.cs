@@ -10,12 +10,12 @@ namespace Game
 
         protected override void OnRegister()
         {
-            NetworkMessageManager.Instance.Register(NetworkMessageKey.Shop, OnReceivedInformation);
+            //NetworkMessageManager.Instance.Register(NetworkMessageDefine.C2s, OnReceivedInformation);
         }
 
         protected override void OnUnregister()
         {
-            NetworkMessageManager.Instance.Unregister(NetworkMessageKey.Shop, OnReceivedInformation);
+            //NetworkMessageManager.Instance.Unregister(NetworkMessageDefine.C2s, OnReceivedInformation);
         }
 
         public bool Exists(int shop)

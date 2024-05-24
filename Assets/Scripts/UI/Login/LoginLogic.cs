@@ -13,12 +13,12 @@ namespace Game
 
         protected override void OnRegister()
         {
-            NetworkMessageManager.Instance.Register(NetworkMessageKey.User, OnReceivedInformation);
+            NetworkMessageManager.Instance.Register(NetworkMessageDefine.C2SLoginRequest, OnReceivedInformation);
         }
 
         protected override void OnUnregister()
         {
-            NetworkMessageManager.Instance.Unregister(NetworkMessageKey.User, OnReceivedInformation);
+            NetworkMessageManager.Instance.Unregister(NetworkMessageDefine.C2SLoginRequest, OnReceivedInformation);
         }
 
         #region Request
@@ -29,13 +29,15 @@ namespace Game
                 Account = account,
                 Password = password
             };
-            Network.NetworkManager.Instance.Send((int)NetworkMessageKey.User, msg);
+            Network.NetworkManager.Instance.Send(NetworkMessageDefine.C2SLoginRequest, msg);
         }
         #endregion
 
         #region Receive
         private void OnReceivedInformation(object handle)
         {
+            Debug.LogError(handle);
+
             EventMessageArgs args = new EventMessageArgs();
 
             args.AddOrReplace("status", true);

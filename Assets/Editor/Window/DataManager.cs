@@ -1,5 +1,6 @@
 ﻿using Data;
 using Game;
+using Game.Network;
 using Game.UI;
 using System;
 using System.Collections.Generic;
@@ -533,13 +534,21 @@ namespace UnityEditor.Window
 
             if (Directory.Exists(src))
             {
+                var files = Directory.GetFiles(src);
+
+                for (int i = 0; i < files.Length; i++)
+                {
+                    files[i] = Path.GetFileNameWithoutExtension(files[i]);
+                }
+                ScriptUtils.ModifyDefine(typeof(NetworkMessageDefine), false, files);
+
                 string dst = string.Format("{0}/Scripts/Data/Proto", root);
 
                 if (Directory.Exists(dst))
                 {
                     Directory.Delete(dst, true);
                 }
-                Utility.Document.Move(src, dst);
+                Utility.Document.Copy(src, dst);
 
                 AssetDatabase.Refresh();
 

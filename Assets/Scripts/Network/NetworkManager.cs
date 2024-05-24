@@ -36,7 +36,7 @@ namespace Game.Network
 
                 raw.content = Utility.Cryptogram.Decrypt(raw.content);
 
-                //raw.message = NetworkConvert.Deserialize<IMessage>(msg);
+                raw.message = NetworkConvert.Deserialize(raw);
 
                 Debuger.Log(Author.Network, raw.content);
 

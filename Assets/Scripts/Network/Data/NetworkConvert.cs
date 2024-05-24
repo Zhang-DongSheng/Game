@@ -1,4 +1,5 @@
 using Google.Protobuf;
+using Protobuf;
 using System.Text;
 
 namespace Game.Network
@@ -31,6 +32,16 @@ namespace Game.Network
             if (!string.IsNullOrEmpty(json))
             {
                 return JsonParser.Default.Parse<T>(json);
+            }
+            return default;
+        }
+
+        public static IMessage Deserialize(RawMessage raw)
+        {
+            switch (raw.key)
+            {
+                case NetworkMessageDefine.C2SLoginRequest:
+                    return Deserialize<C2SLoginRequest>(raw.content);
             }
             return default;
         }
