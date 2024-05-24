@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -207,7 +206,7 @@ namespace Game
                     }
                     FileInfo[] files = directory.GetFiles("*", SearchOption.AllDirectories);
 
-                    for (int i = 0; i < directories.Length; i++)
+                    for (int i = 0; i < files.Length; i++)
                     {
                         string path = Path.Replace(files[i].FullName, src, dst);
 

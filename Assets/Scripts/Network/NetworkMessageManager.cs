@@ -20,6 +20,11 @@ namespace Game
                 if (events.TryGetValue(raw.key, out Action<IMessage> action))
                 {
                     action?.Invoke(raw.message);
+
+                    if (raw.key < 10000)
+                    {
+                        events.Remove(raw.key);
+                    }
                 }
             }
         }

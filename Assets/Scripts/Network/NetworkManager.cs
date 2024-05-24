@@ -1,4 +1,5 @@
 using Google.Protobuf;
+using System;
 using UnityEngine;
 
 namespace Game.Network
@@ -36,7 +37,7 @@ namespace Game.Network
 
                 raw.content = Utility.Cryptogram.Decrypt(raw.content);
 
-                raw.message = NetworkConvert.Deserialize(raw);
+                raw.message = NetworkMessageDefine.Deserialize(raw);
 
                 Debuger.Log(Author.Network, raw.content);
 
@@ -48,10 +49,12 @@ namespace Game.Network
             }
         }
 
-        public void Send(int key, IMessage message)
+        public void Send(int key, IMessage message, Action<IMessage> callback)
         {
-            if (client != null)
+            if (client != null && client.Connected)
             {
+                NetworkMessageManager.Instance.Register(key, callback);
+
                 var msg = NetworkConvert.Serialize(message);
 
                 var raw = new RawMessage()
@@ -60,6 +63,10 @@ namespace Game.Network
                     content = Utility.Cryptogram.Encrypt(msg),
                 };
                 client.Send(JsonUtility.ToJson(raw));
+            }
+            else
+            {
+                callback?.Invoke(message);
             }
         }
 

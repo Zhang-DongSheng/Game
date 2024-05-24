@@ -11,16 +11,6 @@ namespace Game
     {
         public LoginInformation user { get; private set; }
 
-        protected override void OnRegister()
-        {
-            NetworkMessageManager.Instance.Register(NetworkMessageDefine.C2SLoginRequest, OnReceivedInformation);
-        }
-
-        protected override void OnUnregister()
-        {
-            NetworkMessageManager.Instance.Unregister(NetworkMessageDefine.C2SLoginRequest, OnReceivedInformation);
-        }
-
         #region Request
         public void RequestInformation(string account, string password)
         {
@@ -29,7 +19,7 @@ namespace Game
                 Account = account,
                 Password = password
             };
-            Network.NetworkManager.Instance.Send(NetworkMessageDefine.C2SLoginRequest, msg);
+            NetworkManager.Instance.Send(NetworkMessageDefine.C2SLoginRequest, msg, OnReceivedInformation);
         }
         #endregion
 

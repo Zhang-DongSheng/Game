@@ -534,13 +534,24 @@ namespace UnityEditor.Window
 
             if (Directory.Exists(src))
             {
-                var files = Directory.GetFiles(src);
+                var files = new Dictionary<string, int>();
 
-                for (int i = 0; i < files.Length; i++)
+                int index = 1;
+
+                foreach (var file in Directory.GetFiles(src))
                 {
-                    files[i] = Path.GetFileNameWithoutExtension(files[i]);
+                    var k = Path.GetFileNameWithoutExtension(file);
+
+                    if (files.ContainsKey(k))
+                    {
+                        
+                    }
+                    else
+                    {
+                        files.Add(k, index++);
+                    }
                 }
-                ScriptUtils.ModifyDefine(typeof(NetworkMessageDefine), false, files);
+                ScriptUtils.ModifyNetworkMessageDefine(files);
 
                 string dst = string.Format("{0}/Scripts/Data/Proto", root);
 

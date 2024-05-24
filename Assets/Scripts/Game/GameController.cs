@@ -1,9 +1,7 @@
 ﻿using Game.Resource;
 using Game.State;
 using Game.UI;
-using System;
 using System.Collections;
-using System.Threading;
 using UnityEngine;
 
 namespace Game

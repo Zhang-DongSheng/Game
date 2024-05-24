@@ -1,4 +1,5 @@
 using Game;
+using Game.Network;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -139,46 +140,21 @@ namespace UnityEditor
             AssetDatabase.Refresh();
         }
 
-        public static void ModifyDefine(Type script, bool addtive, params string[] parameters)
+        public static void ModifyNetworkMessageDefine(Dictionary<string, int> parameters)
         {
-            if (parameters == null || parameters.Length == 0) return;
+            if (parameters == null || parameters.Count == 0) return;
+
+            var script = typeof(NetworkMessageDefine);
 
             StringBuilder builder = new StringBuilder();
 
-            string key; int value = 0;
-
-            Dictionary<string, int> directory = new Dictionary<string, int>();
-
-            if (addtive)
-            {
-                foreach (var field in script.GetFields())
-                {
-                    key = field.Name; value = (int)field.GetRawConstantValue();
-
-                    if (directory.ContainsKey(key) || directory.ContainsValue(value))
-                    {
-                        Debuger.LogError(Author.UI, "exist the same key!");
-                    }
-                    else
-                    {
-                        directory.Add(key, value);
-                    }
-                }
-            }
-            int length = parameters.Length;
-
-            for (int i = 0; i < length; i++)
-            {
-                if (directory.ContainsKey(parameters[i]))
-                {
-                    Debuger.LogError(Author.UI, "exist the same key!");
-                }
-                else
-                {
-                    directory.Add(parameters[i], ++value);
-                }
-            }
             builder.AppendLine("// Don't modify, this is automatically generated");
+
+            builder.AppendLine("using Protobuf;");
+
+            builder.AppendLine("using Google.Protobuf;");
+
+            builder.AppendLine();
 
             builder.AppendLine("namespace Game.Network");
 
@@ -190,7 +166,7 @@ namespace UnityEditor
 
             builder.AppendLine("\t{");
 
-            foreach (var item in directory)
+            foreach (var item in parameters)
             {
                 builder.Append("\t\tpublic const int ");
                 builder.Append(item.Key);
@@ -198,6 +174,32 @@ namespace UnityEditor
                 builder.Append(item.Value);
                 builder.AppendLine(";");
             }
+            builder.AppendLine();
+
+            builder.AppendLine("\t\tpublic static IMessage Deserialize(RawMessage raw)");
+
+            builder.AppendLine("\t\t{");
+
+            builder.AppendLine("\t\t\tswitch (raw.key)");
+
+            builder.AppendLine("\t\t\t{");
+
+            foreach (var item in parameters)
+            {
+                builder.Append("\t\t\t\tcase ");
+                builder.Append(item.Key);
+                builder.AppendLine(":");
+
+                builder.Append("\t\t\t\t\treturn NetworkConvert.Deserialize<");
+                builder.Append(item.Key);
+                builder.AppendLine(">(raw.content);");
+            }
+            builder.AppendLine("\t\t\t}");
+
+            builder.AppendLine("\t\t\treturn default;");
+
+            builder.AppendLine("\t\t}");
+
             builder.AppendLine("\t}");
 
             builder.AppendLine("}");
