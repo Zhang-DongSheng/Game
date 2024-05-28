@@ -17,12 +17,12 @@ namespace Game.UI.Guidance
             button.onClick.AddListener(OnPointerClick);
         }
 
-        protected override void OnEnable()
+        protected override void OnRegister()
         {
             EventManager.Register(EventKey.Guidance, OnGuidanceTrigger);
         }
 
-        protected override void OnDisable()
+        protected override void OnUnregister()
         {
             EventManager.Unregister(EventKey.Guidance, OnGuidanceTrigger);
         }

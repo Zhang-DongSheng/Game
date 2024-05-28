@@ -8,21 +8,21 @@ namespace Game
     {
         private readonly List<RuntimeEvent> _events = new List<RuntimeEvent>();
 
-        protected void Awake()
+        private void Awake()
         {
             OnAwake();
 
             OnRegister();
         }
 
-        protected virtual void OnEnable()
+        private void OnEnable()
         {
             OnVisible(true);
 
             Register();
         }
 
-        protected virtual void OnDisable()
+        private void OnDisable()
         {
             Unregister();
 
@@ -66,13 +66,6 @@ namespace Game
 
         }
         /// <summary>
-        /// 低内存
-        /// </summary>
-        protected virtual void OnLowMemory(float delta)
-        {
-
-        }
-        /// <summary>
         /// 注销事件
         /// </summary>
         protected virtual void OnUnregister()
@@ -87,7 +80,7 @@ namespace Game
 
         }
 
-        protected void Register()
+        private void Register()
         {
             foreach (var e in Enum.GetValues(typeof(RuntimeEvent)))
             {
@@ -108,7 +101,7 @@ namespace Game
             }
         }
 
-        protected void Unregister()
+        private void Unregister()
         {
             foreach (var key in _events)
             {
@@ -117,7 +110,7 @@ namespace Game
             _events.Clear();
         }
 
-        protected Action<float> Function(RuntimeEvent runtime)
+        private Action<float> Function(RuntimeEvent runtime)
         {
             switch (runtime)
             {
@@ -127,13 +120,11 @@ namespace Game
                     return OnUpdate;
                 case RuntimeEvent.LateUpdate:
                     return OnLateUpdate;
-                case RuntimeEvent.LowMemory:
-                    return OnLowMemory;
                 default: return null;
             }
         }
 
-        protected void OnDestroy()
+        private void OnDestroy()
         {
             OnUnregister();
 

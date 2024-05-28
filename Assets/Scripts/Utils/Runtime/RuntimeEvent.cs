@@ -5,6 +5,5 @@ namespace Game
         FixedUpdate,
         Update,
         LateUpdate,
-        LowMemory,
     }
 }

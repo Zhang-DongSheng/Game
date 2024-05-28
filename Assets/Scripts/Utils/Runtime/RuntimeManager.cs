@@ -7,11 +7,11 @@ namespace Game
 {
     public sealed class RuntimeManager : MonoSingleton<RuntimeManager>
     {
-        private readonly Dictionary<RuntimeEvent, Action<float>> events = new Dictionary<RuntimeEvent, Action<float>>();
-
-        private readonly Dictionary<float, WaitForSeconds> seconds = new Dictionary<float, WaitForSeconds>();
+        private bool pause;
 
         private readonly WaitForEndOfFrame frame = new WaitForEndOfFrame();
+
+        private readonly Dictionary<RuntimeEvent, Action<float>> events = new Dictionary<RuntimeEvent, Action<float>>();
 
         private void Awake()
         {
@@ -19,45 +19,40 @@ namespace Game
             {
                 events.Add((RuntimeEvent)e, null);
             }
-            Application.lowMemory += OnLowMemory;
         }
 
         private void OnDestroy()
         {
             events.Clear();
-
-            Application.lowMemory -= OnLowMemory;
         }
 
         private void FixedUpdate()
         {
-            if (events.TryGetValue(RuntimeEvent.FixedUpdate, out Action<float> function))
+            if (pause) return;
+
+            if (events.TryGetValue(RuntimeEvent.FixedUpdate, out Action<float> handler))
             {
-                function?.Invoke(Time.fixedDeltaTime);
+                handler?.Invoke(Time.fixedDeltaTime);
             }
         }
 
         private void Update()
         {
-            if (events.TryGetValue(RuntimeEvent.Update, out Action<float> function))
+            if (pause) return;
+
+            if (events.TryGetValue(RuntimeEvent.Update, out Action<float> handler))
             {
-                function?.Invoke(Time.deltaTime);
+                handler?.Invoke(Time.deltaTime);
             }
         }
 
         private void LateUpdate()
         {
-            if (events.TryGetValue(RuntimeEvent.LateUpdate, out Action<float> function))
-            {
-                function?.Invoke(Time.deltaTime);
-            }
-        }
+            if (pause) return;
 
-        private void OnLowMemory()
-        {
-            if (events.TryGetValue(RuntimeEvent.LowMemory, out Action<float> function))
+            if (events.TryGetValue(RuntimeEvent.LateUpdate, out Action<float> handler))
             {
-                function?.Invoke(0);
+                handler?.Invoke(Time.deltaTime);
             }
         }
 
@@ -111,18 +106,21 @@ namespace Game
             Invoke(action, frame);
         }
 
-        public void InvokeWaitForSeconds(Action action, float seconds)
-        {
-            if (!this.seconds.ContainsKey(seconds))
-            {
-                this.seconds.Add(seconds, new WaitForSeconds(seconds));
-            }
-            Invoke(action, this.seconds[seconds]);
-        }
-
         public void Invoke(Action action, YieldInstruction yield)
         {
             StartCoroutine(Execute(action, yield));
+        }
+
+        public bool Pause
+        {
+            get
+            {
+                return pause;
+            }
+            set
+            {
+                pause = value;
+            }
         }
     }
 }
