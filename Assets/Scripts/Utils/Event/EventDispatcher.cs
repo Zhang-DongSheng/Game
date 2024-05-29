@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 namespace UnityEngine
 {
     /// <summary>
-    /// 事件管理器
+    /// 事件派发器
     /// </summary>
-    public static class EventManager
+    public static class EventDispatcher
     {
-        private static readonly Dictionary<EventKey, Action<EventMessageArgs>> events = new Dictionary<EventKey, Action<EventMessageArgs>>();
+        private static readonly Dictionary<string, Action<EventArgs>> events = new Dictionary<string, Action<EventArgs>>();
         /// <summary>
         /// 注册事件
         /// </summary>
-        public static void Register(EventKey key, Action<EventMessageArgs> action)
+        public static void Register(string key, Action<EventArgs> action)
         {
             if (!events.ContainsKey(key))
             {
@@ -36,7 +35,7 @@ namespace UnityEngine
         /// <summary>
         /// 注销事件
         /// </summary>
-        public static void Unregister(EventKey key, Action<EventMessageArgs> action)
+        public static void Unregister(string key, Action<EventArgs> action)
         {
             if (events.ContainsKey(key))
             {
@@ -51,7 +50,7 @@ namespace UnityEngine
         /// <summary>
         /// 触发事件
         /// </summary>
-        public static void Post(EventKey key, EventMessageArgs args = null)
+        public static void Post(string key, EventArgs args = null)
         {
             if (events.ContainsKey(key))
             {
@@ -61,13 +60,13 @@ namespace UnityEngine
         }
     }
     /// <summary>
-    /// 事件通知数据
+    /// 事件参数
     /// </summary>
-    public sealed class EventMessageArgs : IDisposable
+    public sealed class EventArgs : IDisposable
     {
         private readonly Dictionary<string, object> messages;
 
-        public EventMessageArgs(params object[] parameters)
+        public EventArgs(params object[] parameters)
         {
             messages = new Dictionary<string, object>();
 
@@ -77,13 +76,6 @@ namespace UnityEngine
             {
                 AddOrReplace(i.ToString(), parameters[i]);
             }
-        }
-        /// <summary>
-        /// 复制
-        /// </summary>
-        public EventMessageArgs Clone()
-        {
-            return MemberwiseClone() as EventMessageArgs;
         }
         /// <summary>
         /// 索引访问器

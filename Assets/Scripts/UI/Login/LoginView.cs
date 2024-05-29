@@ -40,12 +40,12 @@ namespace Game.UI
 
         protected override void OnRegister()
         {
-            EventManager.Register(EventKey.Login, OnReceivedLogin);
+            EventDispatcher.Register(UIEvent.Login, OnReceivedLogin);
         }
 
         protected override void OnUnregister()
         {
-            EventManager.Unregister(EventKey.Login, OnReceivedLogin);
+            EventDispatcher.Unregister(UIEvent.Login, OnReceivedLogin);
         }
 
         private void Start()
@@ -72,7 +72,7 @@ namespace Game.UI
             tog_automatic.isOn = automatic;
         }
 
-        private void OnReceivedLogin(EventMessageArgs args)
+        private void OnReceivedLogin(EventArgs args)
         {
             bool success = args.Get<bool>("status");
 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public static class UIDefine
+    public static class UIConst
     {
         public const float ResolutionWidth = 2160;
 
@@ -32,11 +32,11 @@ namespace Game.UI
     public enum Axis
     {
         /// <summary>
-        /// ºá
+        /// ï¿½ï¿½
         /// </summary>
         Horizontal,
         /// <summary>
-        /// Êú
+        /// ï¿½ï¿½
         /// </summary>
         Vertical,
     }
@@ -45,15 +45,15 @@ namespace Game.UI
     {
         None,
         /// <summary>
-        /// ºá
+        /// ï¿½ï¿½
         /// </summary>
         Horizontal,
         /// <summary>
-        /// Êú
+        /// ï¿½ï¿½
         /// </summary>
         Vertical,
         /// <summary>
-        /// ×Ô¶¨Òå
+        /// ï¿½Ô¶ï¿½ï¿½ï¿½
         /// </summary>
         Custom,
     }
@@ -61,19 +61,19 @@ namespace Game.UI
     public enum Corner
     {
         /// <summary>
-        /// ×óÉÏ
+        /// ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         TopLeft,
         /// <summary>
-        /// ÓÒÉÏ
+        /// ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         TopRight,
         /// <summary>
-        /// ×óÏÂ
+        /// ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         LowerLeft,
         /// <summary>
-        /// ÓÒÏÂ
+        /// ï¿½ï¿½ï¿½ï¿½
         /// </summary>
         LowerRight,
     }
@@ -81,15 +81,15 @@ namespace Game.UI
     public enum Status
     {
         /// <summary>
-        /// Î´Íê³É
+        /// Î´ï¿½ï¿½ï¿½
         /// </summary>
         Undone,
         /// <summary>
-        /// ¿ÉÁìÈ¡
+        /// ï¿½ï¿½ï¿½ï¿½È¡
         /// </summary>
         Available,
         /// <summary>
-        /// ÒÑÁìÈ¡
+        /// ï¿½ï¿½ï¿½ï¿½È¡
         /// </summary>
         Claimed,
     }

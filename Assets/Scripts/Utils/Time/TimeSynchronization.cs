@@ -110,7 +110,7 @@ namespace Game
 
         private void Tomorrow()
         {
-            EventManager.Post(EventKey.Day, new EventMessageArgs(day));
+            EventDispatcher.Post(UIEvent.Day, new UnityEngine.EventArgs(day));
         }
 
         public DateTime Now

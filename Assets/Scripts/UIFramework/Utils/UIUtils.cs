@@ -10,13 +10,13 @@ namespace UnityEngine.UI
     {
         public static Vector2 ScreentPointToUGUIPosition(Vector2 position)
         {
-            position.x -= UIDefine.ScreenHalfWidth;
+            position.x -= UIConst.ScreenHalfWidth;
 
-            position.y -= UIDefine.ScreenHalfHeight;
+            position.y -= UIConst.ScreenHalfHeight;
 
-            position.x *= UIDefine.ScreenWidthRatio;
+            position.x *= UIConst.ScreenWidthRatio;
 
-            position.y *= UIDefine.ScreenHeightRatio;
+            position.y *= UIConst.ScreenHeightRatio;
 
             return position;
         }

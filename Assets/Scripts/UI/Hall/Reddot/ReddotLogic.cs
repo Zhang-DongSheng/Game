@@ -48,7 +48,7 @@ namespace Game
             {
                 _reddots.Add(new Reddot(key, value));
             }
-            EventManager.Post(EventKey.Reddot, new EventMessageArgs());
+            EventDispatcher.Post(UIEvent.Reddot, new EventArgs());
         }
 
         #region Request

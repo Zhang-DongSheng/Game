@@ -16,15 +16,15 @@ namespace Game.UI
 
         private void OnEnable()
         {
-            EventManager.Register(EventKey.Progress, Refresh);
+            EventDispatcher.Register(UIEvent.Progress, Refresh);
         }
 
         private void OnDisable()
         {
-            EventManager.Unregister(EventKey.Progress, Refresh);
+            EventDispatcher.Unregister(UIEvent.Progress, Refresh);
         }
 
-        private void Refresh(EventMessageArgs args)
+        private void Refresh(EventArgs args)
         {
             step = args.Get<float>("progress");
 

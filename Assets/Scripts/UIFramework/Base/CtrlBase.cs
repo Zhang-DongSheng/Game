@@ -85,7 +85,7 @@ namespace Game.UI
             this.paramter = paramter;
         }
 
-        public void Display(bool active)
+        public void ShowOrHide(bool active)
         {
             if (this.active == active) return;
 
@@ -195,7 +195,7 @@ namespace Game.UI
 
             UIManager.Instance.Record(this);
 
-            EventManager.Post(EventKey.Open, new EventMessageArgs(information));
+            EventDispatcher.Post(UIEvent.Open, new UnityEngine.EventArgs(information));
         }
 
         protected virtual void Hide()
@@ -206,7 +206,7 @@ namespace Game.UI
             }
             number--;
 
-            EventManager.Post(EventKey.Close, new EventMessageArgs(information));
+            EventDispatcher.Post(UIEvent.Close, new UnityEngine.EventArgs(information));
         }
 
         public bool active { get; private set; }

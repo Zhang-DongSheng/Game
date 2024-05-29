@@ -28,11 +28,11 @@ namespace Game
         {
             Debug.LogError(handle);
 
-            EventMessageArgs args = new EventMessageArgs();
+            EventArgs args = new EventArgs();
 
             args.AddOrReplace("status", true);
 
-            EventManager.Post(EventKey.Login, args);
+            EventDispatcher.Post(UIEvent.Login, args);
 
             ScheduleLogic.Instance.callback = () =>
             {

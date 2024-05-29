@@ -90,7 +90,7 @@ namespace Game.UI
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
                     //实现左半屏触发
-                    if (Input.mousePosition.x <= UIDefine.ScreenHalfWidth)
+                    if (Input.mousePosition.x <= UIConst.ScreenHalfWidth)
                     {
                         onEnter?.Invoke();
                         status = Status.OnEnter;

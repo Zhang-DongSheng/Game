@@ -6,15 +6,15 @@ namespace Game.UI
     {
         protected override void OnRegister()
         {
-            EventManager.Register(EventKey.Guidance, OnTriggerGuidance);
+            EventDispatcher.Register(UIEvent.Guidance, OnTriggerGuidance);
         }
 
         protected override void OnUnregister()
         {
-            EventManager.Unregister(EventKey.Guidance, OnTriggerGuidance);
+            EventDispatcher.Unregister(UIEvent.Guidance, OnTriggerGuidance);
         }
 
-        private void OnTriggerGuidance(EventMessageArgs args)
+        private void OnTriggerGuidance(EventArgs args)
         {
             var information = args.Get<GuidanceInformation>(GuidanceConfig.Key);
 

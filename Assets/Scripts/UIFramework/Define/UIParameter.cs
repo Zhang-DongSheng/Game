@@ -12,11 +12,6 @@ namespace Game
             paramters = new Dictionary<string, object>();
         }
 
-        public UIParameter Clone()
-        {
-            return MemberwiseClone() as UIParameter;
-        }
-
         public object this[string key]
         {
             get

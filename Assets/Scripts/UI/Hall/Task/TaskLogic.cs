@@ -33,7 +33,7 @@ namespace Game
             {
                 task.status = Status.Claimed;
             }
-            EventManager.Post(EventKey.Task);
+            EventDispatcher.Post(UIEvent.Task);
         }
 
         public static void Goto(int type)

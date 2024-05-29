@@ -16,12 +16,12 @@ namespace Game.UI
 
         private void Awake()
         {
-            EventManager.Register(EventKey.Language, OnLanguageChange);
+            EventDispatcher.Register(UIEvent.Language, OnLanguageChange);
         }
 
         private void OnDestroy()
         {
-            EventManager.Unregister(EventKey.Language, OnLanguageChange);
+            EventDispatcher.Unregister(UIEvent.Language, OnLanguageChange);
         }
 
         private void Start()
@@ -34,7 +34,7 @@ namespace Game.UI
             SetText(content);
         }
 
-        private void OnLanguageChange(EventMessageArgs args)
+        private void OnLanguageChange(UnityEngine.EventArgs args)
         {
             if (string.IsNullOrEmpty(content))
             {

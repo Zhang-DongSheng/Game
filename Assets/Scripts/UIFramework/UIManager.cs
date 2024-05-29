@@ -154,7 +154,7 @@ namespace Game.UI
                         {
                             if (Current != null && Current != ctrl)
                             {
-                                Current.Display(false);
+                                Current.ShowOrHide(false);
                             }
                             Current = ctrl;
                         }
@@ -185,7 +185,7 @@ namespace Game.UI
 
                 _records[UIType.Panel].RemoveAt(index);
 
-                ctrl.Display(true);
+                ctrl.ShowOrHide(true);
             }
             else
             {

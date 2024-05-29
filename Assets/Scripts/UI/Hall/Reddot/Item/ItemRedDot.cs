@@ -13,15 +13,15 @@ namespace Game.UI
 
         protected override void OnRegister()
         {
-            EventManager.Register(EventKey.Reddot, Refresh);
+            EventDispatcher.Register(UIEvent.Reddot, Refresh);
         }
 
         protected override void OnUnregister()
         {
-            EventManager.Unregister(EventKey.Reddot, Refresh);
+            EventDispatcher.Unregister(UIEvent.Reddot, Refresh);
         }
 
-        private void Refresh(EventMessageArgs args)
+        private void Refresh(EventArgs args)
         {
             Refresh();
         }

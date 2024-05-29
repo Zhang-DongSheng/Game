@@ -19,12 +19,12 @@ namespace Game.UI.Guidance
 
         protected override void OnRegister()
         {
-            EventManager.Register(EventKey.Guidance, OnGuidanceTrigger);
+            EventDispatcher.Register(UIEvent.Guidance, OnGuidanceTrigger);
         }
 
         protected override void OnUnregister()
         {
-            EventManager.Unregister(EventKey.Guidance, OnGuidanceTrigger);
+            EventDispatcher.Unregister(UIEvent.Guidance, OnGuidanceTrigger);
         }
 
         private void Refresh(GuidanceInformation guidance)
@@ -32,7 +32,7 @@ namespace Game.UI.Guidance
             transform.LiftUpLayer();
         }
 
-        private void OnGuidanceTrigger(EventMessageArgs args)
+        private void OnGuidanceTrigger(EventArgs args)
         {
             var msg = args.Get<GuidanceInformation>(GuidanceConfig.Key);
 

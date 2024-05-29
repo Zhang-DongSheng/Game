@@ -146,11 +146,11 @@ namespace Game
             {
                 progress = number / (float)count;
 
-                EventMessageArgs args = new EventMessageArgs();
+                UnityEngine.EventArgs args = new UnityEngine.EventArgs();
 
                 args.AddOrReplace("progress", progress);
 
-                EventManager.Post(EventKey.Progress, args);
+                EventDispatcher.Post(UIEvent.Progress, args);
             }
 
             if (number == count)

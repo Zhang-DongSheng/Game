@@ -67,7 +67,7 @@ namespace Game
                     {
                         Debuger.LogError(Author.Data, "Language Data is Error");
                     }
-                    EventManager.Post(EventKey.Language);
+                    EventDispatcher.Post(UIEvent.Language);
                 });
             }
             else
