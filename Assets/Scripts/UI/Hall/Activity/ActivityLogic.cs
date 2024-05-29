@@ -1,22 +1,16 @@
 using Data;
-using Game.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game
+namespace Game.UI
 {
-    public class ActivityLogic : Logic<ActivityLogic>
+    public class ActivityLogic : Singleton<ActivityLogic>, ILogic
     {
         private readonly List<ActivityData> _activities = new List<ActivityData>();
 
-        protected override void OnRegister()
+        public void Initialize()
         {
-            //NetworkMessageManager.Instance.Register(NetworkMessageDefine.C2s, OnReceivedInformation);
-        }
 
-        protected override void OnUnregister()
-        {
-            //NetworkMessageManager.Instance.Unregister(NetworkMessageDefine.C2s, OnReceivedInformation);
         }
 
         public bool IsOpen(uint activityID)

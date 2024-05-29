@@ -12,8 +12,6 @@ namespace Game.UI
 
         public const float Zero = 0;
 
-        public const string Json = "";
-
         public const string Prefab = "Package/Prefab/UI/Panel";
 
         public static readonly float ResolutionRatio = ResolutionWidth / ResolutionHeight;
@@ -32,11 +30,11 @@ namespace Game.UI
     public enum Axis
     {
         /// <summary>
-        /// ��
+        /// 横
         /// </summary>
         Horizontal,
         /// <summary>
-        /// ��
+        /// 竖
         /// </summary>
         Vertical,
     }
@@ -45,15 +43,15 @@ namespace Game.UI
     {
         None,
         /// <summary>
-        /// ��
+        /// 横
         /// </summary>
         Horizontal,
         /// <summary>
-        /// ��
+        /// 竖
         /// </summary>
         Vertical,
         /// <summary>
-        /// �Զ���
+        /// 自定义
         /// </summary>
         Custom,
     }
@@ -61,36 +59,20 @@ namespace Game.UI
     public enum Corner
     {
         /// <summary>
-        /// ����
+        /// 左上
         /// </summary>
         TopLeft,
         /// <summary>
-        /// ����
+        /// 右上
         /// </summary>
         TopRight,
         /// <summary>
-        /// ����
+        /// 左下
         /// </summary>
         LowerLeft,
         /// <summary>
-        /// ����
+        /// 右下
         /// </summary>
         LowerRight,
-    }
-
-    public enum Status
-    {
-        /// <summary>
-        /// δ���
-        /// </summary>
-        Undone,
-        /// <summary>
-        /// ����ȡ
-        /// </summary>
-        Available,
-        /// <summary>
-        /// ����ȡ
-        /// </summary>
-        Claimed,
     }
 }

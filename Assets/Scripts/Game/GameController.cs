@@ -26,6 +26,10 @@ namespace Game
 
             UIManager.Instance.Initialize();
 
+            SettingLogic.Instance.Initialize();
+
+            NotificationLogic.Instance.Initialize();
+
             LoginLogic.Instance.Initialize();
 
             PlayerLogic.Instance.Initialize();
@@ -40,9 +44,7 @@ namespace Game
 
             ActivityLogic.Instance.Initialize();
 
-            NotificationLogic.Instance.Initialize();
-
-            SettingLogic.Instance.Initialize();
+            RankingListLogic.Instance.Initialize();
 
             ReddotLogic.Instance.Initialize();
 
@@ -72,12 +74,12 @@ namespace Game
 
         private void OnApplicationPause(bool pause)
         {
-            Debuger.LogWarning(Author.Script, "应用程序切换后台" + pause);
+            Debuger.LogWarning(Author.Device, "应用程序切换后台" + pause);
         }
 
         private void OnApplicationQuit()
         {
-            Debuger.LogError(Author.Script, "应用程序退出");
+            Debuger.LogError(Author.Device, "应用程序退出");
         }
 
         private void OnDestroy()

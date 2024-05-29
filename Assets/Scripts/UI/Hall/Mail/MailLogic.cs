@@ -1,12 +1,16 @@
 using Data;
-using Game.UI;
 using System.Collections.Generic;
 
-namespace Game
+namespace Game.UI
 {
-    public class MailLogic : Logic<MailLogic>
+    public class MailLogic : Singleton<MailLogic>, ILogic
     {
         private readonly List<Mail> _mails = new List<Mail>();
+
+        public void Initialize()
+        {
+
+        }
 
         public void RequestMails()
         {

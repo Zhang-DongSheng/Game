@@ -1,27 +1,20 @@
 using Data;
-using Game.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game
+namespace Game.UI
 {
-    public class TaskLogic : Logic<TaskLogic>
+    public class TaskLogic : Singleton<TaskLogic>, ILogic
     {
         private readonly List<Task> _tasks = new List<Task>();
 
+        public void Initialize()
+        {
+
+        }
+
         public void RequestTasks()
         {
-            var data = DataManager.Instance.Load<DataTask>();
-
-            int count = data.list.Count;
-
-            for (int i = 0; i < count; i++)
-            {
-                _tasks.Add(new Task(data.list[i])
-                {
-
-                });
-            }
             ScheduleLogic.Instance.Update(Schedule.Task);
         }
 

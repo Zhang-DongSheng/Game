@@ -1,14 +1,10 @@
-using Game.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Game
+namespace Game.UI
 {
-    public class SettingLogic : Logic<SettingLogic>
+    public class SettingLogic : Singleton<SettingLogic>, ILogic
     {
+        public void Initialize()
+        {
 
+        }
     }
 }

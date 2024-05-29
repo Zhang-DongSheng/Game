@@ -1,22 +1,15 @@
-using Game.UI;
-using Google.Protobuf;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game
+namespace Game.UI
 {
-    public class ReddotLogic : Logic<ReddotLogic>
+    public class ReddotLogic : Singleton<ReddotLogic>, ILogic
     {
         private readonly List<Reddot> _reddots = new List<Reddot>();
 
-        protected override void OnRegister()
+        public void Initialize()
         {
-            //NetworkMessageManager.Instance.Register(NetworkMessageDefine.C2s, OnReceivedInformation);
-        }
 
-        protected override void OnUnregister()
-        {
-            //NetworkMessageManager.Instance.Unregister(NetworkMessageDefine.C2s, OnReceivedInformation);
         }
 
         public bool Trigger(params int[] keys)

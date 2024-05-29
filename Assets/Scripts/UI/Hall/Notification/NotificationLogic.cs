@@ -2,9 +2,14 @@ using System.Collections.Generic;
 
 namespace Game.UI
 {
-    internal class NotificationLogic : Logic<NotificationLogic>
+    internal class NotificationLogic : Singleton<NotificationLogic>, ILogic
     {
         private readonly Dictionary<Notification, List<string>> _messages = new Dictionary<Notification, List<string>>();
+
+        public void Initialize()
+        {
+
+        }
 
         public void Push(Notification key, string value)
         {

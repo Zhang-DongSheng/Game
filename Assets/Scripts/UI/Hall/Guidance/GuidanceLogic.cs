@@ -2,17 +2,22 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class GuidanceLogic : Logic<GuidanceLogic>
+    public class GuidanceLogic : Singleton<GuidanceLogic>, ILogic
     {
-        protected override void OnRegister()
+        public void Initialize()
         {
-            EventDispatcher.Register(UIEvent.Guidance, OnTriggerGuidance);
+
         }
 
-        protected override void OnUnregister()
-        {
-            EventDispatcher.Unregister(UIEvent.Guidance, OnTriggerGuidance);
-        }
+        //protected override void OnRegister()
+        //{
+        //    EventDispatcher.Register(UIEvent.Guidance, OnTriggerGuidance);
+        //}
+
+        //protected override void OnUnregister()
+        //{
+        //    EventDispatcher.Unregister(UIEvent.Guidance, OnTriggerGuidance);
+        //}
 
         private void OnTriggerGuidance(EventArgs args)
         {

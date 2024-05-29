@@ -1,21 +1,15 @@
 using Data;
-using Game.UI;
 using System.Collections.Generic;
 
-namespace Game
+namespace Game.UI
 {
-    public class ShopLogic : Logic<ShopLogic>
+    public class ShopLogic : Singleton<ShopLogic>, ILogic
     {
         private readonly List<Shop> _shops = new List<Shop>();
 
-        protected override void OnRegister()
+        public void Initialize()
         {
-            //NetworkMessageManager.Instance.Register(NetworkMessageDefine.C2s, OnReceivedInformation);
-        }
 
-        protected override void OnUnregister()
-        {
-            //NetworkMessageManager.Instance.Unregister(NetworkMessageDefine.C2s, OnReceivedInformation);
         }
 
         public bool Exists(int shop)

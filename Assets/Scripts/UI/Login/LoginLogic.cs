@@ -1,15 +1,19 @@
 using Data;
 using Game.Network;
 using Game.State;
-using Game.UI;
 using Protobuf;
 using UnityEngine;
 
-namespace Game
+namespace Game.UI
 {
-    public class LoginLogic : Logic<LoginLogic>
+    public class LoginLogic : Singleton<LoginLogic>, ILogic
     {
         public LoginInformation user { get; private set; }
+
+        public void Initialize()
+        {
+
+        }
 
         #region Request
         public void RequestInformation(string account, string password)

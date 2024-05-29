@@ -1,23 +1,17 @@
 using Data;
-using Game.UI;
 using System.Collections.Generic;
 
-namespace Game
+namespace Game.UI
 {
-    public class WarehouseLogic : Logic<WarehouseLogic>
+    public class WarehouseLogic : Singleton<WarehouseLogic>, ILogic
     {
         private readonly List<Prop> _props = new List<Prop>();
 
         private readonly List<Prop> _variables = new List<Prop>();
 
-        protected override void OnRegister()
+        public void Initialize()
         {
-            //NetworkMessageManager.Instance.Register(NetworkMessageDefine.C2s, OnReceivedInformation);
-        }
 
-        protected override void OnUnregister()
-        {
-            //NetworkMessageManager.Instance.Unregister(NetworkMessageDefine.C2s, OnReceivedInformation);
         }
 
         public List<Prop> GetPropsByCategory(int category)
