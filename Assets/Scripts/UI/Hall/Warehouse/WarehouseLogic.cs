@@ -56,7 +56,7 @@ namespace Game.UI
             return _props.Find(x => x.identification == propID);
         }
 
-        public int GetPropNumber(uint propID)
+        public uint GetPropNumber(uint propID)
         {
             var prop = _props.Find(x => x.identification == propID);
 

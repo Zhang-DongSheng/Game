@@ -36,7 +36,7 @@ namespace Game.UI
 
             group.Refresh(table.rewards.Count, (index, item) =>
             {
-                item.Refresh(table.rewards[index].x, (int)table.rewards[index].y);
+                item.Refresh(table.rewards[index].x, table.rewards[index].y);
             });
             status.Refresh(task.status);
         }

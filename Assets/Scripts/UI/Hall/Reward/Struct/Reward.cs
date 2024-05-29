@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Data
+namespace Game.UI
 {
     public class Reward
     {

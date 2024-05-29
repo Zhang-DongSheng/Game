@@ -54,7 +54,7 @@ namespace Game.UI
                     {
                         identification = 1000 + (uint)i,
                         primary = 1001 + (uint)i,
-                        status = Status.Available
+                        purchased = 0
                     });
                 }
                 _shops.Add(counter);

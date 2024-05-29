@@ -14,11 +14,11 @@ namespace Game.UI
 
         protected float amount;
 
-        public void Refresh(uint coin, float amount)
+        public void Refresh(UIntPair pair)
         {
-            this.coin = coin;
+            this.coin = pair.x;
 
-            this.amount = amount;
+            this.amount = pair.y;
 
             Refresh();
         }

@@ -30,6 +30,13 @@ namespace Data
 
                 commodity.primary = m_list[i].GetUInt("ID");
 
+                var cost = m_list[i].GetJson("cost");
+
+                commodity.cost = new UIntPair()
+                {
+                    x = uint.Parse(cost[0].ToString()),
+                    y = uint.Parse(cost[1].ToString()),
+                };
                 commodity.rewards = new List<UIntPair>();
 
                 var rewards = m_list[i].GetJson("rewards");
@@ -56,11 +63,9 @@ namespace Data
     {
         public string name;
 
-        public uint cost;
+        public UIntPair cost;
 
-        public float price;
-
-        public bool purchase;
+        public int number;
 
         public List<UIntPair> rewards;
 

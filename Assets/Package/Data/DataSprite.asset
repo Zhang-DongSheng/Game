@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DataSprite
   m_EditorClassIdentifier: 
   list:
-  - primary: 990
+  - primary: 1016
     name: altas_head
     path: Package/Atlas/altas_head.spriteatlas
     sprites:
@@ -29,7 +29,7 @@ MonoBehaviour:
     - "\u7537\u751F-\u6B27"
     - "\u7537\u751F-\u84DD"
     - "\u5973\u751F-\u7D2B"
-  - primary: 992
+  - primary: 1020
     name: atlas_common_normal
     path: Package/Atlas/atlas_common_normal.spriteatlas
     sprites:
@@ -51,7 +51,7 @@ MonoBehaviour:
     - GUI Skin - Button Pressed
     - Circle Outline Dash - Stroke 3px
     - background_3
-  - primary: 33640
+  - primary: 1018
     name: atlas_common_other
     path: Package/Atlas/atlas_common_other.spriteatlas
     sprites:
@@ -72,7 +72,7 @@ MonoBehaviour:
     - light_bottom
     - quality_5
     - arrow_right
-  - primary: 33644
+  - primary: 1008
     name: atlas_common_utils
     path: Package/Atlas/atlas_common_utils.spriteatlas
     sprites:
@@ -86,7 +86,7 @@ MonoBehaviour:
     - utils_close
     - utils_compress
     - utils_expand
-  - primary: 1002
+  - primary: 1032
     name: atlas_currency
     path: Package/Atlas/atlas_currency.spriteatlas
     sprites:
@@ -97,11 +97,11 @@ MonoBehaviour:
     - currency_gold
     - currency_coin_3
     - currency_bill
-  - primary: 998
+  - primary: 1026
     name: atlas_emoji
     path: Package/Atlas/atlas_emoji.spriteatlas
     sprites: []
-  - primary: 1000
+  - primary: 1028
     name: atlas_main
     path: Package/Atlas/atlas_main.spriteatlas
     sprites:
@@ -114,7 +114,7 @@ MonoBehaviour:
     - main_task
     - main_notice
     - main_ranking
-  - primary: 994
+  - primary: 1022
     name: atlas_prop_clothing
     path: Package/Atlas/atlas_prop_clothing.spriteatlas
     sprites:
@@ -138,7 +138,7 @@ MonoBehaviour:
     - "\u4F11\u95F2\u88E4"
     - "\u8D85\u77ED\u88E4"
     - "\u886C\u886B"
-  - primary: 988
+  - primary: 1014
     name: atlas_set
     path: Package/Atlas/atlas_set.spriteatlas
     sprites:
@@ -149,22 +149,22 @@ MonoBehaviour:
     - settingt_sound
     - setting_mute
     - setting_vibrate
-  - primary: 984
+  - primary: 1010
     name: atlas_title
     path: Package/Atlas/atlas_title.spriteatlas
     sprites:
     - title_back
-  - primary: 4294961256
+  - primary: 1030
     name: atlas_background_battle
     path: Package/Atlas/Single/atlas_background_battle.spriteatlas
     sprites:
     - background_battle
-  - primary: 986
+  - primary: 1012
     name: atlas_background_login
     path: Package/Atlas/Single/atlas_background_login.spriteatlas
     sprites:
     - background_login
-  - primary: 996
+  - primary: 1024
     name: atlas_background_main
     path: Package/Atlas/Single/atlas_background_main.spriteatlas
     sprites:

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Game
+namespace Game.UI
 {
     public sealed class UIParameter : IDisposable
     {

@@ -3,73 +3,57 @@
 "list":[
 	{
 	"ID":1001,
-	"name":"商品1",
-	"cost":101,
-	"price":10,
-	"purchase":0,
+	"name":"prop_1",
+	"cost":[101,1],
 	"rewards":[[10001,1],[10002,1]],
 	"description":"商品1"
 	},
 	{
 	"ID":1002,
-	"name":"商品2",
-	"cost":102,
-	"price":100,
-	"purchase":0,
+	"name":"prop_2",
+	"cost":[101,2],
 	"rewards":[[10002,1],[10002,2]],
 	"description":"商品2"
 	},
 	{
 	"ID":1003,
-	"name":"商品3",
-	"cost":101,
-	"price":50,
-	"purchase":0,
+	"name":"prop_3",
+	"cost":[101,3],
 	"rewards":[[10003,1],[10002,3]],
 	"description":"商品3"
 	},
 	{
 	"ID":1004,
-	"name":"商品4",
-	"cost":102,
-	"price":100,
-	"purchase":0,
+	"name":"prop_4",
+	"cost":[101,4],
 	"rewards":[[10004,1],[10002,4]],
 	"description":"商品4"
 	},
 	{
 	"ID":1005,
-	"name":"商品5",
-	"cost":101,
-	"price":150,
-	"purchase":0,
+	"name":"prop_5",
+	"cost":[101,5],
 	"rewards":[[10005,1],[10002,5]],
 	"description":"商品5"
 	},
 	{
 	"ID":1006,
-	"name":"商品6",
-	"cost":102,
-	"price":200,
-	"purchase":0,
+	"name":"prop_6",
+	"cost":[101,6],
 	"rewards":[[10006,1],[10002,6]],
 	"description":"商品6"
 	},
 	{
 	"ID":1007,
-	"name":"商品7",
-	"cost":10001,
-	"price":250,
-	"purchase":1,
+	"name":"prop_7",
+	"cost":[101,7],
 	"rewards":[[10007,1],[10002,7]],
 	"description":"商品7"
 	},
 	{
 	"ID":1008,
-	"name":"商品8",
-	"cost":102,
-	"price":300,
-	"purchase":0,
+	"name":"prop_8",
+	"cost":[101,8],
 	"rewards":[[10008,1],[10002,8]],
 	"description":"商品8"
 	}

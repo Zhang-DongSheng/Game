@@ -30,11 +30,17 @@ namespace Game.UI
 
             if (table == null || table.rewards.Count == 0) return;
 
-            m_prop.Refresh(table.rewards[0].x, (int)table.rewards[0].y);
+            m_prop.Refresh(table.rewards[0].x, table.rewards[0].y);
 
-            m_cost.Refresh(table.cost, table.price);
+            m_cost.Refresh(table.cost);
 
-            m_status.Refresh(commodity.status);
+            var status = Status.Available;
+
+            if (table.number > 0)
+            {
+                status = commodity.purchased < table.number ? Status.Available : Status.Claimed;
+            }
+            m_status.Refresh(status);
         }
 
         private void OnClick()
@@ -51,7 +57,7 @@ namespace Game.UI
 
                 for (int i = 0; i < count; i++)
                 {
-                    reward.props.Add(new Prop(0, table.rewards[i].x, (int)table.rewards[i].y));
+                    reward.props.Add(new Prop(0, table.rewards[i].x, table.rewards[i].y));
                 }
                 UIQuickEntry.OpenUIReward(reward);
             });
