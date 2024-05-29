@@ -49,7 +49,7 @@ namespace UnityEditor.Window
             }
         }
 
-        private void OnExited(object sender, EventArgs e)
+        private void OnExited(object sender, System.EventArgs e)
         {
             AssetDatabase.Refresh();
         }

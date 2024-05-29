@@ -67,7 +67,7 @@ namespace UnityEditor.Window
 
                 AssetDatabase.Refresh();
 
-                path = string.Format("Assets/{0}/{1}View.prefab", UIDefine.Prefab, content);
+                path = string.Format("Assets/{0}/{1}View.prefab", UIConst.Prefab, content);
 
                 PrefabUtils.CreateUGUI(path);
 
@@ -119,7 +119,7 @@ namespace UnityEditor.Window
 
                         order = 0,
 
-                        path = string.Format("{0}/{1}View.prefab", UIDefine.Prefab, panel)
+                        path = string.Format("{0}/{1}View.prefab", UIConst.Prefab, panel)
                     };
                 }
                 relevance = false;
