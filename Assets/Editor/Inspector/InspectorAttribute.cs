@@ -67,95 +67,6 @@ namespace UnityEditor.Inspector
             GUI.enabled = true;
         }
     }
-    [CustomPropertyDrawer(typeof(IntervalAttribute))]
-    class IntervalDrawer : PropertyDrawer
-    {
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-        {
-            //UnityEngine.Assertions.Assert.IsTrue(property.propertyType == SerializedPropertyType.Vector2, "Devi usare un vector2 per MinMax");
-
-            IntervalAttribute interval = attribute as IntervalAttribute;
-
-            position = EditorGUI.PrefixLabel(position, label);
-
-            switch (property.propertyType)
-            {
-                case SerializedPropertyType.Vector2:
-                    {
-                        Rect left = new Rect(position.x, position.y, 50, position.height);
-
-                        Rect value = new Rect(left.xMax, position.y, position.width - left.width * 2 - 4, position.height);
-
-                        Rect right = new Rect(position.xMax - left.width - 2, position.y, left.width, position.height);
-
-                        float min = property.vector2Value.x;
-
-                        float max = property.vector2Value.y;
-
-                        EditorGUI.MinMaxSlider(value, ref min, ref max, interval.min, interval.max);
-
-                        property.vector2Value = new Vector2(min, max);
-
-                        EditorGUI.LabelField(left, min.ToString("F3"));
-
-                        EditorGUI.LabelField(right, max.ToString("F3"));
-                    }
-                    break;
-                case SerializedPropertyType.Float:
-                    {
-                        float value = property.floatValue;
-
-                        value = EditorGUI.Slider(position, value, interval.min, interval.max);
-
-                        property.floatValue = value;
-                    }
-                    break;
-                default:
-                    {
-                        GUI.Label(position, "You can use Interval only on a Vector2!");
-                    }
-                    break;
-            }
-        }
-    }
-    [CustomPropertyDrawer(typeof(CurveAttribute))]
-    class CurveDrawer : PropertyDrawer
-    {
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-        {
-            CurveAttribute curve = attribute as CurveAttribute;
-
-            switch (property.propertyType)
-            {
-                case SerializedPropertyType.AnimationCurve:
-                    {
-                        EditorGUI.CurveField(position, property, curve.color, curve.ranges, label);
-                    }
-                    break;
-                default:
-                    {
-                        GUI.Label(position, "You can use Curve only on a AnimationCurve!");
-                    }
-                    break;
-            }
-        }
-    }
-    [CustomPropertyDrawer(typeof(LineAttribute))]
-    class LineDrawer : PropertyDrawer
-    {
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-        {
-            LineAttribute line = attribute as LineAttribute;
-
-            position = EditorGUI.IndentedRect(position);
-
-            position.y += (EditorGUIUtility.singleLineHeight - line.height) / 2.0f;
-
-            position.height = line.height;
-
-            EditorGUI.DrawRect(position, line.color);
-        }
-    }
     [CustomPropertyDrawer(typeof(DisplayAttribute))]
     class DisplayDrawer : PropertyDrawer
     {
@@ -182,6 +93,117 @@ namespace UnityEditor.Inspector
                 }
                 EditorGUI.PropertyField(position, property, label, true);
             }
+        }
+    }
+    [CustomPropertyDrawer(typeof(SuffixAttribute))]
+    class SuffixDrawer : PropertyDrawer
+    {
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            SuffixAttribute suffix = attribute as SuffixAttribute;
+
+            label.text = string.Format("{0} {1}", label.text, suffix.suffix);
+
+            EditorGUI.PropertyField(position, property, label, property.isExpanded);
+        }
+    }
+    [CustomPropertyDrawer(typeof(IntervalAttribute))]
+    class IntervalDrawer : PropertyDrawer
+    {
+        private Vector2 variable = new Vector2(0, 0);
+
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            IntervalAttribute interval = attribute as IntervalAttribute;
+
+            position = EditorGUI.PrefixLabel(position, label);
+
+            switch (property.propertyType)
+            {
+                case SerializedPropertyType.Vector2:
+                    {
+                        Rect left = new Rect(position.x, position.y, 50, position.height);
+
+                        Rect value = new Rect(left.xMax, position.y, position.width - left.width * 2 - 4, position.height);
+
+                        Rect right = new Rect(position.xMax - left.width - 2, position.y, left.width, position.height);
+
+                        variable.x = property.vector2Value.x;
+
+                        variable.y = property.vector2Value.y;
+
+                        EditorGUI.MinMaxSlider(value, ref variable.x, ref variable.y, interval.min, interval.max);
+
+                        property.vector2Value = new Vector2(variable.x, variable.y);
+
+                        EditorGUI.LabelField(left, variable.x.ToString("F3"));
+
+                        EditorGUI.LabelField(right, variable.y.ToString("F3"));
+                    }
+                    break;
+                case SerializedPropertyType.Vector2Int:
+                    {
+                        Rect left = new Rect(position.x, position.y, 50, position.height);
+
+                        Rect value = new Rect(left.xMax, position.y, position.width - left.width * 2 - 4, position.height);
+
+                        Rect right = new Rect(position.xMax - left.width - 2, position.y, left.width, position.height);
+
+                        variable.x = property.vector2IntValue.x;
+
+                        variable.y = property.vector2IntValue.y;
+
+                        EditorGUI.MinMaxSlider(value, ref variable.x, ref variable.y, interval.min, interval.max);
+
+                        property.vector2IntValue = new Vector2Int((int)variable.x, (int)variable.y);
+
+                        EditorGUI.LabelField(left, variable.x.ToString());
+
+                        EditorGUI.LabelField(right, variable.y.ToString());
+                    }
+                    break;
+                case SerializedPropertyType.Float:
+                    {
+                        variable.x = Mathf.Clamp(property.floatValue, interval.min, interval.max);
+
+                        variable.x = EditorGUI.Slider(position, variable.x, interval.min, interval.max);
+
+                        property.floatValue = variable.x;
+                    }
+                    break;
+                case SerializedPropertyType.Integer:
+                    {
+                        variable.x = Mathf.Clamp(property.intValue, interval.min, interval.max);
+
+                        variable.x = EditorGUI.Slider(position, variable.x, interval.min, interval.max);
+
+                        property.intValue = (int)variable.x;
+                    }
+                    break;
+                default:
+                    {
+                        GUI.Label(position, "You can use Interval by " + property.propertyType);
+                    }
+                    break;
+            }
+        }
+    }
+    [CustomPropertyDrawer(typeof(LineAttribute))]
+    class LineDrawer : PropertyDrawer
+    {
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            EditorGUI.PropertyField(position, property, label, property.isExpanded);
+
+            LineAttribute line = attribute as LineAttribute;
+
+            position = EditorGUI.IndentedRect(position);
+
+            position.y += (EditorGUIUtility.singleLineHeight - line.height) / 2.0f;
+
+            position.height = line.height;
+
+            EditorGUI.DrawRect(position, line.color);
         }
     }
     [CustomPropertyDrawer(typeof(ButtonAttribute))]

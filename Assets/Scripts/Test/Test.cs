@@ -8,9 +8,26 @@ namespace Game.Test
     {
         [SerializeField] private GameObject target;
 
+        [SerializeField] private IntInterval intInterval;
+
         [SerializeField] private Vector3 position;
+        [Line("#00FFFF", 2)]
+        [Interval(1,10)]
+        public Vector2Int vector1;
+        [Interval(1, 10)]
+        public Vector2 vector2;
+        [Interval(1, 10)]
+        public float vector3;
+        [Display("杀马特",true)]
+        public int vector4;
+        [Suffix("(m/s)")]
+        public int vector5;
+
+        public int vector6;
         [Button("OnClickButton")]
         public float index;
+
+        
 
         private Vector2 delta;
 

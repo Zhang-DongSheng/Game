@@ -2,18 +2,25 @@ using UnityEngine;
 
 namespace Game.Attribute
 {
+    /// <summary>
+    /// Ïß¶Î
+    /// </summary>
     public class LineAttribute : PropertyAttribute
     {
-        public const float HEIGHT = 2.0f;
-
         public float height { get; private set; }
 
-        public Color color { get; private set; }
+        public Color color;
 
-        public LineAttribute(AttributeColor attributeColor = AttributeColor.Gray, float height = HEIGHT)
+        public LineAttribute(string hexadecimal, float height = 2f)
         {
-            this.color = Config.Color(attributeColor);
+            if (ColorUtility.TryParseHtmlString(hexadecimal, out color))
+            {
 
+            }
+            else
+            {
+                color = Color.magenta;
+            }
             this.height = height;
         }
     }

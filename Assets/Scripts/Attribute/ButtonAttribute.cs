@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Game.Attribute
 {
+    /// <summary>
+    /// °´Å¥
+    /// </summary>
     public class ButtonAttribute : PropertyAttribute
     {
         const BindingFlags Flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
