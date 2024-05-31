@@ -48,6 +48,17 @@ namespace Game
                 Application.OpenURL(uri.AbsoluteUri);
             }
             /// <summary>
+            /// 打开系统邮箱
+            /// </summary>
+            public static void OpenQQ(string qq)
+            {
+                if (string.IsNullOrEmpty(qq)) return;
+
+                string url = string.Format("tencent://message/?uin={0}&Site=&Menu=yes", qq);
+
+                Application.OpenURL(url);
+            }
+            /// <summary>
             /// 复制到剪切板
             /// </summary>
             public static void Copy(string content)

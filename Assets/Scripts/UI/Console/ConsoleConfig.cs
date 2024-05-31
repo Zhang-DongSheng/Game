@@ -49,7 +49,5 @@ namespace Game
             "<color=black>文件存储路径: </color>" + Application.persistentDataPath,
             "<color=black>UnityVersion: </color>" + Application.unityVersion,
         };
-
-        public const string Email = @"https://www.baidu.com";
     }
 }

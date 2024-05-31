@@ -19,11 +19,11 @@ namespace UnityEditor.Window
             {
                 GUILayout.BeginHorizontal(GUILayout.Height(25));
                 {
-                    GUILayout.Label("String", GUILayout.Width(50));
+                    GUILayout.Label(ToLanguage("String"), GUILayout.Width(50));
 
                     inputString.value = GUILayout.TextField(inputString.value);
 
-                    if (GUILayout.Button("Confirm", GUILayout.Width(60)))
+                    if (GUILayout.Button(ToLanguage("Confirm"), GUILayout.Width(60)))
                     {
                         if (string.IsNullOrEmpty(inputString.value))
                         {
@@ -39,14 +39,14 @@ namespace UnityEditor.Window
 
                 GUILayout.BeginHorizontal(GUILayout.Height(25));
                 {
-                    GUILayout.Label("File", GUILayout.Width(50));
+                    GUILayout.Label(ToLanguage("File"), GUILayout.Width(50));
 
-                    if (GUILayout.Button(inputFile.value)) 
+                    if (GUILayout.Button(inputFile.value))
                     {
                         inputFile.value = EditorUtility.OpenFilePanel("Md5", "", "");
                     }
                     // Compute File Md5
-                    if (GUILayout.Button("Confirm", GUILayout.Width(60)))
+                    if (GUILayout.Button(ToLanguage("Confirm"), GUILayout.Width(60)))
                     {
                         message = Utility.MD5.ComputeFile(inputFile.value);
                     }
@@ -55,11 +55,11 @@ namespace UnityEditor.Window
 
                 GUILayout.BeginHorizontal(GUILayout.Height(30));
                 {
-                    GUILayout.Label("Md5", GUILayout.Width(50));
+                    GUILayout.Label(ToLanguage("Md5"), GUILayout.Width(50));
 
                     GUILayout.Label(message, new GUIStyle() { alignment = TextAnchor.MiddleCenter, fontSize = 20 });
 
-                    if (GUILayout.Button("Copy", GUILayout.Width(60)))
+                    if (GUILayout.Button(ToLanguage("Copy"), GUILayout.Width(60)))
                     {
                         GUIUtility.systemCopyBuffer = message;
                     }

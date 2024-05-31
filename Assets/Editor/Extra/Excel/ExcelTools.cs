@@ -231,11 +231,11 @@ namespace UnityEditor
 
 		private void RefreshUIOther()
 		{
-			if (GUILayout.Button(ToLanguage("联系我们")))
-			{
-				Application.OpenURL("https://www.baidu.com");
-			}
-		}
+            if (GUILayout.Button(ToLanguage("Contact us")))
+            {
+                Utility.Common.OpenQQ(GameConfig.QQ);
+            }
+        }
 
 		private void OnSelectionChange()
 		{

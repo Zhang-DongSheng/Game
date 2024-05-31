@@ -499,20 +499,13 @@ namespace UnityEngine.UI
 				}
 			}
 #endif
-
 			return m_OutputText;
 		}
-
 		// Process href links to open them as a url, can override this function for custom functionality
 		public virtual void OnHrefClick(string hrefName)
 		{
 			Application.OpenURL(hrefName);
-
-			// Debug.Log(hrefName);
 		}
-
-
-		/// UNITY METHODS ///
 
 		protected override void OnPopulateMesh(VertexHelper toFill)
 		{

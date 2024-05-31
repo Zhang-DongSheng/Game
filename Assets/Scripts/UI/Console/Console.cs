@@ -127,7 +127,7 @@ namespace Game
                 {
                     if (GUILayout.Button("联系我们", GUILayout.ExpandHeight(true)))
                     {
-                        Application.OpenURL(ConsoleConfig.Email);
+                        Utility.Common.OpenQQ(GameConfig.QQ);
                     }
                     if (GUILayout.Button("关闭窗口", GUILayout.ExpandHeight(true)))
                     {

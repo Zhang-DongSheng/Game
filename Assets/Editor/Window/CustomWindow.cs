@@ -78,7 +78,7 @@ namespace UnityEditor.Window
 
         protected string ToLanguage(string key)
         {
-            return LanguageManager.Instance.GetWorld(key);
+            return EditorLanguage.GetWorld(key);
         }
     }
     [System.Serializable]

@@ -64,11 +64,11 @@ namespace UnityEditor.Window
                             break;
                         case 1:
                             {
-                                if (GUILayout.Button(ToLanguage("空方法检测")))
+                                if (GUILayout.Button(ToLanguage("Detection Empty Function")))
                                 {
                                     DetectionEmptyFunction();
                                 }
-                                if (GUILayout.Button(ToLanguage("中文检测")))
+                                if (GUILayout.Button(ToLanguage("Detection Chinese")))
                                 {
                                     DetectionChinese();
                                 }
@@ -116,11 +116,11 @@ namespace UnityEditor.Window
                             break;
                         default:
                             {
-                                if (GUILayout.Button("Detection resource reference"))
+                                if (GUILayout.Button(ToLanguage("Detection resource reference")))
                                 {
                                     FindReferences.Empty(string.Format("t:{0}", assetoptions[indexAsset.value]), "Assets");
                                 }
-                                if (GUILayout.Button("Detection resource size"))
+                                if (GUILayout.Button(ToLanguage("Detection resource size")))
                                 {
                                     Overflow(string.Format("t:{0}", assetoptions[indexAsset.value]), "Assets");
                                 }

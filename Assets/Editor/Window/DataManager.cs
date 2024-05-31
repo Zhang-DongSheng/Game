@@ -171,17 +171,17 @@ namespace UnityEditor.Window
 
         private void RefreshSynchronizate()
         {
-            if (GUILayout.Button("同步ILRuntime"))
+            if (GUILayout.Button(ToLanguage("Synchronizate") + "ILRuntime"))
             {
                 SynchronizateILRuntime();
             }
 
-            if (GUILayout.Button("同步IFix"))
+            if (GUILayout.Button(ToLanguage("Synchronizate") + "IFix"))
             {
                 SynchronizateIFix();
             }
 
-            if (GUILayout.Button("同步ProtoBuf"))
+            if (GUILayout.Button(ToLanguage("Synchronizate") + "ProtoBuf"))
             {
                 SynchronizateProtoBuf();
             }
@@ -189,9 +189,9 @@ namespace UnityEditor.Window
 
         private void RefreshOther()
         {
-            if (GUILayout.Button("联系我们"))
+            if (GUILayout.Button(ToLanguage("Contact us")))
             {
-                Application.OpenURL("tencent://message/?uin=202689420&Site=&Menu=yes");
+                Utility.Common.OpenQQ(GameConfig.QQ);
             }
         }
 

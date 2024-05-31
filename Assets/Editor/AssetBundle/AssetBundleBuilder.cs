@@ -187,7 +187,7 @@ namespace UnityEditor.Window
             {
                 if (currentSourceIndex == 0)
                 {
-                    GUILayout.Label("Search:", GUILayout.Width(50));
+                    GUILayout.Label(ToLanguage("Search"), GUILayout.Width(50));
 
                     input_source = GUILayout.TextField(input_source);
 
@@ -214,7 +214,7 @@ namespace UnityEditor.Window
 
                     GUILayout.BeginVertical(GUILayout.Width(100));
                     {
-                        if (GUILayout.Button(ToLanguage("生成[AssetBundle]"), GUILayout.Height(30)))
+                        if (GUILayout.Button(ToLanguage("Build AssetBundle"), GUILayout.Height(30)))
                         {
                             BuildAssetBundle();
                         }
@@ -240,7 +240,7 @@ namespace UnityEditor.Window
                             OpenFolder(SourcePath);
                         }
 
-                        if (GUILayout.Button(ToLanguage("Bundle文件夹")))
+                        if (GUILayout.Button(ToLanguage("AssetsBundle Folder")))
                         {
                             OpenFolder(AssetBundlePath);
                         }
@@ -381,9 +381,9 @@ namespace UnityEditor.Window
 
         private void RefreshUIOther()
         {
-            if (GUILayout.Button(ToLanguage("联系我们")))
+            if (GUILayout.Button(ToLanguage("Contact us")))
             {
-                Application.OpenURL("https://www.baidu.com");
+                Utility.Common.OpenQQ(GameConfig.QQ);
             }
         }
 

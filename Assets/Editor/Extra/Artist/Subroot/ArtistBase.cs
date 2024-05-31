@@ -12,7 +12,7 @@ namespace UnityEditor.Window
 
         public virtual string ToLanguage(string key)
         { 
-            return LanguageManager.Instance.GetWorld(key);
+            return EditorLanguage.GetWorld(key);
         }
 
         public virtual void ShowNotification(string message)

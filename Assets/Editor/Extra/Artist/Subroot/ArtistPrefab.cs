@@ -1,4 +1,5 @@
 using Game;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,6 +39,10 @@ namespace UnityEditor.Window
         {
             items.Clear();
 
+            items.Add(new ItemFile()
+            {
+                name = "None",
+            });
             var assets = AssetDatabase.FindAssets("t:prefab");
 
             for (int i = 0; i < assets.Length; i++)
@@ -51,42 +56,20 @@ namespace UnityEditor.Window
                     order = 0,
                 });
             }
-            _list = new string[items.Count];
+            int count = items.Count;
 
-            for (int i = 0; i < items.Count; i++)
+            _list = new string[count];
+
+            for (int i = 0; i < count; i++)
             {
                 _list[i] = items[i].name;
             }
+            indexPrefab.action = Reload;
 
-            indexPrefab.action = (index) =>
+            if (count > 0)
             {
-                file = items[index];
-
-                dependencies.Clear();
-
-                if (string.IsNullOrEmpty(file.asset))
-                {
-                    prefab = null;
-                }
-                else
-                {
-                    prefab = AssetDatabase.LoadAssetAtPath<GameObject>(file.asset);
-
-                    string[] _dependencies = AssetDatabase.GetDependencies(file.asset);
-
-                    int count = _dependencies.Length;
-
-                    for (int i = 0; i < count; i++)
-                    {
-                        var _dependency = AssetDatabase.LoadAssetAtPath<Object>(_dependencies[i]);
-
-                        if (_dependency != prefab)
-                        {
-                            dependencies.Add(_dependency);
-                        }
-                    }
-                }
-            };
+                Reload(0);
+            }
         }
 
         public override void Refresh()
@@ -169,7 +152,7 @@ namespace UnityEditor.Window
 
         private void RefreshComponent()
         {
-            if (GUILayout.Button(ToLanguage("Detection component references")))
+            if (GUILayout.Button(ToLanguage("Detection Component References")))
             {
                 if (indexPrefab.value == 0) { }
                 else
@@ -319,6 +302,36 @@ namespace UnityEditor.Window
                 }
             }
             GUILayout.EndVertical();
+        }
+
+        private void Reload(int index)
+        {
+            file = items[index];
+
+            dependencies.Clear();
+
+            if (string.IsNullOrEmpty(file.asset))
+            {
+                prefab = null;
+            }
+            else
+            {
+                prefab = AssetDatabase.LoadAssetAtPath<GameObject>(file.asset);
+
+                string[] _dependencies = AssetDatabase.GetDependencies(file.asset);
+
+                int count = _dependencies.Length;
+
+                for (int i = 0; i < count; i++)
+                {
+                    var _dependency = AssetDatabase.LoadAssetAtPath<Object>(_dependencies[i]);
+
+                    if (_dependency != prefab)
+                    {
+                        dependencies.Add(_dependency);
+                    }
+                }
+            }
         }
 
         private void Replace(UnityEngine.Object from, MonoScript to)
