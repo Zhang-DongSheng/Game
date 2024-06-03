@@ -16,9 +16,9 @@ namespace Game.UI
 
         public static readonly float ResolutionRatio = ResolutionWidth / ResolutionHeight;
 
-        public static readonly float ScreenHalfWidth = Screen.width / 2f;
+        public static readonly float ScreenHalfWidth = Screen.width * .5f;
 
-        public static readonly float ScreenHalfHeight = Screen.height / 2f;
+        public static readonly float ScreenHalfHeight = Screen.height * .5f;
 
         public static readonly float ScreenWidthRatio = ResolutionWidth / Screen.width;
 

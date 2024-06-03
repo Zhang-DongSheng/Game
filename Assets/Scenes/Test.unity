@@ -590,7 +590,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 880488713}
+  intInterval:
+    origination: 0
+    destination: 0
   position: {x: 0, y: 0, z: 0}
+  vector1: {x: 0, y: 0}
+  vector2: {x: 0, y: 0}
+  vector3: 0
+  vector4: 0
+  vector5: 0
+  vector6: 0
   index: 15
 --- !u!4 &906468875
 Transform:
@@ -913,7 +922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f54cc79b9faf040ad02baffc3a1777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 1801172679}
+  _rigidbody: {fileID: 0}
   vector: {x: 0, y: 0, z: 0}
   position: {x: 0, y: 0, z: 0}
   move: 0

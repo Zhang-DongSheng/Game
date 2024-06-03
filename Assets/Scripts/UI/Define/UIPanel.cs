@@ -35,5 +35,6 @@ namespace Game.UI
 		MiniMap = 1003,
 		Settlement = 1004,
 		GluttonousSnake = 1005,
+		ColorPicker = 1006,
 	}
 }

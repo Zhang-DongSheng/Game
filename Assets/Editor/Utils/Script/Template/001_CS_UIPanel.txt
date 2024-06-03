@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class #SCRIPTNAME# : UIBase
+    public class #SCRIPTNAME# : ViewBase
     {
-        protected override void OnUpdate(float delta)
+        protected override void OnAwake()
         {
-            
+
         }
 
         public override void Refresh(UIParameter paramter)

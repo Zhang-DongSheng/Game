@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 namespace Game
@@ -68,6 +69,7 @@ namespace Game
         public static void SetSize(this RectTransform transform, Vector2 size)
         {
             transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size.x);
+
             transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size.y);
         }
         /// <summary>
@@ -133,12 +135,15 @@ namespace Game
         public static void SetFull(this RectTransform transform, RectOffset offset = null)
         {
             anchorMin = transform.anchorMin;
+
             anchorMax = transform.anchorMax;
 
             anchorMin.x = anchorMin.y = 0;
+
             anchorMax.x = anchorMax.y = 1;
 
             transform.anchorMin = anchorMin;
+
             transform.anchorMax = anchorMax;
 
             if (offset != null)
@@ -160,6 +165,7 @@ namespace Game
             else
             {
                 transform.sizeDelta = Vector2.zero;
+
                 transform.anchoredPosition = Vector2.zero;
             }
         }
@@ -226,7 +232,28 @@ namespace Game
             transform.anchoredPosition = position;
         }
         /// <summary>
-        /// 获取UI节点大小
+        /// 绝对位置
+        /// </summary>
+        public static Vector2 AbsolutePosition(this RectTransform transform)
+        {
+            var position = Vector3.zero;
+
+            var root = transform.transform;
+
+            while (root != null)
+            {
+                if (root.TryGetComponent(out Canvas _))
+                {
+                    break;
+                }
+                position += root.localPosition;
+
+                root = root.parent;
+            }
+            return position;
+        }
+        /// <summary>
+        /// 获取页面大小
         /// </summary>
         public static Vector2 GetCanvasSize(this RectTransform transform)
         { 

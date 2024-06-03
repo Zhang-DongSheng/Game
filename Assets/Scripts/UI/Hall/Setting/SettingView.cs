@@ -36,7 +36,6 @@ namespace Game.UI
             {
                 views[i].SetActive(i == index);
             }
-            Debug.LogError("µã»÷");
         }
     }
 }
