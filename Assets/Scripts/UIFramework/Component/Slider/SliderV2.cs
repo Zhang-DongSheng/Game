@@ -1,4 +1,4 @@
-using Game;
+using Game.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
@@ -8,44 +8,48 @@ namespace UnityEngine.UI
     {
         [SerializeField] private RectTransform m_handler;
 
+        private RectTransform m_content;
+
+        private Camera m_camera;
+
         private Vector2 size;
 
-        private Vector2 offset;
-
-        private Vector2 center;
-
-        private Vector2 position;
+        private Vector2 location;
 
         private Vector2 relative = new Vector2(0, 0);
 
         public UnityEvent<Vector2> onValueChanged;
 
-        private void Start()
+        private void Awake()
         {
-            var transform = GetComponent<RectTransform>();
+            m_content = GetComponent<RectTransform>();
 
-            size = transform.rect.size * 0.5f;
+            size = m_content.rect.size * 0.5f;
 
-            center = transform.AbsolutePosition();
+            m_camera = UIManager.Instance.Canvas.worldCamera;
+
+            if (m_camera == null)
+            {
+                m_camera = Camera.main;
+            }
         }
 
         private void OnDrag(Vector2 position)
         {
-            this.position = UIUtils.ScreentPointToUGUIPosition(position);
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(m_content, position, m_camera, out location))
+            {
+                location.x = Mathf.Clamp(location.x, -size.x, size.x);
 
-            this.position.x = Mathf.Clamp(this.position.x, center.x - size.x, center.x + size.x);
+                location.y = Mathf.Clamp(location.y, -size.y, size.y);
 
-            this.position.y = Mathf.Clamp(this.position.y, center.y - size.y, center.y + size.y);
+                relative.x = location.x / size.x;
 
-            this.position -= center;
+                relative.y = location.y / size.y;
 
-            relative.x = this.position.x / size.x;
+                onValueChanged?.Invoke(relative);
 
-            relative.y = this.position.y / size.y;
-
-            onValueChanged?.Invoke(relative);
-
-            m_handler.localPosition = this.position;
+                m_handler.localPosition = location;
+            }
         }
 
         public void OnBeginDrag(PointerEventData eventData)
