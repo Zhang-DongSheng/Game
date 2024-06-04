@@ -1,4 +1,7 @@
 ﻿using Game.Attribute;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -57,7 +60,54 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            
+            int value = 599;
+
+            if (paramters.Length > 0)
+            { 
+                int.TryParse(paramters[0], out value);
+            }
+
+            List<int> list = new List<int>();
+
+            for (int i = 0; i < 100000; i++)
+            {
+                list.Add(i);
+            }
+
+            int compare(int x)
+            {
+                if (x == value)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return x > value ? 1 : -1;
+                }
+            }
+
+            var watch = Stopwatch.StartNew();
+
+            watch.Start();
+
+            var result = Game.Utility.Search.SequenceSearch(list, x => x == value);
+
+            Debuger.LogError(Author.Test, "1 结果" + result);
+
+            watch.Stop();
+
+            Debuger.LogError(Author.Test, "1 花费时间" + watch.ElapsedTicks);
+
+            watch.Restart();
+
+            result = Game.Utility.Search.BinarySearch(list, compare);
+
+            Debuger.LogError(Author.Test, "2 结果" + result);
+
+            watch.Stop();
+
+            Debuger.LogError(Author.Test, "2 花费时间" + watch.ElapsedTicks);
+
         }
         /// <summary>
         /// 点击测试
