@@ -1,13 +1,14 @@
 using Data;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game
 {
     public class LanguageManager : Singleton<LanguageManager>
     {
-        private LanguageInformation information;
-
         private Language language;
+
+        private readonly Dictionary<string, string> words = new Dictionary<string, string>();
 
         public void Initialize()
         {
@@ -31,26 +32,20 @@ namespace Game
 
         public string Get(string key)
         {
-            if (information != null)
+            if (words.TryGetValue(key.ToLower(), out string value))
             {
-                return information.dictionary.Get(key);
+                return value;
             }
-            else
-            {
-                return key;
-            }
+            return key;
         }
 
         public string GetByParameter(string key, params object[] parameters)
         {
-            if (information != null)
+            if (words.TryGetValue(key.ToLower(), out string value))
             {
-                return string.Format(information.dictionary.Get(key), parameters);
+                return string.Format(value, parameters);
             }
-            else
-            {
-                return string.Format(key, parameters);
-            }
+            return string.Format(key, parameters);
         }
 
         private void Load(Language language, bool async)
@@ -61,7 +56,14 @@ namespace Game
                 {
                     if (asset != null)
                     {
-                        information = asset.list.Find(x => x.language == language);
+                        var information = asset.list.Find(x => x.language == language);
+
+                        words.Clear();
+
+                        foreach (var word in information.words)
+                        {
+                            words.Add(word.x, word.y);
+                        }
                     }
                     else
                     {
@@ -76,7 +78,14 @@ namespace Game
 
                 if (asset != null)
                 {
-                    information = asset.list.Find(x => x.language == language);
+                    var information = asset.list.Find(x => x.language == language);
+
+                    words.Clear();
+
+                    foreach (var word in information.words)
+                    {
+                        words.Add(word.x, word.y);
+                    }
                 }
                 else
                 {

@@ -19,7 +19,7 @@ namespace Data
                 {
                     language = (Language)language,
                     icon = string.Format("language_{0}", language.ToString().ToLower()),
-                    dictionary = new Dictionary(),
+                    words = new List<StringPair>(),
                 };
                 int count = m_list.Count;
 
@@ -27,49 +27,34 @@ namespace Data
 
                 for (int i = 0; i < count; i++)
                 {
-                    information.dictionary.words.Add(new Word()
+                    information.words.Add(new StringPair()
                     {
-                        key = m_list[i].GetString("key"),
-
-                        value = m_list[i].GetString(key),
-
-                        hashcode = m_list[i].GetString("key").GetHashCode(),
+                        x = m_list[i].GetString("key"),
+                        y = m_list[i].GetString(key)
                     });
                 }
                 list.Add(information);
             }
             Detection();
-
-            Sort();
         }
 
         public override void Detection()
         {
             if (list.Count == 0) return;
 
-            var words = list[0].dictionary.words;
+            var words = list[0].words;
 
             var dic = new Dictionary<string, int>();
 
-            var hash = new List<int>();
-
-            int count = words.Count;
-
-            for (int i = 0; i < count; i++)
+            foreach (var word in words)
             {
-                if (dic.ContainsKey(words[i].key))
+                if (dic.ContainsKey(word.x))
                 {
-                    Debuger.LogError(Author.Data, "language exist the same key:" + words[i].key);
+                    Debuger.LogError(Author.Data, "language exist the same key:" + word.x);
                 }
                 else
                 {
-                    dic.Add(words[i].key, 1);
-
-                    if (hash.Contains(words[i].hashcode))
-                    {
-                        Debuger.LogError(Author.Data, "language exist the same hashcode:" + words[i].key);
-                    }
-                    hash.Add(words[i].hashcode);
+                    dic.Add(word.x, 1);
                 }
             }
         }

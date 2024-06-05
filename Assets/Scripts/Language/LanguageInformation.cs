@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
 
 namespace Game
 {
     [Serializable]
-    public class LanguageInformation
+    public class LanguageInformation : InformationBase
     {
         public Language language;
 
@@ -14,34 +15,6 @@ namespace Game
 
         public string url;
 
-        public Dictionary dictionary;
-    }
-    [Serializable]
-    public class Dictionary
-    {
-        public List<Word> words = new List<Word>();
-
-        public string Get(string key)
-        {
-            var hash = key.ToLower().GetHashCode();
-
-            for (int i = 0; i < words.Count; i++)
-            {
-                if (words[i].hashcode == hash)
-                {
-                    return words[i].value;
-                }
-            }
-            return key;
-        }
-    }
-    [Serializable]
-    public class Word
-    {
-        public string key;
-
-        public string value;
-
-        public int hashcode;
+        public List<StringPair> words = new List<StringPair>();
     }
 }
