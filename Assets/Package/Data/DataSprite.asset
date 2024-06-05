@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c3bfdc0caa275429243420b570f287, type: 3}
   m_Name: DataSprite
   m_EditorClassIdentifier: 
+  order: 0
   list:
   - primary: 1016
     name: altas_head

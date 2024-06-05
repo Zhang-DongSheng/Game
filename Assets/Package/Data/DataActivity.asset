@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385f1c312d57ae348b0abc997146ca9f, type: 3}
   m_Name: DataActivity
   m_EditorClassIdentifier: 
+  order: 1
   list:
   - primary: 1
     activityID: 101

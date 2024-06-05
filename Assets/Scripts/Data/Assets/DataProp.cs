@@ -7,22 +7,13 @@ namespace Data
     {
         public List<PropInformation> list = new List<PropInformation>();
 
-        public DataHelper helper = new DataHelper();
-
-        public static PropInformation Get(uint propID, bool quick = true)
+        public static PropInformation Get(uint propID)
         {
             var data = DataManager.Instance.Load<DataProp>();
 
             if (data != null)
             {
-                if (quick)
-                {
-                    return data.helper.Get(data.list, propID);
-                }
-                else
-                {
-                    return data.list.Find(x => x.primary == propID);
-                }
+                return DataManager.Get(data.list, propID, data.order);
             }
             return null;
         }
@@ -41,7 +32,13 @@ namespace Data
 
                 list.Add(prop);
             }
-            helper.Divide(list);
+        }
+
+        public override void Sort()
+        {
+            list.Sort(InformationBase.Compare);
+
+            order = true;
         }
 
         public override void Clear()

@@ -13,7 +13,7 @@ namespace Data
 
             if (data != null)
             {
-                return data.list.Find(x => x.primary == roleID);
+                return DataManager.Get(data.list, roleID, data.order);
             }
             return null;
         }

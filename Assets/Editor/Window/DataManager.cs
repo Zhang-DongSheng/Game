@@ -1,6 +1,5 @@
 ﻿using Data;
 using Game;
-using Game.Network;
 using Game.UI;
 using System;
 using System.Collections.Generic;
@@ -319,6 +318,8 @@ namespace UnityEditor.Window
             }
             data.Detection();
 
+            data.Sort();
+
             Save(data);
         }
 
@@ -366,6 +367,8 @@ namespace UnityEditor.Window
             }
             data.Detection();
 
+            data.Sort();
+
             Save(data);
         }
 
@@ -393,6 +396,8 @@ namespace UnityEditor.Window
             }
             data.Detection();
 
+            data.Sort();
+
             Save(data);
         }
 
@@ -419,6 +424,8 @@ namespace UnityEditor.Window
                 }
             }
             data.Detection();
+
+            data.Sort();
 
             Save(data);
         }
@@ -454,6 +461,8 @@ namespace UnityEditor.Window
             if (data == null) return;
 
             data.Load(content);
+
+            data.Sort();
 
             Save(data);
         }

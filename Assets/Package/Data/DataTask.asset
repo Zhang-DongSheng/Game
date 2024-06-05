@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4298712bcb419489cb91c9ba034dae, type: 3}
   m_Name: DataTask
   m_EditorClassIdentifier: 
+  order: 1
   list:
   - primary: 1
     name: "\u4EFB\u52A11"

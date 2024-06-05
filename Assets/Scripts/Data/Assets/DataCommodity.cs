@@ -13,7 +13,7 @@ namespace Data
 
             if (data != null)
             {
-                return data.list.Find(x => x.primary == commodityID);
+                return DataManager.Get(data.list, commodityID, data.order);
             }
             return null;
         }
@@ -51,6 +51,13 @@ namespace Data
                 }
                 list.Add(commodity);
             }
+        }
+
+        public override void Sort()
+        {
+            list.Sort(InformationBase.Compare);
+
+            order = true;
         }
 
         public override void Clear()

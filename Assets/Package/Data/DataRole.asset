@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67736007719b67748ad0a60709fc8647, type: 3}
   m_Name: DataRole
   m_EditorClassIdentifier: 
+  order: 0
   list:
   - primary: 1
     name: Alice

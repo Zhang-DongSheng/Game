@@ -14,7 +14,7 @@ namespace Data
 
             if (data != null)
             {
-                return data.list.Find(x => x.activityID == activityID);
+                return DataManager.Get(data.list, activityID, data.order);
             }
             return null;
         }
@@ -33,6 +33,13 @@ namespace Data
 
                 list.Add(activity);
             }
+        }
+
+        public override void Sort()
+        {
+            list.Sort(InformationBase.Compare);
+
+            order = true;
         }
 
         public override void Clear()

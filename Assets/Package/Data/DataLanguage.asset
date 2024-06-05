@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7613810cd08e98443966b91223b79ba2, type: 3}
   m_Name: DataLanguage
   m_EditorClassIdentifier: 
+  order: 0
   list:
   - language: 0
     icon: language_chinese

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a229ad47b5c5e6d44acbc01461b93b60, type: 3}
   m_Name: DataProp
   m_EditorClassIdentifier: 
+  order: 1
   list:
   - primary: 100
     name: "\u57FA\u672C\u8D27\u5E01"
@@ -197,9 +198,3 @@ MonoBehaviour:
     source: -1
     price: 100
     description: null
-  helper:
-    pairs:
-    - x: 100
-      y: 0
-    - x: 2147483647
-      y: 23

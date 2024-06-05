@@ -12,25 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b182fcb3cd3700c428e2f8dbd10ca17c, type: 3}
   m_Name: DataVideo
   m_EditorClassIdentifier: 
+  order: 0
   list:
-  - primary: 30856
+  - primary: 43414
     name: weather_cloudy-03
     path: Package/Video/weather_cloudy-03.mp4
-  - primary: 31220
+  - primary: 43598
     name: weather_cloudy-and-rainny
     path: Package/Video/weather_cloudy-and-rainny.mp4
-  - primary: 30832
+  - primary: 33040
     name: weather_light-snow
     path: Package/Video/weather_light-snow.mp4
-  - primary: 31476
+  - primary: 33036
     name: weather_night
     path: Package/Video/weather_night.mp4
-  - primary: 32914
+  - primary: 44494
     name: weather_rain
     path: Package/Video/weather_rain.mp4
-  - primary: 30506
+  - primary: 33004
     name: weather_sunny-day
     path: Package/Video/weather_sunny-day.mp4
-  - primary: 31350
+  - primary: 43672
     name: weather_thunder
     path: Package/Video/weather_thunder.mp4

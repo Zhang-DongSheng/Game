@@ -7,8 +7,6 @@ namespace Data
 {
     public class DataManager : Singleton<DataManager>
     {
-        private readonly string path = "Package/Data";
-
         private readonly Dictionary<string, DataBase> m_data = new Dictionary<string, DataBase>();
 
         public T Load<T>() where T : DataBase
@@ -21,7 +19,7 @@ namespace Data
             }
             else
             {
-                T asset = ResourceManager.Load<T>(string.Format("{0}/{1}.asset", path, key));
+                T asset = ResourceManager.Load<T>(string.Format("Package/Data/{0}.asset", key));
 
                 if (asset != null)
                 {
@@ -63,7 +61,7 @@ namespace Data
             {
                 try
                 {
-                    ResourceManager.LoadAsync(string.Format("{0}/{1}.asset", path, key), (value) =>
+                    ResourceManager.LoadAsync(string.Format("Package/Data/{0}.asset", key), (value) =>
                     {
                         if (!m_data.ContainsKey(key))
                         {
@@ -77,6 +75,54 @@ namespace Data
                     Debug.LogError(e.Message);
                 }
             }
+        }
+
+        public static T Get<T>(IList<T> list, uint primary, bool order = false) where T : InformationBase, new()
+        {
+            int count = list == null ? 0 : list.Count;
+
+            if (count == 0) return default;
+
+            if (order)
+            {
+                int min = 0, max = count - 1;
+
+                if (list[min].primary > primary ||
+                    list[max].primary < primary)
+                {
+                    return default;
+                }
+                int middle;
+
+                while (min <= max)
+                {
+                    middle = (min + max) >> 1;
+
+                    if (list[middle].primary == primary)
+                    {
+                        return list[middle];
+                    }
+                    else if (list[middle].primary > primary)
+                    {
+                        max = middle - 1;
+                    }
+                    else
+                    {
+                        min = middle + 1;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    if (list[i].primary == primary)
+                    {
+                        return list[i];
+                    }
+                }
+            }
+            return default;
         }
     }
 }

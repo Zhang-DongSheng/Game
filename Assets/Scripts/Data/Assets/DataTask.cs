@@ -13,7 +13,7 @@ namespace Data
 
             if (data != null)
             {
-                return data.list.Find(x => x.primary == taskID);
+                return DataManager.Get(data.list, taskID, data.order);
             }
             return null;
         }
@@ -44,6 +44,13 @@ namespace Data
                 }
                 list.Add(task);
             }
+        }
+
+        public override void Sort()
+        {
+            list.Sort(InformationBase.Compare);
+
+            order = true;
         }
 
         public override void Clear()

@@ -9,6 +9,8 @@ namespace Data
     /// </summary>
     public abstract class DataBase : ScriptableObject
     {
+        [SerializeField] protected bool order;
+
         protected JsonData m_list = null;
 
         public virtual void Load(string content)
@@ -32,9 +34,24 @@ namespace Data
 
         }
 
+        public virtual void Sort()
+        {
+            order = false;
+        }
+
         public virtual void Clear()
         {
 
+        }
+
+        protected virtual void Editor()
+        {
+
+        }
+        [ContextMenu("Editor")]
+        protected void MenuEditor()
+        {
+            Editor();
         }
         [ContextMenu("Save")]
         protected void MenuSave()
@@ -43,12 +60,6 @@ namespace Data
             UnityEditor.EditorUtility.SetDirty(this);
 #endif
         }
-        [ContextMenu("Editor")]
-        protected void MenuEditor()
-        {
-            Editor();
-        }
-        protected virtual void Editor() { }
     }
     /// <summary>
     /// 信息基类
@@ -56,5 +67,10 @@ namespace Data
     public abstract class InformationBase
     {
         public uint primary;
+
+        public static int Compare(InformationBase x, InformationBase y)
+        {
+            return x.primary.CompareTo(y.primary);
+        }
     }
 }
