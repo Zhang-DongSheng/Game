@@ -31,12 +31,16 @@ namespace Data
                     {
                         key = m_list[i].GetString("key"),
 
-                        value = m_list[i].GetString(key)
+                        value = m_list[i].GetString(key),
+
+                        hashcode = m_list[i].GetString("key").GetHashCode(),
                     });
                 }
                 list.Add(information);
             }
             Detection();
+
+            Sort();
         }
 
         public override void Detection()
@@ -46,6 +50,8 @@ namespace Data
             var words = list[0].dictionary.words;
 
             var dic = new Dictionary<string, int>();
+
+            var hash = new List<int>();
 
             int count = words.Count;
 
@@ -58,6 +64,12 @@ namespace Data
                 else
                 {
                     dic.Add(words[i].key, 1);
+
+                    if (hash.Contains(words[i].hashcode))
+                    {
+                        Debuger.LogError(Author.Data, "language exist the same hashcode:" + words[i].key);
+                    }
+                    hash.Add(words[i].hashcode);
                 }
             }
         }

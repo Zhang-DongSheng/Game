@@ -60,24 +60,7 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            int.TryParse( paramters[0], out int value);
-
-            List<int> list = new List<int>();
-
-            for (int i = 0; i < 1000; i++)
-            {
-                list.Add(i);
-                //Debuger.LogError(Author.Test, i + " >> 1 = " + (i >> 1));
-            }
-
-            var result = Game.Utility.Search.BinarySearch(list, (x) =>
-            {
-                if (x == value)
-                {
-                    return 0;
-                }
-                return x > value ? 1 : -1;
-            });
+            uint result = paramters[0].Identity();
 
             Debuger.LogError(Author.Test, result);
         }

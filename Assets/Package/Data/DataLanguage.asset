@@ -20,201 +20,294 @@ MonoBehaviour:
     url: 
     dictionary:
       words:
-      - key: 10001
+      - key: confirm
         value: "\u786E\u8BA4"
-      - key: 10002
+        hashcode: -999157726
+      - key: cancel
         value: "\u53D6\u6D88"
-      - key: 10003
+        hashcode: -1936609852
+      - key: back
         value: "\u8FD4\u56DE"
-      - key: 10004
+        hashcode: -1516409777
+      - key: undone
         value: "\u672A\u5B8C\u6210"
-      - key: 10005
+        hashcode: -1327930401
+      - key: done
         value: "\u5DF2\u5B8C\u6210"
-      - key: 10006
+        hashcode: 1414244698
+      - key: available
         value: "\u53EF\u9886\u53D6"
-      - key: 10007
+        hashcode: 358512417
+      - key: claimed
         value: "\u5DF2\u9886\u53D6"
-      - key: 10008
+        hashcode: 1202382823
+      - key: enter
         value: "\u8FDB\u5165"
-      - key: 10009
+        hashcode: 1460627468
+      - key: exit
         value: "\u9000\u51FA"
-      - key: 10101
+        hashcode: -736433866
+      - key: warehouse
         value: "\u4ED3\u5E93"
-      - key: 10102
+        hashcode: -1183769239
+      - key: mail
         value: "\u90AE\u4EF6"
-      - key: 10103
+        hashcode: 405904489
+      - key: activity
         value: "\u6D3B\u52A8"
-      - key: 10104
+        hashcode: -2066062419
+      - key: store
         value: "\u5546\u5E97"
-      - key: 10105
+        hashcode: -1436241877
+      - key: setting
         value: "\u8BBE\u7F6E"
-      - key: 10106
+        hashcode: -1703449522
+      - key: task
         value: "\u4EFB\u52A1"
-      - key: 10107
+        hashcode: -1516409587
+      - key: list
         value: "\u961F\u5217"
-      - key: 10108
+        hashcode: 1178974130
+      - key: new
         value: "\u65B0"
-      - key: 10109
+        hashcode: -1273338852
+      - key: fighting
         value: "\u6218\u6597"
-      - key: 10110
+        hashcode: 2098749392
+      - key: game
         value: "\u6E38\u620F"
-      - key: 10111
+        hashcode: -1966748556
+      - key: sound
         value: "\u58F0\u97F3"
-      - key: 10112
+        hashcode: 1554762651
+      - key: music
         value: "\u97F3\u4E50"
-      - key: 10113
+        hashcode: 1527893365
+      - key: sound effect
         value: "\u97F3\u6548"
-      - key: 10114
+        hashcode: 1420433958
+      - key: mute
         value: "\u9759\u97F3"
-      - key: 10115
+        hashcode: -629028827
+      - key: language
         value: "\u591A\u8BED\u8A00"
-      - key: 10116
+        hashcode: 467416376
+      - key: channel
         value: "\u6E20\u9053"
-      - key: 10117
+        hashcode: -657772541
+      - key: rankinglist
         value: "\u6392\u884C\u699C"
-      - key: 10118
+        hashcode: -49989568
+      - key: club
         value: "\u4F1A\u6240"
-      - key: 10119
+        hashcode: 829392074
+      - key: friend
         value: "\u597D\u53CB"
-      - key: 10201
+        hashcode: -11907214
+      - key: gold
         value: "\u91D1\u5E01"
-      - key: 10202
+        hashcode: -151839020
+      - key: diamond
         value: "\u94BB\u77F3"
-      - key: 10203
+        hashcode: 773927478
+      - key: coin
         value: "\u4EE3\u5E01"
+        hashcode: 1367190883
   - language: 1
     icon: language_english
     font: 
     url: 
     dictionary:
       words:
-      - key: 10001
+      - key: confirm
         value: Confirm
-      - key: 10002
+        hashcode: -999157726
+      - key: cancel
         value: Cancel
-      - key: 10003
+        hashcode: -1936609852
+      - key: back
         value: Back
-      - key: 10004
+        hashcode: -1516409777
+      - key: undone
         value: Undone
-      - key: 10005
+        hashcode: -1327930401
+      - key: done
         value: Done
-      - key: 10006
+        hashcode: 1414244698
+      - key: available
         value: Available
-      - key: 10007
+        hashcode: 358512417
+      - key: claimed
         value: Claimed
-      - key: 10008
+        hashcode: 1202382823
+      - key: enter
         value: Enter
-      - key: 10009
+        hashcode: 1460627468
+      - key: exit
         value: Exit
-      - key: 10101
+        hashcode: -736433866
+      - key: warehouse
         value: Warehouse
-      - key: 10102
+        hashcode: -1183769239
+      - key: mail
         value: Mail
-      - key: 10103
+        hashcode: 405904489
+      - key: activity
         value: Activity
-      - key: 10104
+        hashcode: -2066062419
+      - key: store
         value: Store
-      - key: 10105
+        hashcode: -1436241877
+      - key: setting
         value: Setting
-      - key: 10106
+        hashcode: -1703449522
+      - key: task
         value: Task
-      - key: 10107
+        hashcode: -1516409587
+      - key: list
         value: List
-      - key: 10108
+        hashcode: 1178974130
+      - key: new
         value: New
-      - key: 10109
+        hashcode: -1273338852
+      - key: fighting
         value: Fighting
-      - key: 10110
+        hashcode: 2098749392
+      - key: game
         value: Game
-      - key: 10111
+        hashcode: -1966748556
+      - key: sound
         value: Sound
-      - key: 10112
+        hashcode: 1554762651
+      - key: music
         value: Music
-      - key: 10113
+        hashcode: 1527893365
+      - key: sound effect
         value: Sound
-      - key: 10114
+        hashcode: 1420433958
+      - key: mute
         value: Mute
-      - key: 10115
+        hashcode: -629028827
+      - key: language
         value: Language
-      - key: 10116
+        hashcode: 467416376
+      - key: channel
         value: SDK
-      - key: 10117
+        hashcode: -657772541
+      - key: rankinglist
         value: RankingList
-      - key: 10118
+        hashcode: -49989568
+      - key: club
         value: Club
-      - key: 10119
+        hashcode: 829392074
+      - key: friend
         value: Friends
-      - key: 10201
+        hashcode: -11907214
+      - key: gold
         value: Gold
-      - key: 10202
+        hashcode: -151839020
+      - key: diamond
         value: Diamond
-      - key: 10203
+        hashcode: 773927478
+      - key: coin
         value: Coin
+        hashcode: 1367190883
   - language: 2
     icon: language_japanese
     font: 
     url: 
     dictionary:
       words:
-      - key: 10001
+      - key: confirm
         value: "\u8A8D\u3081\u308B"
-      - key: 10002
+        hashcode: -999157726
+      - key: cancel
         value: "\u53D6\u6D88\u3057"
-      - key: 10003
+        hashcode: -1936609852
+      - key: back
         value: "\u5E30\u308B\uFF0E\u623B\u308B"
-      - key: 10004
+        hashcode: -1516409777
+      - key: undone
         value: "\u672A\u5B8C\u6210"
-      - key: 10005
+        hashcode: -1327930401
+      - key: done
         value: "\u5DF2\u5B8C\u6210"
-      - key: 10006
+        hashcode: 1414244698
+      - key: available
         value: "\u3046\u3051\u3068\u308C\u308B"
-      - key: 10007
+        hashcode: 358512417
+      - key: claimed
         value: "\u5DF2\u9886\u53D6"
-      - key: 10008
+        hashcode: 1202382823
+      - key: enter
         value: "\u5165\u308B\uFF0E\u9032\u51FA\u3059\u308B"
-      - key: 10009
+        hashcode: 1460627468
+      - key: exit
         value: "\u7ACB\u3061\u53BB\u308B"
-      - key: 10101
+        hashcode: -736433866
+      - key: warehouse
         value: "\u5009\u5EAB "
-      - key: 10102
+        hashcode: -1183769239
+      - key: mail
         value: "\u90F5\u4FBF\u7269"
-      - key: 10103
+        hashcode: 405904489
+      - key: activity
         value: "\u524D\u591C\u796D"
-      - key: 10104
+        hashcode: -2066062419
+      - key: store
         value: "\u5E97"
-      - key: 10105
+        hashcode: -1436241877
+      - key: setting
         value: "\u5099\u3048\u4ED8\u3051"
-      - key: 10106
+        hashcode: -1703449522
+      - key: task
         value: "\u65E0"
-      - key: 10107
+        hashcode: -1516409587
+      - key: list
         value: "\u65E0"
-      - key: 10108
+        hashcode: 1178974130
+      - key: new
         value: "\u65E0"
-      - key: 10109
+        hashcode: -1273338852
+      - key: fighting
         value: "\u6226\u95D8\u3059\u308B\uFF0E\u6226\u3046"
-      - key: 10110
+        hashcode: 2098749392
+      - key: game
         value: "\u904A\u3073"
-      - key: 10111
+        hashcode: -1966748556
+      - key: sound
         value: "\u58F0"
-      - key: 10112
+        hashcode: 1554762651
+      - key: music
         value: "\u97F3\u697D"
-      - key: 10113
+        hashcode: 1527893365
+      - key: sound effect
         value: "\u52B9\u679C\u97F3"
-      - key: 10114
+        hashcode: 1420433958
+      - key: mute
         value: "\u30DE\u30CA\u30FC\u30E2\u30FC\u30C9"
-      - key: 10115
+        hashcode: -629028827
+      - key: language
         value: "\u591A\u8A00\u8A9E\u30B7\u30B9\u30C6\u30E0"
-      - key: 10116
+        hashcode: 467416376
+      - key: channel
         value: "\u3059\u3058"
-      - key: 10117
+        hashcode: -657772541
+      - key: rankinglist
         value: '?'
-      - key: 10118
+        hashcode: -49989568
+      - key: club
         value: '?'
-      - key: 10119
+        hashcode: 829392074
+      - key: friend
         value: '?'
-      - key: 10201
+        hashcode: -11907214
+      - key: gold
         value: "\u91D1\u8CA8 "
-      - key: 10202
+        hashcode: -151839020
+      - key: diamond
         value: "\u30C0\u30A4\u30E4 "
-      - key: 10203
+        hashcode: 773927478
+      - key: coin
         value: "\u3057\u308B\u3057 "
+        hashcode: 1367190883

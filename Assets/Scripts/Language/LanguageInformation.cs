@@ -23,9 +23,11 @@ namespace Game
 
         public string Get(string key)
         {
+            var hash = key.ToLower().GetHashCode();
+
             for (int i = 0; i < words.Count; i++)
             {
-                if (words[i].key == key)
+                if (words[i].hashcode == hash)
                 {
                     return words[i].value;
                 }
@@ -39,5 +41,7 @@ namespace Game
         public string key;
 
         public string value;
+
+        public int hashcode;
     }
 }

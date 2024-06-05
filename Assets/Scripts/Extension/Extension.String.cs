@@ -91,6 +91,26 @@ namespace Game
             return builder.ToString();
         }
 
+        public static uint Identity(this string str, int count = 5)
+        {
+            int length = str.Length;
+
+            uint result = 0;
+
+            count = Mathf.Clamp(count, 1, 7);
+
+            for (int i = 0; i < count; i++)
+            {
+                uint ratio = (uint)Mathf.Pow(10, count - i - 1);
+
+                if (length > i)
+                {
+                    result += str[i] * ratio;
+                }
+            }
+            return result;
+        }
+
         #region Regex
         /// <summary>
         /// 判断字符串是否是数值型
