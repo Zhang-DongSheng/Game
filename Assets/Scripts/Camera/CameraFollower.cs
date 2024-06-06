@@ -8,6 +8,8 @@ namespace Game
 
         [SerializeField] private Transform target;
 
+        [SerializeField] private LayerMask layer;
+
         [SerializeField] private float radius = 5;
 
         [SerializeField] private Vector2 visibility = new Vector2(2.2f, 6);
@@ -16,13 +18,11 @@ namespace Game
 
         [SerializeField, Range(0.1f, 10)] private float speed = 1f;
 
-        private Quaternion _rotation, rotation;
-
-        private Vector3 _position, position;
+        private Vector3 position;
 
         private Vector3 offset;
 
-        private Vector2 shift;
+        private Vector3 shift, spring;
 
         private float distance;
 
@@ -32,51 +32,53 @@ namespace Game
         {
             distance = radius;
 
-            shift = new Vector2(180, 0);
+            shift = new Vector3(180, 0, 0);
+        }
+
+        protected override void OnUpdate(float delta)
+        {
+#if UNITY_EDITOR
+            if (Input.GetMouseButtonDown(0))
+            {
+                spring = Input.mousePosition;
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                shift += (Input.mousePosition - spring) * delta;
+
+                spring = Input.mousePosition;
+            }
+            distance -= Input.GetAxis("Mouse ScrollWheel") * delta * Mathf.Abs(distance) * 80;
+#else
+            //...
+#endif
+            shift.y = Mathf.Clamp(shift.y, field.x, field.y);
+
+            distance = Mathf.Clamp(distance, visibility.x, visibility.y);
         }
 
         protected override void OnLateUpdate(float delta)
         {
             if (target == null) return;
 
-            Handle(delta);
+            position = target.position + Offset(shift, distance);
 
-            _rotation = Quaternion.Euler(shift.y, shift.x + 180, 0);
+            position = Vector3.Lerp(follower.position, position, delta * speed);
 
-            rotation = Quaternion.LerpUnclamped(rotation, _rotation, delta * speed);
-
-            follower.rotation = rotation;
-
-            _position = target.position + Offset(shift);
-
-            position = Vector3.Lerp(position, _position, delta * speed);
-
-            if (Physics.Linecast(position, target.position, out hit))
+            if (Vector3.Distance(target.position, position) < visibility.x)
             {
-                if (hit.transform.tag == "Wall")
-                {
-                    position = hit.point + hit.normal * 0.1f;
-                }
+                position = target.position + (position - target.position).normalized * visibility.x;
+            }
+            else if (Physics.Linecast(position, target.position, out hit, layer))
+            {
+                position = hit.point + hit.normal * 0.1f;
             }
             follower.position = position;
+
+            follower.LookAt(target, Vector3.up);
         }
 
-        private void Handle(float delta)
-        {
-#if UNITY_EDITOR
-            shift.x += Input.GetAxis("Mouse X") * delta * 100f;
-            shift.y -= Input.GetAxis("Mouse Y") * delta * 20f;
-
-            distance -= Input.GetAxis("Mouse ScrollWheel") * delta * Mathf.Abs(distance) * 80;
-#else
-            //...
-#endif
-            shift.y = Mathf.Clamp(Utility.Math.AngleIn360(shift.y), field.x, field.y);
-
-            distance = Mathf.Clamp(distance, visibility.x, visibility.y);
-        }
-
-        private Vector3 Offset(Vector2 angle)
+        private Vector3 Offset(Vector2 angle, float distance)
         {
             offset.y = Mathf.Cos(angle.y * Mathf.Deg2Rad);
 

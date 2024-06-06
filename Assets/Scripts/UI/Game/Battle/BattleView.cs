@@ -1,4 +1,3 @@
-using Game.Model;
 using Game.State;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,34 +36,31 @@ namespace Game.UI
                     skills[i].onClick.AddListener(() => OnClickSkill(index));
                 }
             }
-            PlayerController.Instance.SwitchPlayer("Package/Prefab/Model/Character/Female.prefab");
         }
 
         private void OnMove(Vector2 vector)
         {
-            PlayerController.Instance.Move(vector);
+            
         }
 
         private void OnClickJump()
         {
-            PlayerController.Instance.Jump();
+            
         }
 
         private void OnClickCrouch()
         {
-            //PlayerController.Instance.Crouch();
-
             GameStateController.Instance.EnterState<GameSettlementState>();
         }
 
         private void OnClickAttack()
         {
-            PlayerController.Instance.Attack();
+            
         }
 
         private void OnClickSkill(int index)
         {
-            PlayerController.Instance.ReleaseSkill(index);
+            
         }
     }
 }

@@ -1,67 +1,41 @@
-using Game.Resource;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 namespace Game.Model
 {
-    public class PlayerController : Singleton<PlayerController>
+    public class PlayerController : RuntimeBehaviour
     {
-        private Player player;
+        [SerializeField] private Transform target;
 
-        private Quaternion rotation;
+        [SerializeField] private LineRenderer arrow;
 
-        private Vector3 direction = new Vector3(0, 0, 0);
+        [SerializeField] private float speed = 1;
 
-        public void SwitchPlayer(string name)
+        private Vector3 vector = Vector3.zero;
+
+        private Vector3 position;
+
+        protected override void OnAwake()
         {
-            GameObject prefab = ResourceManager.Load<GameObject>(name);
-
-            var clone = GameObject.Instantiate(prefab);
-
-            player = clone.GetComponent<Player>();
-
-            player.Born();
+            if (target == null)
+                target = transform;
+            position = transform.position;
         }
 
-        public void Move(Vector2 vector)
+        protected override void OnUpdate(float delta)
         {
-            if (vector.x == 0 && vector.y == 0)
-                return;
-            direction.Set(vector.x, 0, vector.y);
+            vector.x = Input.GetAxisRaw("Horizontal") * delta * speed;
 
-            rotation = Quaternion.LookRotation(direction, Vector3.up);
+            vector.z = Input.GetAxisRaw("Vertical") * delta * speed;
 
-            player.Move(direction);
+            vector.y = Input.GetKeyDown(KeyCode.Space) ? 1 : 0;
 
-            player.Raotate(rotation);
+            target.position += vector * speed * Time.deltaTime;
+            // 更新主角朝向，使用Vector3.Lerp进行插值运算，使得角度变化不那么生硬
+            target.forward = Vector3.Lerp(target.forward, vector, speed * Time.deltaTime);
 
-            if (vector.magnitude > 10)
-            {
-                player.Run();
-            }
-            else
-            {
-                player.Walk();
-            }
-        }
-
-        public void Jump()
-        {
-            player.Jump();
-        }
-
-        public void Crouch()
-        {
-            player.Crouch();
-        }
-
-        public void Attack()
-        {
-            player.Attack();
-        }
-
-        public void ReleaseSkill(int index)
-        {
-            player.ReleaseSkill(index);
+            //arrow.SetPositions(target.position, )
         }
     }
 }
