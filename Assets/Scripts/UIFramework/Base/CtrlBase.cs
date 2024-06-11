@@ -49,7 +49,9 @@ namespace Game.UI
                     {
                         if (view != null)
                         {
-                            view.Reopen(); Show();
+                            view.Reopen();
+
+                            Show();
                         }
                     }
                     break;
@@ -67,10 +69,10 @@ namespace Game.UI
 
             if (destroy || information.destroy)
             {
-                if (view.gameObject != null)
-                {
-                    GameObject.Destroy(view.gameObject);
-                }
+                view.Release();
+
+                view = null;
+
                 status = Status.None;
             }
             else
@@ -116,33 +118,19 @@ namespace Game.UI
         {
             status = Status.Loading;
 
-            try
-            {
-                Object prefab = ResourceManager.Load(information.path);
+            var prefab = ResourceManager.Load<GameObject>(information.path);
 
-                Create(prefab);
-            }
-            catch (Exception e)
-            {
-                Debuger.LogException(Author.UI, e);
-            }
+            Create(prefab);
         }
 
         private void LoadAsync()
         {
             status = Status.Loading;
 
-            try
+            ResourceManager.LoadAsync(information.path, (asset) =>
             {
-                ResourceManager.LoadAsync(information.path, (asset) =>
-                {
-                    Create(asset);
-                });
-            }
-            catch (Exception e)
-            {
-                Debuger.LogException(Author.UI, e);
-            }
+                Create(asset);
+            });
         }
 
         private void Create(Object prefab)
@@ -151,7 +139,7 @@ namespace Game.UI
             {
                 GameObject entity = GameObject.Instantiate(prefab) as GameObject;
 
-                RectTransform rect = entity.GetComponent<RectTransform>();
+                var rect = entity.GetComponent<RectTransform>();
 
                 view = entity.GetComponent<ViewBase>();
 
@@ -165,7 +153,7 @@ namespace Game.UI
 
                 rect.Reset(); rect.SetFull();
 
-                view.Init(information.panel);
+                view.Init(information);
 
                 Show();
 
@@ -173,7 +161,7 @@ namespace Game.UI
             }
             catch (Exception e)
             {
-                Debuger.LogError(Author.UI, e.Message);
+                Debuger.LogException(Author.UI, e);
 
                 Hide();
 

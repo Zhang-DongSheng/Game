@@ -12,9 +12,17 @@ namespace Game
     {
         public const string path = "ILRuntime/Hotfix";
 
+        private ILRuntime.Runtime.Enviorment.AppDomain appdomain;
+
         private readonly MemoryStream[] stream = new MemoryStream[2];
 
-        private ILRuntime.Runtime.Enviorment.AppDomain appdomain;
+        public ILRuntime.Runtime.Enviorment.AppDomain AppDomain
+        {
+            get
+            {
+                return appdomain;
+            }
+        }
 
         public void Initialize()
         {
@@ -101,23 +109,23 @@ namespace Game
 
             CLRRedirection();
 
-            string KEY = "��̬����";
+            string KEY = "Program";
 
             switch (KEY)
             {
-                case "��̬����":
+                case "Program":
                     {
                         appdomain.Invoke("ILRuntime.Game.Program", "Initialize", null);
                     }
                     break;
-                case "ʵ������":
+                case "Main.Test":
                     {
                         object script = appdomain.Instantiate("ILRuntime.Main");
 
                         appdomain.Invoke("ILRuntime.Game.Main", "Test", script);
                     }
                     break;
-                case "�������":
+                case "Main.GetSet":
                     {
                         var script = appdomain.LoadedTypes["ILRuntime.Game.Main"];
 

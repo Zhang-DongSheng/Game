@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   order: 0
   list:
-  - primary: 35126
+  - primary: 29216
     name: LoginView
     panel: 1
     type: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/LoginView.prefab
     destroy: 0
-  - primary: 36700
+  - primary: 29114
     name: MainView
     panel: 101
     type: 1
@@ -30,7 +30,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/MainView.prefab
     destroy: 0
-  - primary: 35744
+  - primary: 30500
     name: TestView
     panel: 102
     type: 1
@@ -38,7 +38,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/TestView.prefab
     destroy: 0
-  - primary: 35284
+  - primary: 30572
     name: TitleView
     panel: 103
     type: 3
@@ -46,7 +46,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/TitleView.prefab
     destroy: 0
-  - primary: 36814
+  - primary: 30782
     name: WaitingView
     panel: 104
     type: 1
@@ -54,7 +54,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/WaitingView.prefab
     destroy: 0
-  - primary: 35816
+  - primary: 30814
     name: WarehouseView
     panel: 105
     type: 1
@@ -62,7 +62,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/WarehouseView.prefab
     destroy: 0
-  - primary: 34766
+  - primary: 31128
     name: MailView
     panel: 106
     type: 1
@@ -70,7 +70,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/MailView.prefab
     destroy: 0
-  - primary: 34758
+  - primary: 31270
     name: PlayerView
     panel: 107
     type: 1
@@ -78,7 +78,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/PlayerView.prefab
     destroy: 0
-  - primary: 37210
+  - primary: 31610
     name: ShopView
     panel: 108
     type: 1
@@ -86,7 +86,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/ShopView.prefab
     destroy: 0
-  - primary: 34962
+  - primary: 32260
     name: RewardView
     panel: 109
     type: 2
@@ -94,7 +94,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/RewardView.prefab
     destroy: 0
-  - primary: 36034
+  - primary: 32312
     name: ActivityView
     panel: 110
     type: 1
@@ -102,7 +102,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/ActivityView.prefab
     destroy: 0
-  - primary: 34598
+  - primary: 33396
     name: SettingView
     panel: 111
     type: 1
@@ -110,7 +110,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/SettingView.prefab
     destroy: 0
-  - primary: 36598
+  - primary: 34042
     name: TaskView
     panel: 112
     type: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/TaskView.prefab
     destroy: 0
-  - primary: 36092
+  - primary: 34208
     name: DeployView
     panel: 113
     type: 1
@@ -126,7 +126,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/DeployView.prefab
     destroy: 0
-  - primary: 35580
+  - primary: 34304
     name: FriendView
     panel: 114
     type: 1
@@ -134,7 +134,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/FriendView.prefab
     destroy: 0
-  - primary: 36448
+  - primary: 34320
     name: ProclamationView
     panel: 115
     type: 2
@@ -142,7 +142,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/ProclamationView.prefab
     destroy: 0
-  - primary: 35900
+  - primary: 34394
     name: CombatReadinessView
     panel: 116
     type: 1
@@ -150,7 +150,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/CombatReadinessView.prefab
     destroy: 0
-  - primary: 35568
+  - primary: 34430
     name: RankingListView
     panel: 117
     type: 1
@@ -158,7 +158,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/RankingListView.prefab
     destroy: 0
-  - primary: 35852
+  - primary: 34446
     name: ClubView
     panel: 118
     type: 1
@@ -166,7 +166,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/ClubView.prefab
     destroy: 0
-  - primary: 36948
+  - primary: 34462
     name: ChatView
     panel: 119
     type: 3
@@ -174,7 +174,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/ChatView.prefab
     destroy: 0
-  - primary: 37192
+  - primary: 34478
     name: ConfirmView
     panel: 301
     type: 2
@@ -182,7 +182,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/ConfirmView.prefab
     destroy: 0
-  - primary: 37068
+  - primary: 34574
     name: BubbleView
     panel: 302
     type: 3
@@ -190,7 +190,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/BubbleView.prefab
     destroy: 0
-  - primary: 36208
+  - primary: 34612
     name: NoticeView
     panel: 303
     type: 4
@@ -198,7 +198,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/NoticeView.prefab
     destroy: 0
-  - primary: 35830
+  - primary: 34656
     name: HorseLampView
     panel: 304
     type: 4
@@ -206,7 +206,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/HorseLampView.prefab
     destroy: 0
-  - primary: 37048
+  - primary: 34724
     name: IntroduceView
     panel: 305
     type: 2
@@ -214,7 +214,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/IntroduceView.prefab
     destroy: 0
-  - primary: 36898
+  - primary: 34856
     name: GuidanceView
     panel: 306
     type: 3
@@ -222,7 +222,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/GuidanceView.prefab
     destroy: 0
-  - primary: 36312
+  - primary: 34912
     name: BattleView
     panel: 1001
     type: 1
@@ -230,7 +230,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/BattleView.prefab
     destroy: 0
-  - primary: 35330
+  - primary: 35182
     name: GameSettingView
     panel: 1002
     type: 1
@@ -238,7 +238,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/GameSettingView.prefab
     destroy: 0
-  - primary: 35616
+  - primary: 35212
     name: MiniMapView
     panel: 1003
     type: 3
@@ -246,7 +246,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/MiniMapView.prefab
     destroy: 0
-  - primary: 35840
+  - primary: 35240
     name: SettlementView
     panel: 1004
     type: 1
@@ -254,7 +254,7 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/SettlementView.prefab
     destroy: 0
-  - primary: 36568
+  - primary: 35268
     name: GluttonousSnakeView
     panel: 1005
     type: 1
@@ -262,11 +262,19 @@ MonoBehaviour:
     order: 0
     path: Package/Prefab/UI/Panel/GluttonousSnakeView.prefab
     destroy: 0
-  - primary: 35572
+  - primary: 35356
     name: ColorPickerView
     panel: 1006
     type: 2
     layer: 3
     order: 0
     path: Package/Prefab/UI/Panel/ColorPickerView.prefab
+    destroy: 0
+  - primary: 29162
+    name: StudyView
+    panel: 1007
+    type: 1
+    layer: 2
+    order: 0
+    path: Package/Prefab/UI/Panel/StudyView.prefab
     destroy: 0

@@ -11,18 +11,7 @@ namespace UnityEditor
 {
     public static class ScriptUtils
     {
-        public static Object Create(string path)
-        {
-            string folder = Path.GetDirectoryName(path);
-
-            if (Directory.Exists(folder) == false)
-            {
-                Directory.CreateDirectory(folder);
-            }
-            return CreateFromTemplate(path, null);
-        }
-
-        public static Object CreateFromTemplate(string path, string template)
+        public static Object CreateFromTemplate(string path, string template = "001")
         {
             string name = Path.GetFileNameWithoutExtension(path);
 
@@ -34,14 +23,18 @@ namespace UnityEditor
             }
             else
             {
-                string source = "Editor/Utils/Script/Template/001_CS_UIPanel.txt";
+                string source;
 
                 switch (template)
                 {
-                    case null:
-                        {
-                            source = "Editor/Utils/Script/Template/001_CS_UIPanel.txt";
-                        }
+                    case "001":
+                        source = "Editor/Utils/Script/Template/001_CS_UIPanel.txt";
+                        break;
+                    case "002":
+                        source = "Editor/Utils/Script/Template/002_CS_UIPanel.txt";
+                        break;
+                    default:
+                        source = "Editor/Utils/Script/Template/001_CS_UIPanel.txt";
                         break;
                 }
                 try

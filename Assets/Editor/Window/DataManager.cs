@@ -170,17 +170,17 @@ namespace UnityEditor.Window
 
         private void RefreshSynchronizate()
         {
-            if (GUILayout.Button(ToLanguage("Synchronizate") + "ILRuntime"))
+            if (GUILayout.Button(ToLanguage("Synchronizate") + " ILRuntime"))
             {
                 SynchronizateILRuntime();
             }
 
-            if (GUILayout.Button(ToLanguage("Synchronizate") + "IFix"))
+            if (GUILayout.Button(ToLanguage("Synchronizate") + " IFix"))
             {
                 SynchronizateIFix();
             }
 
-            if (GUILayout.Button(ToLanguage("Synchronizate") + "ProtoBuf"))
+            if (GUILayout.Button(ToLanguage("Synchronizate") + " ProtoBuf"))
             {
                 SynchronizateProtoBuf();
             }

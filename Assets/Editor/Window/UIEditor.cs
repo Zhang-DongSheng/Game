@@ -55,30 +55,68 @@ namespace UnityEditor.Window
 
             content = GUILayout.TextField(content);
 
-            if (GUILayout.Button(ToLanguage("Create")))
+            if (GUILayout.Button(ToLanguage("Create View")))
             {
-                if (string.IsNullOrEmpty(content)) return;
-
-                string path = string.Format("Assets/Scripts/UI/Hall/{0}/{0}View.cs", content);
-
-                ScriptUtils.Create(path);
-
-                AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
-
-                AssetDatabase.Refresh();
-
-                path = string.Format("Assets/{0}/{1}View.prefab", UIConst.Prefab, content);
-
-                PrefabUtils.CreateUGUI(path);
-
-                AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
-
-                ScriptUtils.ModifyEnum(typeof(UIPanel), true, content);
-
-                AssetDatabase.Refresh();
-
-                ShowNotification("模板创建完成");
+                CreateView();
             }
+            if (GUILayout.Button(ToLanguage("Create ILRuntimeView")))
+            {
+                CreateILRuntimeView();
+            }
+        }
+
+        private void CreateView()
+        {
+            if (string.IsNullOrEmpty(content)) return;
+
+            string path = string.Format("Assets/Scripts/UI/Hall/{0}/{0}View.cs", content);
+
+            Utility.Document.CreateDirectoryByFile(path);
+
+            ScriptUtils.CreateFromTemplate(path);
+
+            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+
+            AssetDatabase.Refresh();
+
+            path = string.Format("Assets/{0}/{1}View.prefab", UIConst.Prefab, content);
+
+            PrefabUtils.CreateUGUI(path);
+
+            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+
+            ScriptUtils.ModifyEnum(typeof(UIPanel), true, content);
+
+            AssetDatabase.Refresh();
+
+            ShowNotification("模板创建完成");
+        }
+
+        private void CreateILRuntimeView()
+        {
+            if (string.IsNullOrEmpty(content)) return;
+
+            string path = string.Format("Assets/ILRuntime/Hotfix~/Script/UI/Hall/{0}/{0}View.cs", content);
+
+            Utility.Document.CreateDirectoryByFile(path);
+
+            ScriptUtils.CreateFromTemplate(path, "002");
+
+            path = string.Format("Assets/{0}/{1}View.prefab", UIConst.Prefab, content);
+
+            var prefab = PrefabUtils.CreateUGUI(path);
+
+            prefab.AddComponent<ILRuntimeView>();
+
+            PrefabUtility.SavePrefabAsset(prefab);
+
+            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+
+            ScriptUtils.ModifyEnum(typeof(UIPanel), true, content);
+
+            AssetDatabase.Refresh();
+
+            ShowNotification("ILRuntime 模板创建完成");
         }
 
         private void RefreshModify()
@@ -113,7 +151,7 @@ namespace UnityEditor.Window
 
                         layer = UILayer.Window,
 
-                        name = panel.ToString(),
+                        name = string.Format("{0}View", panel),
 
                         destroy = false,
 

@@ -44,7 +44,7 @@ namespace UnityEditor
 
             if (worlds.TryGetValue(key.ToLower(), out result))
             {
-
+                return result;
             }
             else
             {
@@ -62,15 +62,15 @@ namespace UnityEditor
                         {
                             value = strings[i];
                         }
-                        //   ʷ   
+                        // First char don't add space 
                         if (i == 0)
                             result = value;
                         else
-                            result += string.Format(" {0}", value);
+                            result = string.Format("{0} {1}", result, value);
                     }
                 }
+                return result;
             }
-            return result;
         }
     }
 }

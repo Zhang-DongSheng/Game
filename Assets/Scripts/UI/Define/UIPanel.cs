@@ -36,5 +36,6 @@ namespace Game.UI
 		Settlement = 1004,
 		GluttonousSnake = 1005,
 		ColorPicker = 1006,
+		Study = 1007,
 	}
 }

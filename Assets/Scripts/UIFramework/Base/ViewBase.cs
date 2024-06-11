@@ -1,21 +1,22 @@
-﻿using UnityEngine;
+﻿using Data;
+using UnityEngine;
 
 namespace Game.UI
 {
     [DisallowMultipleComponent]
     public abstract class ViewBase : RuntimeBehaviour
     {
-        protected int panel;
-
         public UILayer layer = UILayer.Window;
 
         public UIType type = UIType.Panel;
 
         public uint order = 0;
 
-        public virtual void Init(int panel)
+        protected UIInformation information;
+
+        public virtual void Init(UIInformation information)
         {
-            this.panel = panel;
+            this.information = information;
         }
 
         public virtual void Enter()
@@ -24,10 +25,19 @@ namespace Game.UI
             {
                 UIQuickEntry.Open(UIPanel.Title, new UIParameter()
                 {
-                    ["panel"] = panel,
+                    ["panel"] = information.panel,
                 });
             }
             SetActive(true);
+        }
+
+        public virtual bool Back()
+        {
+            if (isActiveAndEnabled)
+            {
+                UIManager.Instance.Close(information.panel);
+            }
+            return true;
         }
 
         public virtual void Exit()
@@ -45,13 +55,12 @@ namespace Game.UI
         
         }
 
-        public virtual bool Back()
+        public virtual void Release()
         {
-            if (isActiveAndEnabled)
+            if (gameObject != null)
             {
-                UIManager.Instance.Close(panel);
+                GameObject.Destroy(gameObject);
             }
-            return true;
         }
 
         protected virtual void SetActive(bool active)
@@ -77,7 +86,7 @@ namespace Game.UI
 
         protected virtual void OnClickClose()
         {
-            UIManager.Instance.Close(panel);
+            UIManager.Instance.Close(information.panel);
         }
 
         protected virtual void Relevance()
@@ -85,7 +94,7 @@ namespace Game.UI
             Extension.Relevance(this);
         }
         [ContextMenu("Relevance")]
-        protected void RelevanceMenu()
+        protected void MenuRelevance()
         {
             Relevance();
         }

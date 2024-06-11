@@ -30,15 +30,15 @@ namespace UnityEngine
             { Author.Editor,   LogType.Exception },
             { Author.Device,   LogType.Exception },
             { Author.File,     LogType.Exception },
-            { Author.Script,   LogType.Log },
+            { Author.Script,   LogType.Exception },
             { Author.Network,  LogType.Exception },
-            { Author.Utility,  LogType.Log },
-            { Author.UI,       LogType.Log },
-            { Author.Test,     LogType.Log },
-            { Author.Data,     LogType.Error },
-            { Author.Sound,    LogType.Warning },
-            { Author.Resource, LogType.Log },
-            { Author.ILRuntime,LogType.Error },
+            { Author.Utility,  LogType.Exception },
+            { Author.UI,       LogType.Exception },
+            { Author.Test,     LogType.Exception },
+            { Author.Data,     LogType.Exception },
+            { Author.Sound,    LogType.Exception },
+            { Author.Resource, LogType.Exception },
+            { Author.ILRuntime,LogType.Exception },
         };
         private static readonly StringBuilder builder = new StringBuilder();
 
