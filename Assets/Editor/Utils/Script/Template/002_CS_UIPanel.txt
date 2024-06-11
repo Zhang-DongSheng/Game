@@ -1,0 +1,26 @@
+using Game.UI;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace ILRuntime.Game.UI
+{
+    public class #SCRIPTNAME#
+    {
+        public void Init()
+        {
+
+        }
+
+        public void Refresh(UIParameter paramter)
+        {
+            
+        }
+
+        public void Release()
+        {
+            
+        }
+    }
+}

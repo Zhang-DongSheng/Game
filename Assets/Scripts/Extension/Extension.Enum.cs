@@ -20,12 +20,5 @@ namespace Game
             }
             return index;
         }
-
-        public static int Count(this Enum value)
-        {
-            var array = Enum.GetValues(value.GetType());
-
-            return array.Length;
-        }
     }
 }

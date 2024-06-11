@@ -24,7 +24,14 @@ namespace Game
                 return -1;
             }
 
-            public static T FromString<T>(string key) where T : System.Enum
+            public static int Count<T>() where T : System.Enum
+            {
+                var array = System.Enum.GetValues(typeof(T));
+
+                return array.Length;
+            }
+
+            public static T Parse<T>(string key) where T : System.Enum
             {
                 if (System.Enum.IsDefined(typeof(T), key))
                 {
@@ -42,6 +49,11 @@ namespace Game
                     list.Add((T)e);
                 }
                 return list;
+            }
+
+            public static bool Exist<T>(string key) where T : System.Enum
+            {
+                return System.Enum.IsDefined(typeof(T), key);
             }
         }
     }
