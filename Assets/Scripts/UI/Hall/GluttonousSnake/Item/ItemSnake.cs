@@ -31,7 +31,7 @@ namespace Game.UI
 
         private readonly List<ItemSnakeBody> bodies = new List<ItemSnakeBody>();
 
-        private readonly List<SnakeInformation> snakes = new List<SnakeInformation>();
+        private readonly List<Snake> snakes = new List<Snake>();
 
         protected override void OnUpdate(float delta)
         {
@@ -51,7 +51,7 @@ namespace Game.UI
 
             if (magnitude > step)
             {
-                snakes.Add(new SnakeInformation(position, rotation.z, magnitude));
+                snakes.Add(new Snake(position, rotation.z, magnitude));
 
                 magnitude = 0;
             }

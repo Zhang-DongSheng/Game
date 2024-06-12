@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game.UI.Guidance
+namespace Game.UI
 {
     public class ItemGuidanceDrag : ItemGuidanceBase
     {

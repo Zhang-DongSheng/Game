@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Protobuf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,10 @@ namespace Game.UI
         [SerializeField] private ItemAvatar avatar;
 
         [SerializeField] private ItemNickname nick;
+
+        public void Refresh(SubPlayer player)
+        {
+            
+        }
     }
 }

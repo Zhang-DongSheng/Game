@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game.UI
 {
-    public class RankingListPlayerInformation
+    public class RankingListPlayer : Player
     {
 
     }

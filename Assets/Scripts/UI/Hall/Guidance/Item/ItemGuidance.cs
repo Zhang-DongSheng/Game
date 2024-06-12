@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Game.UI.Guidance
+namespace Game.UI
 {
     public class ItemGuidance : ItemBase
     {
@@ -27,14 +27,14 @@ namespace Game.UI.Guidance
             EventDispatcher.Unregister(UIEvent.Guidance, OnGuidanceTrigger);
         }
 
-        private void Refresh(GuidanceInformation guidance)
+        private void Refresh(Guidance guidance)
         {
             transform.LiftUpLayer();
         }
 
         private void OnGuidanceTrigger(EventArgs args)
         {
-            var msg = args.Get<GuidanceInformation>(GuidanceConfig.Key);
+            var msg = args.Get<Guidance>(GuidanceConfig.Key);
 
             trigger = msg.guidanceID == guidanceID;
 

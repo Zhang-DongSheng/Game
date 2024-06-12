@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game.UI
 {
-    public class GuidanceInformation
+    public class Guidance
     {
         public int guidanceID;
     }

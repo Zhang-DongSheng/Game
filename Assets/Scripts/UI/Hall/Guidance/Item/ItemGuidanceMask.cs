@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.UI.Guidance
+namespace Game.UI
 {
     [ExecuteInEditMode]
     [RequireComponent(typeof(Image))]

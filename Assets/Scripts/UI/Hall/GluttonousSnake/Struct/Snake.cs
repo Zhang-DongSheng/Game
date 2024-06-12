@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Game.UI
 {
-    public class SnakeInformation
+    public class Snake
     {
         public Vector2 position;
 
@@ -15,7 +10,7 @@ namespace Game.UI
 
         public float length;
 
-        public SnakeInformation(Vector2 position, float angle, float length)
+        public Snake(Vector2 position, float angle, float length)
         {
             this.length = length;
 

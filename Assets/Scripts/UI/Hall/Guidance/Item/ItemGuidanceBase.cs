@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Game.UI.Guidance
+namespace Game.UI
 {
     public abstract class ItemGuidanceBase : MonoBehaviour
     {

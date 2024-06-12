@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Game.UI
 {
-    public class ItemGuidanceSpring : ItemGuidanceBase
+    public class ClubMember : Player
     {
-
+        
     }
 }

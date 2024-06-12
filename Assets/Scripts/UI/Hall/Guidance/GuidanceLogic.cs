@@ -16,7 +16,7 @@ namespace Game.UI
 
         private void OnTriggerGuidance(EventArgs args)
         {
-            var information = args.Get<GuidanceInformation>(GuidanceConfig.Key);
+            var information = args.Get<Guidance>(GuidanceConfig.Key);
 
             UIQuickEntry.Open(UIPanel.Guidance, new UIParameter()
             {
