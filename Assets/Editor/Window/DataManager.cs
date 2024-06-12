@@ -549,15 +549,18 @@ namespace UnityEditor.Window
 
                 foreach (var file in Directory.GetFiles(src))
                 {
-                    var k = Path.GetFileNameWithoutExtension(file);
+                    var name = Path.GetFileNameWithoutExtension(file);
 
-                    if (files.ContainsKey(k))
+                    if (name.StartsWith("C2S") || name.StartsWith("S2C"))
                     {
-                        
-                    }
-                    else
-                    {
-                        files.Add(k, index++);
+                        if (files.ContainsKey(name))
+                        {
+
+                        }
+                        else
+                        {
+                            files.Add(name, index++);
+                        }
                     }
                 }
                 ScriptUtils.ModifyNetworkMessageDefine(files);

@@ -34,19 +34,25 @@ namespace Game
 
             PlayerLogic.Instance.Initialize();
 
+            ChatLogic.Instance.Initialize();
+
+            ClubLogic.Instance.Initialize();
+
+            FriendLogic.Instance.Initialize();
+
+            ReddotLogic.Instance.Initialize();
+
             WarehouseLogic.Instance.Initialize();
-
-            TaskLogic.Instance.Initialize();
-
-            ShopLogic.Instance.Initialize();
 
             MailLogic.Instance.Initialize();
 
             ActivityLogic.Instance.Initialize();
 
+            ShopLogic.Instance.Initialize();
+
             RankingListLogic.Instance.Initialize();
 
-            ReddotLogic.Instance.Initialize();
+            TaskLogic.Instance.Initialize();
 
             GuidanceLogic.Instance.Initialize();
 

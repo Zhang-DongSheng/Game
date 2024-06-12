@@ -9,15 +9,10 @@ namespace Game.UI
 
         }
 
-        //protected override void OnRegister()
-        //{
-        //    EventDispatcher.Register(UIEvent.Guidance, OnTriggerGuidance);
-        //}
-
-        //protected override void OnUnregister()
-        //{
-        //    EventDispatcher.Unregister(UIEvent.Guidance, OnTriggerGuidance);
-        //}
+        public void RequestGuidance()
+        {
+            ScheduleLogic.Instance.Update(Schedule.Guidance);
+        }
 
         private void OnTriggerGuidance(EventArgs args)
         {

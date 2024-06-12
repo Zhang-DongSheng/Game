@@ -1,0 +1,7 @@
+syntax = "proto3";
+package protobuf;
+
+message C2SFriendRequest
+{
+	
+}

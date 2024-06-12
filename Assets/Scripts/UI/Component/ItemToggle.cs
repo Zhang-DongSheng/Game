@@ -26,7 +26,7 @@ namespace Game.UI
         {
             this.index = key.index;
 
-            content = key.content;
+            content = Content(key.index);
 
             callback = key.callback;
 

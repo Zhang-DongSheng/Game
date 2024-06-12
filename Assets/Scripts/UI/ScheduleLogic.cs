@@ -26,12 +26,16 @@ namespace Game
 
         public void Enter()
         {
-            Add(Schedule.Bag);
             Add(Schedule.Mail);
+            Add(Schedule.Bag);
+            Add(Schedule.Chat);
+            Add(Schedule.Club);
+            Add(Schedule.Friend);
             Add(Schedule.Reddot);
             Add(Schedule.Shop);
-            Add(Schedule.Task);
             Add(Schedule.Activity);
+            Add(Schedule.RankingList);
+            Add(Schedule.Task);
             Begin();
         }
 
@@ -103,11 +107,20 @@ namespace Game
                 case Schedule.BlockedText:
                     Update(Schedule.BlockedText);
                     break;
+                case Schedule.Mail:
+                    MailLogic.Instance.RequestMails();
+                    break;
                 case Schedule.Bag:
                     WarehouseLogic.Instance.RequestInformation();
                     break;
-                case Schedule.Mail:
-                    MailLogic.Instance.RequestMails();
+                case Schedule.Chat:
+                    ChatLogic.Instance.RequestChat();
+                    break;
+                case Schedule.Club:
+                    ClubLogic.Instance.RequestClub();
+                    break;
+                case Schedule.Friend:
+                    FriendLogic.Instance.RequestFriend();
                     break;
                 case Schedule.Reddot:
                     ReddotLogic.Instance.RequestInformation();
@@ -118,8 +131,14 @@ namespace Game
                 case Schedule.Activity:
                     ActivityLogic.Instance.RequestInformation();
                     break;
+                case Schedule.RankingList:
+                    RankingListLogic.Instance.RequestRankingList();
+                    break;
                 case Schedule.Task:
                     TaskLogic.Instance.RequestTasks();
+                    break;
+                case Schedule.Guidance:
+                    GuidanceLogic.Instance.RequestGuidance();
                     break;
                 case Schedule.Count:
                     Update(Schedule.Count, ScheduleStatus.Complete);
@@ -162,7 +181,6 @@ namespace Game
         }
     }
 
-
     public class ScheduleData
     {
         public Schedule key;
@@ -192,27 +210,39 @@ namespace Game
         /// </summary>
         Resource,
         /// <summary>
-        /// 语言包
-        /// </summary>
-        Language,
-        /// <summary>
         /// 热修复
         /// </summary>
         Hotfix,
+        /// <summary>
+        /// 语言包
+        /// </summary>
+        Language,
         /// <summary>
         /// 屏蔽字
         /// </summary>
         BlockedText,
         /// <summary>
-        /// 邮箱【个人相关】
+        /// 邮箱
         /// </summary>
         Mail,
         /// <summary>
-        /// 背包【个人相关】
+        /// 背包
         /// </summary>
         Bag,
         /// <summary>
-        /// 红点【个人相关】
+        /// 聊天
+        /// </summary>
+        Chat,
+        /// <summary>
+        /// 俱乐部
+        /// </summary>
+        Club,
+        /// <summary>
+        /// 好友
+        /// </summary>
+        Friend,
+        /// <summary>
+        /// 红点
         /// </summary>
         Reddot,
         /// <summary>
@@ -224,9 +254,17 @@ namespace Game
         /// </summary>
         Activity,
         /// <summary>
+        /// 排行榜
+        /// </summary>
+        RankingList,
+        /// <summary>
         /// 任务
         /// </summary>
         Task,
+        /// <summary>
+        /// 引导
+        /// </summary>
+        Guidance,
         /// <summary>
         /// 数量
         /// </summary>

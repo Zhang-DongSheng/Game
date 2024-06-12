@@ -1,4 +1,6 @@
 using Data;
+using Game.Network;
+using Protobuf;
 using System.Collections.Generic;
 
 namespace Game.UI
@@ -67,27 +69,22 @@ namespace Game.UI
             return 0;
         }
 
-        #region Request
         public void RequestInformation()
         {
-            OnReceivedInformation(null);
+            var msg = new C2SWarehouseRequest();
 
-            ScheduleLogic.Instance.Update(Schedule.Bag);
-        }
-        #endregion
-
-        #region Receive
-        private void OnReceivedInformation(object handle)
-        {
-            _props.Clear();
-
-            DataProp data = DataManager.Instance.Load<DataProp>();
-
-            for (int i = 0; i < data.list.Count; i++)
+            NetworkManager.Instance.Send(NetworkMessageDefine.C2SWarehouseRequest, msg, (handle) =>
             {
-                _props.Add(new Prop((uint)i, data.list[i].primary, 999));
-            }
+                _props.Clear();
+
+                DataProp data = DataManager.Instance.Load<DataProp>();
+
+                for (int i = 0; i < data.list.Count; i++)
+                {
+                    _props.Add(new Prop((uint)i, data.list[i].primary, 999));
+                }
+                ScheduleLogic.Instance.Update(Schedule.Bag);
+            });
         }
-        #endregion
     }
 }

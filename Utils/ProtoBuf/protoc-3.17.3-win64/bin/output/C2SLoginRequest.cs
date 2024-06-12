@@ -24,13 +24,13 @@ namespace Protobuf {
     static C2SLoginRequestReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChVDMlNMb2dpblJlcXVlc3QucHJvdG8SCHByb3RvYnVmIjQKD0MyU0xvZ2lu",
-            "UmVxdWVzdBIPCgdhY2NvdW50GAEgASgJEhAKCHBhc3N3b3JkGAIgASgJYgZw",
-            "cm90bzM="));
+            "ChVDMlNMb2dpblJlcXVlc3QucHJvdG8SCHByb3RvYnVmIkUKD0MyU0xvZ2lu",
+            "UmVxdWVzdBIPCgdhY2NvdW50GAEgASgJEhAKCHBhc3N3b3JkGAIgASgJEg8K",
+            "B2NoYW5uZWwYAyABKAViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.C2SLoginRequest), global::Protobuf.C2SLoginRequest.Parser, new[]{ "Account", "Password" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protobuf.C2SLoginRequest), global::Protobuf.C2SLoginRequest.Parser, new[]{ "Account", "Password", "Channel" }, null, null, null, null)
           }));
     }
     #endregion
@@ -73,6 +73,7 @@ namespace Protobuf {
     public C2SLoginRequest(C2SLoginRequest other) : this() {
       account_ = other.account_;
       password_ = other.password_;
+      channel_ = other.channel_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -106,6 +107,18 @@ namespace Protobuf {
       }
     }
 
+    /// <summary>Field number for the "channel" field.</summary>
+    public const int ChannelFieldNumber = 3;
+    private int channel_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Channel {
+      get { return channel_; }
+      set {
+        channel_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -123,6 +136,7 @@ namespace Protobuf {
       }
       if (Account != other.Account) return false;
       if (Password != other.Password) return false;
+      if (Channel != other.Channel) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -132,6 +146,7 @@ namespace Protobuf {
       int hash = 1;
       if (Account.Length != 0) hash ^= Account.GetHashCode();
       if (Password.Length != 0) hash ^= Password.GetHashCode();
+      if (Channel != 0) hash ^= Channel.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -158,6 +173,10 @@ namespace Protobuf {
         output.WriteRawTag(18);
         output.WriteString(Password);
       }
+      if (Channel != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Channel);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -176,6 +195,10 @@ namespace Protobuf {
         output.WriteRawTag(18);
         output.WriteString(Password);
       }
+      if (Channel != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Channel);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -191,6 +214,9 @@ namespace Protobuf {
       }
       if (Password.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Password);
+      }
+      if (Channel != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Channel);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -209,6 +235,9 @@ namespace Protobuf {
       }
       if (other.Password.Length != 0) {
         Password = other.Password;
+      }
+      if (other.Channel != 0) {
+        Channel = other.Channel;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -233,6 +262,10 @@ namespace Protobuf {
             Password = input.ReadString();
             break;
           }
+          case 24: {
+            Channel = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -254,6 +287,10 @@ namespace Protobuf {
           }
           case 18: {
             Password = input.ReadString();
+            break;
+          }
+          case 24: {
+            Channel = input.ReadInt32();
             break;
           }
         }

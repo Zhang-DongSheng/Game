@@ -1,0 +1,9 @@
+syntax = "proto3";
+package protobuf;
+
+message SubReward
+{
+	int32 itemID = 1;
+	int32 number = 2;
+	int32 change = 3;
+}

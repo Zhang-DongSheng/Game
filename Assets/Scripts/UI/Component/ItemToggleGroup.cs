@@ -49,7 +49,6 @@ namespace Game.UI
                 this.keys.Add(new ItemToggleKey()
                 {
                     index = parameter[i],
-                    content = parameter[i].ToString(),
                     callback = OnClick,
                 });
             }
@@ -60,12 +59,11 @@ namespace Game.UI
         {
             this.keys.Clear();
 
-            foreach (var e in Enum.GetValues(typeof(T)))
+            foreach (var v in Enum.GetValues(typeof(T)))
             {
                 this.keys.Add(new ItemToggleKey()
                 {
-                    index = (int)e,
-                    content = e.ToString(),
+                    index = (int)v,
                     callback = OnClick
                 });
             }
@@ -115,8 +113,6 @@ namespace Game.UI
     public class ItemToggleKey
     {
         public int index;
-
-        public string content;
 
         public Action<int> callback;
     }

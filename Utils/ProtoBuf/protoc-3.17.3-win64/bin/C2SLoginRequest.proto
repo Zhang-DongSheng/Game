@@ -5,4 +5,5 @@ message C2SLoginRequest
 {
 	string account = 1;
 	string password = 2;
+	int32 channel = 3;
 }

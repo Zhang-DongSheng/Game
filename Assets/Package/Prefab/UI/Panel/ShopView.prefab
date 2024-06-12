@@ -1059,7 +1059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e74d57c8a67124ca2353430c427c94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 
+  content: Sell
 --- !u!1 &2495631404544460935
 GameObject:
   m_ObjectHideFlags: 0
@@ -1302,7 +1302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e74d57c8a67124ca2353430c427c94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 
+  content: Package
 --- !u!1 &2807311168926622219
 GameObject:
   m_ObjectHideFlags: 0
@@ -2369,7 +2369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e74d57c8a67124ca2353430c427c94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 
+  content: Recharge
 --- !u!1 &4711072329288797366
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,6 @@
 using Data;
+using Game.Network;
+using Protobuf;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +10,11 @@ namespace Game.UI
     {
         private readonly List<Task> _tasks = new List<Task>();
 
+        public List<Task> Tasks
+        {
+            get { return _tasks; }
+        }
+
         public void Initialize()
         {
 
@@ -15,7 +22,22 @@ namespace Game.UI
 
         public void RequestTasks()
         {
-            ScheduleLogic.Instance.Update(Schedule.Task);
+            var msg = new C2STaskRequest();
+
+            NetworkManager.Instance.Send(NetworkMessageDefine.C2STaskRequest, msg, (handle) =>
+            {
+                _tasks.Clear();
+
+                for (int i = 1; i < 10; i++)
+                {
+                    _tasks.Add(new Task()
+                    {
+                        identification = (uint)i,
+                        parallelism = (uint)i,
+                    });
+                }
+                ScheduleLogic.Instance.Update(Schedule.Task);
+            });
         }
 
         public void RequestGetTaskRewards(uint taskID)
@@ -32,11 +54,6 @@ namespace Game.UI
         public static void Goto(int type)
         {
             Debuger.Log(Author.UI, "To:" + type);
-        }
-
-        public List<Task> Tasks
-        {
-            get { return _tasks; }
         }
     }
 }

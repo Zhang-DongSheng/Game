@@ -1,0 +1,8 @@
+syntax = "proto3";
+package protobuf;
+
+message SubCommodity
+{
+	int32 commodityID = 1;
+	int32 number = 2;
+}

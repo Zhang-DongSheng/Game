@@ -17,5 +17,19 @@ namespace Game.UI
                 labels[i].SetText(content);
             }
         }
+
+        protected override string Content(int index)
+        {
+            switch (index)
+            {
+                case 101:
+                    return "Package";
+                case 102:
+                    return "Sell";
+                case 103:
+                    return "Recharge";
+            }
+            return index.ToString();
+        }
     }
 }

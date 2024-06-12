@@ -10,8 +10,6 @@ namespace Game.UI
         {
             base.Refresh(key);
 
-            content = Content(index);
-
             int count = labels.Length;
 
             for (int i = 0; i < count; i++)

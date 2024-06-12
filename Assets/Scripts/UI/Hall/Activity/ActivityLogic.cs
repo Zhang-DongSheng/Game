@@ -1,4 +1,6 @@
 using Data;
+using Game.Network;
+using Protobuf;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,40 +28,36 @@ namespace Game.UI
             return true;
         }
 
-        #region Request
         public void RequestInformation()
         {
-            OnReceivedInformation(null);
-        }
-        #endregion
+            var msg = new C2SActivityRequest();
 
-        #region Receive
-        private void OnReceivedInformation(object handle)
-        {
-            _activities.Clear();
-
-            var data = DataManager.Instance.Load<DataActivity>();
-
-            int count = data.list.Count;
-
-            Debuger.Log(Author.Test, "活动数量" + count);
-
-            for (int i = 0; i < count; i++)
+            NetworkManager.Instance.Send(NetworkMessageDefine.C2SActivityRequest, msg, (handle) =>
             {
-                if (data.list[i].timeLimit)
+                _activities.Clear();
+
+                var data = DataManager.Instance.Load<DataActivity>();
+
+                int count = data.list.Count;
+
+                Debuger.Log(Author.Test, "活动数量" + count);
+
+                for (int i = 0; i < count; i++)
                 {
-                    if (TimeSynchronization.Instance.InSide(data.list[i].beginTime, data.list[i].endTime))
+                    if (data.list[i].timeLimit)
+                    {
+                        if (TimeSynchronization.Instance.InSide(data.list[i].beginTime, data.list[i].endTime))
+                        {
+                            _activities.Add(new ActivityData(data.list[i]));
+                        }
+                    }
+                    else
                     {
                         _activities.Add(new ActivityData(data.list[i]));
                     }
                 }
-                else
-                {
-                    _activities.Add(new ActivityData(data.list[i]));
-                }
-            }
-            ScheduleLogic.Instance.Update(Schedule.Activity);
+                ScheduleLogic.Instance.Update(Schedule.Activity);
+            });
         }
-        #endregion
     }
 }

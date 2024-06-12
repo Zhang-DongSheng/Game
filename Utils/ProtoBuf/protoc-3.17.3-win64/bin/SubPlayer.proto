@@ -1,0 +1,11 @@
+syntax = "proto3";
+package protobuf;
+
+message SubPlayer
+{
+	string nick = 1;
+	int64 roleID = 2;
+	int32 head = 3;
+	int32 frame = 4;
+	int32 age = 5;
+}

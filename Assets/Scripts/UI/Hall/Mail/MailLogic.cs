@@ -1,4 +1,6 @@
 using Data;
+using Game.Network;
+using Protobuf;
 using System.Collections.Generic;
 
 namespace Game.UI
@@ -7,6 +9,11 @@ namespace Game.UI
     {
         private readonly List<Mail> _mails = new List<Mail>();
 
+        public List<Mail> Mails
+        {
+            get { return _mails; }
+        }
+
         public void Initialize()
         {
 
@@ -14,22 +21,24 @@ namespace Game.UI
 
         public void RequestMails()
         {
-            int count = 10;
+            var msg = new C2SMailRequest()
+            {
+                
+            };
+            NetworkManager.Instance.Send(NetworkMessageDefine.C2SMailRequest, msg, (handle) =>
+            {
+                int count = 10;
 
-            for (int i = 0; i < count; i++)
-            { 
-                _mails.Add(new Mail()
+                for (int i = 0; i < count; i++)
                 {
-                    ID = (uint)i,
-                    content = i.ToString(),
-                });
-            }
-            ScheduleLogic.Instance.Update(Schedule.Mail);
-        }
-
-        public List<Mail> Mails
-        {
-            get { return _mails; }
+                    _mails.Add(new Mail()
+                    {
+                        ID = (uint)i,
+                        content = i.ToString(),
+                    });
+                }
+                ScheduleLogic.Instance.Update(Schedule.Mail);
+            });
         }
     }
 }

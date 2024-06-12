@@ -1,0 +1,10 @@
+syntax = "proto3";
+package protobuf;
+
+import "SubPlayer.proto";
+
+message C2SClubRequest
+{
+	int64 clubID = 1;
+	repeated SubPlayer members = 2;
+}

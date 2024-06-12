@@ -1,0 +1,9 @@
+syntax = "proto3";
+package protobuf;
+
+message SubItem
+{
+	int64 identifier = 1;
+	int32 itemID = 2;
+	int32 number = 3;
+}
