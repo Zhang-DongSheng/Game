@@ -14,7 +14,7 @@ namespace Game.UI
 
         [SerializeField] private ItemNickname nick;
 
-        public void Refresh(SubPlayer player)
+        public void Refresh(Friend friend, int type)
         {
             
         }

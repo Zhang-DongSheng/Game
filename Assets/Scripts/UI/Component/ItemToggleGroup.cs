@@ -8,47 +8,32 @@ namespace Game.UI
     {
         public PrefabTemplateBehaviour prefab;
 
+        public List<Pair<int, string>> pairs;
+
         public Action<int> callback;
 
         private int count;
 
         private readonly List<ItemToggle> toggles = new List<ItemToggle>();
 
-        private readonly List<ItemToggleKey> keys = new List<ItemToggleKey>();
-
-        private void Refresh()
-        {
-            this.toggles.Clear();
-
-            this.toggles.AddRange(GetComponentsInChildren<ItemToggle>(true));
-
-            count = keys.Count;
-
-            for (int i = 0; i < count; i++)
-            {
-                if (i >= toggles.Count)
-                {
-                    toggles.Add(prefab.Create<ItemToggle>());
-                }
-                toggles[i].Refresh(keys[i]);
-            }
-            for (int i = count; i < toggles.Count; i++)
-            {
-                toggles[i].SetActive(false);
-            }
-        }
+        private readonly List<ToggleParameter> parameters = new List<ToggleParameter>();
 
         public void Refresh(params int[] parameter)
         {
-            this.keys.Clear();
+            this.parameters.Clear();
 
             count = parameter.Length;
 
             for (int i = 0; i < count; i++)
             {
-                this.keys.Add(new ItemToggleKey()
+                var key = pairs.Find(x => x.x == parameter[i]);
+
+                var name = key != null ? key.y : parameter[i].ToString();
+
+                this.parameters.Add(new ToggleParameter()
                 {
                     index = parameter[i],
+                    name = name,
                     callback = OnClick,
                 });
             }
@@ -57,28 +42,18 @@ namespace Game.UI
 
         public void Refresh<T>() where T : Enum
         {
-            this.keys.Clear();
+            this.parameters.Clear();
 
             foreach (var v in Enum.GetValues(typeof(T)))
             {
-                this.keys.Add(new ItemToggleKey()
+                var name = v.ToString();
+
+                this.parameters.Add(new ToggleParameter()
                 {
                     index = (int)v,
+                    name = name,
                     callback = OnClick
                 });
-            }
-            Refresh();
-        }
-
-        public void Refresh(List<ItemToggleKey> keys)
-        {
-            this.keys.Clear();
-
-            this.keys.AddRange(keys);
-
-            foreach (var key in this.keys)
-            {
-                key.callback = OnClick;
             }
             Refresh();
         }
@@ -98,6 +73,28 @@ namespace Game.UI
             }
         }
 
+        private void Refresh()
+        {
+            this.toggles.Clear();
+
+            this.toggles.AddRange(GetComponentsInChildren<ItemToggle>(true));
+
+            count = parameters.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (i >= toggles.Count)
+                {
+                    toggles.Add(prefab.Create<ItemToggle>());
+                }
+                toggles[i].Refresh(parameters[i]);
+            }
+            for (int i = count; i < toggles.Count; i++)
+            {
+                toggles[i].SetActive(false);
+            }
+        }
+
         private void OnClick(int index)
         {
             count = toggles.Count;
@@ -110,9 +107,11 @@ namespace Game.UI
         }
     }
     [Serializable]
-    public class ItemToggleKey
+    public class ToggleParameter
     {
         public int index;
+
+        public string name;
 
         public Action<int> callback;
     }

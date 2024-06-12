@@ -1,16 +1,15 @@
 using Game.Network;
-using Game.UI;
 using Protobuf;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game.UI
 {
     public class RankingListLogic : Singleton<RankingListLogic>, ILogic
     {
+        private readonly Dictionary<int, List<RankingListPlayer>> rankinglist = new Dictionary<int, List<RankingListPlayer>>();
+
+        private readonly List<RankingListPlayer> empty = new List<RankingListPlayer>(0);
+
         public void Initialize()
         { 
         

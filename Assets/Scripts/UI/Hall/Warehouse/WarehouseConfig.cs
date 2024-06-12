@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Game.UI
 {
     public enum WarehouseCategory

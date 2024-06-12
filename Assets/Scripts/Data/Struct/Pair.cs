@@ -52,10 +52,10 @@ namespace Game
         public string y;
     }
     [System.Serializable]
-    public class Pair<T> where T : class
+    public class Pair<K, V>
     {
-        public T x;
+        public K x;
 
-        public T y;
+        public V y;
     }
 }

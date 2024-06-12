@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,23 +13,21 @@ namespace Game.UI
 
         [SerializeField] private List<GameObject> foreground;
 
-        protected Action<int> callback;
+        protected ToggleParameter parameter;
 
         protected int index, count;
 
-        protected string content;
-
         protected bool active;
 
-        public virtual void Refresh(ItemToggleKey key)
+        public virtual void Refresh(ToggleParameter parameter)
         {
-            this.index = key.index;
+            this.parameter = parameter;
 
-            content = Content(key.index);
-
-            callback = key.callback;
+            index = parameter.index;
 
             active = false;
+
+            SetContent(index);
 
             Select(-1);
 
@@ -39,7 +36,7 @@ namespace Game.UI
 
         public virtual void Select(int index)
         {
-            active = this.index.Equals(index);
+            active = this.index == index;
 
             count = foreground.Count;
 
@@ -55,14 +52,22 @@ namespace Game.UI
             }
         }
 
-        protected virtual string Content(int index)
+        protected virtual void SetContent(int index)
         {
-            return content;
+            var components = GetComponentsInChildren<TextBind>(true);
+
+            foreach (var component in components)
+            {
+                component.SetText(parameter.name);
+            }
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            callback?.Invoke(index);
+            if (parameter != null)
+            {
+                parameter.callback?.Invoke(index);
+            }
         }
     }
 }

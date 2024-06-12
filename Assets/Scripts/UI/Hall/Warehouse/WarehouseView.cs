@@ -1,4 +1,3 @@
-using Data;
 using UnityEngine;
 
 namespace Game.UI
@@ -15,13 +14,13 @@ namespace Game.UI
         {
             m_menu.callback = OnClickTab;
 
+            m_menu.Refresh<WarehouseCategory>();
+
             m_content.callback = OnClickProp;
         }
 
         private void Start()
         {
-            m_menu.Refresh<WarehouseCategory>();
-
             m_menu.Select((int)WarehouseCategory.Consume, true);
         }
 

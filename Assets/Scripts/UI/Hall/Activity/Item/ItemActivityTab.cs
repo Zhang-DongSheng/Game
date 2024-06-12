@@ -1,33 +1,21 @@
 ﻿using Data;
-using UnityEngine;
 
 namespace Game.UI
 {
     public class ItemActivityTab : ItemToggle
     {
-        [SerializeField] private TextBind[] labels;
-
-        public override void Refresh(ItemToggleKey key)
-        {
-            base.Refresh(key);
-
-            int count = labels.Length;
-
-            for (int i = 0; i < count; i++)
-            {
-                labels[i].SetText(content);
-            }
-        }
-
-        protected override string Content(int index)
+        protected override void SetContent(int index)
         {
             var table = DataActivity.Get((uint)index);
 
-            if (table != null)
+            var content = table != null ? table.name : parameter.name;
+
+            var components = GetComponentsInChildren<TextBind>(true);
+
+            foreach (var component in components)
             {
-                return table.name;
+                component.SetText(table.name);
             }
-            return content;
         }
     }
 }

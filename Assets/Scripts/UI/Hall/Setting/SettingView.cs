@@ -14,8 +14,6 @@ namespace Game.UI
             m_menu.callback = OnClickTab;
 
             m_menu.Refresh(0, 1, 2, 3);
-
-            m_menu.Select(0, true);
         }
 
         public override void Refresh(UIParameter parameter)
@@ -26,6 +24,7 @@ namespace Game.UI
             {
                 views[i].Refresh();
             }
+            m_menu.Select(0, true);
         }
 
         private void OnClickTab(int index)
