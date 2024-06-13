@@ -10,13 +10,14 @@ namespace Game.SM
 
         [SerializeField] private Vector3Interval scale;
 
-        protected override void Init() { }
+        protected override void Initialize()
+        {
+        
+        }
 
-        protected override void Transition(float step)
+        protected override void Transition(float progress)
         {
             if (target == null) return;
-
-            progress = curve.Evaluate(step);
 
             target.localPosition = position.Lerp(progress);
 

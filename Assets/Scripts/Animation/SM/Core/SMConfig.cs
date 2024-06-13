@@ -1,15 +1,5 @@
 ﻿namespace Game.SM
 {
-    public static class Config
-    {
-        public const int ZERO = 0;
-
-        public const int ONE = 1;
-
-        public const float HALF = 0.5f;
-
-        public const float SPEED = 6f;
-    }
     /// <summary>
     /// 状态
     /// </summary>
@@ -36,16 +26,8 @@
     /// </summary>
     public enum Circle
     {
-        Single,
-        Always,
-        Round,
-    }
-    /// <summary>
-    /// 关联
-    /// </summary>
-    public enum Relevance
-    {
-        Self,
-        Children,
+        Once,
+        Loop,
+        PingPong,
     }
 }

@@ -15,18 +15,16 @@ namespace Game.SM
 
         private float range;
 
-        protected override void Init()
+        protected override void Initialize()
         {
             position = target.localPosition;
 
             rotation = target.localRotation;
         }
 
-        protected override void Transition(float step)
+        protected override void Transition(float progress)
         {
             if (target == null) return;
-
-            progress = curve.Evaluate(Config.ONE - step);
 
             range = Mathf.Lerp(0, intensity, progress);
 

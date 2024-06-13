@@ -1,62 +1,91 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
+﻿using System;
+using UnityEditor;
+using UnityEngine;
 
 namespace Game.SM
 {
-    public abstract class SMBase : RuntimeBehaviour
+    [ExecuteInEditMode]
+    public abstract class SMBase : MonoBehaviour
     {
-        public UnityEvent onBegin, onCompleted;
-
-        [SerializeField] protected AnimationCurve curve = new AnimationCurve(new Keyframe(0f, 0f, 0f, 1f), new Keyframe(1f, 1f, 1f, 0f));
-
-        [SerializeField] protected bool enable;
-
-        [SerializeField] protected bool useConfig = true;
-
-        [SerializeField, Range(0.1f, 100)] protected float speed = 1;
-
-        [SerializeField, Range(0, 1)] protected float step;
+        public Action onBegin, onCompleted;
 
         [SerializeField] protected Transform target;
 
+        [SerializeField] protected AnimationCurve curve = new AnimationCurve(new Keyframe(0f, 0f, 0f, 1f), new Keyframe(1f, 1f, 1f, 0f));
+
+        [SerializeField] protected Circle circle;
+
+        [SerializeField, Range(0.1f, 100)] protected float speed = 6;
+
+        [SerializeField, Range(0, 1)] protected float step = 0;
+
+        [SerializeField] protected bool forward = true;
+
+        [SerializeField] protected bool enable;
+
         protected float progress;
-
-        protected Vector3 vector;
-
-        protected bool forward;
 
         protected Status status;
 
-        protected override void OnAwake()
+        private void Awake()
         {
             if (target == null)
             {
                 target = GetComponent<Transform>();
             }
-            // 使用配置数据
-            if (useConfig)
-            {
-                speed = Config.SPEED;
-            }
-            Init();
+            Initialize();
         }
 
-        protected override void OnVisible(bool active)
+        private void OnEnable()
         {
-            if (active && enable)
+            if (enable)
             {
                 Begin();
             }
         }
 
-        protected override void OnUpdate(float delta)
+        private void Update()
         {
-            Renovate(delta);
+            Renovate(Time.deltaTime);
         }
 
-        protected abstract void Init();
+        private void OnValidate()
+        {
+            if (!Application.isPlaying)
+            {
+                progress = Progress(forward, step);
 
-        protected abstract void Transition(float step);
+                Transition(progress);
+            }
+        }
+
+        protected abstract void Initialize();
+
+        protected abstract void Transition(float progress);
+
+        protected virtual float Progress(bool forward, float step)
+        {
+            if (forward)
+            {
+                progress = Mathf.Clamp01(step);
+            }
+            else
+            {
+                progress = Mathf.Clamp01(1 - step);
+            }
+            return curve.Evaluate(progress);
+        }
+
+        protected virtual void Ready()
+        {
+            status = Status.Ready;
+
+            step = 0;
+
+            onBegin?.Invoke();
+
+            status = Status.Transition;
+        }
 
         protected virtual void Renovate(float delta)
         {
@@ -64,24 +93,28 @@ namespace Game.SM
             {
                 step += delta * speed;
 
-                Transition(Format(forward, step));
+                progress = Progress(forward, step);
 
-                if (step >= Config.ONE)
+                Transition(progress);
+
+                if(step < 1) return;
+
+                step = 0;
+
+                switch (circle)
                 {
-                    Completed();
+                    case Circle.Once:
+                        {
+                            Completed();
+                        }
+                        break;
+                    case Circle.PingPong:
+                        {
+                            forward = !forward;
+                        }
+                        break;
                 }
             }
-        }
-
-        protected virtual void Ready()
-        {
-            status = Status.Ready;
-
-            step = Config.ZERO;
-
-            onBegin?.Invoke();
-
-            status = Status.Transition;
         }
 
         protected virtual void Completed()
@@ -91,26 +124,6 @@ namespace Game.SM
             onCompleted?.Invoke();
 
             status = Status.Idel;
-        }
-
-        protected virtual float Format(bool forward, float step)
-        {
-            if (forward)
-            {
-                return Mathf.Clamp01(step);
-            }
-            else
-            {
-                return Mathf.Clamp01(Config.ONE - step);
-            }
-        }
-
-        private void OnValidate()
-        {
-            if (!Application.isPlaying)
-            {
-                Transition(step);
-            }
         }
 
         public virtual void Begin(bool forward = true)
@@ -145,7 +158,5 @@ namespace Game.SM
         {
             Transition(step = 0);
         }
-
-        public bool Enable { get { return enable; } set { enable = value; } }
     }
 }

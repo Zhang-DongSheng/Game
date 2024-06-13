@@ -5,31 +5,38 @@ namespace Game.SM
 {
     public class SMActive : SMBase
     {
-        [SerializeField] private List<GameObject> selected;
+        [SerializeField] private List<GameObject> activates;
 
-        [SerializeField] private List<GameObject> unselected;
+        [SerializeField] private List<GameObject> inactives;
 
-        protected override void Init() { }
-
-        protected override void Transition(float step)
+        protected override void Initialize()
         {
-            bool active = step > 0.5f;
-
-            SetActive(selected, active);
-
-            SetActive(unselected, !active);
+            
         }
 
-        private void SetActive(List<GameObject> items, bool active)
+        protected override void Transition(float progress)
         {
-            if (items == null || items.Count == 0) return;
+            bool active = progress < 0.5f;
 
-            for (int i = 0; i < items.Count; i++)
+            int count = activates.Count;
+
+            for (int i = 0; i < count; i++)
             {
-                if (items[i] != null && items[i].activeSelf != active)
-                {
-                    items[i].SetActive(active);
-                }
+                SetActive(activates[i], active);
+            }
+            count = inactives.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                SetActive(inactives[i], !active);
+            }
+        }
+
+        private void SetActive(GameObject go, bool active)
+        {
+            if (go != null && go.activeSelf != active)
+            {
+                go.SetActive(active);
             }
         }
     }

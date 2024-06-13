@@ -8,34 +8,25 @@ namespace Game.SM
     /// </summary>
     public class SMCooling : SMBase
     {
-        [SerializeField] private Image image;
+        [SerializeField] private FloatInterval interval = FloatInterval.Default;
 
-        protected override void Init()
+        private Image image;
+
+        protected override void Initialize()
         {
-            if (image == null && !target.TryGetComponent(out image))
+            image = target.GetComponent<Image>();
+
+            if (image != null)
             {
-                Debuger.LogWarning(Author.UI, "The Image is Missing!");
-            }
-            else if (image.type != Image.Type.Filled)
-            {
-                Debuger.LogWarning(Author.UI, "The Image Type must be Filled!");
-            }
-            else
-            {
-                SetImageFillAmount(0);
+                image.type = Image.Type.Filled;
             }
         }
 
-        protected override void Transition(float step)
-        {
-            progress = curve.Evaluate(Config.ONE - step);
-
-            SetImageFillAmount(progress);
-        }
-
-        private void SetImageFillAmount(float value)
+        protected override void Transition(float progress)
         {
             if (image == null) return;
+
+            float value = interval.Lerp(progress);
 
             image.fillAmount = value;
 

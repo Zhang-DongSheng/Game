@@ -9,38 +9,29 @@ namespace Game.SM
     /// </summary>
     public class SMClip : SMBase
     {
-        [SerializeField] Circle circle;
-
-        [SerializeField] private Image image;
-
         [SerializeField] private bool native;
 
         [SerializeField] private List<Sprite> sprites;
 
         private IntInterval interval;
 
+        private Image image;
+
         private int index, current = -1;
 
-        protected override void Init()
+        protected override void Initialize()
         {
-            if (image == null && !target.TryGetComponent(out image))
+            interval = new IntInterval()
             {
-                Debuger.LogWarning(Author.UI, "The Image is missing!");
-            }
-            else
-            {
-                interval = new IntInterval()
-                {
-                    origination = 0,
-                    destination = sprites.Count
-                };
-            }
+                origination = 0,
+
+                destination = sprites.Count - 1
+            };
+            image = target.GetComponent<Image>();
         }
 
-        protected override void Transition(float step)
+        protected override void Transition(float progress)
         {
-            progress = curve.Evaluate(step);
-
             index = interval.Lerp(progress);
 
             if (sprites.Count > index && current != index)
@@ -55,22 +46,6 @@ namespace Game.SM
                 {
                     image.SetNativeSize();
                 }
-            }
-        }
-
-        protected override void Completed()
-        {
-            switch (circle)
-            {
-                case Circle.Single:
-                    base.Completed();
-                    break;
-                case Circle.Always:
-                    step = Config.ZERO;
-                    break;
-                default:
-                    forward = !forward; step = Config.ZERO;
-                    break;
             }
         }
     }

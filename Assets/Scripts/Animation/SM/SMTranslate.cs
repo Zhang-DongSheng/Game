@@ -7,60 +7,45 @@ namespace Game.SM
     /// </summary>
     public class SMTranslate : SMBase
     {
-        [SerializeField] private Circle circle;
+        [SerializeField] private Vector3Interval interval;
 
-        [SerializeField] private bool anchor = true;
+        [SerializeField] private bool local;
 
-        [SerializeField] private Vector3Interval position;
+        private Vector3 position;
 
-        private RectTransform rect;
-
-        protected override void Init()
+        protected override void Initialize()
         {
-            if (!target.TryGetComponent(out rect))
-            {
-                Debuger.LogWarning(Author.UI, "The RectTransform is missing!");
-            }
+            position = interval.origination;
         }
 
-        protected override void Transition(float step)
+        protected override void Transition(float progress)
         {
             if (target == null) return;
 
             switch (circle)
             {
-                case Circle.Always:
-                    {
-                        target.Translate(position.origination * Time.deltaTime * speed);
-                    }
+                case Circle.Loop:
+                        position += interval.destination * Time.deltaTime * speed;
                     break;
                 default:
-                    {
-                        progress = curve.Evaluate(step);
-
-                        if (anchor && rect != null)
-                        {
-                            rect.anchoredPosition = position.Lerp(progress);
-                        }
-                        else
-                        {
-                            target.localPosition = position.Lerp(progress);
-                        }
-                    }
+                        position = interval.Lerp(progress);
                     break;
             }
-        }
 
-        protected override void Completed()
-        {
-            switch (circle)
+            if (local)
             {
-                case Circle.Single:
-                    base.Completed();
-                    break;
-                default:
-                    forward = !forward; step = Config.ZERO;
-                    break;
+                if (target.TryGetComponent(out RectTransform rect))
+                {
+                    rect.anchoredPosition = position;
+                }
+                else
+                {
+                    target.localPosition = position;
+                }
+            }
+            else
+            {
+                target.position = position;
             }
         }
     }

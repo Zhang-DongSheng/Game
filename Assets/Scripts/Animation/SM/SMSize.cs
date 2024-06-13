@@ -7,38 +7,35 @@ namespace Game.SM
     /// </summary>
     public class SMSize : SMBase
     {
+        [SerializeField] private Vector2Interval interval;
+
         [SerializeField] private Axis axis;
 
-        [SerializeField] private Vector2Interval size;
+        private Vector2 size;
 
         private RectTransform rect;
 
-        protected override void Init()
+        protected override void Initialize()
         {
-            if (!target.TryGetComponent(out rect))
-            {
-                Debuger.LogWarning(Author.UI, "The RectTransform is missing!");
-            }
+            rect = target.GetComponent<RectTransform>();
         }
 
-        protected override void Transition(float step)
+        protected override void Transition(float progress)
         {
             if (rect == null) return;
 
-            progress = curve.Evaluate(step);
-
-            vector = size.Lerp(progress);
+            size = interval.Lerp(progress);
 
             switch (axis)
             {
                 case Axis.Horizontal:
-                    rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, vector.x);
+                    rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size.x);
                     break;
                 case Axis.Vertical:
-                    rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, vector.y);
+                    rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size.y);
                     break;
                 default:
-                    rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, vector.x);
+                    rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, size.x);
                     goto case Axis.Vertical;
             }
         }

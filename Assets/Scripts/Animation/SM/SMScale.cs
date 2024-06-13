@@ -7,19 +7,22 @@ namespace Game.SM
     /// </summary>
     public class SMScale : SMBase
     {
-        [SerializeField] private Vector3Interval scale;
+        [SerializeField] private Vector3Interval interval = Vector3Interval.Default;
 
-        protected override void Init() { }
+        private Vector3 scale;
 
-        protected override void Transition(float step)
+        protected override void Initialize()
+        {
+        
+        }
+
+        protected override void Transition(float progress)
         {
             if (target == null) return;
 
-            progress = curve.Evaluate(step);
+            scale = interval.Lerp(progress);
 
-            vector = scale.Lerp(progress);
-
-            target.localScale = vector;
+            target.localScale = scale;
         }
     }
 }

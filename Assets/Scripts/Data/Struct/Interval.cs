@@ -91,6 +91,8 @@ namespace Game
             return Lerp(Random.Range(0, 1f));
         }
 
+        public static Vector3Interval Default { get { return new Vector3Interval { origination = Vector3.zero, destination = Vector3.one }; } }
+
         public static Vector3Interval One { get { return new Vector3Interval { origination = Vector3.one, destination = Vector3.one }; } }
     }
     /// <summary>

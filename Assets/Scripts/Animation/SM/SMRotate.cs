@@ -7,53 +7,41 @@ namespace Game.SM
     /// </summary>
     public class SMRotate : SMBase
     {
-        [SerializeField] private Circle circle;
-
-        [SerializeField] private Vector3Interval rotation;
+        [SerializeField] private Vector3Interval interval;
 
         [SerializeField] private bool around;
 
-        protected override void Init() { }
+        private Vector3 rotation;
 
-        protected override void Transition(float step)
+        protected override void Initialize()
+        {
+        
+        }
+
+        protected override void Transition(float progress)
         {
             if (target == null) return;
 
             switch (circle)
             {
-                case Circle.Always:
+                case Circle.Loop:
                     {
                         if (around)
                         {
-                            target.RotateAround(rotation.destination, rotation.origination, Time.deltaTime * speed);
+                            target.RotateAround(interval.origination, interval.destination, Time.deltaTime * speed);
                         }
                         else
                         {
-                            target.Rotate(rotation.origination * Time.deltaTime * speed);
+                            target.Rotate(interval.destination * Time.deltaTime * speed);
                         }
                     }
                     break;
                 default:
                     {
-                        progress = curve.Evaluate(step);
+                        rotation = interval.Lerp(progress);
 
-                        vector = rotation.Lerp(progress);
-
-                        target.localEulerAngles = vector;
+                        target.localEulerAngles = rotation;
                     }
-                    break;
-            }
-        }
-
-        protected override void Completed()
-        {
-            switch (circle)
-            {
-                case Circle.Single:
-                    base.Completed();
-                    break;
-                default:
-                    forward = !forward; step = Config.ZERO;
                     break;
             }
         }

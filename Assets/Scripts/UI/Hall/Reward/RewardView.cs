@@ -1,4 +1,3 @@
-using Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,18 +11,11 @@ namespace Game.UI
 
         [SerializeField] private Text title;
 
-        [SerializeField] private Button button;
-
         private Coroutine coroutine;
 
         private readonly WaitForSeconds wait = new WaitForSeconds(0.1f);
 
         private readonly List<ItemReward> items = new List<ItemReward>();
-
-        protected override void OnAwake()
-        {
-            button.onClick.AddListener(OnClickClose);
-        }
 
         public override void Refresh(UIParameter paramter)
         {
@@ -53,23 +45,6 @@ namespace Game.UI
                 yield return wait;
             }
             yield return null;
-        }
-
-        protected override void OnClickClose()
-        {
-            if (coroutine != null)
-            {
-                StopCoroutine(coroutine);
-            }
-            coroutine = null;
-
-            int count = items.Count;
-
-            for (int i = 0; i < count; i++)
-            {
-                items[i].SetActive(false);
-            }
-            UIManager.Instance.Back();
         }
     }
 }

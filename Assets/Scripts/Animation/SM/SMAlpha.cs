@@ -6,41 +6,41 @@ namespace Game.SM
 {
     public class SMAlpha : SMBase
     {
-        [SerializeField] private Relevance relevance;
-
-        [SerializeField] private FloatInterval alpha;
+        private CanvasGroup canvas;
 
         private readonly List<Graphic> graphics = new List<Graphic>();
 
-        private Color color;
+        private float alpha;
 
-        protected override void Init()
+        protected override void Initialize()
         {
+            canvas = target.GetComponent<CanvasGroup>();
+
             graphics.Clear();
 
-            switch (relevance)
-            {
-                case Relevance.Self:
-                    if (target.TryGetComponent(out Graphic graphic))
-                    {
-                        graphics.Add(graphic);
-                    }
-                    break;
-                case Relevance.Children:
-                    graphics.AddRange(target.GetComponentsInChildren<Graphic>());
-                    break;
-            }
+            graphics.AddRange(target.GetComponentsInChildren<Graphic>(true));
         }
 
-        protected override void Transition(float step)
+        protected override void Transition(float progress)
         {
-            progress = curve.Evaluate(step);
+            alpha = progress;
 
-            for (int i = 0; i < graphics.Count; i++)
+            if (canvas != null)
             {
-                color = graphics[i].color;
-                color.a = alpha.Lerp(progress);
-                graphics[i].color = color;
+                canvas.alpha = alpha;
+            }
+            else
+            {
+                int count = graphics.Count;
+
+                for (int i = 0; i < count; i++)
+                {
+                    var color = graphics[i].color;
+
+                    color.a = alpha;
+
+                    graphics[i].color = color;
+                }
             }
         }
     }

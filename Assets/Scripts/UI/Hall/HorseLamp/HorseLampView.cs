@@ -46,14 +46,14 @@ namespace Game.UI
 
         protected override void OnAwake()
         {
-            show.onCompleted.AddListener(() =>
+            show.onCompleted = () =>
             {
                 state = State.Idle; Execute();
-            });
-            hide.onCompleted.AddListener(() =>
+            };
+            hide.onCompleted = () =>
             {
                 state = State.Idle; OnClickClose();
-            });
+            };
         }
 
         protected override void OnVisible(bool active)
