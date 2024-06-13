@@ -14,7 +14,7 @@ namespace Data
 
             if (data != null)
             {
-                return DataManager.Get(data.list, activityID, data.order);
+                return data.list.Find(x => x.activityID == activityID);
             }
             return null;
         }

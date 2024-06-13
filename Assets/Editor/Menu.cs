@@ -6,12 +6,11 @@ using UnityEngine.SceneManagement;
 
 namespace UnityEditor
 {
-    public class Menu
+    public static class Menu
     {
         private static int pictureIndex;
-
-        [MenuItem("Game/OpenMainScene &Q")]
-        protected static void OpenMainScene()
+        [MenuItem("Game/OpenMainScene", priority = 101)]
+        private static void OpenMainScene()
         {
             string[] scenes = EditorBuildSettingsScene.GetActiveSceneList(EditorBuildSettings.scenes);
 
@@ -26,39 +25,39 @@ namespace UnityEditor
             EditorApplication.isPlaying = true;
         }
         [MenuItem("Tools/Screenshot &X")]
-        protected static void Screenshot()
+        private static void Screenshot()
         {
             string pic_name = Application.dataPath + string.Format("/Pic_{0}.png", ++pictureIndex);
             ScreenCapture.CaptureScreenshot(pic_name);
             AssetDatabase.Refresh();
         }
         [MenuItem("Tools/Folder/Project")]
-        protected static void OpenProjectFolder()
+        private static void OpenProjectFolder()
         {
             OpenFolder(Application.dataPath.Substring(0, Application.dataPath.Length - 7));
         }
         [MenuItem("Tools/Folder/Data")]
-        protected static void OpenDataFolder()
+        private static void OpenDataFolder()
         {
             OpenFolder(Application.dataPath);
         }
         [MenuItem("Tools/Folder/StreamingAssets")]
-        protected static void OpenStreamingAssetsFolder()
+        private static void OpenStreamingAssetsFolder()
         {
             OpenFolder(Application.streamingAssetsPath);
         }
         [MenuItem("Tools/Folder/PersistentData")]
-        protected static void OpenPersistentDataFolder()
+        private static void OpenPersistentDataFolder()
         {
             OpenFolder(Application.persistentDataPath);
         }
         [MenuItem("Tools/Folder/TemporaryCache")]
-        protected static void OpenTemporaryCacheFolder()
+        private static void OpenTemporaryCacheFolder()
         {
             OpenFolder(Application.temporaryCachePath);
         }
         [MenuItem("Tools/File/Log")]
-        protected static void OpenConsoleFile()
+        private static void OpenConsoleFile()
         {
             OpenFile(Application.consoleLogPath);
         }
@@ -97,7 +96,7 @@ namespace UnityEditor
             EditorUtility.OpenWithDefaultApp(path);
         }
 
-        protected static void OpenFolder(string path)
+        private static void OpenFolder(string path)
         {
             if (string.IsNullOrEmpty(path)) return;
 
@@ -111,7 +110,7 @@ namespace UnityEditor
             }
         }
 
-        protected static void OpenFile(string path)
+        private static void OpenFile(string path)
         {
             if (string.IsNullOrEmpty(path)) return;
 

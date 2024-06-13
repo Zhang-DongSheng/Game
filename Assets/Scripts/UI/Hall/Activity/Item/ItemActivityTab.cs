@@ -8,13 +8,13 @@ namespace Game.UI
         {
             var table = DataActivity.Get((uint)index);
 
-            var content = table != null ? table.name : parameter.name;
+            parameter.name = table != null ? table.name : parameter.name;
 
             var components = GetComponentsInChildren<TextBind>(true);
 
             foreach (var component in components)
             {
-                component.SetText(table.name);
+                component.SetText(parameter.name);
             }
         }
     }

@@ -17042,6 +17042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 8305048963408058554}
+  pairs: []
 --- !u!1 &2994369145025795366
 GameObject:
   m_ObjectHideFlags: 0
@@ -33092,9 +33093,6 @@ MonoBehaviour:
   - {fileID: 4531718198728914097}
   foreground:
   - {fileID: 4196153153582058092}
-  labels:
-  - {fileID: 3954472331697430943}
-  - {fileID: 232288177293931056}
 --- !u!1 &4758621806801265919
 GameObject:
   m_ObjectHideFlags: 0
@@ -33205,7 +33203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2629456822730367376
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39661,13 +39659,13 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3204776410894122586}
   m_TextComponent: {fileID: 9075114395673500345}
   m_Placeholder: {fileID: 7744402125571797068}
-  m_ContentType: 5
+  m_ContentType: 0
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 6
+  m_KeyboardType: 0
   m_LineType: 0
   m_HideMobileInput: 0
-  m_CharacterValidation: 4
+  m_CharacterValidation: 0
   m_CharacterLimit: 6
   m_OnSubmit:
     m_PersistentCalls:

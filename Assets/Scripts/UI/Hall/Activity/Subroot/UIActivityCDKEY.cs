@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,15 +12,20 @@ namespace Game.UI
 
         [SerializeField] private Button button;
 
-        private readonly Regex regex = new Regex(@"A-Z 0-9 6");
-
         private string content;
 
         protected override void OnAwake()
         {
+            input.onValueChanged.AddListener(OnValueChanged);
+
             input.onSubmit.AddListener(OnSubmit);
 
             button.onClick.AddListener(OnClick);
+        }
+
+        private void OnValueChanged(string value)
+        {
+            content = value;
         }
 
         private void OnSubmit(string value)
@@ -31,7 +35,9 @@ namespace Game.UI
 
         private void OnClick()
         {
-            string tips = string.Format("兑换码【{0}】使用成功！", content);
+            if (string.IsNullOrEmpty(content)) return;
+
+            string tips = string.Format("兑换码<color=blue><b>{0}</b></color>使用成功！", content);
 
             UIQuickEntry.OpenUINotice(tips);
         }

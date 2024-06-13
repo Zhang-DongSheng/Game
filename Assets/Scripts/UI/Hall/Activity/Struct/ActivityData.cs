@@ -24,7 +24,7 @@ namespace Game.UI
 
         public ActivityData(ActivityInformation activity)
         {
-            this.activityID = activity.primary;
+            this.activityID = activity.activityID;
 
             this.limited = activity.timeLimit;
 
