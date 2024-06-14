@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// ÑÕÉ«
+    /// </summary>
     public class ItemColor : ItemBase, IPointerClickHandler
     {
         [SerializeField] private Image imgColor;

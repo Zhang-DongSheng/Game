@@ -31,27 +31,6 @@ namespace Game.UI
 
         private Status status;
 
-        protected override void OnAwake()
-        {
-            if (background == null || foreground == null)
-            {
-                Debug.LogWarning("��Դ���ö�ʧ��");
-            }
-            else if (background.type != Image.Type.Filled)
-            {
-                Debug.LogWarning("����ͼƬ��ʽ����ȷ��");
-            }
-            else if (foreground.type != Image.Type.Filled)
-            {
-                Debug.LogWarning("ǰ��ͼƬ��ʽ����ȷ��");
-            }
-        }
-
-        private void OnValidate()
-        {
-            
-        }
-
         protected override void OnUpdate(float delta)
         {
             switch (status)

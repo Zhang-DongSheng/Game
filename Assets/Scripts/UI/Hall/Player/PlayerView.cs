@@ -7,7 +7,7 @@ namespace Game.UI
     {
         [SerializeField] private ItemStep m_step;
 
-        [SerializeField] private GraphicsBuffer m_attribute;
+        [SerializeField] private ItemAttributes m_attribute;
 
         [SerializeField] private List<ItemProperty> properties;
 
@@ -21,14 +21,37 @@ namespace Game.UI
             m_step.Refresh(new List<int>() { 1, 2 }, 0);
         }
 
-        private void Refresh()
+        private void Refresh(int index)
         { 
-            
+            var list = new List<float>()
+            { 
+                Random.Range(0, 1f),
+                Random.Range(0, 1f),
+                Random.Range(0, 1f),
+                Random.Range(0, 1f),
+            };
+
+            m_attribute.Refresh(list);
+
+            int count = list.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (list.Count > i)
+                {
+                    properties[i].Refresh(i, list[i]);
+                }
+                else
+                {
+                    properties[i].SetActive(false);
+                }
+                
+            }
         }
 
         private void OnClickStep(int index)
         {
-            //ModelManager.Instance.Modify(character, "shoes", index.ToString(), "blue");
+            Refresh(index);
         }
     }
 }

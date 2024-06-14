@@ -12,9 +12,15 @@ namespace Game.UI
     {
         public Action<uint> callback;
 
-        [SerializeField] private UIPropBase m_prop;
+        [SerializeField] private TextBind txtName;
 
-        [SerializeField] private UIPropConfig m_config;
+        [SerializeField] private TextBind txtNumber;
+
+        [SerializeField] private ImageBind imgIcon;
+
+        [SerializeField] private ImageBind imgQuality;
+
+        [SerializeField] private bool click;
 
         private PropInformation information;
 
@@ -29,7 +35,7 @@ namespace Game.UI
 
             Refresh();
 
-            m_prop.txtNumber.SetText(amount);
+            txtNumber.SetText(amount);
 
             SetActive(true);
         }
@@ -38,16 +44,16 @@ namespace Game.UI
         {
             if (information == null) return;
 
-            m_prop.txtName.SetText(information.name);
+            txtName.SetText(information.name);
 
-            m_prop.imgIcon.SetSprite(information.icon);
+            imgIcon.SetSprite(information.icon);
 
-            m_prop.imgQuality.SetSprite(string.Format("quality_{0}", information.quality));
+            imgQuality.SetSprite(string.Format("quality_{0}", information.quality));
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (m_config.click)
+            if (click)
             {
                 UIQuickEntry.Open(UIPanel.Introduce, new UIParameter()
                 {
@@ -58,22 +64,6 @@ namespace Game.UI
             {
                 callback?.Invoke(information.primary);
             }
-        }
-        [System.Serializable]
-        class UIPropBase
-        {
-            public TextBind txtName;
-
-            public TextBind txtNumber;
-
-            public ImageBind imgIcon;
-
-            public ImageBind imgQuality;
-        }
-        [System.Serializable]
-        class UIPropConfig
-        {
-            public bool click;
         }
     }
 }

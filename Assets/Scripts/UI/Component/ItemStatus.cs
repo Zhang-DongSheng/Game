@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Game.UI
 {
     /// <summary>
-    /// ״̬
+    /// 状态
     /// </summary>
     public class ItemStatus : ItemBase
     {

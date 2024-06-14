@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
+    /// <summary>
+    /// ÏûºÄ
+    /// </summary>
     public class ItemCost : ItemBase
     {
         [SerializeField] private ImageBind imgIcon;

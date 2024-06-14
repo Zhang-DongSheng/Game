@@ -2,13 +2,13 @@ namespace Game.UI
 {
     public class Prop
     {
-        public uint identification;
+        public long identification;
 
         public uint parallelism;
 
         public uint amount;
 
-        public Prop(uint identification, uint parallelism, uint amount)
+        public Prop(long identification, uint parallelism, uint amount)
         {
             this.identification = identification;
 

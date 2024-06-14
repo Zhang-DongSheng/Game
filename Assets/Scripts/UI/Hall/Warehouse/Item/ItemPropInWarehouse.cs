@@ -1,7 +1,5 @@
-using Data;
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -13,31 +11,25 @@ namespace Game.UI
 
         [SerializeField] private GameObject m_select;
 
-        [SerializeField] private Button button;
-
-        private Action<Prop> _callback;
-
-        private Prop _prop;
+        private Action<uint> _callback;
 
         protected override void OnAwake()
         {
-            button.onClick.AddListener(OnClick);
+            m_item.callback = OnClick;
         }
 
-        public void Refresh(Prop prop, uint select, Action<Prop> callback)
+        public void Refresh(Prop prop, uint select, Action<uint> callback)
         {
-            _prop = prop;
-
             _callback = callback;
 
             m_item.Refresh(prop);
 
-            SetActive(m_select, prop.identification == select);
+            SetActive(m_select, prop.parallelism == select);
         }
 
-        private void OnClick()
+        private void OnClick(uint propID)
         {
-            _callback?.Invoke(_prop);
+            _callback?.Invoke(propID);
         }
     }
 }

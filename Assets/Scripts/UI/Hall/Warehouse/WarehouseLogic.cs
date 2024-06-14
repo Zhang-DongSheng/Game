@@ -53,14 +53,30 @@ namespace Game.UI
             }
         }
 
-        public Prop GetProp(uint propID)
+        public Prop GetProp(long propID)
         {
             return _props.Find(x => x.identification == propID);
         }
 
-        public uint GetPropNumber(uint propID)
+        public Prop GetProp(uint propID)
+        {
+            return _props.Find(x => x.parallelism == propID);
+        }
+
+        public uint GetPropNumber(long propID)
         {
             var prop = _props.Find(x => x.identification == propID);
+
+            if (prop != null)
+            {
+                return prop.amount;
+            }
+            return 0;
+        }
+
+        public uint GetPropNumber(uint propID)
+        {
+            var prop = _props.Find(x => x.parallelism == propID);
 
             if (prop != null)
             {

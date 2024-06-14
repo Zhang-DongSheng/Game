@@ -29,8 +29,15 @@ namespace Game.UI
             m_content.Refresh(index);
         }
 
-        private void OnClickProp(Prop prop)
+        private void OnClickProp(uint propID)
         {
+            var prop = WarehouseLogic.Instance.GetProp(propID);
+
+            if (prop == null)
+            {
+                Debuger.LogError(Author.UI, "道具ID" + propID + "未发现");
+                return;
+            }
             m_introduce.Refresh(prop);
         }
     }

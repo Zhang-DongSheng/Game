@@ -1,4 +1,3 @@
-using Data;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +6,7 @@ namespace Game.UI
 {
     public class UIWarehouseContent : ItemBase
     {
-        public Action<Prop> callback;
+        public Action<uint> callback;
 
         [SerializeField] private ListLayoutGroup layout;
 
@@ -27,11 +26,11 @@ namespace Game.UI
             });
         }
 
-        private void OnClickProp(Prop prop)
+        private void OnClickProp(uint propID)
         {
-            select = prop.identification;
+            select = propID;
 
-            callback?.Invoke(prop);
+            callback?.Invoke(propID);
 
             layout.ForceUpdateContent();
         }

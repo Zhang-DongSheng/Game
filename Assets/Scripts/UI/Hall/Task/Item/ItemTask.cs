@@ -1,5 +1,4 @@
 using Data;
-using System.Drawing.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,10 +33,8 @@ namespace Game.UI
 
             txtDescription.text = table.description;
 
-            group.Refresh(table.rewards.Count, (index, item) =>
-            {
-                item.Refresh(table.rewards[index].x, table.rewards[index].y);
-            });
+            group.Refresh(table.rewards);
+
             status.Refresh(task.status);
         }
 

@@ -1,67 +1,48 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace UnityEngine.UI
+namespace Game.UI
 {
     /// <summary>
-    /// 多边形
+    /// 属性图
     /// </summary>
     [RequireComponent(typeof(CanvasRenderer))]
-    public class Polygon : MaskableGraphic
+    public class ItemAttributes : MaskableGraphic
     {
         [SerializeField] private Sprite sprite;
 
         [SerializeField] private float radius = 100;
 
-        [SerializeField] private int count = 3;
-
-        [SerializeField] private List<Vector2> points;
-
         private Vector2 space = new Vector2();
 
-        protected override void Awake()
-        {
-            if (count < 3) return;
+        private readonly List<Vector2> points = new List<Vector2>();
 
+        public void Refresh(List<float> parameters)
+        {
             points.Clear();
 
-            float angle = 360f / count;
+            int count = parameters.Count;
+
+            float ratio, angle = 360f / count;
 
             for (int i = 0; i < count; i++)
             {
+                ratio = Mathf.Clamp01(parameters[i]) * radius;
+
                 points.Add(new Vector2()
                 {
-                    x = Mathf.Sin(i * angle * Mathf.Deg2Rad) * radius,
-                    y = Mathf.Cos(i * angle * Mathf.Deg2Rad) * radius,
+                    x = Mathf.Sin(i * angle * Mathf.Deg2Rad) * ratio,
+                    y = Mathf.Cos(i * angle * Mathf.Deg2Rad) * ratio,
                 });
             }
-            base.Awake();
-        }
-
-        protected override void OnValidate()
-        {
-            if (count < 3) return;
-
-            points.Clear();
-
-            float angle = 360f / count;
-
-            for (int i = 0; i < count; i++)
-            {
-                points.Add(new Vector2()
-                {
-                    x = Mathf.Sin(i * angle * Mathf.Deg2Rad) * radius,
-                    y = Mathf.Cos(i * angle * Mathf.Deg2Rad) * radius,
-                });
-            }
-            base.OnValidate();
+            SetAllDirty();
         }
 
         protected override void OnPopulateMesh(VertexHelper helper)
         {
             if (!isActiveAndEnabled) return;
-
             helper.Clear();
-
             space.x = rectTransform.rect.width;
 
             space.y = rectTransform.rect.height;

@@ -16,7 +16,11 @@ namespace Game.UI
 
         public void Refresh(int ID, float value, int type = 0)
         {
+            var key = ID.ToString();
 
+            txtKey.SetText(key);
+
+            txtValue.SetText(string.Format("{0}{1}", value, Unit(type)));
         }
 
         public void Refresh(string key, float value, int type = 0)

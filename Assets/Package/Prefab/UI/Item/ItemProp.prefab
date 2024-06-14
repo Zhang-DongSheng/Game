@@ -52,13 +52,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce435ae16b2b6444590c0cff63b69d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_prop:
-    txtName: {fileID: 3371075012259397395}
-    txtNumber: {fileID: 5767094529889798113}
-    imgIcon: {fileID: 1960312445677907661}
-    imgQuality: {fileID: 7842988621469964350}
-  m_config:
-    click: 1
+  txtName: {fileID: 3371075012259397395}
+  txtNumber: {fileID: 5767094529889798113}
+  imgIcon: {fileID: 1960312445677907661}
+  imgQuality: {fileID: 7842988621469964350}
+  click: 0
 --- !u!1 &1092923129034270589
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +151,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: 
-  language: 1
 --- !u!1 &3997115164630955948
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +245,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: 10001
-  language: 1
 --- !u!1 &4488605316857949789
 GameObject:
   m_ObjectHideFlags: 0
