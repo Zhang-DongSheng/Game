@@ -1,4 +1,3 @@
-using Data;
 using ILRuntime.CLR.Method;
 using ILRuntime.Runtime.Intepreter;
 using System.Collections.Generic;
@@ -19,11 +18,11 @@ namespace Game.UI
             { "Release", null},
         };
 
-        public override void Init(UIInformation information)
+        public override void Init(Data.UIInformation information)
         {
             base.Init(information);
 
-            string name = string.Format("ILRuntime.Game.UI.{0}", information.name);
+            string name = string.Format("ILRuntime.Game.UI.IL{0}", information.name);
 
             this.appDomain = ILRuntimeLogic.Instance.AppDomain;
 
@@ -42,6 +41,7 @@ namespace Game.UI
 
                 switch (key)
                 {
+                    case "Init":
                     case "Refresh":
                         count = 1;
                         break;
@@ -55,7 +55,7 @@ namespace Game.UI
 
             if (methods.TryGetValue("Init", out IMethod method) && method != null)
             {
-                appDomain.Invoke(method, script);
+                appDomain.Invoke(method, script, transform);
             }
         }
 

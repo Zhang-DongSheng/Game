@@ -7,11 +7,7 @@ namespace ILRuntime.Game
     {
         public static void Initialize()
         {
-            Debug.LogError("我是测试代码！");
 
-            GameObject go = new GameObject("Test");
-
-            go.AddComponent<UITest>();
         }
     }
 }

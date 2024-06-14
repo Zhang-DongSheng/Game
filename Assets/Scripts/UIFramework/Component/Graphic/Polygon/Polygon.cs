@@ -9,14 +9,54 @@ namespace UnityEngine.UI
     public class Polygon : MaskableGraphic
     {
         [SerializeField] private Sprite sprite;
-        [SerializeField]
-        private List<Vector2> points = new List<Vector2>()
-        {
-            new Vector2(50, 50), new Vector2(50, -50), new Vector2(-50, -50), new Vector2(-50, 50)
-        };
+
+        [SerializeField] private float radius = 100;
+
+        [SerializeField, Range(2, 20)] private int count = 3;
+
+        [SerializeField] private List<Vector2> points;
+
         private Vector2 space = new Vector2();
 
         public override Texture mainTexture => sprite == null ? s_WhiteTexture : sprite.texture;
+
+        protected override void Awake()
+        {
+            if (count < 3) return;
+
+            points.Clear();
+
+            float angle = 360f / count;
+
+            for (int i = 0; i < count; i++)
+            {
+                points.Add(new Vector2()
+                {
+                    x = Mathf.Sin(i * angle * Mathf.Deg2Rad) * radius,
+                    y = Mathf.Cos(i * angle * Mathf.Deg2Rad) * radius,
+                });
+            }
+            base.Awake();
+        }
+
+        protected override void OnValidate()
+        {
+            if (count < 3) return;
+
+            points.Clear();
+
+            float angle = 360f / count;
+
+            for (int i = 0; i < count; i++)
+            {
+                points.Add(new Vector2()
+                {
+                    x = Mathf.Sin(i * angle * Mathf.Deg2Rad) * radius,
+                    y = Mathf.Cos(i * angle * Mathf.Deg2Rad) * radius,
+                });
+            }
+            base.OnValidate();
+        }
 
         protected override void OnPopulateMesh(VertexHelper helper)
         {
@@ -31,13 +71,11 @@ namespace UnityEngine.UI
             if (points != null && points.Count > 2)
             {
                 int count = points.Count;
-
                 //设置坐标点
                 foreach (var point in points)
                 {
                     helper.AddVert(GetUIVertex(point));
                 }
-
                 //自定义三角形
                 for (int i = 1; i < count - 1; i++)
                 {

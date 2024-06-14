@@ -26,7 +26,7 @@ namespace Game.UI
             back.onClick.AddListener(OnClickBack);
         }
 
-        public void Initialize(List<int> list, int select = -1)
+        public void Refresh(List<int> list, int select = -1)
         {
             this.list.Clear();
 
@@ -36,16 +36,19 @@ namespace Game.UI
 
             index = Mathf.Clamp(select, 0, count - 1);
 
-            Refresh(index);
+            OnClick(index);
         }
 
-        private void Refresh(int index)
+        private void OnClick(int index)
         {
-            var value = list[index];
+            if (count > index)
+            {
+                var value = list[index];
 
-            content.text = value.ToString();
+                content.text = value.ToString();
 
-            onValueChanged?.Invoke(value);
+                onValueChanged?.Invoke(value);
+            }
         }
 
         private void OnClickForward()
@@ -54,7 +57,7 @@ namespace Game.UI
             {
                 index++;
             }
-            Refresh(index);
+            OnClick(index);
         }
 
         private void OnClickBack()
@@ -63,7 +66,7 @@ namespace Game.UI
             {
                 index--;
             }
-            Refresh(index);
+            OnClick(index);
         }
     }
 }

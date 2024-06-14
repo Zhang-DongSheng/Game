@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ILRuntime.Game
+namespace ILRuntime.Game.UI
 {
     public abstract class ILItemBase
     {

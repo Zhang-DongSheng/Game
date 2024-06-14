@@ -71,13 +71,6 @@ namespace UnityEditor.Hierarchy
 
             var component = go.AddComponent<CirclePro>();
         }
-        [MenuItem(EXTENSION + "Graphic/Circle/Squircle")]
-        protected static void CreateCircleSquircle()
-        {
-            GameObject go = CreateGameObject("Squircle", true);
-
-            var component = go.AddComponent<Squircle>();
-        }
         [MenuItem(EXTENSION + "Graphic/Polygon")]
         protected static void CreatePolygon()
         {
