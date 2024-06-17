@@ -10,8 +10,6 @@ namespace UnityEngine
 
         private void Awake()
         {
-            if (template == null)
-                template = new PrefabTemplate();
             if (template.parent == null)
                 template.parent = transform;
         }
@@ -33,20 +31,37 @@ namespace UnityEngine
 
         public GameObject prefab;
 
+        public bool reset;
+
         public GameObject Create()
         {
-            return GameObject.Instantiate(prefab, parent);
+            var target = GameObject.Instantiate(prefab, parent);
+
+            if (target != null && reset)
+            {
+                Reset(target.transform);
+            }
+            return target;
         }
 
         public T Create<T>() where T : Component
         {
-            GameObject go = GameObject.Instantiate(prefab, parent);
+            var target = Create();
 
-            if (!go.TryGetComponent(out T component))
+            if (!target.TryGetComponent(out T component))
             {
-                component = go.AddComponent<T>();
+                component = target.AddComponent<T>();
             }
             return component;
+        }
+
+        public void Reset(Transform transform)
+        {
+            transform.localPosition = Vector3.zero;
+
+            transform.localRotation = Quaternion.identity;
+
+            transform.localScale = Vector3.one;
         }
     }
 }
