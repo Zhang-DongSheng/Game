@@ -19,7 +19,7 @@ namespace Game.UI
 
         private void DisplayRewards()
         {
-            UIQuickEntry.OpenUIHorseLamp("收到大奖XXXXX,祝贺玩家YYYYY");
+            UIQuickEntry.OpenHorseLampView("收到大奖XXXXX,祝贺玩家YYYYY");
         }
 
         private void OnClick()

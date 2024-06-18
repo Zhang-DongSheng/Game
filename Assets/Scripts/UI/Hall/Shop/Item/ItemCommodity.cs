@@ -45,7 +45,7 @@ namespace Game.UI
 
         private void OnClick()
         {
-            UIQuickEntry.OpenUIConfirm("Tips", "Confirm", () =>
+            UIQuickEntry.OpenConfirmView("Tips", "Confirm", () =>
             {
                 var reward = new Reward()
                 {
@@ -59,7 +59,7 @@ namespace Game.UI
                 {
                     reward.props.Add(new Prop(0, table.rewards[i].x, table.rewards[i].y));
                 }
-                UIQuickEntry.OpenUIReward(reward);
+                UIQuickEntry.OpenRewardView(reward);
             });
         }
     }

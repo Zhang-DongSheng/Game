@@ -177,7 +177,7 @@ namespace Game.UI
         {
             if (Back(UIType.Popup, 0, out _))
             {
-                // 弹窗关闭不影响面板
+
             }
             else if (Back(UIType.Panel, 1, out int index))
             {
@@ -189,7 +189,13 @@ namespace Game.UI
             }
             else
             {
-                Debuger.Log(Author.UI, "This is the final panel!");
+                UIQuickEntry.OpenConfirmView("Tips", "Confirm exit game!", () =>
+                {
+#if UNITY_EDITOR
+                    UnityEditor.EditorApplication.isPlaying = false;
+#endif
+                    Application.Quit();
+                });
             }
         }
 

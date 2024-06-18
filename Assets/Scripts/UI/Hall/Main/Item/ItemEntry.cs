@@ -32,7 +32,7 @@ namespace Game.UI
             {
                 case UIPanel.None:
                     {
-                        UIQuickEntry.OpenUINotice("新功能开发中！敬请期待");
+                        UIQuickEntry.OpenNoticeView("新功能开发中！敬请期待");
                     }
                     break;
                 case UIPanel.Deploy:

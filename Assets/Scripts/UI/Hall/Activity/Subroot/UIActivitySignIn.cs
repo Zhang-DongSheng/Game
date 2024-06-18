@@ -32,7 +32,7 @@ namespace Game.UI
 
         private void OnClickSignIn(int signInID)
         {
-            UIQuickEntry.OpenUINotice("Ç©µ½ID" + signInID);
+            UIQuickEntry.OpenNoticeView("Ç©µ½ID" + signInID);
         }
     }
 }

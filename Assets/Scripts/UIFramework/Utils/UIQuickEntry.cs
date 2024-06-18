@@ -1,4 +1,3 @@
-using Data;
 using Game.Resource;
 using System;
 using UnityEngine;
@@ -27,7 +26,7 @@ namespace Game.UI
             }
         }
 
-        public static void OpenUIConfirm(string title, string message, Action confirm, Action cancel = null)
+        public static void OpenConfirmView(string title, string message, Action confirm, Action cancel = null)
         {
             Open(UIPanel.Confirm, new UIParameter()
             {
@@ -38,7 +37,7 @@ namespace Game.UI
             });
         }
 
-        public static void OpenUINotice(string notice)
+        public static void OpenNoticeView(string notice)
         {
             Open(UIPanel.Notice, new UIParameter()
             {
@@ -46,7 +45,7 @@ namespace Game.UI
             });
         }
 
-        public static void OpenUIHorseLamp(string message, float time = -1)
+        public static void OpenHorseLampView(string message, float time = -1)
         {
             Open(UIPanel.HorseLamp, new UIParameter()
             {
@@ -54,7 +53,7 @@ namespace Game.UI
             });
         }
 
-        public static void OpenUIReward(Reward reward)
+        public static void OpenRewardView(Reward reward)
         {
             Open(UIPanel.Reward, new UIParameter()
             {
@@ -62,7 +61,7 @@ namespace Game.UI
             });
         }
 
-        public static void OpenUIBubble(Transform transform, string message)
+        public static void OpenBubbleView(Transform transform, string message)
         {
             Open(UIPanel.Bubble, new UIParameter()
             {

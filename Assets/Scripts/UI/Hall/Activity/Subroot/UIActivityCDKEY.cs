@@ -39,7 +39,7 @@ namespace Game.UI
 
             string tips = string.Format("兑换码<color=blue><b>{0}</b></color>使用成功！", content);
 
-            UIQuickEntry.OpenUINotice(tips);
+            UIQuickEntry.OpenNoticeView(tips);
         }
     }
 }

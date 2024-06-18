@@ -89,7 +89,7 @@ namespace Game.UI
             {
                 string error = args.Get<string>("message");
 
-                UIQuickEntry.OpenUINotice(error);
+                UIQuickEntry.OpenNoticeView(error);
             }
         }
 
@@ -142,11 +142,11 @@ namespace Game.UI
         {
             if (string.IsNullOrEmpty(account))
             {
-                UIQuickEntry.OpenUINotice("账号不能为空");
+                UIQuickEntry.OpenNoticeView("账号不能为空");
             }
             else if (string.IsNullOrEmpty(password))
             {
-                UIQuickEntry.OpenUINotice("密码不能为空");
+                UIQuickEntry.OpenNoticeView("密码不能为空");
             }
             else
             {
