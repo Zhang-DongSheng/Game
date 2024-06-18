@@ -211,10 +211,6 @@ namespace UnityEditor.Window
             }
         }
 
-        #region Config
-
-        #endregion
-
         #region Loading
         private void Create(Type type)
         {

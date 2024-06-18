@@ -156,20 +156,20 @@ namespace UnityEngine
 
             return builder.ToString();
         }
-
-#region 解决日志双击溯源问题
+        #region 解决日志双击溯源问题
 #if UNITY_EDITOR
-    [UnityEditor.Callbacks.OnOpenAssetAttribute(0)]
-    static bool OnOpenAsset(int instanceID, int line)
-    {
-        string stackTrace = GetStackTrace();
-
-        if (!string.IsNullOrEmpty(stackTrace) && stackTrace.Contains("Author"))
+        [UnityEditor.Callbacks.OnOpenAssetAttribute(0)]
+        static bool OnOpenAsset(int instanceID, int line)
         {
+            string content = GetStackTrace();
+
+            if (string.IsNullOrEmpty(content)) return false;
+
+            if (!content.Contains("Debuger")) return false;
             // 使用正则表达式匹配at的哪个脚本的哪一行
-            var matches = System.Text.RegularExpressions.Regex.Match(stackTrace, @"\(at (.+)\)",
+            var matches = System.Text.RegularExpressions.Regex.Match(content, @"\(at (.+)\)",
                 System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            string pathLine = "";
+            string pathLine;
             while (matches.Success)
             {
                 pathLine = matches.Groups[1].Value;
@@ -180,8 +180,10 @@ namespace UnityEngine
                     // 脚本路径
                     string path = pathLine.Substring(0, splitIndex);
                     // 行号
-                    line = System.Convert.ToInt32(pathLine.Substring(splitIndex + 1));
+                    line = Convert.ToInt32(pathLine.Substring(splitIndex + 1));
+
                     string fullPath = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf("Assets"));
+
                     fullPath = fullPath + path;
                     // 跳转到目标代码的特定行
                     UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal(fullPath.Replace('/', '\\'), line);
@@ -191,37 +193,35 @@ namespace UnityEngine
             }
             return true;
         }
-        return false;
-    }
-    /// <summary>
-    /// 获取当前日志窗口选中的日志的堆栈信息
-    /// </summary>
-    static string GetStackTrace()
-    {
-        // 通过反射获取ConsoleWindow类
-        var ConsoleWindowType = typeof(UnityEditor.EditorWindow).Assembly.GetType("UnityEditor.ConsoleWindow");
-        // 获取窗口实例
-        var fieldInfo = ConsoleWindowType.GetField("ms_ConsoleWindow",
-            System.Reflection.BindingFlags.Static |
-            System.Reflection.BindingFlags.NonPublic);
-        var consoleInstance = fieldInfo.GetValue(null);
-        if (consoleInstance != null)
+        /// <summary>
+        /// 获取当前日志窗口选中的日志的堆栈信息
+        /// </summary>
+        static string GetStackTrace()
         {
-            if ((object)UnityEditor.EditorWindow.focusedWindow == consoleInstance)
+            // 通过反射获取ConsoleWindow类
+            var window = typeof(UnityEditor.EditorWindow).Assembly.GetType("UnityEditor.ConsoleWindow");
+            // 获取窗口实例
+            var fieldInfo = window.GetField("ms_ConsoleWindow",
+                System.Reflection.BindingFlags.Static |
+                System.Reflection.BindingFlags.NonPublic);
+            var console = fieldInfo.GetValue(null);
+            if (console != null)
             {
-                // 获取m_ActiveText成员
-                fieldInfo = ConsoleWindowType.GetField("m_ActiveText",
-                    System.Reflection.BindingFlags.Instance |
-                    System.Reflection.BindingFlags.NonPublic);
-                // 获取m_ActiveText的值
-                string activeText = fieldInfo.GetValue(consoleInstance).ToString();
-                return activeText;
+                if ((object)UnityEditor.EditorWindow.focusedWindow == console)
+                {
+                    // 获取m_ActiveText成员
+                    fieldInfo = window.GetField("m_ActiveText",
+                        System.Reflection.BindingFlags.Instance |
+                        System.Reflection.BindingFlags.NonPublic);
+                    // 获取m_ActiveText的值
+                    string activeText = fieldInfo.GetValue(console).ToString();
+                    return activeText;
+                }
             }
+            return null;
         }
-        return null;
-    }
 #endif
-#endregion
+        #endregion
     }
 
     public struct LogInformation

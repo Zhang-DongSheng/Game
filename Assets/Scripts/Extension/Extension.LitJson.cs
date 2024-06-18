@@ -19,116 +19,30 @@ namespace Game
             return result;
         }
 
-        public static List<string> GetStrings(this JsonData json, string key, char separator = ',')
+        public static string[] GetStrings(this JsonData json, string key)
         {
-            List<string> result = new List<string>();
+            string[] result = null;
 
             if (json != null && json.ContainsKey(key))
             {
-                string[] _list = json[key].ToString().Split(separator);
-
-                for (int i = 0; i < _list.Length; i++)
+                if (json[key].IsArray)
                 {
-                    if (!string.IsNullOrEmpty(_list[i]))
+                    int count = json[key].Count;
+
+                    result = new string[count];
+
+                    for (int i = 0; i < count; i++)
                     {
-                        result.Add(_list[i]);
+                        result[i] = json[key][i].ToString();
                     }
                 }
             }
             return result;
         }
 
-        public static int GetInt(this JsonData json, string key)
-        {
-            int result = 0;
-
-            if (json != null && json.ContainsKey(key) && json[key].IsInt)
-            {
-                int.TryParse(json[key].ToString(), out result);
-            }
-            return result;
-        }
-
-        public static int[] GetInts(this JsonData json, string key)
-        {
-            int[] result = null;
-
-            if (json != null && json.ContainsKey(key))
-            {
-                string content = json[key].ToString().Trim('[', ']');
-
-                string[] values = content.Split(',');
-
-                int count = values.Length;
-
-                result = new int[count];
-
-                for (int i = 0; i < count; i++)
-                {
-                    int.TryParse(values[i], out result[i]);
-                }
-            }
-            return result;
-        }
-
-        public static uint GetUInt(this JsonData json, string key)
-        {
-            uint result = 0;
-
-            if (json != null && json.ContainsKey(key) && json[key].IsInt)
-            {
-                uint.TryParse(json[key].ToString(), out result);
-            }
-            return result;
-        }
-
-        public static float GetFloat(this JsonData json, string key)
-        {
-            float result = 0;
-
-            if (json != null && json.ContainsKey(key))
-            {
-                float.TryParse(json[key].ToString(), out result);
-            }
-            return result;
-        }
-
-        public static float[] GetFloats(this JsonData json, string key)
-        {
-            float[] result = null;
-
-            if (json != null && json.ContainsKey(key))
-            {
-                string content = json[key].ToString().Trim('[', ']');
-
-                string[] values = content.Split(',');
-
-                int count = values.Length;
-
-                result = new float[count];
-
-                for (int i = 0; i < count; i++)
-                {
-                    float.TryParse(values[i], out result[i]);
-                }
-            }
-            return result;
-        }
-
-        public static long GetLong(this JsonData json, string key)
-        {
-            long result = 0;
-
-            if (json != null && json.ContainsKey(key))
-            {
-                long.TryParse(json[key].ToString(), out result);
-            }
-            return result;
-        }
-
         public static bool GetBool(this JsonData json, string key)
         {
-            bool result = false;
+            bool result = default;
 
             if (json != null && json.ContainsKey(key))
             {
@@ -150,11 +64,130 @@ namespace Game
 
         public static byte GetByte(this JsonData json, string key)
         {
-            byte result = 0;
+            byte result = default;
 
             if (json != null && json.ContainsKey(key))
             {
                 result = (byte)json[key];
+            }
+            return result;
+        }
+
+        public static char GetChar(this JsonData json, string key)
+        {
+            char result = default;
+
+            if (json != null && json.ContainsKey(key))
+            {
+                result = (char)json[key];
+            }
+            return result;
+        }
+
+        public static short GetShort(this JsonData json, string key)
+        {
+            short result = default;
+
+            if (json != null && json.ContainsKey(key))
+            {
+                result = (short)json[key];
+            }
+            return result;
+        }
+
+        public static int GetInt(this JsonData json, string key)
+        {
+            int result = default;
+
+            if (json != null && json.ContainsKey(key) && json[key].IsInt)
+            {
+                result = (int)json[key];
+            }
+            return result;
+        }
+
+        public static int[] GetInts(this JsonData json, string key)
+        {
+            int[] result = null;
+
+            if (json != null && json.ContainsKey(key))
+            {
+                if (json[key].IsArray)
+                {
+                    int count = json[key].Count;
+
+                    result = new int[count];
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        int.TryParse(json[key][i].ToString(), out result[i]);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static uint GetUInt(this JsonData json, string key)
+        {
+            uint result = default;
+
+            if (json != null && json.ContainsKey(key))
+            {
+                uint.TryParse(json[key].ToString(), out result);
+            }
+            return result;
+        }
+
+        public static float GetFloat(this JsonData json, string key)
+        {
+            float result = default;
+
+            if (json != null && json.ContainsKey(key))
+            {
+                result = (float)json[key];
+            }
+            return result;
+        }
+
+        public static float[] GetFloats(this JsonData json, string key)
+        {
+            float[] result = null;
+
+            if (json != null && json.ContainsKey(key))
+            {
+                if (json[key].IsArray)
+                {
+                    int count = json[key].Count;
+
+                    result = new float[count];
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        float.TryParse(json[key][i].ToString(), out result[i]);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static double GetDouble(this JsonData json, string key)
+        {
+            double result = 0;
+
+            if (json != null && json.ContainsKey(key) && json[key].IsDouble)
+            {
+                result = (double)json[key];
+            }
+            return result;
+        }
+
+        public static long GetLong(this JsonData json, string key)
+        {
+            long result = 0;
+
+            if (json != null && json.ContainsKey(key) && json[key].IsLong)
+            {
+                result = (long)json[key];
             }
             return result;
         }
@@ -248,7 +281,6 @@ namespace Game
             return value;
         }
 
-
         public static Color GetColor(this JsonData json, string key, float alpha = 1)
         {
             Color color = Color.white;
@@ -273,6 +305,39 @@ namespace Game
             return color;
         }
 
+        public static UIntPair GetUIntPair(this JsonData json, string key)
+        {
+            UIntPair result = default;
+
+            if (json != null && json.ContainsKey(key) && json[key].IsArray)
+            {
+                result = new UIntPair()
+                {
+                    x = (uint)json[key][0],
+                    y = (uint)json[key][1]
+                };
+            }
+            return result;
+        }
+
+        public static List<UIntPair> GetUIntPairs(this JsonData json, string key)
+        {
+            List<UIntPair> result = new List<UIntPair>();
+
+            if (json != null && json.ContainsKey(key) && json[key].IsArray)
+            {
+                for (int i = 0; i < json[key].Count; i++)
+                {
+                    result.Add(new UIntPair()
+                    {
+                        x = (uint)json[key][i][0],
+                        y = (uint)json[key][i][1],
+                    });
+                }
+            }
+            return result;
+        }
+
         public static T GetType<T>(this JsonData json) where T : class
         {
             if (json == null) return null;
@@ -285,7 +350,27 @@ namespace Game
             {
                 string key = field.Name;
 
-                if (field.FieldType == typeof(int))
+                if (field.FieldType == typeof(string))
+                {
+                    field.SetValue(result, json.GetString(key));
+                }
+                else if (field.FieldType == typeof(bool))
+                {
+                    field.SetValue(result, json.GetBool(key));
+                }
+                else if (field.FieldType == typeof(byte))
+                {
+                    field.SetValue(result, json.GetByte(key));
+                }
+                else if (field.FieldType == typeof(char))
+                {
+                    field.SetValue(result, json.GetChar(key));
+                }
+                else if (field.FieldType == typeof(short))
+                {
+                    field.SetValue(result, json.GetShort(key));
+                }
+                else if (field.FieldType == typeof(int))
                 {
                     field.SetValue(result, json.GetInt(key));
                 }
@@ -305,21 +390,25 @@ namespace Game
                 {
                     field.SetValue(result, json.GetFloats(key));
                 }
+                else if (field.FieldType == typeof(double))
+                {
+                    field.SetValue(result, json.GetDouble(key));
+                }
                 else if (field.FieldType == typeof(long))
                 {
                     field.SetValue(result, json.GetLong(key));
                 }
-                else if (field.FieldType == typeof(bool))
+                else if (field.FieldType == typeof(UIntPair))
                 {
-                    field.SetValue(result, json.GetBool(key));
+                    field.SetValue(result, json.GetUIntPair(key));
                 }
-                else if (field.FieldType == typeof(string))
+                else if (field.FieldType == typeof(List<UIntPair>))
                 {
-                    field.SetValue(result, json.GetString(key));
+                    field.SetValue(result, json.GetUIntPairs(key));
                 }
                 else
                 {
-                    Debuger.LogWarning(Author.Data, "特殊类型特定处理");
+                    Debuger.LogWarning(Author.Data, $"Can't convert the type of {field.FieldType}! Please add converter");
                 }
             }
             return result;

@@ -30,18 +30,6 @@ namespace Data
 
                 task.primary = m_list[i].GetUInt("ID");
 
-                task.rewards = new List<UIntPair>();
-
-                var rewards = m_list[i].GetJson("rewards");
-
-                for (int j = 0; j < rewards.Count; j++)
-                {
-                    task.rewards.Add(new UIntPair()
-                    {
-                        x = uint.Parse(rewards[j][0].ToString()),
-                        y = uint.Parse(rewards[j][1].ToString()),
-                    });
-                }
                 list.Add(task);
             }
         }

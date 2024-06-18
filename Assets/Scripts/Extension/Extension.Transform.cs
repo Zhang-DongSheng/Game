@@ -115,42 +115,20 @@ namespace Game
         /// <summary>
         /// 查找对象
         /// </summary>
-        public static Transform FindByName(this Transform transform, string name, bool ignore = true)
+        public static Transform FindByName(this Transform transform, string name)
         {
             Transform result = null;
 
-            if (ignore)
+            var children = transform.GetComponentsInChildren<Transform>();
+
+            int count = children.Length;
+
+            for (int i = 0; i < count; i++)
             {
-                var children = transform.GetComponentsInChildren<Transform>();
-
-                int count = children.Length;
-
-                for (int i = 0; i < count; i++)
+                if (children[i].name == name)
                 {
-                    if (children[i].name == name)
-                    {
-                        result = children[i];
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                int count = transform.childCount;
-
-                for (int i = 0; i < count; i++)
-                {
-                    Transform child = transform.GetChild(i);
-
-                    if (child.name == name)
-                    {
-                        result = child;
-                    }
-                    else if (child.childCount > 0)
-                    {
-                        result = FindByName(child, name);
-                    }
-                    if (result != null) break;
+                    result = children[i];
+                    break;
                 }
             }
             return result;
@@ -194,11 +172,9 @@ namespace Game
             }
             else
             {
-                int index = transform.childCount;
-
-                while (index-- > 0)
+                for (int i = 0; i < transform.childCount; i++)
                 {
-                    if (transform.GetChild(index).gameObject.activeSelf)
+                    if (transform.GetChild(i).gameObject.activeSelf)
                     {
                         count++;
                     }

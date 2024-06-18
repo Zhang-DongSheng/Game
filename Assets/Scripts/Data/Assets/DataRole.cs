@@ -30,16 +30,16 @@ namespace Data
 
                 role.primary = m_list[i].GetUInt("ID");
 
-                role.attributes = new List<IntPair>();
+                role.attributes = new List<Pair<int, float>>();
 
                 var attributes = m_list[i].GetJson("attributes");
 
                 for (int j = 0; j < attributes.Count; j++)
                 {
-                    role.attributes.Add(new IntPair()
+                    role.attributes.Add(new Pair<int, float>()
                     {
-                        x = int.Parse(attributes[j][0].ToString()),
-                        y = int.Parse(attributes[j][1].ToString()),
+                        x = (int)attributes[j][0],
+                        y = (float)attributes[j][1],
                     });
                 }
                 list.Add(role);
@@ -62,7 +62,7 @@ namespace Data
 
         public uint quality;
 
-        public List<IntPair> attributes;
+        public List<Pair<int, float>> attributes;
 
         public string path;
 

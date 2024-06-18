@@ -15,23 +15,23 @@ namespace Game
             behavior.StartCoroutine(InvokeSafeRepeatingRoutine(method, delayInSeconds, repeatRateInSeconds));
         }
 
+        internal static IEnumerator InvokeSafeRoutine(System.Action method, float delayInSeconds)
+        {
+            yield return new WaitForSeconds(delayInSeconds);
+
+            method?.Invoke();
+        }
+
         internal static IEnumerator InvokeSafeRepeatingRoutine(System.Action method, float delayInSeconds, float repeatRateInSeconds)
         {
             yield return new WaitForSeconds(delayInSeconds);
 
             while (true)
             {
-                if (method != null) method.Invoke();
+                method?.Invoke();
 
                 yield return new WaitForSeconds(repeatRateInSeconds);
             }
-        }
-
-        internal static IEnumerator InvokeSafeRoutine(System.Action method, float delayInSeconds)
-        {
-            yield return new WaitForSeconds(delayInSeconds);
-
-            if (method != null) method.Invoke();
         }
     }
 }

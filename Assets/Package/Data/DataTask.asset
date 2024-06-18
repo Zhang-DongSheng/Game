@@ -18,8 +18,7 @@ MonoBehaviour:
     name: "\u4EFB\u52A11"
     type: 1
     icon: 
-    parameter:
-    - 1
+    parameter: []
     rewards:
     - x: 101
       y: 1
@@ -28,8 +27,7 @@ MonoBehaviour:
     name: "\u4EFB\u52A12"
     type: 2
     icon: 
-    parameter:
-    - 2
+    parameter: []
     rewards:
     - x: 101
       y: 2
@@ -38,8 +36,7 @@ MonoBehaviour:
     name: "\u4EFB\u52A13"
     type: 3
     icon: 
-    parameter:
-    - 3
+    parameter: []
     rewards:
     - x: 101
       y: 3
@@ -48,8 +45,7 @@ MonoBehaviour:
     name: "\u4EFB\u52A14"
     type: 3
     icon: 
-    parameter:
-    - 4
+    parameter: []
     rewards:
     - x: 101
       y: 4
@@ -58,8 +54,7 @@ MonoBehaviour:
     name: "\u4EFB\u52A15"
     type: 4
     icon: 
-    parameter:
-    - 5
+    parameter: []
     rewards:
     - x: 101
       y: 5
@@ -68,8 +63,7 @@ MonoBehaviour:
     name: "\u4EFB\u52A16"
     type: 5
     icon: 
-    parameter:
-    - 6
+    parameter: []
     rewards:
     - x: 101
       y: 6
@@ -78,8 +72,7 @@ MonoBehaviour:
     name: "\u4EFB\u52A17"
     type: 5
     icon: 
-    parameter:
-    - 7
+    parameter: []
     rewards:
     - x: 101
       y: 7
@@ -88,8 +81,7 @@ MonoBehaviour:
     name: "\u4EFB\u52A18"
     type: 5
     icon: 
-    parameter:
-    - 8
+    parameter: []
     rewards:
     - x: 101
       y: 8
@@ -98,8 +90,7 @@ MonoBehaviour:
     name: "\u4EFB\u52A19"
     type: 5
     icon: 
-    parameter:
-    - 9
+    parameter: []
     rewards:
     - x: 101
       y: 9
