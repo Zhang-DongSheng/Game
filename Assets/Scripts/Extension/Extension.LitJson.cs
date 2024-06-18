@@ -1,7 +1,9 @@
 using LitJson;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Security;
 using UnityEngine;
 
 namespace Game
@@ -36,6 +38,25 @@ namespace Game
                         result[i] = json[key][i].ToString();
                     }
                 }
+                else
+                {
+                    var content = json[key].ToString();
+
+                    int length = content.Length;
+
+                    content = content.Substring(1, length - 2);
+
+                    var list = content.Split(',');
+
+                    int count = list.Length;
+
+                    result = new string[count];
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        result[i] = list[i];
+                    }
+                }
             }
             return result;
         }
@@ -68,7 +89,7 @@ namespace Game
 
             if (json != null && json.ContainsKey(key))
             {
-                result = (byte)json[key];
+                byte.TryParse(json[key].ToString(), out result);
             }
             return result;
         }
@@ -79,7 +100,7 @@ namespace Game
 
             if (json != null && json.ContainsKey(key))
             {
-                result = (char)json[key];
+                char.TryParse(json[key].ToString(), out result);
             }
             return result;
         }
@@ -90,7 +111,7 @@ namespace Game
 
             if (json != null && json.ContainsKey(key))
             {
-                result = (short)json[key];
+                short.TryParse(json[key].ToString(), out result);
             }
             return result;
         }
@@ -123,6 +144,25 @@ namespace Game
                         int.TryParse(json[key][i].ToString(), out result[i]);
                     }
                 }
+                else
+                {
+                    var content = json[key].ToString();
+
+                    int length = content.Length;
+
+                    content = content.Substring(1, length - 2);
+
+                    var list = content.Split(',');
+
+                    int count = list.Length;
+
+                    result = new int[count];
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        int.TryParse(list[i], out result[i]);
+                    }
+                }
             }
             return result;
         }
@@ -144,7 +184,7 @@ namespace Game
 
             if (json != null && json.ContainsKey(key))
             {
-                result = (float)json[key];
+                float.TryParse(json[key].ToString(), out result);
             }
             return result;
         }
@@ -166,6 +206,25 @@ namespace Game
                         float.TryParse(json[key][i].ToString(), out result[i]);
                     }
                 }
+                else
+                {
+                    var content = json[key].ToString();
+
+                    int length = content.Length;
+
+                    content = content.Substring(1, length - 2);
+
+                    var list = content.Split(',');
+
+                    int count = list.Length;
+
+                    result = new float[count];
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        float.TryParse(list[i], out result[i]);
+                    }
+                }
             }
             return result;
         }
@@ -176,7 +235,14 @@ namespace Game
 
             if (json != null && json.ContainsKey(key) && json[key].IsDouble)
             {
-                result = (double)json[key];
+                if (json[key].IsLong)
+                {
+                    result = (double)json[key];
+                }
+                else
+                {
+                    double.TryParse(json[key].ToString(), out result);
+                }
             }
             return result;
         }
@@ -185,9 +251,16 @@ namespace Game
         {
             long result = 0;
 
-            if (json != null && json.ContainsKey(key) && json[key].IsLong)
+            if (json != null && json.ContainsKey(key))
             {
-                result = (long)json[key];
+                if (json[key].IsLong)
+                {
+                    result = (long)json[key];
+                }
+                else
+                {
+                    long.TryParse(json[key].ToString(), out result);
+                }
             }
             return result;
         }
@@ -241,19 +314,21 @@ namespace Game
 
         public static Vector2 GetVector2(this JsonData json, string key)
         {
-            Vector2 value = new Vector2();
+            Vector2 value = default;
 
             if (json != null && json.ContainsKey(key))
             {
-                string content = json[key].ToString().Trim('(', ')');
+                string content = json[key].ToString();
 
-                string[] values = content.Split(',');
+                content = content.Substring(1, content.Length - 2);
 
-                if (values.Length == 2)
+                string[] list = content.Split(',');
+
+                if (list.Length == 2)
                 {
-                    float.TryParse(values[0], out value.x);
+                    float.TryParse(list[0], out value.x);
 
-                    float.TryParse(values[1], out value.y);
+                    float.TryParse(list[1], out value.y);
                 }
             }
             return value;
@@ -261,21 +336,23 @@ namespace Game
 
         public static Vector3 GetVector3(this JsonData json, string key)
         {
-            Vector3 value = new Vector3();
+            Vector3 value = default;
 
             if (json != null && json.ContainsKey(key))
             {
-                string content = json[key].ToString().Trim('(', ')');
+                string content = json[key].ToString();
 
-                string[] values = content.Split(',');
+                content = content.Substring(1, content.Length - 2);
 
-                if (values.Length == 3)
+                string[] list = content.Split(',');
+
+                if (list.Length == 3)
                 {
-                    float.TryParse(values[0], out value.x);
+                    float.TryParse(list[0], out value.x);
 
-                    float.TryParse(values[1], out value.y);
+                    float.TryParse(list[1], out value.y);
 
-                    float.TryParse(values[2], out value.z);
+                    float.TryParse(list[2], out value.z);
                 }
             }
             return value;

@@ -236,10 +236,13 @@ namespace UnityEditor
 						case "float":
                         case "short":
                         case "double":
-                            builder.Append(string.Format("{0}", array[i, j]));
+                            builder.Append(array[i, j]);
 							break;
-						case "json":
-                            builder.Append(string.Format("{0}", array[i, j]));
+                        case "int[]":
+                        case "uint[]":
+                        case "float[]":
+                        case "json":
+                            builder.Append(array[i, j]);
                             break;
 						default:
 							builder.Append(string.Format("\"{0}\"", array[i, j]));

@@ -32,8 +32,8 @@ MonoBehaviour:
     activityID: 103
     name: "\u8F6E\u76D8\u62BD\u5956"
     timeLimit: 1
-    beginTime: 0
-    endTime: 0
+    beginTime: 1701360000
+    endTime: 1703952000
     description: "\u8F6E\u76D8\u62BD\u5956"
   - primary: 4
     activityID: 104
