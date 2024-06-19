@@ -20,7 +20,7 @@ namespace Game.State
         {
             UIManager.Instance.CloseAll(true);
 
-            UILoading.Instance.Open();
+            LoadingView.Instance.Open();
 
             var scene = SceneManager.GetActiveScene();
 
@@ -53,7 +53,7 @@ namespace Game.State
 
         private void LoadUI()
         {
-            UIQuickEntry.OpenSingle(UIPanel.Battle, callback: UILoading.Instance.Close);
+            UIQuickEntry.OpenSingle(UIPanel.Battle, callback: LoadingView.Instance.Close);
         }
     }
 }

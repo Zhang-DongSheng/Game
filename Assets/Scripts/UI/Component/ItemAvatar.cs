@@ -11,11 +11,11 @@ namespace Game.UI
 
         [SerializeField] private ImageBind frame;
 
-        public void Refresh(string head, string frame)
+        public void Refresh(int head, int frame)
         {
-            this.head.SetSprite(head);
+            this.head.SetSprite("");
 
-            this.frame.SetSprite(frame);
+            this.frame.SetSprite("");
         }
     }
 }

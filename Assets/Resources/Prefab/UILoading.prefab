@@ -329,9 +329,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9113432105825483985}
-  - component: {fileID: 2297588073400446238}
   - component: {fileID: 8626188258144884263}
   - component: {fileID: 6431950924441445892}
+  - component: {fileID: 58978281336009255}
   m_Layer: 0
   m_Name: UILoading
   m_TagString: Untagged
@@ -361,19 +361,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &2297588073400446238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3801746520713602354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c00472520f62a448905a137d011b786, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  progress: {fileID: 1915897990406439131}
 --- !u!223 &8626188258144884263
 Canvas:
   m_ObjectHideFlags: 0
@@ -412,6 +399,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &58978281336009255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3801746520713602354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cea71ac9783f1f4387f154355c6195f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progress: {fileID: 1915897990406439131}
 --- !u!1 &5437271798389385501
 GameObject:
   m_ObjectHideFlags: 0

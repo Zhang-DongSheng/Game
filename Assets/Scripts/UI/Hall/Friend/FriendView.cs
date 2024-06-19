@@ -23,9 +23,9 @@ namespace Game.UI
             m_menu.Select(0);
         }
 
-        private void RefreshFriends(int type)
+        private void RefreshFriends(int index)
         {
-            var list = FriendLogic.Instance.Friends;
+            var list = FriendLogic.Instance.GetFriends(index);
 
             int count = list.Count;
 
@@ -35,7 +35,7 @@ namespace Game.UI
                 {
                     items.Add(prefab.Create<ItemFriend>());
                 }
-                items[i].Refresh(list[i], type);
+                items[i].Refresh(list[i]);
             }
             for (int i = count; i < items.Count; i++)
             {

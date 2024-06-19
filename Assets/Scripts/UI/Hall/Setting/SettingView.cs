@@ -7,7 +7,7 @@ namespace Game.UI
     {
         [SerializeField] private ItemToggleGroup m_menu;
 
-        [SerializeField] private List<UISettingBase> views;
+        [SerializeField] private List<SubSettingBase> views;
 
         protected override void OnAwake()
         {

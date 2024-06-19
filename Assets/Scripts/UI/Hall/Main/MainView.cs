@@ -7,9 +7,9 @@ namespace Game.UI
 {
     public class MainView : ViewBase
     {
-        [SerializeField] private UIMainPlayer player;
+        [SerializeField] private SubMainPlayer player;
 
-        [SerializeField] private UIMainBanner banner;
+        [SerializeField] private SubMainBanner banner;
 
         [SerializeField] private List<ItemCurrency> currencies;
 

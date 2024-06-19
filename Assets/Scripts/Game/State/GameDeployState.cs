@@ -15,7 +15,7 @@ namespace Game.State
 
         public void OnEnter()
         {
-            UILoading.Instance.Open();
+            LoadingView.Instance.Open();
 
             var scene = SceneManager.GetActiveScene();
 
@@ -48,7 +48,7 @@ namespace Game.State
 
         private void LoadUI()
         {
-            UIQuickEntry.Open(UIPanel.Deploy, callback: UILoading.Instance.Close);
+            UIQuickEntry.Open(UIPanel.Deploy, callback: LoadingView.Instance.Close);
         }
     }
 }

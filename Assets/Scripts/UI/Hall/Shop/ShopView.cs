@@ -10,7 +10,7 @@ namespace Game.UI
 
         [SerializeField] private ScrollRect m_scroll;
 
-        [SerializeField] private List<UIShopBase> m_shops;
+        [SerializeField] private List<SubShopBase> m_shops;
 
         protected override void OnAwake()
         {

@@ -270,7 +270,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2695481665518801213}
-  - component: {fileID: 4221500908108690750}
+  - component: {fileID: 6718571169445282464}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -299,7 +299,7 @@ RectTransform:
   m_AnchoredPosition: {x: -210, y: -150}
   m_SizeDelta: {x: -420, y: -300}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4221500908108690750
+--- !u!114 &6718571169445282464
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -308,7 +308,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2208023010598016778}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ac673a015a94e540bfb71101632781e, type: 3}
+  m_Script: {fileID: 11500000, guid: 5bbd58382107b5748aaee971562c4b33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   layout: {fileID: 3907610804179917939}
@@ -501,6 +501,7 @@ MonoBehaviour:
   template:
     parent: {fileID: 555003986729557422}
     prefab: {fileID: 5092021386511650629, guid: 729bbd3fb413eec4e865de1d8f9d419e, type: 3}
+    reset: 0
 --- !u!1 &2779464637190750444
 GameObject:
   m_ObjectHideFlags: 0
@@ -1303,7 +1304,7 @@ MonoBehaviour:
   type: 1
   order: 0
   m_menu: {fileID: 1523638452611043120}
-  m_content: {fileID: 4221500908108690750}
+  m_content: {fileID: 6718571169445282464}
   m_introduce: {fileID: 2573436257859180939}
 --- !u!114 &3677209023833225737
 MonoBehaviour:

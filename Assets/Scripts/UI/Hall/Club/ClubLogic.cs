@@ -12,18 +12,18 @@ namespace Game.UI
 {
     public class ClubLogic : Singleton<ClubLogic>, ILogic
     {
-        private Club _club;
+        private readonly List<Club> _clubs = new List<Club>();
 
-        private readonly List<ClubMember> _members = new List<ClubMember>();
+        private readonly List<Member> _members = new List<Member>();
 
-        public List<ClubMember> Members
+        public List<Member> Members
         {
             get { return _members; }
         }
 
         public Club Club
         {
-            get { return _club; }
+            get { return _clubs[0]; }
         }
 
         public void Initialize()

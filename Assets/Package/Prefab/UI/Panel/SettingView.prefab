@@ -1083,7 +1083,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6679083043011268126
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2088,6 +2088,7 @@ MonoBehaviour:
   template:
     parent: {fileID: 6897175517938255363}
     prefab: {fileID: 5092021386511650629, guid: 729bbd3fb413eec4e865de1d8f9d419e, type: 3}
+    reset: 0
 --- !u!1 &5382199500402084965
 GameObject:
   m_ObjectHideFlags: 0
@@ -2540,6 +2541,7 @@ MonoBehaviour:
   template:
     parent: {fileID: 3902084789186462880}
     prefab: {fileID: 5092021386511650629, guid: 729bbd3fb413eec4e865de1d8f9d419e, type: 3}
+    reset: 0
 --- !u!1 &5986747149141386148
 GameObject:
   m_ObjectHideFlags: 0

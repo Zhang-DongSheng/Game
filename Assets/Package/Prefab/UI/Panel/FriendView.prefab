@@ -173,6 +173,7 @@ MonoBehaviour:
   template:
     parent: {fileID: 4686341998965196127}
     prefab: {fileID: 5092021386511650629, guid: 729bbd3fb413eec4e865de1d8f9d419e, type: 3}
+    reset: 0
 --- !u!1 &2528293948496886336
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,8 +227,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d28182b4410e86749945a7fe1d73156f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avatar: {fileID: 1361376474299327942}
-  nick: {fileID: 8385484488051269307}
+  m_avatar: {fileID: 1361376474299327942}
+  m_nick: {fileID: 8385484488051269307}
+  m_status: {fileID: 1747577807068355097}
 --- !u!1 &3513282895358366140
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,6 +473,7 @@ MonoBehaviour:
   template:
     parent: {fileID: 1609267793916645344}
     prefab: {fileID: 2528293948496886336}
+    reset: 0
 --- !u!1 &6747099157650110696
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,6 +720,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5483187631474126787}
   - component: {fileID: 7730107275411799748}
+  - component: {fileID: 2142219846997883806}
   m_Layer: 0
   m_Name: FriendView
   m_TagString: Untagged
@@ -765,6 +769,20 @@ MonoBehaviour:
   order: 0
   prefab: {fileID: 7711910803731202313}
   m_menu: {fileID: 6520037330226507496}
+--- !u!114 &2142219846997883806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8121397180550740531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c64f4e3ae5ba14c9c733ee4141f1e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objects:
+  - {fileID: 7961017126609420870}
 --- !u!1 &8620484161926866541
 GameObject:
   m_ObjectHideFlags: 0

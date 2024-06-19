@@ -5,10 +5,7 @@ namespace UnityEditor.Listener
     [InitializeOnLoad]
     class AssetPostListener : AssetPostprocessor
     {
-        /// <summary>
-        /// 提供源材质
-        /// </summary>
-        public void OnAssignMaterialModel(Material material, Renderer renderer)
+        static AssetPostListener()
         {
 
         }
@@ -18,7 +15,7 @@ namespace UnityEditor.Listener
         [Callbacks.DidReloadScripts]
         static void AllScriptsReloaded()
         {
-            Debuger.Log(Author.Script, "AllScriptsReloaded");
+            
         }
         /// <summary>
         /// 在完成任意数量的资源导入后（当资源进度条到达末尾时）调用此函数
@@ -48,7 +45,7 @@ namespace UnityEditor.Listener
         /// <summary>
         /// 当 AnimationClip 已完成导入时调用此函数
         /// </summary>
-        public void OnPostprocessAnimation(AnimationClip clip)
+        public void OnPostprocessAnimation(GameObject target, AnimationClip clip)
         {
 
         }
@@ -62,7 +59,8 @@ namespace UnityEditor.Listener
         /// <summary>
         /// 将此函数添加到一个子类中，以在音频剪辑完成导入时获取通知
         /// </summary>
-        public void OnPostprocessAudio(AudioClip clip) { }
+        public void OnPostprocessAudio(AudioClip clip)
+        { }
         /// <summary>
         /// 将此函数添加到一个子类中，以在立方体贴图纹理完成导入之前获取通知
         /// </summary>
@@ -102,23 +100,20 @@ namespace UnityEditor.Listener
         /// <summary>
         /// 将此函数添加到一个子类中，以在材质资源完成导入时获取通知
         /// </summary>
-        public void OnPostprocessMaterial(Material material) { }
+        public void OnPostprocessMaterial(Material material)
+        { }
         /// <summary>
         /// 当变换层级视图已完成导入时调用此函数
         /// </summary>
-        public void OnPostprocessMeshHierarchy(GameObject go) { }
+        public void OnPostprocessMeshHierarchy(GameObject go)
+        { }
         /// <summary>
         /// 将此函数添加到一个子类中，以在模型完成导入时获取通知
         /// </summary>
-        public void OnPostprocessModel(GameObject model) { }
-        /// <summary>
-        /// 将此函数添加到一个子类中，以在 SpeedTree 资源完成导入时获取通知
-        /// </summary>
-        public void OnPostprocessspeedTree(GameObject go) { }
-        /// <summary>
-        /// 将此函数添加到一个子类中，以在精灵的纹理完成导入时获取通知
-        /// </summary>
-        public void OnPostprocessSprites(Texture2D texture, Sprite[] sprites) { }
+        public void OnPostprocessModel(GameObject model)
+        {
+        
+        }
         /// <summary>
         /// 将此函数添加到一个子类中，以在纹理刚完成导入之前获取通知
         /// </summary>

@@ -6,9 +6,9 @@ namespace Game.UI
     {
         [SerializeField] private ItemToggleGroup m_menu;
 
-        [SerializeField] private UIWarehouseContent m_content;
+        [SerializeField] private SubWarehouseContent m_content;
 
-        [SerializeField] private UIWarehouseIntroduce m_introduce;
+        [SerializeField] private SubWarehouseIntroduce m_introduce;
 
         protected override void OnAwake()
         {

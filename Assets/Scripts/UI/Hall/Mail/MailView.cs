@@ -10,9 +10,11 @@ namespace Game.UI
 
         [SerializeField] private ItemMail prefab;
 
-        [SerializeField] private UIMailContent content;
+        [SerializeField] private Text m_title;
 
-        [SerializeField] private GameObject empty;
+        [SerializeField] private Text m_content;
+
+        [SerializeField] private ItemStatus m_status;
 
         private uint select;
 
@@ -27,22 +29,20 @@ namespace Game.UI
                 item.Refresh(data, select, OnClickMail);
             });
             // Ìø×ª
-            if (count > 0)
-            {
-                OnClickMail(list[0]);
-            }
-            else
-            {
-                content.SetActive(false);
-            }
-            SetActive(empty, count == 0);
+            //if (count > 0)
+            //{
+            //    OnClickMail(list[0]);
+            //}
+            //else
+            //{
+            //    content.SetActive(false);
+            //}
+            //SetActive(empty, count == 0);
         }
 
         private void OnClickMail(Mail mail)
         {
             select = mail.ID;
-
-            content.Refresh(mail);
 
             layout.ForceUpdateContent();
         }

@@ -37,6 +37,14 @@ public class DepthOfField : MonoBehaviour
         dMaterial = new Material(Shader.Find("Custom/DepthOfFiled"));
     }
 
+    private void Update()
+    {
+        if (this.FocusOn != null)
+        {
+            this.FocusDistance = (this.FocusOn.position.z - this.camera.transform.position.z - camera.nearClipPlane) / (camera.farClipPlane - camera.nearClipPlane);
+        }
+    }
+
     void OnRenderImage(RenderTexture src, RenderTexture dest)
     {
         dMaterial.SetFloat("_FocusDistance", FocusDistance);
@@ -73,13 +81,7 @@ public class DepthOfField : MonoBehaviour
             Graphics.Blit(src, dest);
         }
     }
-    private void Update()
-    {
-        if (this.FocusOn != null)
-        {
-            this.FocusDistance = (this.FocusOn.position.z - this.camera.transform.position.z - camera.nearClipPlane) / (camera.farClipPlane - camera.nearClipPlane);
-        }
-    }
+    
     private void OnDrawGizmosSelected()
     {
         if (camera == null)

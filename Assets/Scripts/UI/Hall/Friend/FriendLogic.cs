@@ -1,11 +1,7 @@
 ﻿using Game.Network;
 using Game.UI;
 using Protobuf;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game
 {
@@ -15,46 +11,18 @@ namespace Game
 
         private readonly List<Friend> _empty = new List<Friend>(0);
 
-        public List<Friend> Friends
-        {
-            get
-            {
-                if (_friends.TryGetValue(0, out var list))
-                { 
-                    return list;
-                }
-                return _empty;
-            }
-        }
-
-        public List<Friend> Apply
-        {
-            get
-            {
-                if (_friends.TryGetValue(1, out var list))
-                {
-                    return list;
-                }
-                return _empty;
-            }
-        }
-
-        public List<Friend> Blacklist
-        {
-            get
-            {
-                if (_friends.TryGetValue(2, out var list))
-                {
-                    return list;
-                }
-                return _empty;
-            }
-        }
-
-
         public void Initialize()
         {
 
+        }
+
+        public List<Friend> GetFriends(int index)
+        {
+            if (_friends.TryGetValue(index, out var list))
+            {
+                return list;
+            }
+            return _empty;
         }
 
         public void RequestFriend()
@@ -63,6 +31,26 @@ namespace Game
 
             NetworkManager.Instance.Send(NetworkMessageDefine.C2SFriendRequest, msg, (handle) =>
             {
+                _friends.Clear();
+
+                for (int i = 0; i < 3; i++)
+                {
+                    var list = new List<Friend>();
+
+                    int count = UnityEngine.Random.Range(3, 10);
+
+                    for (int j = 0; j < count; j++)
+                    {
+                        list.Add(new Friend()
+                        {
+                            name = "xxxx" + j,
+                            head = 1,
+                            frame = 1,
+                            relationship = i * -1 + 1,
+                        });
+                    }
+                    _friends.Add(i, list);
+                }
                 ScheduleLogic.Instance.Update(Schedule.Friend);
             });
         }
