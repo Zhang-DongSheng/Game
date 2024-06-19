@@ -34,12 +34,12 @@ namespace Game.State
             }
         }
 
-        public void OnExit()
+        public void OnStay()
         {
 
         }
 
-        public void OnStay()
+        public void OnExit()
         {
 
         }

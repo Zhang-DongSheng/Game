@@ -22,12 +22,12 @@ namespace Game.State
             UIQuickEntry.OpenSingle(UIPanel.Login, callback: LoadingView.Instance.Close);
         }
 
-        public void OnExit()
+        public void OnStay()
         {
 
         }
 
-        public void OnStay()
+        public void OnExit()
         {
 
         }

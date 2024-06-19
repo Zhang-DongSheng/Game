@@ -1,7 +1,4 @@
-﻿using Game.Resource;
-using Game.UI;
-
-namespace Game.State
+﻿namespace Game.State
 {
     /// <summary>
     /// 资源加载
@@ -18,12 +15,12 @@ namespace Game.State
             
         }
 
-        public void OnExit()
+        public void OnStay()
         {
-            
+
         }
 
-        public void OnStay()
+        public void OnExit()
         {
 
         }

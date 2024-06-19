@@ -18,19 +18,12 @@ namespace UnityEngine.UI
 
             background = GetComponent<Image>();
 
-            background.RegisterDirtyLayoutCallback(Execute);
-
             Execute();
         }
 
         private void OnValidate()
         {
             Execute();
-        }
-
-        private void OnDestroy() 
-        {
-            background.UnregisterDirtyLayoutCallback(Execute);
         }
 
         private void Execute()
@@ -40,8 +33,6 @@ namespace UnityEngine.UI
             float width = background.sprite.rect.width;
 
             float height = background.sprite.rect.height;
-
-            background.SetNativeSize();
 
             switch (suit)
             {
