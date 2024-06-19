@@ -1,5 +1,7 @@
 ﻿using Game;
+using Game.UI;
 using System.IO;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +9,23 @@ namespace UnityEditor
 {
     public class PrefabUtils
     {
+        [InitializeOnLoadMethod]
+        public static void PrefabListener()
+        {
+            PrefabStage.prefabSaved += (prefab) =>
+            {
+                if (prefab.TryGetComponent(out PrefabBind bind))
+                {
+                    bind.Execute();
+                }
+                else
+                {
+                    
+                }
+                Debug.LogError("prefab saved...");
+            };
+        }
+
         public static GameObject CreateUGUI(string path)
         {
             string extension = Path.GetExtension(path);
