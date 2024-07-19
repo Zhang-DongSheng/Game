@@ -31,7 +31,6 @@ namespace Game
             Add(Schedule.Chat);
             Add(Schedule.Club);
             Add(Schedule.Friend);
-            Add(Schedule.Reddot);
             Add(Schedule.Shop);
             Add(Schedule.Activity);
             Add(Schedule.RankingList);
@@ -121,9 +120,6 @@ namespace Game
                     break;
                 case Schedule.Friend:
                     FriendLogic.Instance.RequestFriend();
-                    break;
-                case Schedule.Reddot:
-                    ReddotLogic.Instance.RequestInformation();
                     break;
                 case Schedule.Shop:
                     ShopLogic.Instance.RequestInformation();
@@ -241,10 +237,6 @@ namespace Game
         /// ∫√”—
         /// </summary>
         Friend,
-        /// <summary>
-        /// ∫Ïµ„
-        /// </summary>
-        Reddot,
         /// <summary>
         /// …ÃµÍ
         /// </summary>

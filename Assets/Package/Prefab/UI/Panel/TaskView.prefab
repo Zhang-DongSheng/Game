@@ -132,7 +132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1640415131568633669
 RectTransform:
   m_ObjectHideFlags: 0
@@ -696,8 +696,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b719c68c0eb23543be92c214a03371e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 5660239639585118635}
-  prefab: {fileID: 541806278754156977, guid: 926a2cbffa9069945bc49951deb7fe40, type: 3}
+  prefab:
+    parent: {fileID: 5660239639585118635}
+    prefab: {fileID: 641752024329987939, guid: 926a2cbffa9069945bc49951deb7fe40, type: 3}
+    reset: 0
 --- !u!114 &1827259849712302759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1208,6 +1210,7 @@ MonoBehaviour:
   template:
     parent: {fileID: 5694831718984072874}
     prefab: {fileID: 3792339258703891608}
+    reset: 0
 --- !u!1 &5557350579852745791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1438,6 +1441,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8318897586645674960}
   - component: {fileID: 8318897586645674961}
+  - component: {fileID: 4229554824872990328}
   m_Layer: 5
   m_Name: TaskView
   m_TagString: Untagged
@@ -1484,6 +1488,20 @@ MonoBehaviour:
   type: 1
   order: 0
   prefab: {fileID: 6063651323432190899}
+--- !u!114 &4229554824872990328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8318897586645674975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c64f4e3ae5ba14c9c733ee4141f1e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objects:
+  - {fileID: 1732412826814064565}
 --- !u!1 &8318897586939913649
 GameObject:
   m_ObjectHideFlags: 0

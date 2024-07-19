@@ -9,10 +9,30 @@ namespace Game.UI
 
         public void Initialize()
         {
-
+            _reddots.Clear();
         }
 
-        public bool Trigger(params int[] keys)
+        public Reddot Get(int key)
+        {
+            return _reddots.Find(x => x.key == key);
+        }
+
+        public void Set(int key, int value)
+        {
+            int index = _reddots.FindIndex(x => x.key == key);
+
+            if (index > -1)
+            {
+                _reddots[key].value = value;
+            }
+            else
+            {
+                _reddots.Add(new Reddot(key, value));
+            }
+            EventDispatcher.Post(UIEvent.Reddot);
+        }
+
+        public bool State(params int[] keys)
         {
             bool active = false;
 
@@ -29,41 +49,33 @@ namespace Game.UI
             return active;
         }
 
-        public void Update(int key, int value)
+        public void Clear(params int[] keys)
         {
-            int index = _reddots.FindIndex(x => x.key == key);
+            int count = keys.Length;
 
-            if (index > -1)
+            if (count > 0)
             {
-                _reddots[key].value = value;
+                for (int i = 0; i < keys.Length; i++)
+                {
+                    int index = _reddots.FindIndex(x => x.key == keys[i]);
+
+                    if (index > -1)
+                    {
+                        _reddots.RemoveAt(index);
+                    }
+                }
             }
             else
             {
-                _reddots.Add(new Reddot(key, value));
+                _reddots.Clear();
             }
-            EventDispatcher.Post(UIEvent.Reddot, new EventArgs());
+            EventDispatcher.Post(UIEvent.Reddot);
         }
-
-        #region Request
-        public void RequestInformation()
-        {
-            ScheduleLogic.Instance.Update(Schedule.Reddot);
-        }
-        #endregion
-
-        #region Receive
-        private void OnReceivedInformation(object handle)
-        {
-
-        }
-        #endregion
     }
 
     public class Reddot
     {
         public int key;
-
-        public int type;
 
         public int value;
 

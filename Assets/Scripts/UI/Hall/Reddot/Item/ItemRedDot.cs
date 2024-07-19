@@ -21,23 +21,28 @@ namespace Game.UI
             EventDispatcher.Unregister(UIEvent.Reddot, Refresh);
         }
 
-        private void Refresh(EventArgs args)
+        protected override void OnVisible(bool active)
+        {
+            if (active) Refresh();
+        }
+
+        protected virtual void Refresh(EventArgs args)
         {
             Refresh();
         }
 
         public void Refresh()
         {
-            active = ReddotLogic.Instance.Trigger(list.ToArray());
+            active = ReddotLogic.Instance.State(list.ToArray());
 
             SetActive(target, active);
         }
 
-        public void UpdeteRedDotKey(params int[] keys)
+        public void Modify(params int[] keys)
         {
-            list.Clear();
+            list.Clear(); list.AddRange(keys);
 
-            list.AddRange(keys); Refresh();
+            Refresh();
         }
     }
 }

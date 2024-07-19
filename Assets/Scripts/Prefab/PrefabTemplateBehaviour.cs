@@ -31,17 +31,9 @@ namespace UnityEngine
 
         public GameObject prefab;
 
-        public bool reset;
-
         public GameObject Create()
         {
-            var target = GameObject.Instantiate(prefab, parent);
-
-            if (target != null && reset)
-            {
-                Reset(target.transform);
-            }
-            return target;
+            return GameObject.Instantiate(prefab, parent);
         }
 
         public T Create<T>() where T : Component
@@ -53,15 +45,6 @@ namespace UnityEngine
                 component = target.AddComponent<T>();
             }
             return component;
-        }
-
-        public void Reset(Transform transform)
-        {
-            transform.localPosition = Vector3.zero;
-
-            transform.localRotation = Quaternion.identity;
-
-            transform.localScale = Vector3.one;
         }
     }
 }
