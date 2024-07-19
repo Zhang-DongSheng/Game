@@ -60,9 +60,12 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            uint result = paramters[0].Identity();
+            string key = paramters[0];
 
-            Debuger.LogError(Author.Test, result);
+            GoogleTranslate.Instance.GetWorld(key, "zh-cn", "en", (word) =>
+            {
+                Debuger.LogError(Author.Test, word);
+            });
         }
         /// <summary>
         /// 点击测试

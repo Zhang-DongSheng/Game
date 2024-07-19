@@ -35,7 +35,6 @@ namespace UnityEditor
                 }
                 worlds.Add(value[0].ToLower(), value[1]);
             }
-            Debuger.LogWarning(Author.Editor, "The language words count:" + worlds.Count);
         }
 
         public static string GetWorld(string key)
