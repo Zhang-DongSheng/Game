@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   order: 0
   list:
-  - primary: 1018
+  - primary: 1022
     name: altas_head
     path: Package/Atlas/altas_head.spriteatlas
     sprites:
@@ -30,7 +30,7 @@ MonoBehaviour:
     - "\u7537\u751F-\u6B27"
     - "\u7537\u751F-\u84DD"
     - "\u5973\u751F-\u7D2B"
-  - primary: 1022
+  - primary: 1026
     name: atlas_common_normal
     path: Package/Atlas/atlas_common_normal.spriteatlas
     sprites:
@@ -52,7 +52,7 @@ MonoBehaviour:
     - GUI Skin - Button Pressed
     - Circle Outline Dash - Stroke 3px
     - background_3
-  - primary: 1020
+  - primary: 1024
     name: atlas_common_other
     path: Package/Atlas/atlas_common_other.spriteatlas
     sprites:
@@ -73,7 +73,7 @@ MonoBehaviour:
     - light_bottom
     - quality_5
     - arrow_right
-  - primary: 1010
+  - primary: 1014
     name: atlas_common_utils
     path: Package/Atlas/atlas_common_utils.spriteatlas
     sprites:
@@ -87,7 +87,7 @@ MonoBehaviour:
     - utils_close
     - utils_compress
     - utils_expand
-  - primary: 1034
+  - primary: 1038
     name: atlas_currency
     path: Package/Atlas/atlas_currency.spriteatlas
     sprites:
@@ -98,11 +98,11 @@ MonoBehaviour:
     - currency_gold
     - currency_coin_3
     - currency_bill
-  - primary: 1028
+  - primary: 1032
     name: atlas_emoji
     path: Package/Atlas/atlas_emoji.spriteatlas
     sprites: []
-  - primary: 1030
+  - primary: 1034
     name: atlas_main
     path: Package/Atlas/atlas_main.spriteatlas
     sprites:
@@ -115,7 +115,7 @@ MonoBehaviour:
     - main_task
     - main_notice
     - main_ranking
-  - primary: 1024
+  - primary: 1028
     name: atlas_prop_clothing
     path: Package/Atlas/atlas_prop_clothing.spriteatlas
     sprites:
@@ -139,7 +139,7 @@ MonoBehaviour:
     - "\u4F11\u95F2\u88E4"
     - "\u8D85\u77ED\u88E4"
     - "\u886C\u886B"
-  - primary: 1016
+  - primary: 1020
     name: atlas_set
     path: Package/Atlas/atlas_set.spriteatlas
     sprites:
@@ -150,23 +150,44 @@ MonoBehaviour:
     - settingt_sound
     - setting_mute
     - setting_vibrate
-  - primary: 1012
+  - primary: 1016
     name: atlas_title
     path: Package/Atlas/atlas_title.spriteatlas
     sprites:
     - title_back
-  - primary: 1032
+  - primary: 1036
     name: atlas_background_battle
     path: Package/Atlas/Single/atlas_background_battle.spriteatlas
     sprites:
     - background_battle
-  - primary: 1014
+  - primary: 1018
     name: atlas_background_login
     path: Package/Atlas/Single/atlas_background_login.spriteatlas
     sprites:
     - background_login
-  - primary: 1026
+  - primary: 1030
     name: atlas_background_main
     path: Package/Atlas/Single/atlas_background_main.spriteatlas
     sprites:
     - background_main
+  - primary: 4294925844
+    name: women1
+    path: Package/Atlas/women1.spriteatlas
+    sprites:
+    - "\u4FA7\u8138"
+    - "\u4F4E\u5934"
+    - "\u4FA7\u8EAB\u5FAE\u7B11"
+    - "\u4F4E\u5934\u7684\u4EBA"
+    - "\u5750\u7740\u7684\u5973\u4EBA"
+    - "\u5750\u6905\u5B50\u7684\u5973\u4EBA"
+  - primary: 53628
+    name: women2
+    path: Package/Atlas/women2.spriteatlas
+    sprites:
+    - "\u9752\u82B1\u74F7\u5C11\u5973"
+    - "\u6B63\u9762"
+    - "\u624B\u6258\u5934"
+    - "\u601D\u8003"
+    - "\u9752\u82B1\u74F7\u8863\u670D"
+    - "\u957F\u53D1\u5973\u4EBA"
+    - "\u7FD8\u4E8C\u90CE\u817F\u7684\u5973\u4EBA"

@@ -22,7 +22,6 @@ namespace UnityEditor
                 {
                     
                 }
-                Debug.LogError("prefab saved...");
             };
         }
 

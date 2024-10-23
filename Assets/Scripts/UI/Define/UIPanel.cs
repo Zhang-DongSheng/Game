@@ -37,5 +37,6 @@ namespace Game.UI
 		GluttonousSnake = 1005,
 		ColorPicker = 1006,
 		Study = 1007,
+		DialogSystem = 1008,
 	}
 }

@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    [ExecuteInEditMode]
     [DisallowMultipleComponent, RequireComponent(typeof(Image))]
     public class ImageBind : MonoBehaviour
     {
@@ -11,14 +10,25 @@ namespace Game.UI
 
         private Image _image;
 
+        private bool _relevance = false;
+
         private void Awake()
         {
-            SetSprite(content);
+            SetTextImmediately(content);
         }
 
         private void OnValidate()
         {
             SetSprite(content);
+        }
+
+        private void Relevance()
+        {
+            if (_relevance) return;
+
+            _relevance = true;
+
+            _image = GetComponent<Image>();
         }
 
         public void SetSprite(string content)
@@ -27,9 +37,21 @@ namespace Game.UI
 
             this.content = content;
 
-            if (_image == null)
-                _image = GetComponent<Image>();
-            _image.sprite = SpriteManager.Instance.GetSprite(content);
+            SetTextImmediately(content);
+        }
+
+        public void SetTextImmediately(string content)
+        {
+            var sprite = SpriteManager.Instance.GetSprite(content);
+
+            SetSprite(sprite);
+        }
+
+        protected void SetSprite(Sprite sprite)
+        {
+            Relevance();
+            if (_image != null)
+                _image.sprite = sprite;
         }
     }
 }

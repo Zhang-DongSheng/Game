@@ -60,10 +60,8 @@ namespace Game.UI
 
         public void SetText(string content)
         {
-            if (this.content == content)
-            {
-                return;
-            }
+            if (this.content.Equals(content)) return;
+
             this.content = content;
 
             SetTextImmediately(content);
