@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 namespace Game
 {
-    public class GoogleTranslate : Singleton<GoogleTranslate>
+    public class TextTranslate
     {
         const string GOOGLE = "https://translate.googleapis.com/translate_a/single?client=gtx&sl={0}&tl={1}&dt=t&q={2}";
 

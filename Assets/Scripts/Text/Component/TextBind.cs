@@ -1,18 +1,22 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Game.UI
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(Text))]
     public class TextBind : MonoBehaviour
     {
         [SerializeField] private string content;
 
         private Text _component;
 
+        private TextMeshProUGUI _component2;
+
         private string _content;
+
+        private bool _relevance = false;
 
         private void Awake()
         {
@@ -32,6 +36,17 @@ namespace Game.UI
         private void OnValidate()
         {
             SetText(content);
+        }
+
+        private void Relevance()
+        {
+            if (_relevance) return;
+
+            _relevance = true;
+
+            _component = GetComponent<Text>();
+
+            _component2 = GetComponent<TextMeshProUGUI>();
         }
 
         private void OnLanguageChange(UnityEngine.EventArgs args)
@@ -56,20 +71,16 @@ namespace Game.UI
 
         public void SetText(int value)
         {
-            string key = value.ToString();
+            content = string.Empty;
 
-            _content = LanguageManager.Instance.Get(key);
+            _content = value.ToString();
 
-            this.content = _content != key ? key : string.Empty;
-
-            if (_component == null)
-                _component = GetComponent<Text>();
-            _component.text = _content;
+            SetContent(_content);
         }
 
         public void SetText(float value, int digits = -1)
         {
-            this.content = string.Empty;
+            content = string.Empty;
 
             if (digits > -1)
             {
@@ -79,16 +90,23 @@ namespace Game.UI
             {
                 _content = string.Format("{0}", value);
             }
-            if (_component == null)
-                _component = GetComponent<Text>();
-            _component.text = _content;
+            SetContent(_content);
         }
 
         protected void SetTextImmediately(string content)
         {
-            if (_component == null)
-                _component = GetComponent<Text>();
-            _component.text = LanguageManager.Instance.Get(content);
+            _content = LanguageManager.Instance.Get(content);
+
+            SetContent(_content);
+        }
+
+        protected void SetContent(string content)
+        {
+            Relevance();
+            if (_component != null)
+                _component.text = content;
+            if (_component2 != null)
+                _component2.text = content;
         }
     }
 }

@@ -60,12 +60,16 @@ namespace Game.Test
         /// <param name="paramters">参数</param>
         public static void Startover(params string[] paramters)
         {
-            string key = paramters[0];
+            var vector = new Vector3(1, 0, 1);
 
-            GoogleTranslate.Instance.GetWorld(key, "zh-cn", "en", (word) =>
-            {
-                Debuger.LogError(Author.Test, word);
-            });
+            var offset = new Vector2(1, 2f);
+
+            if (Mathf.Abs(offset.x) > 0.01f)
+                vector = Quaternion.AngleAxis(offset.x, Vector3.up) * vector;
+            if (Mathf.Abs(offset.y) > 0.01f)
+                vector = Quaternion.AngleAxis(offset.y, Vector3.left) * vector;
+
+            Debuger.LogError(Author.Test, vector);
         }
         /// <summary>
         /// 点击测试
