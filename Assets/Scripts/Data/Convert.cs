@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using UnityEngine;
 
-namespace Data
+namespace Game.Data
 {
     public static class Convert
     {

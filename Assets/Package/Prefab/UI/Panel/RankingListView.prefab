@@ -147,7 +147,6 @@ MonoBehaviour:
   template:
     parent: {fileID: 9087550660891194571}
     prefab: {fileID: 8393708818868465756}
-    reset: 0
 --- !u!1 &310025071512349398
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,7 +724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 1119681560892748310}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
@@ -1357,7 +1356,6 @@ MonoBehaviour:
   template:
     parent: {fileID: 8984080914223230435}
     prefab: {fileID: 8393708818868465756}
-    reset: 0
 --- !u!1 &5745538159526725793
 GameObject:
   m_ObjectHideFlags: 0
@@ -1567,7 +1565,6 @@ MonoBehaviour:
   template:
     parent: {fileID: 1119681560892748310}
     prefab: {fileID: 5092021386511650629, guid: 729bbd3fb413eec4e865de1d8f9d419e, type: 3}
-    reset: 0
 --- !u!1 &6344107720417884718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1662,7 +1659,6 @@ MonoBehaviour:
   template:
     parent: {fileID: 7618896309413571428}
     prefab: {fileID: 8393708818868465756}
-    reset: 0
 --- !u!1 &6428909497471323189
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,7 +1753,6 @@ MonoBehaviour:
   template:
     parent: {fileID: 702360887867303564}
     prefab: {fileID: 8393708818868465756}
-    reset: 0
 --- !u!1 &6705383753979537683
 GameObject:
   m_ObjectHideFlags: 0
@@ -2022,7 +2017,6 @@ MonoBehaviour:
   template:
     parent: {fileID: 5450898098430677127}
     prefab: {fileID: 8393708818868465756}
-    reset: 0
 --- !u!1 &7365526434524917856
 GameObject:
   m_ObjectHideFlags: 0

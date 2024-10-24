@@ -1,5 +1,4 @@
-﻿using Data;
-using SubjectNerd.PsdImporter.PsdParser;
+﻿using SubjectNerd.PsdImporter.PsdParser;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -7,7 +6,7 @@ using UnityEngine;
 
 namespace Pfi
 {
-	public static class PfiImporter
+    public static class PfiImporter
 	{
 		public static void Menu_ImportPsd()
 		{

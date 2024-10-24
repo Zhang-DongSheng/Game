@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +6,11 @@ namespace Game.UI
 {
     public class SubDialogSystemMenu : ItemBase
     {
-        internal Action<bool> onClickHide;
+        internal Action onClickShowOrHide;
+
+        internal Action onClickNext;
+
+        internal Action onClickSkip;
 
         [SerializeField] private Button btnNext;
 
@@ -20,34 +20,40 @@ namespace Game.UI
 
         [SerializeField] private Button btnBack;
 
-        private bool showorhide;
-
         protected override void OnAwake()
         {
             btnNext.onClick.AddListener(OnClickNext);
 
             btnSkip.onClick.AddListener(OnClickSkip);
 
-            btnHide.onClick.AddListener(OnClickHide);
+            btnHide.onClick.AddListener(OnClickShowOrHide);
 
             btnBack.onClick.AddListener(OnClickBack);
         }
 
+        public void RefreshDisplay(bool active)
+        {
+            var component = btnHide.GetComponentInChildren<TextBind>();
+
+            if (component != null)
+            {
+                component.SetText(active ? "Show" : "Hide");
+            }
+        }
+
         private void OnClickNext()
         {
-
+            onClickNext?.Invoke();
         }
 
         private void OnClickSkip()
         {
-
+            onClickSkip?.Invoke();
         }
 
-        private void OnClickHide()
+        private void OnClickShowOrHide()
         {
-            showorhide = !showorhide;
-
-            onClickHide?.Invoke(showorhide);
+            onClickShowOrHide?.Invoke();
         }
 
         private void OnClickBack()

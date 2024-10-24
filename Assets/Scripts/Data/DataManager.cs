@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Game.Resource;
 using UnityEngine;
 
-namespace Data
+namespace Game.Data
 {
     public class DataManager : Singleton<DataManager>
     {

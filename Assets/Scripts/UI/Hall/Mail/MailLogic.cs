@@ -1,4 +1,4 @@
-using Data;
+using Game.Data;
 using Game.Network;
 using Protobuf;
 using System.Collections.Generic;

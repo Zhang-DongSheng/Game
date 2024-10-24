@@ -1,4 +1,4 @@
-using Data;
+using Game.Data;
 using Game.Network;
 using Game.State;
 using Protobuf;

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Data
+namespace Game.Data
 {
     public class DataLanguage : DataBase
     {

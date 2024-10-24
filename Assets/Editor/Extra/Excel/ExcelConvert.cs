@@ -1,5 +1,5 @@
-using Data;
 using Game;
+using Game.Data;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;

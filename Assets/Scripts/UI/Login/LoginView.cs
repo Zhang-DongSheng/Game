@@ -1,4 +1,4 @@
-using Data;
+using Game.Data;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;

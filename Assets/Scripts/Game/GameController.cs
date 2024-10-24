@@ -42,6 +42,8 @@ namespace Game
 
             ReddotLogic.Instance.Initialize();
 
+            DialogSystemLogic.Instance.Initialize();
+
             WarehouseLogic.Instance.Initialize();
 
             MailLogic.Instance.Initialize();

@@ -1,4 +1,4 @@
-using Data;
+using Game.Data;
 using Game.Resource;
 using System.Collections.Generic;
 using UnityEngine;

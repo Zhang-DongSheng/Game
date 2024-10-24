@@ -2,7 +2,7 @@ using Game;
 using LitJson;
 using UnityEngine;
 
-namespace Data
+namespace Game.Data
 {
     /// <summary>
     /// 数据基类

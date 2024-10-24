@@ -1,4 +1,4 @@
-namespace Data
+namespace Game.Data
 {
     public static class Const
     {

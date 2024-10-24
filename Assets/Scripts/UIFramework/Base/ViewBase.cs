@@ -1,4 +1,4 @@
-﻿using Data;
+﻿using Game.Data;
 using UnityEngine;
 
 namespace Game.UI

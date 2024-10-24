@@ -13,6 +13,13 @@ namespace Game
                 (byte)Mathf.Round(Mathf.Clamp01(color.a) * 255f));
         }
         /// <summary>
+        /// Color32转Color
+        /// </summary>
+        public static Color ToColor(this Color32 color32)
+        {
+            return new Color(color32.r / 255f, color32.g / 255f, color32.b / 255f, color32.a / 255f);
+        }
+        /// <summary>
         /// 变亮
         /// </summary>
         public static Color Lighter(this Color color)

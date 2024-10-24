@@ -1,5 +1,5 @@
-﻿using Data;
-using Game;
+﻿using Game;
+using Game.Data;
 using Game.UI;
 using System;
 using System.Collections.Generic;

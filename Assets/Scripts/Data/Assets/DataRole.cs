@@ -1,7 +1,7 @@
 ﻿using Game;
 using System.Collections.Generic;
 
-namespace Data
+namespace Game.Data
 {
     public class DataRole : DataBase
     {

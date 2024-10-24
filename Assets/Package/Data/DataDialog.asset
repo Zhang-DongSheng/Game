@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d49055e283b6a24295da5fb8e40a0ac, type: 3}
+  m_Name: DataDialog
+  m_EditorClassIdentifier: 
+  order: 0
+  chapter: 
+  start: 1
+  end: 1000
+  description: 
+  list:
+  - primary: 1
+    role: Alice
+    content: "\u4F60\u53EF\u4EE5\u4ECE\u8FD9\u4E2A\u6848\u4F8B\u7A0B\u5E8F\u4E2D\u53D1\u73B0\uFF0C\u6240\u6709\u7684\u52A0\u901F\u5EA6\u8BA1\u7B97\u7684\u903B\u8F91\u4EE3\u7801\u90FD\u5728TiltPlayer\u7C7B\u7684'accelerometer:didAccelerate\"\u65B9\u6CD5\u91CC\u5B9E\u73B0\uFF0E\u5728TiltPlayer\u7684update\u65B9\u6CD5\uFF0C\u505A\u4E86\u5BF9\u56FE\u6807\u65B9\u5411\u7684\u5E73\u6ED1\u5904\u7406\uFF0C\u51CF\u5C11\u4E86\u6296\u52A8\uFF0E\u5176\u5B83\u7684\u90FD\u662F\u6E32\u67D3\u7A0B\u5E8F\u6216\u5176\u5B83\u5F15\u7528\u7A0B\u5E8F\uFF0E\u56E0\u6B64\u8FD9\u91CC\u8D34\u51FA\u4E86\u4E0E\u672C\u6587\u76F8\u5173\u7684\u4EE3\u7801\uFF0C\u4E0D\u7528\u6253\u5F00XCode\u5DE5\u7A0B\u53BB\u67E5\u770B\u4E86"
+    next: 1000
+    options: 

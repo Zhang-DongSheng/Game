@@ -1,4 +1,4 @@
-﻿using Data;
+﻿using Game.Data;
 
 namespace Game.UI
 {
