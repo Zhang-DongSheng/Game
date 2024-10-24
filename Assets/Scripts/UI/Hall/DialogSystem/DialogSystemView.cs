@@ -27,6 +27,8 @@ namespace Game.UI
             _menu.RefreshDisplay(display);
 
             DialogSystemLogic.Instance.Refresh();
+
+            _player.Refresh();
         }
 
         private void OnClickNext()

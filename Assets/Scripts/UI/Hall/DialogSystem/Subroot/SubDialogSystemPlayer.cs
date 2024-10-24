@@ -13,11 +13,23 @@ namespace Game.UI
 
         public void Refresh()
         {
+            List<string> roles = new List<string>()
+            { 
+                "ÂÀÐã²Å",
+                "¼§ÎÞÃü"
+            };
             int count = _players.Count;
 
             for (int i = 0; i < count; i++)
             {
-                _players[i].Refresh(i.ToString());
+                if (roles.Count > i)
+                {
+                    _players[i].Refresh(roles[i]);
+                }
+                else
+                {
+                    _players[i].SetActive(false);
+                }
             }
         }
 
@@ -27,7 +39,7 @@ namespace Game.UI
 
             for (int i = 0; i < count; i++)
             {
-                _players[i].RefreshState(1);
+                _players[i].RefreshState(role);
             }
         }
 

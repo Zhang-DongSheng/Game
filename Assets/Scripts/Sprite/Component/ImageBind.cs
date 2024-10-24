@@ -14,7 +14,7 @@ namespace Game.UI
 
         private void Awake()
         {
-            SetTextImmediately(content);
+            SetSpriteImmediately(content);
         }
 
         private void OnValidate()
@@ -31,20 +31,20 @@ namespace Game.UI
             _image = GetComponent<Image>();
         }
 
+        public void SetColor(Color color)
+        {
+            Relevance();
+            if (_image != null)
+                _image.color = color;
+        }
+
         public void SetSprite(string content)
         {
             if (this.content.Equals(content)) return;
 
             this.content = content;
 
-            SetTextImmediately(content);
-        }
-
-        public void SetTextImmediately(string content)
-        {
-            var sprite = SpriteManager.Instance.GetSprite(content);
-
-            SetSprite(sprite);
+            SetSpriteImmediately(content);
         }
 
         protected void SetSprite(Sprite sprite)
@@ -52,6 +52,13 @@ namespace Game.UI
             Relevance();
             if (_image != null)
                 _image.sprite = sprite;
+        }
+
+        protected void SetSpriteImmediately(string content)
+        {
+            var sprite = SpriteManager.Instance.GetSprite(content);
+
+            SetSprite(sprite);
         }
     }
 }

@@ -178,6 +178,46 @@ namespace Game
             return result;
         }
 
+        public static uint[] GetUInts(this JsonData json, string key)
+        {
+            uint[] result = null;
+
+            if (json != null && json.ContainsKey(key))
+            {
+                if (json[key].IsArray)
+                {
+                    int count = json[key].Count;
+
+                    result = new uint[count];
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        uint.TryParse(json[key][i].ToString(), out result[i]);
+                    }
+                }
+                else
+                {
+                    var content = json[key].ToString();
+
+                    int length = content.Length;
+
+                    content = content.Substring(1, length - 2);
+
+                    var list = content.Split(',');
+
+                    int count = list.Length;
+
+                    result = new uint[count];
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        uint.TryParse(list[i], out result[i]);
+                    }
+                }
+            }
+            return result;
+        }
+
         public static float GetFloat(this JsonData json, string key)
         {
             float result = default;
@@ -458,6 +498,10 @@ namespace Game
                 else if (field.FieldType == typeof(uint))
                 {
                     field.SetValue(result, json.GetUInt(key));
+                }
+                else if (field.FieldType == typeof(uint[]))
+                {
+                    field.SetValue(result, json.GetUInts(key));
                 }
                 else if (field.FieldType == typeof(float))
                 {

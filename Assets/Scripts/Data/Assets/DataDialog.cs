@@ -20,6 +20,30 @@ namespace Game.Data
         {
             return list.Find(x => x.primary == dialogID);
         }
+
+        public override void Load(string content)
+        {
+            base.Load(content);
+
+            int count = m_list.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                var role = m_list[i].GetType<DialogInformation>();
+
+                role.primary = m_list[i].GetUInt("ID");
+
+                list.Add(role);
+            }
+            start = list[0].primary;
+
+            end = list[count - 1].primary;
+        }
+
+        public override void Clear()
+        {
+            list = new List<DialogInformation>();
+        }
     }
     [Serializable]
     public class DialogInformation : InformationBase
@@ -29,6 +53,8 @@ namespace Game.Data
         public string content;
 
         public uint next;
+
+        public uint trigger;
 
         public uint[] options;
     }

@@ -270,6 +270,10 @@ namespace UnityEditor.Window
             {
                 Loading<DataRole>("role");
             }
+            else if (type == typeof(DataDialog))
+            {
+                Loading<DataDialog>("dialog");
+            }
             else
             {
                 Debug.LogError("当前数据类型未定义，请主动添加 - " + type.Name);

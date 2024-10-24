@@ -1,9 +1,5 @@
 using Game.SM;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Game.UI
@@ -14,14 +10,20 @@ namespace Game.UI
 
         [SerializeField] private ImageBind imgRole;
 
+        private string role;
+
         public void Refresh(string role)
         {
+            this.role = role;
 
+            SetActive(true);
         }
 
-        public void RefreshState(int state)
+        public void RefreshState(string role)
         {
-            
+            bool active = this.role == role;
+
+            imgRole.SetColor(active ? Color.white : Color.gray);
         }
 
         public void OnClickShowOrHide(bool active)
