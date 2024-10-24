@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7613810cd08e98443966b91223b79ba2, type: 3}
+  m_Name: DataLanguage_English
+  m_EditorClassIdentifier: 
+  order: 0
+  language: 1
+  icon: 
+  font: {fileID: 0}
+  url: 
+  list:
+  - primary: 0
+    key: confirm
+    value: Confirm
+  - primary: 0
+    key: cancel
+    value: Cancel
+  - primary: 0
+    key: back
+    value: Back
+  - primary: 0
+    key: undone
+    value: Undone
+  - primary: 0
+    key: done
+    value: Done
+  - primary: 0
+    key: available
+    value: Available
+  - primary: 0
+    key: claimed
+    value: Claimed
+  - primary: 0
+    key: enter
+    value: Enter
+  - primary: 0
+    key: exit
+    value: Exit
+  - primary: 0
+    key: warehouse
+    value: Warehouse
+  - primary: 0
+    key: mail
+    value: Mail
+  - primary: 0
+    key: activity
+    value: Activity
+  - primary: 0
+    key: store
+    value: Store
+  - primary: 0
+    key: setting
+    value: Setting
+  - primary: 0
+    key: task
+    value: Task
+  - primary: 0
+    key: list
+    value: List
+  - primary: 0
+    key: new
+    value: New
+  - primary: 0
+    key: fighting
+    value: Fighting
+  - primary: 0
+    key: game
+    value: Game
+  - primary: 0
+    key: sound
+    value: Sound
+  - primary: 0
+    key: music
+    value: Music
+  - primary: 0
+    key: sound effect
+    value: Sound
+  - primary: 0
+    key: mute
+    value: Mute
+  - primary: 0
+    key: language
+    value: Language
+  - primary: 0
+    key: channel
+    value: SDK
+  - primary: 0
+    key: rankinglist
+    value: RankingList
+  - primary: 0
+    key: club
+    value: Club
+  - primary: 0
+    key: friend
+    value: Friends
+  - primary: 0
+    key: gold
+    value: Gold
+  - primary: 0
+    key: diamond
+    value: Diamond
+  - primary: 0
+    key: coin
+    value: Coin

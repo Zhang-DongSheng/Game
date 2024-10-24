@@ -1,12 +1,14 @@
 ﻿using Game;
 using Game.Data;
 using Game.UI;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.Video;
+using static Codice.CM.Common.BranchExplorerData;
 
 namespace UnityEditor.Window
 {
@@ -150,7 +152,7 @@ namespace UnityEditor.Window
 
                 GUILayout.Label(cell.type.Name);
 
-                if (cell.asset)
+                if (cell.asset || cell.branch)
                 {
                     if (GUILayout.Button(ToLanguage("Loading"), GUILayout.Width(200)))
                     {
@@ -206,6 +208,7 @@ namespace UnityEditor.Window
                 {
                     type = type,
                     asset = Exist(type),
+                    branch = type.Equals(typeof(DataLanguage)),
                     select = true,
                 });
             }
@@ -232,7 +235,7 @@ namespace UnityEditor.Window
             }
             else if (type == typeof(DataLanguage))
             {
-                Loading<DataLanguage>("language");
+                LoadLanguage();
             }
             else if (type == typeof(DataSprite))
             {
@@ -248,7 +251,7 @@ namespace UnityEditor.Window
             }
             else if (type == typeof(DataUI))
             {
-                LoadUI();
+                LoadPrefab();
             }
             else if (type == typeof(DataProp))
             {
@@ -280,7 +283,7 @@ namespace UnityEditor.Window
             }
         }
 
-        private void LoadUI()
+        private void LoadPrefab()
         {
             var data = Load<DataUI>(); data.Clear();
 
@@ -430,6 +433,48 @@ namespace UnityEditor.Window
             Save(data);
         }
 
+        private void LoadLanguage()
+        {
+            string project = Application.dataPath.Substring(0, Application.dataPath.Length - 7);
+
+            string input = string.Format("{0}/Source/Excel/language.xlsx", project);
+
+            string output = string.Format("{0}/Assets/Art/Excel/language.json", project);
+
+            ExcelUtility excel = new ExcelUtility(input);
+
+            excel.ConvertToJson(output);
+
+            string path = "Assets/Art/Excel/language.json";
+
+            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
+
+            Debug.Assert(asset != null, string.Format("{0} is null", path));
+
+            if (asset == null) return;
+
+            string content = asset.text;
+
+            if (string.IsNullOrEmpty(content)) return;
+
+            foreach (var language in Enum.GetValues(typeof(Language)))
+            {
+                var data = Load<DataLanguage>(language.ToString());
+
+                Debug.Assert(data != null, string.Format("Load DB_{0} error", typeof(T).Name));
+
+                if (data == null) continue;
+
+                data.language = (Language)language;
+
+                data.Load(content);
+
+                data.Sort();
+
+                Save(data);
+            }
+        }
+
         private void Loading<T>(string source) where T : DataBase
         {
             string project = Application.dataPath.Substring(0, Application.dataPath.Length - 7);
@@ -477,6 +522,15 @@ namespace UnityEditor.Window
         private T Load<T>() where T : ScriptableObject
         {
             string path = string.Format("{0}/{1}.asset", DataManager.asset, typeof(T).Name);
+
+            T asset = AssetDatabase.LoadAssetAtPath<T>(path);
+
+            return asset;
+        }
+
+        private T Load<T>(string branch) where T : ScriptableObject
+        {
+            string path = string.Format("{0}/{1}_{2}.asset", DataManager.asset, typeof(T).Name, branch);
 
             T asset = AssetDatabase.LoadAssetAtPath<T>(path);
 
@@ -600,6 +654,8 @@ namespace UnityEditor.Window
             public Type type;
 
             public bool asset;
+
+            public bool branch;
 
             public bool select;
         }

@@ -52,17 +52,15 @@ namespace Game
         {
             if (async)
             {
-                DataManager.Instance.LoadAsync<DataLanguage>((asset) =>
+                DataManager.Instance.LoadAsyncBranch<DataLanguage>(language.ToString(), (asset) =>
                 {
                     if (asset != null)
                     {
-                        var information = asset.list.Find(x => x.language == language);
-
                         words.Clear();
 
-                        foreach (var word in information.words)
+                        foreach (var word in asset.list)
                         {
-                            words.Add(word.x, word.y);
+                            words.Add(word.key, word.value);
                         }
                     }
                     else
@@ -74,17 +72,15 @@ namespace Game
             }
             else
             {
-                var asset = DataManager.Instance.Load<DataLanguage>();
+                var asset = DataManager.Instance.LoadBranch<DataLanguage>(language.ToString());
 
                 if (asset != null)
                 {
-                    var information = asset.list.Find(x => x.language == language);
-
                     words.Clear();
 
-                    foreach (var word in information.words)
+                    foreach (var word in asset.list)
                     {
-                        words.Add(word.x, word.y);
+                        words.Add(word.key, word.value);
                     }
                 }
                 else

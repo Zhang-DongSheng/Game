@@ -29,9 +29,9 @@ namespace Game.Data
             }
         }
 
-        public T Load<T>(string path) where T : DataBase
+        public T LoadBranch<T>(string branch) where T : DataBase
         {
-            string key = typeof(T).Name;
+            string key = string.Format("{0}_{1}", typeof(T).Name, branch);
 
             if (m_data.ContainsKey(key))
             {
@@ -39,7 +39,7 @@ namespace Game.Data
             }
             else
             {
-                T asset = ResourceManager.Load<T>(string.Format("{0}/{1}.asset", path, key));
+                T asset = ResourceManager.Load<T>(string.Format("Package/Data/{0}.asset", key));
 
                 if (asset != null)
                 {
@@ -52,6 +52,34 @@ namespace Game.Data
         public void LoadAsync<T>(Action<T> action) where T : DataBase
         {
             string key = typeof(T).Name;
+
+            if (m_data.ContainsKey(key))
+            {
+                action?.Invoke(m_data[key] as T);
+            }
+            else
+            {
+                try
+                {
+                    ResourceManager.LoadAsync(string.Format("Package/Data/{0}.asset", key), (value) =>
+                    {
+                        if (!m_data.ContainsKey(key))
+                        {
+                            m_data.Add(key, value as T);
+                        }
+                        action?.Invoke(m_data[key] as T);
+                    });
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e.Message);
+                }
+            }
+        }
+
+        public void LoadAsyncBranch<T>(string branch, Action<T> action) where T : DataBase
+        {
+            string key = string.Format("{0}_{1}", typeof(T).Name, branch);
 
             if (m_data.ContainsKey(key))
             {
