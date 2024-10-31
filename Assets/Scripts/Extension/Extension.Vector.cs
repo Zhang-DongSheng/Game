@@ -100,5 +100,14 @@ namespace Game
             }
             return angle;
         }
+
+        public static Vector3 Clamp(this Vector3 from, Vector3 to, float distance)
+        {
+            if (Vector3.Distance(from, to) > distance)
+            {
+                to = from + Vector3.Normalize(to - from) * distance;
+            }
+            return to;
+        }
     }
 }

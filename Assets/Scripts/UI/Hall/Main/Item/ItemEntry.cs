@@ -21,8 +21,10 @@ namespace Game.UI
 
         public virtual void Refresh()
         {
-            reddot.Refresh();
-
+            if (reddot != null)
+            {
+                reddot.Refresh();
+            }
             SetActive(mask, false);
         }
 
