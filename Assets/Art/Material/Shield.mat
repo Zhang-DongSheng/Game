@@ -21,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 474cc05d5d4c3d34ca5b4ffd0a1d803a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 89bae616d08ecd64591b444dd9f906c0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Noise:
@@ -30,6 +30,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _VertexOffsetTex:
         m_Texture: {fileID: 2800000, guid: f88677df267a41d6be1e7a6133e7d227, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _gradient:
+        m_Texture: {fileID: 2800000, guid: 383c3af6516644c4090c6a79dbc752e8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _noiseTex:
+        m_Texture: {fileID: 2800000, guid: 89bae616d08ecd64591b444dd9f906c0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -46,7 +54,14 @@ Material:
     - _SrcBlend: 0
     - _VertexOffsetIntensity: 0.1
     - _VertexOffsetSpeed: 0.1
+    - _addSize: 0
+    - _diffuse: 0
+    - _divSize: 1
+    - _hitSpeed: 10
+    - _noisePow: 1
     m_Colors:
     - _FresnalColor: {r: 1, g: 1, b: 1, a: 1}
     - _IntersectionColor: {r: 1, g: 1, b: 0, a: 0}
+    - _baseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _noiseTilling: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

@@ -55,36 +55,47 @@ Shader "Model/Shield"
             fixed _Range;
             fixed _Alpha;
 
+            
+
             v2f vert(appdata v)
             {
                 v2f o;
 
                 o.pos = UnityObjectToClipPos(v.vertex);
 
-                o.worldPos = mul(unity_ObjectToWorld, v.vertex);
-
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex);
+
                 return o;
+            }
+
+            fixed alpha(float3 pos)
+            {
+                fixed alpha = _Alpha;
+
+                fixed _count = min(_PointCount, 16);
+
+                for(int i = 0; i < _count; i++)
+                {
+                    if (_Values[i] < 0.01) continue;
+
+                    fixed dis = distance(pos, _Points[i].xyz);
+
+                    if(dis > _Range) continue;
+
+                    alpha += saturate(lerp(1, 0, dis / _Range) * _Values[i]);
+                }
+                return alpha;
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
                 fixed4 _color = tex2D(_MainTex, i.uv);
 
-                _color.a = _Alpha;
+                _color.a = alpha(i.worldPos);
 
-                fixed _count = min(_PointCount, 16);
-
-                for(int index = 0; index < _count; index++)
-                {
-                    if (_Values[index] < 0.01)
-                        continue;
-                    fixed dis = length(i.worldPos - _Points[index]);
-
-                    _color.a += saturate(lerp(1, 0, dis / _Range) * _Values[index]);
-                }
-                return fixed4(_color.rgb, _color.a);
+                return _color;
             }
             ENDCG
         }
