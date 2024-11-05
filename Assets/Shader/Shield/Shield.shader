@@ -55,8 +55,6 @@ Shader "Model/Shield"
             fixed _Range;
             fixed _Alpha;
 
-            
-
             v2f vert(appdata v)
             {
                 v2f o;
