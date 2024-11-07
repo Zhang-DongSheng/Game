@@ -115,6 +115,16 @@ namespace Game
             GlobalVariables.Set(Const.TOTAL_TIME, Duration);
         }
 
+        public void Register(long time, Action value)
+        {
+            handlers.Add(new TimeHandler()
+            {
+                time = time,
+                action = value,
+            });
+            Sort();
+        }
+
         public void Register(string key, long time, Action value)
         {
             Register(key, time, 0, value);
