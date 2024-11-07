@@ -1,7 +1,5 @@
 ﻿using Game.Attribute;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -76,7 +74,18 @@ namespace Game.Test
         /// </summary>
         public void OnClick(int code)
         {
-            
+            for (int i = 0; i < 10; i++)
+            {
+                int index = i;
+
+                int value = Random.Range(1, 30);
+
+                TimeManager.Instance.Register("T" + index, (long)(Time.time + value), () =>
+                {
+                    Debug.LogError("当前是" + value + "/" + index);
+                });
+            }
+            Debug.LogError("开始");
         }
         /// <summary>
         /// 菜单栏测试
@@ -92,9 +101,9 @@ namespace Game.Test
             
         }
 
-        private async System.Threading.Tasks.Task StartAsync()
+        private async Task StartAsync()
         {
-            await System.Threading.Tasks.Task.Run(() =>
+            await Task.Run(() =>
             {
                 
             });

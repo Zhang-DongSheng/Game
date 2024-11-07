@@ -1,3 +1,4 @@
+using Game.Attribute;
 using Game.Data;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,13 @@ namespace Game
     {
         private readonly Dictionary<string, Stopwatch> watch = new Dictionary<string, Stopwatch>();
 
-        private readonly Dictionary<string, TimeHandler> handlers = new Dictionary<string, TimeHandler>();
+        private readonly List<TimeHandler> handlers = new List<TimeHandler>();
 
-        private readonly List<string> cache = new List<string>();
+        [Readonly] public long recent, time;
 
-        private Dictionary<string, TimeHandler>.Enumerator eunmer;
+        [Readonly] public int count;
 
-        private TimeHandler handler;
-
-        private int count;
+        private bool modify;
 
         private void Awake()
         {
@@ -27,51 +26,81 @@ namespace Game
 
         private void Update()
         {
-            #region Handler
-            eunmer = handlers.GetEnumerator();
+            time = (long)Time.time;
 
-            while (eunmer.MoveNext())
+            if (count == 0) return;
+
+            if (time >= recent)
             {
-                handler = eunmer.Current.Value;
+                modify = false;
 
-                if (Time.time >= handler.timer)
+                count = handlers.Count;
+
+                for (int i = count - 1; i > -1; i--)
                 {
-                    handler.Invoke();
-
-                    if (handler.loop)
+                    if (time >= handlers[i].time)
                     {
-                        handler.timer = Time.time + handler.interval;
+                        handlers[i].Invoke();
+
+                        if (handlers[i].loop )
+                        {
+                            handlers[i].time += handlers[i].interval;
+
+                            modify = true;
+                        }
+                        else
+                        {
+                            handlers.RemoveAt(i);
+                        }
                     }
                     else
                     {
-                        cache.Add(eunmer.Current.Key);
+                        break;
                     }
                 }
-            }
 
-            count = cache.Count;
-
-            if (count > 0)
-            {
-                for (int i = count - 1; i > -1; i--)
+                if (modify)
                 {
-                    if (handlers.ContainsKey(cache[i]))
-                    {
-                        handlers.Remove(cache[i]);
-                    }
-                    cache.RemoveAt(i);
+                    Sort();
+                }
+                else
+                {
+                    count = handlers.Count;
+
+                    recent = count > 0 ? handlers[count - 1].time : 0;
                 }
             }
-            #endregion
-
-            #region Duration
             Duration += (long)Time.deltaTime;
-            #endregion
         }
 
-        private void OnApplicationQuit()
+        private void Sort()
         {
-            GlobalVariables.Set(Const.TOTAL_TIME, Duration);
+            void Swap<T>(IList<T> list, int x, int y)
+            {
+                T temp = list[x];
+
+                list[x] = list[y];
+
+                list[y] = temp;
+            }
+            count = handlers.Count;
+
+            int gap = count / 2;
+
+            while (gap >= 1)
+            {
+                for (int i = gap; i < count; i++)
+                {
+                    for (int j = i; j >= gap &&
+                        TimeHandler.Compare(handlers[j], handlers[j - gap]) < 0;
+                        j -= gap)
+                    {
+                        Swap(handlers, j, j - gap);
+                    }
+                }
+                gap /= 2;
+            }
+            recent = count > 0 ? handlers[count - 1].time : 0;
         }
 
         private void OnDestroy()
@@ -79,24 +108,51 @@ namespace Game
             OnApplicationQuit();
         }
 
-        public void Register(string key, TimeHandler value)
+        private void OnApplicationQuit()
         {
-            if (handlers.ContainsKey(key))
+            handlers.Clear();
+
+            GlobalVariables.Set(Const.TOTAL_TIME, Duration);
+        }
+
+        public void Register(string key, long time, Action value)
+        {
+            Register(key, time, 0, value);
+        }
+
+        public void Register(string key, long time, long interval, Action value)
+        {
+            int index = handlers.FindIndex(handler => handler.key == key);
+
+            if (index > -1)
             {
-                handlers[key].Register(value.action);
+                Debuger.LogWarning(Author.Script, "Exist the same key, " + key);
+
+                handlers[index].Register(value);
             }
             else
             {
-                handlers.Add(key, value);
+                handlers.Add(new TimeHandler()
+                {
+                    key = key,
+                    time = time,
+                    interval = interval,
+                    loop = interval > 0,
+                    action = value,
+                });
             }
+            Sort();
         }
 
         public void Unregister(string key)
         {
-            if (handlers.ContainsKey(key))
+            int index = handlers.FindIndex(handler => handler.key == key);
+
+            if (index > -1)
             {
-                cache.Add(key);
+                handlers.RemoveAt(index);
             }
+            Sort();
         }
 
         public void TimBegin(string key)
@@ -131,11 +187,13 @@ namespace Game
 
     public class TimeHandler
     {
-        public float interval;
+        public string key;
 
-        public float timer;
+        public long time;
 
         public bool loop;
+
+        public long interval;
 
         public Action action;
 
@@ -156,6 +214,15 @@ namespace Game
         public void Invoke()
         {
             action?.Invoke();
+        }
+
+        public static int Compare(TimeHandler x, TimeHandler y)
+        {
+            if (x.time != y.time)
+            {
+                return x.time > y.time ? -1 : 1;
+            }
+            return 0;
         }
     }
 }
