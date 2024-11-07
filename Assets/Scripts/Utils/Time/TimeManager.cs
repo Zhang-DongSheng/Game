@@ -117,11 +117,20 @@ namespace Game
 
         public void Register(long time, Action value)
         {
-            handlers.Add(new TimeHandler()
+            int index = handlers.FindIndex(x => x.time == time);
+
+            if (index > -1)
             {
-                time = time,
-                action = value,
-            });
+                handlers[index].Register(value);
+            }
+            else
+            {
+                handlers.Add(new TimeHandler()
+                {
+                    time = time,
+                    action = value,
+                });
+            }
             Sort();
         }
 
@@ -136,7 +145,9 @@ namespace Game
 
             if (index > -1)
             {
-                Debuger.LogWarning(Author.Script, "Exist the same key, " + key);
+                Debuger.LogWarning(Author.Script, $"Exist the same key: {key}, reset time to {time}");
+
+                handlers[index].time = time;
 
                 handlers[index].Register(value);
             }
