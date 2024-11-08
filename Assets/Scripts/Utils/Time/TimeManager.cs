@@ -13,7 +13,11 @@ namespace Game
 
         private readonly List<TimeHandler> handlers = new List<TimeHandler>();
 
+        private readonly List<TimeHandler> caches = new List<TimeHandler>();
+
         [Readonly] public long recent, time;
+
+        [Readonly] public long intercept;
 
         [Readonly] public int count;
 
@@ -21,6 +25,8 @@ namespace Game
 
         private void Awake()
         {
+            time = (long)Time.time;
+
             Duration = GlobalVariables.Get<long>(Const.TOTAL_TIME) + (long)Time.time;
         }
 
@@ -28,6 +34,10 @@ namespace Game
         {
             time = (long)Time.time;
 
+            if (time >= intercept)
+            {
+                Calculate();
+            }
             if (count == 0) return;
 
             if (time >= recent)
@@ -103,6 +113,28 @@ namespace Game
             recent = count > 0 ? handlers[count - 1].time : 0;
         }
 
+        private void Calculate()
+        {
+            intercept = time + 60 * 60 * 1;
+
+            int count = caches.Count;
+
+            if (count == 0) return;
+
+            for (int i = count - 1; i > -1; i--)
+            {
+                var handle = caches[i];
+
+                if (handle.time < intercept)
+                {
+                    handlers.Add(handle);
+
+                    caches.RemoveAt(i);
+                }
+            }
+            Sort();
+        }
+
         private void OnDestroy()
         {
             OnApplicationQuit();
@@ -112,26 +144,48 @@ namespace Game
         {
             handlers.Clear();
 
+            caches.Clear();
+
             GlobalVariables.Set(Const.TOTAL_TIME, Duration);
         }
 
         public void Register(long time, Action value)
         {
-            int index = handlers.FindIndex(x => x.time == time);
-
-            if (index > -1)
+            if (time < intercept)
             {
-                handlers[index].Register(value);
+                int index = handlers.FindIndex(x => x.time == time);
+
+                if (index > -1)
+                {
+                    handlers[index].Register(value);
+                }
+                else
+                {
+                    handlers.Add(new TimeHandler()
+                    {
+                        time = time,
+                        action = value,
+                    });
+                }
+                Sort();
             }
             else
             {
-                handlers.Add(new TimeHandler()
+                int index = caches.FindIndex(x => x.time == time);
+
+                if (index > -1)
                 {
-                    time = time,
-                    action = value,
-                });
+                    caches[index].Register(value);
+                }
+                else
+                {
+                    caches.Add(new TimeHandler()
+                    {
+                        time = time,
+                        action = value,
+                    });
+                }
             }
-            Sort();
         }
 
         public void Register(string key, long time, Action value)
@@ -141,28 +195,55 @@ namespace Game
 
         public void Register(string key, long time, long interval, Action value)
         {
-            int index = handlers.FindIndex(handler => handler.key == key);
-
-            if (index > -1)
+            if (time < intercept)
             {
-                Debuger.LogWarning(Author.Script, $"Exist the same key: {key}, reset time to {time}");
+                int index = handlers.FindIndex(handler => handler.key == key);
 
-                handlers[index].time = time;
+                if (index > -1)
+                {
+                    Debuger.LogWarning(Author.Script, $"Exist the same key: {key}, reset time to {time}");
 
-                handlers[index].Register(value);
+                    handlers[index].time = time;
+
+                    handlers[index].Register(value);
+                }
+                else
+                {
+                    handlers.Add(new TimeHandler()
+                    {
+                        key = key,
+                        time = time,
+                        interval = interval,
+                        loop = interval > 0,
+                        action = value,
+                    });
+                }
+                Sort();
             }
             else
             {
-                handlers.Add(new TimeHandler()
+                int index = caches.FindIndex(handler => handler.key == key);
+
+                if (index > -1)
                 {
-                    key = key,
-                    time = time,
-                    interval = interval,
-                    loop = interval > 0,
-                    action = value,
-                });
+                    Debuger.LogWarning(Author.Script, $"Exist the same key: {key}, reset time to {time}");
+
+                    caches[index].time = time;
+
+                    caches[index].Register(value);
+                }
+                else
+                {
+                    caches.Add(new TimeHandler()
+                    {
+                        key = key,
+                        time = time,
+                        interval = interval,
+                        loop = interval > 0,
+                        action = value,
+                    });
+                }
             }
-            Sort();
         }
 
         public void Unregister(string key)
@@ -173,7 +254,15 @@ namespace Game
             {
                 handlers.RemoveAt(index);
             }
-            Sort();
+            else
+            {
+                index = caches.FindIndex(handler => handler.key == key);
+
+                if (index > -1)
+                {
+                    caches.RemoveAt(index);
+                }
+            }
         }
 
         public void TimBegin(string key)
