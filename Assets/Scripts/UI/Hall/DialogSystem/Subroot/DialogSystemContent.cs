@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class SubDialogSystemTextbox : ItemBase
+    public class DialogSystemContent : ItemBase
     {
         [SerializeField] private SMTranslate _animation;
 
@@ -22,11 +22,6 @@ namespace Game.UI
         private bool active;
 
         private readonly List<char> chars = new List<char>();
-
-        protected override void OnAwake()
-        {
-            
-        }
 
         protected override void OnUpdate(float delta)
         {
@@ -73,16 +68,16 @@ namespace Game.UI
             RefreshContent();
         }
 
-        public void RefreshDisplay(bool active)
-        {
-            _animation.Begin(active);
-        }
-
-        public void OnClickSkip()
+        public void Skip()
         {
             current = length;
 
             RefreshContent();
+        }
+
+        public void ShowOrHide(bool active)
+        {
+            _animation.Begin(active);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game.Attribute;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -48,14 +49,38 @@ namespace Game.Data
     [Serializable]
     public class DialogInformation : InformationBase
     {
+        [Readonly]
+        public DialogType type;
+
         public string role;
-        [TextArea]
-        public string content;
 
         public uint next;
+    }
+    [Serializable]
+    public class DialogContentInformation : DialogInformation
+    {
+        [TextArea]
+        public string content;
+    }
+    [Serializable]
+    public class DialogOptionInformation : DialogInformation
+    {
+        public List<Pair<string, uint>> options;
+    }
+    [Serializable]
+    public class DialogRoleInformation : DialogInformation
+    {
+        public string sprite;
 
-        public uint trigger;
+        public int position;
 
-        public uint[] options;
+        public bool state;
+    }
+
+    public enum DialogType
+    {
+        Content,
+        Option,
+        Player,
     }
 }

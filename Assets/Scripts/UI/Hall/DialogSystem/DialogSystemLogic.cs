@@ -1,48 +1,73 @@
 using Game.Data;
 using Game.UI;
+using System;
+using System.Collections.Generic;
 
 namespace Game
 {
     public class DialogSystemLogic : Singleton<DialogSystemLogic>, ILogic
     {
-        private DataDialog dialog;
-
         private uint current;
 
-        private bool display;
-
         private bool complete;
+
+        private DataDialog _dialog;
+
+        private List<DialogRoleInformation> _roles = new List<DialogRoleInformation>();
+
+        public List<DialogRoleInformation> Roles
+        { 
+            get { return _roles; }
+        }
 
         public void Initialize()
         {
             current = 1;
         }
 
-        public void Refresh()
+        public void Refresh(Action callback)
         {
             DataManager.Instance.LoadAsync<DataDialog>((data) =>
             {
-                dialog = data;
+                _dialog = data;
 
-                current = dialog.start;
+                current = _dialog.start;
 
-                complete = current == dialog.end;
+                complete = current == _dialog.end;
+
+                callback?.Invoke();
             });
+        }
+
+        public void Ready()
+        {
+            
         }
 
         public DialogInformation Next()
         {
             if (current == 0 || complete) return null;
 
-            var info = dialog.Get(current);
+            var info = _dialog.Get(current);
 
             current = info.next;
 
-            complete = current == dialog.end;
+            complete = current == _dialog.end;
 
             return info;
         }
 
-        public bool Display { get; set; }
+        public DialogInformation Option(uint value)
+        {
+            current = value;
+
+            var info = _dialog.Get(current);
+
+            current = info.next;
+
+            complete = current == _dialog.end;
+
+            return info;
+        }
     }
 }

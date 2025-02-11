@@ -1,3 +1,4 @@
+using Game.Data;
 using Game.SM;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,27 +7,26 @@ namespace Game.UI
 {
     public class ItemDialogSystemPlayer : ItemBase
     {
+        public int position;
+
         [SerializeField] private List<SMBase> _animations;
 
         [SerializeField] private ImageBind imgRole;
 
         private string role;
 
-        public void Refresh(string role)
+        public void Refresh(DialogRoleInformation info, string focus)
         {
-            this.role = role;
+            this.role = info.role;
+
+            bool active = this.role == focus;
+
+            imgRole.SetColor(active ? Color.white : Color.gray);
 
             SetActive(true);
         }
 
-        public void RefreshState(string role)
-        {
-            bool active = this.role == role;
-
-            imgRole.SetColor(active ? Color.white : Color.gray);
-        }
-
-        public void OnClickShowOrHide(bool active)
+        public void ShowOrHide(bool active, bool immediately = false)
         {
             int count = _animations.Count;
 

@@ -1,63 +1,124 @@
-using Game.Attribute;
+using Game.Data;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.UI
 {
     public class DialogSystemView : ViewBase
     {
-        [SerializeField] private SubDialogSystemMenu _menu;
-        [Display("╫ги╚")]
-        [SerializeField] private SubDialogSystemPlayer _player;
-        [Display("нд╠╬©Р")]
-        [SerializeField] private SubDialogSystemTextbox _textbox;
+        [SerializeField] private DialogSystemMenu menu;
+
+        [SerializeField] private DialogSystemOption option;
+
+        [SerializeField] private DialogSystemContent content;
+
+        [SerializeField] private List<ItemDialogSystemPlayer> players;
+
+        private bool display;
 
         protected override void OnAwake()
         {
-            _menu.onClickShowOrHide = OnClickShowOrHide;
+            menu.btnHide.onClick.AddListener(OnClickShowOrHide);
 
-            _menu.onClickNext = OnClickNext;
+            menu.btnNext.onClick.AddListener(OnClickNext);
 
-            _menu.onClickSkip = OnClickSkip;
+            menu.btnSkip.onClick.AddListener(OnClickSkip);
+
+            menu.btnBack.onClick.AddListener(OnClickClose);
         }
 
         public override void Refresh(UIParameter paramter)
         {
-            var display = DialogSystemLogic.Instance.Display;
+            display = true;
 
-            _menu.RefreshDisplay(display);
+            menu.RefreshState(display);
 
-            DialogSystemLogic.Instance.Refresh();
+            DialogSystemLogic.Instance.Refresh(Next);
+        }
 
-            _player.Refresh();
+        private void Next()
+        {
+            var roles = DialogSystemLogic.Instance.Roles;
+
+            var dialog = DialogSystemLogic.Instance.Next();
+
+            if (dialog != null)
+            {
+                Refresh(dialog, roles);
+            }
+            else
+            {
+                Complete();
+            }
+        }
+
+        private void Refresh(DialogInformation dialog, List<DialogRoleInformation> roles)
+        {
+            int count = players.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                var role = roles.Find(x => x.position == players[i].position);
+
+                if (role != null)
+                {
+                    players[i].Refresh(role, dialog.role);
+                }
+                else
+                {
+                    players[i].SetActive(false);
+                }
+            }
+
+            switch (dialog.type)
+            {
+                case DialogType.Content:
+                    {
+                        if (dialog is DialogContentInformation dci)
+                        {
+                            content.Refresh(dci.content);
+                        }
+                    }
+                    break;
+                case DialogType.Option:
+                    {
+                        if (dialog is DialogOptionInformation doi)
+                        {
+                            option.Refresh(doi);
+                        }
+                    }
+                    break;
+            }
+        }
+
+        private void Complete()
+        {
+
         }
 
         private void OnClickNext()
         {
-            var dialog = DialogSystemLogic.Instance.Next();
-
-            if (dialog == null) return;
-
-            _player.RefreshState(dialog.role);
-
-            _textbox.Refresh(dialog.content);
+            Next();
         }
 
         private void OnClickSkip()
         {
-            _textbox.OnClickSkip();
+            content.Skip();
         }
 
         private void OnClickShowOrHide()
         {
-            var display = !DialogSystemLogic.Instance.Display;
+            display = !display;
 
-            DialogSystemLogic.Instance.Display = display;
+            menu.RefreshState(display);
 
-            _menu.RefreshDisplay(display);
+            int count = players.Count;
 
-            _player.RefreshDisplay(display);
-
-            _textbox.RefreshDisplay(display);
+            for (int i = 0; i < count; i++)
+            {
+                players[i].ShowOrHide(display);
+            }
+            content.ShowOrHide(display);
         }
     }
 }
