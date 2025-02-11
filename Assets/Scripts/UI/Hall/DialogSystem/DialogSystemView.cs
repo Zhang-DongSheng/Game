@@ -74,18 +74,16 @@ namespace Game.UI
             {
                 case DialogType.Content:
                     {
-                        if (dialog is DialogContentInformation dci)
-                        {
-                            content.Refresh(dci.content);
-                        }
+                        
+                            content.Refresh(dialog);
+                        
                     }
                     break;
                 case DialogType.Option:
                     {
-                        if (dialog is DialogOptionInformation doi)
-                        {
-                            option.Refresh(doi);
-                        }
+                        
+                            option.Refresh(dialog);
+                        
                     }
                     break;
             }

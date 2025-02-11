@@ -17,9 +17,11 @@ namespace Game.UI
 
         public void Refresh(DialogRoleInformation info, string focus)
         {
-            this.role = info.role;
+            this.role = info.name;
 
             bool active = this.role == focus;
+
+            imgRole.SetSprite(info.sprite);
 
             imgRole.SetColor(active ? Color.white : Color.gray);
 

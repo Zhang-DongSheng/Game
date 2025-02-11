@@ -154,9 +154,14 @@ namespace UnityEditor.Window
 
                 if (cell.asset || cell.branch)
                 {
-                    if (GUILayout.Button(ToLanguage("Loading"), GUILayout.Width(200)))
+                    if (GUILayout.Button(ToLanguage("Loading"), GUILayout.Width(100)))
                     {
                         Load(cell.type);
+                    }
+
+                    if (GUILayout.Button(ToLanguage("Preview"), GUILayout.Width(100)))
+                    {
+                        Preview(cell.type);
                     }
                 }
                 else
@@ -512,13 +517,6 @@ namespace UnityEditor.Window
             Save(data);
         }
 
-        private bool Exist(Type type)
-        {
-            string path = string.Format("{0}/Package/Data/{1}.asset", Application.dataPath, type.Name);
-
-            return File.Exists(path);
-        }
-
         private T Load<T>() where T : ScriptableObject
         {
             string path = string.Format("{0}/{1}.asset", DataManager.asset, typeof(T).Name);
@@ -537,6 +535,13 @@ namespace UnityEditor.Window
             return asset;
         }
 
+        private bool Exist(Type type)
+        {
+            string path = string.Format("{0}/Package/Data/{1}.asset", Application.dataPath, type.Name);
+
+            return File.Exists(path);
+        }
+
         private void Save(UnityEngine.Object data)
         {
             EditorUtility.SetDirty(data);
@@ -544,6 +549,15 @@ namespace UnityEditor.Window
             AssetDatabase.SaveAssets();
 
             AssetDatabase.Refresh();
+        }
+
+        private void Preview(Type type)
+        {
+            string path = string.Format("Assets/Package/Data/{0}.asset", type.Name);
+
+            var asset = AssetDatabase.LoadAssetAtPath(path, type);
+
+            Selection.activeObject = asset;
         }
         #endregion
 

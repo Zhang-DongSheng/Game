@@ -13,10 +13,12 @@ namespace Game
 
         private DataDialog _dialog;
 
-        private List<DialogRoleInformation> _roles = new List<DialogRoleInformation>();
+        private readonly List<uint> _history = new List<uint>();
+
+        private readonly List<DialogRoleInformation> _roles = new List<DialogRoleInformation>();
 
         public List<DialogRoleInformation> Roles
-        { 
+        {
             get { return _roles; }
         }
 
@@ -35,13 +37,18 @@ namespace Game
 
                 complete = current == _dialog.end;
 
+                _roles.Clear();
+
+                for (int i = 0; i < _history.Count; i++)
+                {
+                    var info = _dialog.Get(current);
+
+                    if (info == null) continue;
+
+                    Execute(info);
+                }
                 callback?.Invoke();
             });
-        }
-
-        public void Ready()
-        {
-            
         }
 
         public DialogInformation Next()
@@ -50,24 +57,81 @@ namespace Game
 
             var info = _dialog.Get(current);
 
+            _history.Add(current);
+
+            Execute(info);
+
             current = info.next;
 
             complete = current == _dialog.end;
 
-            return info;
+            if (info.type == DialogType.Content ||
+                info.type == DialogType.Option)
+            {
+                return info;
+            }
+            else
+            {
+                return Next();
+            }
         }
 
-        public DialogInformation Option(uint value)
+        public DialogInformation Option(uint option)
         {
-            current = value;
+            current = option;
 
             var info = _dialog.Get(current);
 
+            _history.Add(current);
+
+            Execute(info);
+
             current = info.next;
 
             complete = current == _dialog.end;
 
-            return info;
+            if (info.type == DialogType.Content ||
+                info.type == DialogType.Option)
+            {
+                return info;
+            }
+            else
+            {
+                return Next();
+            }
+        }
+
+        private void Execute(DialogInformation dialog)
+        {
+            switch (dialog.type)
+            {
+                case DialogType.Player:
+                    {
+                        var index = _roles.FindIndex(x => x.name == dialog.role);
+
+                        if (dialog.parameter == "true")
+                        {
+                            if (index > -1)
+                            {
+                                _roles[index] = new DialogRoleInformation(dialog);
+                            }
+                            else
+                            {
+                                _roles.Add(new DialogRoleInformation(dialog));
+                            }
+                        }
+                        else if (index > -1)
+                        {
+                            _roles.RemoveAt(index);
+                        }
+                    }
+                    break;
+                case DialogType.Background:
+                    {
+
+                    }
+                    break;
+            }
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿using Game.Attribute;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Game.Data
 {
@@ -30,11 +28,13 @@ namespace Game.Data
 
             for (int i = 0; i < count; i++)
             {
-                var role = m_list[i].GetType<DialogInformation>();
+                var dialog = m_list[i].GetType<DialogInformation>();
 
-                role.primary = m_list[i].GetUInt("ID");
+                dialog.primary = m_list[i].GetUInt("ID");
 
-                list.Add(role);
+                dialog.type = (DialogType)m_list[i].GetUInt("type");
+
+                list.Add(dialog);
             }
             start = list[0].primary;
 
@@ -49,38 +49,36 @@ namespace Game.Data
     [Serializable]
     public class DialogInformation : InformationBase
     {
-        [Readonly]
         public DialogType type;
 
         public string role;
 
+        public string content;
+
+        public string parameter;
+
         public uint next;
     }
-    [Serializable]
-    public class DialogContentInformation : DialogInformation
-    {
-        [TextArea]
-        public string content;
-    }
-    [Serializable]
-    public class DialogOptionInformation : DialogInformation
-    {
-        public List<Pair<string, uint>> options;
-    }
-    [Serializable]
-    public class DialogRoleInformation : DialogInformation
-    {
-        public string sprite;
-
-        public int position;
-
-        public bool state;
-    }
-
+    /// <summary>
+    /// 对话类型
+    /// </summary>
     public enum DialogType
     {
-        Content,
-        Option,
-        Player,
+        /// <summary>
+        /// 对话
+        /// </summary>
+        Content = 1,
+        /// <summary>
+        /// 选项
+        /// </summary>
+        Option = 2,
+        /// <summary>
+        /// 玩家
+        /// </summary>
+        Player = 3,
+        /// <summary>
+        /// 背景
+        /// </summary>
+        Background = 4,
     }
 }

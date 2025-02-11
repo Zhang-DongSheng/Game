@@ -8,7 +8,7 @@ namespace Game.UI
     {
         [SerializeField] private List<ItemDialogSystemOption> options;
 
-        public void Refresh(DialogOptionInformation info)
+        public void Refresh(DialogInformation info)
         {
 
         }

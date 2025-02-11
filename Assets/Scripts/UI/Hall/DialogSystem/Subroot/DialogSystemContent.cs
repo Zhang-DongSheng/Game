@@ -1,3 +1,4 @@
+using Game.Data;
 using Game.SM;
 using System.Collections.Generic;
 using TMPro;
@@ -53,9 +54,9 @@ namespace Game.UI
             _txtContent.text = text;
         }
 
-        public void Refresh(string content)
+        public void Refresh(DialogInformation dialog)
         {
-            this.content = content;
+            this.content = dialog.content;
 
             length = content.Length;
 

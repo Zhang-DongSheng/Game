@@ -3,187 +3,203 @@
 "list":[
 	{
 	"ID":1,
+	"type":3,
 	"role":"吕秀才",
-	"content":"慢着，杀我可以，但先得说明白，我是死在谁手上。",
-	"next":2,
-	"trigger":0,
-	"options":[]
+	"content":"翘二郎腿的女人,1",
+	"parameter":"true",
+	"next":2
 	},
 	{
 	"ID":2,
+	"type":3,
 	"role":"姬无命",
-	"content":"废话，我呀！",
-	"next":3,
-	"trigger":0,
-	"options":[]
+	"content":"侧身微笑,2",
+	"parameter":"true",
+	"next":3
 	},
 	{
 	"ID":3,
+	"type":1,
 	"role":"吕秀才",
-	"content":"“我”，是谁",
-	"next":4,
-	"trigger":0,
-	"options":[]
+	"content":"慢着，杀我可以，但先得说明白，我是死在谁手上。",
+	"parameter":"",
+	"next":4
 	},
 	{
 	"ID":4,
+	"type":1,
 	"role":"姬无命",
-	"content":"我哪知道你是谁啊。你什么意思啊？",
-	"next":5,
-	"trigger":0,
-	"options":[]
+	"content":"废话，我呀！",
+	"parameter":"",
+	"next":5
 	},
 	{
 	"ID":5,
+	"type":1,
 	"role":"吕秀才",
-	"content":"这就得从人和宇宙的关系讲起。就拿你来说吧，长久以来，一直有一个问题困扰着你。",
-	"next":6,
-	"trigger":0,
-	"options":[]
+	"content":"“我”，是谁",
+	"parameter":"",
+	"next":6
 	},
 	{
 	"ID":6,
+	"type":1,
 	"role":"姬无命",
-	"content":"什么问题？",
-	"next":7,
-	"trigger":0,
-	"options":[]
+	"content":"我哪知道你是谁啊。你什么意思啊？",
+	"parameter":"",
+	"next":7
 	},
 	{
 	"ID":7,
+	"type":1,
 	"role":"吕秀才",
-	"content":"“我”是谁",
-	"next":8,
-	"trigger":0,
-	"options":[]
+	"content":"这就得从人和宇宙的关系讲起。就拿你来说吧，长久以来，一直有一个问题困扰着你。",
+	"parameter":"",
+	"next":8
 	},
 	{
 	"ID":8,
+	"type":1,
 	"role":"姬无命",
-	"content":"这我已经知道了呀。",
-	"next":9,
-	"trigger":0,
-	"options":[]
+	"content":"什么问题？",
+	"parameter":"",
+	"next":9
 	},
 	{
 	"ID":9,
+	"type":1,
 	"role":"吕秀才",
-	"content":"不，你不知道。你是谁？姬无命吗？这只是一个名字，一个代号。你可以叫姬无命，我也可以叫，他们都可以。但，把这个代号拿掉之后呢？你，是谁？",
-	"next":10,
-	"trigger":0,
-	"options":[]
+	"content":"“我”是谁",
+	"parameter":"",
+	"next":10
 	},
 	{
 	"ID":10,
+	"type":1,
 	"role":"姬无命",
-	"content":"我，我不知道。 我也不用知道",
-	"next":11,
-	"trigger":0,
-	"options":[]
+	"content":"这我已经知道了呀。",
+	"parameter":"",
+	"next":11
 	},
 	{
 	"ID":11,
+	"type":1,
 	"role":"吕秀才",
-	"content":"那好，你再回答我一个问题，我是谁？",
-	"next":12,
-	"trigger":0,
-	"options":[]
+	"content":"不，你不知道。你是谁？姬无命吗？这只是一个名字，一个代号。你可以叫姬无命，我也可以叫，他们都可以。但，把这个代号拿掉之后呢？你，是谁？",
+	"parameter":"",
+	"next":12
 	},
 	{
 	"ID":12,
+	"type":1,
 	"role":"姬无命",
-	"content":"这个问题已经问过了。",
-	"next":13,
-	"trigger":0,
-	"options":[]
+	"content":"我，我不知道。 我也不用知道",
+	"parameter":"",
+	"next":13
 	},
 	{
 	"ID":13,
+	"type":1,
 	"role":"吕秀才",
-	"content":"不，刚才问的是本我，现在问的是自我。",
-	"next":14,
-	"trigger":0,
-	"options":[]
+	"content":"那好，你再回答我一个问题，我是谁？",
+	"parameter":"",
+	"next":14
 	},
 	{
 	"ID":14,
+	"type":1,
 	"role":"姬无命",
-	"content":"有什么区别吗？",
-	"next":15,
-	"trigger":0,
-	"options":[]
+	"content":"这个问题已经问过了。",
+	"parameter":"",
+	"next":15
 	},
 	{
 	"ID":15,
+	"type":1,
 	"role":"吕秀才",
-	"content":"当我用“我”这个代号进行对话时，你的代号也是“我”，这是不是意味着你是我，而我也是你呢？",
-	"next":16,
-	"trigger":0,
-	"options":[]
+	"content":"不，刚才问的是本我，现在问的是自我。",
+	"parameter":"",
+	"next":16
 	},
 	{
 	"ID":16,
+	"type":1,
 	"role":"姬无命",
-	"content":"这，这，这个问题没有意义",
-	"next":17,
-	"trigger":0,
-	"options":[]
+	"content":"有什么区别吗？",
+	"parameter":"",
+	"next":17
 	},
 	{
 	"ID":17,
+	"type":1,
 	"role":"吕秀才",
-	"content":"好，那就问几个有意义的。我生从何来？死往何处？我为何要存在这个世界上？对这个世界来说，我的出现，意味着什么？是我选择了世界，还是世界选择了我？",
-	"next":18,
-	"trigger":0,
-	"options":[]
+	"content":"当我用“我”这个代号进行对话时，你的代号也是“我”，这是不是意味着你是我，而我也是你呢？",
+	"parameter":"",
+	"next":18
 	},
 	{
 	"ID":18,
+	"type":1,
 	"role":"姬无命",
-	"content":"够了！",
-	"next":19,
-	"trigger":0,
-	"options":[]
+	"content":"这，这，这个问题没有意义",
+	"parameter":"",
+	"next":19
 	},
 	{
 	"ID":19,
+	"type":1,
 	"role":"吕秀才",
-	"content":"我和宇宙之间有必然的联系吗，宇宙有没有尽头，时间有没有长短？过去的时间从哪里消失，未来的时间在哪里停止?我在这一刻提的问题，还是你刚才听到的问题吗？",
-	"next":20,
-	"trigger":0,
-	"options":[]
+	"content":"好，那就问几个有意义的。我生从何来？死往何处？我为何要存在这个世界上？对这个世界来说，我的出现，意味着什么？是我选择了世界，还是世界选择了我？",
+	"parameter":"",
+	"next":20
 	},
 	{
 	"ID":20,
+	"type":1,
 	"role":"姬无命",
-	"content":"我杀了你！",
-	"next":21,
-	"trigger":0,
-	"options":[]
+	"content":"够了！",
+	"parameter":"",
+	"next":21
 	},
 	{
 	"ID":21,
+	"type":1,
 	"role":"吕秀才",
-	"content":"是谁杀了我，而我又杀了谁！！",
-	"next":22,
-	"trigger":0,
-	"options":[]
+	"content":"我和宇宙之间有必然的联系吗，宇宙有没有尽头，时间有没有长短？过去的时间从哪里消失，未来的时间在哪里停止?我在这一刻提的问题，还是你刚才听到的问题吗？",
+	"parameter":"",
+	"next":22
 	},
 	{
 	"ID":22,
+	"type":1,
 	"role":"姬无命",
-	"content":"是我，杀了我。",
-	"next":23,
-	"trigger":0,
-	"options":[]
+	"content":"我杀了你！",
+	"parameter":"",
+	"next":23
 	},
 	{
 	"ID":23,
+	"type":1,
+	"role":"吕秀才",
+	"content":"是谁杀了我，而我又杀了谁！！",
+	"parameter":"",
+	"next":24
+	},
+	{
+	"ID":24,
+	"type":1,
+	"role":"姬无命",
+	"content":"是我，杀了我。",
+	"parameter":"",
+	"next":25
+	},
+	{
+	"ID":25,
+	"type":1,
 	"role":"吕秀才",
 	"content":"回答正确，动手吧",
-	"next":0,
-	"trigger":0,
-	"options":[]
+	"parameter":"",
+	"next":0
 	}
 ]
 }
