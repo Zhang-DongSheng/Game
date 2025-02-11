@@ -5,9 +5,12 @@ using UnityEngine.UI;
 
 namespace Game.Test
 {
+    [ExecuteInEditMode]
     public class Test : ItemBase
     {
         [SerializeField] private GameObject target;
+
+        [SerializeField] private GameObject[] other;
 
         [SerializeField] private IntInterval intInterval;
 
@@ -15,26 +18,27 @@ namespace Game.Test
         [Line("#00FFFF", 2)]
         [Interval(1,10)]
         public Vector2Int vector1;
-        [Interval(1, 10)]
-        public Vector2 vector2;
-        [Interval(1, 10)]
-        public float vector3;
+        [Display("半径", true)]
+        public float radius;
+        [Interval(0, 360)]
+        public float angle;
         [Display("杀马特",true)]
         public int vector4;
         [Suffix("(m/s)")]
         public int vector5;
-
-        public int vector6;
         [Button("OnClickButton")]
         public float index;
-
-        
 
         private Vector2 delta;
 
         private void Start()
         {
             var _ = StartAsync();
+        }
+
+        private void OnValidate()
+        {
+
         }
 
         protected override void OnUpdate(float delta)
@@ -74,18 +78,7 @@ namespace Game.Test
         /// </summary>
         public void OnClick(int code)
         {
-            for (int i = 0; i < 10; i++)
-            {
-                int index = i;
-
-                int value = Random.Range(1, 30);
-
-                TimeManager.Instance.Register("T" + index, (long)(Time.time + value), () =>
-                {
-                    Debug.LogError("当前是" + value + "/" + index);
-                });
-            }
-            Debug.LogError("开始");
+            
         }
         /// <summary>
         /// 菜单栏测试
@@ -98,7 +91,7 @@ namespace Game.Test
 
         public void OnClickButton(float index)
         {
-            
+
         }
 
         private async Task StartAsync()
