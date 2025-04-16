@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor.Window;
 using UnityEngine;
 
@@ -15,15 +13,15 @@ namespace UnityEditor
                 if (_instance == null)
                 {
                     _instance = new T();
-                    //{
-                    //    display = UnityEngine.PlayerPrefs.GetInt("Beautify_" + typeof(T).ToString());
-                    //}
                 }
                 return _instance;
             }
         }
         public bool display;
     }
+    /// <summary>
+    /// √¿ªØ
+    /// </summary>
     public class BeautifyWindow : CustomWindow
     {
         [MenuItem("Window/Beautify")]
@@ -41,17 +39,11 @@ namespace UnityEditor
         {
             bool active = BeautifyHierarchy.Instance.display;
 
-            if (GUILayout.Button(string.Format("Hierarchy : {0}", active ? "On" : "Off")))
-            {
-                BeautifyHierarchy.Instance.display = !active;
-            }
+            BeautifyHierarchy.Instance.display = GUILayout.Toggle(active, "Hierarchy", "Button");
 
             active = BeautifyProject.Instance.display;
 
-            if (GUILayout.Button(string.Format("Project : {0}", active ? "On" : "Off")))
-            {
-                BeautifyProject.Instance.display = !active;
-            }
+            BeautifyProject.Instance.display = GUILayout.Toggle(active, "Project", "Button");
         }
     }
 }
