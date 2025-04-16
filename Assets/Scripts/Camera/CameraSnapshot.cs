@@ -29,9 +29,25 @@ namespace Game
 
         private void Awake()
         {
-            if (camera == null)
-                camera = GetComponentInChildren<Camera>();
-            camera.cullingMask = layer;
+            transform.position = new Vector3(10000, 10000, 10000);
+
+            node = new GameObject("Node").transform;
+
+            node.SetParent(transform, false);
+
+            node.localPosition = Vector3.zero;
+
+            camera = new GameObject("Camer").AddComponent<Camera>();
+
+            camera.transform.SetParent(transform, false);
+
+            camera.transform.localPosition = new Vector3(0, 5, -10);
+
+            camera.transform.localRotation = Quaternion.Euler(24, 0, 0);
+
+            camera.clearFlags = CameraClearFlags.SolidColor;
+
+            camera.cullingMask = LayerMask.GetMask("Default");
 
             texture = new RenderTexture(width, height, 1, RenderTextureFormat.ARGB32);
 
