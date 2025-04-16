@@ -10,6 +10,30 @@ namespace Game
         public static class Set
         {
             /// <summary>
+            /// 等于
+            /// </summary>
+            public static bool Equal<T>(List<T> list, List<T> other)
+            {
+                if (list == null || other == null) return false;
+
+                if (list.Count != other.Count) return false;
+
+                var result = new List<T>(other);
+
+                var count = list.Count;
+
+                for (int i = 0; i < count; i++)
+                {
+                    var index = result.FindIndex(x => x.Equals(list[i]));
+
+                    if (index > -1)
+                    {
+                        result.RemoveAt(index);
+                    }
+                }
+                return result.Count == 0;
+            }
+            /// <summary>
             /// 交集
             /// </summary>
             public static List<T> Intersection<T>(List<T> list, List<T> other)
@@ -62,7 +86,7 @@ namespace Game
                 {
                     if (other.Exists(x => x.Equals(list[i])))
                     {
-                        
+
                     }
                     else
                     {
@@ -85,28 +109,30 @@ namespace Game
                 return result;
             }
             /// <summary>
-            /// 等于
+            /// 开区间
             /// </summary>
-            public static bool Equal<T>(List<T> list, List<T> other)
+            public static List<int> OpenInterval(int min, int max)
             {
-                if (list == null || other == null) return false;
+                var result = new List<int>();
 
-                if (list.Count != other.Count) return false;
-
-                var result = new List<T>(other);
-
-                var count = list.Count;
-
-                for (int i = 0; i < count; i++)
+                for (int i = min + 1; i < max; i++)
                 {
-                    var index = result.FindIndex(x => x.Equals(list[i]));
-
-                    if (index > -1)
-                    {
-                        result.RemoveAt(index);
-                    }
+                    result.Add(i);
                 }
-                return result.Count == 0;
+                return result;
+            }
+            /// <summary>
+            /// 闭区间
+            /// </summary>
+            public static List<int> ClosedInterval(int min, int max)
+            {
+                var result = new List<int>();
+
+                for (int i = min; i < max + 1; i++)
+                {
+                    result.Add(i);
+                }
+                return result;
             }
         }
     }
