@@ -29,6 +29,27 @@ namespace Game
 
         private void Awake()
         {
+            if (transform.childCount == 0)
+            {
+                Create();
+            }
+            else
+            {
+                if (camera == null)
+                    camera = GetComponentInChildren<Camera>();
+                camera.cullingMask = layer;
+            }
+            texture = new RenderTexture(width, height, 1, RenderTextureFormat.ARGB32);
+
+            camera.targetTexture = texture;
+
+            camera.enabled = false;
+
+            DontDestroyOnLoad(this.gameObject);
+        }
+
+        private void Create()
+        {
             transform.position = new Vector3(10000, 10000, 10000);
 
             node = new GameObject("Node").transform;
@@ -48,14 +69,6 @@ namespace Game
             camera.clearFlags = CameraClearFlags.SolidColor;
 
             camera.cullingMask = LayerMask.GetMask("Default");
-
-            texture = new RenderTexture(width, height, 1, RenderTextureFormat.ARGB32);
-
-            camera.targetTexture = texture;
-
-            camera.enabled = false;
-
-            DontDestroyOnLoad(this.gameObject);
         }
 
         private void Next()
