@@ -1,0 +1,17 @@
+
+First of all, thanks for purchasing this asset.
+
+The package contains two versions of the model:
+
+1. Animated model, with a generic skeleton and 12 animations
+2. A model with a humanoid skeleton ready for mecanim system.
+
+Both are in the prefab folder. There is the scythe model too.
+
+There is a test scene and the sounds and scripts necessary for it to work. You can notice that the scene is slightly different from the one in the asset store. This has no voice effects or the trail effect of the scythe. Those effects are part of different packages from other artists: The trail effect is from a package called X-weapon trail 1.1.2, and the voice effects come from another one called Action RPG characters, both in the Unity asset store. I mention it in case you find them interesting for your projects.
+
+The scripts are not too good, I do not know programming :(
+
+If something does not work properly or have any questions about the package, please don´t hesitate to contact me at Pelo3d@outlook.es . I will response as soon as I can.
+
+Regards.
