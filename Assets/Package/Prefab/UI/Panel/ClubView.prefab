@@ -55,7 +55,7 @@ MonoBehaviour:
   type: 1
   order: 0
   image: {fileID: 2687203153103401870}
-  key: Package/Prefab/Model/Character/Female.prefab
+  key: Package/Prefab/Model/Character/MODEL ANIMATION.prefab
 --- !u!1 &7477247185944497474
 GameObject:
   m_ObjectHideFlags: 0

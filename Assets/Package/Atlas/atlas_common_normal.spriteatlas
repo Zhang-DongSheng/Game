@@ -68,6 +68,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 231cd6b1927c320419758698a529bf36, type: 3}
   - {fileID: 21300000, guid: c09c98233e3767545acc1ae234af060c, type: 3}
   - {fileID: 21300000, guid: c04a63d54069e8f4bac378fe7ab6026c, type: 3}
+  - {fileID: 21300000, guid: 429bbd6680f93074cbf9394273905f29, type: 3}
   - {fileID: 21300000, guid: f01608766d7146747b7af65d62d69611, type: 3}
   - {fileID: 21300000, guid: d88b03a7da3ddc84b882c452fd42f025, type: 3}
   - {fileID: 21300000, guid: ff3d95e7e84ef024a998874a1a7b4479, type: 3}
@@ -87,6 +88,7 @@ SpriteAtlas:
   - background_square
   - Rounded Outline - Stroke 10px
   - Rounded Outline - Stroke 5px
+  - orange-square-button-by-matheszabi-3WDlbY-clipart
   - background_2
   - GUI Skin - Button Normal
   - Rounded Outline - Stroke 12px
