@@ -27,8 +27,10 @@ namespace UnityEditor.Window
             applications.Clear();
 
             //Windows
-            AddOrReplaceWindowsApplication("mspaint", "画图");
-            AddOrReplaceWindowsApplication("notepad", "记事本");
+            AddOrReplaceWindows32Application("cmd", ToLanguage("CMD"));
+            //AddOrReplaceWindowsApplication("mspaint", ToLanguage("Draw"));
+            AddOrReplaceWindowsApplication("notepad", ToLanguage("Notepad"));
+            AddOrReplaceWindowsApplication("explorer", ToLanguage("Explorer"));
 
             string value = UnityEngine.PlayerPrefs.GetString(KEY);
 
@@ -47,7 +49,7 @@ namespace UnityEditor.Window
         {
             GUILayout.BeginHorizontal();
             {
-                GUILayout.Label("添加新应用：", GUILayout.Width(70));
+                GUILayout.Label(ToLanguage("add new application") + ":", GUILayout.Width(70));
 
                 if (GUILayout.Button(path))
                 {
@@ -119,7 +121,7 @@ namespace UnityEditor.Window
 
                 if (GUILayout.Button("-", GUILayout.Width(50)))
                 {
-                    if (EditorUtility.DisplayDialog("确认删除", string.Format("确认删除{0}应用", app.name), "删除"))
+                    if (EditorUtility.DisplayDialog("确认删除", string.Format("确认删除{0}应用", app.name), ToLanguage("Delete")))
                     {
                         int index = applications.FindIndex(x => x.path == app.path);
 
@@ -138,30 +140,25 @@ namespace UnityEditor.Window
         {
             if (application == null) return;
 
-            RefreshLine("应用名称：", application.name);
+            RefreshLine(ToLanguage("Application"), application.name);
 
-            RefreshLine("路径：", application.path);
+            RefreshLine(ToLanguage("Path"), application.path);
 
-            RefreshLine("状态：", application.active);
+            RefreshLine(ToLanguage("State"), application.active);
         }
 
         private void RefreshLine(string key, object value)
         {
             GUILayout.BeginHorizontal();
             {
-                GUILayout.Label(key, GUILayout.Width(100));
+                GUILayout.Label(key + ":", GUILayout.Width(100));
 
                 GUILayout.Label(value.ToString());
             }
             GUILayout.EndHorizontal();
         }
 
-        private void AddOrReplaceWindowsApplication(string application, string name)
-        {
-            string path = string.Format("C:/Windows/System32/{0}.exe", application);
-
-            AddOrReplaceApplication(path, name);
-        }
+        
 
         private void AddOrReplaceApplication(string path, string name = null)
         {
@@ -183,6 +180,20 @@ namespace UnityEditor.Window
                     active = false,
                 });
             }
+        }
+
+        private void AddOrReplaceWindowsApplication(string application, string name)
+        {
+            string path = string.Format("C:/Windows/{0}.exe", application);
+
+            AddOrReplaceApplication(path, name);
+        }
+
+        private void AddOrReplaceWindows32Application(string application, string name)
+        {
+            string path = string.Format("C:/Windows/System32/{0}.exe", application);
+
+            AddOrReplaceApplication(path, name);
         }
 
         private void Save()

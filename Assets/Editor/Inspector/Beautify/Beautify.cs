@@ -32,18 +32,18 @@ namespace UnityEditor
 
         protected override void Initialise()
         {
-            
+
         }
 
         protected override void Refresh()
         {
             bool active = BeautifyHierarchy.Instance.display;
 
-            BeautifyHierarchy.Instance.display = GUILayout.Toggle(active, "Hierarchy", "Button");
+            BeautifyHierarchy.Instance.display = GUILayout.Toggle(active, ToLanguage("Hierarchy"), "Button");
 
             active = BeautifyProject.Instance.display;
 
-            BeautifyProject.Instance.display = GUILayout.Toggle(active, "Project", "Button");
+            BeautifyProject.Instance.display = GUILayout.Toggle(active, ToLanguage("Project"), "Button");
         }
     }
 }

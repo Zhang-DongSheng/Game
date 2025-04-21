@@ -353,10 +353,10 @@ namespace UnityEditor.Window
             {
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Label("S", GUILayout.Width(20));
-                    GUILayout.Label("名称", GUILayout.Width(120));
-                    GUILayout.Label("路径");
-                    GUILayout.Label("大小", GUILayout.Width(100));
+                    GUILayout.Label(ToLanguage("S"), GUILayout.Width(20));
+                    GUILayout.Label(ToLanguage("Name"), GUILayout.Width(120));
+                    GUILayout.Label(ToLanguage("Path"));
+                    GUILayout.Label(ToLanguage("Size"), GUILayout.Width(100));
                 }
                 GUILayout.EndHorizontal();
 
@@ -507,7 +507,7 @@ namespace UnityEditor.Window
 
         private void Upload()
         {
-            if (EditorUtility.DisplayDialog("Tips", "Upload Assets Success!", "更新Md5", "完成"))
+            if (EditorUtility.DisplayDialog("Tips", "Upload Assets Success!", ToLanguage("Upload MD5"), ToLanguage("Complete")))
             {
                 UploadMd5();
             }
