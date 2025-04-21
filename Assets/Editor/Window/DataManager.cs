@@ -631,7 +631,7 @@ namespace UnityEditor.Window
                         }
                     }
                 }
-                ScriptUtils.ModifyNetworkMessageDefine(files);
+                ScriptUtils.NetworkMessageDefineModify(files);
 
                 string dst = string.Format("{0}/Scripts/Data/Proto", root);
 

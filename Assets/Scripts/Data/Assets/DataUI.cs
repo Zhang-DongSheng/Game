@@ -65,21 +65,40 @@ namespace Game.Data
 
         }
 
-        public UIInformation(UIInformation information)
+        public UIInformation(int panel, string name)
         {
-            name = information.name;
+            this.name = $"{name}View";
 
-            panel = information.panel;
+            this.panel = panel;
 
-            type = information.type;
+            type = UIType.Panel;
 
-            layer = information.layer;
+            layer = UILayer.Window;
 
-            order = information.order;
+            destroy = false;
 
-            path = information.path;
+            order = 0;
 
-            destroy = information.destroy;
+            path = string.Format("{0}/{1}View.prefab", UIConst.Prefab, name);
+        }
+
+        public UIInformation(UIInformation other)
+        {
+            primary = other.primary;
+
+            name = other.name;
+
+            panel = other.panel;
+
+            type = other.type;
+
+            layer = other.layer;
+
+            order = other.order;
+
+            path = other.path;
+
+            destroy = other.destroy;
         }
     }
 }

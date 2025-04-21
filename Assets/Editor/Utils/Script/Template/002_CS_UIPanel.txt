@@ -1,26 +1,24 @@
 using Game.UI;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace ILRuntime.Game.UI
 {
-    public class #SCRIPTNAME#
+    public class #SCRIPTNAME# : ILViewBase
     {
-        public void Init()
+        public override void Init(Transform transform)
         {
 
         }
 
-        public void Refresh(UIParameter paramter)
+        public override void Refresh(UIParameter paramter)
         {
-            
+
         }
 
-        public void Release()
+        public override void Release()
         {
-            
+
         }
     }
 }

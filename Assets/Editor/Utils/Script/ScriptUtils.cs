@@ -59,7 +59,77 @@ namespace UnityEditor
             }
         }
 
-        public static void ModifyEnum(Type script, bool addtive, params string[] parameters)
+        public static int EnumModify(Type script, string parameter, bool addtive = true)
+        {
+            if (!script.IsEnum) return -1;
+
+            StringBuilder builder = new StringBuilder();
+
+            string key; int value = 0;
+
+            Dictionary<string, int> directory = new Dictionary<string, int>();
+
+            if (addtive)
+            {
+                foreach (var e in Enum.GetValues(script))
+                {
+                    key = e.ToString(); value = (int)e;
+
+                    if (directory.ContainsKey(key) || directory.ContainsValue(value))
+                    {
+                        Debuger.LogError(Author.UI, "exist the same key!");
+                    }
+                    else
+                    {
+                        directory.Add(key, value);
+                    }
+                }
+            }
+
+            if (directory.ContainsKey(parameter))
+            {
+                Debuger.LogError(Author.UI, "exist the same key!");
+            }
+            else
+            {
+                directory.Add(parameter, ++value);
+            }
+            builder.AppendLine("// Don't modify, this is automatically generated");
+
+            builder.AppendLine("namespace Game.UI");
+
+            builder.AppendLine("{");
+
+            builder.Append("\tpublic enum ");
+
+            builder.AppendLine(script.Name);
+
+            builder.AppendLine("\t{");
+
+            foreach (var item in directory)
+            {
+                builder.Append("\t\t");
+                builder.Append(item.Key);
+                builder.Append(" = ");
+                builder.Append(item.Value);
+                builder.AppendLine(",");
+            }
+            builder.AppendLine("\t}");
+
+            builder.AppendLine("}");
+
+            var path = Utility.Class.GetPath(script);
+
+            if (string.IsNullOrEmpty(path)) return -1;
+
+            File.WriteAllText(path, builder.ToString());
+
+            AssetDatabase.Refresh();
+
+            return value;
+        }
+
+        public static void EnumModifies(Type script, string[] parameters, bool addtive = true)
         {
             if (!script.IsEnum) return;
 
@@ -133,7 +203,7 @@ namespace UnityEditor
             AssetDatabase.Refresh();
         }
 
-        public static void ModifyNetworkMessageDefine(Dictionary<string, int> parameters)
+        public static void NetworkMessageDefineModify(Dictionary<string, int> parameters)
         {
             if (parameters == null || parameters.Count == 0) return;
 

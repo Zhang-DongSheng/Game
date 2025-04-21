@@ -1,6 +1,7 @@
 using Game.Data;
 using Game.UI;
 using System;
+using System.IO;
 using System.Reflection;
 using UnityEngine;
 using Utility = Game.Utility;
@@ -14,6 +15,8 @@ namespace UnityEditor.Window
         private readonly string[] menu = new string[] { "Create", "Modify" };
 
         private string content;
+
+        private bool ilruntime;
 
         private bool relevance;
 
@@ -55,22 +58,32 @@ namespace UnityEditor.Window
 
             content = GUILayout.TextField(content);
 
-            if (GUILayout.Button(ToLanguage("Create View")))
+            ilruntime = GUILayout.Toggle(ilruntime, "ILRuntime", GUILayout.Width(WIDTH));
+
+            if (GUILayout.Button(ToLanguage("Create")))
             {
-                CreateView();
-            }
-            if (GUILayout.Button(ToLanguage("Create ILRuntimeView")))
-            {
-                CreateILRuntimeView();
+                if (ilruntime)
+                {
+                    CreateILRuntimeView(content);
+                }
+                else
+                {
+                    CreateView(content);
+                }
             }
         }
 
-        private void CreateView()
+        private void CreateView(string content)
         {
             if (string.IsNullOrEmpty(content)) return;
 
             string path = string.Format("Assets/Scripts/UI/Hall/{0}/{0}View.cs", content);
 
+            if (File.Exists(path))
+            {
+                UnityEngine.Debuger.LogError(Author.Resource, "文件已存在！");
+                return;
+            }
             Utility.Document.CreateDirectoryByFile(path);
 
             ScriptUtils.CreateFromTemplate(path);
@@ -85,19 +98,26 @@ namespace UnityEditor.Window
 
             AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
 
-            ScriptUtils.ModifyEnum(typeof(UIPanel), true, content);
+            var index = ScriptUtils.EnumModify(typeof(UIPanel), content);
+
+            AddNewUIInformation(content, index, false);
 
             AssetDatabase.Refresh();
 
             ShowNotification("模板创建完成");
         }
 
-        private void CreateILRuntimeView()
+        private void CreateILRuntimeView(string content)
         {
             if (string.IsNullOrEmpty(content)) return;
 
-            string path = string.Format("Assets/ILRuntime/Hotfix~/Script/UI/Hall/{0}/{0}View.cs", content);
+            string path = string.Format("Assets/ILRuntime/Hotfix~/Script/UI/Hall/{0}/IL{0}View.cs", content);
 
+            if (File.Exists(path))
+            {
+                UnityEngine.Debuger.LogError(Author.Resource, "文件已存在！");
+                return;
+            }
             Utility.Document.CreateDirectoryByFile(path);
 
             ScriptUtils.CreateFromTemplate(path, "002");
@@ -112,7 +132,9 @@ namespace UnityEditor.Window
 
             AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
 
-            ScriptUtils.ModifyEnum(typeof(UIPanel), true, content);
+            var index = ScriptUtils.EnumModify(typeof(UIPanel), content);
+
+            AddNewUIInformation(content, index, true);
 
             AssetDatabase.Refresh();
 
@@ -143,22 +165,7 @@ namespace UnityEditor.Window
                 }
                 else
                 {
-                    information = new UIInformation()
-                    {
-                        panel = (int)panel,
-
-                        type = UIType.Panel,
-
-                        layer = UILayer.Window,
-
-                        name = string.Format("{0}View", panel),
-
-                        destroy = false,
-
-                        order = 0,
-
-                        path = string.Format("{0}/{1}View.prefab", UIConst.Prefab, panel)
-                    };
+                    information = new UIInformation((int)panel, panel.ToString());
                 }
                 relevance = false;
             }
@@ -282,6 +289,25 @@ namespace UnityEditor.Window
             GUILayout.EndVertical();
         }
 
+        private void AddNewUIInformation(string content, int panel, bool ilruntime)
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<DataUI>("Assets/Package/Data/DataUI.asset");
+
+            int index = asset.list.FindIndex(x => x.panel == panel);
+
+            if (index > -1)
+            {
+                Debug.LogWarning("面板已存在！" + panel);
+            }
+            else
+            {
+                asset.list.Add(new UIInformation(panel, content));
+            }
+            AssetDatabase.SaveAssets();
+
+            AssetDatabase.Refresh();
+        }
+
         private void AddOrReplaceUIInformation()
         {
             var asset = AssetDatabase.LoadAssetAtPath<DataUI>("Assets/Package/Data/DataUI.asset");
@@ -294,7 +320,7 @@ namespace UnityEditor.Window
             }
             else
             {
-                asset.list.Add(information);
+                asset.list.Add(new UIInformation(information));
             }
             AssetDatabase.SaveAssets();
 

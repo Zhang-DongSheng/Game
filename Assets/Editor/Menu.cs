@@ -1,5 +1,6 @@
 ﻿using Game;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,8 +28,9 @@ namespace UnityEditor
         [MenuItem("Tools/Screenshot &X")]
         private static void Screenshot()
         {
-            string pic_name = Application.dataPath + string.Format("/Pic_{0}.png", ++pictureIndex);
-            ScreenCapture.CaptureScreenshot(pic_name);
+            string path = Application.dataPath + "/Screenshot.png";
+            path = Utility.Path.NewFile(path);
+            ScreenCapture.CaptureScreenshot(path);
             AssetDatabase.Refresh();
         }
         [MenuItem("Tools/Folder/Project")]
