@@ -3,7 +3,8 @@ namespace UnityEngine
     /// <summary>
     /// 预制体实例组件
     /// </summary>
-    [ExecuteInEditMode, DisallowMultipleComponent]
+    [ExecuteInEditMode]
+    [DisallowMultipleComponent]
     public class PrefabTemplateBehaviour : MonoBehaviour
     {
         public PrefabTemplate template;

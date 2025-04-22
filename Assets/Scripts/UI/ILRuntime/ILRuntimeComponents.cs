@@ -36,26 +36,32 @@ namespace Game.UI
         {
             var path = $"\"{target.FullName(parent)}\"";
 
-            if (type != ILRuntimeComponentType.Custom)
+            switch (type)
             {
-                return $"{key} = transform.Find({path}).GetComponent<{type}>();";
-            }
-            else
-            {
-                return $"{key} = transform.Find({path}).GetComponent<{custom}>();";
+                case ILRuntimeComponentType.GameObject:
+                    return $"{key} = transform.Find({path}).gameObject;";
+                case ILRuntimeComponentType.Transform:
+                    return $"{key} = transform.Find({path});";
+                case ILRuntimeComponentType.Custom:
+                    return $"{key} = transform.Find({path}).GetComponent<{type}>();";
+
+                default:
+                    return $"{key} = transform.Find({path}).GetComponent<{custom}>();";
             }
         }
     }
 
     public enum ILRuntimeComponentType
     {
-        GameObject,
-
         Transform,
 
-        Text,
+        GameObject,
 
-        Image,
+        TextBind,
+
+        ImageBind,
+
+        PrefabTemplateBehaviour,
 
         Custom,
     }
