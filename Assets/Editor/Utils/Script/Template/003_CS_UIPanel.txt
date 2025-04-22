@@ -6,9 +6,11 @@ namespace ILRuntime.Game.UI
 {
     public class IL#SCRIPTNAME#View : ILViewBase
     {
+        private readonly IL#SCRIPTNAME#Relevance view = new IL#SCRIPTNAME#Relevance();
+        
         public override void Init(Transform transform)
         {
-
+            view.Relevance(transform);
         }
 
         public override void Refresh(UIParameter paramter)

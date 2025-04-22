@@ -16,9 +16,11 @@ namespace UnityEditor.Window
 
         private string content;
 
-        private bool ilruntime;
-
         private bool relevance;
+
+        private bool ilruntime = true;
+
+        private bool ilrelevance = true;
 
         private UIPanel panel;
 
@@ -58,7 +60,16 @@ namespace UnityEditor.Window
 
             content = GUILayout.TextField(content);
 
-            ilruntime = GUILayout.Toggle(ilruntime, "ILRuntime", GUILayout.Width(WIDTH));
+            GUILayout.BeginHorizontal();
+            {
+                ilruntime = GUILayout.Toggle(ilruntime, "ILRuntime", GUILayout.Width(WIDTH));
+
+                if (ilruntime)
+                {
+                    ilrelevance = GUILayout.Toggle(ilrelevance, "Relevance", GUILayout.Width(WIDTH));
+                }
+            }
+            GUILayout.EndHorizontal();
 
             if (GUILayout.Button(ToLanguage("Create")))
             {
@@ -86,7 +97,7 @@ namespace UnityEditor.Window
             }
             Utility.Document.CreateDirectoryByFile(path);
 
-            ScriptUtils.CreateFromTemplate(path);
+            ScriptUtils.CreateFromTemplate(content, path);
 
             AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
 
@@ -98,7 +109,7 @@ namespace UnityEditor.Window
 
             AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
 
-            var index = ScriptUtils.EnumModify(typeof(UIPanel), content);
+            ScriptUtils.ModifyEnum(typeof(UIPanel), content, out int index);
 
             AddNewUIInformation(content, index, false);
 
@@ -120,19 +131,27 @@ namespace UnityEditor.Window
             }
             Utility.Document.CreateDirectoryByFile(path);
 
-            ScriptUtils.CreateFromTemplate(path, "002");
+            ScriptUtils.CreateFromTemplate(content, path, ilrelevance ? "003" : "002");
 
+            if (ilrelevance)
+            {
+                path = string.Format("Assets/ILRuntime/Hotfix~/Script/UI/Hall/{0}/IL{0}Relevance.cs", content);
+
+                ScriptUtils.CreateILRuntimeComponents(path, null);
+            }
             path = string.Format("Assets/{0}/{1}View.prefab", UIConst.Prefab, content);
 
             var prefab = PrefabUtils.CreateUGUI(path);
 
             prefab.AddComponent<ILRuntimeView>();
 
+            prefab.AddComponent<ILRuntimeComponents>();
+
             PrefabUtility.SavePrefabAsset(prefab);
 
             AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
 
-            var index = ScriptUtils.EnumModify(typeof(UIPanel), content);
+            ScriptUtils.ModifyEnum(typeof(UIPanel), content, out int index);
 
             AddNewUIInformation(content, index, true);
 

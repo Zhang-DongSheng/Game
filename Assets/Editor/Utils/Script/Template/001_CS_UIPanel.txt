@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class #SCRIPTNAME# : ViewBase
+    public class #SCRIPTNAME#View : ViewBase
     {
         protected override void OnAwake()
         {

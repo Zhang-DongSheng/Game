@@ -199,5 +199,22 @@ namespace Game
             }
             return path;
         }
+        /// <summary>
+        /// 目标全路径
+        /// </summary>
+        public static string FullName(this Transform transform, Transform parent)
+        {
+            string path = transform.name;
+
+            var node = transform.parent;
+
+            while (node != null && node != parent)
+            {
+                path = string.Format("{0}/{1}", node.name, path);
+
+                node = node.parent;
+            }
+            return path;
+        }
     }
 }

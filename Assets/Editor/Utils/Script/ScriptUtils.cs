@@ -1,67 +1,124 @@
 using Game;
 using Game.Network;
+using Game.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace UnityEditor
 {
     public static class ScriptUtils
     {
-        public static Object CreateFromTemplate(string path, string template = "001")
+        public static void CreateFromTemplate(string name, string path, string template = "001")
         {
-            string name = Path.GetFileNameWithoutExtension(path);
+            string source;
 
-            string full = Path.GetFullPath(path);
-
-            if (File.Exists(full))
+            switch (template)
             {
-                return AssetDatabase.LoadAssetAtPath(path, typeof(UnityEngine.Object));
+                case "001":
+                    source = "Editor/Utils/Script/Template/001_CS_UIPanel.txt";
+                    break;
+                case "002":
+                    source = "Editor/Utils/Script/Template/002_CS_UIPanel.txt";
+                    break;
+                case "003":
+                    source = "Editor/Utils/Script/Template/003_CS_UIPanel.txt";
+                    break;
+                default:
+                    source = "Editor/Utils/Script/Template/001_CS_UIPanel.txt";
+                    break;
             }
-            else
+            source = string.Format("{0}/{1}", Application.dataPath, source);
+
+            string content = File.ReadAllText(source);
+
+            content = content.Replace("#SCRIPTNAME#", name);
+
+            CreateScript(path, content);
+        }
+
+        public static void CreateILRuntimeComponents(string path, ILRuntimeComponents runtime)
+        {
+            var name = Path.GetFileNameWithoutExtension(path);
+
+            int count = 0;
+
+            if (runtime != null && runtime.components != null)
             {
-                string source;
+                count = runtime.components.Count;
+            }
+            StringBuilder builder = new StringBuilder();
 
-                switch (template)
-                {
-                    case "001":
-                        source = "Editor/Utils/Script/Template/001_CS_UIPanel.txt";
-                        break;
-                    case "002":
-                        source = "Editor/Utils/Script/Template/002_CS_UIPanel.txt";
-                        break;
-                    default:
-                        source = "Editor/Utils/Script/Template/001_CS_UIPanel.txt";
-                        break;
-                }
-                try
-                {
-                    source = string.Format("{0}/{1}", Application.dataPath, source);
+            builder.AppendLine("// Don't modify, this is automatically generated");
 
-                    string content = File.ReadAllText(source);
+            builder.AppendLine("using Game.UI;");
 
-                    content = content.Replace("#SCRIPTNAME#", name);
+            builder.AppendLine("using UnityEngine;");
 
-                    File.WriteAllText(full, content, new UTF8Encoding(false));
+            builder.AppendLine("using UnityEngine.UI;");
 
-                    AssetDatabase.ImportAsset(path);
+            builder.AppendLine();
 
-                    return AssetDatabase.LoadAssetAtPath(path, typeof(UnityEngine.Object));
-                }
-                catch (Exception e)
-                {
-                    Debug.LogException(e);
-                }
-                return null;
+            builder.AppendLine("namespace ILRuntime.Game.UI");
+
+            builder.AppendLine("{");
+
+            builder.AppendLine($"\tpublic class {name}");
+
+            builder.AppendLine("\t{");
+
+            for (int i = 0; i < count; i++)
+            {
+                var content = runtime.components[i].ToDefineString();
+
+                builder.AppendLine($"\t\t{content}");
+            }
+            if (count > 0) builder.AppendLine();
+
+            builder.AppendLine("\t\tpublic void Relevance(Transform transform)");
+
+            builder.AppendLine("\t\t{");
+
+            for (int i = 0; i < count; i++)
+            {
+                var content = runtime.components[i].ToRelevanceString(runtime.transform);
+
+                builder.AppendLine($"\t\t\t{content}");
+            }
+            if (count == 0) builder.AppendLine();
+
+            builder.AppendLine("\t\t}");
+
+            builder.AppendLine("\t}");
+
+            builder.AppendLine("}");
+
+            CreateScript(path, builder.ToString());
+        }
+
+        public static void CreateScript(string path, string content)
+        {
+            if (path.StartsWith("Assets/"))
+            {
+                path = Path.GetFullPath(path);
+            }
+            try
+            {
+                File.WriteAllText(path, content, new UTF8Encoding(false));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
             }
         }
 
-        public static int EnumModify(Type script, string parameter, bool addtive = true)
+        public static void ModifyEnum(Type script, string parameter, out int index, bool addtive = true)
         {
-            if (!script.IsEnum) return -1;
+            index = -1;
+
+            if (!script.IsEnum) return;
 
             StringBuilder builder = new StringBuilder();
 
@@ -92,7 +149,9 @@ namespace UnityEditor
             }
             else
             {
-                directory.Add(parameter, ++value);
+                index = value + 1;
+
+                directory.Add(parameter, index);
             }
             builder.AppendLine("// Don't modify, this is automatically generated");
 
@@ -120,16 +179,14 @@ namespace UnityEditor
 
             var path = Utility.Class.GetPath(script);
 
-            if (string.IsNullOrEmpty(path)) return -1;
+            if (string.IsNullOrEmpty(path)) return;
 
             File.WriteAllText(path, builder.ToString());
 
             AssetDatabase.Refresh();
-
-            return value;
         }
 
-        public static void EnumModifies(Type script, string[] parameters, bool addtive = true)
+        public static void ModifyEnums(Type script, string[] parameters, bool addtive = true)
         {
             if (!script.IsEnum) return;
 
@@ -203,7 +260,7 @@ namespace UnityEditor
             AssetDatabase.Refresh();
         }
 
-        public static void NetworkMessageDefineModify(Dictionary<string, int> parameters)
+        public static void ModifyNetworkMessageDefine(Dictionary<string, int> parameters)
         {
             if (parameters == null || parameters.Count == 0) return;
 
