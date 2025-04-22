@@ -48,6 +48,10 @@
     <Reference Include="UnityEngine.InputLegacyModule">
       <HintPath>UnityDlls\UnityEngine.InputLegacyModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>UnityDlls\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UIModule">
       <HintPath>UnityDlls\UnityEngine.UIModule.dll</HintPath>
     </Reference>
