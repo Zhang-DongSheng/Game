@@ -44,7 +44,6 @@ namespace Game.UI
                     return $"{key} = transform.Find({path});";
                 case ILRuntimeComponentType.Custom:
                     return $"{key} = transform.Find({path}).GetComponent<{type}>();";
-
                 default:
                     return $"{key} = transform.Find({path}).GetComponent<{custom}>();";
             }
@@ -60,6 +59,12 @@ namespace Game.UI
         TextBind,
 
         ImageBind,
+
+        ItemStatus,
+
+        ItemSwitch,
+
+        ItemSlider,
 
         PrefabTemplateBehaviour,
 
