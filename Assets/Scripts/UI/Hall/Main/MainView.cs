@@ -44,7 +44,7 @@ namespace Game.UI
 
             ModelDisplayManager.Instance.RefreshModel(new ModelDisplayInformation()
             {
-                path = "Package/Prefab/Model/Character/Female.prefab"
+                path = "Package/Prefab/Model/Character/MODEL_MECANIM.prefab"
             });
             AudioManager.Instance.PlayMusic("HITA - ×íºìç¯");
         }

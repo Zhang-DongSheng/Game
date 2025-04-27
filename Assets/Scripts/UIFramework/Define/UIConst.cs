@@ -10,15 +10,15 @@ namespace Game.UI
 
         public const float MinusOne = -1;
 
-        public const float Zero = 0;
+        public const float Half = 0.5f;
 
-        public const string Prefab = "Package/Prefab/UI/Panel";
+        public const float Zero = 0;
 
         public static readonly float ResolutionRatio = ResolutionWidth / ResolutionHeight;
 
-        public static readonly float ScreenHalfWidth = Screen.width * .5f;
+        public static readonly float ScreenHalfWidth = Screen.width * Half;
 
-        public static readonly float ScreenHalfHeight = Screen.height * .5f;
+        public static readonly float ScreenHalfHeight = Screen.height * Half;
 
         public static readonly float ScreenWidthRatio = ResolutionWidth / Screen.width;
 

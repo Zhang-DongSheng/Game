@@ -1,3 +1,4 @@
+using Game.Const;
 using Game.Data;
 using UnityEngine;
 
@@ -19,9 +20,9 @@ namespace Game.Audio
 
             key = ae.ToString();
 
-            mute = GlobalVariables.Get<bool>(string.Format("{0}_{1}", Const.AUDIO_MUTE, key));
+            mute = GlobalVariables.Get<bool>(string.Format("{0}_{1}", GlobalKey.AUDIO_MUTE, key));
 
-            volume = GlobalVariables.Get<float>(string.Format("{0}_{1}", Const.AUDIO_VOLUME, key));
+            volume = GlobalVariables.Get<float>(string.Format("{0}_{1}", GlobalKey.AUDIO_VOLUME, key));
 
             source.volume = volume;
 
@@ -32,7 +33,7 @@ namespace Game.Audio
         {
             source.mute = mute;
 
-            GlobalVariables.Set(string.Format("{0}_{1}", Const.AUDIO_MUTE, key), mute);
+            GlobalVariables.Set(string.Format("{0}_{1}", GlobalKey.AUDIO_MUTE, key), mute);
         }
 
         public void SetVolume(float volume)
@@ -41,7 +42,7 @@ namespace Game.Audio
 
             source.volume = volume;
 
-            GlobalVariables.Set(string.Format("{0}_{1}", Const.AUDIO_VOLUME, key), volume);
+            GlobalVariables.Set(string.Format("{0}_{1}", GlobalKey.AUDIO_VOLUME, key), volume);
         }
     }
 

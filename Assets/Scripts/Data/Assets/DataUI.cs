@@ -1,3 +1,4 @@
+using Game.Const;
 using Game.UI;
 using System.Collections.Generic;
 using UnityEngine;
@@ -79,7 +80,7 @@ namespace Game.Data
 
             order = 0;
 
-            path = string.Format("{0}/{1}View.prefab", UIConst.Prefab, name);
+            path = string.Format("{0}/{1}View.prefab", AssetPath.Prefab_UI, name);
         }
 
         public UIInformation(UIInformation other)

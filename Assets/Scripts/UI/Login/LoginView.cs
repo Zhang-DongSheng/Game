@@ -1,3 +1,4 @@
+using Game.Const;
 using Game.Data;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -55,13 +56,13 @@ namespace Game.UI
 
         private void Initialize()
         {
-            remember = GlobalVariables.Get<bool>(Const.PASSWORD_REMEMBER);
+            remember = GlobalVariables.Get<bool>(GlobalKey.LOGIN_PASSWORD_REMEMBER);
 
-            automatic = GlobalVariables.Get<bool>(Const.AUTOMATICLOGIN);
+            automatic = GlobalVariables.Get<bool>(GlobalKey.LOGIN_AUTOMATIC);
 
-            account = GlobalVariables.Get<string>(Const.ACCOUNT);
+            account = GlobalVariables.Get<string>(GlobalKey.LOGIN_ACCOUNT);
 
-            password = GlobalVariables.Get<string>(Const.PASSWORD);
+            password = GlobalVariables.Get<string>(GlobalKey.LOGIN_PASSWORD);
 
             input_account.text = account;
 
@@ -78,11 +79,11 @@ namespace Game.UI
 
             if (success)
             {
-                GlobalVariables.Set(Const.ACCOUNT, account);
+                GlobalVariables.Set(GlobalKey.LOGIN_ACCOUNT, account);
 
                 if (remember)
                 {
-                    GlobalVariables.Set(Const.PASSWORD, password);
+                    GlobalVariables.Set(GlobalKey.LOGIN_PASSWORD, password);
                 }
             }
             else
@@ -121,21 +122,21 @@ namespace Game.UI
 
             if (!remember)
             {
-                GlobalVariables.Set(Const.PASSWORD, string.Empty);
+                GlobalVariables.Set(GlobalKey.LOGIN_PASSWORD, string.Empty);
 
                 if (automatic)
                 {
                     tog_automatic.isOn = false;
                 }
             }
-            GlobalVariables.Set(Const.PASSWORD_REMEMBER, remember);
+            GlobalVariables.Set(GlobalKey.LOGIN_PASSWORD_REMEMBER, remember);
         }
 
         private void OnValueChangedAutomatic(bool isOn)
         {
             automatic = isOn;
 
-            GlobalVariables.Set(Const.AUTOMATICLOGIN, automatic);
+            GlobalVariables.Set(GlobalKey.LOGIN_AUTOMATIC, automatic);
         }
 
         private void OnClickLogin()

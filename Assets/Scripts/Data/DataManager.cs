@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Game.Const;
 using Game.Resource;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ namespace Game.Data
             }
             else
             {
-                T asset = ResourceManager.Load<T>(string.Format("Package/Data/{0}.asset", key));
+                T asset = ResourceManager.Load<T>($"{AssetPath.Data}/{key}.asset");
 
                 if (asset != null)
                 {
@@ -39,7 +40,7 @@ namespace Game.Data
             }
             else
             {
-                T asset = ResourceManager.Load<T>(string.Format("Package/Data/{0}.asset", key));
+                T asset = ResourceManager.Load<T>($"{AssetPath.Data}/{key}.asset");
 
                 if (asset != null)
                 {
@@ -61,7 +62,7 @@ namespace Game.Data
             {
                 try
                 {
-                    ResourceManager.LoadAsync(string.Format("Package/Data/{0}.asset", key), (value) =>
+                    ResourceManager.LoadAsync($"{AssetPath.Data}/{key}.asset", (value) =>
                     {
                         if (!m_data.ContainsKey(key))
                         {
@@ -89,7 +90,7 @@ namespace Game.Data
             {
                 try
                 {
-                    ResourceManager.LoadAsync(string.Format("Package/Data/{0}.asset", key), (value) =>
+                    ResourceManager.LoadAsync($"{AssetPath.Data}/{key}.asset", (value) =>
                     {
                         if (!m_data.ContainsKey(key))
                         {

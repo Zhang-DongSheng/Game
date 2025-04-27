@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Game.Resource;
+using Game.Const;
 
 namespace UnityEditor
 {
@@ -35,10 +36,10 @@ namespace UnityEditor
                 BuildPipeline.BuildAssetBundles(path, builds.ToArray(), Options, TARGET);
             }
         }
-        [MenuItem("AssetBundle/Raname")]
+        [MenuItem("AssetBundle/[1]Raname")]
         protected static void Rename()
         {
-            AssetBundleRename.SetAssetBundles(string.Format("{0}/{1}", Application.dataPath, ResourceConfig.Package), (path) =>
+            AssetBundleRename.SetAssetBundles(string.Format("{0}/{1}", Application.dataPath, AssetPath.Package), (path) =>
             {
                 string name = path.Remove(0, Application.dataPath.Length + 1);
 
@@ -57,7 +58,7 @@ namespace UnityEditor
 
             AssetDatabase.Refresh();
         }
-        [MenuItem("AssetBundle/Build")]
+        [MenuItem("AssetBundle/[2]Build")]
         protected static void Build()
         {
             string path = string.Format("{0}/{1}/{2}", Utility.Path.Project, ResourceConfig.AssetBundle, TARGET);
@@ -74,7 +75,7 @@ namespace UnityEditor
 
             Record();
         }
-        [MenuItem("AssetBundle/Record")]
+        [MenuItem("AssetBundle/[3]Record")]
         protected static void Record()
         {
             string path = string.Format("{0}/{1}/{2}", Utility.Path.Project, ResourceConfig.AssetBundle, TARGET);

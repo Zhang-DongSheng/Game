@@ -1,3 +1,4 @@
+using Game.Const;
 using Game.Data;
 using Game.UI;
 using System;
@@ -103,7 +104,7 @@ namespace UnityEditor.Window
 
             AssetDatabase.Refresh();
 
-            path = string.Format("Assets/{0}/{1}View.prefab", UIConst.Prefab, content);
+            path = string.Format("Assets/{0}/{1}View.prefab", AssetPath.Prefab_UI, content);
 
             PrefabUtils.CreateUGUI(path);
 
@@ -139,7 +140,7 @@ namespace UnityEditor.Window
 
                 ScriptUtils.CreateILRuntimeComponents(path, null);
             }
-            path = string.Format("Assets/{0}/{1}View.prefab", UIConst.Prefab, content);
+            path = string.Format("Assets/{0}/{1}View.prefab", AssetPath.Prefab_UI, content);
 
             var prefab = PrefabUtils.CreateUGUI(path);
 

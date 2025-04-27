@@ -92,7 +92,7 @@ namespace UnityEditor.Window
 
         private void UpdateAssetBundleFolder()
         {
-            string path = AssetBundlePath + "/" + ResourceConfig.Package;
+            string path = AssetBundlePath + "/" + Game.Const.AssetPath.Package;
 
             folder_assetbundle.Clear();
 
@@ -658,7 +658,7 @@ namespace UnityEditor.Window
         {
             get
             {
-                return string.Format("{0}/{1}", Application.dataPath, ResourceConfig.Package);
+                return string.Format("{0}/{1}", Application.dataPath, Game.Const.AssetPath.Package);
             }
         }
 

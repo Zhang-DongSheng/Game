@@ -1,8 +1,9 @@
+#if UNITY_EDITOR
 using System;
 using System.Collections;
 using UnityEngine;
 using Object = UnityEngine.Object;
-#if UNITY_EDITOR
+
 namespace Game.Resource
 {
     public sealed class AssetDatabaseLoader : Loader

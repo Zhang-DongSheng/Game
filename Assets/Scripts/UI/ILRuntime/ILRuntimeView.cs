@@ -48,7 +48,6 @@ namespace Game.UI
                     default:
                         count = 0;
                         break;
-
                 }
                 methods[key] = script.Type.GetMethod(key, count);
             }

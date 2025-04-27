@@ -29,7 +29,7 @@ namespace Game.Resource
 
         public static Object Load(string name)
         {
-            string path = ResourceConfig.Path(type, name);
+            string path = ResourceUtils.Path(type, name);
 
             AssetsResponse assets = controller.Load(path);
 
@@ -42,7 +42,7 @@ namespace Game.Resource
 
         public static T Load<T>(string name) where T : Object
         {
-            string path = ResourceConfig.Path(type, name);
+            string path = ResourceUtils.Path(type, name);
 
             AssetsResponse assets = controller.Load(path);
 
@@ -55,7 +55,7 @@ namespace Game.Resource
 
         public static void LoadAsync(string name, Action<Object> callback)
         {
-            string path = ResourceConfig.Path(type, name);
+            string path = ResourceUtils.Path(type, name);
 
             controller.LoadAsync(path, (result) =>
             {
@@ -72,7 +72,7 @@ namespace Game.Resource
 
         public static void LoadAsync<T>(string name, Action<T> callback) where T : Object
         {
-            string path = ResourceConfig.Path(type, name);
+            string path = ResourceUtils.Path(type, name);
 
             controller.LoadAsync(path, (result) =>
             {
@@ -89,7 +89,7 @@ namespace Game.Resource
 
         public static void UnLoadAsset(string name)
         {
-            string path = ResourceConfig.Path(type, name);
+            string path = ResourceUtils.Path(type, name);
 
             controller.Unload(path);
 

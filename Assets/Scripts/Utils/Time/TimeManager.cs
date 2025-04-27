@@ -1,4 +1,5 @@
 using Game.Attribute;
+using Game.Const;
 using Game.Data;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Game
         {
             time = (long)Time.time;
 
-            Duration = GlobalVariables.Get<long>(Const.TOTAL_TIME) + (long)Time.time;
+            Duration = GlobalVariables.Get<long>(GlobalKey.TIME_TOTAL) + (long)Time.time;
         }
 
         private void Update()
@@ -146,7 +147,7 @@ namespace Game
 
             caches.Clear();
 
-            GlobalVariables.Set(Const.TOTAL_TIME, Duration);
+            GlobalVariables.Set(GlobalKey.TIME_TOTAL, Duration);
         }
 
         public void Register(long time, Action value)

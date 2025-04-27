@@ -1,4 +1,5 @@
 ﻿using Game;
+using Game.Const;
 using Game.Data;
 using Game.UI;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
@@ -8,14 +9,11 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.Video;
-using static Codice.CM.Common.BranchExplorerData;
 
 namespace UnityEditor.Window
 {
     public class DataManager : CustomWindow
     {
-        private const string asset = "Assets/Package/Data";
-
         private string path;
 
         private readonly string[] _menu = new string[] { "配置", "加载", "同步", "其他" };
@@ -222,7 +220,7 @@ namespace UnityEditor.Window
         #region Loading
         private void Create(Type type)
         {
-            string path = string.Format("{0}/{1}.asset", asset, type.Name);
+            string path = $"{AssetPath.DataEditor}/{type.Name}.asset";
             ScriptableObject script = ScriptableObject.CreateInstance(type);
             string folder = Path.GetDirectoryName(path);
             if (Directory.Exists(folder) == false)
@@ -300,7 +298,7 @@ namespace UnityEditor.Window
                         break;
                     default:
                         {
-                            path = string.Format("{0}/{1}View.prefab", UIConst.Prefab, panel);
+                            path = string.Format("{0}/{1}View.prefab", AssetPath.Prefab_UI, panel);
 
                             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/" + path);
 
@@ -519,7 +517,7 @@ namespace UnityEditor.Window
 
         private T Load<T>() where T : ScriptableObject
         {
-            string path = string.Format("{0}/{1}.asset", DataManager.asset, typeof(T).Name);
+            string path = $"{AssetPath.DataEditor}/{typeof(T).Name}.asset";
 
             T asset = AssetDatabase.LoadAssetAtPath<T>(path);
 
@@ -528,7 +526,7 @@ namespace UnityEditor.Window
 
         private T Load<T>(string branch) where T : ScriptableObject
         {
-            string path = string.Format("{0}/{1}_{2}.asset", DataManager.asset, typeof(T).Name, branch);
+            string path = $"{AssetPath.DataEditor}/{typeof(T).Name}_{branch}.asset";
 
             T asset = AssetDatabase.LoadAssetAtPath<T>(path);
 
@@ -537,7 +535,7 @@ namespace UnityEditor.Window
 
         private bool Exist(Type type)
         {
-            string path = string.Format("{0}/Package/Data/{1}.asset", Application.dataPath, type.Name);
+            string path = $"{Application.dataPath}/{AssetPath.Data}/{type.Name}.asset";
 
             return File.Exists(path);
         }
@@ -553,7 +551,7 @@ namespace UnityEditor.Window
 
         private void Preview(Type type)
         {
-            string path = string.Format("Assets/Package/Data/{0}.asset", type.Name);
+            string path = $"{AssetPath.DataEditor}/{type.Name}.asset";
 
             var asset = AssetDatabase.LoadAssetAtPath(path, type);
 

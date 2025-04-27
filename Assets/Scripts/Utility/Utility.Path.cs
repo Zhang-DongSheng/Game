@@ -1,3 +1,4 @@
+using Game.Const;
 using System.IO;
 using UnityEngine;
 
@@ -34,29 +35,15 @@ namespace Game
                 }
             }
 
-            public static string Assets
-            {
-                get
-                {
-                    return Define.ASSETS;
-                }
-            }
-
-            public static string Resources
-            {
-                get
-                {
-                    return Define.RESOURCES;
-                }
-            }
-
             public static string GetPathWithoutExtension(string path)
             {
                 string extension = GetExtension(path);
 
                 if (!string.IsNullOrEmpty(extension))
                 {
-                    path = path.Remove(path.Length - extension.Length, extension.Length);
+                    int length = extension.Length;
+
+                    path = path[..^length];
                 }
                 return path;
             }
@@ -146,7 +133,7 @@ namespace Game
 
             public static string SystemToUnity(string path)
             {
-                path = string.Format("{0}{1}", Assets, path.Remove(0, Application.dataPath.Length));
+                path = string.Format("{0}{1}", AssetPath.Assets , path.Remove(0, Application.dataPath.Length));
 
                 path = GetRegularPath(path);
 

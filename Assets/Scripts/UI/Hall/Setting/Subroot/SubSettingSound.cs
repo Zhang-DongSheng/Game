@@ -2,6 +2,7 @@ using Game.Data;
 using Game.Audio;
 using UnityEngine;
 using UnityEngine.UI;
+using Game.Const;
 
 namespace Game.UI
 {
@@ -17,13 +18,13 @@ namespace Game.UI
 
         protected override void OnAwake()
         {
-            musicVolume.value = GlobalVariables.Get<float>(string.Format("{0}_{1}", Const.AUDIO_VOLUME, AudioEnum.Music));
+            musicVolume.value = GlobalVariables.Get<float>(string.Format("{0}_{1}", GlobalKey.AUDIO_VOLUME, AudioEnum.Music));
 
-            musicMute.isOn = GlobalVariables.Get<bool>(string.Format("{0}_{1}", Const.AUDIO_MUTE, AudioEnum.Music));
+            musicMute.isOn = GlobalVariables.Get<bool>(string.Format("{0}_{1}", GlobalKey.AUDIO_MUTE, AudioEnum.Music));
 
-            soundVolume.value = GlobalVariables.Get<float>(string.Format("{0}_{1}", Const.AUDIO_VOLUME, AudioEnum.Sound));
+            soundVolume.value = GlobalVariables.Get<float>(string.Format("{0}_{1}", GlobalKey.AUDIO_VOLUME, AudioEnum.Sound));
 
-            soundMute.isOn = GlobalVariables.Get<bool>(string.Format("{0}_{1}", Const.AUDIO_MUTE, AudioEnum.Sound));
+            soundMute.isOn = GlobalVariables.Get<bool>(string.Format("{0}_{1}", GlobalKey.AUDIO_MUTE, AudioEnum.Sound));
 
             musicVolume.onValueChanged.AddListener(OnValueChangedMusicVolume);
 

@@ -1,3 +1,4 @@
+using Game.Const;
 using Game.Data;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace Game
 
         public void Initialize()
         {
-            language = GlobalVariables.Get<Language>(Const.LANGUAGE);
+            language = GlobalVariables.Get<Language>(GlobalKey.LANGUAGE);
 
             Load(language, false);
 
@@ -25,7 +26,7 @@ namespace Game
 
             this.language = language;
 
-            GlobalVariables.Set(Const.LANGUAGE, language);
+            GlobalVariables.Set(GlobalKey.LANGUAGE, language);
 
             Load(language, true);
         }
