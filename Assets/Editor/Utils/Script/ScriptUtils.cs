@@ -39,7 +39,7 @@ namespace UnityEditor
             CreateScript(path, content);
         }
 
-        public static void CreateILRuntimeComponents(string path, ILRuntimeComponents runtime)
+        public static void CreateILRuntimeComponents(string path, HotfixComponents runtime)
         {
             var name = Path.GetFileNameWithoutExtension(path);
 

@@ -1,11 +1,10 @@
 using Game.UI;
 using UnityEngine;
-using static Google.Protobuf.Reflection.UninterpretedOption.Types;
 
 namespace UnityEditor.Inspector
 {
-    [CustomEditor(typeof(ILRuntimeComponents))]
-    public class InspectorILRuntimeComponents : Editor
+    [CustomEditor(typeof(HotfixComponents))]
+    public class InspectorHotfixComponents : Editor
     {
         public override void OnInspectorGUI()
         {
@@ -13,13 +12,13 @@ namespace UnityEditor.Inspector
 
             if (GUILayout.Button("¸üÐÂ"))
             {
-                GenerateILRuntimeComponents();
+                GenerateHotfixComponents();
             }
         }
 
-        private void GenerateILRuntimeComponents()
+        private void GenerateHotfixComponents()
         {
-            var target = this.target as ILRuntimeComponents;
+            var target = this.target as HotfixComponents;
 
             var gameobject = target.gameObject;
 
@@ -35,7 +34,7 @@ namespace UnityEditor.Inspector
     /// <summary>
     /// Custom property drawer for ILRuntimeComponent.
     /// </summary>
-    [CustomPropertyDrawer(typeof(ILRuntimeComponent))]
+    [CustomPropertyDrawer(typeof(HotfixComponent))]
     class ILRuntimeComponentDrawer : PropertyDrawer
     {
         private readonly Rect[] rects = new Rect[4];

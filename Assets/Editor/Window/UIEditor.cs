@@ -19,9 +19,7 @@ namespace UnityEditor.Window
 
         private bool relevance;
 
-        private bool ilruntime = true;
-
-        private bool ilrelevance = true;
+        private bool hotfix = true;
 
         private UIPanel panel;
 
@@ -63,20 +61,15 @@ namespace UnityEditor.Window
 
             GUILayout.BeginHorizontal();
             {
-                ilruntime = GUILayout.Toggle(ilruntime, "ILRuntime", GUILayout.Width(WIDTH));
-
-                if (ilruntime)
-                {
-                    ilrelevance = GUILayout.Toggle(ilrelevance, "Relevance", GUILayout.Width(WIDTH));
-                }
+                hotfix = GUILayout.Toggle(hotfix, "ILRuntime", GUILayout.Width(WIDTH));
             }
             GUILayout.EndHorizontal();
 
             if (GUILayout.Button(ToLanguage("Create")))
             {
-                if (ilruntime)
+                if (hotfix)
                 {
-                    CreateILRuntimeView(content);
+                    CreateHotfixView(content);
                 }
                 else
                 {
@@ -119,46 +112,29 @@ namespace UnityEditor.Window
             ShowNotification("模板创建完成");
         }
 
-        private void CreateILRuntimeView(string content)
+        private void CreateHotfixView(string content)
         {
-            //if (string.IsNullOrEmpty(content)) return;
+            if (string.IsNullOrEmpty(content)) return;
 
-            //string path = string.Format("Assets/ILRuntime/Hotfix~/Script/UI/Hall/{0}/IL{0}View.cs", content);
+            string path = string.Format("Assets/{0}/{1}View.prefab", AssetPath.Prefab_UI, content);
 
-            //if (File.Exists(path))
-            //{
-            //    UnityEngine.Debuger.LogError(Author.Resource, "文件已存在！");
-            //    return;
-            //}
-            //Utility.Document.CreateDirectoryByFile(path);
+            var prefab = PrefabUtils.CreateUGUI(path);
 
-            //ScriptUtils.CreateFromTemplate(content, path, ilrelevance ? "003" : "002");
+            prefab.AddComponent<HotfixView>();
 
-            //if (ilrelevance)
-            //{
-            //    path = string.Format("Assets/ILRuntime/Hotfix~/Script/UI/Hall/{0}/IL{0}Relevance.cs", content);
+            prefab.AddComponent<HotfixComponents>();
 
-            //    ScriptUtils.CreateILRuntimeComponents(path, null);
-            //}
-            //path = string.Format("Assets/{0}/{1}View.prefab", AssetPath.Prefab_UI, content);
+            PrefabUtility.SavePrefabAsset(prefab);
 
-            //var prefab = PrefabUtils.CreateUGUI(path);
+            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
 
-            //prefab.AddComponent<ILRuntimeView>();
+            ScriptUtils.ModifyEnum(typeof(UIPanel), content, out int index);
 
-            //prefab.AddComponent<ILRuntimeComponents>();
+            AddNewUIInformation(content, index, true);
 
-            //PrefabUtility.SavePrefabAsset(prefab);
+            AssetDatabase.Refresh();
 
-            //AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
-
-            //ScriptUtils.ModifyEnum(typeof(UIPanel), content, out int index);
-
-            //AddNewUIInformation(content, index, true);
-
-            //AssetDatabase.Refresh();
-
-            //ShowNotification("ILRuntime 模板创建完成");
+            ShowNotification("ILRuntime 模板创建完成");
         }
 
         private void RefreshModify()

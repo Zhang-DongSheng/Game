@@ -4,12 +4,12 @@ using UnityEngine;
 namespace Game.UI
 {
     [DisallowMultipleComponent]
-    public class ILRuntimeComponents : MonoBehaviour
+    public class HotfixComponents : MonoBehaviour
     {
-        public List<ILRuntimeComponent> components;
+        public List<HotfixComponent> components;
     }
     [System.Serializable]
-    public class ILRuntimeComponent
+    public class HotfixComponent
     {
         public string key;
 
