@@ -121,44 +121,44 @@ namespace UnityEditor.Window
 
         private void CreateILRuntimeView(string content)
         {
-            if (string.IsNullOrEmpty(content)) return;
+            //if (string.IsNullOrEmpty(content)) return;
 
-            string path = string.Format("Assets/ILRuntime/Hotfix~/Script/UI/Hall/{0}/IL{0}View.cs", content);
+            //string path = string.Format("Assets/ILRuntime/Hotfix~/Script/UI/Hall/{0}/IL{0}View.cs", content);
 
-            if (File.Exists(path))
-            {
-                UnityEngine.Debuger.LogError(Author.Resource, "文件已存在！");
-                return;
-            }
-            Utility.Document.CreateDirectoryByFile(path);
+            //if (File.Exists(path))
+            //{
+            //    UnityEngine.Debuger.LogError(Author.Resource, "文件已存在！");
+            //    return;
+            //}
+            //Utility.Document.CreateDirectoryByFile(path);
 
-            ScriptUtils.CreateFromTemplate(content, path, ilrelevance ? "003" : "002");
+            //ScriptUtils.CreateFromTemplate(content, path, ilrelevance ? "003" : "002");
 
-            if (ilrelevance)
-            {
-                path = string.Format("Assets/ILRuntime/Hotfix~/Script/UI/Hall/{0}/IL{0}Relevance.cs", content);
+            //if (ilrelevance)
+            //{
+            //    path = string.Format("Assets/ILRuntime/Hotfix~/Script/UI/Hall/{0}/IL{0}Relevance.cs", content);
 
-                ScriptUtils.CreateILRuntimeComponents(path, null);
-            }
-            path = string.Format("Assets/{0}/{1}View.prefab", AssetPath.Prefab_UI, content);
+            //    ScriptUtils.CreateILRuntimeComponents(path, null);
+            //}
+            //path = string.Format("Assets/{0}/{1}View.prefab", AssetPath.Prefab_UI, content);
 
-            var prefab = PrefabUtils.CreateUGUI(path);
+            //var prefab = PrefabUtils.CreateUGUI(path);
 
-            prefab.AddComponent<ILRuntimeView>();
+            //prefab.AddComponent<ILRuntimeView>();
 
-            prefab.AddComponent<ILRuntimeComponents>();
+            //prefab.AddComponent<ILRuntimeComponents>();
 
-            PrefabUtility.SavePrefabAsset(prefab);
+            //PrefabUtility.SavePrefabAsset(prefab);
 
-            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+            //AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
 
-            ScriptUtils.ModifyEnum(typeof(UIPanel), content, out int index);
+            //ScriptUtils.ModifyEnum(typeof(UIPanel), content, out int index);
 
-            AddNewUIInformation(content, index, true);
+            //AddNewUIInformation(content, index, true);
 
-            AssetDatabase.Refresh();
+            //AssetDatabase.Refresh();
 
-            ShowNotification("ILRuntime 模板创建完成");
+            //ShowNotification("ILRuntime 模板创建完成");
         }
 
         private void RefreshModify()

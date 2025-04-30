@@ -4,7 +4,6 @@ using UnityEngine;
 namespace Game.UI
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(ILRuntimeView))]
     public class ILRuntimeComponents : MonoBehaviour
     {
         public List<ILRuntimeComponent> components;
