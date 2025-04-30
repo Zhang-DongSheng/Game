@@ -26,6 +26,8 @@ namespace Game
 
             UIManager.Instance.Initialize();
 
+            HotfixLogic.Instance.Initialize();
+
             SettingLogic.Instance.Initialize();
 
             NotificationLogic.Instance.Initialize();

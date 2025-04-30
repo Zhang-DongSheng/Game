@@ -1,6 +1,5 @@
 ﻿using Game;
 using System.IO;
-using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,7 +8,6 @@ namespace UnityEditor
 {
     public static class Menu
     {
-        private static int pictureIndex;
         [MenuItem("Game/OpenMainScene", priority = 101)]
         private static void OpenMainScene()
         {
