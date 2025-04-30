@@ -180,11 +180,6 @@ namespace UnityEditor.Window
                 SynchronizateILRuntime();
             }
 
-            if (GUILayout.Button(ToLanguage("Synchronizate") + " IFix"))
-            {
-                SynchronizateIFix();
-            }
-
             if (GUILayout.Button(ToLanguage("Synchronizate") + " ProtoBuf"))
             {
                 SynchronizateProtoBuf();
@@ -577,26 +572,6 @@ namespace UnityEditor.Window
             Replace(src, dst);
 
             ShowNotification("同步完成！");
-        }
-
-        private void SynchronizateIFix()
-        {
-            string key = "Assembly-CSharp.patch.bytes";
-
-            string src = string.Format("{0}/{1}", Application.dataPath.Substring(0, Application.dataPath.Length - 7), key);
-
-            if (File.Exists(src))
-            {
-                string dst = string.Format("{0}/IFix/{1}", Application.streamingAssetsPath, key);
-
-                Replace(src, dst);
-
-                ShowNotification("同步完成！");
-            }
-            else
-            {
-                ShowNotification("文件不存在！" + src);
-            }
         }
 
         private void SynchronizateProtoBuf()
