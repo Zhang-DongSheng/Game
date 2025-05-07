@@ -1,13 +1,7 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.UI
 {
-    [DisallowMultipleComponent]
-    public class HotfixComponents : MonoBehaviour
-    {
-        public List<HotfixComponent> components;
-    }
     [System.Serializable]
     public class HotfixComponent
     {
@@ -15,13 +9,13 @@ namespace Game.UI
 
         public Transform target;
 
-        public ILRuntimeComponentType type;
+        public HotfixComponentType type;
 
         public string custom;
 
         public string ToDefineString()
         {
-            if (type != ILRuntimeComponentType.Custom)
+            if (type != HotfixComponentType.Custom)
             {
                 return $"public {type} {key};";
             }
@@ -37,11 +31,11 @@ namespace Game.UI
 
             switch (type)
             {
-                case ILRuntimeComponentType.GameObject:
+                case HotfixComponentType.GameObject:
                     return $"{key} = transform.Find({path}).gameObject;";
-                case ILRuntimeComponentType.Transform:
+                case HotfixComponentType.Transform:
                     return $"{key} = transform.Find({path});";
-                case ILRuntimeComponentType.Custom:
+                case HotfixComponentType.Custom:
                     return $"{key} = transform.Find({path}).GetComponent<{type}>();";
                 default:
                     return $"{key} = transform.Find({path}).GetComponent<{custom}>();";
@@ -49,7 +43,7 @@ namespace Game.UI
         }
     }
 
-    public enum ILRuntimeComponentType
+    public enum HotfixComponentType
     {
         Transform,
 

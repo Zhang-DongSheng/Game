@@ -1,10 +1,11 @@
+using Game.Const;
 using Game.UI;
 using UnityEngine;
 
 namespace UnityEditor.Inspector
 {
-    [CustomEditor(typeof(HotfixComponents))]
-    public class InspectorHotfixComponents : Editor
+    [CustomEditor(typeof(HotfixView))]
+    public class InspectorHotfixView : Editor
     {
         public override void OnInspectorGUI()
         {
@@ -18,17 +19,17 @@ namespace UnityEditor.Inspector
 
         private void GenerateHotfixComponents()
         {
-            var target = this.target as HotfixComponents;
+            var target = this.target as HotfixView;
 
             var gameobject = target.gameObject;
 
             var name = gameobject.name[..^4];
 
-            string path = string.Format("Assets/ILRuntime/Hotfix~/Script/UI/Hall/{0}/IL{0}Relevance.cs", name);
+            string path = $"Assets/{AssetPath.Hotfix}/{AssetPath.UIScript}/{name}/{name}Relevance.cs";
 
             ScriptUtils.CreateILRuntimeComponents(path, target);
 
-            Debuger.LogNotifycation(Author.ILRuntime, $"IL{name}Relevance is Generated!");
+            Debuger.LogNotifycation(Author.Hotfix, $"{name}Relevance is Generated!");
         }
     }
     /// <summary>
@@ -81,7 +82,7 @@ namespace UnityEditor.Inspector
 
                 var type = property.FindPropertyRelative("type").enumValueIndex;
 
-                if (type == (int)ILRuntimeComponentType.Custom)
+                if (type == (int)HotfixComponentType.Custom)
                 {
                     EditorGUI.PropertyField(rects[3], property.FindPropertyRelative("custom"));
                 }

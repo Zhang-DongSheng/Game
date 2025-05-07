@@ -80,7 +80,7 @@ namespace Game.Data
 
             order = 0;
 
-            path = string.Format("{0}/{1}View.prefab", AssetPath.Prefab_UI, name);
+            path = string.Format("{0}/{1}View.prefab", AssetPath.UIPrefab, name);
         }
 
         public UIInformation(UIInformation other)

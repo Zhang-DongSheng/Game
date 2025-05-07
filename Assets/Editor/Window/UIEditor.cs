@@ -82,7 +82,7 @@ namespace UnityEditor.Window
         {
             if (string.IsNullOrEmpty(content)) return;
 
-            string path = string.Format("Assets/Scripts/UI/Hall/{0}/{0}View.cs", content);
+            string path = string.Format("Assets/{0}/{1}/{1}View.cs", AssetPath.UIScript, content);
 
             if (File.Exists(path))
             {
@@ -97,7 +97,7 @@ namespace UnityEditor.Window
 
             AssetDatabase.Refresh();
 
-            path = string.Format("Assets/{0}/{1}View.prefab", AssetPath.Prefab_UI, content);
+            path = $"Assets/{AssetPath.UIPrefab}/{content}View.prefab";
 
             PrefabUtils.CreateUGUI(path);
 
@@ -105,24 +105,33 @@ namespace UnityEditor.Window
 
             ScriptUtils.ModifyEnum(typeof(UIPanel), content, out int index);
 
-            AddNewUIInformation(content, index, false);
+            AddNewUIInformation(content, index);
 
             AssetDatabase.Refresh();
 
-            ShowNotification("模板创建完成");
+            ShowNotification($"{content}View创建完成");
         }
 
         private void CreateHotfixView(string content)
         {
             if (string.IsNullOrEmpty(content)) return;
 
-            string path = string.Format("Assets/{0}/{1}View.prefab", AssetPath.Prefab_UI, content);
+            string path = $"Assets/{AssetPath.Hotfix}/{AssetPath.UIScript}/{content}/{content}View.cs";
+
+            if (File.Exists(path))
+            {
+                UnityEngine.Debuger.LogError(Author.Resource, "文件已存在！");
+                return;
+            }
+            Utility.Document.CreateDirectoryByFile(path);
+
+            ScriptUtils.CreateFromTemplate(content, path, "002");
+
+            path = $"Assets/{AssetPath.UIPrefab}/{content}View.prefab";
 
             var prefab = PrefabUtils.CreateUGUI(path);
 
             prefab.AddComponent<HotfixView>();
-
-            prefab.AddComponent<HotfixComponents>();
 
             PrefabUtility.SavePrefabAsset(prefab);
 
@@ -130,11 +139,11 @@ namespace UnityEditor.Window
 
             ScriptUtils.ModifyEnum(typeof(UIPanel), content, out int index);
 
-            AddNewUIInformation(content, index, true);
+            AddNewUIInformation(content, index);
 
             AssetDatabase.Refresh();
 
-            ShowNotification("ILRuntime 模板创建完成");
+            ShowNotification($"Hotfix {content}View创建完成");
         }
 
         private void RefreshModify()
@@ -285,7 +294,7 @@ namespace UnityEditor.Window
             GUILayout.EndVertical();
         }
 
-        private void AddNewUIInformation(string content, int panel, bool ilruntime)
+        private void AddNewUIInformation(string content, int panel)
         {
             var asset = AssetDatabase.LoadAssetAtPath<DataUI>("Assets/Package/Data/DataUI.asset");
 

@@ -6,9 +6,9 @@ namespace Game.UI
 {
     public class #SCRIPTNAME#View : ViewBase
     {
-        protected override void OnAwake()
+        public override void Init(HotfixView view)
         {
-
+            
         }
 
         public override void Refresh(UIParameter paramter)

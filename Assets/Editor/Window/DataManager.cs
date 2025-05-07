@@ -288,7 +288,7 @@ namespace UnityEditor.Window
                         break;
                     default:
                         {
-                            path = string.Format("{0}/{1}View.prefab", AssetPath.Prefab_UI, panel);
+                            path = string.Format("{0}/{1}View.prefab", AssetPath.UIPrefab, panel);
 
                             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/" + path);
 

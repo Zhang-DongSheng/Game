@@ -18,7 +18,7 @@ namespace UnityEngine
         Data,
         Sound,
         Resource,
-        ILRuntime,
+        Hotfix,
     }
     public static class Debuger
     {
@@ -38,7 +38,7 @@ namespace UnityEngine
             { Author.Data,     LogType.Exception },
             { Author.Sound,    LogType.Exception },
             { Author.Resource, LogType.Exception },
-            { Author.ILRuntime,LogType.Exception },
+            { Author.Hotfix,LogType.Exception },
         };
         private static readonly StringBuilder builder = new StringBuilder();
 

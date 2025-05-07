@@ -38,5 +38,6 @@ namespace Game.UI
 		ColorPicker = 1006,
 		Study = 1007,
 		DialogSystem = 1008,
+		XXX = 1009,
 	}
 }

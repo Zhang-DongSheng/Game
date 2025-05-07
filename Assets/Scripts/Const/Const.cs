@@ -27,10 +27,14 @@ namespace Game.Const
 
         public const string Resources = "Resources";
 
+        public const string Hotfix = "HotUpdate";
+
         public const string Data = "Package/Data";
 
         public const string DataEditor = "Assets/Package/Data";
 
-        public const string Prefab_UI = "Package/Prefab/UI/Panel";
+        public const string UIScript = "Scripts/UI/Hall/";
+
+        public const string UIPrefab = "Package/Prefab/UI/Panel";
     }
 }

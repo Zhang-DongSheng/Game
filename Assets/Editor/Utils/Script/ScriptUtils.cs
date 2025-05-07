@@ -23,9 +23,6 @@ namespace UnityEditor
                 case "002":
                     source = "Editor/Utils/Script/Template/002_CS_UIPanel.txt";
                     break;
-                case "003":
-                    source = "Editor/Utils/Script/Template/003_CS_UIPanel.txt";
-                    break;
                 default:
                     source = "Editor/Utils/Script/Template/001_CS_UIPanel.txt";
                     break;
@@ -39,15 +36,15 @@ namespace UnityEditor
             CreateScript(path, content);
         }
 
-        public static void CreateILRuntimeComponents(string path, HotfixComponents runtime)
+        public static void CreateILRuntimeComponents(string path, HotfixView view)
         {
             var name = Path.GetFileNameWithoutExtension(path);
 
             int count = 0;
 
-            if (runtime != null && runtime.components != null)
+            if (view != null && view.components != null)
             {
-                count = runtime.components.Count;
+                count = view.components.Count;
             }
             StringBuilder builder = new StringBuilder();
 
@@ -71,7 +68,7 @@ namespace UnityEditor
 
             for (int i = 0; i < count; i++)
             {
-                var content = runtime.components[i].ToDefineString();
+                var content = view.components[i].ToDefineString();
 
                 builder.AppendLine($"\t\t{content}");
             }
@@ -83,7 +80,7 @@ namespace UnityEditor
 
             for (int i = 0; i < count; i++)
             {
-                var content = runtime.components[i].ToRelevanceString(runtime.transform);
+                var content = view.components[i].ToRelevanceString(view.transform);
 
                 builder.AppendLine($"\t\t\t{content}");
             }
