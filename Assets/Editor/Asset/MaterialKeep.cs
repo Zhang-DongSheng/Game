@@ -21,8 +21,8 @@ namespace UnityEditor
                         Debug.LogWarning($"Material {material.name} shader is {material.shader.name}");
                         break;
                 }
+                EditorUtility.SetDirty(material);
             }
-            AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
     }
