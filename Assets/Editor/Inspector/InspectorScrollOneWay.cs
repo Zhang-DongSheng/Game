@@ -25,7 +25,7 @@ namespace UnityEditor.Inspector
 
             EditorGUILayout.PropertyField(multi, new GUIContent("¿ªÆô"));
 
-            EditorGUILayout.PropertyField(other, new GUIContent("Other"));
+            EditorGUILayout.PropertyField(other, new GUIContent("ÆäËû"));
 
             serializedObject.ApplyModifiedProperties();
 

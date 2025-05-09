@@ -216,5 +216,21 @@ namespace Game
             }
             return path;
         }
+
+        public static Vector3 WorldScale(this Transform transform)
+        {
+            Vector3 scale = transform.localScale;
+
+            var parent = transform.parent;
+
+            while (parent != null)
+            {
+                scale.x *= parent.localScale.x;
+                scale.y *= parent.localScale.y;
+                scale.z *= parent.localScale.z;
+                parent = parent.parent;
+            }
+            return scale;
+        }
     }
 }
