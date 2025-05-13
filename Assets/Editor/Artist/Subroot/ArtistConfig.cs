@@ -33,6 +33,6 @@ namespace UnityEditor.Window
             GUILayout.FlexibleSpace();
         }
 
-        public override string Name => "Config";
+        public override string Name => ToLanguage("Config");
     }
 }

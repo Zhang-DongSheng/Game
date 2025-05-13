@@ -8,7 +8,7 @@ namespace UnityEditor.Window
 {
     public partial class ArtistAsset : ArtistBase
     {
-        private readonly string[] assetoptions = new string[6] { "None", "TextAsset", "Texture", "Sprite", "Shader", "Material" };
+        private readonly string[] assetoptions = new string[7] { "None", "TextAsset", "Texture", "Sprite", "Shader", "Material", "Model" };
 
         private readonly string[] shaderoptions = new string[2] { "Reference", "Find" };
 
@@ -62,28 +62,40 @@ namespace UnityEditor.Window
                                 GUILayout.Label(string.Empty);
                             }
                             break;
-                        case 1:
+                        case 1: // TextAsset
                             {
-                                if (GUILayout.Button(ToLanguage("Detection Empty Function")))
+                                if (GUILayout.Button("Detection Empty Function"))
                                 {
                                     DetectionEmptyFunction();
                                 }
-                                if (GUILayout.Button(ToLanguage("Detection Chinese")))
+                                if (GUILayout.Button("Detection Chinese"))
                                 {
                                     DetectionChinese();
                                 }
+                                if (GUILayout.Button("Detection Code Size"))
+                                {
+                                    Overflow(string.Format("t:{0}", assetoptions[indexAsset.value]), "Assets");
+                                }
                             }
                             break;
-                        case 2:
-                        case 3:
+                        case 2: // Texture
+                        case 3: // Sprite
                             {
                                 if (GUILayout.Button("The sprite size is a multiple of 4"))
                                 {
                                     Powerof2("Assets");
                                 }
-                                goto default;
+                                if (GUILayout.Button("Detection Texture Reference"))
+                                {
+                                    FindReferences.Empty(string.Format("t:{0}", assetoptions[indexAsset.value]), "Assets");
+                                }
+                                if (GUILayout.Button("Detection Texture Size"))
+                                {
+                                    Overflow(string.Format("t:{0}", assetoptions[indexAsset.value]), "Assets");
+                                }
+                                break;
                             }
-                        case 4:
+                        case 4: // Shader
                             {
                                 indexShader.value = EditorGUILayout.Popup(indexShader.value, shaderoptions);
 
@@ -91,11 +103,11 @@ namespace UnityEditor.Window
                                 {
                                     case 0:
                                         {
-                                            if (GUILayout.Button("Find all unreferenced shader"))
+                                            if (GUILayout.Button("Find all Unreferenced Shader"))
                                             {
                                                 FindUnreferencedShader();
                                             }
-                                            if (GUILayout.Button("Find all referenced shader"))
+                                            if (GUILayout.Button("Find all Referenced Shader"))
                                             {
                                                 FindReferenceShader();
                                             }
@@ -105,7 +117,7 @@ namespace UnityEditor.Window
                                         {
                                             inputShader.value = GUILayout.TextField(inputShader.value);
 
-                                            if (GUILayout.Button("Find all referenced material"))
+                                            if (GUILayout.Button("Find all Referenced Material"))
                                             {
                                                 FindMaterialOfReferenceShader(inputShader.value);
                                             }
@@ -114,17 +126,17 @@ namespace UnityEditor.Window
                                 }
                             }
                             break;
-                        default:
+                        case 5: // 
                             {
-                                if (GUILayout.Button(ToLanguage("Detection resource reference")))
+                                if (GUILayout.Button(ToLanguage("Detection Material Reference")))
                                 {
                                     FindReferences.Empty(string.Format("t:{0}", assetoptions[indexAsset.value]), "Assets");
                                 }
-                                if (GUILayout.Button(ToLanguage("Detection resource size")))
-                                {
-                                    Overflow(string.Format("t:{0}", assetoptions[indexAsset.value]), "Assets");
-                                }
                             }
+                            break;
+                        case 6: // Model
+                            break;
+                        default:
                             break;
                     }
                 }
@@ -366,7 +378,6 @@ namespace UnityEditor.Window
                     Debug.LogWarning(string.Format("{0}: Not power of 2!", path), texture);
                 }
             }
-
             guids = AssetDatabase.FindAssets("t:Sprite", folders);
 
             foreach (var guid in guids)
@@ -466,6 +477,6 @@ namespace UnityEditor.Window
             }
         }
 
-        public override string Name => "Assets";
+        public override string Name => ToLanguage("Assets");
     }
 }

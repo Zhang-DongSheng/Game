@@ -1,5 +1,4 @@
 using Game;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -425,6 +424,6 @@ namespace UnityEditor.Window
             }
         }
 
-        public override string Name => "Prefab";
+        public override string Name => ToLanguage("Prefab");
     }
 }

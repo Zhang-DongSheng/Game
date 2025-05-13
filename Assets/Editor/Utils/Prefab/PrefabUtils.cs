@@ -1,11 +1,10 @@
 ﻿using Game;
-using Game.UI;
 using System.IO;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UnityEditor
+namespace UnityEditor.Utils
 {
     public class PrefabUtils
     {

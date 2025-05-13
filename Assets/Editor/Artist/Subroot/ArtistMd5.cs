@@ -11,7 +11,10 @@ namespace UnityEditor.Window
 
         private string message;
 
-        public override void Initialise() { }
+        public override void Initialise()
+        {
+        
+        }
 
         public override void Refresh()
         {
@@ -69,6 +72,6 @@ namespace UnityEditor.Window
             GUILayout.EndArea();
         }
 
-        public override string Name => "Md5";
+        public override string Name => ToLanguage("Md5");
     }
 }

@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using UnityEditor.Utils;
+using UnityEngine;
 
 namespace UnityEditor
 {
-    public class ApplicationListener
+    public class EditorApplicationListener
     {
         [RuntimeInitializeOnLoadMethod]
         private static void Listener()

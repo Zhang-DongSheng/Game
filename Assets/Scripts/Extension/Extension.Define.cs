@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Game
 {
     public static partial class Extension
@@ -13,6 +15,8 @@ namespace Game
         private const float Half = 0.5f;
 
         private const string Slash = "/";
+
+        private static readonly Vector3 GrayRatio = new Vector3(0.299f, 0.587f, 0.114f);
 
         private static readonly string[] UnitQuantity = new string[] { "Hundred", "Thousand", "Million" };
 

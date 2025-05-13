@@ -7,7 +7,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-namespace UnityEditor
+namespace UnityEditor.Utils
 {
     public static class ScriptUtils
     {

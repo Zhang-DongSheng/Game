@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityEditor
+namespace UnityEditor.Utils
 {
     public static class AssetUtils
     {

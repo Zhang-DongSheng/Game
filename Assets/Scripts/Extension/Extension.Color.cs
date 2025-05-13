@@ -135,5 +135,14 @@ namespace Game
             }
             return color;
         }
+
+        public static Color Gray(this Color color)
+        {
+            var rgb = new Vector3(color.r, color.g, color.b);
+
+            var gray = Vector3.Dot(rgb, GrayRatio);
+
+            return new Color(gray, gray, gray, color.a);
+        }
     }
 }

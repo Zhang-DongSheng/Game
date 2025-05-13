@@ -104,8 +104,6 @@ namespace UnityEditor
 
         struct Information
         {
-            public string name;
-
             public long size;
 
             public override string ToString()

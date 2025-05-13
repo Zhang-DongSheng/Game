@@ -6,6 +6,7 @@ using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor.Utils;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.Video;
@@ -178,6 +179,11 @@ namespace UnityEditor.Window
             if (GUILayout.Button(ToLanguage("Synchronizate") + " ProtoBuf"))
             {
                 SynchronizateProtoBuf();
+            }
+
+            if (GUILayout.Button(ToLanguage("Synchronizate") + " Hotfix"))
+            {
+                SynchronizateHotfix();
             }
         }
 
@@ -550,23 +556,23 @@ namespace UnityEditor.Window
         #endregion
 
         #region Synchronizate
-        private void SynchronizateILRuntime()
+        private void SynchronizateHotfix()
         {
-            string key = "Hotfix";
+            //string key = "Hotfix";
 
-            string src = string.Format("{0}/ILRuntime/Hotfix~/bin/Debug/{1}.dll", Application.dataPath, key);
+            //string src = string.Format("{0}/ILRuntime/Hotfix~/bin/Debug/{1}.dll", Application.dataPath, key);
 
-            string dst = string.Format("{0}/ILRuntime/{1}.dll", Application.streamingAssetsPath, key);
+            //string dst = string.Format("{0}/ILRuntime/{1}.dll", Application.streamingAssetsPath, key);
 
-            Replace(src, dst);
+            //Replace(src, dst);
 
-            src = string.Format("{0}/ILRuntime/Hotfix~/bin/Debug/{1}.pdb", Application.dataPath, key);
+            //src = string.Format("{0}/ILRuntime/Hotfix~/bin/Debug/{1}.pdb", Application.dataPath, key);
 
-            dst = string.Format("{0}/ILRuntime/{1}.pdb", Application.streamingAssetsPath, key);
+            //dst = string.Format("{0}/ILRuntime/{1}.pdb", Application.streamingAssetsPath, key);
 
-            Replace(src, dst);
+            //Replace(src, dst);
 
-            ShowNotification("同步完成！");
+            ShowNotification("学习学习再处理！");
         }
 
         private void SynchronizateProtoBuf()
@@ -631,8 +637,6 @@ namespace UnityEditor.Window
 
         class DataCell
         {
-            public string name;
-
             public Type type;
 
             public bool asset;
