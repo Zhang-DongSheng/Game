@@ -17,7 +17,11 @@ namespace UnityEditor.Window
     {
         private string path;
 
+        private Vector2[] scrolls = new Vector2[2];
+
         private readonly string[] _menu = new string[] { "配置", "数据", "多语言", "同步", "其他" };
+
+        private readonly Dictionary<string, string> _keys = new Dictionary<string, string>();
 
         private readonly List<DataCell> _datas = new List<DataCell>();
 
@@ -183,7 +187,7 @@ namespace UnityEditor.Window
         {
             GUILayout.BeginVertical();
             {
-                scroll = GUILayout.BeginScrollView(scroll);
+                scrolls[0] = GUILayout.BeginScrollView(scrolls[0]);
                 {
                     int count = _languages.Count;
 
@@ -195,6 +199,21 @@ namespace UnityEditor.Window
                     if (GUILayout.Button(ToLanguage("Loading")))
                     {
                         LoadLanguage();
+                    }
+                    GUILayout.BeginHorizontal();
+                    {
+                        GUILayout.Label(ToLanguage("Find all language in project"));
+
+                        if (GUILayout.Button(ToLanguage("Scan"), GUILayout.Width(100)))
+                        {
+                            ScanLanguageWords();
+                        }
+                    }
+                    GUILayout.EndHorizontal();
+
+                    foreach (var key in _keys)
+                    {
+                        RefreshLanguage(key.Key, key.Value);
                     }
                 }
                 GUILayout.EndScrollView();
@@ -224,6 +243,17 @@ namespace UnityEditor.Window
                         Create(cell.type, cell.name);
                     }
                 }
+            }
+            GUILayout.EndHorizontal();
+        }
+
+        private void RefreshLanguage(string key, string source)
+        {
+            GUILayout.BeginHorizontal();
+            {
+                GUILayout.Label(key, GUILayout.Width(250));
+
+                GUILayout.Label(source, GUILayout.ExpandWidth(true));
             }
             GUILayout.EndHorizontal();
         }
@@ -277,6 +307,31 @@ namespace UnityEditor.Window
                     asset = Exist($"DataLanguage/{language}"),
                     select = true,
                 });
+            }
+        }
+
+        private void ScanLanguageWords()
+        {
+            _keys.Clear();
+
+            _keys.AddRange(AssetUtils.ScanKeysInPrefab());
+
+            _keys.AddRange(AssetUtils.ScanKeysInText());
+
+            _keys.AddRange(AssetUtils.ScanKeysInTable());
+
+            var asset = Load<DataLanguage>(Language.Chinese.ToString());
+
+            if (asset == null) return;
+
+            int count = asset.list.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (_keys.ContainsKey(asset.list[i].key))
+                {
+                    _keys.Remove(asset.list[i].key);
+                }
             }
         }
 
@@ -495,6 +550,8 @@ namespace UnityEditor.Window
 
             excel.ConvertToJson(output);
 
+            excel.Dispose();
+
             string path = "Assets/Art/Excel/language.json";
 
             var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
@@ -536,6 +593,8 @@ namespace UnityEditor.Window
             ExcelUtility excel = new ExcelUtility(input);
 
             excel.ConvertToJson(output);
+
+            excel.Dispose();
 
             string path = string.Format("Assets/Art/Excel/{0}.json", source);
 
@@ -683,15 +742,6 @@ namespace UnityEditor.Window
             {
                 Debug.LogError("资源不存在！" + src);
             }
-        }
-
-        private void Replace(string src, string dst)
-        {
-            if (File.Exists(dst))
-            {
-                File.Delete(dst);
-            }
-            File.Copy(src, dst);
         }
         #endregion
 

@@ -9,11 +9,11 @@ namespace Game
         /// <summary>
         /// 索引
         /// </summary>
-        public static TValue IndexOf<TKey, TValue>(this ICollection<KeyValuePair<TKey, TValue>> pairs, int index)
+        public static V IndexOf<K, V>(this ICollection<KeyValuePair<K, V>> pairs, int index)
         {
             if (index > -1 && pairs.Count > index)
             {
-                foreach (KeyValuePair<TKey, TValue> pair in pairs)
+                foreach (KeyValuePair<K, V> pair in pairs)
                 {
                     if (index-- == 0)
                     {
@@ -24,11 +24,28 @@ namespace Game
             return default;
         }
         /// <summary>
+        /// 批量添加
+        /// </summary>
+        public static void AddRange<K, V>(this Dictionary<K, V> source, Dictionary<K, V> other, bool replace = false)
+        {
+            foreach (var item in other)
+            {
+                if (source.ContainsKey(item.Key) && replace)
+                {
+                    source[item.Key] = item.Value;
+                }
+                else
+                {
+                    source.Add(item.Key, item.Value);
+                }
+            }
+        }
+        /// <summary>
         /// 查找
         /// </summary>
-        public static TValue Find<TKey, TValue>(this ICollection<KeyValuePair<TKey, TValue>> pairs, Predicate<TValue> match)
+        public static V Find<K, V>(this ICollection<KeyValuePair<K, V>> pairs, Predicate<V> match)
         {
-            foreach (KeyValuePair<TKey, TValue> pair in pairs)
+            foreach (KeyValuePair<K, V> pair in pairs)
             {
                 if (match(pair.Value))
                 {
@@ -40,9 +57,9 @@ namespace Game
         /// <summary>
         /// 转换为集合
         /// </summary>
-        public static List<TValue> ToList<TKey, TValue>(this ICollection<KeyValuePair<TKey, TValue>> pairs)
+        public static List<V> ToList<K, V>(this ICollection<KeyValuePair<K, V>> pairs)
         {
-            var list = new List<TValue>();
+            var list = new List<V>();
 
             foreach (var pair in pairs)
             {

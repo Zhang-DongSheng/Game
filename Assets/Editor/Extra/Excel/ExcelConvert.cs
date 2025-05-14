@@ -307,7 +307,7 @@ namespace UnityEditor
 				for (int j = 2; j < column; j++)
 				{
 					item.list.Add(table.Rows[j][i]);
-				}
+                }
 				list.Add(item);
 			}
 		}

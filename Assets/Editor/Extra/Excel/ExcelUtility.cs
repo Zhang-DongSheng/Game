@@ -1,12 +1,13 @@
 ﻿using OfficeOpenXml;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace UnityEditor
 {
     public class ExcelUtility
 	{
-		private readonly ExcelWorksheets m_sheets;
+        private readonly ExcelWorksheets m_sheets;
 
 		private readonly Encoding UTF8 = new UTF8Encoding(false);
 
@@ -29,35 +30,25 @@ namespace UnityEditor
 
 		public void ConvertToJson(string path)
 		{
-			foreach (var sheet in m_sheets)
-			{
-                string content = ExcelConvert.ToJson(sheet);
+			var sheet = m_sheets.FirstOrDefault();
 
-                File.WriteAllText(path, content, UTF8);
-            }
-		}
+			string content = ExcelConvert.ToJson(sheet);
 
-		public void ConvertToCSV(string path)
-		{
-            
+			File.WriteAllText(path, content, UTF8);
 		}
 
 		public void ConvertToXml(string path)
 		{
-            foreach (var sheet in m_sheets)
-            {
-                string content = ExcelConvert.ToXML(sheet);
+			var sheet = m_sheets.FirstOrDefault();
 
-                File.WriteAllText(path, content, UTF8);
-            }
-        }
+			string content = ExcelConvert.ToXML(sheet);
 
-		public void CreateAsset()
-		{
-            foreach (var sheet in m_sheets)
-            {
-                ExcelConvert.CreateAsset(null);
-            }
+			File.WriteAllText(path, content, UTF8);
 		}
+
+		public void Dispose()
+		{
+			m_sheets.Dispose();
+        }
 	}
 }

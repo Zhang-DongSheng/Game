@@ -8,7 +8,7 @@ namespace Game.UI
     [DisallowMultipleComponent]
     public class TextBind : MonoBehaviour
     {
-        [SerializeField] private string content;
+        public string content;
 
         private Text _component;
 

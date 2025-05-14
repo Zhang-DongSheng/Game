@@ -17,7 +17,7 @@ namespace UnityEditor
 
 		private readonly string[] text_view = new string[] { "Excel", "Setting", "Other" };
 
-		private readonly string[] text_format = new string[] { "JSON", "CSV", "XML", "TXT" };
+		private readonly string[] text_format = new string[] { "JSON", "XML" };
 
 		private readonly string[] text_seacrch = new string[] { "Select", "Specify", "Auto" };
 
@@ -43,7 +43,7 @@ namespace UnityEditor
 
 		private readonly List<ItemFile> source = new List<ItemFile>();
 
-		protected static void Open()
+        protected static void Open()
 		{
 			Open<ExcelTools>("表格工具");
 		}
@@ -165,10 +165,6 @@ namespace UnityEditor
 					{
 						GUILayout.Space(20);
 
-						if (GUILayout.Button(ToLanguage("Build")))
-						{
-							CreateAsset();
-						}
 						GUILayout.BeginHorizontal();
 						{
 							index_format = EditorGUILayout.Popup(index_format, text_format);
@@ -309,28 +305,6 @@ namespace UnityEditor
 			}
 		}
 
-		private void CreateAsset()
-		{
-			try
-			{
-				for (int i = 0; i < source.Count; i++)
-				{
-					if (source[i].select)
-					{
-						new ExcelUtility(source[i].path).CreateAsset();
-					}
-				}
-			}
-			catch (Exception e)
-			{
-				Debug.LogError(e.Message);
-			}
-			finally
-			{
-
-			}
-		}
-
 		private void Convert()
 		{
 			if (Directory.Exists(outputFolder)) { }
@@ -352,19 +326,12 @@ namespace UnityEditor
 								excel.ConvertToJson(string.Format("{0}/{1}.json", outputFolder, source[i].name));
 								break;
 							case 1:
-								excel.ConvertToCSV(string.Format("{0}/{1}.csv", outputFolder, source[i].name));
-								break;
-							case 2:
 								excel.ConvertToXml(string.Format("{0}/{1}.xml", outputFolder, source[i].name));
 								break;
-							case 3:
-								excel.ConvertToJson(string.Format("{0}/{1}.txt", outputFolder, source[i].name));
-								break;
-							default:
-
-								break;
 						}
-					}
+						excel.Dispose();
+
+                    }
 					catch (Exception e)
 					{
 						Debug.LogError(e.Message);
