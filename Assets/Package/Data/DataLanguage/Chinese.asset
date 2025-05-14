@@ -10,104 +10,104 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7613810cd08e98443966b91223b79ba2, type: 3}
-  m_Name: DataLanguage_English
+  m_Name: Chinese
   m_EditorClassIdentifier: 
   order: 0
-  language: 1
+  language: 0
   icon: 
   font: {fileID: 0}
   url: 
   list:
   - primary: 0
     key: confirm
-    value: Confirm
+    value: "\u786E\u8BA4"
   - primary: 0
     key: cancel
-    value: Cancel
+    value: "\u53D6\u6D88"
   - primary: 0
     key: back
-    value: Back
+    value: "\u8FD4\u56DE"
   - primary: 0
     key: undone
-    value: Undone
+    value: "\u672A\u5B8C\u6210"
   - primary: 0
     key: done
-    value: Done
+    value: "\u5DF2\u5B8C\u6210"
   - primary: 0
     key: available
-    value: Available
+    value: "\u53EF\u9886\u53D6"
   - primary: 0
     key: claimed
-    value: Claimed
+    value: "\u5DF2\u9886\u53D6"
   - primary: 0
     key: enter
-    value: Enter
+    value: "\u8FDB\u5165"
   - primary: 0
     key: exit
-    value: Exit
+    value: "\u9000\u51FA"
   - primary: 0
     key: warehouse
-    value: Warehouse
+    value: "\u4ED3\u5E93"
   - primary: 0
     key: mail
-    value: Mail
+    value: "\u90AE\u4EF6"
   - primary: 0
     key: activity
-    value: Activity
+    value: "\u6D3B\u52A8"
   - primary: 0
     key: store
-    value: Store
+    value: "\u5546\u5E97"
   - primary: 0
     key: setting
-    value: Setting
+    value: "\u8BBE\u7F6E"
   - primary: 0
     key: task
-    value: Task
+    value: "\u4EFB\u52A1"
   - primary: 0
     key: list
-    value: List
+    value: "\u961F\u5217"
   - primary: 0
     key: new
-    value: New
+    value: "\u65B0"
   - primary: 0
     key: fighting
-    value: Fighting
+    value: "\u6218\u6597"
   - primary: 0
     key: game
-    value: Game
+    value: "\u6E38\u620F"
   - primary: 0
     key: sound
-    value: Sound
+    value: "\u58F0\u97F3"
   - primary: 0
     key: music
-    value: Music
+    value: "\u97F3\u4E50"
   - primary: 0
     key: sound effect
-    value: Sound
+    value: "\u97F3\u6548"
   - primary: 0
     key: mute
-    value: Mute
+    value: "\u9759\u97F3"
   - primary: 0
     key: language
-    value: Language
+    value: "\u591A\u8BED\u8A00"
   - primary: 0
     key: channel
-    value: SDK
+    value: "\u6E20\u9053"
   - primary: 0
     key: rankinglist
-    value: RankingList
+    value: "\u6392\u884C\u699C"
   - primary: 0
     key: club
-    value: Club
+    value: "\u4F1A\u6240"
   - primary: 0
     key: friend
-    value: Friends
+    value: "\u597D\u53CB"
   - primary: 0
     key: gold
-    value: Gold
+    value: "\u91D1\u5E01"
   - primary: 0
     key: diamond
-    value: Diamond
+    value: "\u94BB\u77F3"
   - primary: 0
     key: coin
-    value: Coin
+    value: "\u4EE3\u5E01"

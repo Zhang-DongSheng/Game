@@ -53,7 +53,7 @@ namespace Game
         {
             if (async)
             {
-                DataManager.Instance.LoadAsyncBranch<DataLanguage>(language.ToString(), (asset) =>
+                DataManager.Instance.LoadBranchAsync<DataLanguage>(language.ToString(), (asset) =>
                 {
                     if (asset != null)
                     {

@@ -61,16 +61,25 @@ namespace UnityEditor
         {
             OpenFile(Application.consoleLogPath);
         }
-        [MenuItem("Assets/Copy Path Pro", priority = 19)]
-        internal static void CopyPath()
+        [MenuItem("Assets/Open HotFix Project", priority = 999)]
+        private static void OpenHotFixProject()
+        {
+            string folder = "ILRuntime/Hotfix~";
+
+            string file = "Hotfix";
+
+            string path = string.Format("{0}/{1}/{2}.sln", Application.dataPath, folder, file);
+
+            EditorUtility.OpenWithDefaultApp(path);
+        }
+        [MenuItem("Assets/Copy Path Pro/System Path")]
+        private static void CopyFullPath()
         {
             if (Selection.activeObject != null)
             {
                 string path = AssetDatabase.GetAssetPath(Selection.activeObject);
 
                 path = Utility.Path.UnityToSystem(path);
-
-                path = path.Replace("\\", "/");
 
                 GUIUtility.systemCopyBuffer = path;
 
@@ -84,16 +93,45 @@ namespace UnityEditor
                 }
             }
         }
-        [MenuItem("Assets/Open HotFix Project", priority = 999)]
-        internal static void OpenHotFixProject()
+        [MenuItem("Assets/Copy Path Pro/Asset Path")]
+        private static void CopyAssetPath()
         {
-            string folder = "ILRuntime/Hotfix~";
+            if (Selection.activeObject != null)
+            {
+                string path = AssetDatabase.GetAssetPath(Selection.activeObject);
 
-            string file = "Hotfix";
+                GUIUtility.systemCopyBuffer = path;
 
-            string path = string.Format("{0}/{1}/{2}.sln", Application.dataPath, folder, file);
+                if (EditorWindow.focusedWindow != null)
+                {
+                    EditorWindow.focusedWindow.ShowNotification(new GUIContent("路径复制成功！"));
+                }
+                else
+                {
+                    Debuger.Log(Author.File, "路径复制成功！");
+                }
+            }
+        }
+        [MenuItem("Assets/Copy Path Pro/Package Path")]
+        private static void CopyPackagePath()
+        {
+            if (Selection.activeObject != null)
+            {
+                string path = AssetDatabase.GetAssetPath(Selection.activeObject);
 
-            EditorUtility.OpenWithDefaultApp(path);
+                path = path[7..];
+
+                GUIUtility.systemCopyBuffer = path;
+
+                if (EditorWindow.focusedWindow != null)
+                {
+                    EditorWindow.focusedWindow.ShowNotification(new GUIContent("路径复制成功！"));
+                }
+                else
+                {
+                    Debuger.Log(Author.File, "路径复制成功！");
+                }
+            }
         }
 
         private static void OpenFolder(string path)
@@ -104,10 +142,6 @@ namespace UnityEditor
             {
                 EditorUtility.RevealInFinder(path);
             }
-            else
-            {
-                Debug.LogError("No Directory: " + path);
-            }
         }
 
         private static void OpenFile(string path)
@@ -117,10 +151,6 @@ namespace UnityEditor
             if (File.Exists(path))
             {
                 EditorUtility.OpenWithDefaultApp(path);
-            }
-            else
-            {
-                Debug.LogError("No Find: " + path);
             }
         }
     }

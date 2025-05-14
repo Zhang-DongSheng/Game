@@ -17,9 +17,11 @@ namespace UnityEditor.Window
     {
         private string path;
 
-        private readonly string[] _menu = new string[] { "配置", "加载", "同步", "其他" };
+        private readonly string[] _menu = new string[] { "配置", "数据", "多语言", "同步", "其他" };
 
-        private readonly List<DataCell> _cells = new List<DataCell>();
+        private readonly List<DataCell> _datas = new List<DataCell>();
+
+        private readonly List<DataCell> _languages = new List<DataCell>();
         [MenuItem("Game/Data")]
         protected static void Open()
         {
@@ -46,6 +48,9 @@ namespace UnityEditor.Window
                         RefreshLoading();
                         break;
                     case 2:
+                        RefreshLanguage();
+                        break;
+                    case 3:
                         RefreshSynchronizate();
                         break;
                     default:
@@ -120,20 +125,20 @@ namespace UnityEditor.Window
             {
                 scroll = GUILayout.BeginScrollView(scroll);
                 {
-                    int count = _cells.Count;
+                    int count = _datas.Count;
 
                     for (int i = 0; i < count; i++)
                     {
-                        RefreshLoading(_cells[i]);
+                        RefreshLoading(_datas[i]);
                     }
 
                     if (GUILayout.Button(ToLanguage("Loading")))
                     {
                         for (int i = 0; i < count; i++)
                         {
-                            if (_cells[i].asset && _cells[i].select)
+                            if (_datas[i].asset && _datas[i].select)
                             {
-                                Load(_cells[i].type);
+                                Load(_datas[i].type);
                             }
                         }
                     }
@@ -149,9 +154,9 @@ namespace UnityEditor.Window
             {
                 cell.select = GUILayout.Toggle(cell.select, string.Empty, GUILayout.Width(50));
 
-                GUILayout.Label(cell.type.Name);
+                GUILayout.Label(cell.name);
 
-                if (cell.asset || cell.branch)
+                if (cell.asset)
                 {
                     if (GUILayout.Button(ToLanguage("Loading"), GUILayout.Width(100)))
                     {
@@ -168,6 +173,55 @@ namespace UnityEditor.Window
                     if (GUILayout.Button(ToLanguage("Create"), GUILayout.Width(200)))
                     {
                         Create(cell.type);
+                    }
+                }
+            }
+            GUILayout.EndHorizontal();
+        }
+
+        private void RefreshLanguage()
+        {
+            GUILayout.BeginVertical();
+            {
+                scroll = GUILayout.BeginScrollView(scroll);
+                {
+                    int count = _languages.Count;
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        RefreshLanguage(_languages[i]);
+                    }
+
+                    if (GUILayout.Button(ToLanguage("Loading")))
+                    {
+                        LoadLanguage();
+                    }
+                }
+                GUILayout.EndScrollView();
+            }
+            GUILayout.EndVertical();
+        }
+
+        private void RefreshLanguage(DataCell cell)
+        {
+            GUILayout.BeginHorizontal();
+            {
+                cell.select = GUILayout.Toggle(cell.select, string.Empty, GUILayout.Width(50));
+
+                GUILayout.Label(cell.name);
+
+                if (cell.asset)
+                {
+                    if (GUILayout.Button(ToLanguage("Preview"), GUILayout.Width(200)))
+                    {
+                        Preview(cell.type, cell.name);
+                    }
+                }
+                else
+                {
+                    if (GUILayout.Button(ToLanguage("Create"), GUILayout.Width(200)))
+                    {
+                        Create(cell.type, cell.name);
                     }
                 }
             }
@@ -197,44 +251,41 @@ namespace UnityEditor.Window
 
         private void Reloading()
         {
-            _cells.Clear();
+            _datas.Clear(); _languages.Clear();
 
             var types = Extension.GetChildrenTypes(typeof(DataBase), false);
 
             foreach (var type in types)
             {
-                _cells.Add(new DataCell()
+                if (type == typeof(DataLanguage)) continue;
+
+                _datas.Add(new DataCell()
                 {
                     type = type,
-                    asset = Exist(type),
-                    branch = type.Equals(typeof(DataLanguage)),
+                    name = type.Name,
+                    asset = Exist(type.Name),
+                    select = true,
+                });
+            }
+            // Language
+            foreach (var language in Enum.GetValues(typeof(Language)))
+            {
+                _languages.Add(new DataCell()
+                {
+                    type = typeof(DataLanguage),
+                    name = language.ToString(),
+                    asset = Exist($"DataLanguage/{language}"),
                     select = true,
                 });
             }
         }
 
         #region Loading
-        private void Create(Type type)
-        {
-            string path = $"{AssetPath.DataEditor}/{type.Name}.asset";
-            ScriptableObject script = ScriptableObject.CreateInstance(type);
-            string folder = Path.GetDirectoryName(path);
-            if (Directory.Exists(folder) == false)
-                Directory.CreateDirectory(folder);
-            AssetDatabase.CreateAsset(script, path);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh(); Reloading();
-        }
-
         private void Load(Type type)
         {
             if (type == typeof(DataConfig))
             {
                 Loading<DataConfig>("config");
-            }
-            else if (type == typeof(DataLanguage))
-            {
-                LoadLanguage();
             }
             else if (type == typeof(DataSprite))
             {
@@ -460,7 +511,7 @@ namespace UnityEditor.Window
             {
                 var data = Load<DataLanguage>(language.ToString());
 
-                Debug.Assert(data != null, string.Format("Load DB_{0} error", typeof(T).Name));
+                Debug.Assert(data != null, $"Load language {language} error!");
 
                 if (data == null) continue;
 
@@ -511,27 +562,34 @@ namespace UnityEditor.Window
             Save(data);
         }
 
-        private T Load<T>() where T : ScriptableObject
+        private T Load<T>(string branch = null) where T : ScriptableObject
         {
-            string path = $"{AssetPath.DataEditor}/{typeof(T).Name}.asset";
-
+            if (string.IsNullOrEmpty(branch))
+                path = $"{AssetPath.DataEditor}/{typeof(T).Name}.asset";
+            else
+                path = $"{AssetPath.DataEditor}/{typeof(T).Name}/{branch}.asset";
             T asset = AssetDatabase.LoadAssetAtPath<T>(path);
-
             return asset;
         }
 
-        private T Load<T>(string branch) where T : ScriptableObject
+        private void Create(Type type, string branch = null)
         {
-            string path = $"{AssetPath.DataEditor}/{typeof(T).Name}_{branch}.asset";
-
-            T asset = AssetDatabase.LoadAssetAtPath<T>(path);
-
-            return asset;
+            if (string.IsNullOrEmpty(branch))
+                path = $"{AssetPath.DataEditor}/{type.Name}.asset";
+            else
+                path = $"{AssetPath.DataEditor}/{type.Name}/{branch}.asset";
+            ScriptableObject script = ScriptableObject.CreateInstance(type);
+            string folder = Path.GetDirectoryName(path);
+            if (Directory.Exists(folder) == false)
+                Directory.CreateDirectory(folder);
+            AssetDatabase.CreateAsset(script, path);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh(); Reloading();
         }
 
-        private bool Exist(Type type)
+        private bool Exist(string name)
         {
-            string path = $"{Application.dataPath}/{AssetPath.Data}/{type.Name}.asset";
+            string path = $"{Application.dataPath}/{AssetPath.Data}/{name}.asset";
 
             return File.Exists(path);
         }
@@ -545,10 +603,12 @@ namespace UnityEditor.Window
             AssetDatabase.Refresh();
         }
 
-        private void Preview(Type type)
+        private void Preview(Type type, string branch = null)
         {
-            string path = $"{AssetPath.DataEditor}/{type.Name}.asset";
-
+            if (string.IsNullOrEmpty(branch))
+                path = $"{AssetPath.DataEditor}/{type.Name}.asset";
+            else
+                path = $"{AssetPath.DataEditor}/{type.Name}/{branch}.asset";
             var asset = AssetDatabase.LoadAssetAtPath(path, type);
 
             Selection.activeObject = asset;
@@ -639,9 +699,9 @@ namespace UnityEditor.Window
         {
             public Type type;
 
-            public bool asset;
+            public string name;
 
-            public bool branch;
+            public bool asset;
 
             public bool select;
         }

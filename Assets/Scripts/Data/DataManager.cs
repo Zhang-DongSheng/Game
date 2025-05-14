@@ -32,7 +32,7 @@ namespace Game.Data
 
         public T LoadBranch<T>(string branch) where T : DataBase
         {
-            string key = string.Format("{0}_{1}", typeof(T).Name, branch);
+            string key = string.Format("{0}/{1}", typeof(T).Name, branch);
 
             if (m_data.ContainsKey(key))
             {
@@ -78,9 +78,9 @@ namespace Game.Data
             }
         }
 
-        public void LoadAsyncBranch<T>(string branch, Action<T> action) where T : DataBase
+        public void LoadBranchAsync<T>(string branch, Action<T> action) where T : DataBase
         {
-            string key = string.Format("{0}_{1}", typeof(T).Name, branch);
+            string key = string.Format("{0}/{1}", typeof(T).Name, branch);
 
             if (m_data.ContainsKey(key))
             {
