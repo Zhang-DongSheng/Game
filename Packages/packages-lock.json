@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "e5b52922f7fe276ed46968e2e3ec9182f90ee9a1"
+      "hash": "7a0032934b438ad20a4a691f8093ce1865824c42"
     },
     "com.unity.2d.animation": {
       "version": "7.1.2",
@@ -57,8 +57,8 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
-      "version": "1.8.18",
-      "depth": 1,
+      "version": "1.8.21",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
