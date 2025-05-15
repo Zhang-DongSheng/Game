@@ -36,7 +36,7 @@ namespace Game.State
 
         public void OnExit()
         {
-
+            DeployLogic.Instance.Release();
         }
 
         private IEnumerator LoadSceneAsync(int index)

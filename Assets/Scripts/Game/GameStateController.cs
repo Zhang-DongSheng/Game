@@ -35,6 +35,11 @@ namespace Game.State
             }
         }
 
+        public bool IsState<T>() where T : IGameState
+        {
+            return current != null && current.GetType() == typeof(T);
+        }
+
         private IGameState GetState<T>() where T : IGameState
         {
             foreach (var state in _states)

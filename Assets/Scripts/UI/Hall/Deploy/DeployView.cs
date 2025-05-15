@@ -1,4 +1,3 @@
-using Game.State;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,14 +36,7 @@ namespace Game.UI
 
         public override bool Back()
         {
-            OnClickClose(); return false;
-        }
-
-        protected override void OnClickClose()
-        {
-            DeployLogic.Instance.Release();
-
-            GameStateController.Instance.EnterState<GameLobbyState>();
+            return false;
         }
     }
 }

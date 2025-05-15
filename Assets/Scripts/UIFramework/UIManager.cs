@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game.State;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -189,13 +190,28 @@ namespace Game.UI
             }
             else
             {
-                UIQuickEntry.OpenConfirmView("Tips", "Confirm exit game!", () =>
+                if (GameStateController.Instance.IsState<GameLobbyState>() ||
+                    GameStateController.Instance.IsState<GameLoginState>())
                 {
+                    UIQuickEntry.OpenConfirmView("Tips", "Confirm exit game!", () =>
+                    {
 #if UNITY_EDITOR
-                    UnityEditor.EditorApplication.isPlaying = false;
+                        UnityEditor.EditorApplication.isPlaying = false;
 #endif
-                    Application.Quit();
-                });
+                        Application.Quit();
+                    });
+                }
+                else if (GameStateController.Instance.IsState<GameCombatState>())
+                {
+                    UIQuickEntry.OpenConfirmView("Tips", "Confirm exit combat!", () =>
+                    {
+                        GameStateController.Instance.EnterState<GameLobbyState>();
+                    });
+                }
+                else
+                {
+                    GameStateController.Instance.EnterState<GameLobbyState>();
+                }
             }
         }
 
