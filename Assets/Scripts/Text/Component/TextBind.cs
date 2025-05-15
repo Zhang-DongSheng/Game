@@ -8,15 +8,17 @@ namespace Game.UI
     [DisallowMultipleComponent]
     public class TextBind : MonoBehaviour
     {
-        public string content;
+        public string content = string.Empty;
 
-        private Text _component;
+        public bool language = true;
 
-        private TextMeshProUGUI _component2;
+        private Text _text;
+
+        private TextMeshProUGUI _textmp;
 
         private string _content;
 
-        private bool _relevance = false;
+        private bool _relevance = true;
 
         private void Awake()
         {
@@ -30,23 +32,12 @@ namespace Game.UI
 
         private void Start()
         {
-            SetTextImmediately(content);
+            SetText(content, language);
         }
 
         private void OnValidate()
         {
-            SetText(content);
-        }
-
-        private void Relevance()
-        {
-            if (_relevance) return;
-
-            _relevance = true;
-
-            _component = GetComponent<Text>();
-
-            _component2 = GetComponent<TextMeshProUGUI>();
+            SetText(content, language);
         }
 
         private void OnLanguageChange(UnityEngine.EventArgs args)
@@ -55,56 +46,62 @@ namespace Game.UI
             {
                 return;
             }
-            SetTextImmediately(content);
+            SetText(content, language);
         }
 
-        public void SetText(string content)
+        public void SetText(string content, bool language = true)
         {
             if (this.content.Equals(content)) return;
 
             this.content = content;
 
-            SetTextImmediately(content);
+            this.language = language;
+
+            _content = LanguageManager.Instance.Get(content);
+
+            SetTextImmediately(_content);
         }
 
-        public void SetText(int value)
+        public void SetTextWithParameters(string content, params object[] parameters)
         {
-            content = string.Empty;
+            if (this.content.Equals(content)) return;
 
-            _content = value.ToString();
+            this.content = content;
 
-            SetContent(_content);
+            _content = LanguageManager.Instance.Get(content);
+
+            _content = string.Format(_content, parameters);
+
+            SetTextImmediately(_content);
         }
 
-        public void SetText(float value, int digits = -1)
+        public void SetNumber(float value, int digits = -1)
         {
-            content = string.Empty;
-
             if (digits > -1)
             {
-                _content = string.Format("{0}", Math.Round(value, digits));
+                content = string.Format("{0}", Math.Round(value, digits));
             }
             else
             {
-                _content = string.Format("{0}", value);
+                content = string.Format("{0}", value);
             }
-            SetContent(_content);
+            _content = content;
+
+            SetTextImmediately(_content);
         }
 
-        protected void SetTextImmediately(string content)
+        private void SetTextImmediately(string content)
         {
-            _content = LanguageManager.Instance.Get(content);
-
-            SetContent(_content);
-        }
-
-        protected void SetContent(string content)
-        {
-            Relevance();
-            if (_component != null)
-                _component.text = content;
-            if (_component2 != null)
-                _component2.text = content;
+            if (_relevance)
+            {
+                _relevance = false;
+                _text = GetComponent<Text>();
+                _textmp = GetComponent<TextMeshProUGUI>();
+            }
+            if (_text != null)
+                _text.text = content;
+            if (_textmp != null)
+                _textmp.text = content;
         }
     }
 }

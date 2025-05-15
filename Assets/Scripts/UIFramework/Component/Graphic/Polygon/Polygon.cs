@@ -37,25 +37,6 @@ namespace UnityEngine.UI
             base.Awake();
         }
 
-        protected override void OnValidate()
-        {
-            if (count < 3) return;
-
-            points.Clear();
-
-            float angle = 360f / count;
-
-            for (int i = 0; i < count; i++)
-            {
-                points.Add(new Vector2()
-                {
-                    x = Mathf.Sin(i * angle * Mathf.Deg2Rad) * radius,
-                    y = Mathf.Cos(i * angle * Mathf.Deg2Rad) * radius,
-                });
-            }
-            base.OnValidate();
-        }
-
         protected override void OnPopulateMesh(VertexHelper helper)
         {
             if (!isActiveAndEnabled) return;

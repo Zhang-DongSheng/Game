@@ -41,7 +41,7 @@ namespace Game.UI
 
             txtName.SetText(prop.name);
 
-            txtType.SetText(prop.category);
+            txtType.SetNumber(prop.category);
 
             txtDescription.SetText(prop.description);
         }

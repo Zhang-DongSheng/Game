@@ -35,7 +35,7 @@ namespace Game.UI
 
             Refresh();
 
-            txtNumber.SetText(amount);
+            txtNumber.SetNumber(amount);
 
             SetActive(true);
         }
