@@ -126,14 +126,14 @@ namespace Game
             {
                 if (path.StartsWith("Assets/"))
                 {
-                    return string.Format("{0}/{1}", Application.dataPath, path.Remove(0, 7));
+                    return string.Format("{0}/{1}", Application.dataPath, path[7..]);
                 }
                 return path;
             }
 
             public static string SystemToUnity(string path)
             {
-                path = string.Format("{0}{1}", AssetPath.Assets , path.Remove(0, Application.dataPath.Length));
+                path = string.Format("{0}{1}", AssetPath.Assets , path[Application.dataPath.Length..]);
 
                 path = GetRegularPath(path);
 

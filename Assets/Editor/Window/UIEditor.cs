@@ -56,13 +56,13 @@ namespace UnityEditor.Window
 
         private void RefreshCreate()
         {
-            GUILayout.Label("Create New UI");
+            GUILayout.Label(ToLanguage("Create New UI"));
 
             content = GUILayout.TextField(content);
 
             GUILayout.BeginHorizontal();
             {
-                hotfix = GUILayout.Toggle(hotfix, "ILRuntime", GUILayout.Width(WIDTH));
+                hotfix = GUILayout.Toggle(hotfix, ToLanguage("Hotfix"), GUILayout.Width(WIDTH));
             }
             GUILayout.EndHorizontal();
 

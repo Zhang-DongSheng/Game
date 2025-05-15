@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LitJson;
+using System;
 using System.Collections.Generic;
 
 namespace Game.Data
@@ -20,19 +21,17 @@ namespace Game.Data
             return list.Find(x => x.primary == dialogID);
         }
 
-        public override void Load(string content)
+        public override void Load(JsonData json)
         {
-            base.Load(content);
-
-            int count = m_list.Count;
+            int count = json.Count;
 
             for (int i = 0; i < count; i++)
             {
-                var dialog = m_list[i].GetType<DialogInformation>();
+                var dialog = json[i].GetType<DialogInformation>();
 
-                dialog.primary = m_list[i].GetUInt("ID");
+                dialog.primary = json[i].GetUInt("ID");
 
-                dialog.type = (DialogType)m_list[i].GetUInt("type");
+                dialog.type = json[i].GetEnum<DialogType>("type");
 
                 list.Add(dialog);
             }

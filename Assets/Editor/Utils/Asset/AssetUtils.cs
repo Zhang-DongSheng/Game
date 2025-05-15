@@ -1,10 +1,9 @@
 ﻿using Game;
+using Game.Const;
+using Game.Data;
 using Game.UI;
-using NUnit.Framework;
+using LitJson;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -93,9 +92,11 @@ namespace UnityEditor.Utils
 
         public static Dictionary<string, string> ScanKeysInText()
         {
-            var regex = new Regex(@"(?<=(""))[.\\s\\S]*?(?=(""))", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
             var dic = new Dictionary<string, string>();
+
+            return dic;
+
+            var regex = new Regex(@"(?<=(""))[.\\s\\S]*?(?=(""))", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
             var guids = AssetDatabase.FindAssets("t:TextAsset");
 
@@ -132,6 +133,57 @@ namespace UnityEditor.Utils
         {
             var dic = new Dictionary<string, string>();
 
+            void Add(string key, string value)
+            {
+                if (dic.TryGetValue(key, out _))
+                {
+                    
+                }
+                else
+                {
+                    dic.Add(key, value);
+                }
+            }
+            var types = Extension.GetChildrenTypes(typeof(DataBase), false);
+
+            foreach (var type in types)
+            {
+                if (type == typeof(DataLanguage)) continue;
+
+                var name = type.Name.ToLower()[4..];
+
+                string path = $"{AssetPath.DataJson}/{name}.json";
+
+                var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
+
+                Debug.Assert(asset != null, string.Format("{0} is null", path));
+
+                if (asset == null) continue;
+
+                string content = asset.text;
+
+                var json = JsonMapper.ToObject(content);
+
+                var list = json.GetJson("list");
+
+                int count = list != null ? list.Count : 0;
+
+                for (int i = 0; i < count; i++)
+                {
+                    var result = list[i].GetString("name");
+
+                    if (!string.IsNullOrEmpty(result))
+                    {
+                        Add(result, "[Data]" + name);
+                    }
+                    result = list[i].GetString("descript");
+
+                    if (!string.IsNullOrEmpty(result))
+                    {
+                        Add(result, "[Data]" + name);
+                    }
+                }
+            }
             return dic;
         }
     }

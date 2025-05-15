@@ -1,3 +1,4 @@
+using LitJson;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,11 +17,11 @@ namespace Game.Data
 
         public List<WordInformation> list;
 
-        public override void Load(string content)
+        public override void Load(JsonData json)
         {
-            base.Load(content);
+            Clear();
 
-            int count = m_list.Count;
+            int count = json.Count;
 
             string key = language.ToString().ToLower();
 
@@ -28,8 +29,8 @@ namespace Game.Data
             {
                 list.Add(new WordInformation()
                 {
-                    key = m_list[i].GetString("key"),
-                    value = m_list[i].GetString(key)
+                    key = json[i].GetString("key"),
+                    value = json[i].GetString(key)
                 });
             }
             Detection();

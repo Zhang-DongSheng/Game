@@ -31,6 +31,8 @@ namespace Game.Const
 
         public const string Data = "Package/Data";
 
+        public const string DataJson = "Assets/Art/Excel";
+
         public const string DataEditor = "Assets/Package/Data";
 
         public const string UIScript = "Scripts/UI/Hall/";

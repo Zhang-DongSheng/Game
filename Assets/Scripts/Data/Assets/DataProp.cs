@@ -1,4 +1,5 @@
 using Game;
+using LitJson;
 using System.Collections.Generic;
 
 namespace Game.Data
@@ -18,17 +19,15 @@ namespace Game.Data
             return null;
         }
 
-        public override void Load(string content)
+        public override void Load(JsonData json)
         {
-            base.Load(content);
-
-            int count = m_list.Count;
+            int count = json.Count;
 
             for (int i = 0; i < count; i++)
             {
-                var prop = m_list[i].GetType<PropInformation>();
+                var prop = json[i].GetType<PropInformation>();
 
-                prop.primary = m_list[i].GetUInt("ID");
+                prop.primary = json[i].GetUInt("ID");
 
                 list.Add(prop);
             }

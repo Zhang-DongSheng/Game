@@ -2,7 +2,7 @@
 using Game.Const;
 using Game.Data;
 using Game.UI;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
+using LitJson;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -206,7 +206,7 @@ namespace UnityEditor.Window
 
                         if (GUILayout.Button(ToLanguage("Scan"), GUILayout.Width(100)))
                         {
-                            ScanLanguageWords();
+                            ScanLanguage();
                         }
                     }
                     GUILayout.EndHorizontal();
@@ -279,62 +279,6 @@ namespace UnityEditor.Window
             }
         }
 
-        private void Reloading()
-        {
-            _datas.Clear(); _languages.Clear();
-
-            var types = Extension.GetChildrenTypes(typeof(DataBase), false);
-
-            foreach (var type in types)
-            {
-                if (type == typeof(DataLanguage)) continue;
-
-                _datas.Add(new DataCell()
-                {
-                    type = type,
-                    name = type.Name,
-                    asset = Exist(type.Name),
-                    select = true,
-                });
-            }
-            // Language
-            foreach (var language in Enum.GetValues(typeof(Language)))
-            {
-                _languages.Add(new DataCell()
-                {
-                    type = typeof(DataLanguage),
-                    name = language.ToString(),
-                    asset = Exist($"DataLanguage/{language}"),
-                    select = true,
-                });
-            }
-        }
-
-        private void ScanLanguageWords()
-        {
-            _keys.Clear();
-
-            _keys.AddRange(AssetUtils.ScanKeysInPrefab());
-
-            _keys.AddRange(AssetUtils.ScanKeysInText());
-
-            _keys.AddRange(AssetUtils.ScanKeysInTable());
-
-            var asset = Load<DataLanguage>(Language.Chinese.ToString());
-
-            if (asset == null) return;
-
-            int count = asset.list.Count;
-
-            for (int i = 0; i < count; i++)
-            {
-                if (_keys.ContainsKey(asset.list[i].key))
-                {
-                    _keys.Remove(asset.list[i].key);
-                }
-            }
-        }
-
         #region Loading
         private void Load(Type type)
         {
@@ -390,7 +334,9 @@ namespace UnityEditor.Window
 
         private void LoadPrefab()
         {
-            var data = Load<DataUI>(); data.Clear();
+            var data = Load<DataUI>();
+
+            data.Clear();
 
             foreach (var panel in Enum.GetValues(typeof(UIPanel)))
             {
@@ -433,7 +379,9 @@ namespace UnityEditor.Window
 
         private void LoadSprite()
         {
-            var data = Load<DataSprite>(); data.Clear();
+            var data = Load<DataSprite>();
+
+            data.Clear();
 
             string[] guids = AssetDatabase.FindAssets("t:SpriteAtlas", new string[] { "Assets/Package" });
 
@@ -452,7 +400,6 @@ namespace UnityEditor.Window
                         path = path.Replace("Assets/", string.Empty),
                         sprites = new List<string>(asset.spriteCount),
                     };
-
                     Sprite[] sprites = new Sprite[asset.spriteCount];
 
                     asset.GetSprites(sprites);
@@ -482,7 +429,9 @@ namespace UnityEditor.Window
 
         private void LoadAudio()
         {
-            var data = Load<DataAduio>(); data.Clear();
+            var data = Load<DataAduio>();
+
+            data.Clear();
 
             string[] guids = AssetDatabase.FindAssets("t:AudioClip", new string[] { "Assets/Package" });
 
@@ -511,7 +460,9 @@ namespace UnityEditor.Window
 
         private void LoadVideo()
         {
-            var data = Load<DataVideo>(); data.Clear();
+            var data = Load<DataVideo>();
+
+            data.Clear();
 
             string[] guids = AssetDatabase.FindAssets("t:VideoClip", new string[] { "Assets/Package" });
 
@@ -546,23 +497,21 @@ namespace UnityEditor.Window
 
             string output = string.Format("{0}/Assets/Art/Excel/language.json", project);
 
+            bool exist = File.Exists(output);
+
             ExcelUtility excel = new ExcelUtility(input);
 
             excel.ConvertToJson(output);
 
             excel.Dispose();
 
-            string path = "Assets/Art/Excel/language.json";
+            if (!exist)
+            {
+                AssetDatabase.ImportAsset(Utility.Path.SystemToUnity(output));
+            }
+            AssetDatabase.Refresh();
 
-            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
-
-            Debug.Assert(asset != null, string.Format("{0} is null", path));
-
-            if (asset == null) return;
-
-            string content = asset.text;
-
-            if (string.IsNullOrEmpty(content)) return;
+            var json = LoadJson<DataLanguage>();
 
             foreach (var language in Enum.GetValues(typeof(Language)))
             {
@@ -574,7 +523,9 @@ namespace UnityEditor.Window
 
                 data.language = (Language)language;
 
-                data.Load(content);
+                data.Clear();
+
+                data.Load(json);
 
                 data.Sort();
 
@@ -584,11 +535,13 @@ namespace UnityEditor.Window
 
         private void Loading<T>(string source) where T : DataBase
         {
-            string project = Application.dataPath.Substring(0, Application.dataPath.Length - 7);
+            string project = Application.dataPath[..^7];
 
-            string input = string.Format("{0}/Source/Excel/{1}.xlsx", project, source);
+            string input = $"{project}/Source/Excel/{source}.xlsx";
 
-            string output = string.Format("{0}/Assets/Art/Excel/{1}.json", project, source);
+            string output = $"{project}/{AssetPath.DataJson}/{source}.json";
+
+            bool exist = File.Exists(output);
 
             ExcelUtility excel = new ExcelUtility(input);
 
@@ -596,17 +549,11 @@ namespace UnityEditor.Window
 
             excel.Dispose();
 
-            string path = string.Format("Assets/Art/Excel/{0}.json", source);
-
-            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
-
-            Debug.Assert(asset != null, string.Format("{0} is null", path));
-
-            if (asset == null) return;
-
-            string content = asset.text;
-
-            if (string.IsNullOrEmpty(content)) return;
+            if (!exist)
+            {
+                AssetDatabase.ImportAsset(Utility.Path.SystemToUnity(output));
+            }
+            AssetDatabase.Refresh();
 
             T data = Load<T>();
 
@@ -614,7 +561,9 @@ namespace UnityEditor.Window
 
             if (data == null) return;
 
-            data.Load(content);
+            data.Clear();
+
+            data.Load(LoadJson<T>());
 
             data.Sort();
 
@@ -629,6 +578,29 @@ namespace UnityEditor.Window
                 path = $"{AssetPath.DataEditor}/{typeof(T).Name}/{branch}.asset";
             T asset = AssetDatabase.LoadAssetAtPath<T>(path);
             return asset;
+        }
+
+        private JsonData LoadJson<T>()
+        {
+            var name = typeof(T).Name.ToLower()[4..];
+
+            string path = $"{AssetPath.DataJson}/{name}.json";
+
+            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
+
+            Debug.Assert(asset != null, string.Format("{0} is null", path));
+
+            if (asset == null) return null;
+
+            string content = asset.text;
+
+            var json = JsonMapper.ToObject(content);
+
+            if (json.ContainsKey("list"))
+            {
+                return json["list"];
+            }
+            return json;
         }
 
         private void Create(Type type, string branch = null)
@@ -673,6 +645,62 @@ namespace UnityEditor.Window
             Selection.activeObject = asset;
         }
         #endregion
+
+        private void Reloading()
+        {
+            _datas.Clear(); _languages.Clear();
+
+            var types = Extension.GetChildrenTypes(typeof(DataBase), false);
+
+            foreach (var type in types)
+            {
+                if (type == typeof(DataLanguage)) continue;
+
+                _datas.Add(new DataCell()
+                {
+                    type = type,
+                    name = type.Name,
+                    asset = Exist(type.Name),
+                    select = true,
+                });
+            }
+            // Language
+            foreach (var language in Enum.GetValues(typeof(Language)))
+            {
+                _languages.Add(new DataCell()
+                {
+                    type = typeof(DataLanguage),
+                    name = language.ToString(),
+                    asset = Exist($"DataLanguage/{language}"),
+                    select = true,
+                });
+            }
+        }
+
+        private void ScanLanguage()
+        {
+            _keys.Clear();
+
+            _keys.AddRange(AssetUtils.ScanKeysInPrefab());
+
+            _keys.AddRange(AssetUtils.ScanKeysInText());
+
+            _keys.AddRange(AssetUtils.ScanKeysInTable());
+
+            var asset = Load<DataLanguage>(Language.Chinese.ToString());
+
+            if (asset == null) return;
+
+            int count = asset.list.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (_keys.ContainsKey(asset.list[i].key))
+                {
+                    _keys.Remove(asset.list[i].key);
+                }
+            }
+        }
 
         #region Synchronizate
         private void SynchronizateHotfix()
