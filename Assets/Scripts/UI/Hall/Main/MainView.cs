@@ -22,16 +22,6 @@ namespace Game.UI
             entries.AddRange(transform.GetComponentsInChildren<ItemEntry>(true));
         }
 
-        protected override void OnRegister()
-        {
-            
-        }
-
-        protected override void OnUnregister()
-        {
-            
-        }
-
         public override void Refresh(UIParameter parameter)
         {
             foreach (var entry in entries)
