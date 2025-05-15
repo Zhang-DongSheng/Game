@@ -1,7 +1,9 @@
 using Game.UI;
 using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 
 namespace Game
 {
@@ -39,7 +41,10 @@ namespace Game
 
         public void Release()
         {
-            
+            if (assembly != null)
+            {
+                assembly = null;
+            }
         }
     }
 }
