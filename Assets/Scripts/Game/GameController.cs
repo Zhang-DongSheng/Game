@@ -82,6 +82,15 @@ namespace Game
             ScheduleLogic.Instance.Initialize();
         }
 
+        private void OnRelease()
+        {
+            Network.NetworkManager.Instance.Close();
+
+            HotfixLogic.Instance.Release();
+
+            ResourceManager.UnLoadAllAsset();
+        }
+
         private void OnApplicationPause(bool pause)
         {
             Debuger.LogWarning(Author.Device, "应用程序切换后台" + pause);
@@ -89,14 +98,9 @@ namespace Game
 
         private void OnApplicationQuit()
         {
+            OnRelease();
+
             Debuger.LogError(Author.Device, "应用程序退出");
-        }
-
-        private void OnDestroy()
-        {
-            Network.NetworkManager.Instance.Close();
-
-            ResourceManager.UnLoadAllAsset();
         }
     }
 }

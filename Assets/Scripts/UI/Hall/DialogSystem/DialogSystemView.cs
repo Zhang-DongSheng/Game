@@ -74,24 +74,24 @@ namespace Game.UI
             {
                 case DialogType.Content:
                     {
-                        
-                            content.Refresh(dialog);
-                        
+                        content.Refresh(dialog);
                     }
                     break;
                 case DialogType.Option:
                     {
-                        
-                            option.Refresh(dialog);
-                        
+                        option.Refresh(dialog);
                     }
                     break;
+                default:
+                    Debuger.LogError(Author.UI, $"该类型对话未处理:{dialog.type}");
+                    break;
             }
+            Debuger.LogWarning(Author.UI, $"当前播放对话ID:{dialog.primary}");
         }
 
         private void Complete()
         {
-
+            Debuger.LogError(Author.UI, "对话完成");
         }
 
         private void OnClickNext()

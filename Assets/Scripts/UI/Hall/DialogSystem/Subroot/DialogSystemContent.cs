@@ -10,7 +10,7 @@ namespace Game.UI
     {
         [SerializeField] private SMTranslate _animation;
 
-        [SerializeField] private TextMeshProUGUI _txtContent;
+        [SerializeField] private TextBind _text;
 
         private float timer, interval;
 
@@ -51,7 +51,7 @@ namespace Game.UI
             {
                 text = content.Substring(0, current);
             }
-            _txtContent.text = text;
+            _text.SetTextImmediately(text);
         }
 
         public void Refresh(DialogInformation dialog)

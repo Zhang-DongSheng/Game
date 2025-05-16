@@ -29,6 +29,8 @@ namespace Game
 
         public void Refresh(Action callback)
         {
+            UIQuickEntry.Open(UIPanel.Waiting);
+
             DataManager.Instance.LoadAsync<DataDialog>((data) =>
             {
                 _dialog = data;
@@ -48,6 +50,8 @@ namespace Game
                     Execute(info);
                 }
                 callback?.Invoke();
+
+                UIQuickEntry.Close(UIPanel.Waiting);
             });
         }
 

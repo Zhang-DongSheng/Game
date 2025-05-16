@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer: 5
-  type: 1
+  type: 3
   order: 0
 --- !u!1 &8433274508746749826
 GameObject:
@@ -242,12 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8daf2e756a842b5438483a5d10c0535c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onBegin:
-    m_PersistentCalls:
-      m_Calls: []
-  onCompleted:
-    m_PersistentCalls:
-      m_Calls: []
+  target: {fileID: 8433274508746749827}
   curve:
     serializedVersion: 2
     m_Curve:
@@ -272,13 +267,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  enable: 1
-  useConfig: 0
+  circle: 1
   speed: 30
   step: 0
-  target: {fileID: 8433274508746749827}
-  circle: 1
-  rotation:
-    origination: {x: 0, y: 0, z: 1}
+  forward: 1
+  enable: 1
+  interval:
+    origination: {x: 0, y: 0, z: 0}
     destination: {x: 0, y: 0, z: 0}
   around: 0

@@ -62,12 +62,8 @@
     <Compile Include="Scripts\Core\Main.cs" />
     <Compile Include="Scripts\UI\Core\HotfixItemBase.cs" />
     <Compile Include="Scripts\UI\Core\HotfixViewBase.cs" />
-    <Compile Include="Scripts\UI\Hall\GGG\GGGRelevance.cs" />
-    <Compile Include="Scripts\UI\Hall\GGG\GGGView.cs" />
     <Compile Include="Scripts\UI\Hall\Study\StudyView.cs" />
     <Compile Include="Scripts\Program.cs" />
-    <Compile Include="Scripts\UI\Hall\TYTR\TYTRRelevance.cs" />
-    <Compile Include="Scripts\UI\Hall\TYTR\TYTRView.cs" />
     <Compile Include="Scripts\Utils\Math.cs" />
   </ItemGroup>
   <ItemGroup>

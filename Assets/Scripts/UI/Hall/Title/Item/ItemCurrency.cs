@@ -9,7 +9,7 @@ namespace Game.UI
     {
         [SerializeField] private ImageBind icon;
 
-        [SerializeField] private Text value;
+        [SerializeField] private TextBind value;
 
         [SerializeField] private Button source;
 
@@ -37,7 +37,7 @@ namespace Game.UI
 
             var hold = WarehouseLogic.Instance.GetPropNumber(coin);
 
-            value.SetText(hold);
+            value.SetNumber(hold);
 
             SetActive(source, true);
 

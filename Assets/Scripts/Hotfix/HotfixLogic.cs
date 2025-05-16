@@ -189,6 +189,7 @@ namespace Game
                 }
                 stream[i] = null;
             }
+            appdomain = null;
         }
     }
 }

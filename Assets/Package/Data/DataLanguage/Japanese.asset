@@ -19,26 +19,86 @@ MonoBehaviour:
   url: 
   list:
   - primary: 0
-    key: confirm
-    value: "\u8A8D\u3081\u308B"
+    key: a
+    value: a
   - primary: 0
-    key: cancel
-    value: "\u53D6\u6D88\u3057"
+    key: activity
+    value: "\u524D\u591C\u796D"
   - primary: 0
-    key: back
-    value: "\u5E30\u308B\uFF0E\u623B\u308B"
+    key: apply
+    value: "\u7533\u3057\u8FBC\u307F"
   - primary: 0
-    key: undone
-    value: "\u672A\u5B8C\u6210"
-  - primary: 0
-    key: done
-    value: "\u5DF2\u5B8C\u6210"
+    key: automatic login
+    value: "\u81EA\u52D5\u30ED\u30B0\u30A4\u30F3"
   - primary: 0
     key: available
     value: "\u3046\u3051\u3068\u308C\u308B"
   - primary: 0
+    key: b
+    value: b
+  - primary: 0
+    key: back
+    value: "\u5E30\u308B\uFF0E\u623B\u308B"
+  - primary: 0
+    key: basic
+    value: "\u304D\u305D"
+  - primary: 0
+    key: blacklist
+    value: "\u30D6\u30E9\u30C3\u30AF\u30EA\u30B9\u30C8"
+  - primary: 0
+    key: c
+    value: c
+  - primary: 0
+    key: cancel
+    value: "\u53D6\u6D88\u3057"
+  - primary: 0
+    key: channel
+    value: "\u3059\u3058"
+  - primary: 0
+    key: chest
+    value: "\u5B9D\u7BB1"
+  - primary: 0
     key: claimed
     value: "\u5DF2\u9886\u53D6"
+  - primary: 0
+    key: club
+    value: "\u4F1A\u6240"
+  - primary: 0
+    key: coin
+    value: "\u3057\u308B\u3057 "
+  - primary: 0
+    key: collect
+    value: "\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3"
+  - primary: 0
+    key: combat
+    value: "\u3068\u6226\u3046"
+  - primary: 0
+    key: confirm
+    value: "\u8A8D\u3081\u308B"
+  - primary: 0
+    key: consume
+    value: "\u6D88\u8017\u54C1"
+  - primary: 0
+    key: d
+    value: d
+  - primary: 0
+    key: diamond
+    value: "\u30C0\u30A4\u30E4 "
+  - primary: 0
+    key: deploy
+    value: "\u914D\u7F6E\uFF03\u30CF\u30A4\u30C1\uFF03"
+  - primary: 0
+    key: debris
+    value: "\u65AD\u7247\u5316"
+  - primary: 0
+    key: done
+    value: "\u5DF2\u5B8C\u6210"
+  - primary: 0
+    key: draw
+    value: "\u304F\u3058\u3092\u5F15\u304F"
+  - primary: 0
+    key: e
+    value: e
   - primary: 0
     key: enter
     value: "\u5165\u308B\uFF0E\u9032\u51FA\u3059\u308B"
@@ -46,68 +106,167 @@ MonoBehaviour:
     key: exit
     value: "\u7ACB\u3061\u53BB\u308B"
   - primary: 0
-    key: warehouse
-    value: "\u5009\u5EAB "
-  - primary: 0
-    key: mail
-    value: "\u90F5\u4FBF\u7269"
-  - primary: 0
-    key: activity
-    value: "\u524D\u591C\u796D"
-  - primary: 0
-    key: store
-    value: "\u5E97"
-  - primary: 0
-    key: setting
-    value: "\u5099\u3048\u4ED8\u3051"
-  - primary: 0
-    key: task
-    value: "\u65E0"
-  - primary: 0
-    key: list
-    value: "\u65E0"
-  - primary: 0
-    key: new
-    value: "\u65E0"
+    key: f
+    value: f
   - primary: 0
     key: fighting
     value: "\u6226\u95D8\u3059\u308B\uFF0E\u6226\u3046"
   - primary: 0
-    key: game
-    value: "\u904A\u3073"
-  - primary: 0
-    key: sound
-    value: "\u58F0"
-  - primary: 0
-    key: music
-    value: "\u97F3\u697D"
-  - primary: 0
-    key: sound effect
-    value: "\u52B9\u679C\u97F3"
-  - primary: 0
-    key: mute
-    value: "\u30DE\u30CA\u30FC\u30E2\u30FC\u30C9"
-  - primary: 0
-    key: language
-    value: "\u591A\u8A00\u8A9E\u30B7\u30B9\u30C6\u30E0"
-  - primary: 0
-    key: channel
-    value: "\u3059\u3058"
-  - primary: 0
-    key: rankinglist
-    value: '?'
-  - primary: 0
-    key: club
-    value: '?'
-  - primary: 0
     key: friend
-    value: '?'
+    value: "\u89AA\u53CB"
+  - primary: 0
+    key: g
+    value: g
   - primary: 0
     key: gold
     value: "\u91D1\u8CA8 "
   - primary: 0
-    key: diamond
-    value: "\u30C0\u30A4\u30E4 "
+    key: game
+    value: "\u904A\u3073"
   - primary: 0
-    key: coin
-    value: "\u3057\u308B\u3057 "
+    key: h
+    value: h
+  - primary: 0
+    key: hide
+    value: "\u975E\u8868\u793A"
+  - primary: 0
+    key: i
+    value: i
+  - primary: 0
+    key: j
+    value: j
+  - primary: 0
+    key: k
+    value: k
+  - primary: 0
+    key: kill
+    value: "\u6483\u3061\u6BBA\u3059"
+  - primary: 0
+    key: l
+    value: l
+  - primary: 0
+    key: language
+    value: "\u591A\u8A00\u8A9E\u30B7\u30B9\u30C6\u30E0"
+  - primary: 0
+    key: login
+    value: "\u30ED\u30B0\u30A4\u30F3\uFF03\u30ED\u30B0\u30A4\u30F3\uFF03"
+  - primary: 0
+    key: list
+    value: "\u30EA\u30B9\u30C8"
+  - primary: 0
+    key: m
+    value: m
+  - primary: 0
+    key: mail
+    value: "\u90F5\u4FBF\u7269"
+  - primary: 0
+    key: music
+    value: "\u97F3\u697D"
+  - primary: 0
+    key: mute
+    value: "\u30DE\u30CA\u30FC\u30E2\u30FC\u30C9"
+  - primary: 0
+    key: n
+    value: n
+  - primary: 0
+    key: new
+    value: "\u65B0\u898F"
+  - primary: 0
+    key: next
+    value: "\u6B21\u3078"
+  - primary: 0
+    key: o
+    value: o
+  - primary: 0
+    key: p
+    value: p
+  - primary: 0
+    key: password
+    value: "\u30D1\u30B9\u30EF\u30FC\u30C9"
+  - primary: 0
+    key: package
+    value: "\u30E9\u30C3\u30D7"
+  - primary: 0
+    key: q
+    value: q
+  - primary: 0
+    key: r
+    value: r
+  - primary: 0
+    key: rankinglist
+    value: "\u30E9\u30F3\u30AD\u30F3\u30B0"
+  - primary: 0
+    key: recharge
+    value: "\u30C1\u30E3\u30FC\u30B8"
+  - primary: 0
+    key: rewards
+    value: "\u306B\u5831\u3044\u308B"
+  - primary: 0
+    key: remember
+    value: "\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u8A18\u61B6\u3059\u308B"
+  - primary: 0
+    key: s
+    value: s
+  - primary: 0
+    key: store
+    value: "\u5E97"
+  - primary: 0
+    key: sell
+    value: "\u306E\u58F2\u308C\u884C\u304D\u3092\u4FC3\u9032"
+  - primary: 0
+    key: setting
+    value: "\u5099\u3048\u4ED8\u3051"
+  - primary: 0
+    key: sign
+    value: "\u30C1\u30A7\u30C3\u30AF\u30A4\u30F3"
+  - primary: 0
+    key: skip
+    value: "\u30B9\u30AD\u30C3\u30D7"
+  - primary: 0
+    key: sound
+    value: "\u58F0"
+  - primary: 0
+    key: sound effect
+    value: "\u52B9\u679C\u97F3"
+  - primary: 0
+    key: study
+    value: "\u7814\u7A76"
+  - primary: 0
+    key: t
+    value: t
+  - primary: 0
+    key: task
+    value: "\u30BF\u30B9\u30AF\uFF03\u30BF\u30B9\u30AF\uFF03"
+  - primary: 0
+    key: treasure
+    value: "\u5927\u79D8\u5B9D"
+  - primary: 0
+    key: u
+    value: u
+  - primary: 0
+    key: undone
+    value: "\u672A\u5B8C\u4E86"
+  - primary: 0
+    key: username
+    value: "\u30E6\u30FC\u30B6\u30FC\u540D"
+  - primary: 0
+    key: v
+    value: v
+  - primary: 0
+    key: view
+    value: "\u8868\u793A"
+  - primary: 0
+    key: w
+    value: w
+  - primary: 0
+    key: warehouse
+    value: "\u5009\u5EAB "
+  - primary: 0
+    key: x
+    value: x
+  - primary: 0
+    key: y
+    value: y
+  - primary: 0
+    key: z
+    value: z

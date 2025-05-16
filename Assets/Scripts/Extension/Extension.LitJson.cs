@@ -322,13 +322,11 @@ namespace Game
                 {
                     int.TryParse(json[key].ToString(), out int type);
 
-                    int index = 0;
-
-                    foreach (T value in Enum.GetValues(typeof(T)))
+                    foreach (object value in Enum.GetValues(typeof(T)))
                     {
-                        if (type == index++)
+                        if (type == (int)value)
                         {
-                            result = value;
+                            result = (T)value;
                             break;
                         }
                     }
@@ -337,11 +335,11 @@ namespace Game
                 {
                     string type = json[key].ToString();
 
-                    foreach (T value in Enum.GetValues(typeof(T)))
+                    foreach (object value in Enum.GetValues(typeof(T)))
                     {
                         if (type == value.ToString())
                         {
-                            result = value;
+                            result = (T)value;
                             break;
                         }
                     }

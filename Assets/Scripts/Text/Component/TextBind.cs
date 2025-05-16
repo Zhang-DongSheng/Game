@@ -10,8 +10,6 @@ namespace Game.UI
     {
         public string content = string.Empty;
 
-        public bool language = true;
-
         private Text _text;
 
         private TextMeshProUGUI _textmp;
@@ -32,12 +30,12 @@ namespace Game.UI
 
         private void Start()
         {
-            SetText(content, language);
+            SetText(content, true);
         }
 
         private void OnValidate()
         {
-            SetText(content, language);
+            SetText(content);
         }
 
         private void OnLanguageChange(UnityEngine.EventArgs args)
@@ -46,20 +44,20 @@ namespace Game.UI
             {
                 return;
             }
-            SetText(content, language);
+            SetText(content, true);
         }
 
-        public void SetText(string content, bool language = true)
+        public void SetText(string content, bool force = false)
         {
-            if (this.content.Equals(content)) return;
+            if (string.IsNullOrEmpty(content)) return;
+
+            if (this.content.Equals(content) && !force) return;
 
             this.content = content;
 
-            this.language = language;
-
             _content = LanguageManager.Instance.Get(content);
 
-            SetTextImmediately(_content);
+            SetContent(_content);
         }
 
         public void SetTextWithParameters(string content, params object[] parameters)
@@ -72,7 +70,16 @@ namespace Game.UI
 
             _content = string.Format(_content, parameters);
 
-            SetTextImmediately(_content);
+            SetContent(_content);
+        }
+
+        public void SetTextImmediately(string content)
+        {
+            this.content = string.Empty;
+
+            _content = content;
+
+            SetContent(_content);
         }
 
         public void SetNumber(float value, int digits = -1)
@@ -87,10 +94,10 @@ namespace Game.UI
             }
             _content = content;
 
-            SetTextImmediately(_content);
+            SetContent(_content);
         }
 
-        private void SetTextImmediately(string content)
+        private void SetContent(string content)
         {
             if (_relevance)
             {

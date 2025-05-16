@@ -19,26 +19,86 @@ MonoBehaviour:
   url: 
   list:
   - primary: 0
-    key: confirm
-    value: Confirm
+    key: a
+    value: a
   - primary: 0
-    key: cancel
-    value: Cancel
+    key: activity
+    value: Activity
   - primary: 0
-    key: back
-    value: Back
+    key: apply
+    value: Apply
   - primary: 0
-    key: undone
-    value: Undone
-  - primary: 0
-    key: done
-    value: Done
+    key: automatic login
+    value: automatic login
   - primary: 0
     key: available
     value: Available
   - primary: 0
+    key: b
+    value: b
+  - primary: 0
+    key: back
+    value: Back
+  - primary: 0
+    key: basic
+    value: Basic
+  - primary: 0
+    key: blacklist
+    value: Blacklist
+  - primary: 0
+    key: c
+    value: c
+  - primary: 0
+    key: cancel
+    value: Cancel
+  - primary: 0
+    key: channel
+    value: SDK
+  - primary: 0
+    key: chest
+    value: Chest
+  - primary: 0
     key: claimed
     value: Claimed
+  - primary: 0
+    key: club
+    value: Club
+  - primary: 0
+    key: coin
+    value: Coin
+  - primary: 0
+    key: collect
+    value: Collect
+  - primary: 0
+    key: combat
+    value: Combat
+  - primary: 0
+    key: confirm
+    value: Confirm
+  - primary: 0
+    key: consume
+    value: Consume
+  - primary: 0
+    key: d
+    value: d
+  - primary: 0
+    key: diamond
+    value: Diamond
+  - primary: 0
+    key: deploy
+    value: Deploy
+  - primary: 0
+    key: debris
+    value: Debris
+  - primary: 0
+    key: done
+    value: Done
+  - primary: 0
+    key: draw
+    value: Draw
+  - primary: 0
+    key: e
+    value: e
   - primary: 0
     key: enter
     value: Enter
@@ -46,68 +106,167 @@ MonoBehaviour:
     key: exit
     value: Exit
   - primary: 0
-    key: warehouse
-    value: Warehouse
-  - primary: 0
-    key: mail
-    value: Mail
-  - primary: 0
-    key: activity
-    value: Activity
-  - primary: 0
-    key: store
-    value: Store
-  - primary: 0
-    key: setting
-    value: Setting
-  - primary: 0
-    key: task
-    value: Task
-  - primary: 0
-    key: list
-    value: List
-  - primary: 0
-    key: new
-    value: New
+    key: f
+    value: f
   - primary: 0
     key: fighting
     value: Fighting
   - primary: 0
-    key: game
-    value: Game
-  - primary: 0
-    key: sound
-    value: Sound
-  - primary: 0
-    key: music
-    value: Music
-  - primary: 0
-    key: sound effect
-    value: Sound
-  - primary: 0
-    key: mute
-    value: Mute
-  - primary: 0
-    key: language
-    value: Language
-  - primary: 0
-    key: channel
-    value: SDK
-  - primary: 0
-    key: rankinglist
-    value: RankingList
-  - primary: 0
-    key: club
-    value: Club
-  - primary: 0
     key: friend
     value: Friends
+  - primary: 0
+    key: g
+    value: g
   - primary: 0
     key: gold
     value: Gold
   - primary: 0
-    key: diamond
-    value: Diamond
+    key: game
+    value: Game
   - primary: 0
-    key: coin
-    value: Coin
+    key: h
+    value: h
+  - primary: 0
+    key: hide
+    value: Hide
+  - primary: 0
+    key: i
+    value: i
+  - primary: 0
+    key: j
+    value: j
+  - primary: 0
+    key: k
+    value: k
+  - primary: 0
+    key: kill
+    value: Kill
+  - primary: 0
+    key: l
+    value: l
+  - primary: 0
+    key: language
+    value: Language
+  - primary: 0
+    key: login
+    value: login
+  - primary: 0
+    key: list
+    value: List
+  - primary: 0
+    key: m
+    value: m
+  - primary: 0
+    key: mail
+    value: Mail
+  - primary: 0
+    key: music
+    value: Music
+  - primary: 0
+    key: mute
+    value: Mute
+  - primary: 0
+    key: n
+    value: n
+  - primary: 0
+    key: new
+    value: New
+  - primary: 0
+    key: next
+    value: Next
+  - primary: 0
+    key: o
+    value: o
+  - primary: 0
+    key: p
+    value: p
+  - primary: 0
+    key: password
+    value: password
+  - primary: 0
+    key: package
+    value: Package
+  - primary: 0
+    key: q
+    value: q
+  - primary: 0
+    key: r
+    value: r
+  - primary: 0
+    key: rankinglist
+    value: RankingList
+  - primary: 0
+    key: recharge
+    value: Recharge
+  - primary: 0
+    key: rewards
+    value: Rewards
+  - primary: 0
+    key: remember
+    value: remember
+  - primary: 0
+    key: s
+    value: s
+  - primary: 0
+    key: store
+    value: Store
+  - primary: 0
+    key: sell
+    value: Sell
+  - primary: 0
+    key: setting
+    value: Setting
+  - primary: 0
+    key: sign
+    value: Sign
+  - primary: 0
+    key: skip
+    value: Skip
+  - primary: 0
+    key: sound
+    value: Sound
+  - primary: 0
+    key: sound effect
+    value: Sound
+  - primary: 0
+    key: study
+    value: Study
+  - primary: 0
+    key: t
+    value: t
+  - primary: 0
+    key: task
+    value: Task
+  - primary: 0
+    key: treasure
+    value: Treasure
+  - primary: 0
+    key: u
+    value: u
+  - primary: 0
+    key: undone
+    value: Undone
+  - primary: 0
+    key: username
+    value: username
+  - primary: 0
+    key: v
+    value: v
+  - primary: 0
+    key: view
+    value: View
+  - primary: 0
+    key: w
+    value: w
+  - primary: 0
+    key: warehouse
+    value: Warehouse
+  - primary: 0
+    key: x
+    value: x
+  - primary: 0
+    key: y
+    value: y
+  - primary: 0
+    key: z
+    value: z

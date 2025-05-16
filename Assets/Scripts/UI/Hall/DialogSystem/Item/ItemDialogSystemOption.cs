@@ -6,7 +6,7 @@ namespace Game.UI
 {
     public class ItemDialogSystemOption : ItemBase
     {
-        [SerializeField] private TextMeshProUGUI txtContent;
+        [SerializeField] private TextBind text;
 
         [SerializeField] private Button button;
 

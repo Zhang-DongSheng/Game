@@ -70,6 +70,11 @@ namespace Game.UI
             });
         }
 
+        public static void Close(UIPanel panel)
+        {
+            UIManager.Instance.Close((int)panel);
+        }
+
         public static bool IsOpen(UIPanel panel)
         {
             if (UIManager.Instance.TryGetCtrl((int)panel, out var ctrl))
