@@ -705,21 +705,19 @@ namespace UnityEditor.Window
         #region Synchronizate
         private void SynchronizateHotfix()
         {
-            //string key = "Hotfix";
+            string src = string.Format("{0}/ILRuntime/Hotfix~/bin/Debug/Hotfix.dll", Application.dataPath);
 
-            //string src = string.Format("{0}/ILRuntime/Hotfix~/bin/Debug/{1}.dll", Application.dataPath, key);
+            string dst = string.Format("{0}/{1}.dll", Application.streamingAssetsPath, AssetPath.HotfixDll);
 
-            //string dst = string.Format("{0}/ILRuntime/{1}.dll", Application.streamingAssetsPath, key);
+            Utility.Document.Copy(src, dst);
 
-            //Replace(src, dst);
+            src = string.Format("{0}/ILRuntime/Hotfix~/bin/Debug/Hotfix.pdb", Application.dataPath);
 
-            //src = string.Format("{0}/ILRuntime/Hotfix~/bin/Debug/{1}.pdb", Application.dataPath, key);
+            dst = string.Format("{0}/{1}.pdb", Application.streamingAssetsPath, AssetPath.HotfixDll);
 
-            //dst = string.Format("{0}/ILRuntime/{1}.pdb", Application.streamingAssetsPath, key);
+            Utility.Document.Copy(src, dst);
 
-            //Replace(src, dst);
-
-            ShowNotification("学习学习再处理！");
+            ShowNotification("同步完成！");
         }
 
         private void SynchronizateProtoBuf()

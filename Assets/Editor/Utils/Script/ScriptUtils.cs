@@ -58,7 +58,7 @@ namespace UnityEditor.Utils
 
             builder.AppendLine();
 
-            builder.AppendLine("namespace ILRuntime.Game.UI");
+            builder.AppendLine("namespace Hotfix.Game.UI");
 
             builder.AppendLine("{");
 

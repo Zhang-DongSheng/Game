@@ -117,7 +117,7 @@ namespace UnityEditor.Window
         {
             if (string.IsNullOrEmpty(content)) return;
 
-            string path = $"Assets/{AssetPath.Hotfix}/{AssetPath.UIScript}/{content}/{content}View.cs";
+            string path = $"{AssetPath.HotfixProject}/{AssetPath.UIScript}/{content}/{content}View.cs";
 
             if (File.Exists(path))
             {
@@ -127,6 +127,10 @@ namespace UnityEditor.Window
             Utility.Document.CreateDirectoryByFile(path);
 
             ScriptUtils.CreateFromTemplate(content, path, "002");
+
+            path = $"{AssetPath.HotfixProject}/{AssetPath.UIScript}/{content}/{content}Relevance.cs";
+
+            ScriptUtils.CreateILRuntimeComponents(path, null);
 
             path = $"Assets/{AssetPath.UIPrefab}/{content}View.prefab";
 

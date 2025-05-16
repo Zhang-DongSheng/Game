@@ -24,9 +24,9 @@ namespace UnityEditor.Inspector
 
             var gameobject = target.gameObject;
 
-            var name = gameobject.name[..^4];
+            var script = gameobject.name[..^4];
 
-            string path = $"Assets/{AssetPath.Hotfix}/{AssetPath.UIScript}/{name}/{name}Relevance.cs";
+            string path = $"{AssetPath.HotfixProject}/{AssetPath.UIScript}/{script}/{script}Relevance.cs";
 
             ScriptUtils.CreateILRuntimeComponents(path, target);
 

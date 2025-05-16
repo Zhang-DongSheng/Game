@@ -1,5 +1,5 @@
-using Game.Data;
-using System;
+using ILRuntime.CLR.Method;
+using ILRuntime.Runtime.Intepreter;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,35 +9,76 @@ namespace Game.UI
     {
         public List<HotfixComponent> components;
 
-        private object script;
+        private ILRuntime.Runtime.Enviorment.AppDomain appDomain;
 
-        public override void Init(UIInformation information)
+        private ILTypeInstance script;
+
+        private readonly Dictionary<string, IMethod> methods = new Dictionary<string, IMethod>()
+        {
+            { "Init", null},
+            { "Refresh", null},
+            { "Release", null},
+        };
+
+        public override void Init(Data.UIInformation information)
         {
             base.Init(information);
 
-            var name = $"Hotfix.UI.{information.name}";
+            string name = string.Format("Hotfix.Game.UI.{0}", information.name);
 
-            Type type = HotfixLogic.Instance.GetType(name);
+            this.appDomain = HotfixLogic.Instance.AppDomain;
 
-            Debuger.LogError(Author.Script, $"╪сть{name} {type != null}");
+            script = appDomain.Instantiate(name);
 
-            script = Activator.CreateInstance(type);
+            if (script == null)
+            {
+                Debuger.LogError(Author.Hotfix, name + " is null!");
+                return;
+            }
+            var list = new List<string>(methods.Keys);
 
-            script.Call("Initialise", transform);
+            foreach (var key in list)
+            {
+                int count;
+
+                switch (key)
+                {
+                    case "Init":
+                    case "Refresh":
+                        count = 1;
+                        break;
+                    default:
+                        count = 0;
+                        break;
+                }
+                methods[key] = script.Type.GetMethod(key, count);
+            }
+
+            if (methods.TryGetValue("Init", out IMethod method) && method != null)
+            {
+                appDomain.Invoke(method, script, transform);
+            }
         }
 
         public override void Refresh(UIParameter parameter)
         {
-            script.Call("Refresh");
+            string key = "Refresh";
+
+            if (methods.TryGetValue(key, out IMethod method) && method != null)
+            {
+                appDomain.Invoke(method, script, parameter);
+            }
         }
 
         public override void Release()
         {
-            if (script != null)
+            string key = "Release";
+
+            if (methods.TryGetValue(key, out IMethod method))
             {
-                script.Call("Release");
+                appDomain.Invoke(method, script);
             }
-            script = null; base.Release();
+            base.Release();
         }
     }
 }

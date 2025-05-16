@@ -27,7 +27,9 @@ namespace Game.Const
 
         public const string Resources = "Resources";
 
-        public const string Hotfix = "HotUpdate";
+        public const string HotfixProject = "Assets/ILRuntime/Hotfix~";
+
+        public const string HotfixDll = "ILRuntime/Hotfix";
 
         public const string Data = "Package/Data";
 

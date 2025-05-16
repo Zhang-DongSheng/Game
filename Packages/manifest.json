@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.ourpalm.ilruntime": "1.6.7",
     "com.unity.2d.animation": "7.1.2",
     "com.unity.2d.common": "6.0.8",
     "com.unity.adaptiveperformance": "4.0.1",

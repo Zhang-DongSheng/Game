@@ -1,16 +1,19 @@
+using Game.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Hotfix.UI
+namespace Hotfix.Game.UI
 {
     public class #SCRIPTNAME#View : HotfixViewBase
     {
-        public override void Initialise(Transform target)
+        protected readonly #SCRIPTNAME#Relevance relevance = new #SCRIPTNAME#Relevance();
+        
+        public override void Init(Transform target)
         {
-
+            relevance.Relevance(target);
         }
 
-        public override void Refresh()
+        public override void Refresh(UIParameter paramter)
         {
 
         }
