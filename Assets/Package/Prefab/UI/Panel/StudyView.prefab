@@ -129,4 +129,20 @@ MonoBehaviour:
   layer: 2
   type: 1
   order: 0
-  components: []
+  components:
+  - key: AAA
+    target: {fileID: 2719737508939115478}
+    type: 2
+    custom: 
+  - key: BBB
+    target: {fileID: 2719737508939115478}
+    type: 0
+    custom: 
+  - key: CCCC
+    target: {fileID: 2719737508939115478}
+    type: 4
+    custom: 
+  - key: DDDD
+    target: {fileID: 2719737508939115478}
+    type: 6
+    custom: 

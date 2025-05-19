@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Game
@@ -274,7 +275,9 @@ namespace Game
             }
             return children;
         }
-
+        /// <summary>
+        /// 是否继承父类
+        /// </summary>
         public static bool IsInherit(this Type script, Type parent)
         {
             if (!script.IsClass) return false;
@@ -285,6 +288,8 @@ namespace Game
 
             while (children != null)
             {
+                if (children.BaseType == null) break;
+
                 if (children.BaseType.Equals(parent))
                 {
                     inherit = true;

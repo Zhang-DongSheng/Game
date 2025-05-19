@@ -83,7 +83,8 @@ namespace UnityEditor.Inspector
 
                 var type = property.FindPropertyRelative("type").enumValueIndex;
 
-                if (type == (int)HotfixComponentType.Custom)
+                if (type == (int)HotfixComponentType.Hotfix ||
+                    type == (int)HotfixComponentType.Custom)
                 {
                     EditorGUI.PropertyField(rects[3], property.FindPropertyRelative("custom"));
                 }

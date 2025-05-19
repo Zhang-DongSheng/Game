@@ -15,7 +15,7 @@ namespace Game
         {
             public static object Create(string name)
             {
-                Type type = Type.GetType(name);
+                Type type = Type.GetType(name) ?? Type.GetType(GetFullName(name));
 
                 if (type == null)
                 {
@@ -152,6 +152,24 @@ namespace Game
                     }
                 }
                 return string.Empty;
+            }
+
+            public static string GetFullName(string name, Predicate<Type> match = null)
+            {
+                var assembly = Assembly.GetExecutingAssembly();
+
+                var types = assembly.GetTypes();
+
+                foreach (var type in types)
+                {
+                    if (match != null && !match(type)) continue;
+
+                    if (name == type.Name)
+                    {
+                        return type.FullName;
+                    }
+                }
+                return name;
             }
         }
     }
