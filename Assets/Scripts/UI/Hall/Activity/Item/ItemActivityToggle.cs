@@ -4,7 +4,7 @@ namespace Game.UI
 {
     public class ItemActivityToggle : ItemToggle
     {
-        protected override void SetContent(int index)
+        protected override void SetContent(string name)
         {
             var table = DataActivity.Get((uint)index);
 

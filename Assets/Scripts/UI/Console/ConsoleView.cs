@@ -36,6 +36,7 @@ namespace Game.UI
                 }
                 views[i].Initialize();
             }
+            OnClickToggle(0);
         }
 
         private void Update()
@@ -50,6 +51,12 @@ namespace Game.UI
 
         private void OnClickToggle(int index)
         {
+            count = toggles.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                toggles[i].Select(index);
+            }
             count = views.Count;
 
             for (int i = 0; i < count; i++)

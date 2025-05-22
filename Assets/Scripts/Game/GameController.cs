@@ -20,6 +20,14 @@ namespace Game
             StartCoroutine(Laoding());
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.BackQuote))
+            {
+                UIQuickEntry.Open(UIPanel.Console);
+            }
+        }
+
         private IEnumerator Laoding()
         {
             NetworkMessageManager.Instance.Initialize();

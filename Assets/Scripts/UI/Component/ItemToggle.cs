@@ -27,7 +27,7 @@ namespace Game.UI
 
             active = false;
 
-            SetContent(index);
+            SetContent(parameter.name);
 
             Select(-1);
 
@@ -52,13 +52,13 @@ namespace Game.UI
             }
         }
 
-        protected virtual void SetContent(int index)
+        protected virtual void SetContent(string name)
         {
             var components = GetComponentsInChildren<TextBind>(true);
 
             foreach (var component in components)
             {
-                component.SetText(parameter.name);
+                component.SetText(name);
             }
         }
 

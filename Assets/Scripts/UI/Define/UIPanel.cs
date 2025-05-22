@@ -5,7 +5,8 @@ namespace Game.UI
 	{
 		None = 0,
 		Login = 1,
-		Main = 101,
+        Console = 9,
+        Main = 101,
 		Test = 102,
 		Title = 103,
 		Waiting = 104,
@@ -38,7 +39,5 @@ namespace Game.UI
 		ColorPicker = 1006,
 		Study = 1007,
 		DialogSystem = 1008,
-		XXX = 1009,
-		Console = 1010,
 	}
 }

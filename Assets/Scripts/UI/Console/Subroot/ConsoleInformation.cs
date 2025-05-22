@@ -17,11 +17,13 @@ namespace Game.UI
 
             for (int i = 0; i < count; i++)
             {
+                var values = ConsoleConfig.Infomation[i].Split("|");
+
                 if (i >= items.Count)
                 {
                     items.Add(prefab.Create<ItemKeyValue>());
                 }
-                items[i].Refresh(i.ToString(), ConsoleConfig.Infomation[i]);
+                items[i].Refresh(values[0], values[1]);
             }
         }
     }
