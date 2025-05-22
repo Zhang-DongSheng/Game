@@ -39,5 +39,6 @@ namespace Game.UI
 		Study = 1007,
 		DialogSystem = 1008,
 		XXX = 1009,
+		Console = 1010,
 	}
 }

@@ -114,5 +114,19 @@ namespace Game.UI
         public string name;
 
         public Action<int> callback;
+
+        public ToggleParameter()
+        {
+            
+        }
+
+        public ToggleParameter(int index, string name, Action<int> callback)
+        {
+            this.index = index;
+
+            this.name = name;
+
+            this.callback = callback;
+        }
     }
 }

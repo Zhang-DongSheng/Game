@@ -60,6 +60,8 @@ namespace Game
 
             GuidanceLogic.Instance.Initialize();
 
+            ConsoleLogic.Instance.Initialize();
+
             switch (mode)
             {
                 case GameMode.Develop:
