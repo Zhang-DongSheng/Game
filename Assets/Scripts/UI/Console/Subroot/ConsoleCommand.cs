@@ -25,6 +25,8 @@ namespace Game.UI
             input.onValueChanged.AddListener(OnValueChanged);
 
             submit.onClick.AddListener(OnClickSubmit);
+
+            OnValueChanged(string.Empty);
         }
 
         private void OnValueChanged(string value)

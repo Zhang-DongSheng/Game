@@ -55,6 +55,8 @@ namespace Game.UI
 
             path = Utility.Path.NewFile(path);
 
+            Utility.Document.CreateDirectory(path);
+
             ScreenCapture.CaptureScreenshot(path, 0);
         }
 
@@ -63,6 +65,8 @@ namespace Game.UI
             var path = Application.persistentDataPath + "/Console/Log.txt";
 
             path = Utility.Path.NewFile(path);
+
+            Utility.Document.CreateDirectory(path);
 
             StringBuilder builder = new StringBuilder();
 
@@ -97,6 +101,8 @@ namespace Game.UI
             var path = Application.persistentDataPath + "/Console/log.raw";
 
             path = Utility.Path.NewFile(path);
+
+            Utility.Document.CreateDirectory(path);
 
             Profiler.logFile = path;
 

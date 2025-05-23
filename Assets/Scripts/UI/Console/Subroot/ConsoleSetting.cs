@@ -10,11 +10,6 @@ namespace Game.UI
     {
         public override string Name => "设置";
 
-        public override void Initialize()
-        {
-            
-        }
-
         public override void Refresh()
         {
             

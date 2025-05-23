@@ -65,7 +65,7 @@ namespace Game.UI
 
             for (int i = count - 1; i > -1; i--)
             {
-                if ((logs[i].type & type) != 0)
+                if (logs[i].type == type)
                 {
                     if (string.IsNullOrEmpty(search))
                     {
@@ -110,7 +110,7 @@ namespace Game.UI
         private void OnClickSwitch(int index, bool value)
         {
             switch (index)
-            { 
+            {
                 case 0:
                     type = value ? type | LogType.Log : type & ~LogType.Log;
                     break;
