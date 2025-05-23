@@ -6,12 +6,17 @@ namespace Game.UI
 
         public virtual void Initialize()
         {
-            
+            Refresh();
+        }
+
+        public virtual void Refresh()
+        {
+
         }
 
         public virtual void Refresh(float delta)
         {
-            
+
         }
 
         public virtual void Dispose()

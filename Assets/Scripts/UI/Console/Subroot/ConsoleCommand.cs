@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -11,40 +8,55 @@ namespace Game.UI
     {
         public override string Name => "命令";
 
-        public void ExecuteCommand(string command)
+        [SerializeField] private Text label;
+
+        [SerializeField] private InputField input;
+
+        [SerializeField] private Button submit;
+
+        [SerializeField] private PrefabTemplate prefab;
+
+        private string content, value;
+
+        private readonly List<ItemConsoleLabel> items = new List<ItemConsoleLabel>();
+
+        public override void Initialize()
         {
-            if (string.IsNullOrEmpty(command))
-                return;
+            input.onValueChanged.AddListener(OnValueChanged);
 
-            string[] rule = command.ToLower().Split(' ');
+            submit.onClick.AddListener(OnClickSubmit);
+        }
 
-            if (rule.Length > 1)
+        private void OnValueChanged(string value)
+        {
+            this.value = value.ToLower();
+
+            int index = 0;
+
+            foreach (var cell in ConsoleConfig.Commands)
             {
-                switch (rule[0])
+                if (cell.Key.StartsWith(this.value))
                 {
-                    case "get":
-                        Debug.Log("获取");
-                        break;
-                    case "level":
-                        Debug.Log("关卡");
-                        break;
-                    default:
-                        Debug.LogWarningFormat("暂未支持该类型命令:{0}", rule[0]);
-                        break;
+                    if (index >= items.Count)
+                    {
+                        items.Add(prefab.Create<ItemConsoleLabel>());
+                    }
+                    items[index++].Refresh(cell.Key, cell.Value);
                 }
             }
-            else
+            for (int i = index; i < items.Count; i++)
             {
-                switch (rule[0])
-                {
-                    case "levelup":
-                        Debug.Log("升级");
-                        break;
-                    default:
-                        Debug.LogWarningFormat("暂未支持该类型命令:{0}", rule[0]);
-                        break;
-                }
+                items[i].SetActive(false);
             }
+        }
+
+        private void OnClickSubmit()
+        {
+            content += value + "\n";
+
+            label.text = content;
+
+            ConsoleLogic.Instance.ExecuteCommand(value);
         }
     }
 }

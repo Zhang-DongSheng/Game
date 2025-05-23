@@ -14,7 +14,7 @@ namespace Game.UI
 
         [SerializeField] private List<GameObject> on;
 
-        private bool active;
+        [SerializeField] private bool active;
 
         public UnityEvent<bool> onValueChanged;
 

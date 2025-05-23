@@ -1,9 +1,14 @@
-﻿using UnityEngine;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class ItemKeyValue : ItemBase
+    public class ItemConsoleLabel : ItemBase
     {
         [SerializeField] private Text textKey;
 
@@ -14,6 +19,8 @@ namespace Game.UI
             textKey.text = key;
 
             textValue.text = value;
+
+            SetActive(true);
         }
     }
 }

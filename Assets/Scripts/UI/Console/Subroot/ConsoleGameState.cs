@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game.UI
 {
@@ -7,7 +7,7 @@ namespace Game.UI
     {
         public override string Name => "状态";
 
-        [SerializeField] private Text textFps;
+        [SerializeField] private List<ItemConsoleLabel> labels;
 
         private const int capacity = 10;
 
@@ -23,7 +23,7 @@ namespace Game.UI
         {
             fps = ComputeFPS(delta);
 
-            textFps.text = $"FPS: {fps}";
+            labels[0].Refresh("FPS", $"{fps}");
         }
 
         private int ComputeFPS(float delta)

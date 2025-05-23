@@ -9,21 +9,19 @@ namespace Game.UI
 
         [SerializeField] private PrefabTemplate prefab;
 
-        private readonly List<ItemKeyValue> items = new List<ItemKeyValue>();
+        private readonly List<ItemConsoleLabel> items = new List<ItemConsoleLabel>();
 
-        public override void Initialize()
+        public override void Refresh()
         {
-            int count = ConsoleConfig.Infomation.Length;
+            int index = 0;
 
-            for (int i = 0; i < count; i++)
+            foreach (var info in ConsoleConfig.Infomation)
             {
-                var values = ConsoleConfig.Infomation[i].Split("|");
-
-                if (i >= items.Count)
+                if (index >= items.Count)
                 {
-                    items.Add(prefab.Create<ItemKeyValue>());
+                    items.Add(prefab.Create<ItemConsoleLabel>());
                 }
-                items[i].Refresh(values[0], values[1]);
+                items[index++].Refresh(info.Key, info.Value);
             }
         }
     }
