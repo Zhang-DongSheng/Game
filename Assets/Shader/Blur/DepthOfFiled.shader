@@ -35,7 +35,7 @@
              half2 uv_depth:TEXCOORD1;
              float4 vertex:SV_POSITION;
          };
-		           //https://www.desmos.com/calculator
+		// https://www.desmos.com/calculator
         fixed4 getRange(float x, float n){
             x = clamp(abs(x), 0, 1/n);
             float y = -(cos(n*x*3.1415926)-1);

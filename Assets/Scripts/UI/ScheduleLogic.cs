@@ -8,7 +8,7 @@ namespace Game
 {
     public class ScheduleLogic : Singleton<ScheduleLogic>
     {
-        private readonly List<ScheduleData> schedule = new List<ScheduleData>();
+        private readonly List<ScheduleStruct> schedule = new List<ScheduleStruct>();
 
         private float progress;
 
@@ -47,10 +47,10 @@ namespace Game
         {
             if (schedule.Exists(a => a.key == key)) return;
 
-            schedule.Add(new ScheduleData() { key = key, status = ScheduleStatus.Ready });
+            schedule.Add(new ScheduleStruct() { key = key, status = ScheduleState.None });
         }
 
-        public void Update(Schedule key, ScheduleStatus status = ScheduleStatus.Complete)
+        public void Update(Schedule key, ScheduleState status = ScheduleState.Complete)
         {
             for (int i = 0; i < schedule.Count; i++)
             {
@@ -62,11 +62,11 @@ namespace Game
             }
             Notice();
 
-            if (schedule.Exists(x => x.status == ScheduleStatus.Execute)) return;
+            if (schedule.Exists(x => x.status == ScheduleState.Execute)) return;
 
             foreach (var sc in schedule)
             {
-                if (sc.status == ScheduleStatus.Ready)
+                if (sc.status == ScheduleState.None)
                 {
                     Next(sc.key);
                     break;
@@ -80,7 +80,7 @@ namespace Game
             {
                 if (schedule[i].key == key)
                 {
-                    schedule[i].status = ScheduleStatus.Execute;
+                    schedule[i].status = ScheduleState.Execute;
                     break;
                 }
             }
@@ -135,7 +135,7 @@ namespace Game
                     GuidanceLogic.Instance.RequestGuidance();
                     break;
                 case Schedule.Count:
-                    Update(Schedule.Count, ScheduleStatus.Complete);
+                    Update(Schedule.Count, ScheduleState.Complete);
                     break;
                 default:
                     Debuger.LogError(Author.Script, string.Format("must deal with the schedule [{0}]!", key));
@@ -149,7 +149,7 @@ namespace Game
 
             foreach (var sc in schedule)
             {
-                if (sc.status == ScheduleStatus.Complete)
+                if (sc.status == ScheduleState.Complete)
                 {
                     number++;
                 }
@@ -173,22 +173,22 @@ namespace Game
             }
             Debuger.Log(Author.Resource, $"当前进度{number}/{count}");
         }
+
+        class ScheduleStruct
+        {
+            public Schedule key;
+
+            public float weight;
+
+            public float progress;
+
+            public ScheduleState status;
+        }
     }
 
-    public class ScheduleData
+    public enum ScheduleState
     {
-        public Schedule key;
-
-        public float weight;
-
-        public float progress;
-
-        public ScheduleStatus status;
-    }
-
-    public enum ScheduleStatus
-    {
-        Ready,
+        None,
         Execute,
         Complete,
     }
