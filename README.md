@@ -57,4 +57,9 @@ public void LoadPrefb(float index)
 ##**工具类**
 + Utility
 
+##**多语言**
+下载官方语言文件 zh-cn.po
+https://gitcode.com/open-source-toolkit/d72c1
+将该文件，放至 Unity 安装目录下的 Editor\Data\Localization 目录中
+
 联系邮箱 ：202689420@qq.com
