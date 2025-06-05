@@ -18,11 +18,11 @@ namespace Game.Test
         [Line("#00FFFF", 2)]
         [Interval(1,10)]
         public Vector2Int vector1;
-        [Display("半径", true)]
+        [FieldName("半径", true)]
         public float radius;
         [Interval(0, 360)]
         public float angle;
-        [Display("杀马特",true)]
+        [FieldName("杀马特",true)]
         public int vector4;
         [Suffix("(m/s)")]
         public int vector5;
@@ -88,6 +88,10 @@ namespace Game.Test
         {
             
         }
+
+        private GameObject[] cubes = new GameObject[2];
+
+
 
         public void OnClickButton(float index)
         {

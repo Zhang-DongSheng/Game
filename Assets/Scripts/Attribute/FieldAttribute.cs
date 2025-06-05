@@ -7,13 +7,13 @@ namespace Game.Attribute
     /// 自定义显示
     /// </summary>
     [AttributeUsage(AttributeTargets.Field)]
-    public class DisplayAttribute : PropertyAttribute
+    public class FieldNameAttribute : PropertyAttribute
     {
         public string name { get; private set; }
 
         public bool active { get; private set; }
 
-        public DisplayAttribute(string name = null, bool active = true)
+        public FieldNameAttribute(string name = null, bool active = true)
         {
             this.active = active;
 

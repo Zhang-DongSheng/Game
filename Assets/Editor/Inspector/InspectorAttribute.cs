@@ -67,12 +67,12 @@ namespace UnityEditor.Inspector
             GUI.enabled = true;
         }
     }
-    [CustomPropertyDrawer(typeof(DisplayAttribute))]
+    [CustomPropertyDrawer(typeof(FieldNameAttribute))]
     class DisplayDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            DisplayAttribute display = attribute as DisplayAttribute;
+            FieldNameAttribute display = attribute as FieldNameAttribute;
 
             if (display.active)
             {
@@ -83,7 +83,7 @@ namespace UnityEditor.Inspector
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            DisplayAttribute display = attribute as DisplayAttribute;
+            FieldNameAttribute display = attribute as FieldNameAttribute;
 
             if (display.active)
             {
