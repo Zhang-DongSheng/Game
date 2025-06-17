@@ -35,7 +35,7 @@ namespace Game
             }
             else if (angle == -1)
             {
-                Debug.LogError("超出最大距离！");
+                Debuger.LogError(Author.Utility, "超出最大距离！");
                 return null;
             }
             else

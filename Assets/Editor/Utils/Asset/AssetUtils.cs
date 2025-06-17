@@ -19,7 +19,7 @@ namespace UnityEditor.Utils
 
             if (count == 0)
             {
-                Debug.LogError($"Not Found {typeof(T).Name}!");
+                Debuger.LogError(Author.Editor, $"Not Found {typeof(T).Name}!");
                 return default;
             }
             string path = AssetDatabase.GUIDToAssetPath(guids[0]);
@@ -35,7 +35,7 @@ namespace UnityEditor.Utils
 
             if (count == 0)
             {
-                Debug.LogError($"Not Found {typeof(T).Name}!");
+                Debuger.LogError(Author.Editor, $"Not Found {typeof(T).Name}!");
                 return default;
             }
             var assets = new List<T>(count);
@@ -156,7 +156,7 @@ namespace UnityEditor.Utils
 
                 var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
 
-                Debug.Assert(asset != null, string.Format("{0} is null", path));
+                Debuger.Assert(asset != null, string.Format("{0} is null", path));
 
                 if (asset == null) continue;
 

@@ -270,7 +270,6 @@ namespace Game
                         node = node.parent;
                     }
                 }
-
                 StringBuilder sb = new StringBuilder();
 
                 for (int i = 0; i < route.Count; i++)
@@ -278,8 +277,7 @@ namespace Game
                     sb.Append(route[i].ToString());
                     sb.Append("&");
                 }
-
-                Debug.LogFormat("<color=yellow>{0}</color>", sb.ToString());
+                Debuger.Log(Author.Utility, $"<color=yellow>{sb.ToString()}</color>");
 
                 return route;
             }

@@ -122,7 +122,7 @@ namespace UnityEditor.Ebook
 
             if (content.Length > MAXNUMBER)
             {
-                Debug.LogWarningFormat("More than {0} words, content : {1}", MAXNUMBER, content);
+                Debuger.LogWarning(Author.Editor, $"More than {MAXNUMBER} words, content : {content}");
                 return true;
             }
             else

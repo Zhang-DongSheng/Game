@@ -40,7 +40,7 @@ namespace Game.UI
 
                 int count = data.list.Count;
 
-                Debuger.Log(Author.Test, "�����" + count);
+                Debuger.Log(Author.Data, "活动数量：" + count);
 
                 for (int i = 0; i < count; i++)
                 {

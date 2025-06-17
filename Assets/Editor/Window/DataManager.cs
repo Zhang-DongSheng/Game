@@ -328,7 +328,7 @@ namespace UnityEditor.Window
             }
             else
             {
-                Debug.LogError("当前数据类型未定义，请主动添加 - " + type.Name);
+                UnityEngine.Debuger.LogError(Author.Editor, "当前数据类型未定义，请主动添加 - " + type.Name);
             }
         }
 
@@ -414,7 +414,7 @@ namespace UnityEditor.Window
                         }
                         else
                         {
-                            Debug.LogError($"{asset.name} Atlas[{i}] is null!");
+                            UnityEngine.Debuger.LogError(Author.Editor, $"{asset.name} Atlas[{i}] is null!");
                         }
                     }
                     data.list.Add(atlas);
@@ -517,7 +517,7 @@ namespace UnityEditor.Window
             {
                 var data = Load<DataLanguage>(language.ToString());
 
-                Debug.Assert(data != null, $"Load language {language} error!");
+                UnityEngine.Debuger.Assert(data != null, $"Load language {language} error!");
 
                 if (data == null) continue;
 
@@ -557,7 +557,7 @@ namespace UnityEditor.Window
 
             T data = Load<T>();
 
-            Debug.Assert(data != null, string.Format("Load DB_{0} error", typeof(T).Name));
+            UnityEngine.Debuger.Assert(data != null, string.Format("Load DB_{0} error", typeof(T).Name));
 
             if (data == null) return;
 
@@ -588,7 +588,7 @@ namespace UnityEditor.Window
 
             var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
 
-            Debug.Assert(asset != null, string.Format("{0} is null", path));
+            UnityEngine.Debuger.Assert(asset != null, string.Format("{0} is null", path));
 
             if (asset == null) return null;
 
@@ -766,7 +766,7 @@ namespace UnityEditor.Window
             }
             else
             {
-                Debug.LogError("资源不存在！" + src);
+                UnityEngine.Debuger.LogError(Author.Editor, "资源不存在！" + src);
             }
         }
         #endregion

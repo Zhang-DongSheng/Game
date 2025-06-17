@@ -31,7 +31,7 @@
             }
             else
             {
-                Debug.LogError("Please attach component to a Graphical UI component");
+                Debuger.LogError(Author.Script, "Please attach component to a Graphical UI component");
             }
         }
     }

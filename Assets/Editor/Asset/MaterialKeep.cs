@@ -18,7 +18,7 @@ namespace UnityEditor
                         material.SetVector("_Area", Vector4.zero);
                         break;
                     default:
-                        Debug.LogWarning($"Material {material.name} shader is {material.shader.name}");
+                        Debuger.LogWarning(Author.Editor, $"Material {material.name} shader is {material.shader.name}");
                         break;
                 }
                 EditorUtility.SetDirty(material);

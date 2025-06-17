@@ -84,8 +84,7 @@ namespace Study
                 }
                 builder.Append("\n");
             }
-
-            Debug.LogError(builder.ToString());
+            Debuger.LogError(Author.Test, builder.ToString());
         }
     }
 }

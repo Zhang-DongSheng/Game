@@ -23,7 +23,7 @@ namespace UnityEngine.UI
         {
             if (image == null && !TryGetComponent(out image))
             {
-                Debug.LogError("Image is Null!");
+                Debuger.LogError(Author.Script, "Image is Null!");
             }
             else
             {

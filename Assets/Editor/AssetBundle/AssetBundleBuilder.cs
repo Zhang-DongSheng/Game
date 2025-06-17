@@ -547,7 +547,7 @@ namespace UnityEditor.Window
             }
             else
             {
-                Debug.LogError("No Directory: " + path);
+                UnityEngine.Debuger.LogError(Author.Editor, "No Directory: " + path);
             }
         }
 

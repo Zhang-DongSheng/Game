@@ -59,13 +59,12 @@ namespace Example
 
             if (result)
             {
-                Debug.Log("<color=green>成功寻找到路径!</color>" + path_ctr.Output.Count);
+                Debuger.Log(Author.Utility, $"成功寻找到路径!" + path_ctr.Output.Count);
             }
             else
             {
-                Debug.LogFormat("<color=red>未寻找到路径，起始点：{0} 结束点{1}</color>", start, end);
+                Debuger.Log(Author.Utility, $"未寻找到路径，起始点：{start} 结束点{end}");
             }
-
             Node[,] nodes = path_ctr.GetNodes();
 
             RefreshMap(nodes);

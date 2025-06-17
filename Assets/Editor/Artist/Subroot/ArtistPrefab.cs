@@ -350,7 +350,7 @@ namespace UnityEditor.Window
 
                 if (Missing(prefab))
                 {
-                    Debug.LogError(string.Format("{0} Lost reference", prefab.name), prefab);
+                    UnityEngine.Debuger.LogError(Author.Editor, $"{prefab.name} Lost reference", prefab);
                 }
             }
         }
@@ -375,7 +375,7 @@ namespace UnityEditor.Window
                             sp.objectReferenceInstanceIDValue != 0 &&
                             sp.objectReferenceValue == null)
                         {
-                            Debug.LogWarningFormat("{0} Missing : {1}", go.name, sp.propertyPath);
+                            UnityEngine.Debuger.LogWarning(Author.Editor, $"{go.name} Missing : {sp.propertyPath}");
                         }
                     }
                 }

@@ -35,7 +35,7 @@ namespace Study
                 {
                     step = 1;
 
-                    Debug.LogError("移除：" + list[index]);
+                    Debuger.LogError(Author.Test, "移除：" + list[index]);
 
                     list.RemoveAt(index);
                 }
@@ -50,8 +50,7 @@ namespace Study
                     index = 0;
                 }
             }
-
-            Debug.LogError("剩余：" + list[0] + " and " + list[1]);
+            Debuger.LogError(Author.Test, "剩余：" + list[0] + " and " + list[1]);
         }
     }
 }

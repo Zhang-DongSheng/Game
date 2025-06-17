@@ -1,6 +1,10 @@
+using Game.Test;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Information;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace UnityEngine
 {
@@ -20,6 +24,9 @@ namespace UnityEngine
         Resource,
         Hotfix,
     }
+    /// <summary>
+    /// µ÷ÊÔÊä³ö
+    /// </summary>
     public static class Debuger
     {
         public static bool DEBUG = true;
@@ -122,10 +129,21 @@ namespace UnityEngine
 #endif
         }
 
-        public static void DisplayDialog(string content, Action<bool> callback)
+        public static void LogEditor(string message)
         {
 #if UNITY_EDITOR
-            var result = UnityEditor.EditorUtility.DisplayDialog("Dialog", content, "OK");
+            var content = message;
+
+            var source = "";
+
+            Debug.LogError(content + "\n" + source);
+#endif
+        }
+
+        public static void DisplayDialog(Author author, string message, Action<bool> callback)
+        {
+#if UNITY_EDITOR
+            var result = UnityEditor.EditorUtility.DisplayDialog(author.ToString(), message, "ok");
 
             callback?.Invoke(result);
 #endif

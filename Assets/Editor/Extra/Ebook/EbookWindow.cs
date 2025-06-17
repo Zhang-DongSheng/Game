@@ -237,7 +237,7 @@ namespace UnityEditor.Window
             }
             else
             {
-                Debug.LogError("You have to Create a new Floder");
+                UnityEngine.Debuger.LogError(Author.Editor, "You have to create a new floder.");
             }
         }
 
@@ -288,7 +288,7 @@ namespace UnityEditor.Window
             }
             else
             {
-                Debug.LogError("No Directory: " + path);
+                UnityEngine.Debuger.LogError(Author.Editor, "No directory: " + path);
             }
         }
     }

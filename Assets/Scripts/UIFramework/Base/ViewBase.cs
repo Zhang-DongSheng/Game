@@ -94,7 +94,7 @@ namespace Game.UI
             Extension.Relevance(this);
         }
         [ContextMenu("Relevance")]
-        protected void MenuRelevance()
+        protected void EditorRelevance()
         {
             Relevance();
         }

@@ -165,9 +165,43 @@ namespace Game
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debuger.LogException(Author.Script, e);
             }
             return false;
+        }
+        /// <summary>
+        /// 搜索文档中代码中文字符串
+        /// </summary>
+        public static List<string> ContainsChinese(this string str)
+        {
+            var result = new List<string>();
+
+            var matches = Regex.Matches(str, @"("".*[\u4E00-\u9FA5]+)|([\u4E00-\u9FA5]+.*"")");
+
+            int count = matches.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                result.Add(matches[i].Value);
+            }
+            return result;
+        }
+        /// <summary>
+        /// 搜索" "双引号或"单引号括起来的包含中文的字符串
+        /// </summary>
+        public static List<string> ContainsQuotationMarks(this string str)
+        {
+            var result = new List<string>();
+
+            var matches = Regex.Matches(str, @"(\"".*([^\x00-\xff]).*\"")|(\'.*([^\x00-\xff]).*x\')");
+
+            int count = matches.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                result.Add(matches[i].Value);
+            }
+            return result;
         }
         /// <summary>
         /// 获取字符串中包含的参数
@@ -191,7 +225,7 @@ namespace Game
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debuger.LogException(Author.Script, e);
             }
             return null;
         }

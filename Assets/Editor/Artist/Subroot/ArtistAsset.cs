@@ -1,8 +1,9 @@
+using Game;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine;
-using Game;
+using Debuger = UnityEngine.Debuger;
 
 namespace UnityEditor.Window
 {
@@ -68,10 +69,17 @@ namespace UnityEditor.Window
                                 {
                                     DetectionEmptyFunction();
                                 }
+                                // 检测中文
                                 if (GUILayout.Button("Detection Chinese"))
                                 {
                                     DetectionChinese();
                                 }
+                                // 检测引号
+                                if (GUILayout.Button("Detection Quotation Marks"))
+                                {
+                                    DetectionString();
+                                }
+                                // 检测代码大小
                                 if (GUILayout.Button("Detection Code Size"))
                                 {
                                     Overflow(string.Format("t:{0}", assetoptions[indexAsset.value]), "Assets");
@@ -163,7 +171,7 @@ namespace UnityEditor.Window
 
                 if (shaders.Contains(shader))
                 {
-                    Debug.LogErrorFormat("The shader name is the same, {0}", shader);
+                    UnityEngine.Debuger.LogError(Author.Editor, $"The shader name is the same, {shader}");
                 }
                 else
                 {
@@ -198,7 +206,7 @@ namespace UnityEditor.Window
             {
                 if (!string.IsNullOrEmpty(shaders[i]))
                 {
-                    Debug.LogWarning(string.Format("<color=red>{0}</color> is not Reference", shaders[i]), UnityEngine.Shader.Find(shaders[i]));
+                    UnityEngine.Debuger.LogWarning(Author.Editor, $"<color=red>{shaders[i]}</color> is not Reference", Shader.Find(shaders[i]));
                 }
             }
         }
@@ -235,7 +243,7 @@ namespace UnityEditor.Window
             {
                 if (!string.IsNullOrEmpty(shaders[i]))
                 {
-                    Debug.LogWarning(string.Format("<color=red>{0}</color> is Referenced", shaders[i]), UnityEngine.Shader.Find(shaders[i]));
+                    UnityEngine.Debuger.LogWarning(Author.Editor, $"<color=red>{shaders[i]}</color> is Referenced", Shader.Find(shaders[i]));
                 }
             }
         }
@@ -258,7 +266,7 @@ namespace UnityEditor.Window
 
                     if (key.Contains(shader.ToLower()))
                     {
-                        Debug.LogWarning(string.Format("{0}: Material Shader is {1}!", path, shader), material);
+                        UnityEngine.Debuger.LogWarning(Author.Editor, $"{path}: Material Shader is {shader}!", material);
                     }
                 }
             }
@@ -292,19 +300,19 @@ namespace UnityEditor.Window
 
                                     if (pass)
                                     {
-                                        Debug.LogError(string.Format("代码{0}包含空方法!", path), asset);
+                                        UnityEngine.Debuger.LogError(Author.Editor, $"代码{path}包含空方法!", asset);
                                     }
                                 }
                             }
                             else
                             {
-                                Debug.Log(string.Format("代码{0}暂不处理!", path));
+                                UnityEngine.Debuger.Log(Author.Editor, $"代码{path}暂不处理!");
                             }
                         }
                         break;
                     default:
                         {
-                            Debug.Log(string.Format("其他格式文本{0}暂不处理!", path));
+                            UnityEngine.Debuger.Log(Author.Editor, $"其他格式文本{path}暂不处理!");
                         }
                         break;
                 }
@@ -313,52 +321,48 @@ namespace UnityEditor.Window
 
         private void DetectionChinese()
         {
-            var scripts = new List<string>();
-
-            var files = Directory.GetFiles(Application.dataPath, "*.cs", SearchOption.AllDirectories);
+            var files = Directory.GetFiles(Application.dataPath + "/Scripts", "*.cs", SearchOption.AllDirectories);
 
             foreach (var file in files)
             {
-                using (FileStream stream = new FileStream(file, FileMode.Open))
+                var content = File.ReadAllText(file);
+
+                var result = content.ContainsChinese();
+
+                if (result.Count > 0)
                 {
-                    StreamReader reader = new StreamReader(stream);
+                    var path = Utility.Path.SystemToUnity(file);
 
-                    while (!reader.EndOfStream)
-                    {
-                        string line = reader.ReadLine();
+                    var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
 
-                        line = line.Trim();
+                    var message = string.Join("\n", result);
 
-                        if (string.IsNullOrEmpty(line))
-                        {
-
-                        }
-                        else if (line.StartsWith("//"))
-                        {
-
-                        }
-                        else if (line.StartsWith("Debug"))
-                        {
-
-                        }
-                        else if (line.IsChinese())
-                        {
-                            scripts.Add(file); break;
-                        }
-                    }
-                    reader.Dispose();
+                    UnityEngine.Debuger.LogError(Author.Editor, path + "\n" + message, asset);
                 }
             }
+        }
 
-            foreach (var script in scripts)
+        private void DetectionString()
+        {
+            var files = Directory.GetFiles(Application.dataPath + "/Scripts", "*.cs", SearchOption.AllDirectories);
+
+            foreach (var file in files)
             {
-                var path = Game.Utility.Path.SystemToUnity(script);
+                var content = File.ReadAllText(file);
 
-                var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
+                var result = content.ContainsQuotationMarks();
 
-                Debug.LogError(path, asset);
+                if (result.Count > 0)
+                {
+                    var path = Utility.Path.SystemToUnity(file);
+
+                    var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
+
+                    var message = string.Join("\n", result);
+
+                    UnityEngine.Debuger.LogError(Author.Editor, path + "\n" + message, asset);
+                }
             }
-            Debug.LogWarning(string.Format("{0} Files {1} exists Chinese", files.Length, scripts.Count));
         }
 
         private void Powerof2(params string[] folders)
@@ -375,7 +379,7 @@ namespace UnityEditor.Window
 
                 if (texture.width % 4 != 0 || texture.height % 4 != 0)
                 {
-                    Debug.LogWarning(string.Format("{0}: Not power of 2!", path), texture);
+                    UnityEngine.Debuger.LogWarning(Author.Editor, $"{path}: Not power of 2!", texture);
                 }
             }
             guids = AssetDatabase.FindAssets("t:Sprite", folders);
@@ -388,7 +392,7 @@ namespace UnityEditor.Window
 
                 if (sprite.texture.width % 4 != 0 || sprite.texture.height % 4 != 0)
                 {
-                    Debug.LogWarning(string.Format("{0}: Not power of 2!", path), sprite);
+                    UnityEngine.Debuger.LogWarning(Author.Editor, $"{path}: Not power of 2!", sprite);
                 }
             }
         }
@@ -432,11 +436,11 @@ namespace UnityEditor.Window
         {
             if (texture.width > 2048 || texture.height > 2048)
             {
-                Debug.LogError(string.Format("{0} Size beyond 2048", name), texture);
+                UnityEngine.Debuger.LogError(Author.Editor, $"{name} Size beyond 2048", texture);
             }
             else if (texture.width > 1024 || texture.height > 1024)
             {
-                Debug.LogWarning(string.Format("{0} Size beyond 1024", name), texture);
+                UnityEngine.Debuger.LogWarning(Author.Editor, $"{name} Size beyond 1024", texture);
             }
             else if (texture.format != TextureFormat.ASTC_4x4)
             {
@@ -456,7 +460,7 @@ namespace UnityEditor.Window
                 }
                 else
                 {
-                    Debug.LogError(string.Format("{0} Uncompressed", name), texture);
+                    UnityEngine.Debuger.LogError(Author.Editor, $"{name} Uncompressed", texture);
                 }
             }
         }
@@ -465,7 +469,7 @@ namespace UnityEditor.Window
         {
             if (material.passCount > 2)
             {
-                Debug.LogError(string.Format("{0} The Shader pass is too much", name), material);
+                UnityEngine.Debuger.LogError(Author.Editor, $"{name} The Shader pass is too much", material);
             }
         }
 
@@ -473,7 +477,7 @@ namespace UnityEditor.Window
         {
             if (textAsset.bytes.Length > 1024 * 1024 * 1)
             {
-                Debug.LogError(string.Format("{0} The code is super long", name), textAsset);
+                UnityEngine.Debuger.LogError(Author.Editor, $"{name} The code is super long", textAsset);
             }
         }
 

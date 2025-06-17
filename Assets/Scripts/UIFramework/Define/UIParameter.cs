@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game.UI
 {
@@ -63,7 +64,7 @@ namespace Game.UI
                 }
                 catch (Exception e)
                 {
-                    UnityEngine.Debug.LogException(e);
+                    Debuger.LogException(Author.UI, e);
                 }
             }
             return default;

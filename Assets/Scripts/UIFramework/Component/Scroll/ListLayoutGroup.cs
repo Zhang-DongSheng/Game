@@ -70,7 +70,7 @@ namespace UnityEngine.UI
         {
             if (m_template == null)
             {
-                Debug.LogError("Template is null !");
+                Debuger.LogError(Author.Script, "Template is null !");
                 return;
             }
             if (!CheckScrollRect())
@@ -249,7 +249,7 @@ namespace UnityEngine.UI
 
             if (m_scrol == null)
             {
-                Debug.LogError("ScrollRect is null !");
+                Debuger.LogError(Author.Script, "ScrollRect is null !");
                 return false;
             }
             m_scrol.onValueChanged.AddListener(OnDrag);

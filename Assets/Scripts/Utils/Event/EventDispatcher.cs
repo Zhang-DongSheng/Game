@@ -156,7 +156,7 @@ namespace UnityEngine
                 }
                 catch (Exception e)
                 {
-                    Debug.LogException(e);
+                    Debuger.LogException(Author.Script, e);
                 }
             }
             return default;

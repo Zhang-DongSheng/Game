@@ -36,11 +36,11 @@ namespace UnityEditor
                 {
                     if (references[key] > 0)
                     {
-                        Debug.Log("<color=blue>Completed!</color>");
+                        Debuger.Log(Author.Editor, "Completed!");
                     }
                     else
                     {
-                        Debug.LogFormat("<color=red>[{0}]</color> Not Found References!", key);
+                        Debuger.Log(Author.Editor, $"[{key}] Not Found References!");
                     }
                 });
             }
@@ -68,14 +68,14 @@ namespace UnityEditor
                 {
                     if (item.Value == 0)
                     {
-                        Debug.LogFormat("<color=red>[{0}]</color> Not Found References!", item.Key);
+                        Debuger.Log(Author.Editor, $"[{item.Key}] Not Found References!");
                         empty = true;
                     }
                 }
 
                 if (!empty)
                 {
-                    Debug.Log("<color=blue>Completed!</color>");
+                    Debuger.Log(Author.Editor, "Completed!");
                 }
             });
         }
@@ -129,7 +129,7 @@ namespace UnityEditor
                 {
                     if (debug)
                     {
-                        Debug.Log(string.Format("<color=green>{0}</color>", file), AssetDatabase.LoadAssetAtPath<Object>(ToAssetPath(file)));
+                        Debuger.Log(Author.Editor, file, AssetDatabase.LoadAssetAtPath<Object>(ToAssetPath(file)));
                     }
                     references[key]++;
                 }

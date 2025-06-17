@@ -419,7 +419,7 @@ namespace UnityEngine.UI
 
             if (empty)
             {
-                Debug.LogError("The Item is Null!");
+                Debuger.LogError(Author.Script, "The Item is Null!");
             }
         }
         #endregion

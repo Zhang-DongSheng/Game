@@ -116,7 +116,7 @@ namespace Game
                             }
                             else
                             {
-                                Debug.LogFormat("<color=green>[{0}]</color>已赋值", field.Name);
+                                Debuger.LogWarning(Author.Script, $"<color=green>[{field.Name}]</color>已赋值");
                             }
                         }
                     }
@@ -142,7 +142,7 @@ namespace Game
                         }
                         else
                         {
-                            Debug.LogFormat("<color=green>[{0}]</color>已赋值", field.Name);
+                            Debuger.LogWarning(Author.Script, $"<color=green>[{field.Name}]</color>已赋值");
                         }
                     }
                 }

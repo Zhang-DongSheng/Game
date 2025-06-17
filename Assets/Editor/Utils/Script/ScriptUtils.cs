@@ -107,7 +107,7 @@ namespace UnityEditor.Utils
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debuger.LogException(Author.Editor, e);
             }
         }
 

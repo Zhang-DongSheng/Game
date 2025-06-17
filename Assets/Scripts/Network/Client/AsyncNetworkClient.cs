@@ -23,12 +23,12 @@ namespace Game.Network
 
                 if (!success)
                 {
-                    Debug.LogError("连接超时");
+                    Debuger.LogError(Author.Network, "连接超时");
                 }
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debuger.LogException(Author.Network, e);
             }
         }
 
@@ -54,7 +54,7 @@ namespace Game.Network
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debuger.LogException(Author.Network, e);
             }
         }
 
@@ -81,7 +81,7 @@ namespace Game.Network
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debuger.LogException(Author.Network, e);
             }
         }
 
@@ -106,7 +106,7 @@ namespace Game.Network
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debuger.LogException(Author.Network, e);
             }
         }
     }

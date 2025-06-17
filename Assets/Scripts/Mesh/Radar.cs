@@ -39,7 +39,7 @@ namespace UnityEngine
 
             if (m_render.material == null)
             {
-                Debug.LogWarning("请添加Material");
+                Debuger.LogWarning(Author.Script, "请添加Material");
             }
         }
 

@@ -39,7 +39,7 @@ namespace UnityEditor.Window
 				}
 				else
 				{
-					Debug.LogError("Initialise Fail！" + children[i].Name);
+					UnityEngine.Debuger.LogError(Author.Editor, "Initialise Fail！" + children[i].Name);
 				}
 			}
 			int count = artists.Count;

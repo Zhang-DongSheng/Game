@@ -206,7 +206,6 @@ namespace UnityEngine.UI
                 {
                     index = Mathf.Min(index + 1, count - 1);
                 }
-                Debug.LogError(delta.x);
             }
             Direction(index);
         }

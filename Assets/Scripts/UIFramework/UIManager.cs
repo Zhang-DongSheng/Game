@@ -143,7 +143,7 @@ namespace Game.UI
             {
                 if (_records[key].Contains(ctrl))
                 {
-                    Debuger.LogWarning(Author.UI, string.Format("The panel of {0} is opened repeatedly!", ctrl.information.name));
+                    Debuger.LogWarning(Author.UI, $"The panel of {ctrl.information.name} is opened repeatedly!");
                 }
                 else
                 {
@@ -161,7 +161,7 @@ namespace Game.UI
                         }
                         break;
                     default:
-                        Debuger.Log(Author.UI, string.Format("the panel of {0} is unrecord!", ctrl.information.name));
+                        Debuger.Log(Author.UI, $"The panel of {ctrl.information.name} is unrecord!");
                         break;
                 }
             }

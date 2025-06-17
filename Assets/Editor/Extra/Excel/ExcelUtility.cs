@@ -20,11 +20,11 @@ namespace UnityEditor
 					ExcelPackage package = new ExcelPackage(stream);
 
 					m_sheets = package.Workbook.Worksheets;
-				};
+				}
 			}
 			else
 			{
-				UnityEngine.Debug.LogError("Path Error: " + path);
+				UnityEngine.Debuger.LogError(UnityEngine.Author.Editor, "Path Error: " + path);
 			}
 		}
 

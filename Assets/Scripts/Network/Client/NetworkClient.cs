@@ -36,7 +36,7 @@ namespace Game.Network
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debuger.LogException(Author.Network, e);
             }
         }
 
@@ -58,12 +58,12 @@ namespace Game.Network
                 }
                 catch (ThreadAbortException e)
                 {
-                    Debug.LogException(e);
+                    Debuger.LogException(Author.Network, e);
                     break;
                 }
                 catch (Exception e)
                 {
-                    Debug.LogException(e);
+                    Debuger.LogException(Author.Network, e);
                     Close();
                     break;
                 }
@@ -90,7 +90,7 @@ namespace Game.Network
                 }
                 catch (Exception e)
                 {
-                    Debug.LogException(e);
+                    Debuger.LogException(Author.Network, e);
                     break;
                 }
             }

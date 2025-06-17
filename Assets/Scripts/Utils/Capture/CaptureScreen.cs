@@ -64,7 +64,7 @@ namespace Game
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debuger.LogException(Author.Script, e);
             }
         }
 
@@ -87,7 +87,7 @@ namespace Game
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debuger.LogException(Author.Script, e);
             }
         }
 

@@ -19,7 +19,7 @@ namespace Game
 
                 if (type == null)
                 {
-                    Debuger.LogError(Author.Script, string.Format("The Type of {0}, can't Find!", name));
+                    Debuger.LogError(Author.Utility, string.Format("The Type of {0}, can't Find!", name));
                     return null;
                 }
                 else
@@ -79,7 +79,7 @@ namespace Game
                 }
                 if (instance == null)
                 {
-                    Debuger.LogError(Author.Script, string.Format("The Type of {0}, can't Create!", type));
+                    Debuger.LogError(Author.Utility, string.Format("The type of {0}, can't be created!", type));
                 }
                 return instance;
             }

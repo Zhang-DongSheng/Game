@@ -22,7 +22,7 @@ namespace Game.UI
 
             if (information == null)
             {
-                Debuger.LogError(Author.UI, string.Format("{0} Config is Null!", panel));
+                Debuger.LogError(Author.UI, $"{panel} Config is null!");
             }
         }
 
@@ -43,7 +43,7 @@ namespace Game.UI
                     }
                     break;
                 case Status.Loading:
-                    Debuger.LogWarning(Author.UI, string.Format("The panel of [{0}] is loading...", information.name));
+                    Debuger.LogWarning(Author.UI, $"The panel of [{information.name}] is loading...");
                     break;
                 case Status.Display:
                     {
@@ -56,7 +56,7 @@ namespace Game.UI
                     }
                     break;
                 case Status.Error:
-                    Debuger.LogError(Author.UI, string.Format("The panel of [{0}] resource was not found!", information.name));
+                    Debuger.LogError(Author.UI, $"The panel of [{information.name}] resource was not found!");
                     break;
             }
         }

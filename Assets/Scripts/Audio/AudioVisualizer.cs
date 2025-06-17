@@ -22,7 +22,7 @@ namespace Game.Audio
             }
             else
             {
-                Debug.LogError("can't find audiosource!");
+                Debuger.LogError(Author.Resource, "can't find audiosource!");
             }
         }
 

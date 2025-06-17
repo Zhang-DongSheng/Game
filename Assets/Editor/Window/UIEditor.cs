@@ -307,7 +307,7 @@ namespace UnityEditor.Window
 
             if (index > -1)
             {
-                Debug.LogWarning("面板已存在！" + panel);
+                UnityEngine.Debuger.LogWarning(Author.Editor, "面板已存在！" + panel);
             }
             else
             {

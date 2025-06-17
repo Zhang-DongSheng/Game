@@ -1,3 +1,4 @@
+using Game.Data;
 using ILRuntime.CLR.Method;
 using ILRuntime.Runtime.Intepreter;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace Game.UI
             { "Release", null},
         };
 
-        public override void Init(Data.UIInformation information)
+        public override void Init(UIInformation information)
         {
             base.Init(information);
 

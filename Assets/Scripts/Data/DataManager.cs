@@ -73,7 +73,7 @@ namespace Game.Data
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError(e.Message);
+                    Debuger.LogException(Author.Data, e);
                 }
             }
         }
@@ -101,7 +101,7 @@ namespace Game.Data
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError(e.Message);
+                    Debuger.LogException(Author.Data, e);
                 }
             }
         }

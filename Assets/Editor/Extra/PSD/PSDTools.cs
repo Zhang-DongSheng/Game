@@ -383,7 +383,7 @@ namespace UnityEditor
 				}
 				catch (Exception e)
 				{
-					Debug.LogError(e.Message);
+					UnityEngine.Debuger.LogException(Author.Editor, e);
 				}
 				finally
 				{
@@ -407,7 +407,7 @@ namespace UnityEditor
 			}
 			else
 			{
-				Debug.LogError("No Directory: " + path);
+				UnityEngine.Debuger.LogError(Author.Editor, "No Directory: " + path);
 			}
 		}
     }

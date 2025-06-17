@@ -144,7 +144,7 @@ namespace Game.SM
                     status = Status.Transition;
                     break;
                 default:
-                    Debuger.LogWarning(Author.UI, string.Format("Paause doesn't support current state :{0}", status));
+                    Debuger.LogWarning(Author.UI, $"Paause doesn't support current state :{status}");
                     break;
             }
         }

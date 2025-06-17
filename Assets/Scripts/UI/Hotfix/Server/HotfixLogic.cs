@@ -60,7 +60,7 @@ namespace Game
             }
             else
             {
-                Debug.LogError(request.error);
+                Debuger.LogError(Author.Hotfix, request.error);
             }
             #endregion
 
@@ -84,7 +84,7 @@ namespace Game
             }
             else
             {
-                Debug.LogError(request.error);
+                Debuger.LogError(Author.Hotfix, request.error);
             }
             #endregion
 
@@ -98,7 +98,7 @@ namespace Game
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debuger.LogException(Author.Hotfix, e);
             }
             OnILRuntimeInitialized();
 
@@ -146,7 +146,7 @@ namespace Game
 
                         var value = field.GetValue(obj);
 
-                        Debug.Log("ID = " + value);
+                        Debuger.Log(Author.Test, "ID = " + value);
                     }
                     break;
                 default:
