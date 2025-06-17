@@ -83,15 +83,15 @@ namespace Game.UI
                     }
                     break;
                 default:
-                    Debuger.LogError(Author.UI, $"该类型对话未处理:{dialog.type}");
+                    Debuger.LogError(Author.UI, $"璇ョ被鍨嬪璇濇湭澶勭悊:{dialog.type}");
                     break;
             }
-            Debuger.LogWarning(Author.UI, $"当前播放对话ID:{dialog.primary}");
+            Debuger.LogWarning(Author.UI, $"褰撳墠鎾斁瀵硅瘽ID:{dialog.primary}");
         }
 
         private void Complete()
         {
-            Debuger.LogError(Author.UI, "对话完成");
+            Debuger.LogError(Author.UI, "瀵硅瘽瀹屾垚");
         }
 
         private void OnClickNext()

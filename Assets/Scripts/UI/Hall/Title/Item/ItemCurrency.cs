@@ -51,7 +51,7 @@ namespace Game.UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            UIQuickEntry.OpenBubbleView(transform, "��Դδ֪��");
+            UIQuickEntry.OpenBubbleView(transform, "来源未知！");
         }
 
         private void OnClickSource()
@@ -62,7 +62,7 @@ namespace Game.UI
                     UIQuickEntry.Open(UIPanel.Shop);
                     break;
                 default:
-                    UIQuickEntry.OpenNoticeView("��Դδ֪��");
+                    UIQuickEntry.OpenNoticeView("来源未知！");
                     break;
             }
         }

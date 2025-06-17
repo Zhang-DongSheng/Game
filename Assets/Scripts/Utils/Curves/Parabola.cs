@@ -31,7 +31,6 @@ namespace Game
             }
             else if (angle == -1)
             {
-                //Debug.Log(string.Format("<color=blue>{0}���������룡</color>", distance));
                 return curves;
             }
             else

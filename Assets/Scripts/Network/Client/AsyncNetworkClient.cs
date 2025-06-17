@@ -23,7 +23,7 @@ namespace Game.Network
 
                 if (!success)
                 {
-                    Debuger.LogError(Author.Network, "Á¬½Ó³¬Ê±");
+                    Debuger.LogError(Author.Network, "è¿žæŽ¥è¶…æ—¶");
                 }
             }
             catch (Exception e)

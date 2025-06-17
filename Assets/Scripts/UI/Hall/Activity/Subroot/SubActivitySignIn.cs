@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Game.UI
 {
     /// <summary>
-    /// Ç©µ½
+    /// ç­¾åˆ°
     /// </summary>
     public class SubActivitySignIn : SubActivityBase
     {
@@ -32,7 +32,7 @@ namespace Game.UI
 
         private void OnClickSignIn(int signInID)
         {
-            UIQuickEntry.OpenNoticeView("Ç©µ½ID" + signInID);
+            UIQuickEntry.OpenNoticeView("ç­¾åˆ°ID" + signInID);
         }
     }
 }

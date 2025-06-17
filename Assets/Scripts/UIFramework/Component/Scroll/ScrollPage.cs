@@ -78,11 +78,11 @@ namespace UnityEngine.UI
 
             if (capacity < space)
             {
-                // ÄÚÈİĞ¡ÓÚ¿Õ¼ä´óĞ¡£¬¾ÍÔÚÆğÊ¼Î»ÖÃ
+                // å†…å®¹å°äºç©ºé—´å¤§å°ï¼Œå°±åœ¨èµ·å§‹ä½ç½®
             }
             else if (index == 0)
             {
-                // µÚÒ»¸ö½±Àø¾ÍÔÚÆğµã²»¶¯ÁË
+                // ç¬¬ä¸€ä¸ªå¥–åŠ±å°±åœ¨èµ·ç‚¹ä¸åŠ¨äº†
             }
             else if (index > 0)
             {
@@ -92,7 +92,7 @@ namespace UnityEngine.UI
                     destination.x = target.anchoredPosition.x - space * .5f;
                 }
                 destination.x *= -1f;
-                // ÏŞÖÆÔÚÖ¸¶¨·¶Î§ÄÚ
+                // é™åˆ¶åœ¨æŒ‡å®šèŒƒå›´å†…
                 if (destination.x + capacity < space)
                 {
                     destination.x = space - capacity;
@@ -116,7 +116,7 @@ namespace UnityEngine.UI
                 status = Status.Move;
             }
         }
-        [ContextMenu("ÉÏÒ»¸ö")]
+        [ContextMenu("ä¸Šä¸€ä¸ª")]
         public void Prev()
         {
             if (index > 0)
@@ -125,7 +125,7 @@ namespace UnityEngine.UI
             }
             Direction(index);
         }
-        [ContextMenu("ÏÂÒ»¸ö")]
+        [ContextMenu("ä¸‹ä¸€ä¸ª")]
         public void Next()
         {
             if (index < scroll.content.childCount - 1)

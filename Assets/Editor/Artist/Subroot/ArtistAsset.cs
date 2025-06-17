@@ -329,7 +329,9 @@ namespace UnityEditor.Window
 
                 var result = content.ContainsChinese();
 
-                if (result.Count > 0)
+                var count = result.Count;
+
+                if (count > 0)
                 {
                     var path = Utility.Path.SystemToUnity(file);
 

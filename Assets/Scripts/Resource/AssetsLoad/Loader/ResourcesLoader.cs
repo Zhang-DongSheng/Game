@@ -36,7 +36,7 @@ namespace Game.Resource
             }
             else
             {
-                Debuger.LogWarning(Author.Resource, $"{path}, º”‘ÿ ß∞‹£°");
+                Debuger.LogWarning(Author.Resource, $"{path}, Âä†ËΩΩÂ§±Ë¥•ÔºÅ");
             }
             yield return null;
         }

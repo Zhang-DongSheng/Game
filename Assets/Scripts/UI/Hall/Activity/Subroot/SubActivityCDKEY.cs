@@ -4,7 +4,7 @@ using UnityEngine.UI;
 namespace Game.UI
 {
     /// <summary>
-    /// ¶Ò»»Âë
+    /// å…‘æ¢ç 
     /// </summary>
     public class SubActivityCDKEY : SubActivityBase
     {
@@ -37,7 +37,7 @@ namespace Game.UI
         {
             if (string.IsNullOrEmpty(content)) return;
 
-            string tips = string.Format("¶Ò»»Âë<color=blue><b>{0}</b></color>Ê¹ÓÃ³É¹¦£¡", content);
+            string tips = string.Format("å…‘æ¢ç <color=blue><b>{0}</b></color>ä½¿ç”¨æˆåŠŸï¼", content);
 
             UIQuickEntry.OpenNoticeView(tips);
         }

@@ -67,7 +67,7 @@ namespace Game.Resource
                 default:
                     {
                         Debuger.LogError(Author.Resource, request.error);
-                        //版本校对资源失败直接进入游戏
+                        // 鐗堟湰鏍″璧勬簮澶辫触鐩存帴杩涘叆娓告垙
                         ScheduleLogic.Instance.Update(Schedule.Resource);
                     }
                     break;
@@ -110,12 +110,12 @@ namespace Game.Resource
 
             if (progress > 0)
             {
-                Debuger.Log(Author.Resource, $"资源更新进度{count - progress}/{count}");
+                Debuger.Log(Author.Resource, $"璧勬簮鏇存柊杩涘害{count - progress}/{count}");
             }
             else
             {
                 ResourceManager.UpdateDependencies();
-                // 更新资源结束
+                // 鏇存柊璧勬簮缁撴潫
                 ScheduleLogic.Instance.Update(Schedule.Resource);
             }
         }

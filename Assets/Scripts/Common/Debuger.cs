@@ -1,10 +1,6 @@
-using Game.Test;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Information;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace UnityEngine
 {
@@ -129,17 +125,6 @@ namespace UnityEngine
 #endif
         }
 
-        public static void LogEditor(string message)
-        {
-#if UNITY_EDITOR
-            var content = message;
-
-            var source = "";
-
-            Debug.LogError(content + "\n" + source);
-#endif
-        }
-
         public static void DisplayDialog(Author author, string message, Action<bool> callback)
         {
 #if UNITY_EDITOR
@@ -174,8 +159,10 @@ namespace UnityEngine
 
             return builder.ToString();
         }
-        #region 解决日志双击溯源问题
 #if UNITY_EDITOR
+        /// <summary>
+        ///  解决日志双击溯源问题
+        /// </summary>
         [UnityEditor.Callbacks.OnOpenAssetAttribute(0)]
         static bool OnOpenAsset(int instanceID, int line)
         {
@@ -239,7 +226,6 @@ namespace UnityEngine
             return null;
         }
 #endif
-        #endregion
     }
 
     public struct LogInformation

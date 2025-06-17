@@ -4,7 +4,7 @@ using UnityEngine.UI;
 namespace Game.UI
 {
     /// <summary>
-    /// 抽奖
+    /// 鎶藉
     /// </summary>
     public class SubActivityLotteryDraw : SubActivityBase
     {
@@ -19,7 +19,7 @@ namespace Game.UI
 
         private void DisplayRewards()
         {
-            UIQuickEntry.OpenHorseLampView("收到大奖XXXXX,祝贺玩家YYYYY");
+            UIQuickEntry.OpenHorseLampView("鏀跺埌澶уXXXXX,绁濊春鐜╁YYYYY");
         }
 
         private void OnClick()

@@ -34,7 +34,7 @@ namespace Game.UI
             {
                 case UIPanel.None:
                     {
-                        UIQuickEntry.OpenNoticeView("ĞÂ¹¦ÄÜ¿ª·¢ÖĞ£¡¾´ÇëÆÚ´ı");
+                        UIQuickEntry.OpenNoticeView("æ–°åŠŸèƒ½å¼€å‘ä¸­ï¼æ•¬è¯·æœŸå¾…");
                     }
                     break;
                 case UIPanel.Deploy:

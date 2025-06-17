@@ -35,7 +35,7 @@ namespace Game.UI
 
             if (prop == null)
             {
-                Debuger.LogError(Author.UI, "╣ю╬ъID" + propID + "н╢╥╒ож");
+                Debuger.LogError(Author.UI, "И│⌠Е┘╥ID" + propID + "Ф°╙Е▐▒Г▌╟");
                 return;
             }
             m_introduce.Refresh(prop);

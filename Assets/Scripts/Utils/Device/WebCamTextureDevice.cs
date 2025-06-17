@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Device
 {
     /// <summary>
-    /// ÉãÏñÍ·
+    /// æ‘„åƒå¤´
     /// </summary>
     public sealed class WebCamTextureDevice : Device<WebCamTextureDevice>
     {
@@ -68,7 +68,7 @@ namespace Device
 
                 if (devices.Length == 0)
                 {
-                    Debuger.LogWarning(Author.Device, "Î´ÕÒµ½ÉãÏñÍ·£¡");
+                    Debuger.LogWarning(Author.Device, "æœªæ‰¾åˆ°æ‘„åƒå¤´ï¼");
                 }
                 else
                 {
@@ -77,7 +77,7 @@ namespace Device
             }
             else
             {
-                Debuger.LogWarning(Author.Device, "Î´»ñµÃ¶ÁÈ¡ÉãÏñÍ·È¨ÏŞ£¡");
+                Debuger.LogWarning(Author.Device, "æœªè·å¾—è¯»å–æ‘„åƒå¤´æƒé™ï¼");
             }
         }
 

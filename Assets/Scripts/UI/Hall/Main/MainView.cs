@@ -36,7 +36,7 @@ namespace Game.UI
             {
                 path = "Package/Prefab/Model/Character/MODEL_MECANIM.prefab"
             });
-            AudioManager.Instance.PlayMusic("HITA - ×íºìç¯");
+            AudioManager.Instance.PlayMusic("HITA - é†‰çº¢ç»¡");
         }
 
         private void RefreshCurrencies()

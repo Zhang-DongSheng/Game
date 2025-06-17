@@ -71,7 +71,7 @@ namespace Game.Audio
                 }
                 else
                 {
-                    Debuger.LogWarning(Author.Sound, $"{sound}该音频未录入下载列表!");
+                    Debuger.LogWarning(Author.Sound, $"{sound}璇ラ煶棰戞湭褰曞叆涓嬭浇鍒楄〃!");
                 }
             }
         }
@@ -99,7 +99,7 @@ namespace Game.Audio
                 }
                 else
                 {
-                    Debuger.LogWarning(Author.Sound, $"{sound}该音频未录入下载列表!");
+                    Debuger.LogWarning(Author.Sound, $"{sound}璇ラ煶棰戞湭褰曞叆涓嬭浇鍒楄〃!");
                 }
             }
         }

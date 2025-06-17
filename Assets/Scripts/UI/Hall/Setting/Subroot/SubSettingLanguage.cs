@@ -38,7 +38,7 @@ namespace Game.UI
 
             LanguageManager.Instance.Update(language);
 
-            UIQuickEntry.OpenNoticeView("���Գɹ�Ϊ" + language);
+            UIQuickEntry.OpenNoticeView("语言成功为" + language);
         }
     }
 }

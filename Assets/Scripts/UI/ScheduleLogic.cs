@@ -171,7 +171,7 @@ namespace Game
             {
                 schedule.Clear(); callback?.Invoke();
             }
-            Debuger.Log(Author.Resource, $"µ±Ç°½ø¶È{number}/{count}");
+            Debuger.Log(Author.Resource, $"å½“å‰è¿›åº¦{number}/{count}");
         }
 
         class ScheduleStruct
@@ -196,67 +196,67 @@ namespace Game
     public enum Schedule
     {
         /// <summary>
-        /// ÅäÖÃ
+        /// é…ç½®
         /// </summary>
         Config,
         /// <summary>
-        /// ×ÊÔ´
+        /// èµ„æº
         /// </summary>
         Resource,
         /// <summary>
-        /// ÈÈĞŞ¸´
+        /// çƒ­ä¿®å¤
         /// </summary>
         Hotfix,
         /// <summary>
-        /// ÓïÑÔ°ü
+        /// è¯­è¨€åŒ…
         /// </summary>
         Language,
         /// <summary>
-        /// ÆÁ±Î×Ö
+        /// å±è”½å­—
         /// </summary>
         BlockedText,
         /// <summary>
-        /// ÓÊÏä
+        /// é‚®ç®±
         /// </summary>
         Mail,
         /// <summary>
-        /// ±³°ü
+        /// èƒŒåŒ…
         /// </summary>
         Bag,
         /// <summary>
-        /// ÁÄÌì
+        /// èŠå¤©
         /// </summary>
         Chat,
         /// <summary>
-        /// ¾ãÀÖ²¿
+        /// ä¿±ä¹éƒ¨
         /// </summary>
         Club,
         /// <summary>
-        /// ºÃÓÑ
+        /// å¥½å‹
         /// </summary>
         Friend,
         /// <summary>
-        /// ÉÌµê
+        /// å•†åº—
         /// </summary>
         Shop,
         /// <summary>
-        /// »î¶¯
+        /// æ´»åŠ¨
         /// </summary>
         Activity,
         /// <summary>
-        /// ÅÅĞĞ°ñ
+        /// æ’è¡Œæ¦œ
         /// </summary>
         RankingList,
         /// <summary>
-        /// ÈÎÎñ
+        /// ä»»åŠ¡
         /// </summary>
         Task,
         /// <summary>
-        /// Òıµ¼
+        /// å¼•å¯¼
         /// </summary>
         Guidance,
         /// <summary>
-        /// ÊıÁ¿
+        /// æ•°é‡
         /// </summary>
         Count,
     }

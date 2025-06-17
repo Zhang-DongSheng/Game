@@ -71,7 +71,7 @@ namespace Game
             }
             second = 0;
 
-            Debuger.Log(Author.Device, "同步时间" + time);
+            Debuger.Log(Author.Device, "鍚屾鏃堕棿" + time);
         }
 
         private string SynchronizationServer()

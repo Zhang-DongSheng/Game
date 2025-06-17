@@ -29,7 +29,7 @@ namespace Game.UI
                     case "level":
                         break;
                     default:
-                        Debuger.LogWarning(Author.Script, $"ÔİÎ´Ö§³Ö¸ÃÀàĞÍÃüÁî:{rule[0]}");
+                        Debuger.LogWarning(Author.Script, $"æš‚æœªæ”¯æŒè¯¥ç±»å‹å‘½ä»¤:{rule[0]}");
                         break;
                 }
             }
@@ -40,7 +40,7 @@ namespace Game.UI
                     case "levelup":
                         break;
                     default:
-                        Debuger.LogWarning(Author.Script, $"ÔİÎ´Ö§³Ö¸ÃÀàĞÍÃüÁî:{rule[0]}");
+                        Debuger.LogWarning(Author.Script, $"æš‚æœªæ”¯æŒè¯¥ç±»å‹å‘½ä»¤:{rule[0]}");
                         break;
                 }
             }

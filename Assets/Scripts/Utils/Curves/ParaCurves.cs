@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Game
 {
     /// <summary>
-    /// Å×ÎïÏß
+    /// æŠ›ç‰©çº¿
     /// </summary>
     public class ParaCurves
     {
@@ -35,7 +35,7 @@ namespace Game
             }
             else if (angle == -1)
             {
-                Debuger.LogError(Author.Utility, "³¬³ö×î´ó¾àÀë£¡");
+                Debuger.LogError(Author.Utility, "è¶…å‡ºæœ€å¤§è·ç¦»ï¼");
                 return null;
             }
             else
