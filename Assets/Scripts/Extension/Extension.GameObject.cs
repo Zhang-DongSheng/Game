@@ -5,6 +5,16 @@ namespace Game
 {
     public static partial class Extension
     {
+        public static int LayerFlag(this GameObject go)
+        {
+            return 1 << go.layer;
+        }
+
+        public static bool LayerInside(this GameObject go, int layer)
+        {
+            return (1 << go.layer & layer) != 0;
+        }
+
         public static void SetActive(this GameObject go, bool active, VisibleType visible)
         {
             if (go == null) return;

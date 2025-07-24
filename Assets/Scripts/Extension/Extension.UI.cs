@@ -42,7 +42,7 @@ namespace Game
         /// <summary>
         /// 降层
         /// </summary>
-        public static void DownLayer(this Transform transform)
+        public static void LiftDownLayer(this Transform transform)
         {
             transform.RemoveComponent<GraphicRaycaster>();
 

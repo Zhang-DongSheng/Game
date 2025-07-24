@@ -50,7 +50,7 @@ namespace Game.UI
 
             trigger = false;
 
-            transform.DownLayer();
+            transform.LiftDownLayer();
 
             GuidanceLogic.Instance.Close();
         }
