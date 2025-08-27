@@ -68,31 +68,26 @@ namespace UnityEditor.Inspector
         }
     }
     [CustomPropertyDrawer(typeof(FieldNameAttribute))]
-    class DisplayDrawer : PropertyDrawer
+    class FieldNameDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            FieldNameAttribute display = attribute as FieldNameAttribute;
-
-            if (display.active)
-            {
-                return EditorGUI.GetPropertyHeight(property, label, true);
-            }
-            return 0;
+            return EditorGUI.GetPropertyHeight(property, label, true);
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             FieldNameAttribute display = attribute as FieldNameAttribute;
 
-            if (display.active)
+            GUI.enabled = display.modify;
+
+            if (!string.IsNullOrEmpty(display.name))
             {
-                if (!string.IsNullOrEmpty(display.name))
-                {
-                    label.text = display.name;
-                }
-                EditorGUI.PropertyField(position, property, label, true);
+                label.text = display.name;
             }
+            EditorGUI.PropertyField(position, property, label, true);
+
+            GUI.enabled = true;
         }
     }
     [CustomPropertyDrawer(typeof(SuffixAttribute))]

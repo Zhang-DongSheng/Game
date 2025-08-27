@@ -11,13 +11,13 @@ namespace Game.Attribute
     {
         public string name { get; private set; }
 
-        public bool active { get; private set; }
+        public bool modify { get; private set; }
 
-        public FieldNameAttribute(string name = null, bool active = true)
+        public FieldNameAttribute(string name = null, bool modify = true)
         {
-            this.active = active;
-
             this.name = name;
+
+            this.modify = modify;
         }
     }
     /// <summary>
