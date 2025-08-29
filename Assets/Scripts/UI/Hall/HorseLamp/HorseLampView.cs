@@ -27,9 +27,7 @@ namespace Game.UI
         {
             display.onCompleted = () =>
             {
-                state = State.Idle;
-
-                if (NotificationLogic.Instance.Complete(NotificationType.HorseLamp))
+                if (state == State.Complete)
                 {
                     OnClickClose();
                 }
@@ -37,7 +35,18 @@ namespace Game.UI
                 {
                     Execute();
                 }
+                state = State.Idle;
             };
+        }
+
+        public override void Refresh(UIParameter parameter)
+        {
+            if (state == State.Complete)
+            {
+                state = State.Idle;
+
+                display.Begin(true);
+            }
         }
 
         protected override void OnVisible(bool active)
@@ -102,7 +111,7 @@ namespace Game.UI
         }
 
         enum State
-        { 
+        {
             Idle,
             Display,
             Complete,
