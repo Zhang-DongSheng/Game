@@ -33,7 +33,7 @@ namespace Game.UI
 
         public virtual bool Back()
         {
-            if (isActiveAndEnabled)
+            if (gameObject.activeSelf)
             {
                 UIManager.Instance.Close(information.panel);
             }

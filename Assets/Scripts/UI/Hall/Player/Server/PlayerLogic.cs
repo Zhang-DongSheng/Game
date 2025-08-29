@@ -1,4 +1,6 @@
-namespace Game.UI
+using Game.Data;
+
+namespace Game.Logic
 {
     public class PlayerLogic : Singleton<PlayerLogic>, ILogic
     {

@@ -1,4 +1,6 @@
-namespace Game.UI
+using Game.UI;
+
+namespace Game.Data
 {
     public class Task
     {        public uint identification;

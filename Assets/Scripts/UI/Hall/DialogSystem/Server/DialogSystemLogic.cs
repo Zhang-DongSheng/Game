@@ -1,9 +1,10 @@
 using Game.Data;
+using Game.Logic;
 using Game.UI;
 using System;
 using System.Collections.Generic;
 
-namespace Game
+namespace Game.Logic
 {
     public class DialogSystemLogic : Singleton<DialogSystemLogic>, ILogic
     {

@@ -4,7 +4,7 @@ using Protobuf;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.UI
+namespace Game.Logic
 {
     public class ActivityLogic : Singleton<ActivityLogic>, ILogic
     {

@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game
+namespace Game.Logic
 {
-    public class ScheduleLogic : Singleton<ScheduleLogic>
+    public class ScheduleLogic : Singleton<ScheduleLogic>, ILogic
     {
         private readonly List<ScheduleStruct> schedule = new List<ScheduleStruct>();
 

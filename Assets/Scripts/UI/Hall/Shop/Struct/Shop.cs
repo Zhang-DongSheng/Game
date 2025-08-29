@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Game.UI
+namespace Game.Data
 {
     public class Shop
     {

@@ -1,9 +1,10 @@
 using Game.Const;
 using Game.Data;
+using Game.Logic;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game
+namespace Game.UI
 {
     public class LanguageManager : Singleton<LanguageManager>
     {

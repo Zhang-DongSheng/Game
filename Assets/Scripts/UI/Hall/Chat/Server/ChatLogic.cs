@@ -1,14 +1,6 @@
-﻿using Game;
-using Game.Network;
-using Game.UI;
-using Protobuf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Game.Logic;
 
-namespace Game.UI
+namespace Game.Logic
 {
     public class ChatLogic : Singleton<ChatLogic>, ILogic
     {

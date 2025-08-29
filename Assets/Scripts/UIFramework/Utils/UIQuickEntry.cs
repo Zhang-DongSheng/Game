@@ -1,5 +1,8 @@
+using Game.Data;
+using Game.Logic;
 using Game.Resource;
 using System;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace Game.UI
@@ -37,20 +40,24 @@ namespace Game.UI
             });
         }
 
-        public static void OpenNoticeView(string notice)
+        public static void OpenNoticeView(string message)
         {
-            Open(UIPanel.Notice, new UIParameter()
+            NotificationLogic.Instance.Push(new Notification()
             {
-                ["notice"] = notice,
+                type = NotificationType.Notice,
+                content = message,
             });
+            Open(UIPanel.Notice);
         }
 
         public static void OpenHorseLampView(string message, float time = -1)
         {
-            Open(UIPanel.HorseLamp, new UIParameter()
+            NotificationLogic.Instance.Push(new Notification()
             {
-                ["message"] = message,
+                type = NotificationType.HorseLamp,
+                content = message,
             });
+            Open(UIPanel.HorseLamp);
         }
 
         public static void OpenRewardView(Reward reward)

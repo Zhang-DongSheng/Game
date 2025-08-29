@@ -1,5 +1,5 @@
 using Game.Const;
-using Game.UI;
+using Game.Logic;
 using ILRuntime;
 using System;
 using System.Collections;
@@ -8,7 +8,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Game
+namespace Game.Logic
 {
     public class HotfixLogic : Singleton<HotfixLogic>, ILogic
     {

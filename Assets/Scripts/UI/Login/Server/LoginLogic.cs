@@ -4,11 +4,11 @@ using Game.State;
 using Protobuf;
 using UnityEngine;
 
-namespace Game.UI
+namespace Game.Logic
 {
     public class LoginLogic : Singleton<LoginLogic>, ILogic
     {
-        public LoginInformation user { get; private set; }
+        public Login user { get; private set; }
 
         public void Initialize()
         {

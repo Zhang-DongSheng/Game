@@ -1,6 +1,8 @@
+using Game.Data;
+using Game.UI;
 using UnityEngine;
 
-namespace Game.UI
+namespace Game.Logic
 {
     public class GuidanceLogic : Singleton<GuidanceLogic>, ILogic
     {

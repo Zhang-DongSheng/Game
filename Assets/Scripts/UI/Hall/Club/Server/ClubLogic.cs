@@ -1,14 +1,9 @@
-﻿using Game;
+﻿using Game.Data;
 using Game.Network;
-using Game.UI;
 using Protobuf;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Game.UI
+namespace Game.Logic
 {
     public class ClubLogic : Singleton<ClubLogic>, ILogic
     {

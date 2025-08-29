@@ -1,4 +1,4 @@
-namespace Game.UI
+namespace Game.Data
 {
     public class Club
     {

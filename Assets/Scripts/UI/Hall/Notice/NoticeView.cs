@@ -1,3 +1,5 @@
+using Game.Data;
+using Game.Logic;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,13 +14,6 @@ namespace Game.UI
         private float timer;
 
         private readonly List<ItemNotice> items = new List<ItemNotice>();
-
-        public override void Refresh(UIParameter paramter)
-        {
-            string value = paramter.Get<string>("notice");
-
-            NotificationLogic.Instance.Push(Notification.Notice, value);
-        }
 
         protected override void OnAwake()
         {
@@ -37,13 +32,13 @@ namespace Game.UI
 
         private void Execute()
         {
-            if (NotificationLogic.Instance.Empty(Notification.Notice)) return;
+            if (NotificationLogic.Instance.Complete(NotificationType.Notice)) return;
 
             timer = 0;
 
-            string content = NotificationLogic.Instance.Pop(Notification.Notice);
+            var notice = NotificationLogic.Instance.Pop(NotificationType.Notice);
 
-            var item = items.Find(x => !x.isActiveAndEnabled);
+            var item = items.Find(x => !x.gameObject.activeSelf);
 
             if (item == null)
             {
@@ -51,7 +46,7 @@ namespace Game.UI
 
                 items.Add(item);
             }
-            item.Refresh(content);
+            item.Refresh(notice.content);
         }
     }
 }

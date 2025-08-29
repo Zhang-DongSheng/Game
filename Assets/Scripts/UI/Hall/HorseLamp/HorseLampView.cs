@@ -1,3 +1,5 @@
+using Game.Data;
+using Game.Logic;
 using Game.SM;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +13,7 @@ namespace Game.UI
     {
         [SerializeField] private PrefabTemplateBehaviour prefab;
 
-        [SerializeField] private SMSize show;
-
-        [SerializeField] private SMSize hide;
+        [SerializeField] private SMSize display;
 
         private State state = State.Idle;
 
@@ -23,36 +23,20 @@ namespace Game.UI
 
         private readonly List<ItemHorseLamp> items = new List<ItemHorseLamp>();
 
-        public override void Refresh(UIParameter paramter)
-        {
-            string value = paramter.Get<string>("message");
-
-            NotificationLogic.Instance.Push(Notification.HorseLamp, value);
-
-            switch (state)
-            {
-                case State.Idle:
-                    {
-                        show.Begin();
-                    }
-                    break;
-                case State.Complete:
-                    {
-
-                    }
-                    break;
-            }
-        }
-
         protected override void OnAwake()
         {
-            show.onCompleted = () =>
+            display.onCompleted = () =>
             {
-                state = State.Idle; Execute();
-            };
-            hide.onCompleted = () =>
-            {
-                state = State.Idle; OnClickClose();
+                state = State.Idle;
+
+                if (NotificationLogic.Instance.Complete(NotificationType.HorseLamp))
+                {
+                    OnClickClose();
+                }
+                else
+                {
+                    Execute();
+                }
             };
         }
 
@@ -60,7 +44,7 @@ namespace Game.UI
         {
             if (active)
             {
-                show.Begin();
+                display.Begin(true);
             }
         }
 
@@ -87,17 +71,19 @@ namespace Game.UI
 
         private void Execute()
         {
-            if (NotificationLogic.Instance.Empty(Notification.HorseLamp)) return;
+            if (NotificationLogic.Instance.Complete(NotificationType.HorseLamp)) return;
 
-            string content = NotificationLogic.Instance.Pop(Notification.HorseLamp);
+            var notice = NotificationLogic.Instance.Pop(NotificationType.HorseLamp);
 
-            var item = items.Find(x => !x.isActiveAndEnabled);
+            var item = items.Find(x => !x.gameObject.activeSelf);
 
             if (item == null)
             {
                 item = prefab.Create<ItemHorseLamp>();
+
+                items.Add(item);
             }
-            item.Refresh(content);
+            item.Refresh(notice.content);
 
             complete = item.Duration;
 
@@ -112,7 +98,7 @@ namespace Game.UI
         {
             state = State.Complete;
 
-            hide.Begin();
+            display.Begin(false);
         }
 
         enum State

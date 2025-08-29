@@ -1,8 +1,9 @@
+using Game.Data;
 using Game.Network;
 using Protobuf;
 using System.Collections.Generic;
 
-namespace Game.UI
+namespace Game.Logic
 {
     public class ShopLogic : Singleton<ShopLogic>, ILogic
     {

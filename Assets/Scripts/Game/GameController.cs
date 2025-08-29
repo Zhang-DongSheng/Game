@@ -1,4 +1,5 @@
-﻿using Game.Resource;
+﻿using Game.Logic;
+using Game.Resource;
 using Game.State;
 using Game.UI;
 using System.Collections;

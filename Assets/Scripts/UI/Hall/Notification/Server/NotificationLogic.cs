@@ -1,47 +1,50 @@
+using Game.Data;
 using System.Collections.Generic;
 
-namespace Game.UI
+namespace Game.Logic
 {
     internal class NotificationLogic : Singleton<NotificationLogic>, ILogic
     {
-        private readonly Dictionary<Notification, List<string>> _messages = new Dictionary<Notification, List<string>>();
+        private readonly Dictionary<NotificationType, List<Notification>> _notifies = new Dictionary<NotificationType, List<Notification>>();
 
         public void Initialize()
         {
 
         }
 
-        public void Push(Notification key, string value)
+        public void Push(Notification notice)
         {
-            if (_messages.ContainsKey(key))
+            if (_notifies.ContainsKey(notice.type))
             {
-                _messages[key].Add(value);
+                _notifies[notice.type].Add(notice);
             }
             else
             {
-                _messages.Add(key, new List<string>() { value });
+                _notifies.Add(notice.type, new List<Notification>() { notice });
             }
         }
 
-        public string Pop(Notification key)
+        public Notification Pop(NotificationType key)
         {
-            string value = string.Empty;
-
-            if (_messages.TryGetValue(key, out List<string> list))
+            if (_notifies.TryGetValue(key, out List<Notification> list))
             {
                 if (list.Count > 0)
                 {
-                    value = list[0]; list.RemoveAt(0);
+                    var result = list[0];
+
+                    list.RemoveAt(0);
+
+                    return result;
                 }
             }
-            return value;
+            return null;
         }
 
-        public bool Empty(Notification key)
+        public bool Complete(NotificationType key)
         {
-            if (_messages.ContainsKey(key))
+            if (_notifies.ContainsKey(key))
             {
-                return _messages[key].Count == 0;
+                return _notifies[key].Count == 0;
             }
             return true;
         }

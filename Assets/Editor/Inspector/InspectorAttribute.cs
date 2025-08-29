@@ -233,6 +233,7 @@ namespace UnityEditor.Inspector
             {
                 function = _attribute.function;
             }
+
             if (GUI.Button(position, function))
             {
                 _attribute.Call(property.serializedObject.targetObject, PropertyUtils.Parameter(property));

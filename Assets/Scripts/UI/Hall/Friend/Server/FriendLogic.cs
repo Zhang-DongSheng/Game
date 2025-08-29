@@ -1,9 +1,10 @@
-﻿using Game.Network;
-using Game.UI;
+﻿using Game.Data;
+using Game.Logic;
+using Game.Network;
 using Protobuf;
 using System.Collections.Generic;
 
-namespace Game
+namespace Game.Logic
 {
     public class FriendLogic : Singleton<FriendLogic>, ILogic
     {

@@ -1,6 +1,4 @@
-using Game.Data;
-
-namespace Game.UI
+namespace Game.Data
 {
     public class DialogRoleInformation
     {

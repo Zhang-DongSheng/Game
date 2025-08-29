@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Game.Data;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.UI

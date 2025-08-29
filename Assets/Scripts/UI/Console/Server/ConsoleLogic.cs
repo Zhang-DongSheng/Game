@@ -1,3 +1,4 @@
+using Game.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -5,7 +6,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Profiling;
 
-namespace Game.UI
+namespace Game.Logic
 {
     public class ConsoleLogic : Singleton<ConsoleLogic>, ILogic
     {
