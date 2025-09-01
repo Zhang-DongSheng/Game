@@ -1,3 +1,4 @@
+using Game.Data;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -70,20 +71,6 @@ namespace Game.Logic
                 _reddots.Clear();
             }
             EventDispatcher.Post(UIEvent.Reddot);
-        }
-    }
-
-    public class Reddot
-    {
-        public int key;
-
-        public int value;
-
-        public Reddot(int key, int value)
-        {
-            this.key = key;
-
-            this.value = value;
         }
     }
 }

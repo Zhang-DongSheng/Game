@@ -53,6 +53,8 @@ namespace Game
 
             ReddotLogic.Instance.Initialize();
 
+            PopupLogic.Instance.Initialize();
+
             DialogSystemLogic.Instance.Initialize();
 
             WarehouseLogic.Instance.Initialize();

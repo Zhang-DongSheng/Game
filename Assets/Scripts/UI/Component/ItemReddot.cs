@@ -24,7 +24,10 @@ namespace Game.UI
 
         protected override void OnVisible(bool active)
         {
-            if (active) Refresh();
+            if (active)
+            {
+                Refresh();
+            }
         }
 
         protected virtual void Refresh(EventArgs args)
