@@ -16,7 +16,7 @@ namespace Game.UI
 
         private string _content;
 
-        private bool _relevance = true;
+        private bool _relevance = false;
 
         private void Awake()
         {
@@ -36,6 +36,17 @@ namespace Game.UI
         private void OnValidate()
         {
             SetText(content);
+        }
+
+        private void Relevance()
+        {
+            if (_relevance) return;
+
+            _relevance = true;
+
+            _text = GetComponent<Text>();
+
+            _textmp = GetComponent<TextMeshProUGUI>();
         }
 
         private void OnLanguageChange(UnityEngine.EventArgs args)
@@ -99,12 +110,7 @@ namespace Game.UI
 
         private void SetContent(string content)
         {
-            if (_relevance)
-            {
-                _relevance = false;
-                _text = GetComponent<Text>();
-                _textmp = GetComponent<TextMeshProUGUI>();
-            }
+            Relevance();
             if (_text != null)
                 _text.text = content;
             if (_textmp != null)

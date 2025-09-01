@@ -38,6 +38,18 @@ namespace Game.UI
                 _image.color = color;
         }
 
+        public void SetAlpha(float alpha)
+        {
+            Relevance();
+
+            if (_image != null)
+            {
+                var color = _image.color;
+                color.a = alpha;
+                _image.color = color;
+            }
+        }
+
         public void SetSprite(string content)
         {
             if (this.content.Equals(content)) return;
