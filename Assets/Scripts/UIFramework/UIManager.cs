@@ -237,6 +237,25 @@ namespace Game.UI
             return false;
         }
 
+        public bool OnlyDisplayed(UIPanel panel)
+        {
+            var key = (int)panel;
+
+            if (_panels.TryGetValue(key, out var ctrl) && ctrl.active)
+            {
+                foreach (var item in _panels.Values)
+                {
+                    if (item.active && item.information.panel != key &&
+                        item.information.type != UIType.Widget)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
         public Transform GetParent(UILayer layer)
         {
             try

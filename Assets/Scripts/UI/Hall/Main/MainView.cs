@@ -1,4 +1,5 @@
 using Game.Audio;
+using Game.Logic;
 using Game.Model;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +38,8 @@ namespace Game.UI
                 path = "Package/Prefab/Model/Character/MODEL_MECANIM.prefab"
             });
             AudioManager.Instance.PlayMusic("HITA - 醉红绡");
+
+            PopupLogic.Instance.Trigger();
         }
 
         private void RefreshCurrencies()

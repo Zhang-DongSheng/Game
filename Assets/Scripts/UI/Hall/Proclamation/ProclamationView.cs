@@ -1,3 +1,4 @@
+using Game.Logic;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,13 @@ namespace Game.UI
         public override void Refresh(UIParameter paramter)
         {
             
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+
+            PopupLogic.Instance.Complete();
         }
     }
 }
