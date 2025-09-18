@@ -35,7 +35,6 @@ namespace Game.UI
                 {
                     Execute();
                 }
-                state = State.Idle;
             };
         }
 

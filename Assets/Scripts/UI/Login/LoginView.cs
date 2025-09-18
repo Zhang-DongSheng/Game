@@ -152,13 +152,7 @@ namespace Game.UI
             }
             else
             {
-
-                TextManager.Instance.Translate("正在登录...", (result) =>
-                {
-                    UIQuickEntry.OpenHorseLampView(result);
-                });
-
-                //LoginLogic.Instance.RequestInformation(account, password);
+                LoginLogic.Instance.RequestInformation(account, password);
             }
         }
     }
