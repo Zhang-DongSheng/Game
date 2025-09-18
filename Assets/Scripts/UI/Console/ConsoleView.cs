@@ -10,6 +10,10 @@ namespace Game.UI
     {
         [SerializeField] private List<ConsoleBase> views;
 
+        [SerializeField] private RectTransform content;
+
+        [SerializeField] private ItemConsoleDrag drag;
+
         [SerializeField] private PrefabTemplate prefab;
 
         private readonly List<ItemConsoleToggle> toggles = new List<ItemConsoleToggle>();
@@ -18,6 +22,8 @@ namespace Game.UI
 
         private void Awake()
         {
+            drag.onDrag.AddListener(OnDragValueChanged);
+
             count = views.Count;
 
             for (int i = 0; i < count; i++)
@@ -47,6 +53,15 @@ namespace Game.UI
             {
                 views[i].Refresh(Time.deltaTime);
             }
+        }
+
+        private void OnDragValueChanged(Vector2 delta)
+        {
+            var view = GetComponent<RectTransform>();
+
+            var height = view.rect.height - delta.y;
+
+            content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
         }
 
         private void OnClickToggle(int index)

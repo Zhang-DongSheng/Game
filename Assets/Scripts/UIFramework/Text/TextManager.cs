@@ -12,9 +12,9 @@ namespace Game
 
         private readonly TextVoiceConvert convert = new TextVoiceConvert();
 
-        public void Translate(string source, Action<string> callback)
-        { 
-            translate.GetWorld(source, "zh", "en", callback);
+        public void Translate(string content, Action<string> callback)
+        {
+            translate.GetWorld(content, "zh", "en", callback);
         }
 
         //public void Translate(string source, Action<string> callback)

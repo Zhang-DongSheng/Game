@@ -1,5 +1,5 @@
-﻿using Game.Logic;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,57 +9,68 @@ namespace Game.UI
     {
         public override string Name => "命令";
 
-        [SerializeField] private Text label;
+        [SerializeField] private TMP_Dropdown dropdownCommand;
 
-        [SerializeField] private InputField input;
+        [SerializeField] private InputField inputItem;
+
+        [SerializeField] private InputField inputNumber;
+
+        [SerializeField] private TMP_Text help;
 
         [SerializeField] private Button submit;
 
-        [SerializeField] private PrefabTemplate prefab;
+        private string command, value, parameter;
 
-        private string content, value;
-
-        private readonly List<ItemConsoleLabel> items = new List<ItemConsoleLabel>();
+        private readonly List<string> options = new List<string>();
 
         public override void Initialize()
         {
-            input.onValueChanged.AddListener(OnValueChanged);
+            dropdownCommand.ClearOptions();
+
+            foreach (var command in ConsoleConfig.Commands)
+            {
+                options.Add(command.name);
+            }
+            dropdownCommand.AddOptions(options);
+
+            dropdownCommand.onValueChanged.AddListener(OnCommandValueChanged);
+
+            inputItem.onValueChanged.AddListener(OnItemValueChanged);
+
+            inputNumber.onValueChanged.AddListener(OnNumberValueChanged);
 
             submit.onClick.AddListener(OnClickSubmit);
-
-            OnValueChanged(string.Empty);
         }
 
-        private void OnValueChanged(string value)
+        public override void Refresh()
         {
-            this.value = value.ToLower();
+            
+        }
 
-            int index = 0;
+        private void OnCommandValueChanged(int value)
+        {
+            var command = ConsoleConfig.Commands.Find(x => x.index == value);
 
-            foreach (var cell in ConsoleConfig.Commands)
-            {
-                if (cell.Key.StartsWith(this.value))
-                {
-                    if (index >= items.Count)
-                    {
-                        items.Add(prefab.Create<ItemConsoleLabel>());
-                    }
-                    items[index++].Refresh(cell.Key, cell.Value);
-                }
-            }
-            for (int i = index; i < items.Count; i++)
-            {
-                items[i].SetActive(false);
-            }
+            if (command == null) return;
+
+            this.command = command.command;
+
+            help.text = command.description;
+        }
+
+        private void OnItemValueChanged(string value)
+        {
+            this.value = value;
+        }
+
+        private void OnNumberValueChanged(string value)
+        {
+            this.parameter = value;
         }
 
         private void OnClickSubmit()
         {
-            content += value + "\n";
-
-            label.text = content;
-
-            ConsoleLogic.Instance.ExecuteCommand(value);
+            Debuger.LogError(Author.Script, $"{command}-{value}-{parameter}");
         }
     }
 }

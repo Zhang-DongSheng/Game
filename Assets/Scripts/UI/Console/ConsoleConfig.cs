@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Game.Data;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.UI
@@ -7,20 +8,20 @@ namespace Game.UI
     {
         public const int LOGMAX = 200;
 
-        public static Dictionary<string, string> Commands = new Dictionary<string, string>
+        public static List<ConsoleCommandInformation> Commands = new List<ConsoleCommandInformation>()
         {
-            {"help", "帮助"},
-            {"get <color=red>propID</color> <color=blue>number</color>", "获取道具"},
-            {"upgrade <color=red>level</color>", "升级"},
-            {"pass", "通关"},
-            {"vip up", "vip 升级"},
-            {"vip down", "vip 降级"},
-            {"kill <color=red>targetID</color>", "击杀指定目标"},
+            new ConsoleCommandInformation(0, "帮助","help","帮助"),
+            new ConsoleCommandInformation(1, "获取道具","get","获取道具"),
+            new ConsoleCommandInformation(2, "升级","upgrade","升级"),
+            new ConsoleCommandInformation(3, "通关","pass","通关"),
+            new ConsoleCommandInformation(4, "vip","vip","vip"),
+            new ConsoleCommandInformation(5, "击杀","kill","击杀"),
+            new ConsoleCommandInformation(6, "设置","set","设置"),
         };
 
         public static readonly Dictionary<string, string> Infomation = new Dictionary<string, string>
         {
-            { "公司名称", Application.companyName },
+            {"公司名称", Application.companyName },
             {"产品名称", Application.productName},
             {"游戏版本", Application.version},
             {"游戏包名", Application.identifier},

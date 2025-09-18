@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Data;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Game.UI
