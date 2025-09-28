@@ -89,13 +89,21 @@ namespace Game.Test
             
         }
 
-        private GameObject[] cubes = new GameObject[2];
-
-
-
         public void OnClickButton(float index)
         {
+            var a = other[0].transform.position;
 
+            var b = other[1].transform.position;
+
+            var c = other[2].transform.position;
+
+            var center = Utility.Vector.Center(a, b, c);
+
+            var normal = Utility.Vector.Normal(a, b, c);
+
+            target.transform.position = center;
+
+            target.transform.up = normal;
         }
 
         private async Task StartAsync()
