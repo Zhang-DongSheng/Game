@@ -64,5 +64,10 @@ namespace UnityEngine.UI
             }
             return false;
         }
+
+        public static void Rebuild(RectTransform transform)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(transform);
+        }
     }
 }

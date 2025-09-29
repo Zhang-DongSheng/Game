@@ -37,9 +37,9 @@ namespace Example
 			Sprite[] sprites = assetPacker.GetSprites("walking");
 
 			int j = 0;
+
 			while (j < sprites.Length)
 			{
-
 				anim.sprite = sprites[j++];
 
 				yield return new WaitForSeconds(0.1f);

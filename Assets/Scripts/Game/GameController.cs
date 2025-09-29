@@ -11,6 +11,10 @@ namespace Game
     {
         [SerializeField] private GameMode mode;
 
+        [SerializeField] private float seconds;
+
+        private YieldInstruction wait;
+
         private void Awake()
         {
             DontDestroyOnLoad(this);
@@ -18,6 +22,8 @@ namespace Game
 
         private void Start()
         {
+            wait = new WaitForSeconds(seconds);
+
             StartCoroutine(Laoding());
         }
 
@@ -84,7 +90,7 @@ namespace Game
             }
             GameStateController.Instance.Init();
 
-            yield return new WaitForSeconds(3);
+            yield return wait;
 
             Network.NetworkManager.Instance.Connection();
 
@@ -113,7 +119,7 @@ namespace Game
         {
             OnRelease();
 
-            Debuger.LogError(Author.Device, "应用程序退出");
+            Debuger.LogWarning(Author.Device, "应用程序退出");
         }
     }
 }

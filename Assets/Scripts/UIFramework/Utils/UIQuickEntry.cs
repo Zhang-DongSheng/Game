@@ -2,7 +2,6 @@ using Game.Data;
 using Game.Logic;
 using Game.Resource;
 using System;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace Game.UI

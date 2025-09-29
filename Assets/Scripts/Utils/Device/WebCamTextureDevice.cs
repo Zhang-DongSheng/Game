@@ -62,7 +62,9 @@ namespace Device
 
                 while (WebCamTexture.devices.Length == 0 && index < 300)
                 {
-                    yield return new WaitForEndOfFrame(); index++;
+                    yield return Game.Data.Common.WaitEndFrame;
+
+                    index++;
                 }
                 devices = WebCamTexture.devices;
 
