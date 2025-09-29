@@ -59,6 +59,8 @@ namespace Game.Data
 
         public string path;
 
+        public bool ignore;
+
         public bool destroy;
 
         public UIInformation()
@@ -98,6 +100,8 @@ namespace Game.Data
             order = other.order;
 
             path = other.path;
+
+            ignore = other.ignore;
 
             destroy = other.destroy;
         }

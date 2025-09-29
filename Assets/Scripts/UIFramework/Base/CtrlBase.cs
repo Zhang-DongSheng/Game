@@ -51,7 +51,14 @@ namespace Game.UI
                         {
                             view.Reopen();
 
-                            Show();
+                            if (view.active)
+                            {
+                                view.Refresh(paramter);
+                            }
+                            else
+                            {
+                                Show();
+                            }
                         }
                     }
                     break;

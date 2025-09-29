@@ -131,7 +131,7 @@ namespace Game.UI
 
         public void Record(CtrlBase ctrl)
         {
-            if (ctrl == null || ctrl.information == null) return;
+            if (ctrl == null || ctrl.information == null || ctrl.information.ignore) return;
 
             var key = ctrl.information.type;
 

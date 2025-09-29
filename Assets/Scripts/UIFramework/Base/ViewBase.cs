@@ -1,4 +1,5 @@
-﻿using Game.Data;
+﻿using Game.Attribute;
+using Game.Data;
 using UnityEngine;
 
 namespace Game.UI
@@ -6,11 +7,14 @@ namespace Game.UI
     [DisallowMultipleComponent]
     public abstract class ViewBase : RuntimeBehaviour
     {
+        [FieldName("层级")]
         public UILayer layer = UILayer.Window;
-
+        [FieldName("类型")]
         public UIType type = UIType.Panel;
-
+        [FieldName("序列")]
         public uint order = 0;
+        [HideInInspector]
+        public bool active;
 
         protected UIInformation information;
 
@@ -21,6 +25,8 @@ namespace Game.UI
 
         public virtual void Enter()
         {
+            active = true;
+
             if (type == UIType.Panel)
             {
                 UIQuickEntry.Open(UIPanel.Title, new UIParameter()
@@ -28,7 +34,7 @@ namespace Game.UI
                     ["panel"] = information.panel,
                 });
             }
-            SetActive(true);
+            SetActive(active);
         }
 
         public virtual bool Back()
@@ -42,7 +48,9 @@ namespace Game.UI
 
         public virtual void Exit()
         {
-            SetActive(false);
+            active = false;
+
+            SetActive(active);
         }
 
         public virtual void Reopen()
