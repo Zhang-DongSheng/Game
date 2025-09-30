@@ -1,3 +1,4 @@
+using Game.Resource;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,43 +17,44 @@ namespace Game.Pool
             }
         }
         /// <summary>
-        /// 注册【必需】
+        /// 取出
         /// </summary>
-        public void Register(string key, Func<string, GameObject> create)
+        public void Pop(string key, Action<GameObject> callback)
         {
-            if (string.IsNullOrEmpty(key)) return;
-
-            if (m_pool.ContainsKey(key))
+            if (m_pool.TryGetValue(key, out var element))
             {
-                Debuger.LogError(Author.Resource, "pool exist the same key : " + key);
+                callback?.Invoke(element.Pop());
             }
             else
             {
-                m_pool.Add(key, new PoolElement(key, create));
+                ResourceManager.LoadAsync<GameObject>(key, (obj) =>
+                {
+                    if (obj != null)
+                    {
+                        var element = new PoolElement(key, obj);
+                        m_pool.Add(key, element);
+                        callback?.Invoke(element.Pop());
+                    }
+                    else
+                    {
+                        Debuger.LogError(Author.Resource, "load pool prefab error : " + key);
+                        callback?.Invoke(null);
+                    }
+                });
             }
-        }
-        /// <summary>
-        /// 取出
-        /// </summary>
-        public PoolObject Pop(string key)
-        {
-            if (m_pool.ContainsKey(key))
-            {
-                return m_pool[key].Pop();
-            }
-            return null;
         }
         /// <summary>
         /// 存入
         /// </summary>
-        public void Push(string key, PoolObject value)
+        public void Push(string key, GameObject value)
         {
-            if (m_pool.ContainsKey(key))
+            if (m_pool.TryGetValue(key, out var element))
             {
-                m_pool[key].Push(value);
+                element.Push(value);
             }
             else
             {
+                GameObject.Destroy(value);
                 Debuger.LogWarning(Author.Resource, "can't exist pool : " + key);
             }
         }

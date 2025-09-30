@@ -428,6 +428,7 @@ MonoBehaviour:
   layer: 1
   type: 1
   order: 0
+  active: 0
   stick: {fileID: 1077189491251679240}
   jump: {fileID: 1077189492081099923}
   crouch: {fileID: 1077189492322668493}

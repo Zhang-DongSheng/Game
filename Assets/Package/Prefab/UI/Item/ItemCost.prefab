@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6351575678860446449}
   - component: {fileID: 6351575678860446448}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 6351575679878698272}
   - component: {fileID: 6351575679878698302}
   - component: {fileID: 6351575679878698303}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 6351575679994574709}
   - component: {fileID: 6351575679994574710}
   - component: {fileID: 6351575679994574711}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6351575680087574437}
   - component: {fileID: 6351575680087574436}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ItemCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 6351575680764545615}
   - component: {fileID: 6351575680764545584}
   - component: {fileID: 6351575680764545585}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}

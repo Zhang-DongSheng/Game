@@ -1,4 +1,4 @@
-using Game.Resource;
+using Game.Pool;
 using UnityEngine;
 
 namespace Game.Model
@@ -20,22 +20,19 @@ namespace Game.Model
 
         public void Release()
         {
-            if (model != null)
-            {
-                GameObject.Destroy(model);
-            }
+            PoolManager.Instance.Push(information.path, model);
         }
 
         protected void Load(string path)
         {
-            ResourceManager.LoadAsync<GameObject>(path, (prefab) =>
+            PoolManager.Instance.Pop(path, (obj) =>
             {
                 if (model != null)
                 {
-                    GameObject.Destroy(model);
+                    PoolManager.Instance.Push(path, model);
                 }
-                model = GameObject.Instantiate(prefab, transform);
-
+                model = obj;
+                model.transform.SetParent(transform);
                 model.transform.localPosition = Vector3.zero;
             });
         }

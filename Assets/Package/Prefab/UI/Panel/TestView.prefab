@@ -54,6 +54,7 @@ MonoBehaviour:
   layer: 2
   type: 1
   order: 0
+  active: 0
 --- !u!1 &1035457184317079505
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6865590930556055484}
   - component: {fileID: -3738213008741106241}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ChatView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,6 +53,7 @@ MonoBehaviour:
   layer: 3
   type: 3
   order: 0
+  active: 0
 --- !u!1 &2474487369707198108
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,7 +65,7 @@ GameObject:
   - component: {fileID: 7233317560947603136}
   - component: {fileID: 7819686044207628924}
   - component: {fileID: 3685660415272169036}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

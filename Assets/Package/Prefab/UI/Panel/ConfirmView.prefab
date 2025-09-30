@@ -994,6 +994,7 @@ MonoBehaviour:
   layer: 3
   type: 2
   order: 0
+  active: 0
   content: {fileID: 6978918612715007355}
   txt_title: {fileID: 6978918612664345695}
   txt_message: {fileID: 6978918613153422753}

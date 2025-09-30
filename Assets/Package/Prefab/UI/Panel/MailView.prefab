@@ -1015,6 +1015,7 @@ MonoBehaviour:
   layer: 2
   type: 1
   order: 0
+  active: 0
   layout: {fileID: 7975076828737377253}
   prefab: {fileID: 2043698601537442410}
   m_title: {fileID: 0}

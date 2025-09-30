@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8942955514795299112}
   - component: {fileID: 6520037330226507496}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3500385464645070993}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: undone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 4686341998965196127}
   - component: {fileID: 2316402386645254292}
   - component: {fileID: 521559143824076142}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,6 @@ MonoBehaviour:
   template:
     parent: {fileID: 4686341998965196127}
     prefab: {fileID: 5092021386511650629, guid: 729bbd3fb413eec4e865de1d8f9d419e, type: 3}
-    reset: 0
 --- !u!1 &2528293948496886336
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2019757322418916695}
   - component: {fileID: 8515934819122128422}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ItemFriend
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +238,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8324753842205579738}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: available
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,7 +274,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1007259561190321968}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +313,7 @@ GameObject:
   - component: {fileID: 2147923865945500589}
   - component: {fileID: 4198151648438739385}
   - component: {fileID: 2046604423481614659}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +390,7 @@ GameObject:
   - component: {fileID: 977550508528616865}
   - component: {fileID: 2744015396201428891}
   - component: {fileID: 7711910803731202313}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,7 +472,6 @@ MonoBehaviour:
   template:
     parent: {fileID: 1609267793916645344}
     prefab: {fileID: 2528293948496886336}
-    reset: 0
 --- !u!1 &6747099157650110696
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,7 +482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2923554409063182819}
   - component: {fileID: 1747577807068355097}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ItemStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -541,7 +539,7 @@ GameObject:
   - component: {fileID: 941434769716573810}
   - component: {fileID: 94307331410964656}
   - component: {fileID: 2612306640442797584}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -646,7 +644,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3133160363688940028}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: claimed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -682,7 +680,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4167968721132442870}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -721,7 +719,7 @@ GameObject:
   - component: {fileID: 5483187631474126787}
   - component: {fileID: 7730107275411799748}
   - component: {fileID: 2142219846997883806}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FriendView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -767,6 +765,7 @@ MonoBehaviour:
   layer: 2
   type: 1
   order: 0
+  active: 0
   prefab: {fileID: 7711910803731202313}
   m_menu: {fileID: 6520037330226507496}
 --- !u!114 &2142219846997883806
@@ -794,7 +793,7 @@ GameObject:
   - component: {fileID: 1421222362757215877}
   - component: {fileID: 1827338344286250114}
   - component: {fileID: 419764785115302904}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -871,7 +870,7 @@ GameObject:
   - component: {fileID: 293518415121839121}
   - component: {fileID: 8083613235696768856}
   - component: {fileID: 2670944108105764556}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}

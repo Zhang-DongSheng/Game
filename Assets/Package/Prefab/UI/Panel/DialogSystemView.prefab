@@ -3077,6 +3077,7 @@ MonoBehaviour:
   layer: 2
   type: 2
   order: 0
+  active: 0
   menu: {fileID: 6408886373062170706}
   option: {fileID: 6874421243290330714}
   content: {fileID: 2061294998869423343}

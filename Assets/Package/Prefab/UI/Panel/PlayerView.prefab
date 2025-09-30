@@ -435,6 +435,7 @@ MonoBehaviour:
   layer: 2
   type: 1
   order: 0
+  active: 0
   m_step: {fileID: 7197750109684751285}
   m_attribute: {fileID: 3127233553146047667}
   properties:

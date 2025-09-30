@@ -5402,6 +5402,7 @@ MonoBehaviour:
   layer: 1
   type: 1
   order: 0
+  active: 0
   player: {fileID: 6076042911525242298}
   banner: {fileID: 4763853235494268651}
   currencies:

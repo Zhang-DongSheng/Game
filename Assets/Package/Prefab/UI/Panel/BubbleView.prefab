@@ -130,6 +130,7 @@ MonoBehaviour:
   layer: 4
   type: 3
   order: 0
+  active: 0
   background: {fileID: 3931132937455796109}
   content: {fileID: 3931132938815516926}
   txtValue: {fileID: 5394233939938707088}

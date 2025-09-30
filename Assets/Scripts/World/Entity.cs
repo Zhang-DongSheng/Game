@@ -1,3 +1,4 @@
+using Game.Pool;
 using UnityEngine;
 
 namespace Game.Model
@@ -5,25 +6,24 @@ namespace Game.Model
     [DisallowMultipleComponent]
     public abstract class Entity : RuntimeBehaviour
     {
-        public bool visible { get; private set; }
+        protected Vector3 position;
 
-        private void OnBecameVisible()
+        protected Vector3 rotation;
+
+        protected Vector3 scale = Vector3.one;
+
+        protected bool disposed = false;
+
+        protected GameObject model;
+
+        public virtual void Create(Vector3 position, Vector3 rotation, string name)
         {
-            visible = true;
-
-            OnVisibleChanged(visible);
+            
         }
 
-        private void OnBecameInvisible()
+        public virtual void Dispose()
         {
-            visible = false;
-
-            OnVisibleChanged(visible);
-        }
-
-        protected virtual void OnVisibleChanged(bool visible)
-        {
-
+            disposed = true;
         }
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7127329267968146794}
   - component: {fileID: 4556960272165184319}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ProclamationView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,6 +55,7 @@ MonoBehaviour:
   layer: 2
   type: 2
   order: 0
+  active: 0
   txtContent: {fileID: 7536813780719163534}
   btnConfirm: {fileID: 6969683956266031390}
 --- !u!1 &4224993939611569184
@@ -68,7 +69,7 @@ GameObject:
   - component: {fileID: 7396990302374779805}
   - component: {fileID: 2272930671434995066}
   - component: {fileID: 7536813780719163534}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +151,7 @@ GameObject:
   - component: {fileID: 7203672943922938408}
   - component: {fileID: 8693386823942942816}
   - component: {fileID: 7476808345908524161}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +232,7 @@ GameObject:
   - component: {fileID: 7285962372359835621}
   - component: {fileID: 8222693753955778141}
   - component: {fileID: 5711824689724695968}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +340,7 @@ GameObject:
   - component: {fileID: 6814323771438804237}
   - component: {fileID: 7440059541592640794}
   - component: {fileID: 3466933286407578175}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +431,7 @@ GameObject:
   - component: {fileID: 1032844198686840462}
   - component: {fileID: 2494208595818433443}
   - component: {fileID: 6969683956266031390}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -551,7 +552,7 @@ GameObject:
   - component: {fileID: 6361371007288720598}
   - component: {fileID: 3638867520766289857}
   - component: {fileID: 2171746527977179115}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -630,7 +631,7 @@ GameObject:
   - component: {fileID: 27991498518288469}
   - component: {fileID: 8640810402743280519}
   - component: {fileID: 6371197623584643667}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -704,7 +705,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8870576470397488243}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}

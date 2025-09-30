@@ -387,6 +387,7 @@ MonoBehaviour:
   layer: 4
   type: 4
   order: 0
+  active: 0
   prefab: {fileID: 3091466433968269552}
   display: {fileID: 4364183807801064936}
 --- !u!114 &302158729274053116

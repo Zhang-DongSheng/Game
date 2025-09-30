@@ -1124,6 +1124,7 @@ MonoBehaviour:
   layer: 3
   type: 3
   order: 0
+  active: 0
   title: {fileID: 1559412741714114266}
   button: {fileID: 4930230542876071043}
   currencies:

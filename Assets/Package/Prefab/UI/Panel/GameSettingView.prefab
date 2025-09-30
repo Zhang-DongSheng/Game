@@ -206,6 +206,7 @@ MonoBehaviour:
   layer: 2
   type: 1
   order: 0
+  active: 0
 --- !u!1 &4217315108908320527
 GameObject:
   m_ObjectHideFlags: 0

@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 6174685303193676783}
   - component: {fileID: 3233602257242840374}
   - component: {fileID: 946460946873398063}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 4563499446210606662}
   - component: {fileID: 7367173067273549122}
   - component: {fileID: 3500236583977351154}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -441,7 +441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7849750476294611563}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: undone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 1763861972123545176}
   - component: {fileID: 5959379078043555281}
   - component: {fileID: 5757650732393276383}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -699,7 +699,6 @@ MonoBehaviour:
   prefab:
     parent: {fileID: 5660239639585118635}
     prefab: {fileID: 641752024329987939, guid: 926a2cbffa9069945bc49951deb7fe40, type: 3}
-    reset: 0
 --- !u!114 &1827259849712302759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,7 +736,7 @@ GameObject:
   - component: {fileID: 4283018144056280485}
   - component: {fileID: 7916887210754923650}
   - component: {fileID: 4222881800810897476}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -818,7 +817,7 @@ GameObject:
   - component: {fileID: 7361406847735136005}
   - component: {fileID: 738692426802783845}
   - component: {fileID: 1194795374519785552}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1047,7 +1046,7 @@ GameObject:
   - component: {fileID: 1596986789058028118}
   - component: {fileID: 3130435973916486928}
   - component: {fileID: 7102133358805327804}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1210,7 +1209,6 @@ MonoBehaviour:
   template:
     parent: {fileID: 5694831718984072874}
     prefab: {fileID: 3792339258703891608}
-    reset: 0
 --- !u!1 &5557350579852745791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,7 +1309,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8961442117650122447}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: available
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1348,7 +1346,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4143779064074004462}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: claimed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1487,6 +1485,7 @@ MonoBehaviour:
   layer: 2
   type: 1
   order: 0
+  active: 0
   prefab: {fileID: 6063651323432190899}
 --- !u!114 &4229554824872990328
 MonoBehaviour:

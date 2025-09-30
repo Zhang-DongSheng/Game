@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2719737508939115478}
   - component: {fileID: 3262003692738624688}
   - component: {fileID: 3984624635205547610}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1262723160616976164}
   - component: {fileID: 6992316538594230437}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: StudyView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,6 +129,7 @@ MonoBehaviour:
   layer: 2
   type: 1
   order: 0
+  active: 0
   components:
   - key: AAA
     target: {fileID: 2719737508939115478}

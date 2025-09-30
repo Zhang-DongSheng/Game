@@ -130,12 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc8cd348260f4ac4e897f9741cbfc893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onBegin:
-    m_PersistentCalls:
-      m_Calls: []
-  onCompleted:
-    m_PersistentCalls:
-      m_Calls: []
+  target: {fileID: 4626979471550566679}
   curve:
     serializedVersion: 2
     m_Curve:
@@ -160,15 +155,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  enable: 1
-  useConfig: 1
+  circle: 0
   speed: 0.1
   step: 0
-  target: {fileID: 4626979471550566679}
-  relevance: 0
-  alpha:
-    origination: 0
-    destination: 1
+  forward: 1
+  enable: 1
 --- !u!1 &2404696492017761386
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +326,7 @@ MonoBehaviour:
   layer: 4
   type: 2
   order: 0
+  active: 0
   prefab: {fileID: 3451189398726275846}
   title: {fileID: 709854309868806716}
 --- !u!1 &5895010244516779306

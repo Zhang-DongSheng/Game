@@ -285,7 +285,6 @@ MonoBehaviour:
   template:
     parent: {fileID: 1404003494060586350}
     prefab: {fileID: 5255328027590716089}
-    reset: 0
 --- !u!1 &1325477488799163665
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +342,7 @@ MonoBehaviour:
   layer: 2
   type: 1
   order: 0
+  active: 0
   m_menu: {fileID: 2482891942347539736}
   m_scroll: {fileID: 6893647886208454569}
   m_shops:
@@ -1139,7 +1139,6 @@ MonoBehaviour:
   template:
     parent: {fileID: 4662248153496613896}
     prefab: {fileID: 8229950777280562608}
-    reset: 0
 --- !u!1 &3570832790214228092
 GameObject:
   m_ObjectHideFlags: 0
@@ -1344,7 +1343,6 @@ MonoBehaviour:
   template:
     parent: {fileID: 2932251571359968248}
     prefab: {fileID: 6008938295835492872}
-    reset: 0
 --- !u!1 &4337852019154795461
 GameObject:
   m_ObjectHideFlags: 0
@@ -2121,7 +2119,6 @@ MonoBehaviour:
   template:
     parent: {fileID: 8451620941103269811}
     prefab: {fileID: 5092021386511650629, guid: 729bbd3fb413eec4e865de1d8f9d419e, type: 3}
-    reset: 0
 --- !u!1 &6008938295835492872
 GameObject:
   m_ObjectHideFlags: 0

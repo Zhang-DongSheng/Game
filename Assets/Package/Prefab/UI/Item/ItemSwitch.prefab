@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8150276071747035242}
   - component: {fileID: 6447148104542918905}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ItemSwitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,6 +55,7 @@ MonoBehaviour:
   - {fileID: 4966478136389851914}
   on:
   - {fileID: 8074441433915521572}
+  active: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -69,7 +70,7 @@ GameObject:
   - component: {fileID: 3449144367678643541}
   - component: {fileID: 684944175224682920}
   - component: {fileID: 7977527656151604052}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +146,7 @@ GameObject:
   - component: {fileID: 8374020533027706215}
   - component: {fileID: 3248061530634934940}
   - component: {fileID: 653162813000939254}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

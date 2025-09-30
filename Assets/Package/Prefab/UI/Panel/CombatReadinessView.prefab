@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6387516811448415137}
   - component: {fileID: 8326429103598287909}
   - component: {fileID: 8611789506361259847}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 9024800837257486986}
   - component: {fileID: 1302817519466692493}
   - component: {fileID: 1658457197793985360}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4320546517397555646}
   - component: {fileID: 7622497900567775277}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CombatReadinessView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,6 +210,7 @@ MonoBehaviour:
   layer: 2
   type: 1
   order: 0
+  active: 0
   btnCombat: {fileID: 3763393016163618472}
 --- !u!1 &8437667714721007048
 GameObject:
@@ -223,7 +224,7 @@ GameObject:
   - component: {fileID: 6828546535025890545}
   - component: {fileID: 5459138084271462017}
   - component: {fileID: 3763393016163618472}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

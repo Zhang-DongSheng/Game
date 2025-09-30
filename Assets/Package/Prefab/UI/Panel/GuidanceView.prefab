@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 915014419329956084}
   - component: {fileID: 4040172401553124260}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Drag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 7293775752109330998}
   - component: {fileID: 8863184125697865091}
   - component: {fileID: 8003192915360638587}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1072490740806250198}
   - component: {fileID: 7223328773851773991}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Spring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 4930734796911871588}
   - component: {fileID: 3560024776603165339}
   - component: {fileID: 481602082286173213}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 1547816175124341870}
   - component: {fileID: 8957533486595088432}
   - component: {fileID: 4710175547035934677}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,7 +416,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3108082216896319232}
   - component: {fileID: 4571936962012031498}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GuidanceView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,6 +460,7 @@ MonoBehaviour:
   layer: 5
   type: 3
   order: 0
+  active: 0
   mask: {fileID: 4710175547035934677}
   items:
   - {fileID: 0}
@@ -474,7 +475,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1637597213165385178}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}

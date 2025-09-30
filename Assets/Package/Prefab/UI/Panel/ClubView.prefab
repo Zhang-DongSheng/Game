@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6280145726679636711}
   - component: {fileID: 6907226134957326937}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ClubView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,6 +54,7 @@ MonoBehaviour:
   layer: 2
   type: 1
   order: 0
+  active: 0
   image: {fileID: 2687203153103401870}
   key: Package/Prefab/Model/Character/MODEL ANIMATION.prefab
 --- !u!1 &7477247185944497474
@@ -67,7 +68,7 @@ GameObject:
   - component: {fileID: 8051392510068627576}
   - component: {fileID: 3333622958629181500}
   - component: {fileID: 2687203153103401870}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RawImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +141,7 @@ GameObject:
   - component: {fileID: 817929292607457205}
   - component: {fileID: 2549727565569971280}
   - component: {fileID: 9133157620497167034}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

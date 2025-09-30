@@ -1,4 +1,5 @@
-﻿using Game.UI;
+﻿using Game.Resource;
+using Game.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -19,6 +20,8 @@ namespace Game.State
         public void OnEnter()
         {
             UIManager.Instance.CloseAll(true);
+
+            ResourceManager.UnLoadAllAsset();
 
             LoadingView.Instance.Open();
 

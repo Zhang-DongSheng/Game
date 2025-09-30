@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3848552542432153772}
   - component: {fileID: 8007005403135762172}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Me
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 3057369457001308852}
   - component: {fileID: 9166490021575455270}
   - component: {fileID: 11338937109474951}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4776254420724071312}
   - component: {fileID: 3189197433879871327}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GluttonousSnakeView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,6 +188,7 @@ MonoBehaviour:
   layer: 2
   type: 1
   order: 0
+  active: 0
   speedMin: 50
   speedMax: 100
   snake: {fileID: 8007005403135762172}
@@ -205,7 +206,7 @@ GameObject:
   - component: {fileID: 665382999868866370}
   - component: {fileID: 8223959121019563522}
   - component: {fileID: 5839899666878310082}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +280,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5993313786714908789}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +319,7 @@ GameObject:
   - component: {fileID: 4617868891817117757}
   - component: {fileID: 7778070406669664614}
   - component: {fileID: 4919633917554045870}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,7 +393,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 475980232787505496}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Bodys
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +429,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6748505720766937710}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -467,7 +468,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8142723817146802345}
   - component: {fileID: 8123644137836986667}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Snake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,7 +524,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9073266187307412345}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Bodys
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -559,7 +560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 731587462217850167}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -598,7 +599,7 @@ GameObject:
   - component: {fileID: 2371361655561635105}
   - component: {fileID: 1493563429793421289}
   - component: {fileID: 6084692237430849080}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -672,7 +673,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6339958939306092597}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -710,7 +711,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2204738199761011976}
   - component: {fileID: 1024077143842654111}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

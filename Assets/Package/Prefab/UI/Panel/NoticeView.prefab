@@ -221,6 +221,7 @@ MonoBehaviour:
   layer: 4
   type: 4
   order: 0
+  active: 0
   interval: 3
   prefab: {fileID: 4719949977652224531}
 --- !u!114 &5048547716184507344

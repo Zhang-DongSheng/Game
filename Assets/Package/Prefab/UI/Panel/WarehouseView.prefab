@@ -501,7 +501,6 @@ MonoBehaviour:
   template:
     parent: {fileID: 555003986729557422}
     prefab: {fileID: 5092021386511650629, guid: 729bbd3fb413eec4e865de1d8f9d419e, type: 3}
-    reset: 0
 --- !u!1 &2779464637190750444
 GameObject:
   m_ObjectHideFlags: 0
@@ -1303,6 +1302,7 @@ MonoBehaviour:
   layer: 2
   type: 1
   order: 0
+  active: 0
   m_menu: {fileID: 1523638452611043120}
   m_content: {fileID: 6718571169445282464}
   m_introduce: {fileID: 2573436257859180939}

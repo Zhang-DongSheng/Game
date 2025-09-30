@@ -37,7 +37,7 @@ namespace Game
 
         private IEnumerator Laoding()
         {
-            NetworkMessageManager.Instance.Initialize();
+            CameraController.Instance.Initialize();
 
             UIManager.Instance.Initialize();
 
@@ -46,6 +46,8 @@ namespace Game
             SettingLogic.Instance.Initialize();
 
             NotificationLogic.Instance.Initialize();
+
+            NetworkMessageManager.Instance.Initialize();
 
             LoginLogic.Instance.Initialize();
 

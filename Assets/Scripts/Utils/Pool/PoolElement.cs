@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,23 +9,23 @@ namespace Game.Pool
 
         private readonly Transform root;
 
-        private readonly Func<string, GameObject> create;
+        private readonly GameObject prefab;
 
-        private readonly Stack<PoolObject> m_stack = new Stack<PoolObject>();
+        private readonly Stack<GameObject> m_stack = new Stack<GameObject>();
 
         private readonly PoolReference m_reference = new PoolReference(PoolConfig.Sample, PoolConfig.Interval);
 
         private int number, capacity;
 
-        public PoolElement(string key, Func<string, GameObject> create)
+        public PoolElement(string key, GameObject prefab)
         {
             this.key = key;
 
             this.root = new GameObject(string.Format("[{0}]", key)).transform;
 
-            this.root.parent = PoolManager.Instance.transform;
+            this.root.SetParent(PoolManager.Instance.transform);
 
-            this.create = create;
+            this.prefab = prefab;
 
             this.capacity = PoolConfig.Min;
         }
@@ -39,58 +38,55 @@ namespace Game.Pool
 
             if (m_stack.Count > capacity)
             {
-                m_stack.Pop().OnRemove();
+                //m_stack.Pop();
             }
         }
 
-        public PoolObject Pop()
+        public GameObject Pop()
         {
             number++;
 
-            PoolObject value;
+            GameObject model;
 
             if (m_stack.Count > 0)
             {
-                value = m_stack.Pop();
+                model = m_stack.Pop();
+
+                model.SetActive(true);
             }
             else
             {
-                var instance = create.Invoke(key);
-
-                if (instance == null) return null;
-
-                if (instance.TryGetComponent(out value))
-                {
-
-                }
-                else
-                {
-                    value = instance.AddComponent<PoolObject>();
-                }
-                value.OnCreate(key);
+                model = GameObject.Instantiate(prefab, root);
             }
-            value.OnFetch(); return value;
+            return model;
         }
 
-        public void Push(PoolObject value)
+        public void Push(GameObject value)
         {
+            if (value == null) return;
+
             number--;
 
             foreach (var item in m_stack)
             {
-                if (ReferenceEquals(item, value))
+                if (item.GetHashCode() == value.GetHashCode())
                 {
+                    Debuger.LogWarning(Author.Resource, "the same pool object : " + key);
                     return;
                 }
             }
-            value.OnRecycle(root); m_stack.Push(value);
+            value.SetActive(false);
+
+            value.transform.SetParent(root);
+
+            m_stack.Push(value);
         }
 
         public void Clear()
         {
             while (m_stack.Count > 0)
             {
-                m_stack.Pop().OnRemove();
+                GameObject.Destroy(m_stack.Pop());
             }
             number = 0;
         }
