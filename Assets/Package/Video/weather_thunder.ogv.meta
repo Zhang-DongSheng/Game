@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 37ceacc6dbf5ecc48b4df91d7fb2fdac
+guid: 4e993fa3550296743892606e858131af
 VideoClipImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -14,5 +14,5 @@ VideoClipImporter:
   importAudio: 1
   targetSettings: {}
   userData: 
-  assetBundleName: package/video/weather_light-snow
+  assetBundleName: 
   assetBundleVariant: 

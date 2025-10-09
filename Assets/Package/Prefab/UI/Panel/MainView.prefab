@@ -1865,7 +1865,7 @@ MonoBehaviour:
   m_video: {fileID: 7455702883324423183}
   screen: {fileID: 4828835697824509536}
   size: {x: 600, y: 400}
-  url: Package/Video/weather_thunder.mp4
+  url: Package/Video/weather_thunder.ogv
 --- !u!1 &1334700914414647988
 GameObject:
   m_ObjectHideFlags: 0
@@ -5225,7 +5225,7 @@ MonoBehaviour:
   m_video: {fileID: 292952034053044374}
   screen: {fileID: 7575139386527985240}
   size: {x: 600, y: 400}
-  url: Package/Video/weather_sunny-day.mp4
+  url: Package/Video/weather_sunny-day.ogv
 --- !u!1 &3405094078203950627
 GameObject:
   m_ObjectHideFlags: 0
@@ -8692,7 +8692,7 @@ MonoBehaviour:
   m_video: {fileID: 6959518358290915857}
   screen: {fileID: 2109323168183242682}
   size: {x: 600, y: 400}
-  url: Package/Video/weather_night.mp4
+  url: Package/Video/weather_night.ogv
 --- !u!1 &6385734219446672404
 GameObject:
   m_ObjectHideFlags: 0

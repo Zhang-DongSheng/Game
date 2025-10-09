@@ -14,24 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   order: 0
   list:
-  - primary: 36660
+  - primary: 47974
     name: weather_cloudy-03
-    path: Package/Video/weather_cloudy-03.mp4
-  - primary: 37152
+    path: Package/Video/weather_cloudy-03.ogv
+  - primary: 47970
     name: weather_cloudy-and-rainny
-    path: Package/Video/weather_cloudy-and-rainny.mp4
-  - primary: 36610
+    path: Package/Video/weather_cloudy-and-rainny.ogv
+  - primary: 47968
     name: weather_light-snow
-    path: Package/Video/weather_light-snow.mp4
-  - primary: 37486
+    path: Package/Video/weather_light-snow.ogv
+  - primary: 47962
     name: weather_night
-    path: Package/Video/weather_night.mp4
-  - primary: 39750
+    path: Package/Video/weather_night.ogv
+  - primary: 47964
     name: weather_rain
-    path: Package/Video/weather_rain.mp4
-  - primary: 35944
+    path: Package/Video/weather_rain.ogv
+  - primary: 47966
     name: weather_sunny-day
-    path: Package/Video/weather_sunny-day.mp4
-  - primary: 37358
+    path: Package/Video/weather_sunny-day.ogv
+  - primary: 47972
     name: weather_thunder
-    path: Package/Video/weather_thunder.mp4
+    path: Package/Video/weather_thunder.ogv

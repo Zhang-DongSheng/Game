@@ -53,8 +53,6 @@ namespace Game.Pool
                 model = GameObject.Instantiate(prefab, root);
 
                 m_list.Add(model.GetHashCode());
-
-                Debuger.LogWarning(Author.Pool, $"{key} - Hash:{string.Join(',', m_list)}");
             }
             model.SetActive(true);
 

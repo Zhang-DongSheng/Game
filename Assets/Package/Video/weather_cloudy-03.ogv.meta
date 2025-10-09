@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 08192cb31785a164a9c1cbe3e914eb8c
+guid: b31ef45f4bb9fdd4ca73368cf92263bc
 VideoClipImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -14,5 +14,5 @@ VideoClipImporter:
   importAudio: 1
   targetSettings: {}
   userData: 
-  assetBundleName: package/video/weather_cloudy-and-rainny
+  assetBundleName: 
   assetBundleVariant: 

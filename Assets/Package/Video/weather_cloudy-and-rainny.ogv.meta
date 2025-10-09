@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 589d11ae0aae23646b687f3938438e25
+guid: e3e1d998793f6744489d8afa43517554
 VideoClipImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -14,5 +14,5 @@ VideoClipImporter:
   importAudio: 1
   targetSettings: {}
   userData: 
-  assetBundleName: package/video/weather_thunder
+  assetBundleName: 
   assetBundleVariant: 

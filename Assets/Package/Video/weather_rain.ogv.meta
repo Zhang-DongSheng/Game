@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 76c1c89a63c1da9438339b843de9c260
+guid: e948073e0ba5679488dde102e7002eb3
 VideoClipImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -14,5 +14,5 @@ VideoClipImporter:
   importAudio: 1
   targetSettings: {}
   userData: 
-  assetBundleName: package/video/weather_sunny-day
+  assetBundleName: 
   assetBundleVariant: 

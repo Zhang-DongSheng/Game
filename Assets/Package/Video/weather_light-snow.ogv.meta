@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5769bd52e9c007a4b87906fec6f00ef7
+guid: 8545dc15fe3fa344d869928b0c83b214
 VideoClipImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -14,5 +14,5 @@ VideoClipImporter:
   importAudio: 1
   targetSettings: {}
   userData: 
-  assetBundleName: package/video/weather_cloudy-03
+  assetBundleName: 
   assetBundleVariant: 

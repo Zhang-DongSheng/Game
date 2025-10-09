@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 98e637580cd0c2141b7d0305037d719c
+guid: 469d8ae0fb1b137479227581563f9a1e
 VideoClipImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -14,5 +14,5 @@ VideoClipImporter:
   importAudio: 1
   targetSettings: {}
   userData: 
-  assetBundleName: package/video/weather_night
+  assetBundleName: 
   assetBundleVariant: 
