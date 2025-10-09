@@ -5,6 +5,7 @@ namespace UnityEngine.UI
     /// <summary>
     /// 多边形
     /// </summary>
+    [ExecuteInEditMode]
     [RequireComponent(typeof(CanvasRenderer))]
     public class Polygon : MaskableGraphic
     {
@@ -20,21 +21,20 @@ namespace UnityEngine.UI
 
         protected override void Awake()
         {
-            if (count < 3) return;
-
-            points.Clear();
-
-            float angle = 360f / count;
-
-            for (int i = 0; i < count; i++)
+            if (points.Count != count)
             {
-                points.Add(new Vector2()
-                {
-                    x = Mathf.Sin(i * angle * Mathf.Deg2Rad) * radius,
-                    y = Mathf.Cos(i * angle * Mathf.Deg2Rad) * radius,
-                });
+                Rebuilder();
             }
             base.Awake();
+        }
+
+        protected override void OnValidate()
+        {
+            if (points.Count != count)
+            {
+                Rebuilder();
+            }
+            base.OnValidate();
         }
 
         protected override void OnPopulateMesh(VertexHelper helper)
@@ -64,6 +64,24 @@ namespace UnityEngine.UI
             else
             {
                 Debuger.LogWarning(Author.UI, "The Polygon Points count must be more than 3!");
+            }
+        }
+
+        private void Rebuilder()
+        {
+            count = Mathf.Max(3, count);
+
+            points.Clear();
+
+            float angle = 360f / count;
+
+            for (int i = 0; i < count; i++)
+            {
+                points.Add(new Vector2()
+                {
+                    x = Mathf.Sin(i * angle * Mathf.Deg2Rad) * radius,
+                    y = Mathf.Cos(i * angle * Mathf.Deg2Rad) * radius,
+                });
             }
         }
 

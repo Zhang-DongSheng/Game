@@ -11,9 +11,11 @@ namespace Game.Pool
 
         private void Update()
         {
+            var delta = Time.deltaTime;
+
             foreach (var element in m_pool.Values)
             {
-                element.Detection();
+                element.Update(delta);
             }
         }
         /// <summary>

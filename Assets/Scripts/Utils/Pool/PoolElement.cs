@@ -14,6 +14,8 @@ namespace Game.Pool
 
         private readonly List<int> m_list = new List<int>();
 
+        private readonly List<int> m_simples = new List<int>();
+
         private readonly Stack<GameObject> m_stack = new Stack<GameObject>();
 
         private GameObject model;
@@ -30,12 +32,12 @@ namespace Game.Pool
 
             this.root.SetParent(PoolManager.Instance.transform);
 
-            this.capacity = PoolConfig.Min;
+            this.capacity = 10;
         }
 
-        public void Detection()
+        public void Update(float delta)
         {
-
+            
         }
 
         public GameObject Pop()

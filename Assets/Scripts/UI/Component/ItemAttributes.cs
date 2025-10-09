@@ -42,7 +42,9 @@ namespace Game.UI
         protected override void OnPopulateMesh(VertexHelper helper)
         {
             if (!isActiveAndEnabled) return;
+
             helper.Clear();
+
             space.x = rectTransform.rect.width;
 
             space.y = rectTransform.rect.height;

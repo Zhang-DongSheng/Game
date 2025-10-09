@@ -29,8 +29,8 @@ namespace Game.UI
                 Random.Range(0, 1f),
                 Random.Range(0, 1f),
                 Random.Range(0, 1f),
+                Random.Range(0, 1f),
             };
-
             m_attribute.Refresh(list);
 
             int count = list.Count;
@@ -39,13 +39,12 @@ namespace Game.UI
             {
                 if (list.Count > i)
                 {
-                    properties[i].Refresh(i, list[i]);
+                    properties[i].Refresh(i, list[i], 1);
                 }
                 else
                 {
                     properties[i].SetActive(false);
                 }
-                
             }
         }
 

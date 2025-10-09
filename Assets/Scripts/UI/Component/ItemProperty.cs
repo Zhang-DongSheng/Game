@@ -18,28 +18,28 @@ namespace Game.UI
         {
             var key = ID.ToString();
 
-            txtKey.SetText(key);
-
-            txtValue.SetText(string.Format("{0}{1}", value, Unit(type)));
+            Refresh(key, ValueToString(type, value));
         }
 
-        public void Refresh(string key, float value, int type = 0)
+        public void Refresh(string key, string value)
         {
             txtKey.SetText(key);
 
-            txtValue.SetText(string.Format("{0}{1}", value, Unit(type)));
+            txtValue.SetText(value);
+
+            SetActive(true);
         }
 
-        public static string Unit(int type)
+        public static string ValueToString(int type, float value)
         {
             switch (type)
             {
                 case 0:
-                    return string.Empty;
+                    return $"{value}";
                 case 1:
-                    return "%";
+                    return $"{(value * 100).Round(2)}%";
                 case 2:
-                    return "s";
+                    return $"{value.Round(2)}s";
                 default:
                     return string.Empty;
             }
