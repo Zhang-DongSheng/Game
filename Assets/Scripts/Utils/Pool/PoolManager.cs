@@ -37,7 +37,7 @@ namespace Game.Pool
                     }
                     else
                     {
-                        Debuger.LogError(Author.Resource, "load pool prefab error : " + key);
+                        Debuger.LogError(Author.Pool, $"The {key} pool instance failed to initialize");
                         callback?.Invoke(null);
                     }
                 });
@@ -54,22 +54,37 @@ namespace Game.Pool
             }
             else
             {
+                Debuger.LogWarning(Author.Pool, $"No {key} pool exists");
                 GameObject.Destroy(value);
-                Debuger.LogWarning(Author.Resource, "can't exist pool : " + key);
             }
+        }
+        /// <summary>
+        /// ´æÈë
+        /// </summary>
+        public void Push(GameObject value)
+        {
+            foreach (var element in m_pool.Values)
+            {
+                if (element.Equals(value))
+                {
+                    element.Push(value);
+                    return;
+                }
+            }
+            Debuger.LogWarning(Author.Pool, $"No {value.name} pool exists");
         }
         /// <summary>
         /// Çå³ý
         /// </summary>
-        public void Clear(string key, bool remove = false)
+        public void Clear(string key, bool dispose = false)
         {
             if (string.IsNullOrEmpty(key)) return;
 
             if (m_pool.ContainsKey(key))
             {
-                m_pool[key].Clear();
+                m_pool[key].Clear(dispose);
 
-                if (remove)
+                if (dispose)
                 {
                     m_pool.Remove(key);
                 }
@@ -82,7 +97,7 @@ namespace Game.Pool
         {
             foreach (var element in m_pool.Values)
             {
-                element.Clear();
+                element.Clear(true);
             }
             m_pool.Clear();
         }

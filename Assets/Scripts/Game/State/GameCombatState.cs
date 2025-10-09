@@ -1,4 +1,5 @@
-﻿using Game.Resource;
+﻿using Game.Pool;
+using Game.Resource;
 using Game.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
@@ -20,6 +21,8 @@ namespace Game.State
         public void OnEnter()
         {
             UIManager.Instance.CloseAll(true);
+
+            PoolManager.Instance.Clear();
 
             ResourceManager.UnLoadAllAsset();
 
@@ -44,7 +47,9 @@ namespace Game.State
 
         public void OnExit()
         {
+            PoolManager.Instance.Clear();
 
+            ResourceManager.UnLoadAllAsset();
         }
 
         private IEnumerator LoadSceneAsync(int index)

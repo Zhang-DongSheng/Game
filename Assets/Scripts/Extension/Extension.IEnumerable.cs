@@ -325,5 +325,19 @@ namespace Game
             return result;
         }
         #endregion
+
+        #region Stack
+        public static bool Exists<T>(this Stack<T> stack, Predicate<T> match)
+        {
+            foreach (var item in stack)
+            {
+                if (match(item))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        #endregion
     }
 }

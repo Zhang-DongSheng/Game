@@ -18,6 +18,7 @@ namespace UnityEngine
         Data,
         Sound,
         Resource,
+        Pool,
         Hotfix,
     }
     /// <summary>
@@ -41,7 +42,8 @@ namespace UnityEngine
             { Author.Data,     LogType.Exception },
             { Author.Sound,    LogType.Exception },
             { Author.Resource, LogType.Exception },
-            { Author.Hotfix,LogType.Exception },
+            { Author.Pool,     LogType.Exception },
+            { Author.Hotfix,   LogType.Exception },
         };
         private static readonly StringBuilder builder = new StringBuilder();
 

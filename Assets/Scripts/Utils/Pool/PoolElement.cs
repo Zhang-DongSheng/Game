@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace Game.Pool
@@ -11,9 +12,11 @@ namespace Game.Pool
 
         private readonly GameObject prefab;
 
+        private readonly List<int> m_list = new List<int>();
+
         private readonly Stack<GameObject> m_stack = new Stack<GameObject>();
 
-        private readonly PoolReference m_reference = new PoolReference(PoolConfig.Sample, PoolConfig.Interval);
+        private GameObject model;
 
         private int number, capacity;
 
@@ -21,74 +24,101 @@ namespace Game.Pool
         {
             this.key = key;
 
-            this.root = new GameObject(string.Format("[{0}]", key)).transform;
+            this.prefab = prefab;
+
+            this.root = new GameObject(Path.GetFileNameWithoutExtension(key)).transform;
 
             this.root.SetParent(PoolManager.Instance.transform);
-
-            this.prefab = prefab;
 
             this.capacity = PoolConfig.Min;
         }
 
         public void Detection()
         {
-            m_reference.Update(Time.deltaTime, number);
 
-            capacity = Mathf.Clamp(m_reference.Reference, PoolConfig.Min, PoolConfig.Max);
-
-            if (m_stack.Count > capacity)
-            {
-                //m_stack.Pop();
-            }
         }
 
         public GameObject Pop()
         {
             number++;
 
-            GameObject model;
+            model = null;
 
             if (m_stack.Count > 0)
             {
                 model = m_stack.Pop();
-
-                model.SetActive(true);
             }
             else
             {
                 model = GameObject.Instantiate(prefab, root);
+
+                m_list.Add(model.GetHashCode());
+
+                Debuger.LogWarning(Author.Pool, $"{key} - Hash:{string.Join(',', m_list)}");
             }
+            model.SetActive(true);
+
             return model;
         }
 
-        public void Push(GameObject value)
+        public void Push(GameObject go)
         {
-            if (value == null) return;
+            if (!Equals(go)) return;
 
             number--;
 
-            foreach (var item in m_stack)
+            if (m_stack.Count < capacity)
             {
-                if (item.GetHashCode() == value.GetHashCode())
+                var hash = go.GetHashCode();
+
+                if (m_stack.Exists(x => x.GetHashCode() == hash))
                 {
-                    Debuger.LogWarning(Author.Resource, "the same pool object : " + key);
-                    return;
+                    Debuger.LogWarning(Author.Pool, $"The {key} pool already has the same object");
+                }
+                else
+                {
+                    go.SetActive(false);
+
+                    go.transform.SetParent(root);
+
+                    m_stack.Push(go);
                 }
             }
-            value.SetActive(false);
-
-            value.transform.SetParent(root);
-
-            m_stack.Push(value);
+            else
+            {
+                Debuger.LogWarning(Author.Pool, $"The {key} pool is full");
+                GameObject.Destroy(go);
+            }
         }
 
-        public void Clear()
+        public bool Equals(GameObject go)
         {
+            if (go == null) return false;
+
+            var hash = go.GetHashCode();
+
+            return m_list.Exists(x => x == hash);
+        }
+
+        public void Clear(bool dispose = false)
+        {
+            m_list.Clear();
+
             while (m_stack.Count > 0)
             {
-                GameObject.Destroy(m_stack.Pop());
+                var go = m_stack.Pop();
+
+                if (go != null)
+                {
+                    GameObject.Destroy(go);
+                }
             }
             number = 0;
+
+            if (dispose)
+            {
+                GameObject.Destroy(root.gameObject);
+            }
         }
     }
 }
