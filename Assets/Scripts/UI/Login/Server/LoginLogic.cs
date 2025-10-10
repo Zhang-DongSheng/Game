@@ -32,7 +32,7 @@ namespace Game.Logic
 
                 ScheduleLogic.Instance.callback = () =>
                 {
-                    GameStateController.Instance.EnterState<GameLobbyState>();
+                    GameStateController.Instance.EnterState<GameStateLobby>();
                 };
                 ScheduleLogic.Instance.Enter();
             });

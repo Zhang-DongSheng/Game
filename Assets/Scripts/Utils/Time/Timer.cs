@@ -1,49 +1,42 @@
-﻿using System;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace Game
 {
-    public class Timer
+    public class Timer : MonoBehaviour
     {
-        public Action<int> callback;
+        [SerializeField] private TimerType type;
 
-        public float interval;
+        [SerializeField] private float interval;
 
-        public bool loop;
+        [SerializeField] private bool auto;
+
+        public UnityEvent<int> onValueChanged;
 
         private int index;
 
-        private bool active;
-
         private float timer;
 
-        public void Start(float interval, Action callback, bool loop = false)
+        private bool active;
+
+        private void Awake()
         {
-            Start(interval, (_) => callback?.Invoke(), loop);
+            if (auto)
+            {
+                active = true;
+            }
         }
 
-        public void Start(float interval, Action<int> callback, bool loop = false)
-        {
-            this.timer = 0;
-
-            this.interval = interval;
-
-            this.callback = callback;
-
-            this.loop = loop;
-
-            this.index = 0;
-
-            active = true;
-        }
-
-        public void Update(float delta)
+        private void Update()
         {
             if (active)
             {
-                timer += delta;
+                timer += Time.deltaTime;
 
                 if (timer >= interval)
                 {
+                    timer = 0;
+
                     Execute();
                 }
             }
@@ -51,16 +44,63 @@ namespace Game
 
         private void Execute()
         {
-            callback?.Invoke(index++);
+            switch (type)
+            {
+                case TimerType.Once:
+                    {
+                        active = false;
+                    }
+                    break;
+                case TimerType.Loop:
+                    {
+                        index++;
+                    }
+                    break;
+                case TimerType.Countdown:
+                    {
+                        index--;
 
-            if (loop)
-            {
-                timer = 0;
+                        active = index > 0;
+                    }
+                    break;
             }
-            else
+            onValueChanged?.Invoke(index);
+        }
+
+        public void Startup(int type, float time)
+        {
+            this.type = (TimerType)type;
+
+            switch (this.type)
             {
-                active = false;
+                case TimerType.Once:
+                    {
+                        interval = time;
+                    }
+                    break;
+                case TimerType.Loop:
+                    {
+                        interval = time;
+
+                        index = 0;
+                    }
+                    break;
+                case TimerType.Countdown:
+                    {
+                        interval = 1f;
+
+                        index = (int)time;
+                    }
+                    break;
             }
+            active = true;
+        }
+
+        enum TimerType
+        {
+            Once,
+            Loop,
+            Countdown,
         }
     }
 }

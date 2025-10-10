@@ -7,8 +7,6 @@ namespace Game.Model
     {
         public static ModelDisplayManager Instance { get; private set; }
 
-        [SerializeField] private Camera _camera;
-
         [SerializeField] private List<ModelDisplayGroup> _groups = new List<ModelDisplayGroup>();
 
         private void Awake()

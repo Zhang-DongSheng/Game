@@ -39,7 +39,7 @@ namespace Game.UI
                     break;
                 case UIPanel.Deploy:
                     {
-                        GameStateController.Instance.EnterState<GameDeployState>();
+                        GameStateController.Instance.EnterState<GameStateDeploy>();
                     }
                     break;
                 default:

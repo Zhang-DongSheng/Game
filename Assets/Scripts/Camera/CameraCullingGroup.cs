@@ -72,6 +72,7 @@ namespace Game
                 }
             }
             culling.SetBoundingSpheres(bounds.ToArray());
+
             culling.SetBoundingSphereCount(count);
         }
 

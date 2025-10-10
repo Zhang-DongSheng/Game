@@ -12,7 +12,7 @@ namespace Game.State
 
         public void Init()
         {
-            EnterState<GameSplashState>();
+            EnterState<GameStateSplash>();
         }
 
         public void EnterState<T>() where T : IGameState

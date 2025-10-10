@@ -22,7 +22,7 @@ namespace Game.UI
 
         protected override void OnClickClose()
         {
-            GameStateController.Instance.EnterState<GameLobbyState>();
+            GameStateController.Instance.EnterState<GameStateLobby>();
         }
 
         public override bool Back()

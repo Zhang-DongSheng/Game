@@ -190,8 +190,8 @@ namespace Game.UI
             }
             else
             {
-                if (GameStateController.Instance.IsState<GameLobbyState>() ||
-                    GameStateController.Instance.IsState<GameLoginState>())
+                if (GameStateController.Instance.IsState<GameStateLobby>() ||
+                    GameStateController.Instance.IsState<GameStateLogin>())
                 {
                     UIQuickEntry.OpenConfirmView("Tips", "Confirm exit game!", () =>
                     {
@@ -201,16 +201,16 @@ namespace Game.UI
                         Application.Quit();
                     });
                 }
-                else if (GameStateController.Instance.IsState<GameCombatState>())
+                else if (GameStateController.Instance.IsState<GameStateCombat>())
                 {
                     UIQuickEntry.OpenConfirmView("Tips", "Confirm exit combat!", () =>
                     {
-                        GameStateController.Instance.EnterState<GameLobbyState>();
+                        GameStateController.Instance.EnterState<GameStateLobby>();
                     });
                 }
                 else
                 {
-                    GameStateController.Instance.EnterState<GameLobbyState>();
+                    GameStateController.Instance.EnterState<GameStateLobby>();
                 }
             }
         }

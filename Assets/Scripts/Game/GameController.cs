@@ -96,9 +96,11 @@ namespace Game
 
             Network.NetworkManager.Instance.Connection();
 
+            GameStateController.Instance.EnterState<GameStateLoading>();
+
             ScheduleLogic.Instance.callback = () =>
             {
-                GameStateController.Instance.EnterState<GameLoginState>();
+                GameStateController.Instance.EnterState<GameStateLogin>();
             };
             ScheduleLogic.Instance.Initialize();
         }

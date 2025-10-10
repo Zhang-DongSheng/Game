@@ -99,12 +99,9 @@ namespace Game
             }
             finally
             {
-                if (request != null)
-                    request.Abort();
-                if (response != null)
-                    response.Close();
-                if (collection != null)
-                    collection.Clear();
+                request?.Abort();
+                response?.Close();
+                collection?.Clear();
             }
         }
 

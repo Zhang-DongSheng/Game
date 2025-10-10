@@ -50,7 +50,7 @@ namespace Game.UI
 
         private void OnClickCrouch()
         {
-            GameStateController.Instance.EnterState<GameSettlementState>();
+            GameStateController.Instance.EnterState<GameStateSettlement>();
         }
 
         private void OnClickAttack()

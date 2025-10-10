@@ -22,7 +22,7 @@ namespace Game.UI
 
         private void OnClickCombat()
         {
-            GameStateController.Instance.EnterState<GameCombatState>();
+            GameStateController.Instance.EnterState<GameStateCombat>();
         }
     }
 }

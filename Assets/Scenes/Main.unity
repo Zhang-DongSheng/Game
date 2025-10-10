@@ -214,6 +214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76054d90d7f75da4ca4045d60f7279f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera: {fileID: 1638529734}
+  speed: 5
 --- !u!20 &1536876278 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 4450382491562156783, guid: 20bba038a0c78734cbe09a97f16510b1, type: 3}
