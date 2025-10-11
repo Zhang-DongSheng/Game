@@ -1,4 +1,5 @@
 ﻿using Game.Attribute;
+using Game.World;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,6 +40,23 @@ namespace Game.Test
         private void OnValidate()
         {
 
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (target != null)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawWireSphere(target.transform.position, radius);
+                var position = target.transform.position;
+                var points = EntityUtils.PickPoints(position, radius);
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawSphere(points[0], 0.5f);
+                Gizmos.color = Color.green;
+                Gizmos.DrawSphere(points[1], 0.5f);
+                Gizmos.color = Color.red;
+                Gizmos.DrawSphere(points[2], 0.5f);
+            }
         }
 
         protected override void OnUpdate(float delta)
@@ -91,19 +109,13 @@ namespace Game.Test
 
         public void OnClickButton(float index)
         {
-            var a = other[0].transform.position;
+            var position = target.transform.position;
 
-            var b = other[1].transform.position;
+            var rotation = EntityUtils.Orientation(position, radius);
 
-            var c = other[2].transform.position;
+            target.transform.position = position;
 
-            var center = Utility.Vector.Center(a, b, c);
-
-            var normal = Utility.Vector.Normal(a, b, c);
-
-            target.transform.position = center;
-
-            target.transform.up = normal;
+            target.transform.rotation = rotation;
         }
 
         private async Task StartAsync()

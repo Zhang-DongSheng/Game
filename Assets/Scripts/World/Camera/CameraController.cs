@@ -1,18 +1,15 @@
-using Game.State;
-using System;
-using System.Collections.Generic;
+using Game.Attribute;
 using UnityEngine;
 
-namespace Game
+namespace Game.World
 {
     public class CameraController : MonoSingleton<CameraController>
     {
-        [SerializeField] private new Camera camera;
-
-        [SerializeField] private Transform target;
-
+        [FieldName("主摄像机")]
+        [SerializeField] private Camera main;
+        [FieldName("速度")]
         [SerializeField] private float speed = 1;
-
+        [FieldName("参数")]
         [SerializeField] private CameraParameters parameters;
 
         private Quaternion rotation;
@@ -23,11 +20,11 @@ namespace Game
 
         private void Awake()
         {
-            position = camera.transform.position;
+            position = main.transform.position;
 
-            rotation = camera.transform.rotation;
+            rotation = main.transform.rotation;
 
-            field = camera.fieldOfView;
+            field = main.fieldOfView;
 
             parameters = new CameraParameters
             {
@@ -39,30 +36,31 @@ namespace Game
 
         private void LateUpdate()
         {
-            //current.OnUpdate(Time.deltaTime);
-
             position = Vector3.Lerp(position, parameters.position, Time.deltaTime * speed);
 
             rotation = Quaternion.Lerp(rotation, parameters.rotation, Time.deltaTime * speed);
 
             field = Mathf.Lerp(field, parameters.field, Time.deltaTime * speed);
 
-            camera.transform.SetPositionAndRotation(position, rotation);
+            main.transform.SetPositionAndRotation(position, rotation);
 
-            camera.fieldOfView = field;
+            main.fieldOfView = field;
         }
 
-        public void SwitchState<T>()
+        public void SetPosition(Vector3 position)
         {
-            
+            parameters.position = position;
         }
 
-        public void SetTarget(Transform target)
-        { 
-            
+        public void SetRotation(Quaternion rotation)
+        {
+            parameters.rotation = rotation;
         }
 
-        public Transform Target => target;
+        public void SetField(float field)
+        {
+            parameters.field = field;
+        }
         [System.Serializable]
         class CameraParameters
         {

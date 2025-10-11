@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
-namespace Game.Model
+namespace Game.World
 {
     public class PlayerController : RuntimeBehaviour
     {

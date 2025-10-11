@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.Model
+namespace Game.World
 {
     public class Girl : Player
     {

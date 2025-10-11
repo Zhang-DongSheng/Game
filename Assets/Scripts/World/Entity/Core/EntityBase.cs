@@ -1,10 +1,9 @@
-using Game.Pool;
 using UnityEngine;
 
-namespace Game.Model
+namespace Game.World
 {
     [DisallowMultipleComponent]
-    public abstract class Entity : RuntimeBehaviour
+    public abstract class EntityBase : RuntimeBehaviour
     {
         protected Vector3 position;
 

@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace Game.Model
+namespace Game.World
 {
     [RequireComponent(typeof(Animator))]
-    public abstract class Player : Entity
+    public abstract class Player : EntityBase
     {
         [SerializeField] protected Transform target;
 
