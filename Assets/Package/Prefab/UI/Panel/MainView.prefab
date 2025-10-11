@@ -1825,7 +1825,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1261243533695925380}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 37ceacc6dbf5ecc48b4df91d7fb2fdac, type: 3}
+  m_VideoClip: {fileID: 0}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -1862,7 +1862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c1f36f5ccbf9c942bfe345ddfaa0094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_video: {fileID: 7455702883324423183}
+  player: {fileID: 7455702883324423183}
   screen: {fileID: 4828835697824509536}
   size: {x: 600, y: 400}
   url: Package/Video/weather_thunder.ogv
@@ -5185,7 +5185,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3362921906129448622}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 76c1c89a63c1da9438339b843de9c260, type: 3}
+  m_VideoClip: {fileID: 0}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -5222,7 +5222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c1f36f5ccbf9c942bfe345ddfaa0094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_video: {fileID: 292952034053044374}
+  player: {fileID: 292952034053044374}
   screen: {fileID: 7575139386527985240}
   size: {x: 600, y: 400}
   url: Package/Video/weather_sunny-day.ogv
@@ -8652,7 +8652,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6093014641984197435}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 98e637580cd0c2141b7d0305037d719c, type: 3}
+  m_VideoClip: {fileID: 0}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -8689,7 +8689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c1f36f5ccbf9c942bfe345ddfaa0094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_video: {fileID: 6959518358290915857}
+  player: {fileID: 6959518358290915857}
   screen: {fileID: 2109323168183242682}
   size: {x: 600, y: 400}
   url: Package/Video/weather_night.ogv
