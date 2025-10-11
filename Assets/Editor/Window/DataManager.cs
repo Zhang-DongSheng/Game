@@ -1,5 +1,4 @@
 ﻿using Game;
-using Game.Const;
 using Game.Data;
 using Game.UI;
 using LitJson;

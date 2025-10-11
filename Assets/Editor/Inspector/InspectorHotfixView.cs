@@ -1,4 +1,4 @@
-using Game.Const;
+using Game.Data;
 using Game.UI;
 using UnityEditor.Utils;
 using UnityEngine;

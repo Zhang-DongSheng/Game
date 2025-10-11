@@ -1,8 +1,7 @@
-using Game.Data;
 using Game.Audio;
+using Game.Data;
 using UnityEngine;
 using UnityEngine.UI;
-using Game.Const;
 
 namespace Game.UI
 {

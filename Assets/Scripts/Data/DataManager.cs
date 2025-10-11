@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Game.Resource;
+using System;
 using System.Collections.Generic;
-using Game.Const;
-using Game.Resource;
 using UnityEngine;
 
 namespace Game.Data

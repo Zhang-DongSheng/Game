@@ -1,4 +1,4 @@
-namespace Game.Const
+namespace Game.Data
 {
     public static class GlobalKey
     {
