@@ -325,6 +325,10 @@ namespace UnityEditor.Window
             {
                 Loading<DataDialog>("dialog");
             }
+            else if (type == typeof(DataAvatar))
+            {
+                Loading<DataAvatar>("avatar");
+            }
             else
             {
                 UnityEngine.Debuger.LogError(Author.Editor, "当前数据类型未定义，请主动添加 - " + type.Name);

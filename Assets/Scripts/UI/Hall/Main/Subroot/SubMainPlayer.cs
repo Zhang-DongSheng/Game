@@ -25,7 +25,7 @@ namespace Game.UI
 
         private void OnClick()
         {
-            UIQuickEntry.Open(UIPanel.Player);
+            UIQuickEntry.Open(UIPanel.PersonalInformation);
         }
     }
 }

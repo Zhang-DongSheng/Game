@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccfcc99d5c58b6245af25c1873e245a2, type: 3}
+  m_Name: DataAvatar
+  m_EditorClassIdentifier: 
+  order: 0
+  list:
+  - primary: 1001
+    type: 1
+    name: "\u5934\u50CF1"
+    icon: head_001
+    sources: 
+    description: "\u5934\u50CF1"
+  - primary: 1002
+    type: 1
+    name: "\u5934\u50CF2"
+    icon: head_002
+    sources: 
+    description: "\u5934\u50CF2"
+  - primary: 1003
+    type: 1
+    name: "\u5934\u50CF3"
+    icon: head_003
+    sources: 
+    description: "\u5934\u50CF3"
+  - primary: 1004
+    type: 1
+    name: "\u5934\u50CF4"
+    icon: head_004
+    sources: 
+    description: "\u5934\u50CF4"
+  - primary: 1005
+    type: 1
+    name: "\u5934\u50CF5"
+    icon: head_005
+    sources: 
+    description: "\u5934\u50CF5"
+  - primary: 1006
+    type: 1
+    name: "\u5934\u50CF6"
+    icon: head_006
+    sources: 
+    description: "\u5934\u50CF6"
+  - primary: 1007
+    type: 1
+    name: "\u5934\u50CF7"
+    icon: head_007
+    sources: 
+    description: "\u5934\u50CF7"
+  - primary: 1008
+    type: 1
+    name: "\u5934\u50CF8"
+    icon: head_008
+    sources: 
+    description: "\u5934\u50CF8"
+  - primary: 1009
+    type: 1
+    name: "\u5934\u50CF9"
+    icon: head_009
+    sources: 
+    description: "\u5934\u50CF9"
+  - primary: 2001
+    type: 2
+    name: "\u5934\u50CF\u6846A"
+    icon: frame_zq
+    sources: 
+    description: "\u5934\u50CF\u6846A"
+  - primary: 2002
+    type: 2
+    name: "\u5934\u50CF\u6846B"
+    icon: frame_zq
+    sources: 
+    description: "\u5934\u50CF\u6846B"
+  - primary: 2003
+    type: 2
+    name: "\u5934\u50CF\u6846C"
+    icon: frame_zq
+    sources: 
+    description: "\u5934\u50CF\u6846C"

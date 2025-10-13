@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -8,11 +7,11 @@ namespace Game.UI
     /// </summary>
     public class ItemNickname : ItemBase
     {
-        [SerializeField] private Text nick;
+        [SerializeField] private TextBind txtNick;
 
         public void Refresh(string name)
         {
-            nick.text = name;
+            txtNick.SetTextImmediately(name);
         }
     }
 }
