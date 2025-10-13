@@ -13,7 +13,15 @@ namespace Game.Logic
 
         public void Initialize()
         {
+            _player.name = "Player";
 
+            _player.sex = 1;
+
+            _player.age = 18;
+
+            _player.head = 1001;
+
+            _player.frame = 2001;
         }
     }
 }

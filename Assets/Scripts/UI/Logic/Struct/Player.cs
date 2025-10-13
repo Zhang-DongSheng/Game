@@ -4,15 +4,13 @@
     {
         public string name;
 
-        public bool sex;
+        public int sex;
 
         public int age;
 
-        public int head;
+        public uint head;
 
-        public int frame;
-
-        public int title;
+        public uint frame;
 
         public int country;
 

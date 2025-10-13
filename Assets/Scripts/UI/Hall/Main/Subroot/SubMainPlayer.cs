@@ -1,3 +1,4 @@
+using Game.Logic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,22 +6,22 @@ namespace Game.UI
 {
     public class SubMainPlayer : ItemBase
     {
-        [SerializeField] private ItemAvatar avatar;
+        [SerializeField] private ItemAvatar m_avatar;
 
-        [SerializeField] private ItemNickname nick;
-
-        [SerializeField] private Text level;
-
-        [SerializeField] private Button button;
+        [SerializeField] private ItemNickname m_nick;
 
         protected override void OnAwake()
         {
-            button.onClick.AddListener(OnClick);
+            m_avatar.onClick.AddListener(OnClick);
         }
 
         public void Refresh()
         {
-            //nickname.SetText()
+            var player = PlayerLogic.Instance.Player;
+
+            m_avatar.Refresh(player.head, player.frame);
+
+            m_nick.Refresh(player.name);
         }
 
         private void OnClick()

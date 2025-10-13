@@ -8,6 +8,11 @@ namespace Game.Data
     {
         public List<AvatarInformation> list;
 
+        public AvatarInformation Get(uint avatarID)
+        {
+            return list.Find(x => x.primary == avatarID);
+        }
+
         public override void Load(JsonData json)
         {
             int count = json.Count;

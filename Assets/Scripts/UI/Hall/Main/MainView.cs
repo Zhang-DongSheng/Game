@@ -25,6 +25,8 @@ namespace Game.UI
 
         public override void Refresh(UIParameter parameter)
         {
+            player.Refresh();
+
             foreach (var entry in entries)
             {
                 entry.Refresh();

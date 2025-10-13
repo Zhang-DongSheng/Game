@@ -1,3 +1,4 @@
+using Game.Data;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -21,9 +22,19 @@ namespace Game.UI
             button.onClick.AddListener(() => onClick?.Invoke());
         }
 
-        public void Refresh(int head, int frame)
+        public void Refresh(uint headID, uint frameID)
         {
-            
+            var avatar = DataManager.Instance.Load<DataAvatar>();
+
+            var table = avatar.Get(headID);
+
+            var head = table != null ? table.icon : string.Empty;
+
+            table = avatar.Get(frameID);
+
+            var frame = table != null ? table.icon : string.Empty;
+
+            Refresh(head, frame);
         }
 
         public void Refresh(string head, string frame)
