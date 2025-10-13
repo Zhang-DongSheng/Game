@@ -64,22 +64,18 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: 1e683572fc3e51540a4729462690ddde, type: 3}
   - {fileID: 21300000, guid: cf97b6831f15e344da9d84fd0ba759b8, type: 3}
-  - {fileID: 21300000, guid: 0c994da3b7ef208468bb9008de3a23e1, type: 3}
   - {fileID: 21300000, guid: a358e9d4870504e46b170f3c3c1c0c73, type: 3}
   - {fileID: 21300000, guid: d25fbe676a88c68428b577c150cb448c, type: 3}
   - {fileID: 21300000, guid: 1e0847f7d790f734bac65eb8511473d5, type: 3}
-  - {fileID: 21300000, guid: cfd54ce98be75b0438546fea6630766f, type: 3}
   - {fileID: 21300000, guid: e90d666d9883e884f831d06d65661a49, type: 3}
   - {fileID: 21300000, guid: 1d29b0bd9f8a0e84f899abf6f9350f78, type: 3}
   - {fileID: 21300000, guid: 5077db3ee5c7c3948a3077907b136ea4, type: 3}
   m_PackedSpriteNamesToIndex:
   - utils_sleep
   - utils_ellipsis
-  - utils_record
   - utils_loading
   - utils_search
   - utils_sync
-  - utils_video
   - utils_close
   - utils_compress
   - utils_expand

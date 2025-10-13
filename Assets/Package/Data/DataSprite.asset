@@ -14,23 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   order: 0
   list:
-  - primary: 1084
+  - primary: 1138
     name: altas_head
     path: Package/Atlas/altas_head.spriteatlas
-    sprites:
-    - "\u7537\u751F-\u7D2B"
-    - "\u7537\u751F-\u9EC4"
-    - "\u5973\u751F-\u9752"
-    - "\u5973\u751F-\u6B27"
-    - "\u5973\u751F-\u7C89"
-    - "\u7537\u751F-\u9752"
-    - "\u5973\u751F-\u84DD"
-    - "\u5973\u751F-\u9EC4"
-    - "\u7537\u751F-\u7C89"
-    - "\u7537\u751F-\u6B27"
-    - "\u7537\u751F-\u84DD"
-    - "\u5973\u751F-\u7D2B"
-  - primary: 1088
+    sprites: []
+  - primary: 1142
     name: atlas_common_normal
     path: Package/Atlas/atlas_common_normal.spriteatlas
     sprites:
@@ -38,9 +26,7 @@ MonoBehaviour:
     - background_square
     - Rounded Outline - Stroke 10px
     - Rounded Outline - Stroke 5px
-    - orange-square-button-by-matheszabi-3WDlbY-clipart
     - background_2
-    - GUI Skin - Button Normal
     - Rounded Outline - Stroke 12px
     - Circle Outline - Stroke 10px (x64)
     - background_4
@@ -50,10 +36,9 @@ MonoBehaviour:
     - background_1
     - Circle Filled - x64
     - Rounded Circle Outline - Stroke 8px (300ppu)
-    - GUI Skin - Button Pressed
     - Circle Outline Dash - Stroke 3px
     - background_3
-  - primary: 1086
+  - primary: 1140
     name: atlas_common_other
     path: Package/Atlas/atlas_common_other.spriteatlas
     sprites:
@@ -63,32 +48,27 @@ MonoBehaviour:
     - quality_2
     - toggle_background
     - quality_3
-    - arrow_left
     - light_left
     - quality_1
     - light_square
-    - arrow_icon
     - toggle_check
     - toggle_turn_on
     - light_circle
     - light_bottom
     - quality_5
-    - arrow_right
-  - primary: 1076
+  - primary: 1130
     name: atlas_common_utils
     path: Package/Atlas/atlas_common_utils.spriteatlas
     sprites:
     - utils_sleep
     - utils_ellipsis
-    - utils_record
     - utils_loading
     - utils_search
     - utils_sync
-    - utils_video
     - utils_close
     - utils_compress
     - utils_expand
-  - primary: 1104
+  - primary: 1158
     name: atlas_currency
     path: Package/Atlas/atlas_currency.spriteatlas
     sprites:
@@ -99,11 +79,11 @@ MonoBehaviour:
     - currency_gold
     - currency_coin_3
     - currency_bill
-  - primary: 1094
+  - primary: 1148
     name: atlas_emoji
     path: Package/Atlas/atlas_emoji.spriteatlas
     sprites: []
-  - primary: 1096
+  - primary: 1150
     name: atlas_main
     path: Package/Atlas/atlas_main.spriteatlas
     sprites:
@@ -116,7 +96,7 @@ MonoBehaviour:
     - main_task
     - main_notice
     - main_ranking
-  - primary: 1090
+  - primary: 1144
     name: atlas_prop_clothing
     path: Package/Atlas/atlas_prop_clothing.spriteatlas
     sprites:
@@ -140,7 +120,7 @@ MonoBehaviour:
     - "\u4F11\u95F2\u88E4"
     - "\u8D85\u77ED\u88E4"
     - "\u886C\u886B"
-  - primary: 1082
+  - primary: 1136
     name: atlas_set
     path: Package/Atlas/atlas_set.spriteatlas
     sprites:
@@ -151,44 +131,23 @@ MonoBehaviour:
     - settingt_sound
     - setting_mute
     - setting_vibrate
-  - primary: 1078
+  - primary: 1132
     name: atlas_title
     path: Package/Atlas/atlas_title.spriteatlas
     sprites:
     - title_back
-  - primary: 1098
+  - primary: 1152
     name: atlas_background_battle
     path: Package/Atlas/Single/atlas_background_battle.spriteatlas
     sprites:
     - background_battle
-  - primary: 1080
+  - primary: 1134
     name: atlas_background_login
     path: Package/Atlas/Single/atlas_background_login.spriteatlas
     sprites:
     - background_login
-  - primary: 1092
+  - primary: 1146
     name: atlas_background_main
     path: Package/Atlas/Single/atlas_background_main.spriteatlas
     sprites:
     - background_main
-  - primary: 1100
-    name: women1
-    path: Package/Atlas/women1.spriteatlas
-    sprites:
-    - "\u4FA7\u8138"
-    - "\u4F4E\u5934"
-    - "\u4FA7\u8EAB\u5FAE\u7B11"
-    - "\u4F4E\u5934\u7684\u4EBA"
-    - "\u5750\u7740\u7684\u5973\u4EBA"
-    - "\u5750\u6905\u5B50\u7684\u5973\u4EBA"
-  - primary: 1102
-    name: women2
-    path: Package/Atlas/women2.spriteatlas
-    sprites:
-    - "\u9752\u82B1\u74F7\u5C11\u5973"
-    - "\u6B63\u9762"
-    - "\u624B\u6258\u5934"
-    - "\u601D\u8003"
-    - "\u9752\u82B1\u74F7\u8863\u670D"
-    - "\u957F\u53D1\u5973\u4EBA"
-    - "\u7FD8\u4E8C\u90CE\u817F\u7684\u5973\u4EBA"
