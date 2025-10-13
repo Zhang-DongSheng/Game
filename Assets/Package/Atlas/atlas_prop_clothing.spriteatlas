@@ -62,46 +62,80 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 24c0e650d79345340be36c056d077013, type: 3}
   - {fileID: 21300000, guid: 406cd2b1d68a00b4c8a086364944954a, type: 3}
   - {fileID: 21300000, guid: 07e703c14d0f2ce458c20ba78bb52f8c, type: 3}
   - {fileID: 21300000, guid: 1f2f7a02407548f458ca35937ad2b3fa, type: 3}
+  - {fileID: 21300000, guid: 252807a2d1c1980439aa42b230d95223, type: 3}
   - {fileID: 21300000, guid: 7051c4b21ae846347af11f854fd7a733, type: 3}
   - {fileID: 21300000, guid: 54c146e21207e594e9466ea3448b6460, type: 3}
+  - {fileID: 21300000, guid: ad414ef276e856d48985af10a34bdb0e, type: 3}
+  - {fileID: 21300000, guid: 7c5496c35552b2445b824338b1ec013d, type: 3}
   - {fileID: 21300000, guid: 3317a8040a5eb0245b8f45077aad7b18, type: 3}
+  - {fileID: 21300000, guid: 1f74b234901895546ac7e422eb1fd426, type: 3}
+  - {fileID: 21300000, guid: 4d97006473414a94a8d5a81e3e9d59bb, type: 3}
+  - {fileID: 21300000, guid: f4cb9574373bdf24791371203793b0f4, type: 3}
+  - {fileID: 21300000, guid: e7e62465364f5a84996e6377136e1433, type: 3}
+  - {fileID: 21300000, guid: 688ee3368b9a6ad4ea81ee511000becd, type: 3}
   - {fileID: 21300000, guid: 37e60b36d158109479a7a965d8809f59, type: 3}
   - {fileID: 21300000, guid: 10707676c4faf534fb3dad387f23f2ba, type: 3}
   - {fileID: 21300000, guid: a1437dc7cafce3c429d24e493b832a6f, type: 3}
+  - {fileID: 21300000, guid: eed10d181f00352488ac9fb38d1ac740, type: 3}
   - {fileID: 21300000, guid: f7c11ee84e80d1147a7876a89aae5ec9, type: 3}
+  - {fileID: 21300000, guid: e08a0bc913bcf4847a787e749975c0df, type: 3}
   - {fileID: 21300000, guid: a46b0bc940419da42a28fbc57377e71e, type: 3}
+  - {fileID: 21300000, guid: 12c7700aac256dc4ea10a846462ac4ca, type: 3}
   - {fileID: 21300000, guid: 3eb9e36a8421c3b4c9962abd15050c92, type: 3}
+  - {fileID: 21300000, guid: 5ee1869a6f57a3c41adba7f4381a071f, type: 3}
   - {fileID: 21300000, guid: 663fbcfa1b178054094a0a3dd19d4cc7, type: 3}
   - {fileID: 21300000, guid: 4aa1481b66e2d5b489e0a0bd3557720f, type: 3}
+  - {fileID: 21300000, guid: e61fbb5b37db646488706346c6dbde0d, type: 3}
+  - {fileID: 21300000, guid: 5b77259b02e3cc34fb6069cc09a030eb, type: 3}
+  - {fileID: 21300000, guid: 8f7fb5ab4d7d9b04eb13fe507d3b5769, type: 3}
   - {fileID: 21300000, guid: 7ff63bdbb8b2eff4392a54f6ee3070a5, type: 3}
   - {fileID: 21300000, guid: 23ad11fb6940eaf4799b2487a79cfc5b, type: 3}
   - {fileID: 21300000, guid: f568ec8cc2a51844fafbcab55826762e, type: 3}
   - {fileID: 21300000, guid: 5185cacd7820f6842922c599416e8f8c, type: 3}
   - {fileID: 21300000, guid: 3bd36cbebbf2c6a4babb2f17f4ec1f8c, type: 3}
+  - {fileID: 21300000, guid: 468516fe4519c0f41bbfbea366f758a6, type: 3}
   - {fileID: 21300000, guid: 0106482f844afe24f99fd510db8f2947, type: 3}
   m_PackedSpriteNamesToIndex:
+  - "\u7F8E\u5973"
   - "\u6C49\u670D"
   - "\u8FDE\u8863\u88D9"
   - "\u80CC\u5E26\u88E4"
+  - "\u4E1D\u889C"
   - "\u5C0F\u897F\u670D"
   - "\u793C\u670D"
+  - "\u8FD0\u52A8\u5185\u8863"
+  - "\u5C0F\u9999\u98CE\u5916\u5957"
   - "\u9A6C\u7532"
+  - "\u6BDB\u8863"
+  - "\u60C5\u8DA3"
+  - "\u8FDE\u8EAB\u6CF3\u8863"
+  - "\u5E3D\u5B50"
+  - "\u60C5\u8DA3\u5185\u8863"
   - "\u8D85\u77ED\u88D9"
   - "\u725B\u4ED4\u88E4"
   - "\u534A\u8EAB\u88D9"
+  - "\u77ED\u88D9"
   - "\u65D7\u888D"
+  - "\u767E\u8936\u88D9"
   - "\u8FDE\u4F53\u88E4"
+  - "\u6CF3\u8863"
   - "\u536B\u8863"
+  - "\u7FBD\u7ED2\u670D"
   - "\u540A\u5E26\u88D9"
   - "Polo\u886B"
+  - "\u889C\u5B50"
+  - "\u773C\u955C"
+  - "\u5185\u8863"
   - "\u5305\u81C0\u88D9"
   - "T\u6064"
   - "\u9614\u817F\u88E4"
   - "\u4F11\u95F2\u88E4"
   - "\u8D85\u77ED\u88E4"
+  - "\u9AD8\u8DDF\u978B"
   - "\u886C\u886B"
   m_RenderDataMap: {}
   m_Tag: atlas_prop_clothing

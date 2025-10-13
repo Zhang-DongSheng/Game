@@ -67,7 +67,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: a358e9d4870504e46b170f3c3c1c0c73, type: 3}
   - {fileID: 21300000, guid: d25fbe676a88c68428b577c150cb448c, type: 3}
   - {fileID: 21300000, guid: 1e0847f7d790f734bac65eb8511473d5, type: 3}
-  - {fileID: 21300000, guid: e90d666d9883e884f831d06d65661a49, type: 3}
+  - {fileID: 21300000, guid: b59bfedc65805bc4aa4246fec6a1f7b0, type: 3}
   - {fileID: 21300000, guid: 1d29b0bd9f8a0e84f899abf6f9350f78, type: 3}
   - {fileID: 21300000, guid: 5077db3ee5c7c3948a3077907b136ea4, type: 3}
   m_PackedSpriteNamesToIndex:

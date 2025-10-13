@@ -56,13 +56,31 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: 6d0b65a21092e994481082731c7865b2, type: 3}
+    - {fileID: 102900000, guid: 12f4af634ecfbc84bb7be311b840019b, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: c1994f670214be148bae443a2a6b2ec9, type: 3}
+  - {fileID: 21300000, guid: dbb9b518495c3974f8a93d50b017c75b, type: 3}
+  - {fileID: 21300000, guid: 05e4e33804f7ffe4dbf27b4a0c241fb0, type: 3}
+  - {fileID: 21300000, guid: f35a180bbe9f7fb4aa0460dd88e4c126, type: 3}
+  - {fileID: 21300000, guid: 2530d24b1d6df1d4682805793078c886, type: 3}
+  - {fileID: 21300000, guid: bbb3fe8b325f2ba4b8982e33e0b97396, type: 3}
+  - {fileID: 21300000, guid: d432ee9b51201fa4783be40158b29029, type: 3}
+  - {fileID: 21300000, guid: a5f6121c857977e44b4de26c903a656b, type: 3}
+  - {fileID: 21300000, guid: 095261de8b90f9d428131625ba516768, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - head_004
+  - head_008
+  - head_005
+  - head_007
+  - head_001
+  - head_002
+  - head_003
+  - head_009
+  - head_006
   m_RenderDataMap: {}
   m_Tag: altas_head
   m_IsVariant: 0

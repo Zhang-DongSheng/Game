@@ -14,10 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   order: 0
   list:
+  - primary: 49130
+    name: altas_frame
+    path: Package/Atlas/altas_frame.spriteatlas
+    sprites:
+    - frame_zq
   - primary: 1138
     name: altas_head
     path: Package/Atlas/altas_head.spriteatlas
-    sprites: []
+    sprites:
+    - head_004
+    - head_008
+    - head_005
+    - head_007
+    - head_001
+    - head_002
+    - head_003
+    - head_009
+    - head_006
+  - primary: 49134
+    name: atlas_common_color
+    path: Package/Atlas/atlas_common_color.spriteatlas
+    sprites:
+    - color_blue
+    - color_green
+    - color_red
+    - color_purple
+    - color_gray
+    - color_orange
   - primary: 1142
     name: atlas_common_normal
     path: Package/Atlas/atlas_common_normal.spriteatlas
@@ -25,17 +49,22 @@ MonoBehaviour:
     - Rounded Outline - Stroke 16px
     - background_square
     - Rounded Outline - Stroke 10px
+    - Pane - 3
     - Rounded Outline - Stroke 5px
     - background_2
+    - Pane - 2
     - Rounded Outline - Stroke 12px
-    - Circle Outline - Stroke 10px (x64)
+    - Circle Outline - Stroke 10px
+    - Pane - 4
     - background_4
     - Circle Filled - x256
-    - Rounded Filled (300ppu)
+    - Rounded Filled
     - button_1
     - background_1
     - Circle Filled - x64
-    - Rounded Circle Outline - Stroke 8px (300ppu)
+    - Pane - 1
+    - Circle Outline - Stroke 8px
+    - Pane - 5
     - Circle Outline Dash - Stroke 3px
     - background_3
   - primary: 1140
@@ -43,19 +72,13 @@ MonoBehaviour:
     path: Package/Atlas/atlas_common_other.spriteatlas
     sprites:
     - toggle_turn_off
-    - quality_4
-    - quality_6
-    - quality_2
     - toggle_background
-    - quality_3
     - light_left
-    - quality_1
     - light_square
     - toggle_check
     - toggle_turn_on
     - light_circle
     - light_bottom
-    - quality_5
   - primary: 1130
     name: atlas_common_utils
     path: Package/Atlas/atlas_common_utils.spriteatlas
@@ -73,11 +96,9 @@ MonoBehaviour:
     path: Package/Atlas/atlas_currency.spriteatlas
     sprites:
     - currency_coin_2
-    - currency_cup
     - currency_coin_1
     - currency_diamond
     - currency_gold
-    - currency_coin_3
     - currency_bill
   - primary: 1148
     name: atlas_emoji
@@ -100,25 +121,42 @@ MonoBehaviour:
     name: atlas_prop_clothing
     path: Package/Atlas/atlas_prop_clothing.spriteatlas
     sprites:
+    - "\u7F8E\u5973"
     - "\u6C49\u670D"
     - "\u8FDE\u8863\u88D9"
     - "\u80CC\u5E26\u88E4"
+    - "\u4E1D\u889C"
     - "\u5C0F\u897F\u670D"
     - "\u793C\u670D"
+    - "\u8FD0\u52A8\u5185\u8863"
+    - "\u5C0F\u9999\u98CE\u5916\u5957"
     - "\u9A6C\u7532"
+    - "\u6BDB\u8863"
+    - "\u60C5\u8DA3"
+    - "\u8FDE\u8EAB\u6CF3\u8863"
+    - "\u5E3D\u5B50"
+    - "\u60C5\u8DA3\u5185\u8863"
     - "\u8D85\u77ED\u88D9"
     - "\u725B\u4ED4\u88E4"
     - "\u534A\u8EAB\u88D9"
+    - "\u77ED\u88D9"
     - "\u65D7\u888D"
+    - "\u767E\u8936\u88D9"
     - "\u8FDE\u4F53\u88E4"
+    - "\u6CF3\u8863"
     - "\u536B\u8863"
+    - "\u7FBD\u7ED2\u670D"
     - "\u540A\u5E26\u88D9"
     - "Polo\u886B"
+    - "\u889C\u5B50"
+    - "\u773C\u955C"
+    - "\u5185\u8863"
     - "\u5305\u81C0\u88D9"
     - "T\u6064"
     - "\u9614\u817F\u88E4"
     - "\u4F11\u95F2\u88E4"
     - "\u8D85\u77ED\u88E4"
+    - "\u9AD8\u8DDF\u978B"
     - "\u886C\u886B"
   - primary: 1136
     name: atlas_set
