@@ -56,15 +56,15 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 2800000, guid: 62119b813e4d2d24995772d23ade5bc9, type: 3}
+    - {fileID: 21300000, guid: df3b3e95507d7d849a2728c79f917585, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 62119b813e4d2d24995772d23ade5bc9, type: 3}
+  - {fileID: 21300000, guid: df3b3e95507d7d849a2728c79f917585, type: 3}
   m_PackedSpriteNamesToIndex:
-  - background_main
+  - background_3
   m_RenderDataMap: {}
   m_Tag: atlas_background_main
   m_IsVariant: 0

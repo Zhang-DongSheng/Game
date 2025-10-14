@@ -3,6 +3,7 @@ Shader "UI/Hole"
     Properties
     {
         [PerRendererData] _MainTex ("Texture", 2D) = "white" {}
+        _Color ("Color", COLOR) = (1,1,1,1)
         _Area ("Area", Vector) = (0, 0, 0, 0)
     }
     SubShader
@@ -34,6 +35,7 @@ Shader "UI/Hole"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float4 _Color;
             float4 _Area;
 
             v2f vert (appdata v)
@@ -51,7 +53,7 @@ Shader "UI/Hole"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 color = tex2D(_MainTex, i.uv);
+                fixed4 color = tex2D(_MainTex, i.uv) * _Color;
 
                 if (i.position.x > _Area.x - _Area.z * 0.5 &&
                     i.position.x < _Area.x + _Area.z * 0.5 &&

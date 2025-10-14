@@ -56,15 +56,15 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 21300000, guid: 0794866d75c4ed747bcb2c1812439a9a, type: 3}
+    - {fileID: 2800000, guid: da89b0a7732cc1a459633264f8a6516f, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 0794866d75c4ed747bcb2c1812439a9a, type: 3}
+  - {fileID: 21300000, guid: da89b0a7732cc1a459633264f8a6516f, type: 3}
   m_PackedSpriteNamesToIndex:
-  - background_battle
+  - background_5
   m_RenderDataMap: {}
   m_Tag: atlas_background_battle
   m_IsVariant: 0
