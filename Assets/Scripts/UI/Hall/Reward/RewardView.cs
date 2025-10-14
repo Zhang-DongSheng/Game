@@ -8,7 +8,7 @@ namespace Game.UI
 {
     public class RewardView : ViewBase
     {
-        [SerializeField] private PrefabTemplateBehaviour prefab;
+        [SerializeField] private PrefabTemplateComponent prefab;
 
         [SerializeField] private Text title;
 

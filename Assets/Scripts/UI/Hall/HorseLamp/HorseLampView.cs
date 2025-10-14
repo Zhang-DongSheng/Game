@@ -11,7 +11,7 @@ namespace Game.UI
     /// </summary>
     public class HorseLampView : ViewBase
     {
-        [SerializeField] private PrefabTemplateBehaviour prefab;
+        [SerializeField] private PrefabTemplateComponent prefab;
 
         [SerializeField] private SMSize display;
 

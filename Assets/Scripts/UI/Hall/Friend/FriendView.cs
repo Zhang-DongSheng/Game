@@ -6,7 +6,7 @@ namespace Game.UI
 {
     public class FriendView : ViewBase
     {
-        [SerializeField] private PrefabTemplateBehaviour prefab;
+        [SerializeField] private PrefabTemplateComponent prefab;
 
         [SerializeField] private ItemToggleGroup m_menu;
 

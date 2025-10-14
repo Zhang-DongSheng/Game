@@ -8,11 +8,9 @@ namespace Game.UI
 {
     public class MainView : ViewBase
     {
-        [SerializeField] private SubMainPlayer player;
+        [SerializeField] private SubMainTitle title;
 
         [SerializeField] private SubMainBanner banner;
-
-        [SerializeField] private List<ItemCurrency> currencies;
 
         private readonly List<ItemEntry> entries = new List<ItemEntry>();
 
@@ -25,14 +23,12 @@ namespace Game.UI
 
         public override void Refresh(UIParameter parameter)
         {
-            player.Refresh();
+            title.Refresh();
 
             foreach (var entry in entries)
             {
                 entry.Refresh();
             }
-            RefreshCurrencies();
-
             ModelDisplayManager.Instance.SwitchGroup(1);
 
             ModelDisplayManager.Instance.RefreshModel(new ModelDisplayInformation()
@@ -42,22 +38,6 @@ namespace Game.UI
             AudioManager.Instance.PlayMusic("HITA - 醉红绡");
 
             PopupLogic.Instance.Trigger();
-        }
-
-        private void RefreshCurrencies()
-        {
-            var list = new List<uint>() { 101, 102, 103 };
-
-            int count = Mathf.Clamp(list.Count, 0, currencies.Count);
-
-            for (int i = 0; i < count; i++)
-            {
-                currencies[i].Refresh(list[i]);
-            }
-            for (int i = count; i < currencies.Count; i++)
-            {
-                currencies[i].SetActive(false);
-            }
         }
     }
 }

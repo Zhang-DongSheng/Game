@@ -6,13 +6,13 @@
 
         public int sex;
 
-        public int age;
+        public uint age;
 
         public uint head;
 
         public uint frame;
 
-        public int country;
+        public uint country;
 
         public string introduce;
     }

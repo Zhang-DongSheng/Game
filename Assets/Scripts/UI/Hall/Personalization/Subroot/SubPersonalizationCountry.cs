@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Game.UI
 {
-    public class SubPersonalizationCountry : ItemBase
+    public class SubPersonalizationCountry : SubPersonalizationBase
     {
-
+        public override PersonalizationType Type => PersonalizationType.Country;
     }
 }

@@ -6,7 +6,7 @@ namespace Game.UI
 {
     public class SubRankingListNormal : SubRankinglistBase
     {
-        [SerializeField] private PrefabTemplateBehaviour prefab;
+        [SerializeField] private PrefabTemplateComponent prefab;
 
         private readonly List<ItemCelebrity> items = new List<ItemCelebrity>();
 

@@ -6,7 +6,7 @@ namespace Game.UI
 {
     public class ItemToggleGroup : ItemBase
     {
-        public PrefabTemplateBehaviour prefab;
+        public PrefabTemplateComponent prefab;
 
         public List<Pair<int, string>> pairs;
 

@@ -7,7 +7,7 @@ namespace Game.UI
     {
         [SerializeField] private ItemDeployForDrag current;
 
-        [SerializeField] private PrefabTemplateBehaviour prefab;
+        [SerializeField] private PrefabTemplateComponent prefab;
 
         private readonly List<ItemDeploy> deploys = new List<ItemDeploy>();
 

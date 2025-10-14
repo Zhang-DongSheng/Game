@@ -13,7 +13,7 @@ namespace Game.UI
 
         [SerializeField] protected RectTransform content;
 
-        [SerializeField] protected PrefabTemplateBehaviour prefab;
+        [SerializeField] protected PrefabTemplateComponent prefab;
 
         protected readonly List<ItemCommodity> commodities = new List<ItemCommodity>();
 

@@ -83,13 +83,16 @@ MonoBehaviour:
     name: atlas_common_utils
     path: Package/Atlas/atlas_common_utils.spriteatlas
     sprites:
+    - utils_help
     - utils_sleep
     - utils_ellipsis
     - utils_loading
     - utils_search
     - utils_sync
+    - utils_lock
     - utils_close
     - utils_compress
+    - utils_use
     - utils_expand
   - primary: 1158
     name: atlas_currency

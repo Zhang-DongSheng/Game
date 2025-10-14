@@ -1,3 +1,4 @@
+using Game.Logic;
 using UnityEngine;
 
 namespace Game.UI
@@ -15,7 +16,11 @@ namespace Game.UI
 
         public override void Refresh(UIParameter paramter)
         {
+            var player = PlayerLogic.Instance.Player;
 
+            m_avatar.Refresh(player.head, player.frame);
+
+            m_nick.Refresh(player.name);
         }
 
         private void OnClickPersonalization()

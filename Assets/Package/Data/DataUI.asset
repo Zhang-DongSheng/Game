@@ -194,6 +194,24 @@ MonoBehaviour:
     path: Package/Prefab/UI/Panel/ChatView.prefab
     ignore: 0
     destroy: 0
+  - primary: 54798
+    name: PersonalInformationView
+    panel: 120
+    type: 1
+    layer: 2
+    order: 0
+    path: Package/Prefab/UI/Panel/PersonalInformationView.prefab
+    ignore: 0
+    destroy: 0
+  - primary: 55978
+    name: PersonalizationView
+    panel: 121
+    type: 1
+    layer: 2
+    order: 0
+    path: Package/Prefab/UI/Panel/PersonalizationView.prefab
+    ignore: 0
+    destroy: 0
   - primary: 33036
     name: ConfirmView
     panel: 301

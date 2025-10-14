@@ -6,7 +6,7 @@ namespace Game.UI
 {
     public class TaskView : ViewBase
     {
-        [SerializeField] private PrefabTemplateBehaviour prefab;
+        [SerializeField] private PrefabTemplateComponent prefab;
 
         private readonly List<ItemTask> items = new List<ItemTask>();
 

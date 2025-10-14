@@ -9,7 +9,7 @@ namespace Game.UI
     {
         [SerializeField, Range(0, 10)] private float interval = 3;
 
-        [SerializeField] private PrefabTemplateBehaviour prefab;
+        [SerializeField] private PrefabTemplateComponent prefab;
 
         private float timer;
 

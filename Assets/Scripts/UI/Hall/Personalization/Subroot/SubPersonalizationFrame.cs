@@ -1,30 +1,19 @@
 using Game.Data;
 using Game.Logic;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class SubPersonalizationFrame : ItemBase
+    public class SubPersonalizationFrame : SubPersonalizationBase
     {
-        public Action<uint> callback;
-
-        [SerializeField] private PrefabTemplate prefab;
-
-        [SerializeField] private Button button;
+        [SerializeField] private PrefabTemplateComponent prefab;
 
         private uint avatarID;
 
         private readonly List<ItemPersonalizationAvatar> items = new List<ItemPersonalizationAvatar>();
 
-        private void Awake()
-        {
-            button.onClick.AddListener(OnClickConfirm);
-        }
-
-        public void Refresh()
+        public override void Refresh()
         {
             this.avatarID = PlayerLogic.Instance.Player.frame;
 
@@ -58,9 +47,6 @@ namespace Game.UI
             callback?.Invoke(avatarID);
         }
 
-        private void OnClickConfirm()
-        {
-            PlayerLogic.Instance.Player.frame = this.avatarID;
-        }
+        public override PersonalizationType Type => PersonalizationType.Frame;
     }
 }
