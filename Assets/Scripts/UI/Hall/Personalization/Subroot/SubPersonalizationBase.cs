@@ -6,6 +6,8 @@ namespace Game.UI
     {
         public Action<uint> callback;
 
+        protected uint personalizatalID;
+
         public virtual void Initialise()
         {
             Refresh();
@@ -18,7 +20,13 @@ namespace Game.UI
 
         public void Switch(PersonalizationType type)
         {
-            SetActive(type == Type);
+            var active = Type == type;
+
+            if (active)
+            {
+                callback?.Invoke(personalizatalID);
+            }
+            SetActive(active);
         }
 
         public virtual PersonalizationType Type { get; }

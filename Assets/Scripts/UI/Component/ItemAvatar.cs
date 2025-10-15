@@ -24,13 +24,11 @@ namespace Game.UI
 
         public void Refresh(uint headID, uint frameID)
         {
-            var avatar = DataManager.Instance.Load<DataAvatar>();
-
-            var table = avatar.Get(headID);
+            var table = DataAvatar.Get(headID);
 
             var head = table != null ? table.icon : string.Empty;
 
-            table = avatar.Get(frameID);
+            table = DataAvatar.Get(frameID);
 
             var frame = table != null ? table.icon : string.Empty;
 

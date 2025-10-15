@@ -21,6 +21,11 @@ namespace Game.Logic
 
         public void Initialize()
         {
+            
+        }
+
+        public void LoginSuccess()
+        {
             _player.name = "Player";
 
             _player.sex = 1;

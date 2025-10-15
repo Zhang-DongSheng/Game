@@ -1,6 +1,5 @@
 using Game.Data;
 using Game.Logic;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,15 +9,13 @@ namespace Game.UI
     {
         [SerializeField] private PrefabTemplateComponent prefab;
 
-        private uint avatarID;
-
         private readonly List<ItemPersonalizationAvatar> items = new List<ItemPersonalizationAvatar>();
 
         public override void Refresh()
         {
-            this.avatarID = PlayerLogic.Instance.Player.head;
+            personalizatalID = PlayerLogic.Instance.Cache.head;
 
-            var list = DataManager.Instance.Load<DataAvatar>().list.FindAll(a => a.type == 1);
+            var list = DataAvatar.GetList(1);
 
             int count = list.Count;
 
@@ -32,12 +29,12 @@ namespace Game.UI
                 }
                 items[i].Refresh(list[i]);
             }
-            OnClickAvatar(avatarID);
+            OnClickAvatar(personalizatalID);
         }
 
         private void OnClickAvatar(uint avatarID)
         {
-            this.avatarID = avatarID;
+            personalizatalID = avatarID;
 
             int count = items.Count;
 

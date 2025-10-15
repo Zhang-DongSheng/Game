@@ -38,7 +38,30 @@ namespace Game.Data
 
         public override void Detection()
         {
+            var keys = new Dictionary<string, int>();
 
+            var values = new Dictionary<string, int>();
+
+            foreach (var word in list)
+            {
+                if (keys.ContainsKey(word.key))
+                {
+                    Debug.LogError($"DataLanguage Detection Key Repeat : {word.key}");
+                }
+                else
+                {
+                    keys.Add(word.key, 1);
+                }
+
+                if (values.ContainsKey(word.value))
+                {
+                    Debug.LogError($"DataLanguage Detection Value Repeat : {word.value}");
+                }
+                else
+                {
+                    values.Add(word.value, 1);
+                }
+            }
         }
 
         public override void Clear()

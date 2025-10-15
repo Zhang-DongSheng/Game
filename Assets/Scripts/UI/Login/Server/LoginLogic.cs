@@ -1,4 +1,3 @@
-using Game.Data;
 using Game.Network;
 using Game.State;
 using Protobuf;
@@ -8,8 +7,6 @@ namespace Game.Logic
 {
     public class LoginLogic : Singleton<LoginLogic>, ILogic
     {
-        public Login user { get; private set; }
-
         public void Initialize()
         {
 
@@ -29,6 +26,8 @@ namespace Game.Logic
                 args.AddOrReplace("status", true);
 
                 EventDispatcher.Post(UIEvent.Login, args);
+
+                PlayerLogic.Instance.LoginSuccess();
 
                 ScheduleLogic.Instance.callback = () =>
                 {

@@ -450,6 +450,8 @@ namespace UnityEditor.Window
                     {
                         primary = (uint)asset.GetInstanceID(),
                         name = asset.name,
+                        loop = false,
+                        time = asset.length,
                         path = path.Remove(0, 7),
                     });
                 }
@@ -481,6 +483,8 @@ namespace UnityEditor.Window
                     {
                         primary = (uint)asset.GetInstanceID(),
                         name = asset.name,
+                        loop = false,
+                        time = (float)asset.length,
                         path = path.Remove(0, 7),
                     });
                 }

@@ -8,9 +8,26 @@ namespace Game.Data
     {
         public List<AvatarInformation> list;
 
-        public AvatarInformation Get(uint avatarID)
+        public static AvatarInformation Get(uint avatarID)
         {
-            return list.Find(x => x.primary == avatarID);
+            var data = DataManager.Instance.Load<DataAvatar>();
+
+            if (data != null)
+            {
+                return data.list.Find(x => x.primary == avatarID);
+            }
+            return null;
+        }
+
+        public static List<AvatarInformation> GetList(uint type)
+        {
+            var data = DataManager.Instance.Load<DataAvatar>();
+
+            if (data != null)
+            {
+                return data.list.FindAll(x => x.type == type);
+            }
+            return null;
         }
 
         public override void Load(JsonData json)

@@ -56,7 +56,11 @@ namespace Game.UI
 
         public override void Refresh(UIParameter paramter)
         {
-            RefreshPlayerInformation(PlayerLogic.Instance.Player);
+            var player = PlayerLogic.Instance.Player;
+
+            PlayerLogic.Instance.Cache.Copy(player);
+
+            RefreshInformation(player, Status.Claimed);
 
             int count = subPersonalizations.Count;
 
@@ -67,11 +71,27 @@ namespace Game.UI
             OnClickToggle(0);
         }
 
-        public void RefreshPlayerInformation(Player player)
+        public void RefreshInformation(Player player, Status status)
         { 
             m_avatar.Refresh(player.head, player.frame);
 
             m_nick.Refresh(player.name);
+
+            m_status.Refresh(status);
+        }
+
+        public void RefreshPersonalization()
+        {
+            int count = subPersonalizations.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (subPersonalizations[i].Type == current)
+                {
+                    subPersonalizations[i].Refresh();
+                    break;
+                }
+            }
         }
 
         private void OnClickToggle(int index)
@@ -86,26 +106,12 @@ namespace Game.UI
 
                 subPersonalizations[i].Switch(current);
             }
-            // Refresh status
-            switch (current)
-            {
-                case PersonalizationType.Head:
-                    OnClickPersonalization(PlayerLogic.Instance.Cache.head);
-                    break;
-                case PersonalizationType.Frame:
-                    OnClickPersonalization(PlayerLogic.Instance.Cache.frame);
-                    break;
-                case PersonalizationType.Nickname:
-                    OnClickPersonalization(0);
-                    break;
-                case PersonalizationType.Country:
-                    OnClickPersonalization(PlayerLogic.Instance.Cache.country);
-                    break;
-            }
         }
 
         private void OnClickPersonalization(uint ID)
         {
+            var player = PlayerLogic.Instance.Cache;
+
             var status = Status.Undone;
 
             switch (current)
@@ -117,15 +123,13 @@ namespace Game.UI
                     PlayerLogic.Instance.SetFrame(ID, out status);
                     break;
                 case PersonalizationType.Nickname:
-                    PlayerLogic.Instance.SetNickname(PlayerLogic.Instance.Cache.name, out status);
+                    PlayerLogic.Instance.SetNickname(player.name, out status);
                     break;
                 case PersonalizationType.Country:
                     PlayerLogic.Instance.SetCountry(ID, out status);
                     break;
             }
-            m_status.Refresh(status);
-
-            RefreshPlayerInformation(PlayerLogic.Instance.Cache);
+            RefreshInformation(player, status);
         }
 
         private void OnClickConfirm()
@@ -145,6 +149,7 @@ namespace Game.UI
                     PlayerLogic.Instance.Player.country = PlayerLogic.Instance.Cache.country;
                     break;
             }
+            RefreshPersonalization();
         }
     }
 }

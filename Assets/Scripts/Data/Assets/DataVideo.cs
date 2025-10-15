@@ -7,6 +7,17 @@ namespace Game.Data
     {
         public List<VideoInformation> list;
 
+        public static VideoInformation Get(string video)
+        {
+            var data = DataManager.Instance.Load<DataVideo>();
+
+            if (data != null)
+            {
+                return data.list.Find(x => x.name == video);
+            }
+            return null;
+        }
+
         public override void Detection()
         {
             var dic = new Dictionary<string, int>();
@@ -35,6 +46,10 @@ namespace Game.Data
     public class VideoInformation : InformationBase
     {
         public string name;
+
+        public bool loop;
+
+        public float time;
 
         public string path;
     }

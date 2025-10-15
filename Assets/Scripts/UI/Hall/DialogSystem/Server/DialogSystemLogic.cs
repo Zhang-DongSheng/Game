@@ -1,5 +1,4 @@
 using Game.Data;
-using Game.Logic;
 using Game.UI;
 using System;
 using System.Collections.Generic;
@@ -44,7 +43,7 @@ namespace Game.Logic
 
                 for (int i = 0; i < _history.Count; i++)
                 {
-                    var info = _dialog.Get(current);
+                    var info = _dialog.list.Find(x=>x.primary == current);
 
                     if (info == null) continue;
 
@@ -60,7 +59,7 @@ namespace Game.Logic
         {
             if (current == 0 || complete) return null;
 
-            var info = _dialog.Get(current);
+            var info = _dialog.list.Find(x => x.primary == current);
 
             _history.Add(current);
 
@@ -85,7 +84,7 @@ namespace Game.Logic
         {
             current = option;
 
-            var info = _dialog.Get(current);
+            var info = _dialog.list.Find(x => x.primary == current);
 
             _history.Add(current);
 

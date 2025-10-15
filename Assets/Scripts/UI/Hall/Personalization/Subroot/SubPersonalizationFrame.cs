@@ -9,15 +9,13 @@ namespace Game.UI
     {
         [SerializeField] private PrefabTemplateComponent prefab;
 
-        private uint avatarID;
-
         private readonly List<ItemPersonalizationAvatar> items = new List<ItemPersonalizationAvatar>();
 
         public override void Refresh()
         {
-            this.avatarID = PlayerLogic.Instance.Player.frame;
+            personalizatalID = PlayerLogic.Instance.Cache.frame;
 
-            var list = DataManager.Instance.Load<DataAvatar>().list.FindAll(a => a.type == 2);
+            var list = DataAvatar.GetList(2);
 
             int count = list.Count;
 
@@ -31,12 +29,12 @@ namespace Game.UI
                 }
                 items[i].Refresh(list[i]);
             }
-            OnClickAvatar(avatarID);
+            OnClickAvatar(personalizatalID);
         }
 
         private void OnClickAvatar(uint avatarID)
         {
-            this.avatarID = avatarID;
+            personalizatalID = avatarID;
 
             int count = items.Count;
 

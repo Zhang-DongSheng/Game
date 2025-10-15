@@ -1,5 +1,4 @@
-﻿using Game;
-using LitJson;
+﻿using LitJson;
 using System.Collections.Generic;
 
 namespace Game.Data

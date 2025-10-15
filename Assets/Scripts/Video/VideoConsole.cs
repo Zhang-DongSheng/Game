@@ -1,4 +1,5 @@
 ﻿using Game.Attribute;
+using Game.Data;
 using Game.Resource;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,8 +17,8 @@ namespace Game
         [SerializeField] private RawImage screen;
         [FieldName("分辨率")]
         [SerializeField] private Vector2Int size;
-        [FieldName("地址")]
-        [SerializeField] private string url;
+        [FieldName("视频名称")]
+        [SerializeField] private string key;
 
         private RenderTexture texture;
 
@@ -34,9 +35,11 @@ namespace Game
 
         public void Switch()
         {
-            if (string.IsNullOrEmpty(url)) return;
+            if (string.IsNullOrEmpty(key)) return;
 
-            ResourceManager.LoadAsync<VideoClip>(url, (clip) =>
+            var video = DataVideo.Get(key);
+
+            ResourceManager.LoadAsync<VideoClip>(video.path, (clip) =>
             {
                 player.clip = clip;
 

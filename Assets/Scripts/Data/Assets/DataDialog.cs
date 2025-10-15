@@ -16,11 +16,6 @@ namespace Game.Data
 
         public List<DialogInformation> list;
 
-        public DialogInformation Get(uint dialogID)
-        {
-            return list.Find(x => x.primary == dialogID);
-        }
-
         public override void Load(JsonData json)
         {
             int count = json.Count;

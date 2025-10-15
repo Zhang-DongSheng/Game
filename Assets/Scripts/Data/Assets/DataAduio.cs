@@ -47,6 +47,10 @@ namespace Game.Data
     {
         public string name;
 
+        public bool loop;
+
+        public float time;
+
         public string path;
     }
 }
