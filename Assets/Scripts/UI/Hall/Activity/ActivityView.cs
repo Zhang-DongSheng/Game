@@ -8,54 +8,63 @@ namespace Game.UI
     {
         [SerializeField] private ItemToggleGroup m_menu;
 
-        [SerializeField] private List<SubActivityBase> m_activities;
+        [SerializeField] private List<SubviewBase> m_views;
 
-        protected override void OnAwake()
+        private int index;
+
+        protected override void OnRegister()
         {
-            m_menu.callback = OnClickTab;
+            m_menu.callback = OnClickToggle;
         }
 
         public override void Refresh(UIParameter parameter)
         {
-            List<int> _activities = new List<int>();
+            RefreshActivities();
 
-            int count = m_activities.Count;
-
-            for (int i = 0; i < count; i++)
-            {
-                if (ActivityLogic.Instance.IsOpen(m_activities[i].activityID))
-                {
-                    _activities.Add((int)m_activities[i].activityID);
-                }
-            }
-            m_menu.Refresh(_activities.ToArray());
-
-            if (_activities.Count > 0)
-            {
-                m_menu.Select(_activities[0], true);
-            }
-        }
-
-        public void Refresh()
-        {
-            int count = m_activities.Count;
+            int count = m_views.Count;
 
             for (int i = 0; i < count; i++)
             {
-                if (ActivityLogic.Instance.IsOpen(m_activities[i].activityID))
+                var activityID = (uint)m_views[i].subviewID;
+
+                if (ActivityLogic.Instance.IsOpen(activityID))
                 {
-                    m_activities[i].Refresh();
+                    m_views[i].Refresh();
                 }
             }
         }
 
-        private void OnClickTab(int index)
+        public void RefreshActivities()
         {
-            int count = m_activities.Count;
+            var list = new List<int>();
+
+            int count = m_views.Count;
 
             for (int i = 0; i < count; i++)
             {
-                m_activities[i].SetActive(m_activities[i].Equal((uint)index));
+                var activityID = m_views[i].subviewID;
+
+                if (ActivityLogic.Instance.IsOpen((uint)activityID))
+                {
+                    list.Add(activityID);
+                }
+            }
+            m_menu.Refresh(list.ToArray());
+
+            index = list[0];
+
+            m_menu.Select(index, true);
+        }
+
+        private void OnClickToggle(int index)
+        {
+            this.index = index;
+
+            int count = m_views.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                m_views[i].Switch(index);
             }
         }
     }

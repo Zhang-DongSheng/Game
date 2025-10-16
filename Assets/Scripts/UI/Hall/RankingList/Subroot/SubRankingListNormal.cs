@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.UI
 {
-    public class SubRankingListNormal : SubRankinglistBase
+    public class SubRankingListNormal : SubviewBase
     {
         [SerializeField] private PrefabTemplateComponent prefab;
 
@@ -12,7 +12,7 @@ namespace Game.UI
 
         public override void Refresh()
         {
-            var list = RankingListLogic.Instance.GetRankings(index);
+            var list = RankingListLogic.Instance.GetRankings(subviewID);
 
             int count = list.Count;
 

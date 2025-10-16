@@ -880,6 +880,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8030166578169638562}
   - component: {fileID: 7502903139536988505}
+  - component: {fileID: 7847312998819085339}
   - component: {fileID: 1310862301034288976}
   m_Layer: 0
   m_Name: Menu
@@ -934,6 +935,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &7847312998819085339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3020018553230594647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19dbea0ae690ebe4698b00001994c05a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1310862301034288976}
+  pairs: []
 --- !u!114 &1310862301034288976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3504,7 +3519,7 @@ MonoBehaviour:
   m_avatar: {fileID: 5908093576755508246}
   m_nick: {fileID: 8646599667110270178}
   m_status: {fileID: 5459308467267904243}
-  prefab: {fileID: 1310862301034288976}
+  m_menu: {fileID: 7847312998819085339}
   button: {fileID: 3263366601747904446}
   subPersonalizations:
   - {fileID: 7415636672478951010}

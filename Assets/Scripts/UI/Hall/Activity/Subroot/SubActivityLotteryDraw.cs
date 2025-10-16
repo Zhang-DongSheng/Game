@@ -6,7 +6,7 @@ namespace Game.UI
     /// <summary>
     /// 抽奖
     /// </summary>
-    public class SubActivityLotteryDraw : SubActivityBase
+    public class SubActivityLotteryDraw : SubviewBase
     {
         [SerializeField] private AnimationListener animator;
 

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class SubSettingSound : SubSettingBase
+    public class SubSettingSound : SubviewBase
     {
         [SerializeField] private Slider musicVolume;
 
@@ -24,7 +24,10 @@ namespace Game.UI
             soundVolume.value = GlobalVariables.Get<float>(string.Format("{0}_{1}", GlobalKey.AUDIO_VOLUME, AudioEnum.Sound));
 
             soundMute.isOn = GlobalVariables.Get<bool>(string.Format("{0}_{1}", GlobalKey.AUDIO_MUTE, AudioEnum.Sound));
+        }
 
+        protected override void OnRegister()
+        {
             musicVolume.onValueChanged.AddListener(OnValueChangedMusicVolume);
 
             musicMute.onValueChanged.AddListener(OnValueChangedMusicMute);

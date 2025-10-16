@@ -34,9 +34,7 @@ namespace Game.UI
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                var steam = StreamFromString(request.downloadHandler.text);
-
-                var document = steam.ToHtmlDocument();
+                var document = request.downloadHandler.text.ToHtmlDocument();
                 // 查找页面中的标题
                 var qs = document.QuerySelector("body");
 
@@ -46,22 +44,6 @@ namespace Game.UI
             {
                 Debug.LogError($"Failed to load proclamation: {request.error}");
             }
-        }
-
-        public static Stream StreamFromBytes(Byte[] content)
-        {
-            var stream = new MemoryStream(content) { Position = 0 };
-            return stream;
-        }
-
-        public static Stream StreamFromString(String s)
-        {
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
-            writer.Write(s);
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
         }
 
         public override void Exit()

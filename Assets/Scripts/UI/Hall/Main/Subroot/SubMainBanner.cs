@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class SubMainBanner : MonoBehaviour
+    public class SubMainBanner : ItemBase
     {
         [SerializeField] private ScrollRect scroll;
 

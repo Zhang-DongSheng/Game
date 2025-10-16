@@ -90,6 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3aae87e5d83c9642b35514205148c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  subviewID: 3
+  active: 1
 --- !u!1 &207430838638736979
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,6 +428,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d73341187917f9408ddbf487682cb3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  subviewID: 0
+  active: 1
   colorA: {fileID: 7102124346136554226}
   colorB: {fileID: 7547521007517259899}
 --- !u!1 &823493083071104260
@@ -1117,6 +1121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b85c16cc4e1e02f45b18302e38b1d628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  subviewID: 1
+  active: 1
   musicVolume: {fileID: 1677099974999308370}
   musicMute: {fileID: 748855688319463520}
   soundVolume: {fileID: 2871083674130146353}
@@ -1173,6 +1179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c0a5960f0f9a844d89d31b395dcc161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  subviewID: 2
+  active: 1
   m_menu: {fileID: 3777516715236059745}
   button: {fileID: 547459315272293805}
 --- !u!114 &3777516715236059745
@@ -3359,7 +3367,7 @@ MonoBehaviour:
   order: 0
   active: 0
   m_menu: {fileID: 442877315569594569}
-  views:
+  m_views:
   - {fileID: 2298726744215432013}
   - {fileID: 2019696642639153463}
   - {fileID: 6988732585237398739}

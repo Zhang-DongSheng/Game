@@ -1,4 +1,3 @@
-using Game.Logic;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,47 +5,45 @@ namespace Game.UI
 {
     public class FriendView : ViewBase
     {
-        [SerializeField] private PrefabTemplateComponent prefab;
+        [SerializeField] private List<SubviewBase> m_views;
 
         [SerializeField] private ItemToggleGroup m_menu;
 
-        private readonly List<ItemFriend> items = new List<ItemFriend>();
+        private int index;
 
         protected override void OnAwake()
         {
-            m_menu.callback = OnClickTab;
+            m_menu.Refresh(m_views);
+        }
 
-            m_menu.Refresh(0, 1, 2);
+        protected override void OnRegister()
+        {
+            m_menu.callback = OnClickToggle;
         }
 
         public override void Refresh(UIParameter parameter)
         {
-            m_menu.Select(0);
-        }
-
-        private void RefreshFriends(int index)
-        {
-            var list = FriendLogic.Instance.GetFriends(index);
-
-            int count = list.Count;
+            var count = m_views.Count;
 
             for (int i = 0; i < count; i++)
             {
-                if (i >= items.Count)
-                {
-                    items.Add(prefab.Create<ItemFriend>());
-                }
-                items[i].Refresh(list[i]);
+                m_views[i].Refresh();
             }
-            for (int i = count; i < items.Count; i++)
-            {
-                items[i].SetActive(false);
-            }
+            index = m_views[0].subviewID;
+
+            m_menu.Select(index, true);
         }
 
-        private void OnClickTab(int index)
+        private void OnClickToggle(int index)
         {
-            RefreshFriends(index);
+            this.index = index;
+
+            var count = m_views.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                m_views[i].Switch(index);
+            }
         }
     }
 }

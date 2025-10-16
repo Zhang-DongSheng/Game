@@ -1,51 +1,49 @@
-using Game.Data;
-using Game.Logic;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
     public class MailView : ViewBase
     {
-        [SerializeField] private ListLayoutGroup layout;
+        [SerializeField] private List<SubviewBase> m_views;
 
-        [SerializeField] private ItemMail prefab;
+        [SerializeField] private ItemToggleGroup m_menu;
 
-        [SerializeField] private Text m_title;
+        private int index;
 
-        [SerializeField] private Text m_content;
+        protected override void OnAwake()
+        {
+            m_menu.Refresh(m_views);
+        }
 
-        [SerializeField] private ItemStatus m_status;
-
-        private uint select;
+        protected override void OnRegister()
+        {
+            m_menu.callback = OnClickToggle;
+        }
 
         public override void Refresh(UIParameter parameter)
         {
-            var list = MailLogic.Instance.Mails;
+            var count = m_views.Count;
 
-            int count = Mathf.Min(list.Count, 99);
-
-            layout.SetData(prefab, list, (index, item, data) =>
+            for (int i = 0; i < count; i++)
             {
-                item.Refresh(data, select, OnClickMail);
-            });
-            // Ìø×ª
-            //if (count > 0)
-            //{
-            //    OnClickMail(list[0]);
-            //}
-            //else
-            //{
-            //    content.SetActive(false);
-            //}
-            //SetActive(empty, count == 0);
+                m_views[i].Refresh();
+            }
+            index = m_views[0].subviewID;
+
+            m_menu.Select(index, true);
         }
 
-        private void OnClickMail(Mail mail)
+        private void OnClickToggle(int index)
         {
-            select = mail.ID;
+            this.index = index;
 
-            layout.ForceUpdateContent();
+            var count = m_views.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                m_views[i].Switch(index);
+            }
         }
     }
 }

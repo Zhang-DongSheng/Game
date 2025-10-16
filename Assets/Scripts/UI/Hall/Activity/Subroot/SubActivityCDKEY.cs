@@ -6,7 +6,7 @@ namespace Game.UI
     /// <summary>
     /// 兑换码
     /// </summary>
-    public class SubActivityCDKEY : SubActivityBase
+    public class SubActivityCDKEY : SubviewBase
     {
         [SerializeField] private InputField input;
 

@@ -14,7 +14,7 @@ namespace Game.UI
 
         [SerializeField] private ItemStatus m_status;
 
-        [SerializeField] private PrefabTemplateComponent prefab;
+        [SerializeField] private ItemToggleGroup m_menu;
 
         [SerializeField] private Button button;
 
@@ -22,36 +22,22 @@ namespace Game.UI
 
         private PersonalizationType current;
 
-        private readonly List<ItemPersonalizationToggle> toggles = new List<ItemPersonalizationToggle>();
-
         protected override void OnAwake()
         {
-            int count = subPersonalizations.Count;
-
-            for (int i = 0; i < count; i++)
-            {
-                if (i >= toggles.Count)
-                {
-                    toggles.Add(prefab.Create<ItemPersonalizationToggle>());
-                }
-                toggles[i].Refresh(new ToggleParameter()
-                {
-                    index = (int)subPersonalizations[i].Type,
-                    name = subPersonalizations[i].Type.ToString(),
-                    callback = OnClickToggle,
-                });
-            }
-            button.onClick.AddListener(OnClickConfirm);
+            m_menu.Refresh<PersonalizationType>();
         }
 
         protected override void OnRegister()
         {
+            m_menu.callback = OnClickToggle;
+
             int count = subPersonalizations.Count;
 
             for (int i = 0; i < count; i++)
             {
                 subPersonalizations[i].callback = OnClickPersonalization;
             }
+            button.onClick.AddListener(OnClickConfirm);
         }
 
         public override void Refresh(UIParameter paramter)
@@ -102,8 +88,6 @@ namespace Game.UI
 
             for (int i = 0; i < count; i++)
             {
-                toggles[i].Select(index);
-
                 subPersonalizations[i].Switch(current);
             }
         }

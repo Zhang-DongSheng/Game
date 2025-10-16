@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Game
 {
@@ -14,21 +14,6 @@ namespace Game
             {
                 transform.localPosition = position;
             }
-        }
-
-        protected virtual void SetRotation(Vector3 rotation)
-        {
-            transform.localRotation = Quaternion.Euler(rotation);
-        }
-
-        protected virtual void SetScale(float scale)
-        {
-            transform.localScale = Vector3.one * scale;
-        }
-
-        protected virtual void SetOrder(int index)
-        {
-            transform.SetSiblingIndex(index);
         }
 
         protected virtual void SetActive(bool active)

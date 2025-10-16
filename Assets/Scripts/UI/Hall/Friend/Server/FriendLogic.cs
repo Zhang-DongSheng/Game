@@ -1,5 +1,4 @@
 ﻿using Game.Data;
-using Game.Logic;
 using Game.Network;
 using Protobuf;
 using System.Collections.Generic;
@@ -45,8 +44,8 @@ namespace Game.Logic
                         list.Add(new Friend()
                         {
                             name = "xxxx" + j,
-                            head = 1,
-                            frame = 1,
+                            head = 1001,
+                            frame = 2002,
                             relationship = i * -1 + 1,
                         });
                     }

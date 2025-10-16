@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Game.UI
 {
-    public class SubSettingBase : ItemBase
+    public class SubMails : SubviewBase
     {
-        public virtual void Refresh()
-        { 
-            
-        }
+
     }
 }

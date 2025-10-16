@@ -1,5 +1,6 @@
 using Game.Data;
 using Game.UI;
+using System;
 using System.Collections.Generic;
 
 namespace Game.Logic
@@ -14,7 +15,10 @@ namespace Game.Logic
         {
             _popups.Clear();
 
-            Add(UIPanel.Proclamation);
+            if (Condition(UIPanel.Proclamation))
+            {
+                Add(UIPanel.Proclamation);
+            }
         }
 
         public void Add(UIPanel panel, int parameter = 0, int order = 0)
@@ -58,6 +62,23 @@ namespace Game.Logic
             _state = PopupState.Idle;
 
             Trigger();
+        }
+
+        public bool Condition(UIPanel panel)
+        {
+            var key = $"popup_{panel}_today";
+
+            var value = GlobalVariables.Get<int>(key);
+
+            var today = DateTime.UtcNow.DayOfYear;
+
+            if (value == today)
+            {
+                return false;
+            }
+            GlobalVariables.Set(key, today);
+
+            return true;
         }
 
         enum PopupState

@@ -1,5 +1,6 @@
 ﻿using Game.Data;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -9,7 +10,16 @@ namespace Game.UI
 
         [SerializeField] private ItemNickname m_nick;
 
-        [SerializeField] private ItemStatus m_status;
+        [SerializeField] private Button btnAgree;
+
+        [SerializeField] private Button btnRefuse;
+
+        protected override void OnRegister()
+        {
+            btnAgree.onClick.AddListener(OnClickAgree);
+
+            btnRefuse.onClick.AddListener(OnClickRefuse);
+        }
 
         public void Refresh(Friend friend)
         {
@@ -17,24 +27,17 @@ namespace Game.UI
 
             m_nick.Refresh(friend.name);
 
-            Status status;
-
-            switch (friend.relationship)
-            {
-                case 0:
-                    status = Status.Available;
-                    break;
-                case -1:
-                    status = Status.Undone;
-                    break;
-                default:
-                    status = Status.Claimed;
-                    break;
-
-            }
-            m_status.Refresh(status);
-
             SetActive(true);
+        }
+
+        private void OnClickAgree()
+        { 
+            
+        }
+
+        private void OnClickRefuse()
+        {
+
         }
     }
 }

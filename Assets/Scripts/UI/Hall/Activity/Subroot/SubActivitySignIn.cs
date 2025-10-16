@@ -6,7 +6,7 @@ namespace Game.UI
     /// <summary>
     /// 签到
     /// </summary>
-    public class SubActivitySignIn : SubActivityBase
+    public class SubActivitySignIn : SubviewBase
     {
         [SerializeField] private List<ItemSignIn> items;
 

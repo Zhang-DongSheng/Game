@@ -21682,7 +21682,7 @@ MonoBehaviour:
   order: 0
   active: 0
   m_menu: {fileID: 4789183481545750793}
-  m_activities:
+  m_views:
   - {fileID: 2032732232786356874}
   - {fileID: 2333518793960879583}
   - {fileID: 1766628000109480642}
@@ -32156,7 +32156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bae9ec953ebb6744bb0484bf5539cdc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activityID: 102
+  subviewID: 102
+  active: 1
   input: {fileID: 8115299300334629771}
   button: {fileID: 6681336328594232589}
 --- !u!1 &4921169384979072337
@@ -38399,7 +38400,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3abf1f98a34594e43842fca2da612ecb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activityID: 104
+  subviewID: 104
+  active: 1
 --- !u!1 &7181798028760232849
 GameObject:
   m_ObjectHideFlags: 0
@@ -38587,7 +38589,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9347818e85546046931b5b86c4f9d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activityID: 103
+  subviewID: 103
+  active: 1
   animator: {fileID: 2388061488499350272}
   button: {fileID: 7221879246669739105}
 --- !u!1 &7221879245383448692
@@ -39633,7 +39636,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403be4b7fd01e3047a825ad93707fab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activityID: 101
+  subviewID: 101
+  active: 1
   items:
   - {fileID: 6682395483358901610}
   - {fileID: 7048367559570096991}

@@ -18,6 +18,30 @@ namespace Game.UI
 
         private readonly List<ToggleParameter> parameters = new List<ToggleParameter>();
 
+        public void Refresh(List<SubviewBase> views)
+        {
+            this.parameters.Clear();
+
+            count = views.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                var index = (int)views[i].subviewID;
+
+                var key = pairs.Find(x => x.x == index);
+
+                var name = key != null ? key.y : index.ToString();
+
+                this.parameters.Add(new ToggleParameter()
+                {
+                    index = index,
+                    name = name,
+                    callback = OnClick,
+                });
+            }
+            Refresh();
+        }
+
         public void Refresh(params int[] parameter)
         {
             this.parameters.Clear();
@@ -26,13 +50,15 @@ namespace Game.UI
 
             for (int i = 0; i < count; i++)
             {
-                var key = pairs.Find(x => x.x == parameter[i]);
+                var index = parameter[i];
 
-                var name = key != null ? key.y : parameter[i].ToString();
+                var key = pairs.Find(x => x.x == index);
+
+                var name = key != null ? key.y : index.ToString();
 
                 this.parameters.Add(new ToggleParameter()
                 {
-                    index = parameter[i],
+                    index = index,
                     name = name,
                     callback = OnClick,
                 });
@@ -58,7 +84,7 @@ namespace Game.UI
             Refresh();
         }
 
-        public void Select(int index, bool invoke = false)
+        public void Select(int index, bool execute = false)
         {
             count = toggles.Count;
 
@@ -66,8 +92,8 @@ namespace Game.UI
             {
                 toggles[i].Select(index);
             }
-
-            if (invoke)
+            // Ö´ÐÐ»Øµ÷
+            if (execute)
             {
                 callback?.Invoke(index);
             }
@@ -114,19 +140,5 @@ namespace Game.UI
         public string name;
 
         public Action<int> callback;
-
-        public ToggleParameter()
-        {
-            
-        }
-
-        public ToggleParameter(int index, string name, Action<int> callback)
-        {
-            this.index = index;
-
-            this.name = name;
-
-            this.callback = callback;
-        }
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class SubSettingLanguage : SubSettingBase
+    public class SubSettingLanguage : SubviewBase
     {
         [SerializeField] private ItemToggleGroup m_menu;
 
@@ -13,9 +13,12 @@ namespace Game.UI
 
         protected override void OnAwake()
         {
-            m_menu.callback = OnClickLanguage;
-
             m_menu.Refresh<Language>();
+        }
+
+        protected override void OnRegister()
+        {
+            m_menu.callback = OnClickLanguage;
 
             button.onClick.AddListener(OnClickConfirm);
         }

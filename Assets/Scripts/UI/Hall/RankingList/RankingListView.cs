@@ -7,49 +7,42 @@ namespace Game.UI
     {
         [SerializeField] private ItemToggleGroup m_menu;
 
-        [SerializeField] private List<SubRankinglistBase> views;
+        [SerializeField] private List<SubviewBase> m_views;
+
+        private int index;
 
         protected override void OnAwake()
         {
-            m_menu.callback = OnClickTab;
+            m_menu.Refresh(m_views);
+        }
 
-            List<int> list = new List<int>();
-
-            foreach (var view in views)
-            {
-                if (view != null && view.open)
-                {
-                    list.Add(view.index);
-                }
-            }
-            m_menu.Refresh(list.ToArray());
+        protected override void OnRegister()
+        {
+            m_menu.callback = OnClickToggle;
         }
 
         public override void Refresh(UIParameter parameter)
         {
-            m_menu.Select(0, true);
-
-            int count = views.Count;
+            int count = m_views.Count;
 
             for (int i = 0; i < count; i++)
             {
-                if (views[i] != null && views[i].open)
-                {
-                    views[i].Refresh();
-                }
+                m_views[i].Refresh();
             }
+            index = m_views[0].subviewID;
+
+            m_menu.Select(index, true);
         }
 
-        private void OnClickTab(int index)
+        private void OnClickToggle(int index)
         {
-            int count = views.Count;
+            this.index = index;
+
+            int count = m_views.Count;
 
             for (int i = 0; i < count; i++)
             {
-                if (views[i] != null)
-                {
-                    views[i].SetActive(views[i].index == index);
-                }
+                m_views[i].Switch(index);
             }
         }
     }
