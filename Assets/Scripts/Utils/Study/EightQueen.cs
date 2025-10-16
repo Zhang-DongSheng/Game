@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace Study
+namespace Game.Study
 {
     /// <summary>
     /// 八皇后问题

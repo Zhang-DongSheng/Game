@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Device
+namespace Game.Device
 {
     public abstract class Device<T> : MonoBehaviour where T : MonoBehaviour
     {

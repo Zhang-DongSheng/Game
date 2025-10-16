@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Study
+namespace Game.Study
 {
     /// <summary>
     /// 约瑟夫环[有死循环未解决]

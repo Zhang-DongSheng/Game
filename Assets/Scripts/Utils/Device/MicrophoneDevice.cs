@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Device
+namespace Game.Device
 {
     /// <summary>
     /// 麦克风
