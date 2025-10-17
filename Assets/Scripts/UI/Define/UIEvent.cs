@@ -12,4 +12,5 @@
     public const string Task = "Task";
     public const string Login = "Login";
     public const string Language = "Language";
+    public const string Friend = "Friend";
 }

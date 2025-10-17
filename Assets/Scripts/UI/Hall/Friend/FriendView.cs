@@ -14,11 +14,18 @@ namespace Game.UI
         protected override void OnAwake()
         {
             m_menu.Refresh(m_views);
+
+            m_menu.callback = OnClickToggle;
         }
 
         protected override void OnRegister()
         {
-            m_menu.callback = OnClickToggle;
+            EventDispatcher.Register(UIEvent.Friend, Refresh);
+        }
+
+        protected override void OnUnregister()
+        {
+            EventDispatcher.Unregister(UIEvent.Friend, Refresh);
         }
 
         public override void Refresh(UIParameter parameter)
@@ -32,6 +39,16 @@ namespace Game.UI
             index = m_views[0].subviewID;
 
             m_menu.Select(index, true);
+        }
+
+        private void Refresh(EventArgs args)
+        {
+            var count = m_views.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                m_views[i].Refresh();
+            }
         }
 
         private void OnClickToggle(int index)

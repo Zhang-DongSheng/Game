@@ -25,10 +25,7 @@ namespace Game.UI
         protected override void OnAwake()
         {
             m_menu.Refresh<PersonalizationType>();
-        }
 
-        protected override void OnRegister()
-        {
             m_menu.callback = OnClickToggle;
 
             int count = subPersonalizations.Count;

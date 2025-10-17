@@ -6,22 +6,22 @@ namespace Game
     public static partial class Extension
     {
         /// <summary>
-        /// 在...之间
+        /// 区间范围内
         /// </summary>
-        public static int Clamp(this int value, int min, int max)
+        public static bool WithinTheRange(this int value, int min, int max)
         {
-            value = Mathf.Clamp(value, min, max);
+            var result = value < min || value > max;
 
-            return value;
+            return result;
         }
         /// <summary>
-        /// 在...之间
+        /// 区间范围内
         /// </summary>
-        public static float Clamp(this float value, float min, float max)
+        public static bool WithinTheRange(this float value, float min, float max)
         {
-            value = Mathf.Clamp(value, min, max);
+            var result = value < min || value > max;
 
-            return value;
+            return result;
         }
         /// <summary>
         /// 进度

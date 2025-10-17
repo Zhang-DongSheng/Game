@@ -11,8 +11,6 @@ namespace Game
         private void Awake()
         {
             OnAwake();
-
-            OnRegister();
         }
 
         private void OnEnable()
@@ -82,6 +80,8 @@ namespace Game
 
         private void Register()
         {
+            OnRegister();
+
             foreach (var e in Enum.GetValues(typeof(RuntimeEvent)))
             {
                 var key = (RuntimeEvent)e;
@@ -103,6 +103,8 @@ namespace Game
 
         private void Unregister()
         {
+            OnUnregister();
+
             foreach (var key in _events)
             {
                 RuntimeManager.Instance.Unregister(key, Function(key));
@@ -126,8 +128,6 @@ namespace Game
 
         private void OnDestroy()
         {
-            OnUnregister();
-
             Unregister();
 
             OnRelease();

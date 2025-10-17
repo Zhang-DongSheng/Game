@@ -19,7 +19,7 @@ namespace Game.UI
 
         private Mail _mail;
 
-        protected override void OnRegister()
+        protected override void OnAwake()
         {
             button.onClick.AddListener(OnClick);
         }

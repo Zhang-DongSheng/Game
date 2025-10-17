@@ -9,7 +9,9 @@ namespace Game.SM
     {
         [SerializeField] private Vector2 area;
 
-        [SerializeField] private int type;
+        [SerializeField] private int type = 0;
+
+        [SerializeField] private float ratio = 1f;
 
         private Vector2 vector;
 
@@ -27,7 +29,7 @@ namespace Game.SM
 
             position = Vector2.zero;
 
-            vector = Random.insideUnitCircle.normalized;
+            vector = Random.insideUnitCircle.normalized * ratio;
 
             content = target as RectTransform;
         }
@@ -59,28 +61,16 @@ namespace Game.SM
                     break;
                 case 1:
                     {
-                        if (position.x > area.x)
+                        if (position.x.WithinTheRange(-area.x, area.x))
                         {
-                            position.x = area.x;
-
-                            change = true;
-                        }
-                        else if (position.x < -area.x)
-                        {
-                            position.x = -area.x;
+                            position.x = Mathf.Clamp(position.x, -area.x, area.x);
 
                             change = true;
                         }
 
-                        if (position.y > area.y)
+                        if (position.y.WithinTheRange(-area.y, area.y))
                         {
-                            position.y = area.y;
-
-                            change = true;
-                        }
-                        else if (position.y < -area.y)
-                        {
-                            position.y = -area.y;
+                            position.y = Mathf.Clamp(position.y, -area.y, area.y);
 
                             change = true;
                         }
@@ -91,7 +81,7 @@ namespace Game.SM
 
             if (change)
             {
-                vector = Random.insideUnitCircle.normalized;
+                vector = Random.insideUnitCircle.normalized * ratio;
             }
         }
     }

@@ -2,6 +2,7 @@
 using Game.Network;
 using Protobuf;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game.Logic
 {
@@ -53,6 +54,48 @@ namespace Game.Logic
                 }
                 ScheduleLogic.Instance.Update(Schedule.Friend);
             });
+        }
+
+        public void RequestFriendApply(uint uid, bool apply)
+        {
+            Friend friend = null;
+
+            if (_friends.TryGetValue(1, out var list))
+            {
+                var index = list.FindIndex(x => x.uid == uid);
+
+                friend = list[index];
+
+                if (index > -1)
+                {
+                    list.RemoveAt(index);
+                }
+            }
+            // add
+            if (apply && friend != null)
+            {
+                if (_friends.TryGetValue(0, out list))
+                {
+                    list.Add(friend);
+                }
+            }
+            EventDispatcher.Post(UIEvent.Friend);
+        }
+
+        public void RequestFriendRemoveBlacklist(uint uid)
+        {
+            var key = 2;
+
+            if (_friends.TryGetValue(key, out var list))
+            {
+                var index = list.FindIndex(x => x.uid == uid);
+
+                if (index > -1)
+                {
+                    list.RemoveAt(index);
+                }
+            }
+            EventDispatcher.Post(UIEvent.Friend);
         }
     }
 }

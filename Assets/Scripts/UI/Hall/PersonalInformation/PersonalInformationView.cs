@@ -9,7 +9,7 @@ namespace Game.UI
 
         [SerializeField] private ItemNickname m_nick;
 
-        protected override void OnRegister()
+        protected override void OnAwake()
         {
             m_avatar.onClick.AddListener(OnClickPersonalization);
         }

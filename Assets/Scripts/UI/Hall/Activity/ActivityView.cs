@@ -12,7 +12,7 @@ namespace Game.UI
 
         private int index;
 
-        protected override void OnRegister()
+        protected override void OnAwake()
         {
             m_menu.callback = OnClickToggle;
         }

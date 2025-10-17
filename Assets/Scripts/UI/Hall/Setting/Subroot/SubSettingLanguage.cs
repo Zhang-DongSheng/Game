@@ -14,10 +14,7 @@ namespace Game.UI
         protected override void OnAwake()
         {
             m_menu.Refresh<Language>();
-        }
 
-        protected override void OnRegister()
-        {
             m_menu.callback = OnClickLanguage;
 
             button.onClick.AddListener(OnClickConfirm);
