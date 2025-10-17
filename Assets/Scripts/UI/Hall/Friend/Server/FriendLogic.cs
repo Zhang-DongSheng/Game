@@ -45,7 +45,8 @@ namespace Game.Logic
                         list.Add(new Friend()
                         {
                             name = "xxxx" + j,
-                            head = 1001,
+                            uid = (uint)(i * 100 + j),
+                            head = 1001 + (uint)Random.Range(0, 9),
                             frame = 2002,
                             relationship = i * -1 + 1,
                         });
@@ -64,10 +65,10 @@ namespace Game.Logic
             {
                 var index = list.FindIndex(x => x.uid == uid);
 
-                friend = list[index];
-
                 if (index > -1)
                 {
+                    friend = list[index];
+
                     list.RemoveAt(index);
                 }
             }

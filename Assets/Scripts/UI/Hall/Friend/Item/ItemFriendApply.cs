@@ -26,6 +26,8 @@ namespace Game.UI
 
         public void Refresh(Friend friend)
         {
+            uid = friend.uid;
+
             m_avatar.Refresh(friend.head, friend.frame);
 
             m_nick.Refresh(friend.name);
