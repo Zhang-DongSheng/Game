@@ -13,13 +13,26 @@ namespace Game.Attribute
 
         public string function;
 
+        public string name;
+
         public bool parameter;
 
         public ButtonAttribute(string function, bool parameter = true)
         {
             this.function = function;
 
+            this.name = function;
+
             this.parameter = parameter;
+        }
+
+        public ButtonAttribute(string function, string name, bool parameter = true)
+        {
+            this.function = function;
+
+            this.name = name;
+
+            this.parameter = false;
         }
 
         public void Call(object target, object parameter)
@@ -30,7 +43,7 @@ namespace Game.Attribute
 
                 MethodInfo method = type.GetMethod(function, Flags);
 
-                if (this.parameter)
+                if (method.GetParameters().Length > 0)
                 {
                     method.Invoke(target, new object[] { parameter });
                 }

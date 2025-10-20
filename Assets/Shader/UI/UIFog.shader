@@ -1,4 +1,4 @@
-﻿// Shader: UI雾特效
+﻿// 雾特效
 Shader "UI/Fog"
 {
     Properties

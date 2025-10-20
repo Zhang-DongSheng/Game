@@ -1,4 +1,4 @@
-﻿// Shader: UI水波纹
+﻿// 水波纹
 Shader "UI/Wave"
 {
     Properties

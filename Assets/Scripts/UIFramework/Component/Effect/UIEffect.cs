@@ -31,9 +31,9 @@ namespace UnityEngine.UI
 
 		private Vector2[] uvs;
 
-		private Vector2[] uv4 = new Vector2[4] { Vector2.zero, Vector2.zero, Vector2.zero, Vector2.zero };
+        private Mesh mesh;
 
-		private Mesh mesh;
+        private readonly Vector2[] uv4 = new Vector2[4] { Vector2.zero, Vector2.zero, Vector2.zero, Vector2.zero };
 
 		public ParticleSystem Particle
 		{

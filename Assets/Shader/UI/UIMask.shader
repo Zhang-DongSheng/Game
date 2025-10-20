@@ -1,4 +1,4 @@
-﻿// Shader: UI遮罩
+﻿// 遮罩
 Shader "UI/Mask"
 {
     Properties 

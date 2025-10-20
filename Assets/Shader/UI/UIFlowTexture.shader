@@ -1,4 +1,4 @@
-﻿//Shader: UI流动图片
+﻿// 图片流动
 Shader "UI/FlowTexture"
 {
     Properties

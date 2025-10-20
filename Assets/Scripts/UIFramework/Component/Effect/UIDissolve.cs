@@ -1,15 +1,15 @@
-锘縰sing Game.Attribute;
+using Game.Attribute;
 using System.Collections.Generic;
 
 namespace UnityEngine.UI
 {
     [RequireComponent(typeof(Graphic))]
-    public class UIShiny : MonoBehaviour
+    public class UIDissolve : MonoBehaviour
     {
         [SerializeField] private Material source;
 
         [SerializeField] private List<Graphic> graphics;
-        [Button("RelevanceGraphics", "鑷姩鍏宠仈")]
+        [Button("RelevanceGraphics", "自动关联")]
         [SerializeField] private bool relevance;
 
         private Material material;
