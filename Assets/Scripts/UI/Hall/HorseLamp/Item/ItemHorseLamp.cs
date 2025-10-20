@@ -91,27 +91,27 @@ namespace Game.UI
                     {
                         stamp = Mathf.Clamp((duration - stay) * 0.5f, 0, duration);
 
-                        interval.origination = new Vector2(width, height);
+                        interval.start = new Vector2(width, height);
 
-                        interval.destination = Vector2.zero;
+                        interval.end = Vector2.zero;
                     }
                     break;
                 case State.Stay:
                     {
                         stamp = stay;
 
-                        interval.origination = Vector2.zero;
+                        interval.start = Vector2.zero;
 
-                        interval.destination = Vector2.zero;
+                        interval.end = Vector2.zero;
                     }
                     break;
                 case State.To:
                     {
                         stamp = Mathf.Clamp((duration - stay) * 0.5f, 0, duration);
 
-                        interval.origination = Vector2.zero;
+                        interval.start = Vector2.zero;
 
-                        interval.destination = new Vector2(-width, height);
+                        interval.end = new Vector2(-width, height);
                     }
                     break;
                 case State.Complete:

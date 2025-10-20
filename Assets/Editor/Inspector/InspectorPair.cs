@@ -6,105 +6,67 @@ namespace UnityEditor.Inspector
     [CustomPropertyDrawer(typeof(IntPair))]
     class IntPairDrawer : PropertyDrawer
     {
-        private readonly Rect[] rects = new Rect[2];
-
-        private float width;
+        private Rect[] rects = new Rect[3];
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             using (new EditorGUI.PropertyScope(position, label, property))
             {
-                EditorGUIUtility.labelWidth = 50;
+                Utility.Rectangle.EditorDraw(position, 2, ref rects);
 
-                position.height = EditorGUIUtility.singleLineHeight;
+                EditorGUI.LabelField(rects[0], label);
 
-                width = position.width * 0.5f - 5;
+                EditorGUIUtility.labelWidth = 30;
 
-                int count = rects.Length;
-
-                for (int i = 0; i < count; i++)
-                {
-                    rects[i] = new Rect(position)
-                    {
-                        x = position.x + i * width + Mathf.Max(i, 0) * 10,
-                        width = width,
-                    };
-                }
                 var x = property.FindPropertyRelative("x");
 
                 var y = property.FindPropertyRelative("y");
 
-                x.intValue = EditorGUI.IntField(rects[0], "x", x.intValue);
+                x.intValue = EditorGUI.IntField(rects[1], "X", x.intValue);
 
-                y.intValue = EditorGUI.IntField(rects[1], "y", y.intValue);
+                y.intValue = EditorGUI.IntField(rects[2], "Y", y.intValue);
             }
         }
     }
     [CustomPropertyDrawer(typeof(UIntPair))]
     class UIntPairDrawer : PropertyDrawer
     {
-        private readonly Rect[] rects = new Rect[2];
-
-        private float width;
+        private Rect[] rects = new Rect[3];
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             using (new EditorGUI.PropertyScope(position, label, property))
             {
-                EditorGUIUtility.labelWidth = 50;
+                Utility.Rectangle.EditorDraw(position, 2, ref rects);
 
-                position.height = EditorGUIUtility.singleLineHeight;
+                EditorGUI.LabelField(rects[0], label);
 
-                width = position.width * 0.5f - 5;
-
-                int count = rects.Length;
-
-                for (int i = 0; i < count; i++)
-                {
-                    rects[i] = new Rect(position)
-                    {
-                        x = position.x + i * width + Mathf.Max(i, 0) * 10,
-                        width = width,
-                    };
-                }
+                EditorGUIUtility.labelWidth = 30;
 
                 var x = property.FindPropertyRelative("x");
 
                 var y = property.FindPropertyRelative("y");
 
-                x.intValue = EditorGUI.IntField(rects[0], "x", x.intValue);
+                x.intValue = EditorGUI.IntField(rects[1], "X", x.intValue);
 
-                y.intValue = EditorGUI.IntField(rects[1], "y", y.intValue);
+                y.intValue = EditorGUI.IntField(rects[2], "Y", y.intValue);
             }
         }
     }
     [CustomPropertyDrawer(typeof(FloatPair))]
     class FloatPairDrawer : PropertyDrawer
     {
-        private readonly Rect[] rects = new Rect[2];
-
-        private float width;
+        private Rect[] rects = new Rect[3];
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             using (new EditorGUI.PropertyScope(position, label, property))
             {
-                EditorGUIUtility.labelWidth = 50;
+                Utility.Rectangle.EditorDraw(position, 2, ref rects);
 
-                position.height = EditorGUIUtility.singleLineHeight;
+                EditorGUI.LabelField(rects[0], label);
 
-                width = position.width * 0.5f - 5;
-
-                int count = rects.Length;
-
-                for (int i = 0; i < count; i++)
-                {
-                    rects[i] = new Rect(position)
-                    {
-                        x = position.x + i * width + Mathf.Max(i, 0) * 10,
-                        width = width,
-                    };
-                }
+                EditorGUIUtility.labelWidth = 30;
 
                 var x = property.FindPropertyRelative("x");
 
@@ -118,30 +80,17 @@ namespace UnityEditor.Inspector
         [CustomPropertyDrawer(typeof(StringPair))]
         class StringPairDrawer : PropertyDrawer
         {
-            private readonly Rect[] rects = new Rect[2];
-
-            private float width;
+            private Rect[] rects = new Rect[3];
 
             public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
             {
                 using (new EditorGUI.PropertyScope(position, label, property))
                 {
-                    EditorGUIUtility.labelWidth = 50;
+                    Utility.Rectangle.EditorDraw(position, 2, ref rects);
 
-                    position.height = EditorGUIUtility.singleLineHeight;
+                    EditorGUI.LabelField(rects[0], label);
 
-                    width = position.width * 0.5f - 5;
-
-                    int count = rects.Length;
-
-                    for (int i = 0; i < count; i++)
-                    {
-                        rects[i] = new Rect(position)
-                        {
-                            x = position.x + i * width + Mathf.Max(i, 0) * 10,
-                            width = width,
-                        };
-                    }
+                    EditorGUIUtility.labelWidth = 30;
 
                     var x = property.FindPropertyRelative("x");
 

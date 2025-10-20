@@ -15,7 +15,7 @@ namespace Game.SM
 
         protected override void Initialize()
         {
-            position = interval.origination;
+            position = interval.start;
         }
 
         protected override void Transition(float progress)
@@ -25,7 +25,7 @@ namespace Game.SM
             switch (circle)
             {
                 case Circle.Loop:
-                        position += interval.destination * Time.deltaTime * speed;
+                        position += interval.end * Time.deltaTime * speed;
                     break;
                 default:
                         position = interval.Lerp(progress);

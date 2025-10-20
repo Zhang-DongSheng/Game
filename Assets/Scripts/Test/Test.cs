@@ -7,13 +7,19 @@ using UnityEngine.UI;
 namespace Game.Test
 {
     [ExecuteInEditMode]
-    public class Test : ItemBase
+    public class Test : MonoBehaviour
     {
         [SerializeField] private GameObject target;
 
         [SerializeField] private GameObject[] other;
 
         [SerializeField] private IntInterval intInterval;
+
+        [SerializeField] private UIntPair xxx;
+
+        [SerializeField] private IntPair xxxxx;
+
+        [SerializeField] private Pair<int, float> xxfdf;
 
         [SerializeField] private Vector3 position;
         [Line("#00FFFF", 2)]
@@ -39,7 +45,7 @@ namespace Game.Test
 
         private void OnValidate()
         {
-
+            xxx = xxxxx;
         }
 
         private void OnDrawGizmos()
@@ -59,7 +65,7 @@ namespace Game.Test
             }
         }
 
-        protected override void OnUpdate(float delta)
+        private void Update()
         {
             this.delta.x = Input.GetAxis("Horizontal");
 

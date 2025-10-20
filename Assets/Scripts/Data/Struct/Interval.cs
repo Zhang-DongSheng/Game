@@ -4,117 +4,138 @@ using Random = UnityEngine.Random;
 
 namespace Game
 {
+    public abstract class Interval<T>
+    {
+        [Range(0, 1)] public float value;
+
+        public T start;
+
+        public T end;
+
+        public T result;
+
+        public virtual T Lerp(float value)
+        {
+            return result;
+        }
+
+        public virtual T Rndom()
+        {
+            return Lerp(Random.Range(0, 1));
+        }
+    }
     /// <summary>
     /// 状态区间
     /// </summary>
     [Serializable]
-    public struct BoolInterval
+    public class BoolInterval : Interval<bool>
     {
-        public bool Lerp(float value)
+        public override bool Lerp(float value)
         {
-            return value > 0.5f ? true : false;
+            this.value = value;
+
+            result = value > 0.5f ? start : end;
+
+            return result;
         }
     }
     /// <summary>
     /// 整型区间
     /// </summary>
     [Serializable]
-    public struct IntInterval
+    public class IntInterval : Interval<int>
     {
-        public int origination, destination;
-
-        public int Lerp(float value)
+        public override int Lerp(float value)
         {
-            return Convert.ToInt32(Mathf.Lerp(origination, destination, value));
-        }
+            this.value = value;
 
-        public int Rndom()
-        {
-            return Convert.ToInt32(Mathf.Lerp(origination, destination, Random.Range(0, 1f)));
+            result = Convert.ToInt32(Mathf.Lerp(start, end, value));
+
+            return result;
         }
     }
     /// <summary>
     /// 浮点区间
     /// </summary>
     [Serializable]
-    public struct FloatInterval
+    public class FloatInterval : Interval<float>
     {
-        public float origination, destination;
-
-        public float Lerp(float value)
+        public override float Lerp(float value)
         {
-            return Mathf.Lerp(origination, destination, value);
-        }
+            this.value = value;
 
-        public float Rndom()
-        {
-            return Mathf.Lerp(origination, destination, Random.Range(0, 1f));
-        }
+            result = Mathf.Lerp(start, end, value);
 
-        public static FloatInterval Default { get { return new FloatInterval { origination = 0, destination = 1 }; } }
+            return result;
+        }
     }
     /// <summary>
     /// 2维向量区间
     /// </summary>
     [Serializable]
-    public struct Vector2Interval
+    public class Vector2Interval : Interval<Vector2>
     {
-        public Vector2 origination, destination;
-
-        public Vector2 Lerp(float value)
+        public override Vector2 Lerp(float value)
         {
-            return Vector2.Lerp(origination, destination, value);
-        }
+            this.value = value;
 
-        public Vector2 Rndom()
-        {
-            return Lerp(Random.Range(0, 1f));
-        }
+            result = Vector2.Lerp(start, end, value);
 
-        public static Vector2Interval One { get { return new Vector2Interval { origination = Vector2.one, destination = Vector2.one }; } }
+            return result;
+        }
     }
     /// <summary>
     /// 3维向量区间
     /// </summary>
     [Serializable]
-    public struct Vector3Interval
+    public class Vector3Interval : Interval<Vector3>
     {
-        public Vector3 origination, destination;
-
-        public Vector3 Lerp(float value)
+        public override Vector3 Lerp(float value)
         {
-            return Vector3.Lerp(origination, destination, value);
+            this.value = value;
+
+            result = Vector3.Lerp(start, end, value);
+
+            return result;
         }
 
-        public Vector3 Rndom()
+        public static Vector3Interval Default
         {
-            return Lerp(Random.Range(0, 1f));
+            get
+            {
+                return new Vector3Interval()
+                {
+                    start = Vector3.zero,
+                    end = Vector3.one,
+                };
+            }
         }
-
-        public static Vector3Interval Default { get { return new Vector3Interval { origination = Vector3.zero, destination = Vector3.one }; } }
-
-        public static Vector3Interval One { get { return new Vector3Interval { origination = Vector3.one, destination = Vector3.one }; } }
     }
     /// <summary>
     /// 颜色区间
     /// </summary>
     [Serializable]
-    public struct ColorInterval
+    public class ColorInterval : Interval<Color>
     {
-        public Color origination, destination;
-
-        public Color Lerp(float value)
+        public override Color Lerp(float value)
         {
-            return Color.Lerp(origination, destination, value);
+            this.value = value;
+
+            result = Color.Lerp(start, end, value);
+
+            return result;
         }
 
-        public Color Rndom()
+        public static ColorInterval Default
         {
-            return Color.Lerp(origination, destination, Random.Range(0, 1f));
+            get
+            {
+                return new ColorInterval()
+                {
+                    start = Color.white,
+                    end = Color.white,
+                };
+            }
         }
-
-        public static ColorInterval White { get { return new ColorInterval { origination = Color.white, destination = Color.white }; } }
-
-        public static ColorInterval Balck { get { return new ColorInterval { origination = Color.black, destination = Color.black }; } }
     }
 }

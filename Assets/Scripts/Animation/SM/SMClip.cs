@@ -23,9 +23,8 @@ namespace Game.SM
         {
             interval = new IntInterval()
             {
-                origination = 0,
-
-                destination = sprites.Count - 1
+                start = 0,
+                end = sprites.Count - 1
             };
             image = target.GetComponent<Image>();
         }

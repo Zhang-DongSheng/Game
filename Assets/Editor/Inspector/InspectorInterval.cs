@@ -31,13 +31,13 @@ namespace UnityEditor.Inspector
                     };
                 }
 
-                var x = property.FindPropertyRelative("origination");
+                var x = property.FindPropertyRelative("start");
 
-                var y = property.FindPropertyRelative("destination");
+                var y = property.FindPropertyRelative("end");
 
-                x.intValue = EditorGUI.IntField(rects[0], "origination", x.intValue);
+                x.intValue = EditorGUI.IntField(rects[0], "start", x.intValue);
 
-                y.intValue = EditorGUI.IntField(rects[1], "destination", y.intValue);
+                y.intValue = EditorGUI.IntField(rects[1], "end", y.intValue);
             }
         }
     }

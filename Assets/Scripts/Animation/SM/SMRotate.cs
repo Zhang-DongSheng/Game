@@ -28,11 +28,11 @@ namespace Game.SM
                     {
                         if (around)
                         {
-                            target.RotateAround(interval.origination, interval.destination, Time.deltaTime * speed);
+                            target.RotateAround(interval.start, interval.end, Time.deltaTime * speed);
                         }
                         else
                         {
-                            target.Rotate(interval.destination * Time.deltaTime * speed);
+                            target.Rotate(interval.end * Time.deltaTime * speed);
                         }
                     }
                     break;

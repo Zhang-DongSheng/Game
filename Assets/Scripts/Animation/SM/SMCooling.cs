@@ -8,7 +8,7 @@ namespace Game.SM
     /// </summary>
     public class SMCooling : SMBase
     {
-        [SerializeField] private FloatInterval interval = FloatInterval.Default;
+        [SerializeField] private FloatInterval interval;
 
         private Image image;
 

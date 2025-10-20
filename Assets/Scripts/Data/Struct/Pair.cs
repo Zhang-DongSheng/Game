@@ -15,6 +15,15 @@ namespace Game
         public int x;
 
         public int y;
+
+        public static implicit operator UIntPair(IntPair pair)
+        {
+            return new UIntPair()
+            {
+                x = (uint)pair.x,
+                y = (uint)pair.y,
+            };
+        }
     }
     [System.Serializable]
     public class UIntPair
@@ -22,6 +31,15 @@ namespace Game
         public uint x;
 
         public uint y;
+
+        public static implicit operator IntPair(UIntPair pair)
+        {
+            return new IntPair()
+            {
+                x = (int)pair.x,
+                y = (int)pair.y,
+            };
+        }
     }
     [System.Serializable]
     public class FloatPair

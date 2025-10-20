@@ -71,7 +71,7 @@ namespace Game.UI
 
             canvas.alpha = 1;
 
-            SetPosition(position.origination);
+            SetPosition(position.start);
 
             SetActive(true);
         }

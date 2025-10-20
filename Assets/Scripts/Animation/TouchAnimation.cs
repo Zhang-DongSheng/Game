@@ -20,9 +20,9 @@ namespace Game
 
         [SerializeField] private Vector3Interval rotation;
 
-        [SerializeField] private Vector3Interval scale = Vector3Interval.One;
+        [SerializeField] private Vector3Interval scale = Vector3Interval.Default;
 
-        [SerializeField] private ColorInterval color = ColorInterval.White;
+        [SerializeField] private ColorInterval color = ColorInterval.Default;
 
         [SerializeField] private AnimationCurve curve = new AnimationCurve(new Keyframe(0f, 0f, 0f, 1f), new Keyframe(1f, 1f, 1f, 0f));
 
