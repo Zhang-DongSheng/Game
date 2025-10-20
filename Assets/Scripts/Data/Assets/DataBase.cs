@@ -44,6 +44,8 @@ namespace Game.Data
         {
 #if UNITY_EDITOR
             UnityEditor.EditorUtility.SetDirty(this);
+            UnityEditor.AssetDatabase.SaveAssets();
+            UnityEditor.AssetDatabase.Refresh();
 #endif
         }
     }

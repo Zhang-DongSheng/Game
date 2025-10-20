@@ -14,24 +14,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   order: 0
   list:
-  - primary: 47974
+  - primary: 34310
     name: weather_cloudy-03
+    loop: 0
+    time: 4
     path: Package/Video/weather_cloudy-03.ogv
-  - primary: 47970
+  - primary: 34384
     name: weather_cloudy-and-rainny
+    loop: 0
+    time: 4
     path: Package/Video/weather_cloudy-and-rainny.ogv
-  - primary: 47968
+  - primary: 35318
     name: weather_light-snow
+    loop: 0
+    time: 4
     path: Package/Video/weather_light-snow.ogv
-  - primary: 47962
+  - primary: 35782
     name: weather_night
+    loop: 0
+    time: 4
     path: Package/Video/weather_night.ogv
-  - primary: 47964
+  - primary: 37816
     name: weather_rain
+    loop: 0
+    time: 4
     path: Package/Video/weather_rain.ogv
-  - primary: 47966
+  - primary: 40766
     name: weather_sunny-day
+    loop: 0
+    time: 4
     path: Package/Video/weather_sunny-day.ogv
-  - primary: 47972
+  - primary: 40364
     name: weather_thunder
+    loop: 0
+    time: 4
     path: Package/Video/weather_thunder.ogv

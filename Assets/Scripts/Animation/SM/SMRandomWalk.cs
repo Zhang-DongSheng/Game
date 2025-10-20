@@ -36,6 +36,8 @@ namespace Game.SM
 
         protected override void Transition(float progress)
         {
+            if (content == null) return;
+
             content.anchoredPosition = position;
         }
 

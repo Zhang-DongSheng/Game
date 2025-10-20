@@ -52,13 +52,13 @@ namespace Game.Data
     [Serializable]
     public class AvatarInformation : InformationBase
     {
-        public uint type;
+        public int type;
 
         public string name;
 
         public string icon;
 
-        public uint[] sources;
+        public int[] sources;
 
         public string description;
     }

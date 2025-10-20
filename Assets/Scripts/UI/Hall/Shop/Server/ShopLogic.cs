@@ -41,8 +41,6 @@ namespace Game.Logic
                     var counter = new Shop()
                     {
                         shop = shop,
-                        name = shop.ToString(),
-                        time = -1,
                         commodities = new List<Commodity>()
                     };
 

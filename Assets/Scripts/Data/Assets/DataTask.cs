@@ -55,7 +55,7 @@ namespace Game.Data
 
         public float[] parameter;
 
-        public List<UIntPair> rewards;
+        public List<UIntPair> props;
 
         public string description;
     }

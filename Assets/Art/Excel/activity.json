@@ -5,36 +5,36 @@
 	"ID":1,
 	"activityID":101,
 	"name":"签到",
-	"timeLimit":"false",
-	"beginTime":0,
-	"endTime":0,
+	"limit":0,
+	"begin":0,
+	"end":0,
 	"description":"签到"
 	},
 	{
 	"ID":2,
 	"activityID":102,
 	"name":"兑换码",
-	"timeLimit":"false",
-	"beginTime":0,
-	"endTime":0,
+	"limit":0,
+	"begin":0,
+	"end":0,
 	"description":"兑换码"
 	},
 	{
 	"ID":3,
 	"activityID":103,
 	"name":"轮盘抽奖",
-	"timeLimit":"true",
-	"beginTime":1701360000,
-	"endTime":1703952000,
+	"limit":1,
+	"begin":1759248000,
+	"end":1767110400,
 	"description":"轮盘抽奖"
 	},
 	{
 	"ID":4,
 	"activityID":104,
 	"name":"大秘宝",
-	"timeLimit":"false",
-	"beginTime":0,
-	"endTime":0,
+	"limit":0,
+	"begin":0,
+	"end":0,
 	"description":"大秘宝"
 	}
 ]

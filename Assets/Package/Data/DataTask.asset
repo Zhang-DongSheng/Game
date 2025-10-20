@@ -20,7 +20,7 @@ MonoBehaviour:
     icon: 
     parameter:
     - 1
-    rewards:
+    props:
     - x: 101
       y: 1
     description: "\u4EFB\u52A11"
@@ -30,7 +30,7 @@ MonoBehaviour:
     icon: 
     parameter:
     - 2
-    rewards:
+    props:
     - x: 101
       y: 2
     description: "\u4EFB\u52A12"
@@ -40,7 +40,7 @@ MonoBehaviour:
     icon: 
     parameter:
     - 3
-    rewards:
+    props:
     - x: 101
       y: 3
     description: "\u4EFB\u52A13"
@@ -50,7 +50,7 @@ MonoBehaviour:
     icon: 
     parameter:
     - 4
-    rewards:
+    props:
     - x: 101
       y: 4
     description: "\u4EFB\u52A14"
@@ -60,7 +60,7 @@ MonoBehaviour:
     icon: 
     parameter:
     - 5
-    rewards:
+    props:
     - x: 101
       y: 5
     description: "\u4EFB\u52A15"
@@ -70,7 +70,7 @@ MonoBehaviour:
     icon: 
     parameter:
     - 6
-    rewards:
+    props:
     - x: 101
       y: 6
     description: "\u4EFB\u52A16"
@@ -80,7 +80,7 @@ MonoBehaviour:
     icon: 
     parameter:
     - 7
-    rewards:
+    props:
     - x: 101
       y: 7
     description: "\u4EFB\u52A17"
@@ -90,7 +90,7 @@ MonoBehaviour:
     icon: 
     parameter:
     - 8
-    rewards:
+    props:
     - x: 101
       y: 8
     description: "\u4EFB\u52A18"
@@ -100,7 +100,7 @@ MonoBehaviour:
     icon: 
     parameter:
     - 9
-    rewards:
+    props:
     - x: 101
       y: 9
     description: "\u4EFB\u52A19"

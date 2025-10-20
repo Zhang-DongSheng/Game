@@ -19,182 +19,182 @@ MonoBehaviour:
     icon: currency_coin_2
     quality: 1
     category: 1
-    source: -1
     price: 1
+    sources: 
     description: "\u8D27\u5E01\u57FA\u672C\u5355\u4F4D"
   - primary: 101
     name: 10202
     icon: currency_diamond
     quality: 3
     category: 1
-    source: -1
     price: 10
+    sources: 
     description: "\u94BB\u77F3"
   - primary: 102
     name: 10201
     icon: currency_gold
     quality: 2
     category: 1
-    source: -1
     price: 1
+    sources: 
     description: "\u91D1\u5E01"
   - primary: 103
     name: 10203
     icon: currency_coin_1
     quality: 4
     category: 1
-    source: -1
     price: 50
+    sources: 
     description: "\u4EE3\u5E01"
   - primary: 10001
     name: "\u6C49\u670D"
     icon: "\u6C49\u670D"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u6C49\u670D"
   - primary: 10002
     name: "\u80CC\u5E26\u88E4"
     icon: "\u80CC\u5E26\u88E4"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u80CC\u5E26\u88E4"
   - primary: 10003
     name: "\u5C0F\u897F\u670D"
     icon: "\u5C0F\u897F\u670D"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u5C0F\u897F\u670D"
   - primary: 10004
     name: "\u793C\u670D"
     icon: "\u793C\u670D"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u793C\u670D"
   - primary: 10005
     name: "\u9A6C\u7532"
     icon: "\u9A6C\u7532"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u9A6C\u7532"
   - primary: 10006
     name: "\u8D85\u77ED\u88D9"
     icon: "\u8D85\u77ED\u88D9"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u8D85\u77ED\u88D9"
   - primary: 10007
     name: "\u725B\u4ED4\u88E4"
     icon: "\u725B\u4ED4\u88E4"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u725B\u4ED4\u88E4"
   - primary: 10008
     name: "\u534A\u8EAB\u88D9"
     icon: "\u534A\u8EAB\u88D9"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u534A\u8EAB\u88D9"
   - primary: 10009
     name: "\u65D7\u888D"
     icon: "\u65D7\u888D"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u65D7\u888D"
   - primary: 10010
     name: "\u8FDE\u4F53\u88E4"
     icon: "\u8FDE\u4F53\u88E4"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u8FDE\u4F53\u88E4"
   - primary: 10011
     name: "\u536B\u8863"
     icon: "\u536B\u8863"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u536B\u8863"
   - primary: 10012
     name: "\u540A\u5E26\u88D9"
     icon: "\u540A\u5E26\u88D9"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u540A\u5E26\u88D9"
   - primary: 10013
     name: "Polo\u886B"
     icon: "Polo\u886B"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "Polo\u886B"
   - primary: 10014
     name: "\u5305\u81C0\u88D9"
     icon: "\u5305\u81C0\u88D9"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u5305\u81C0\u88D9"
   - primary: 10015
     name: "T\u6064"
     icon: "T\u6064"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "T\u6064"
   - primary: 10016
     name: "\u9614\u817F\u88E4"
     icon: "\u9614\u817F\u88E4"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u9614\u817F\u88E4"
   - primary: 10017
     name: "\u4F11\u95F2\u88E4"
     icon: "\u4F11\u95F2\u88E4"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u4F11\u95F2\u88E4"
   - primary: 10018
     name: "\u8D85\u77ED\u88E4"
     icon: "\u8D85\u77ED\u88E4"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u8D85\u77ED\u88E4"
   - primary: 10019
     name: "\u886C\u886B"
     icon: "\u886C\u886B"
     quality: 1
     category: 2
-    source: -1
     price: 100
-    description: null
+    sources: 
+    description: "\u886C\u886B"

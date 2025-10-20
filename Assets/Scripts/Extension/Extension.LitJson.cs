@@ -418,6 +418,21 @@ namespace Game
             return color;
         }
 
+        public static IntPair GetIntPair(this JsonData json, string key)
+        {
+            IntPair result = default;
+
+            if (json != null && json.ContainsKey(key) && json[key].IsArray)
+            {
+                result = new IntPair()
+                {
+                    x = (int)json[key][0],
+                    y = (int)json[key][1]
+                };
+            }
+            return result;
+        }
+
         public static UIntPair GetUIntPair(this JsonData json, string key)
         {
             UIntPair result = default;
@@ -514,6 +529,10 @@ namespace Game
                 else if (field.FieldType == typeof(long))
                 {
                     field.SetValue(result, json.GetLong(key));
+                }
+                else if (field.FieldType == typeof(IntPair))
+                {
+                    field.SetValue(result, json.GetIntPair(key));
                 }
                 else if (field.FieldType == typeof(UIntPair))
                 {

@@ -2,12 +2,12 @@ namespace Game.Data
 {
     public class Commodity
     {
-        public uint identification;
+        public long identification;
 
         public uint primary;
 
-        public uint purchased;
+        public int count;
 
-        public long effectiveDate;
+        public int purchased;
     }
 }

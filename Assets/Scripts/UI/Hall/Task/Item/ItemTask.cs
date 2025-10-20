@@ -34,7 +34,7 @@ namespace Game.UI
 
             txtDescription.text = table.description;
 
-            group.Refresh(table.rewards);
+            group.Refresh(table.props);
 
             status.Refresh(task.status);
         }

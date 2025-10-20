@@ -19,6 +19,17 @@ namespace Game.Data
             return null;
         }
 
+        public static List<ActivityInformation> List()
+        {
+            var data = DataManager.Instance.Load<DataActivity>();
+
+            if (data != null)
+            {
+                return data.list;
+            }
+            return null;
+        }
+
         public override void Load(JsonData json)
         {
             int count = json.Count;
@@ -52,11 +63,11 @@ namespace Game.Data
 
         public string name;
 
-        public bool timeLimit;
+        public long start;
 
-        public long beginTime;
+        public long end;
 
-        public long endTime;
+        public int limit;
 
         public string description;
     }

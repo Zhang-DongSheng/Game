@@ -30,7 +30,6 @@ namespace UnityEditor.Inspector
                         width = width,
                     };
                 }
-
                 var x = property.FindPropertyRelative("x");
 
                 var y = property.FindPropertyRelative("y");

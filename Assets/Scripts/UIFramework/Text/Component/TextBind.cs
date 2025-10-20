@@ -30,6 +30,8 @@ namespace Game.UI
 
         private void Start()
         {
+            SwitchLanguage();
+
             SetText(content, true);
         }
 
@@ -51,6 +53,8 @@ namespace Game.UI
 
         private void OnLanguageChange(UnityEngine.EventArgs args)
         {
+            SwitchLanguage();
+
             if (string.IsNullOrEmpty(content))
             {
                 return;
@@ -115,6 +119,15 @@ namespace Game.UI
                 _text.text = content;
             if (_textmp != null)
                 _textmp.text = content;
+        }
+
+        private void SwitchLanguage()
+        {
+            Relevance();
+            var font = LanguageManager.Instance.Font;
+            if (font == null) return;
+            if (_textmp != null && _textmp.font != font)
+                _textmp.font = font;
         }
     }
 }

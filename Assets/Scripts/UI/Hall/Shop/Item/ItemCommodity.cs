@@ -28,17 +28,17 @@ namespace Game.UI
 
             var table = DataCommodity.Get(commodity.primary);
 
-            if (table == null || table.rewards.Count == 0) return;
+            if (table == null || table.props.Count == 0) return;
 
-            m_prop.Refresh(table.rewards[0].x, table.rewards[0].y);
+            m_prop.Refresh(table.props[0]);
 
             m_cost.Refresh(table.cost);
 
             var status = Status.Available;
 
-            if (table.number > 0)
+            if (commodity.count > 0)
             {
-                status = commodity.purchased < table.number ? Status.Available : Status.Claimed;
+                status = commodity.purchased < commodity.count ? Status.Available : Status.Claimed;
             }
             m_status.Refresh(status);
         }
@@ -53,11 +53,11 @@ namespace Game.UI
                 };
                 var table = DataCommodity.Get(commodity.primary);
 
-                int count = table.rewards.Count;
+                int count = table.props.Count;
 
                 for (int i = 0; i < count; i++)
                 {
-                    reward.props.Add(new Prop(0, table.rewards[i].x, table.rewards[i].y));
+                    reward.props.Add(new Prop(0, table.props[i].x, table.props[i].y));
                 }
                 UIQuickEntry.OpenRewardView(reward);
             });

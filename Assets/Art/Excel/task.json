@@ -6,7 +6,7 @@
 	"type":1,
 	"name":"任务1",
 	"parameter":[1],
-	"rewards":[[101,1]],
+	"props":[[101,1]],
 	"description":"任务1"
 	},
 	{
@@ -14,7 +14,7 @@
 	"type":2,
 	"name":"任务2",
 	"parameter":[2],
-	"rewards":[[101,2]],
+	"props":[[101,2]],
 	"description":"任务2"
 	},
 	{
@@ -22,7 +22,7 @@
 	"type":3,
 	"name":"任务3",
 	"parameter":[3],
-	"rewards":[[101,3]],
+	"props":[[101,3]],
 	"description":"任务3"
 	},
 	{
@@ -30,7 +30,7 @@
 	"type":3,
 	"name":"任务4",
 	"parameter":[4],
-	"rewards":[[101,4]],
+	"props":[[101,4]],
 	"description":"任务4"
 	},
 	{
@@ -38,7 +38,7 @@
 	"type":4,
 	"name":"任务5",
 	"parameter":[5],
-	"rewards":[[101,5]],
+	"props":[[101,5]],
 	"description":"任务5"
 	},
 	{
@@ -46,7 +46,7 @@
 	"type":5,
 	"name":"任务6",
 	"parameter":[6],
-	"rewards":[[101,6]],
+	"props":[[101,6]],
 	"description":"任务6"
 	},
 	{
@@ -54,7 +54,7 @@
 	"type":5,
 	"name":"任务7",
 	"parameter":[7],
-	"rewards":[[101,7]],
+	"props":[[101,7]],
 	"description":"任务7"
 	},
 	{
@@ -62,7 +62,7 @@
 	"type":5,
 	"name":"任务8",
 	"parameter":[8],
-	"rewards":[[101,8]],
+	"props":[[101,8]],
 	"description":"任务8"
 	},
 	{
@@ -70,7 +70,7 @@
 	"type":5,
 	"name":"任务9",
 	"parameter":[9],
-	"rewards":[[101,9]],
+	"props":[[101,9]],
 	"description":"任务9"
 	}
 ]

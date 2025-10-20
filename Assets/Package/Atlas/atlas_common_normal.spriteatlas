@@ -91,22 +91,22 @@ SpriteAtlas:
   - Rounded Outline - Stroke 10px
   - Pane - 3
   - Rounded Outline - Stroke 5px
-  - background_2
+  - background_small_2
   - Pane - 2
   - Rounded Outline - Stroke 12px
   - Circle Outline - Stroke 10px
   - Pane - 4
-  - background_4
+  - background_small_4
   - Circle Filled - x256
   - Rounded Filled
   - button_1
-  - background_1
+  - background_small_1
   - Circle Filled - x64
   - Pane - 1
   - Circle Outline - Stroke 8px
   - Pane - 5
   - Circle Outline Dash - Stroke 3px
-  - background_3
+  - background_small_3
   m_RenderDataMap: {}
   m_Tag: atlas_common_normal
   m_IsVariant: 0

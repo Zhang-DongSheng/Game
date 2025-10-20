@@ -8,7 +8,7 @@ namespace Game.Data
 
         public long end;
 
-        public bool limited;
+        public int limit;
 
         public ActivityData()
         { 
@@ -19,11 +19,11 @@ namespace Game.Data
         {
             this.activityID = activity.activityID;
 
-            this.limited = activity.timeLimit;
+            this.limit = activity.limit;
 
-            this.start = activity.beginTime;
+            this.start = activity.start;
             
-            this.end = activity.endTime;
+            this.end = activity.end;
         }
     }
 }

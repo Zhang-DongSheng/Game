@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   order: 0
   list:
-  - primary: 49130
+  - primary: 1140
     name: altas_frame
     path: Package/Atlas/altas_frame.spriteatlas
     sprites:
     - frame_zq
-  - primary: 1138
+  - primary: 1146
     name: altas_head
     path: Package/Atlas/altas_head.spriteatlas
     sprites:
@@ -32,7 +32,7 @@ MonoBehaviour:
     - head_003
     - head_009
     - head_006
-  - primary: 49134
+  - primary: 1136
     name: atlas_common_color
     path: Package/Atlas/atlas_common_color.spriteatlas
     sprites:
@@ -42,7 +42,7 @@ MonoBehaviour:
     - color_purple
     - color_gray
     - color_orange
-  - primary: 1142
+  - primary: 1150
     name: atlas_common_normal
     path: Package/Atlas/atlas_common_normal.spriteatlas
     sprites:
@@ -51,23 +51,23 @@ MonoBehaviour:
     - Rounded Outline - Stroke 10px
     - Pane - 3
     - Rounded Outline - Stroke 5px
-    - background_2
+    - background_small_2
     - Pane - 2
     - Rounded Outline - Stroke 12px
     - Circle Outline - Stroke 10px
     - Pane - 4
-    - background_4
+    - background_small_4
     - Circle Filled - x256
     - Rounded Filled
     - button_1
-    - background_1
+    - background_small_1
     - Circle Filled - x64
     - Pane - 1
     - Circle Outline - Stroke 8px
     - Pane - 5
     - Circle Outline Dash - Stroke 3px
-    - background_3
-  - primary: 1140
+    - background_small_3
+  - primary: 1148
     name: atlas_common_other
     path: Package/Atlas/atlas_common_other.spriteatlas
     sprites:
@@ -79,7 +79,7 @@ MonoBehaviour:
     - toggle_turn_on
     - light_circle
     - light_bottom
-  - primary: 1130
+  - primary: 1138
     name: atlas_common_utils
     path: Package/Atlas/atlas_common_utils.spriteatlas
     sprites:
@@ -94,7 +94,7 @@ MonoBehaviour:
     - utils_compress
     - utils_use
     - utils_expand
-  - primary: 1158
+  - primary: 1162
     name: atlas_currency
     path: Package/Atlas/atlas_currency.spriteatlas
     sprites:
@@ -103,11 +103,11 @@ MonoBehaviour:
     - currency_diamond
     - currency_gold
     - currency_bill
-  - primary: 1148
+  - primary: 1156
     name: atlas_emoji
     path: Package/Atlas/atlas_emoji.spriteatlas
     sprites: []
-  - primary: 1150
+  - primary: 1158
     name: atlas_main
     path: Package/Atlas/atlas_main.spriteatlas
     sprites:
@@ -120,7 +120,7 @@ MonoBehaviour:
     - main_task
     - main_notice
     - main_ranking
-  - primary: 1144
+  - primary: 1152
     name: atlas_prop_clothing
     path: Package/Atlas/atlas_prop_clothing.spriteatlas
     sprites:
@@ -161,7 +161,7 @@ MonoBehaviour:
     - "\u8D85\u77ED\u88E4"
     - "\u9AD8\u8DDF\u978B"
     - "\u886C\u886B"
-  - primary: 1136
+  - primary: 1144
     name: atlas_set
     path: Package/Atlas/atlas_set.spriteatlas
     sprites:
@@ -172,23 +172,18 @@ MonoBehaviour:
     - settingt_sound
     - setting_mute
     - setting_vibrate
-  - primary: 1132
+  - primary: 1142
     name: atlas_title
     path: Package/Atlas/atlas_title.spriteatlas
     sprites:
     - title_back
-  - primary: 1152
+  - primary: 1160
     name: atlas_background_battle
     path: Package/Atlas/Single/atlas_background_battle.spriteatlas
     sprites:
-    - background_battle
-  - primary: 1134
-    name: atlas_background_login
-    path: Package/Atlas/Single/atlas_background_login.spriteatlas
-    sprites:
-    - background_login
-  - primary: 1146
+    - background_5
+  - primary: 1154
     name: atlas_background_main
     path: Package/Atlas/Single/atlas_background_main.spriteatlas
     sprites:
-    - background_main
+    - background_3

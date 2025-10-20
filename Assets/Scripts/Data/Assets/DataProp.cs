@@ -55,9 +55,9 @@ namespace Game.Data
 
         public int category;
 
-        public int source;
-
         public float price;
+
+        public int[] sources;
 
         public string description;
     }

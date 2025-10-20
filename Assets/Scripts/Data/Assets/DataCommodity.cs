@@ -1,4 +1,3 @@
-using Game;
 using LitJson;
 using System.Collections.Generic;
 
@@ -15,6 +14,17 @@ namespace Game.Data
             if (data != null)
             {
                 return DataManager.Get(data.list, commodityID, data.order);
+            }
+            return null;
+        }
+
+        public static List<CommodityInformation> List()
+        {
+            var data = DataManager.Instance.Load<DataCommodity>();
+
+            if (data != null)
+            {
+                return data.list;
             }
             return null;
         }
@@ -50,11 +60,15 @@ namespace Game.Data
     {
         public string name;
 
-        public UIntPair cost;
+        public int type;
 
-        public int number;
+        public int limit;
 
-        public List<UIntPair> rewards;
+        public IntPair cost;
+
+        public List<UIntPair> props;
+
+        public string payID;
 
         public string description;
     }

@@ -17,28 +17,28 @@ MonoBehaviour:
   - primary: 1
     activityID: 101
     name: "\u7B7E\u5230"
-    timeLimit: 0
-    beginTime: 0
-    endTime: 0
+    start: 0
+    end: 0
+    limit: 0
     description: "\u7B7E\u5230"
   - primary: 2
     activityID: 102
     name: "\u5151\u6362\u7801"
-    timeLimit: 0
-    beginTime: 0
-    endTime: 0
+    start: 0
+    end: 0
+    limit: 0
     description: "\u5151\u6362\u7801"
   - primary: 3
     activityID: 103
     name: "\u8F6E\u76D8\u62BD\u5956"
-    timeLimit: 1
-    beginTime: 1701360000
-    endTime: 1703952000
+    start: 0
+    end: 1767110400
+    limit: 1
     description: "\u8F6E\u76D8\u62BD\u5956"
   - primary: 4
     activityID: 104
     name: "\u5927\u79D8\u5B9D"
-    timeLimit: 0
-    beginTime: 0
-    endTime: 0
+    start: 0
+    end: 0
+    limit: 0
     description: "\u5927\u79D8\u5B9D"

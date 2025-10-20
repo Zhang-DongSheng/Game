@@ -29,6 +29,11 @@ namespace Game.UI
             Refresh(prop.parallelism, prop.amount);
         }
 
+        public void Refresh(UIntPair prop)
+        {
+            Refresh(prop.x, prop.y);
+        }
+
         public void Refresh(uint propID, uint amount = 0)
         {
             information = DataProp.Get(propID);

@@ -1,30 +1,33 @@
 using Game.Data;
 using Game.Logic;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Game.UI
 {
     public class LanguageManager : Singleton<LanguageManager>
     {
-        private Language language;
+        private Language _language;
 
-        private readonly Dictionary<string, string> words = new Dictionary<string, string>();
+        private TMP_FontAsset _font;
+
+        private readonly Dictionary<string, string> _words = new Dictionary<string, string>();
 
         public void Initialize()
         {
-            language = GlobalVariables.Get<Language>(GlobalKey.LANGUAGE);
+            _language = GlobalVariables.Get<Language>(GlobalKey.LANGUAGE);
 
-            Load(language, false);
+            Load(_language, false);
 
             ScheduleLogic.Instance.Update(Schedule.Language);
         }
 
         public void Update(Language language)
         {
-            if (this.language == language) return;
+            if (this._language == language) return;
 
-            this.language = language;
+            this._language = language;
 
             GlobalVariables.Set(GlobalKey.LANGUAGE, language);
 
@@ -33,7 +36,7 @@ namespace Game.UI
 
         public string Get(string key)
         {
-            if (words.TryGetValue(key.ToLower(), out string value))
+            if (_words.TryGetValue(key.ToLower(), out string value))
             {
                 return value;
             }
@@ -42,7 +45,7 @@ namespace Game.UI
 
         public string GetByParameter(string key, params object[] parameters)
         {
-            if (words.TryGetValue(key.ToLower(), out string value))
+            if (_words.TryGetValue(key.ToLower(), out string value))
             {
                 return string.Format(value, parameters);
             }
@@ -57,12 +60,13 @@ namespace Game.UI
                 {
                     if (asset != null)
                     {
-                        words.Clear();
+                        _words.Clear();
 
                         foreach (var word in asset.list)
                         {
-                            words.Add(word.key, word.value);
+                            _words.Add(word.key, word.value);
                         }
+                        _font = asset.font;
                     }
                     else
                     {
@@ -77,12 +81,13 @@ namespace Game.UI
 
                 if (asset != null)
                 {
-                    words.Clear();
+                    _words.Clear();
 
                     foreach (var word in asset.list)
                     {
-                        words.Add(word.key, word.value);
+                        _words.Add(word.key, word.value);
                     }
+                    _font = asset.font;
                 }
                 else
                 {
@@ -91,6 +96,8 @@ namespace Game.UI
             }
         }
 
-        public Language Language { get { return language; } }
+        public TMP_FontAsset Font { get { return _font; } }
+
+        public Language Language { get { return _language; } }
     }
 }

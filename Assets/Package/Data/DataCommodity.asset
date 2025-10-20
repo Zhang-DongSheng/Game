@@ -16,97 +16,113 @@ MonoBehaviour:
   list:
   - primary: 1001
     name: prop_1
+    type: 1
+    limit: 0
     cost:
       x: 101
       y: 1
-    number: 0
-    rewards:
+    props:
     - x: 10001
       y: 1
     - x: 10002
       y: 1
+    payID: 
     description: "\u5546\u54C11"
   - primary: 1002
     name: prop_2
+    type: 1
+    limit: 0
     cost:
       x: 101
       y: 2
-    number: 0
-    rewards:
+    props:
     - x: 10002
       y: 1
     - x: 10002
       y: 2
+    payID: 
     description: "\u5546\u54C12"
   - primary: 1003
     name: prop_3
+    type: 1
+    limit: 0
     cost:
       x: 101
       y: 3
-    number: 0
-    rewards:
+    props:
     - x: 10003
       y: 1
     - x: 10002
       y: 3
+    payID: 
     description: "\u5546\u54C13"
   - primary: 1004
     name: prop_4
+    type: 1
+    limit: 0
     cost:
       x: 101
       y: 4
-    number: 0
-    rewards:
+    props:
     - x: 10004
       y: 1
     - x: 10002
       y: 4
+    payID: 
     description: "\u5546\u54C14"
   - primary: 1005
     name: prop_5
+    type: 1
+    limit: 0
     cost:
       x: 101
       y: 5
-    number: 0
-    rewards:
+    props:
     - x: 10005
       y: 1
     - x: 10002
       y: 5
+    payID: 
     description: "\u5546\u54C15"
   - primary: 1006
     name: prop_6
+    type: 1
+    limit: 0
     cost:
       x: 101
       y: 6
-    number: 0
-    rewards:
+    props:
     - x: 10006
       y: 1
     - x: 10002
       y: 6
+    payID: 
     description: "\u5546\u54C16"
   - primary: 1007
     name: prop_7
+    type: 1
+    limit: 0
     cost:
       x: 101
       y: 7
-    number: 0
-    rewards:
+    props:
     - x: 10007
       y: 1
     - x: 10002
       y: 7
+    payID: 
     description: "\u5546\u54C17"
   - primary: 1008
     name: prop_8
+    type: 1
+    limit: 0
     cost:
       x: 101
       y: 8
-    number: 0
-    rewards:
+    props:
     - x: 10008
       y: 1
     - x: 10002
       y: 8
+    payID: 
     description: "\u5546\u54C18"

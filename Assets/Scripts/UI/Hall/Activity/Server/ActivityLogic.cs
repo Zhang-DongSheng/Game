@@ -21,7 +21,7 @@ namespace Game.Logic
 
             if (activity == null) return false;
 
-            if (activity.limited)
+            if (activity.limit == 1)
             {
                 return TimeSynchronization.Instance.InSide(activity.start, activity.end);
             }
@@ -36,24 +36,24 @@ namespace Game.Logic
             {
                 _activities.Clear();
 
-                var data = DataManager.Instance.Load<DataActivity>();
+                var list = DataActivity.List();
 
-                int count = data.list.Count;
+                int count = list.Count;
 
                 Debuger.Log(Author.Data, "活动数量：" + count);
 
                 for (int i = 0; i < count; i++)
                 {
-                    if (data.list[i].timeLimit)
+                    if (list[i].limit == 1)
                     {
-                        if (TimeSynchronization.Instance.InSide(data.list[i].beginTime, data.list[i].endTime))
+                        if (TimeSynchronization.Instance.InSide(list[i].start, list[i].end))
                         {
-                            _activities.Add(new ActivityData(data.list[i]));
+                            _activities.Add(new ActivityData(list[i]));
                         }
                     }
                     else
                     {
-                        _activities.Add(new ActivityData(data.list[i]));
+                        _activities.Add(new ActivityData(list[i]));
                     }
                 }
                 ScheduleLogic.Instance.Update(Schedule.Activity);

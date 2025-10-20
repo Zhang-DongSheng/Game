@@ -15,7 +15,7 @@ MonoBehaviour:
   order: 0
   language: 0
   icon: 
-  font: {fileID: 0}
+  font: {fileID: 11400000, guid: 363434a7885894a4abc396b863b5feef, type: 2}
   url: 
   list:
   - primary: 0

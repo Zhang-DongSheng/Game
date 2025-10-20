@@ -4,57 +4,81 @@
 	{
 	"ID":1001,
 	"name":"prop_1",
+	"type":1,
+	"limit":0,
 	"cost":[101,1],
-	"rewards":[[10001,1],[10002,1]],
+	"props":[[10001,1],[10002,1]],
+	"payID":"",
 	"description":"商品1"
 	},
 	{
 	"ID":1002,
 	"name":"prop_2",
+	"type":1,
+	"limit":0,
 	"cost":[101,2],
-	"rewards":[[10002,1],[10002,2]],
+	"props":[[10002,1],[10002,2]],
+	"payID":"",
 	"description":"商品2"
 	},
 	{
 	"ID":1003,
 	"name":"prop_3",
+	"type":1,
+	"limit":0,
 	"cost":[101,3],
-	"rewards":[[10003,1],[10002,3]],
+	"props":[[10003,1],[10002,3]],
+	"payID":"",
 	"description":"商品3"
 	},
 	{
 	"ID":1004,
 	"name":"prop_4",
+	"type":1,
+	"limit":0,
 	"cost":[101,4],
-	"rewards":[[10004,1],[10002,4]],
+	"props":[[10004,1],[10002,4]],
+	"payID":"",
 	"description":"商品4"
 	},
 	{
 	"ID":1005,
 	"name":"prop_5",
+	"type":1,
+	"limit":0,
 	"cost":[101,5],
-	"rewards":[[10005,1],[10002,5]],
+	"props":[[10005,1],[10002,5]],
+	"payID":"",
 	"description":"商品5"
 	},
 	{
 	"ID":1006,
 	"name":"prop_6",
+	"type":1,
+	"limit":0,
 	"cost":[101,6],
-	"rewards":[[10006,1],[10002,6]],
+	"props":[[10006,1],[10002,6]],
+	"payID":"",
 	"description":"商品6"
 	},
 	{
 	"ID":1007,
 	"name":"prop_7",
+	"type":1,
+	"limit":0,
 	"cost":[101,7],
-	"rewards":[[10007,1],[10002,7]],
+	"props":[[10007,1],[10002,7]],
+	"payID":"",
 	"description":"商品7"
 	},
 	{
 	"ID":1008,
 	"name":"prop_8",
+	"type":1,
+	"limit":0,
 	"cost":[101,8],
-	"rewards":[[10008,1],[10002,8]],
+	"props":[[10008,1],[10002,8]],
+	"payID":"",
 	"description":"商品8"
 	}
 ]

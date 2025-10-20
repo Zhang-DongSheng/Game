@@ -6,9 +6,9 @@ namespace Game.Data
     {
         public int shop;
 
-        public string name;
+        public long start;
 
-        public long time;
+        public long end;
 
         public List<Commodity> commodities;
     }

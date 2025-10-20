@@ -1,6 +1,7 @@
 using LitJson;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Game.Data
@@ -11,7 +12,7 @@ namespace Game.Data
 
         public string icon;
 
-        public Font font;
+        public TMP_FontAsset font;
 
         public string url;
 

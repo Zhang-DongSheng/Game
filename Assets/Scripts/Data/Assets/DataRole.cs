@@ -28,9 +28,9 @@ namespace Game.Data
 
                 role.primary = json[i].GetUInt("ID");
 
-                role.attributes = new List<Pair<int, float>>();
-
                 var attributes = json[i].GetJson("attributes");
+
+                role.attributes = new List<Pair<int, float>>();
 
                 for (int j = 0; j < attributes.Count; j++)
                 {
@@ -54,11 +54,11 @@ namespace Game.Data
     {
         public string name;
 
-        public uint age;
+        public int age;
 
-        public bool sex;
+        public int sex;
 
-        public uint quality;
+        public int quality;
 
         public List<Pair<int, float>> attributes;
 

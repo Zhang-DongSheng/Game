@@ -17,9 +17,9 @@ namespace Game.UI
 
         protected float amount;
 
-        public void Refresh(UIntPair pair)
+        public void Refresh(IntPair pair)
         {
-            this.coin = pair.x;
+            this.coin = (uint)pair.x;
 
             this.amount = pair.y;
 
@@ -28,7 +28,7 @@ namespace Game.UI
 
         protected void Refresh()
         {
-            PropInformation prop = DataProp.Get(coin);
+            var prop = DataProp.Get(coin);
 
             imgIcon.SetSprite(prop.icon);
 
