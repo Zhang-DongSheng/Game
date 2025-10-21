@@ -1,3 +1,4 @@
+using Game;
 using Game.Attribute;
 using UnityEngine;
 
@@ -223,6 +224,18 @@ namespace UnityEditor.Inspector
 
             position.y += 3;
 
+            if (string.IsNullOrEmpty(_attribute.name))
+            {
+                if (_attribute.parameter)
+                {
+                    _attribute.name = string.Format("void {0}({1} parameter)", _attribute.function, property.type);
+                }
+                else
+                {
+                    _attribute.name = string.Format("void {0}()", _attribute.function);
+                }
+            }
+            // µã»÷°´Å¥
             if (GUI.Button(position, _attribute.name))
             {
                 _attribute.Call(property.serializedObject.targetObject, PropertyUtils.Parameter(property));

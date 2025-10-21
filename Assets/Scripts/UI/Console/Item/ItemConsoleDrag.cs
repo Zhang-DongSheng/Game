@@ -8,7 +8,7 @@ namespace Game.UI
     {
         [SerializeField] private RectTransform target;
 
-        [SerializeField] private Direction direction;
+        [SerializeField] private Axis axis;
 
         private Vector2 position;
 
@@ -21,12 +21,12 @@ namespace Game.UI
 
         public void OnDrag(PointerEventData eventData)
         {
-            switch (direction)
+            switch (axis)
             {
-                case Direction.Horizontal:
+                case Axis.Horizontal:
                     position.x = eventData.position.x;
                     break;
-                case Direction.Vertical:
+                case Axis.Vertical:
                     position.y = eventData.position.y;
                     break;
                 default:

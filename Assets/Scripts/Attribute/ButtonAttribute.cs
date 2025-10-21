@@ -21,7 +21,7 @@ namespace Game.Attribute
         {
             this.function = function;
 
-            this.name = function;
+            this.name = string.Empty;
 
             this.parameter = parameter;
         }

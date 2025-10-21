@@ -10,7 +10,7 @@ namespace UnityEngine.UI
     [RequireComponent(typeof(CanvasRenderer))]
     public class GraphicColorMixed : MaskableGraphic
     {
-        [SerializeField] private Direction direction;
+        [SerializeField] private Axis axis;
 
         [SerializeField, Range(0, 360)] private float rotation;
 
@@ -57,13 +57,13 @@ namespace UnityEngine.UI
         {
             Color GetColor(Vector2 position)
             {
-                switch (direction)
+                switch (axis)
                 {
-                    case Direction.Vertical:
+                    case Axis.Vertical:
                         return position.y > 0 ? color : fade;
-                    case Direction.Horizontal:
+                    case Axis.Horizontal:
                         return position.x < 0 ? color : fade;
-                    case Direction.Custom:
+                    case Axis.Custom:
                         {
                             float angle = Vector2.SignedAngle(position, Vector2.up);
 

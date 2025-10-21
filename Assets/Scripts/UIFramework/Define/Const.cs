@@ -1,8 +1,9 @@
+/*--------  常量定义  -----------*/
 using UnityEngine;
 
 namespace Game.UI
 {
-    public static class UIConst
+    public static class Const
     {
         public const float ResolutionWidth = 2160;
 
@@ -26,22 +27,12 @@ namespace Game.UI
 
         public static readonly float ScreenRatio = (float)Screen.width / Screen.height;
     }
-
+    /// <summary>
+    /// 轴
+    /// </summary>
     public enum Axis
     {
-        /// <summary>
-        /// 横
-        /// </summary>
-        Horizontal,
-        /// <summary>
-        /// 竖
-        /// </summary>
-        Vertical,
-    }
-
-    public enum Direction
-    {
-        None,
+        None = 0,
         /// <summary>
         /// 横
         /// </summary>
@@ -51,44 +42,23 @@ namespace Game.UI
         /// </summary>
         Vertical,
         /// <summary>
-        /// 自定义
+        /// 斜
         /// </summary>
         Custom,
     }
-
-    public enum Corner
+    /// <summary>
+    /// 渐
+    /// </summary>
+    public enum Fade
     {
+        None = 0,
         /// <summary>
-        /// 左上
+        /// 显
         /// </summary>
-        TopLeft,
+        In,
         /// <summary>
-        /// 右上
+        /// 隐
         /// </summary>
-        TopRight,
-        /// <summary>
-        /// 左下
-        /// </summary>
-        LowerLeft,
-        /// <summary>
-        /// 右下
-        /// </summary>
-        LowerRight,
-    }
-
-    public enum Status
-    {
-        /// <summary>
-        /// 未完成
-        /// </summary>
-        Undone,
-        /// <summary>
-        /// 可领取
-        /// </summary>
-        Available,
-        /// <summary>
-        /// 已领取
-        /// </summary>
-        Claimed,
+        Out,
     }
 }

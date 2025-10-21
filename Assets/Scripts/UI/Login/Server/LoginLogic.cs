@@ -1,5 +1,6 @@
 using Game.Network;
 using Game.State;
+using Game.UI;
 using Protobuf;
 using UnityEngine;
 

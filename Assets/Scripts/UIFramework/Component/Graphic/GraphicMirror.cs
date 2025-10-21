@@ -10,7 +10,7 @@ namespace UnityEngine.UI
     [RequireComponent(typeof(Graphic))]
     public class GraphicMirror : BaseMeshEffect
     {
-        [SerializeField] private Direction direction = Direction.Horizontal;
+        [SerializeField] private Axis axis = Axis.Horizontal;
 
         private readonly List<UIVertex> vertexs = new List<UIVertex>();
 
@@ -34,18 +34,18 @@ namespace UnityEngine.UI
 
                     rect.anchorMax = rect.anchorMin;
 
-                    switch (direction)
+                    switch (axis)
                     {
-                        case Direction.None:
+                        case Axis.None:
                             rect.sizeDelta = new Vector2(w, h);
                             break;
-                        case Direction.Horizontal:
+                        case Axis.Horizontal:
                             rect.sizeDelta = new Vector2(w * 2, h);
                             break;
-                        case Direction.Vertical:
+                        case Axis.Vertical:
                             rect.sizeDelta = new Vector2(w, h * 2);
                             break;
-                        case Direction.Custom:
+                        case Axis.Custom:
                             rect.sizeDelta = new Vector2(w * 2, h * 2);
                             break;
                     }
@@ -102,17 +102,17 @@ namespace UnityEngine.UI
 
             SimpleScale(rect, output, count);
 
-            switch (direction)
+            switch (axis)
             {
-                case Direction.Horizontal:
+                case Axis.Horizontal:
                     ExtendCapacity(output, count);
                     MirrorVerts(rect, output, count, true);
                     break;
-                case Direction.Vertical:
+                case Axis.Vertical:
                     ExtendCapacity(output, count);
                     MirrorVerts(rect, output, count, false);
                     break;
-                case Direction.Custom:
+                case Axis.Custom:
                     ExtendCapacity(output, count * 3);
                     MirrorVerts(rect, output, count, true);
                     MirrorVerts(rect, output, count * 2, false);
@@ -137,12 +137,12 @@ namespace UnityEngine.UI
 
                 Vector3 position = vertex.position;
 
-                if (direction == Direction.Horizontal || direction == Direction.Custom)
+                if (axis == Axis.Horizontal || axis == Axis.Custom)
                 {
                     position.x = (position.x + rect.x) * 0.5f;
                 }
 
-                if (direction == Direction.Vertical || direction == Direction.Custom)
+                if (axis == Axis.Vertical || axis == Axis.Custom)
                 {
                     position.y = (position.y + rect.y) * 0.5f;
                 }

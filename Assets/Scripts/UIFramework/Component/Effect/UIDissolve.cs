@@ -1,5 +1,7 @@
 using Game.Attribute;
+using Game.UI;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 namespace UnityEngine.UI
 {
@@ -14,6 +16,16 @@ namespace UnityEngine.UI
 
         private Material material;
 
+        private float interval;
+
+        private float timer;
+
+        private float progress;
+
+        private Fade state;
+
+        public UnityEvent<Fade> onComplete;
+
         private void Awake()
         {
             material = new Material(source);
@@ -26,14 +38,67 @@ namespace UnityEngine.UI
 
         private void Update()
         {
-            //material
+            var delta = Time.deltaTime;
+
+            switch (state)
+            {
+                case Fade.In:
+                    {
+                        timer += delta;
+
+                        progress = timer / interval;
+
+                        OnValueChanged(progress);
+
+                        if (timer > interval)
+                        {
+                            OnComplete(state);
+                        }
+                    }
+                    break;
+                case Fade.Out:
+                    {
+                        timer += delta;
+
+                        progress = 1 - timer / interval;
+
+                        OnValueChanged(progress);
+
+                        if (timer > interval)
+                        {
+                            OnComplete(state);
+                        }
+                    }
+                    break;
+            }
         }
 
-        private void RelevanceGraphics()
+        private void OnValueChanged(float value)
+        {
+            material.SetFloat("_DissolveThreshold", value);
+        }
+
+        private void OnComplete(Fade state)
+        {
+            this.state = Fade.None;
+
+            onComplete?.Invoke(state);
+        }
+        // 编辑器方法引用
+        protected void RelevanceGraphics()
         {
             graphics.Clear();
 
             graphics.AddRange(GetComponentsInChildren<Graphic>());
+        }
+
+        public void Startup(float interval, bool forward)
+        {
+            this.timer = 0;
+
+            this.interval = Mathf.Max(0.01f, interval);
+
+            this.state = forward ? Fade.In : Fade.Out;
         }
     }
 }

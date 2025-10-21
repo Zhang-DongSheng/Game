@@ -3,7 +3,7 @@ Shader "UI/Dissolve"
 {
     Properties
     {
-        _MainTex("Texture", 2D) = "white" {}                        // 主纹理
+        [PerRendererData] _MainTex("Texture", 2D) = "white" {}      // 主纹理
         _NoiseTex("Noise Texture", 2D) = "white" {}                 // 噪声纹理
         _DissolveThreshold("Dissolve Threshold", Range(0, 1)) = 0.5 // 溶解阈值
         _EdgeColor("Edge Color", Color) = (1, 0, 0, 1)              // 边缘颜色

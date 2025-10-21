@@ -11,13 +11,13 @@ namespace Game.UI
     {
         public static Vector2 ScreentPointToUGUIPosition(Vector2 position)
         {
-            position.x -= UIConst.ScreenHalfWidth;
+            position.x -= Const.ScreenHalfWidth;
 
-            position.y -= UIConst.ScreenHalfHeight;
+            position.y -= Const.ScreenHalfHeight;
 
-            position.x *= UIConst.ScreenWidthRatio;
+            position.x *= Const.ScreenWidthRatio;
 
-            position.y *= UIConst.ScreenHeightRatio;
+            position.y *= Const.ScreenHeightRatio;
 
             return position;
         }

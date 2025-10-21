@@ -9,7 +9,7 @@ namespace UnityEngine.UI
     [RequireComponent(typeof(Graphic))]
     public class GraphicReversal : BaseMeshEffect
     {
-        [SerializeField] private Direction direction;
+        [SerializeField] private Axis axis;
 
         public override void ModifyMesh(VertexHelper verts)
         {
@@ -23,15 +23,15 @@ namespace UnityEngine.UI
 
                 vertex.position = new Vector3(vertex.position.x, vertex.position.y, vertex.position.z);
 
-                switch (direction)
+                switch (axis)
                 {
-                    case Direction.Horizontal:
+                    case Axis.Horizontal:
                         vertex.position.x += (rt.rect.center.x - vertex.position.x) * 2;
                         break;
-                    case Direction.Vertical:
+                    case Axis.Vertical:
                         vertex.position.y += (rt.rect.center.y - vertex.position.y) * 2;
                         break;
-                    case Direction.Custom:
+                    case Axis.Custom:
                         vertex.position.x += (rt.rect.center.x - vertex.position.x) * 2;
                         vertex.position.y += (rt.rect.center.y - vertex.position.y) * 2;
                         break;

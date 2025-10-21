@@ -102,7 +102,13 @@ namespace Game.Test
         /// </summary>
         public void OnClick(int code)
         {
-            
+            var com = target.GetComponent<UIDissolve>();
+
+            if (com != null)
+            {
+                com.Startup(radius, vector4 % 2 == 0);
+            }
+            Debuger.LogError(Author.Test, com != null);
         }
         /// <summary>
         /// 菜单栏测试
@@ -115,13 +121,7 @@ namespace Game.Test
 
         public void OnClickButton(float index)
         {
-            var position = target.transform.position;
-
-            var rotation = EntityUtils.Orientation(position, radius);
-
-            target.transform.position = position;
-
-            target.transform.rotation = rotation;
+            
         }
 
         private async Task StartAsync()

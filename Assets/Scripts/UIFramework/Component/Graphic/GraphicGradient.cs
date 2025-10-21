@@ -10,7 +10,7 @@ namespace UnityEngine.UI
     [RequireComponent(typeof(Graphic))]
     public class GraphicGradient : BaseMeshEffect
     {
-        [SerializeField] private Direction direction;
+        [SerializeField] private Axis axis;
 
         [SerializeField] private Color from = Color.white;
 
@@ -39,15 +39,15 @@ namespace UnityEngine.UI
                 for (int i = 0; i < count; i++)
                 {
                     helper.PopulateUIVertex(ref vertex, i);
-                    switch (direction)
+                    switch (axis)
                     {
-                        case Direction.Vertical:
+                        case Axis.Vertical:
                             vertex.color *= (i % 4 == 0 || (i - 3) % 4 == 0) ? from : to;
                             break;
-                        case Direction.Horizontal:
+                        case Axis.Horizontal:
                             vertex.color *= (i % 4 == 0 || (i - 1) % 4 == 0) ? from : to;
                             break;
-                        case Direction.Custom:
+                        case Axis.Custom:
                             {
                                 float angle = Vector2.SignedAngle(vertex.position, Vector2.up);
 
@@ -77,9 +77,9 @@ namespace UnityEngine.UI
             }
             else
             {
-                switch (direction)
+                switch (axis)
                 {
-                    case Direction.Horizontal:
+                    case Axis.Horizontal:
                         {
                             top = m_vertexs[0].position.x;
                             bottom = m_vertexs[count - 1].position.x;
@@ -93,7 +93,7 @@ namespace UnityEngine.UI
                             }
                         }
                         break;
-                    case Direction.Vertical:
+                    case Axis.Vertical:
                         {
                             top = m_vertexs[0].position.y;
                             bottom = m_vertexs[count - 1].position.y;
@@ -107,7 +107,7 @@ namespace UnityEngine.UI
                             }
                         }
                         break;
-                    default: goto case Direction.Horizontal;
+                    default: goto case Axis.Horizontal;
                 }
             }
         }
