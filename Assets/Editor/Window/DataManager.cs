@@ -264,7 +264,7 @@ namespace UnityEditor.Window
                 SynchronizateProtoBuf();
             }
 
-            if (GUILayout.Button(ToLanguage("Synchronizate") + " Hotfix"))
+            if (GUILayout.Button(ToLanguage("Synchronizate") + " HotUpdate"))
             {
                 SynchronizateHotUpdate();
             }
@@ -498,11 +498,9 @@ namespace UnityEditor.Window
 
         private void LoadLanguage()
         {
-            string project = Application.dataPath.Substring(0, Application.dataPath.Length - 7);
+            string input = string.Format("{0}/Source/Excel/language.xlsx", AssetPath.Project);
 
-            string input = string.Format("{0}/Source/Excel/language.xlsx", project);
-
-            string output = string.Format("{0}/Assets/Art/Excel/language.json", project);
+            string output = string.Format("{0}/Art/Excel/language.json", Application.dataPath);
 
             bool exist = File.Exists(output);
 
@@ -542,11 +540,9 @@ namespace UnityEditor.Window
 
         private void Loading<T>(string source) where T : DataBase
         {
-            string project = Application.dataPath[..^7];
+            string input = $"{AssetPath.Project}/Source/Excel/{source}.xlsx";
 
-            string input = $"{project}/Source/Excel/{source}.xlsx";
-
-            string output = $"{project}/{AssetPath.DataJson}/{source}.json";
+            string output = $"{Application.dataPath}/{AssetPath.Json}/{source}.json";
 
             bool exist = File.Exists(output);
 
@@ -580,9 +576,9 @@ namespace UnityEditor.Window
         private T Load<T>(string branch = null) where T : ScriptableObject
         {
             if (string.IsNullOrEmpty(branch))
-                path = $"{AssetPath.DataEditor}/{typeof(T).Name}.asset";
+                path = $"Assets/{AssetPath.Data}/{typeof(T).Name}.asset";
             else
-                path = $"{AssetPath.DataEditor}/{typeof(T).Name}/{branch}.asset";
+                path = $"Assets/{AssetPath.Data}/{typeof(T).Name}/{branch}.asset";
             T asset = AssetDatabase.LoadAssetAtPath<T>(path);
             return asset;
         }
@@ -591,7 +587,7 @@ namespace UnityEditor.Window
         {
             var name = typeof(T).Name.ToLower()[4..];
 
-            string path = $"{AssetPath.DataJson}/{name}.json";
+            string path = $"Assets/{AssetPath.Json}/{name}.json";
 
             var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
 
@@ -613,9 +609,9 @@ namespace UnityEditor.Window
         private void Create(Type type, string branch = null)
         {
             if (string.IsNullOrEmpty(branch))
-                path = $"{AssetPath.DataEditor}/{type.Name}.asset";
+                path = $"Assets/{AssetPath.Data}/{type.Name}.asset";
             else
-                path = $"{AssetPath.DataEditor}/{type.Name}/{branch}.asset";
+                path = $"Assets/{AssetPath.Data}/{type.Name}/{branch}.asset";
             ScriptableObject script = ScriptableObject.CreateInstance(type);
             string folder = Path.GetDirectoryName(path);
             if (Directory.Exists(folder) == false)
@@ -644,9 +640,9 @@ namespace UnityEditor.Window
         private void Preview(Type type, string branch = null)
         {
             if (string.IsNullOrEmpty(branch))
-                path = $"{AssetPath.DataEditor}/{type.Name}.asset";
+                path = $"Assets/{AssetPath.Data}/{type.Name}.asset";
             else
-                path = $"{AssetPath.DataEditor}/{type.Name}/{branch}.asset";
+                path = $"Assets/{AssetPath.Data}/{type.Name}/{branch}.asset";
             var asset = AssetDatabase.LoadAssetAtPath(path, type);
 
             Selection.activeObject = asset;
@@ -712,19 +708,19 @@ namespace UnityEditor.Window
         #region Synchronizate
         private void SynchronizateHotUpdate()
         {
-            //string src = string.Format("{0}/ILRuntime/Hotfix~/bin/Debug/Hotfix.dll", Application.dataPath);
+            var platform = EditorUserBuildSettings.activeBuildTarget.ToString();
 
-            //string dst = string.Format("{0}/{1}.dll", Application.streamingAssetsPath, AssetPath.HotfixDll);
+            var dll = "Assembly-HotUpdate.dll";
 
-            //Utility.Document.Copy(src, dst);
+            var src = $"{AssetPath.Project}/HybridCLRData/HotUpdateDlls/{platform}/{dll}";
 
-            //src = string.Format("{0}/ILRuntime/Hotfix~/bin/Debug/Hotfix.pdb", Application.dataPath);
+            var dst = $"{Application.streamingAssetsPath}/{dll}.bytes";
 
-            //dst = string.Format("{0}/{1}.pdb", Application.streamingAssetsPath, AssetPath.HotfixDll);
+            Utility.Document.Copy(src, dst);
 
-            //Utility.Document.Copy(src, dst);
+            AssetDatabase.Refresh();
 
-            //ShowNotification("同步完成！");
+            ShowNotification("同步完成！");
         }
 
         private void SynchronizateProtoBuf()

@@ -1,4 +1,5 @@
 using Game;
+using Game.Data;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -73,7 +74,7 @@ namespace UnityEditor
         {
             if (!display) return;
 
-            string key = string.Format("{0}/{1}", Utility.Path.Project, AssetDatabase.GUIDToAssetPath(guid));
+            string key = string.Format("{0}/{1}", AssetPath.Project, AssetDatabase.GUIDToAssetPath(guid));
 
             RefreshSize(key, rect);
         }

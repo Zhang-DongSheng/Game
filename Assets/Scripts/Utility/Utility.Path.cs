@@ -1,4 +1,3 @@
-using Game.Data;
 using System.IO;
 using UnityEngine;
 
@@ -11,30 +10,6 @@ namespace Game
         /// </summary>
         public static class Path
         {
-            public static string Project
-            {
-                get
-                {
-                    return Application.dataPath.Remove(Application.dataPath.Length - 7);
-                }
-            }
-
-            public static string StreamingAssets
-            {
-                get
-                {
-                    return Application.streamingAssetsPath;
-                }
-            }
-
-            public static string PersistentData
-            {
-                get
-                {
-                    return Application.persistentDataPath;
-                }
-            }
-
             public static string GetPathWithoutExtension(string path)
             {
                 string extension = GetExtension(path);
@@ -133,7 +108,7 @@ namespace Game
 
             public static string SystemToUnity(string path)
             {
-                path = string.Format("{0}{1}", AssetPath.Assets , path[Application.dataPath.Length..]);
+                path = string.Format("Assets/{0}", path[Application.dataPath.Length..]);
 
                 path = GetRegularPath(path);
 

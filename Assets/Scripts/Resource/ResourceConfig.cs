@@ -13,7 +13,7 @@ namespace Game.Resource
 
         public static LoadingType Loading = LoadingType.AssetBundle;
 
-        public static readonly string CloudResources = string.Format("{0}/{1}/{2}", Utility.Path.Project, AssetBundle, Platform);
+        public static readonly string CloudResources = string.Format("{0}/{1}/{2}", AssetPath.Project, AssetBundle, Platform);
 
         public static readonly string LocalResources = string.Format("{0}/{1}", Application.persistentDataPath, AssetBundle);
 
@@ -46,7 +46,7 @@ namespace Game.Resource
                     path = Utility.Path.GetPathWithoutExtension(path);
                     return string.Format("{0}/{1}", ResourceConfig.LocalResources, path.ToLower());
                 case LoadingType.AssetDatabase:
-                    return $"{AssetPath.Assets}/{path}";
+                    return $"Assets/{path}";
                 default:
                     return path;
             }

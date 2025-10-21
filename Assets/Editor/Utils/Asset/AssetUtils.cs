@@ -151,7 +151,7 @@ namespace UnityEditor.Utils
 
                 var name = type.Name.ToLower()[4..];
 
-                string path = $"{AssetPath.DataJson}/{name}.json";
+                string path = $"Assets/{AssetPath.Json}/{name}.json";
 
                 var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
 

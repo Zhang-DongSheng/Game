@@ -28,15 +28,6 @@ namespace UnityEngine.UI
             base.Awake();
         }
 
-        protected override void OnValidate()
-        {
-            if (points.Count != count)
-            {
-                Rebuilder();
-            }
-            base.OnValidate();
-        }
-
         protected override void OnPopulateMesh(VertexHelper helper)
         {
             if (!isActiveAndEnabled) return;

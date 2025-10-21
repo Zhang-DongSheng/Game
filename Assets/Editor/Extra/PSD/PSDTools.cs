@@ -1,4 +1,5 @@
 ﻿using Game;
+using Game.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -55,7 +56,7 @@ namespace UnityEditor
 
         protected override void Initialise()
         {
-            input_inputFolder = Path.Combine(Utility.Path.Project, InputPath);
+            input_inputFolder = Path.Combine(AssetPath.Project, InputPath);
 
             inputFolder = input_inputFolder;
 
@@ -117,7 +118,7 @@ namespace UnityEditor
 
 						if (string.IsNullOrEmpty(input_inputFolder))
 						{
-							input_inputFolder = Path.Combine(Utility.Path.Project, InputPath);
+							input_inputFolder = Path.Combine(AssetPath.Project, InputPath);
 						}
 					}
 

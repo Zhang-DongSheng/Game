@@ -1,4 +1,5 @@
 ﻿using Game;
+using Game.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -50,7 +51,7 @@ namespace UnityEditor
 
 		protected override void Initialise()
 		{
-			input_inputFolder = Path.Combine(Utility.Path.Project, InputPath);
+			input_inputFolder = Path.Combine(AssetPath.Project, InputPath);
 
 			inputFolder = input_inputFolder;
 
@@ -116,7 +117,7 @@ namespace UnityEditor
 
 						if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0)
 						{
-							input_inputFolder = Application.dataPath + DragAndDrop.paths[0].Remove(0, 6);
+							input_inputFolder = Application.dataPath + DragAndDrop.paths[0][6..];
 						}
 					}
 
@@ -213,7 +214,7 @@ namespace UnityEditor
 
 					if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0)
 					{
-						input_outputFolder = Application.dataPath + DragAndDrop.paths[0].Remove(0, 6);
+						input_outputFolder = Application.dataPath + DragAndDrop.paths[0][6..];
 					}
 				}
 

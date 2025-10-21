@@ -666,7 +666,7 @@ namespace UnityEditor.Window
         {
             get
             {
-                return string.Format("{0}/{1}/{2}", Utility.Path.Project, ResourceConfig.AssetBundle, ResourceConfig.Platform);
+                return string.Format("{0}/{1}/{2}", Game.Data.AssetPath.Project, ResourceConfig.AssetBundle, ResourceConfig.Platform);
             }
         }
 

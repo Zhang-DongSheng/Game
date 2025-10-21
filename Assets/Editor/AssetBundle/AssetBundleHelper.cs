@@ -16,7 +16,7 @@ namespace UnityEditor
         [MenuItem("Assets/Build AssetBundle")]
         protected static void BuildAssetToAssetBundle()
         {
-            string path = string.Format("{0}/{1}/Select", Utility.Path.Project, ResourceConfig.AssetBundle);
+            string path = string.Format("{0}/{1}/Select", AssetPath.Project, ResourceConfig.AssetBundle);
 
             Utility.Document.CreateDirectory(path);
 
@@ -61,7 +61,7 @@ namespace UnityEditor
         [MenuItem("AssetBundle/[2]Build")]
         protected static void Build()
         {
-            string path = string.Format("{0}/{1}/{2}", Utility.Path.Project, ResourceConfig.AssetBundle, TARGET);
+            string path = string.Format("{0}/{1}/{2}", AssetPath.Project, ResourceConfig.AssetBundle, TARGET);
 
             Utility.Document.CreateDirectory(path, true);
 
@@ -78,7 +78,7 @@ namespace UnityEditor
         [MenuItem("AssetBundle/[3]Record")]
         protected static void Record()
         {
-            string path = string.Format("{0}/{1}/{2}", Utility.Path.Project, ResourceConfig.AssetBundle, TARGET);
+            string path = string.Format("{0}/{1}/{2}", AssetPath.Project, ResourceConfig.AssetBundle, TARGET);
 
             string content = string.Empty;
 
