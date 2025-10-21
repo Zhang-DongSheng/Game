@@ -266,7 +266,7 @@ namespace UnityEditor.Window
 
             if (GUILayout.Button(ToLanguage("Synchronizate") + " Hotfix"))
             {
-                SynchronizateHotfix();
+                SynchronizateHotUpdate();
             }
         }
 
@@ -710,21 +710,21 @@ namespace UnityEditor.Window
         }
 
         #region Synchronizate
-        private void SynchronizateHotfix()
+        private void SynchronizateHotUpdate()
         {
-            string src = string.Format("{0}/ILRuntime/Hotfix~/bin/Debug/Hotfix.dll", Application.dataPath);
+            //string src = string.Format("{0}/ILRuntime/Hotfix~/bin/Debug/Hotfix.dll", Application.dataPath);
 
-            string dst = string.Format("{0}/{1}.dll", Application.streamingAssetsPath, AssetPath.HotfixDll);
+            //string dst = string.Format("{0}/{1}.dll", Application.streamingAssetsPath, AssetPath.HotfixDll);
 
-            Utility.Document.Copy(src, dst);
+            //Utility.Document.Copy(src, dst);
 
-            src = string.Format("{0}/ILRuntime/Hotfix~/bin/Debug/Hotfix.pdb", Application.dataPath);
+            //src = string.Format("{0}/ILRuntime/Hotfix~/bin/Debug/Hotfix.pdb", Application.dataPath);
 
-            dst = string.Format("{0}/{1}.pdb", Application.streamingAssetsPath, AssetPath.HotfixDll);
+            //dst = string.Format("{0}/{1}.pdb", Application.streamingAssetsPath, AssetPath.HotfixDll);
 
-            Utility.Document.Copy(src, dst);
+            //Utility.Document.Copy(src, dst);
 
-            ShowNotification("同步完成！");
+            //ShowNotification("同步完成！");
         }
 
         private void SynchronizateProtoBuf()

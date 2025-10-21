@@ -36,65 +36,6 @@ namespace UnityEditor.Utils
             CreateScript(path, content);
         }
 
-        public static void CreateILRuntimeComponents(string path, HotfixView view)
-        {
-            var name = Path.GetFileNameWithoutExtension(path);
-
-            int count = 0;
-
-            if (view != null && view.components != null)
-            {
-                count = view.components.Count;
-            }
-            StringBuilder builder = new StringBuilder();
-
-            builder.AppendLine("// Don't modify, this is automatically generated");
-
-            builder.AppendLine("using Game.UI;");
-
-            builder.AppendLine("using UnityEngine;");
-
-            builder.AppendLine("using UnityEngine.UI;");
-
-            builder.AppendLine();
-
-            builder.AppendLine("namespace Hotfix.Game.UI");
-
-            builder.AppendLine("{");
-
-            builder.AppendLine($"\tpublic class {name}");
-
-            builder.AppendLine("\t{");
-
-            for (int i = 0; i < count; i++)
-            {
-                var content = view.components[i].ToDefineString();
-
-                builder.AppendLine($"\t\t{content}");
-            }
-            if (count > 0) builder.AppendLine();
-
-            builder.AppendLine("\t\tpublic void Relevance(Transform transform)");
-
-            builder.AppendLine("\t\t{");
-
-            for (int i = 0; i < count; i++)
-            {
-                var content = view.components[i].ToRelevanceString(view.transform);
-
-                builder.AppendLine($"\t\t\t{content}");
-            }
-            if (count == 0) builder.AppendLine();
-
-            builder.AppendLine("\t\t}");
-
-            builder.AppendLine("\t}");
-
-            builder.AppendLine("}");
-
-            CreateScript(path, builder.ToString());
-        }
-
         public static void CreateScript(string path, string content)
         {
             if (path.StartsWith("Assets/"))

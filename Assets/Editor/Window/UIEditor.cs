@@ -67,14 +67,7 @@ namespace UnityEditor.Window
 
             if (GUILayout.Button(ToLanguage("Create")))
             {
-                if (hotfix)
-                {
-                    CreateHotfixView(content);
-                }
-                else
-                {
-                    CreateView(content);
-                }
+                CreateView(content);
             }
         }
 
@@ -110,44 +103,6 @@ namespace UnityEditor.Window
             AssetDatabase.Refresh();
 
             ShowNotification($"{content}View创建完成");
-        }
-
-        private void CreateHotfixView(string content)
-        {
-            if (string.IsNullOrEmpty(content)) return;
-
-            string path = $"{AssetPath.HotfixProject}/{AssetPath.UIScript}/{content}/{content}View.cs";
-
-            if (File.Exists(path))
-            {
-                UnityEngine.Debuger.LogError(Author.Resource, "文件已存在！");
-                return;
-            }
-            Utility.Document.CreateDirectoryByFile(path);
-
-            ScriptUtils.CreateFromTemplate(content, path, "002");
-
-            path = $"{AssetPath.HotfixProject}/{AssetPath.UIScript}/{content}/{content}Relevance.cs";
-
-            ScriptUtils.CreateILRuntimeComponents(path, null);
-
-            path = $"Assets/{AssetPath.UIPrefab}/{content}View.prefab";
-
-            var prefab = PrefabUtils.CreateUGUI(path);
-
-            prefab.AddComponent<HotfixView>();
-
-            PrefabUtility.SavePrefabAsset(prefab);
-
-            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
-
-            ScriptUtils.ModifyEnum(typeof(UIPanel), content, out int index);
-
-            AddNewUIInformation(content, index);
-
-            AssetDatabase.Refresh();
-
-            ShowNotification($"Hotfix {content}View创建完成");
         }
 
         private void RefreshModify()

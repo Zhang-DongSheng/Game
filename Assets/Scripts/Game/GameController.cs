@@ -42,7 +42,7 @@ namespace Game
 
             UIManager.Instance.Initialize();
 
-            HotfixLogic.Instance.Initialize();
+            HotUpdateLogic.Instance.Initialize();
 
             SettingLogic.Instance.Initialize();
 
@@ -110,7 +110,7 @@ namespace Game
         {
             Network.NetworkManager.Instance.Close();
 
-            HotfixLogic.Instance.Release();
+            HotUpdateLogic.Instance.Release();
 
             ResourceManager.UnLoadAllAsset();
         }

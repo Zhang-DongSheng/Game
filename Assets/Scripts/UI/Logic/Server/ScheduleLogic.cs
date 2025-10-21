@@ -95,7 +95,7 @@ namespace Game.Logic
                     break;
                 case Schedule.Hotfix:
                     {
-                        HotfixLogic.Instance.LoadILRuntime();
+                        HotUpdateLogic.Instance.LoadILRuntime();
                     }
                     break;
                 case Schedule.Language:

@@ -16,3 +16,4 @@
 /*.csproj
 /*.sln
 /Assets/ILRuntime/Generated
+/HybridCLRData
